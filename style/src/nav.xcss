@@ -1,0 +1,52 @@
+nav {
+    & .toc {
+
+        ul {
+            padding-left: 15px;
+        }
+
+        li {
+            padding-left: 0;
+            margin: 0;
+
+            > .expand-stub::before {
+                margin-top: 0.7em;
+            }
+
+            > a {
+                display: block;
+                padding: 4px 8px;
+                transition: none;
+                text-decoration: none;
+
+                & :hover {
+                    text-decoration: underline;
+                    text-underline-offset: 3px;
+                }
+            }
+
+            & .active > a {
+                color: --primary;
+                font-weight: 600;
+            }
+
+            // header separator
+            > span.text-body-tertiary {
+                margin-left: 8px;
+                color: black;
+                margin-block: 2rem 0.2rem !important;
+                border-bottom: 2px solid gainsboro;
+            }
+        }
+    }
+
+    & #affix {
+
+        > h5 {
+            font-weight: 500;
+            letter-spacing: unset;
+            text-transform: none;
+            width: 100%;
+        }
+    }
+}

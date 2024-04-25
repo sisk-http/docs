@@ -1,0 +1,49 @@
+{
+    "metadata": [
+        {
+            "src": [
+                {
+                    "files": [
+                        "**/*.dll"
+                    ],
+                    "src": "ref/"
+                }
+            ],
+            "dest": "api",
+            "namespaceLayout": "nested",
+            "memberLayout": "separatePages"
+        }
+    ],
+    "build": {
+        "content": [
+            {
+                "files": [
+                    "**/*.{md,yml}"
+                ],
+                "exclude": [
+                    "_site/**"
+                ]
+            }
+        ],
+        "resource": [
+            {
+                "files": [
+                    "assets/**"
+                ]
+            }
+        ],
+        "output": "_site",
+        "template": [
+            "default",
+            "modern",
+            "style"
+        ],
+        "globalMetadata": {
+            "_appLogoPath": "assets/img/Icon.png",
+            "_appName": "Sisk Framework",
+            "_appTitle": "Sisk Framework",
+            "_enableSearch": true,
+            "pdf": false
+        }
+    }
+}
