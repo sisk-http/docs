@@ -37,16 +37,96 @@ article {
         }
 
         & .inheritedMembers,
-        & .inheritance {
+        & .inheritance,
+        & .derived {
             display: none;
         }
     }
+}
 
-    pre > code {
-        background: #fbfbfb !important;
-        border: 1px solid whitesmoke;
-        padding: 16px 21px !important;
-        border-radius: 8px;
+html {
+    article pre > .code-action {
+        top: 1rem;
+        opacity: .7;
+
+        & :hover {
+            opacity: 1;
+        }
+    }
+
+    article pre > code {
+        padding: 18px 23px !important;
+        border-radius: 6px;
         max-height: 750px;
+        line-height: 1.6;
+        margin-block: 0.75rem;
+    }
+
+    // inline code
+    & [data-bs-theme="light"] code {
+        border: 1px solid #00000011;
+        background: #fcfcfc !important;
+        color: #151620 !important;
+
+        .hljs-keyword,
+        .hljs-literal,
+        .hljs-built_in {
+            color: #4e15d4;
+            font-style: italic;
+        }
+
+        .hljs-string,
+        .hljs-number {
+            color: #c74646;
+        }
+
+        .hljs-comment {
+            color: #628562;
+            font-style: italic;
+        }
+
+        .hljs-title {
+            color: #a1791b;
+        }
+
+        .hljs-meta {
+            color: #34859e;
+        }
+    }
+
+    & [data-bs-theme="dark"] code {
+        border: 1px solid #ffffff11;
+        background: #272d33 !important;
+        color: #eceeff !important;
+
+        .hljs-keyword,
+        .hljs-literal,
+        .hljs-built_in {
+            color: #c0a5ff;
+            font-style: italic;
+        }
+
+        .hljs-string,
+        .hljs-number {
+            color: #ea9494;
+        }
+
+        .hljs-comment {
+            color: #a8c8a8;
+            font-style: italic;
+        }
+
+        .hljs-title {
+            color: #ffe7b1;
+        }
+
+        .hljs-meta {
+            color: #9ed7e8;
+        }
+    }
+
+    article code {
+        padding: 2px 4px;
+        border-radius: 3px;
     }
 }

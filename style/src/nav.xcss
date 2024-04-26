@@ -33,9 +33,9 @@ nav {
             // header separator
             > span.text-body-tertiary {
                 margin-left: 8px;
-                color: black;
+                color: --bs-nav-link-color;
                 margin-block: 2rem 0.2rem !important;
-                border-bottom: 2px solid gainsboro;
+                border-bottom: 2px solid --bs-border-color;
             }
         }
     }
