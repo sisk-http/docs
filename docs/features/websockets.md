@@ -112,11 +112,11 @@ static ListeningHost BuildLhA()
 
 ## Waiting for websocket close
 
-The method [WaitForClose()](/api/Sisk.Core.Http.HttpWebSocket.WaitForClose) blocks the current call stack until the connection is terminated by either the client or the server.
+The method [WaitForClose()](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose) blocks the current call stack until the connection is terminated by either the client or the server.
 
 With this, the execution of the callback of the request will be blocked until the client or the server disconnects.
 
-You can also manually close the connection with the [Close()](/api/Sisk.Core.Http.HttpWebSocket.Close) method. This method returns an empty [HttpResponse](/api/Sisk.Core.Http.HttpResponse) object, which is not sent to the client, but works as a return from the function where the HTTP request was received.
+You can also manually close the connection with the [Close()](/api/Sisk.Core.Http.Streams.HttpWebSocket.Close) method. This method returns an empty [HttpResponse](/api/Sisk.Core.Http.HttpResponse) object, which is not sent to the client, but works as a return from the function where the HTTP request was received.
 
 ```cs
 static ListeningHost BuildLhA()

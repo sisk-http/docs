@@ -1,10 +1,12 @@
 :root {
+    --bs-font-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --bs-link-color: --primary;
+    --bs-transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 html[data-bs-theme="dark"] {
-    --primary: rgb(190, 123, 235);
-    --bs-link-color-rgb: 190, 123, 235;
+    --primary: rgb(215, 165, 248);
+    --bs-link-color-rgb: 215, 165, 248;
     --bs-code-color: #cd91ff;
 }
 
@@ -12,4 +14,8 @@ html[data-bs-theme="light"] {
     --primary: rgb(7, 45, 172);
     --bs-link-color-rgb: 7, 45, 172;
     --bs-code-color: #5342f0;
+}
+
+.bg-body {
+    --bs-bg-opacity: .7;
 }

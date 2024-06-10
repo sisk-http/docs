@@ -1,17 +1,21 @@
-nav.navbar {
-    a.navbar-brand > img {
-        width: 48px;
-        height: 48px;
-        margin-right: 16px;
-    }
+header.bg-body {
+    backdrop-filter: blur(7px) saturate(1.5);
 
-    #navbar {
-        .nav-item {
-            padding-inline: .8rem;
-            font-weight: 500;
+    nav.navbar {
+        a.navbar-brand > img {
+            width: 48px;
+            height: 48px;
+            margin-right: 16px;
+        }
+        
+        #navbar {
+            .nav-item {
+                padding-inline: .8rem;
+                font-weight: 500;
 
-            > .active {
-                color: --primary;
+                > .active {
+                    color: --primary;
+                }
             }
         }
     }

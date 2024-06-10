@@ -1,0 +1,13 @@
+main.container-xxl {
+    justify-content: center;
+
+    // nav wrapper
+    > .toc-offcanvas {
+        max-width: 260px !important;
+    }
+
+    // content wrapper
+    > .content {
+        max-width: 870px;
+    }
+}
