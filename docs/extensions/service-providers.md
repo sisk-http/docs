@@ -2,8 +2,7 @@
 
 Service Providers are a simple way to port your application in different environments and configurations easily without having to change your code for it. The [ServiceProvider](/read?q=/contents/Sisk/Provider/ServiceProvider) class is accessible by type that sets an application with your router, configuration and other settings already available on Sisk.
 
-> **Important:**
->
+> [!WARNING]
 > Since Sisk version 0.16, this feature is built into its core and it is no longer necessary to install an additional package for this. Please [read this document](https://github.com/sisk-http/docs/blob/master/archive/0.16/service-providers-migration) with more details, migration specification and more.
 >
 > The package will be maintained for only version 0.15 while it is still maintained.
@@ -39,8 +38,7 @@ Service Providers managed by a JSON file of settings that is read by the applica
 
 This file is read alongside the server executable, regardless of the build platform. By default the file name is `service-config.json` and must stay at the same directory of the output executeable. It is also possible to change the file name by tweaking the [ServiceProvider](/api/Sisk/Provider/ServiceProvider) class.
 
-> **Tip:**
->
+> [!TIP]
 > In Sisk service provider configuration files it's allowed to write `// single` or `/* multi-line comments */`, as they are ignored by the interpreter.
 
 ## Installing

@@ -25,8 +25,7 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 
 In the above code, we create an SSE connection and send a "Hello, world" message, then we close the SSE connection from the server side.
 
-> **Note:**
->
+> [!NOTE]
 > When closing a server-side connection, by default the client will try to connect again at that end and the connection will be restarted, executing the method again, forever.
 >
 > It's common to forward a termination message from the server whenever the connection is closed from the server to prevent the client from trying to reconnect again.
@@ -85,8 +84,7 @@ And the snippet above will try to look for the newly created connection, and if 
 
 All active server connections that are identified will be available in the collection [HttpServer.EventSources](/api/Sisk.Core.Http.HttpServer.EventSources). This collection only stores active and identified connections. Closed connections are removed from the collection.
 
-> **Note:**
->
+> [!NOTE]
 > It is important to note that keep alive has a limit established by components that may be connected to Sisk in an uncontrollable way, such as an web proxy, an HTTP kernel or a network driver, and they close idle connections after a certain period of time.
 >
 > Therefore, it is important to keep the connection open by sending periodic pings or extending the maximum time before the connection is closed. Read the next section to better understand sending periodic pings.

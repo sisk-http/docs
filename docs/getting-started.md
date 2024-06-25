@@ -4,8 +4,7 @@ Sisk can run in any .NET environment. In this example, we'll teach you how to cr
 
 In this example, we'll teach you how to create a project structure, receive a request, obtain a URL parameter and send a response. This tutorial will be entirely teaching how to build a simple server using C#. You can also write in your favorite language.
 
-> **Tip**:
->
+> [!NOTE]
 > You may be interested on an quickstarter project. Check [this repository](https://github.com/sisk-http/quickstart) for more info.
 
 ## Creating an project

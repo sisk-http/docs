@@ -15,4 +15,5 @@ Then you're ready to go and you'll have the static website files at `/_site`.
 
 Contributions are always welcome. Contribute with spelling corrections, fixing broken links and more.
 
-> **Important:** please do not edit API specification files (XML). These files are generated. If you want to edit any API documentation, edit it in the repository where the code is hosted.
+> [!NOTE]
+> Please do not edit API specification files (XML). These files are generated. If you want to edit any API documentation, edit it in the repository where the code is hosted.

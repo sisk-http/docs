@@ -20,8 +20,7 @@ static HttpResponse Index(HttpRequest request)
 
 This property returns the request's method represented by an [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) object.
 
-> **Note:**
->
+> [!NOTE]
 > Unlike route methods, this property does not serves the [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) item. Instead, it returns the real request method.
 
 ## Getting request url components
@@ -62,8 +61,7 @@ It is also possible to determine if there is a body in the request and if it is 
 
 It is not possible to read the request content through `GetRequestStream` more than once. If you read with this method, the values in `RawBody` and `Body` will also not be available.
 
-> **Note:**
->
+> [!NOTE]
 > Sisk follows the RFC 9110 "HTTP Semantics", which doens't allow certain requests methods to have body. These requests will immediately drop an 400 (Bad Request) with the `ContentServedOnIllegalMethod` status. Requests with bodies are not allowed in methods GET, OPTIONS, HEAD and TRACE. You can read the [RFC 9910](https://httpwg.org/spec/rfc9110.html) here.
 >
 > You can disable this feature by turning [ThrowContentOnNonSemanticMethods](/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods) to `false`.
@@ -74,7 +72,8 @@ The HTTP Context is an exclusive Sisk object that stores HTTP server, route, rou
 
 The [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) object contains stored information that is passed from an request handler to another point, and can be consumed at the final destination. This object can also be used by request handlers that run after the route callback.
 
-> Tip: this property is also acessible by [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) property.
+> [!TIP]
+> This property is also acessible by [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) property.
 
 ```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
@@ -249,19 +248,7 @@ When running this code, we expect a result similar to this:
 
 Sisk can be used with proxies, and therefore IP addresses can be replaced by the proxy endpoint in the transaction from a client to the proxy.
 
-By default, most proxies send a header named `X-Forwarded-For` indicating the real IP of the connecting client. Sisk has properties that resolve these headers to the properties of a request.
-
-You can also do this for the host if it is forwarded.
-
-To activate this, when configuring your HTTP server, make sure this property is defined:
-
-```cs
-HttpServerConfiguration confg = new HttpServerConfiguration();
-confg.ResolveForwardedOriginAddress = true; // will resolve the first X-Forwarded-For address entry
-confg.ResolveForwardedOriginHost = true;
-```
-
-In case of [ResolveForwardedOriginHost](/api/Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost) and an `X-Forwarded-Host` header is present, the value of this header will be used for server-side DNS matching.
+You can define your own resolvers in Sisk with [forwarding resolvers](/docs/advanced/forwarding-resolvers).
 
 ## Headers encoding
 

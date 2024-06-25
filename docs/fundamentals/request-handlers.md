@@ -28,7 +28,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers["Authorization"] != null)
+        if (request.Headers.Authorization != null)
         {
             // Returning null indicates that the request cycle can be continued
             return null;
@@ -89,13 +89,12 @@ You can define a request handler on a method attribute along with a route attrib
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/")]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        res.Content = new StringContent("Hello world!");
-        return res;
+        return new HttpResponse()
+            .WithContent(new StringContent("Hello world!"));
     }
 }
 ```
@@ -106,6 +105,15 @@ Example:
 
 ```cs
 [RequestHandler(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { "arg1", 123, ... })]
+static HttpResponse Index(HttpRequest request)
+{
+    HttpResponse res = new HttpResponse();
+    res.Content = new StringContent("Hello world!");
+    return res;
+}
+
+// or with .NET 8 +
+[RequestHandler<AuthenticateUserRequestHandler>("arg1", 123, ...)]
 static HttpResponse Index(HttpRequest request)
 {
     HttpResponse res = new HttpResponse();
@@ -171,6 +179,5 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "My route", IndexPage, null)
 });
 ```
 
-> **Note:**
->
+> [!NOTE]
 > If you're bypassing a request handler you must use the same reference of what you instanced before to skip. Creating another request handler instance will not skip the global request handler since it's reference will change. Remember to use the same request handler reference used in both GlobalRequestHandlers and BypassGlobalRequestHandlers.

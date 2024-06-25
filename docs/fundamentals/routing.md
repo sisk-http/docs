@@ -52,8 +52,7 @@ mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) =>
 
 Internally, the implementation of this method differs from .NET 6 to newer versions of .NET that did not yet implement `IParsable`, so to make it compatible, some converters were implemented manually. You can see the [supported types here](https://github.com/sisk-http/core/blob/main/src/Internal/Parseable.cs).
 
-> **Note:**
->
+> [!NOTE]
 > Paths have their trailing `/` ignored in both request and route path, that is, if you try to access a route defined as `/index/page` you'll be able to access using `/index/page/` too.
 >
 > You can also force URLs to terminate with `/` enabling the [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash) flag.

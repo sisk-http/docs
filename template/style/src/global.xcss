@@ -8,14 +8,32 @@ html[data-bs-theme="dark"] {
     --primary: rgb(215, 165, 248);
     --bs-link-color-rgb: 215, 165, 248;
     --bs-code-color: #cd91ff;
+    --bs-danger-bg-subtle: #362829;
+    --bs-warning-bg-subtle: #332701;
+    --bs-info-bg-subtle: #183338;
 }
 
 html[data-bs-theme="light"] {
     --primary: rgb(7, 45, 172);
     --bs-link-color-rgb: 7, 45, 172;
     --bs-code-color: #5342f0;
+    --bs-danger-bg-subtle: #ffe8ea;
+    --bs-warning-bg-subtle: #fff9e5;
+    --bs-info-bg-subtle: #eafbff;
 }
 
 .bg-body {
     --bs-bg-opacity: .7;
+}
+
+.alert {
+    border: none;
+
+    p {
+        margin-block: 0;
+
+        + p {
+            margin-top: .3em;
+        }
+    }
 }
