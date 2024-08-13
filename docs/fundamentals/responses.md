@@ -26,7 +26,7 @@ new HttpResponse()
 
 You can see the full list of available HttpStatusCode [here](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode).
 
-## Setting body and content-type
+## Body and content-type
 
 Sisk supports native .NET content objects to send body in responses. You can use the [StringContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent) class to send a JSON response for example:
 
@@ -35,11 +35,11 @@ HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 ```
 
-You can ignore setting the `Content-Length` header as it is automatically calculated in the server infrastructure. Whenever you send an content length header, it will be ignored by the server and it will use the real content length based in the Content property length in bytes.
+The server will always attempt to calculate the `Content-Length` from what you have defined in the content if you haven't explicitly defined it in a header. If the server cannot implicitly obtain the Content-Length header from the response content, the response will be sent with Chunked-Encoding.
 
 You can also stream the response by sending a [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) or using the method [GetResponseStream](#response-stream).
 
-## Setting response headers
+## Response headers
 
 You can add, edit or remove headers you're sending in the response. The example below shows how to send an redirect response to the client.
 
@@ -56,7 +56,9 @@ new HttpResponse(301)
     .WithHeader("Location", "/login");
 ```
 
-## Easily setting cookies
+When you use the [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) method of HttpHeaderCollection, you are adding a header to the request without altering the ones already sent. The [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) method replaces the headers with the same name with the instructed value. The indexer of HttpHeaderCollection internally calls the Set method to replace the headers.
+
+## Sending cookies
 
 Sisk has methods that facilitate the definition of cookies in the client. Cookies set by this method are already URL encoded and fit the RFC-6265 standard.
 
@@ -74,7 +76,7 @@ new HttpResponse(301)
 
 There are other [more complete versions](/api/Sisk.Core.Http.CookieHelper.SetCookie) of the same method.
 
-## Sending chunked responses
+## Chunked responses
 
 You can set the transfer encoding to chunked to send large responses.
 
@@ -139,7 +141,7 @@ public class UsersController : RouterModule
     [RouteGet("/<id>")]
     public User View(HttpRequest request)
     {
-        int id = Int32.Parse(request.Query["id"]!);
+        int id = request.Query["id"].GetInteger();
         User dUser = Users.First(u => u.Id == id);
 
         return dUser;
@@ -179,7 +181,6 @@ r.RegisterValueHandler<IEnumerable>(enumerableValue =>
     return new HttpResponse();
     // do something with enumerableValue here
 });
-
 // registering an value handler of object must be the last
 // value handler which will be used as an fallback
 r.RegisterValueHandler<object>(fallback =>

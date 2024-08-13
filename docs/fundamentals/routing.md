@@ -19,6 +19,14 @@ mainRouter += new Route(RouteMethod.Get, "/", (req) =>
 
 To understand what a route is capable of doing, we need to understand what a request is capable of doing. An [HttpRequest](/api/Sisk.Core.Http.HttpRequest) will contain everything you need. Sisk also includes some extra features that speed up the overral development.
 
+## Matching routes
+
+When a request is received by the HTTP server, Sisk searches for a route that satisfies the expression of the path received by the request. The expression is always tested between the route and the request path, without considering the query string.
+
+This test does not have priority and is exclusive to a single route. When no route is tested with that request, the [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) response is returned to the client. When a path is tested but no method is tested for that request, the [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) response is sent back to the client.
+
+Sisk checks for the possibility of route collisions to avoid these problems. When defining routes, Sisk will look for possible routes that might collide with the route being defined. This test includes checking the path and the method that the route is set to accept.
+
 ### Creating routes using paths
 
 You can define routes using various `SetRoute` methods.
@@ -133,6 +141,16 @@ indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 ```
 
+Or with [RegexRoute](/api/Sisk.Core.Routing.RegexRoute) class:
+
+```cs
+RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =>
+{
+    return new HttpResponse("hello, world");
+});
+mainRouter.SetRoute(indexRoute);
+```
+
 You can also capture groups from the regex pattern into the [Request.Query](/api/Sisk.Core.Http.HttpRequest.Query) contents:
 
 ```cs
@@ -151,6 +169,15 @@ You can define a route to be matched only by its path and skip the HTTP method. 
 ```cs
 // will match / on any HTTP method
 mainRouter.SetRoute(RouteMethod.Any, "/", callbackFunction);
+```
+
+## Any path routes
+
+Any path routes test for any path received by the HTTP server, subject to the route method being tested. If the route method is RouteMethod.Any and the route uses [Route.AnyPath](/api/Sisk.Core.Routing.Route.AnyPath) in its path expression, this route will listen to all requests from the HTTP server, and no other routes can be defined.
+
+```cs
+// the following route will match all POST requests
+mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 ```
 
 ## Ignore case route matching

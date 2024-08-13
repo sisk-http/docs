@@ -116,38 +116,16 @@ appMessages.WriteLine("Application started at {0}", DateTime.Now);
 You can extend the `LogStream` class to write custom formats, compatible with the current Sisk log engine. The example below allows to write colorful messages into the Console through Spectre.Console library:
 
 ```cs
-public class SpectreLogStream : LogStream
+public class CustomLogStream : LogStream
 {
-    public enum MessageLevel
+    protected override void WriteLineInternal(string line)
     {
-        Warn,
-        Error,
-        Info
-    }
-
-    // instance the LogStream base class with an output pointing to "info.log", which will
-    // write unformatted messages
-    public SpectreLogStream() : base("info.log") {}
-
-    public void WriteInformation(MessageLevel level, string message)
-    {
-        string color = level switch
-        {
-            MessageLevel.Warn => "gold3_1",
-            MessageLevel.Error => "darkorange3_1",
-            MessageLevel.Info => "darkseagreen1",
-            _ => "white"
-        };
-
-        AnsiConsole.MarkupLine($"[{color}]{level}[/] {message}");
-
-        // also writes the message to the default stream
-        base.WriteLine("[{0}] {1}", level, message);
+        base.WriteLineInternal($"[{DateTime.Now:g}] {line}");
     }
 }
 ```
 
-Another way to automatically write custom logs for each request/response is to create an HttpServerHandler. The example below is a little more complete. It writes the body of the request and response in JSON to the Console. It can be useful for debugging requests in general. This example makes use of ContextBag and HttpServerHandler.
+Another way to automatically write custom logs for each request/response is to create an [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler). The example below is a little more complete. It writes the body of the request and response in JSON to the Console. It can be useful for debugging requests in general. This example makes use of ContextBag and HttpServerHandler.
 
 ```cs
 class Program
