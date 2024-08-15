@@ -2,6 +2,9 @@
 
 Service Providers are a simple way to port your application in different environments and configurations easily without having to change your code for it. The [ServiceProvider](/read?q=/contents/Sisk/Provider/ServiceProvider) class is accessible by type that sets an application with your router, configuration and other settings already available on Sisk.
 
+> [!IMPORTANT]
+> The Sisk.ServiceProvider package is no longer maintained. Please use the [ConfigurationBuilder](/api/Sisk.Core.Http.Hosting.ConfigurationBuilder) class instead.
+
 > [!WARNING]
 > Since Sisk version 0.16, this feature is built into its core and it is no longer necessary to install an additional package for this. Please [read this document](https://github.com/sisk-http/docs/blob/master/archive/0.16/service-providers-migration) with more details, migration specification and more.
 >
