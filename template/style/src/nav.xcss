@@ -1,6 +1,9 @@
 nav {
     & .toc {
-        
+        > div {
+            padding-bottom: 50px; // comfortable scroll
+        }
+
         ul {
             padding-left: 15px;
         }
@@ -31,6 +34,7 @@ nav {
             & .active > a {
                 color: --primary;
                 font-weight: 600;
+                opacity: 1;
             }
 
             // header separator

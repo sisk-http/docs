@@ -75,6 +75,8 @@ Current implementation flavor:
 - Comments are supported with `#` and `;`. Also, **trailing comments are allowed**.
 - Properties can have multiple values.
 
+In detail, the documentation for the "flavor" of the INI parser used in Sisk is [available on GitHub](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
+
 Using the following ini code as example:
 
 ```ini
