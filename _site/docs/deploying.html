@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Deploying your Sisk Application | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Deploying your Sisk Application | Sisk Framework ">
+      
+      
+      <link rel="icon" href="../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/deploying.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="deploying-your-sisk-application">Deploying your Sisk Application</h1>
+
+<p>The process of deploying a Sisk application consists of publishing your project into production. Although the process is relatively simple, it is worth noting details that can be lethal to the security and stability of the deployment's infrastructure.</p>
+<p>Ideally, you should be ready to deploy your application to the cloud, after carrying out all possible tests to have your application ready.</p>
+<h2 id="publishing-your-app">Publishing your app</h2>
+<p>Publishing your Sisk application or service is generating binaries ready and optimized for production. In this example, we will compile the binaries for production to run on a machine that has the .NET Runtime installed on the machine.</p>
+<p>You will need .NET SDK installed in your machine in order to build your app, and
+.NET Runtime installed on the target server to run your app. You can learn how
+to install .NET Runtime in your Linux server <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">here</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> and <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a>.</p>
+<p>In the folder where your project is located, open a terminal and use the .NET publish command:</p>
+<pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
+</code></pre>
+<p>This will generate your binaries inside <code>bin/Release/publish/linux-x64</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If your app is running using Sisk.ServiceProvider package, you should copy your <code>service-config.json</code> into your host server along all binaries generated by <code>dotnet publish</code>.
+You can leave the file preconfigured, with environment variables, listening ports and hosts, and additional server configurations.</p>
+</div>
+<p>The next step is to take these files to the server where your application will be hosted.</p>
+<p>After that, give execution permissions to your binary file. In this case, let's consider that our project name is &quot;my-app&quot;:</p>
+<pre><code class="lang-shell">$ cd /home/htdocs
+$ chmod +x my-app
+$ ./my-app
+</code></pre>
+<p>After running your application, check to see if it produces any error messages. If it didn't produce, it's because your application is running.</p>
+<p>At this point, it will probably not be possible to access your application by external net ouside your server, as access rules such as Firewall have not been configured. We will consider this in the next steps.</p>
+<p>You should have the address of the virtual host where your application is listening to. This is set manually in the application, and depends on how you are instantiating your Sisk service.</p>
+<p>If you're <strong>not</strong> using the Sisk.ServiceProvider package, you should find it where you defined your HttpServer instance:</p>
+<pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
+// sisk should listen on http://localhost:5000/
+</code></pre>
+<p>Associating an ListeningHost manually:</p>
+<pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
+</code></pre>
+<p>Or if you're using the Sisk.ServiceProvider package, in your service-config.json:</p>
+<pre><code class="lang-json">{
+  &quot;Server&quot;: { },
+  &quot;ListeningHost&quot;: {
+    &quot;Ports&quot;: [
+      &quot;http://localhost:5000/&quot;
+    ]
+  }
+}
+</code></pre>
+<p>From this, we can create a reverse proxy to listen to your service and make the traffic available over the open network.</p>
+<h2 id="proxying-your-application">Proxying your application</h2>
+<p>Proxying your service means not directly exposing your Sisk service to an external network. This practice is very common for server deployments because:</p>
+<ul>
+<li>Allows you to associate an SSL certificate in your application;</li>
+<li>Create access rules before accessing the service and avoid overloads;</li>
+<li>Control bandwidth and request limits;</li>
+<li>Separate load-balancers for your application;</li>
+<li>Prevent security damage to failing infrastructure.</li>
+</ul>
+<p>You can serve your application through a reverse proxy like <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> or <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>, or you can use an http-over-dns tunnel like <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>.</p>
+<p>Also, remember to correctly resolve your proxy's forwarding headers to obtain your client's information, such as IP address and host, through <a href="/docs/advanced/forwarding-resolvers">forwarding resolvers</a>.</p>
+<p>The next step after creating your tunnel, firewall configuration and having your application running, is to create a service for your application.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Using SSL certificates directly in the Sisk service on non-Windows systems is not possible. This is a point of the implementation of HttpListener, which is the central module for how HTTP queue management is done in Sisk, and this implementation varies from operating system to operating system. You can use SSL in your Sisk service if you <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">associate a certificate with the virtual host with IIS</a>. For other systems, using a reverse proxy is highly recommended.</p>
+</div>
+<h2 id="creating-an-service">Creating an service</h2>
+<p>Creating a service will make your application always available, even after restarting your server instance or a non-recoverable crash.</p>
+<p>In this simple tutorial, we will use the content from the previous tutorial as a showcase to keep your service always active.</p>
+<ol>
+<li><p>Access the folder where the service configuration files are located:</p>
+<pre><code>$ cd /etc/systemd/system
+</code></pre>
+</li>
+<li><p>Create your <code>my-app.service</code> file and include the contents:</p>
+<pre><code class="lang-ini">[Unit]
+Description=&lt;description about your app&gt;
+
+[Service]
+# set the user which will launch the service on
+User=&lt;user which will launch the service&gt;
+
+# the ExecStart path is not relative to WorkingDirectory.
+# set it as the full path to the executeable file
+WorkingDirectory=/home/htdocs
+ExecStart=/home/htdocs/my-app
+
+# set the service to always restart on crash
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</li>
+<li><p>Restart your service manager module:</p>
+<pre><code>$ sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li><p>Start your new created service from the name of the file you set and check if they are running:</p>
+<pre><code>$ sudo systemctl start my-app
+$ sudo systemctl status my-app
+</code></pre>
+</li>
+<li><p>Now if your app is running (&quot;Active: active&quot;), enable your service to keep run after an system reboot:</p>
+<pre><code>$ sudo systemctl enable my-app
+</code></pre>
+</li>
+</ol>
+<p>Now you're ready to go and present your Sisk application to everyone.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/sisk-http/docs/blob/master/docs/deploying.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

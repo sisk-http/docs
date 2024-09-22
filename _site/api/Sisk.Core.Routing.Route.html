@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Route | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Route | Sisk Framework ">
+      
+      <meta name="description" content="Represents an HTTP route to be matched by an  object.">
+      <link rel="icon" href="../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Sisk.Core.Routing.Route">
+
+
+
+  <h1 id="Sisk_Core_Routing_Route" data-uid="Sisk.Core.Routing.Route" class="text-break">
+Class Route  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an HTTP route to be matched by an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> object.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Route</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Route</span></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Sisk.Core.Routing.RegexRoute.html">RegexRoute</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor">Route()</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with no parameters.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_">Route(RouteMethod, string, RouteAction)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_Sisk_Core_Routing_RouteAction_Sisk_Core_Routing_IRequestHandler___">Route(RouteMethod, string, string?, RouteAction, IRequestHandler[]?)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.AnyPath.html">AnyPath</a></dt>
+    <dd><p>Represents an route path which captures any URL path.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Action.html#Sisk_Core_Routing_Route_Action">Action</a></dt>
+    <dd><p>Gets or sets the function that is called after the route is matched with the request.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Bag.html#Sisk_Core_Routing_Route_Bag">Bag</a></dt>
+    <dd><p>Gets or sets an <a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.html">TypedValueDictionary</a> for this route, which can hold contextual variables
+for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.BypassGlobalRequestHandlers.html#Sisk_Core_Routing_Route_BypassGlobalRequestHandlers">BypassGlobalRequestHandlers</a></dt>
+    <dd><p>Gets or sets the global request handlers instances that will not run on this route.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.IsAsync.html#Sisk_Core_Routing_Route_IsAsync">IsAsync</a></dt>
+    <dd><p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> action return is an asynchronous <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.LogMode.html#Sisk_Core_Routing_Route_LogMode">LogMode</a></dt>
+    <dd><p>Gets or sets how this route can write messages to log files on the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Method.html#Sisk_Core_Routing_Route_Method">Method</a></dt>
+    <dd><p>Gets or sets the matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Name.html#Sisk_Core_Routing_Route_Name">Name</a></dt>
+    <dd><p>Gets or sets the route name. It allows it to be found by other routes and makes it easier to create links.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Path.html#Sisk_Core_Routing_Route_Path">Path</a></dt>
+    <dd><p>Gets or sets the path expression that will be interpreted by the router and validated by the requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.RequestHandlers.html#Sisk_Core_Routing_Route_RequestHandlers">RequestHandlers</a></dt>
+    <dd><p>Gets or sets the request handlers instances to run before the route's Action.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.UseCors.html#Sisk_Core_Routing_Route_UseCors">UseCors</a></dt>
+    <dd><p>Gets or sets whether this route should send Cross-Origin Resource Sharing headers in the response.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.UseRegex.html#Sisk_Core_Routing_Route_UseRegex">UseRegex</a></dt>
+    <dd><p>Get or sets if this route should use regex to be interpreted instead of predefined templates.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">ToString()</a></dt>
+    <dd><p>Gets an string notation for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Web Sockets | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Web Sockets | Sisk Framework ">
+      
+      
+      <link rel="icon" href="../../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/features/websockets.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="web-sockets">Web Sockets</h1>
+
+<p>Sisk supports web sockets as well, such as receiving and sending messages to their client.</p>
+<p>This feature works fine in most browsers, but in Sisk it is still experimental. Please, if you find any bugs, report it on github.</p>
+<h2 id="accepting-and-receiving-messages-asynchronously">Accepting and receiving messages asynchronously</h2>
+<p>The example below shows how websocket works in practice, with an example of opening a connection, receiving a message and displaying it in the console.</p>
+<p>All messages received by WebSocket are received in bytes, so you will have to decode them upon receipt.</p>
+<p>By default, messages are fragmented into chunks and the last piece is sent as the final packet of the message. You can configure the packet size with the <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> flag. This buffering is the same for sending and receiving messages.</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        ws.OnReceive += (sender, msg) =&gt;
+        {
+            string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
+            Console.WriteLine(&quot;Received message: &quot; + msgText);
+
+            // gets the HttpWebSocket context which received the message
+            HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
+            senderWebSocket.Send(&quot;Response!&quot;);
+        };
+
+        ws.WaitForClose();
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="accepting-and-receiving-messages-synchronously">Accepting and receiving messages synchronously</h2>
+<p>The example below contains a way for you to use a synchronous websocket, without an asynchronous context, where you receive the messages, deal with them, and finish using the socket.</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/connect&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+        WebSocketMessage? msg;
+
+    askName:
+        ws.Send(&quot;What is your name?&quot;);
+        msg = ws.WaitNext();
+
+        string? name = msg?.GetString();
+
+        if (string.IsNullOrEmpty(name))
+        {
+            ws.Send(&quot;Please, insert your name!&quot;);
+            goto askName;
+        }
+
+    askAge:
+        ws.Send(&quot;And your age?&quot;);
+        msg = ws.WaitNext();
+
+        if (!Int32.TryParse(msg?.GetString(), out int age))
+        {
+            ws.Send(&quot;Please, insert an valid number&quot;);
+            goto askAge;
+        }
+
+        ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="sending-messages">Sending messages</h2>
+<p>The Send method has three overloads, which allow you to send text, a byte array, or a byte span. All of them is chunked if the server's <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> flag is greater than the total payload size.</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        byte[] myByteArrayContent = ...;
+
+        ws.Send(&quot;Hello, world&quot;);     // will be encoded as an UTF-8 byte array
+        ws.Send(myByteArrayContent);
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="waiting-for-websocket-close">Waiting for websocket close</h2>
+<p>The method <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> blocks the current call stack until the connection is terminated by either the client or the server.</p>
+<p>With this, the execution of the callback of the request will be blocked until the client or the server disconnects.</p>
+<p>You can also manually close the connection with the <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a> method. This method returns an empty <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> object, which is not sent to the client, but works as a return from the function where the HTTP request was received.</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        // wait for client close connection
+        ws.WaitForClose();
+
+        // waits until no messages are exchanged in the 60 seconds
+        // or until some party closes the connection
+        ws.WaitForClose(TimeSpan.FromSeconds(60));
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="ping-policy">Ping Policy</h2>
+<p>Similar to how ping policy in Server Side Events works, you can also configure a ping policy to keep the TCP connection open if there is inactivity in it.</p>
+<pre><code class="lang-cs">ws.WithPing(ping =&gt;
+{
+    ping.DataMessage = &quot;ping-message&quot;;
+    ping.Interval = TimeSpan.FromSeconds(5);
+    ping.Start();
+});
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/sisk-http/docs/blob/master/docs/features/websockets.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

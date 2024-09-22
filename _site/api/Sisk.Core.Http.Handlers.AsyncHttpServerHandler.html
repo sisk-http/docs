@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AsyncHttpServerHandler | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AsyncHttpServerHandler | Sisk Framework ">
+      
+      <meta name="description" content="Represents an asynchronous event handler for the , router, and related events.">
+      <link rel="icon" href="../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Sisk.Core.Http.Handlers.AsyncHttpServerHandler">
+
+
+
+  <h1 id="Sisk_Core_Http_Handlers_AsyncHttpServerHandler" data-uid="Sisk.Core.Http.Handlers.AsyncHttpServerHandler" class="text-break">
+Class AsyncHttpServerHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an asynchronous event handler for the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, router, and related events.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AsyncHttpServerHandler : HttpServerHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.html">HttpServerHandler</a></div>
+      <div><span class="xref">AsyncHttpServerHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.-ctor.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler__ctor">AsyncHttpServerHandler()</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnContextBagCreated.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnContextBagCreated_Sisk_Core_Entity_TypedValueDictionary_">OnContextBagCreated(TypedValueDictionary)</a></dt>
+    <dd><p>Method that is called when an HTTP context is created within an
+<a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnContextBagCreatedAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnContextBagCreatedAsync_Sisk_Core_Entity_TypedValueDictionary_">OnContextBagCreatedAsync(TypedValueDictionary)</a></dt>
+    <dd><p>Method that is called when an HTTP context is created within an
+<a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnException.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnException_System_Exception_">OnException(Exception)</a></dt>
+    <dd><p>Method that is called when an exception is caught in the HTTP server. This method is called
+regardless of whether <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions">ThrowExceptions</a> is enabled or not.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnExceptionAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnExceptionAsync_System_Exception_">OnExceptionAsync(Exception)</a></dt>
+    <dd><p>Method that is called when an exception is caught in the HTTP server. This method is called
+regardless of whether <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions">ThrowExceptions</a> is enabled or not.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestClose.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestClose_Sisk_Core_Http_HttpServerExecutionResult_">OnHttpRequestClose(HttpServerExecutionResult)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
+HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestCloseAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestCloseAsync_Sisk_Core_Http_HttpServerExecutionResult_">OnHttpRequestCloseAsync(HttpServerExecutionResult)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
+HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestOpen.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestOpen_Sisk_Core_Http_HttpRequest_">OnHttpRequestOpen(HttpRequest)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
+HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestOpenAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestOpenAsync_Sisk_Core_Http_HttpRequest_">OnHttpRequestOpenAsync(HttpRequest)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
+HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStarted.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStarted_Sisk_Core_Http_HttpServer_">OnServerStarted(HttpServer)</a></dt>
+    <dd><p>Method that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
+ready and listening.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStartedAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStartedAsync_Sisk_Core_Http_HttpServer_">OnServerStartedAsync(HttpServer)</a></dt>
+    <dd><p>Method that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
+ready and listening.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStarting.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStarting_Sisk_Core_Http_HttpServer_">OnServerStarting(HttpServer)</a></dt>
+    <dd><p>Method that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStartingAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStartingAsync_Sisk_Core_Http_HttpServer_">OnServerStartingAsync(HttpServer)</a></dt>
+    <dd><p>Method that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStopped.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStopped_Sisk_Core_Http_HttpServer_">OnServerStopped(HttpServer)</a></dt>
+    <dd><p>Method that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
+it has stopped from listening to requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStoppedAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStoppedAsync_Sisk_Core_Http_HttpServer_">OnServerStoppedAsync(HttpServer)</a></dt>
+    <dd><p>Method that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
+it has stopped from listening to requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStopping.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStopping_Sisk_Core_Http_HttpServer_">OnServerStopping(HttpServer)</a></dt>
+    <dd><p>Method that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
+stopping from listening requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStoppingAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStoppingAsync_Sisk_Core_Http_HttpServer_">OnServerStoppingAsync(HttpServer)</a></dt>
+    <dd><p>Method that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
+stopping from listening requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnSetupRouter.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnSetupRouter_Sisk_Core_Routing_Router_">OnSetupRouter(Router)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnSetupRouterAsync.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnSetupRouterAsync_Sisk_Core_Routing_Router_">OnSetupRouterAsync(Router)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

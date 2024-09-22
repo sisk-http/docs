@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Responses | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Responses | Sisk Framework ">
+      
+      
+      <link rel="icon" href="../../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/responses.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="responses">Responses</h1>
+
+<p>Responses represent objects that are HTTP responses to HTTP requests. They are sent by the server to the client as an indication of the request for a resource, page, document, file or other object.</p>
+<p>An HTTP response is formed up of status, headers and content.</p>
+<p>In this document, we will teach you how to architect HTTP responses with Sisk.</p>
+<h2 id="setting-an-http-status">Setting an HTTP status</h2>
+<p>The HTTP status list is the same since HTTP/1.0, and Sisk supports all of them.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Accepted; // 202
+</code></pre>
+<p>Or with Fluent Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse()
+    .WithStatus(200)
+    // or
+    .WithStatus(HttpStatusCode.BadRequest);
+</code></pre>
+<p>You can see the full list of available HttpStatusCode <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">here</a>.</p>
+<h2 id="body-and-content-type">Body and content-type</h2>
+<p>Sisk supports native .NET content objects to send body in responses. You can use the <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> class to send a JSON response for example:</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
+</code></pre>
+<p>The server will always attempt to calculate the <code>Content-Length</code> from what you have defined in the content if you haven't explicitly defined it in a header. If the server cannot implicitly obtain the Content-Length header from the response content, the response will be sent with Chunked-Encoding.</p>
+<p>You can also stream the response by sending a <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> or using the method <a href="#response-stream">GetResponseStream</a>.</p>
+<h2 id="response-headers">Response headers</h2>
+<p>You can add, edit or remove headers you're sending in the response. The example below shows how to send an redirect response to the client.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Moved;
+res.Headers.Add(&quot;Location&quot;, &quot;/login&quot;);
+</code></pre>
+<p>Or with Fluent Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
+</code></pre>
+<p>When you use the <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> method of HttpHeaderCollection, you are adding a header to the request without altering the ones already sent. The <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> method replaces the headers with the same name with the instructed value. The indexer of HttpHeaderCollection internally calls the Set method to replace the headers.</p>
+<h2 id="sending-cookies">Sending cookies</h2>
+<p>Sisk has methods that facilitate the definition of cookies in the client. Cookies set by this method are already URL encoded and fit the RFC-6265 standard.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
+</code></pre>
+<p>Or with Fluent Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
+</code></pre>
+<p>There are other <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">more complete versions</a> of the same method.</p>
+<h2 id="chunked-responses">Chunked responses</h2>
+<p>You can set the transfer encoding to chunked to send large responses.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SendChunked = true;
+</code></pre>
+<p>When using chunked-encoding, the Content-Length header is automatically omitted.</p>
+<h2 id="response-stream">Response stream</h2>
+<p>Response streams are an managed way that allow you to send responses in a segmented way. It's a lower level operation than using HttpResponse objects, as they require you to send the headers and content manually, and then close the connection.</p>
+<p>This example opens an read-only stream for the file, copies the stream to the response output stream and doens't loads the entire file in the memory. This can be useful to serving medium or big files.</p>
+<pre><code class="lang-cs">// gets the response output stream
+var responseStream = request.GetResponseStream();
+var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
+
+// sets the response encoding to use chunked-encoding
+// also you shouldn't send content-length header when using
+// chunked encoding
+responseStream.SendChunked = true;
+responseStream.SetStatus(200);
+responseStream.SetHeader(&quot;Content-Type&quot;, contentType);
+
+// copies the file stream to the response output stream
+fileStream.CopyTo(responseStream.ResponseStream);
+
+// closes the stream
+return responseStream.Close();
+</code></pre>
+<h2 id="implicit-response-types">Implicit response types</h2>
+<p>Since version 0.15, you can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.</p>
+<p>The concept is to always return a reference type and turn it into a valid HttpResponse object. Routes that return HttpResponse do not undergo any conversion.</p>
+<p>Value types (structures) cannot be used as a return type because they are not compatible with the <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, so they must be wrapped in a ValueResult to be able to be used in handlers.</p>
+<p>Consider the following example from a router module not using HttpResponse in the return type:</p>
+<pre><code class="lang-cs">public class UsersController : RouterModule
+{
+    public List&lt;User&gt; Users = new List&lt;User&gt;();
+
+    public UsersController()
+    {
+        this.Prefix = &quot;users&quot;;
+    }
+
+    [RouteGet(&quot;/&quot;)]
+    public IEnumerable&lt;User&gt; Index(HttpRequest request)
+    {
+        return Users.ToArray();
+    }
+
+    [RouteGet(&quot;/&lt;id&gt;&quot;)]
+    public User View(HttpRequest request)
+    {
+        int id = request.Query[&quot;id&quot;].GetInteger();
+        User dUser = Users.First(u =&gt; u.Id == id);
+
+        return dUser;
+    }
+
+    [RoutePost(&quot;/&quot;)]
+    public ValueResult&lt;bool&gt; Create(HttpRequest request)
+    {
+        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        Users.Add(fromBody);
+
+        return true;
+    }
+}
+</code></pre>
+<p>With that, now it is necessary to define in the router how it will deal with each type of object. Objects are always the first argument of the handler and the output type must be a valid HttpResponse. Also, the output objects of a route should never be null.</p>
+<p>For ValueResult types it is not necessary to indicate that the input object is a ValueResult and only T, since ValueResult is an object reflected from its original component.</p>
+<p>The association of types does not compare what was registered with the type of the object returned from the router callback. Instead, it checks whether the type of the router result is assignable to the registered type.</p>
+<p>Registering a handler of type Object will fallback to all previously unvalidated types. The inserting order of the value handlers also matters, so registering an Object handler will ignore all other type-specific handlers. Always register specific value handlers first to ensure order.</p>
+<pre><code class="lang-cs">Router r = new Router();
+r.SetObject(new UsersController());
+
+r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+    return res;
+});
+r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
+{
+    return new HttpResponse();
+    // do something with enumerableValue here
+});
+// registering an value handler of object must be the last
+// value handler which will be used as an fallback
+r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = HttpStatusCode.OK;
+    res.Content = JsonContent.Create(fallback);
+    return res;
+});
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/responses.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

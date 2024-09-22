@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Logging | Sisk Framework </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Logging | Sisk Framework ">
+      
+      
+      <link rel="icon" href="../../assets/img/favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/features/logging.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <!-- Cloudflare Web Analytics -->
+      <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+            Sisk Framework
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="logging">Logging</h1>
+
+<p>You can configure Sisk to write access and error logs automatically. It is possible to define log rotation, extensions and frequency.</p>
+<p>The <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> class provides an asynchronous way of writing logs and keeping them in an awaitable write queue.</p>
+<p>In this article we will show you how to configure logging for your application.</p>
+<h2 id="file-based-access-logs">File based access logs</h2>
+<p>Logs to files open the file, write the line text, and then close the file for every line written. This procedure was adopted to maintain write responsiveness in the logs.</p>
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+</code></pre>
+<p>The above code will write all incoming requests to the <code>logs/access.log</code> file. Note that, the file is created automatically if it does not exist, however the folder before it does not. It's not necessary to create the <code>logs/</code> directory as the LogStream class automatically creates it.</p>
+<h2 id="stream-based-logging">Stream based logging</h2>
+<p>You can write log files to TextWriter objects instances, such as <code>Console.Out</code>, by passing an TextWriter object in the constructor:</p>
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(Console.Out);
+</code></pre>
+<p>For every message written in the stream-based log, the <code>TextWriter.Flush()</code> method is called.</p>
+<h2 id="access-log-formatting">Access log formatting</h2>
+<p>You can customize the access log format by predefined variables. Consider the following line:</p>
+<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
+</code></pre>
+<p>It will write an message like:</p>
+<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ \[200 OK\] 689B -&gt; 707B in 84ms \[Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36\]
+</code></pre>
+<p>You can format your log file by the format described by the table:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%dd</td>
+<td>The current timestamp's day, in 00 format.</td>
+<td>25</td>
+</tr>
+<tr>
+<td>%dm</td>
+<td>The current timestamp's month, in 00 format.</td>
+<td>03</td>
+</tr>
+<tr>
+<td>%dmm</td>
+<td>The current timestamp's month, in abreviated name format.</td>
+<td>mar.</td>
+</tr>
+<tr>
+<td>%dmmm</td>
+<td>The current timestamp's month, in full name format.</td>
+<td>March</td>
+</tr>
+<tr>
+<td>%dy</td>
+<td>The current timestamp's year, in 0000 format.</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>%th</td>
+<td>The current timestamp's hour, in 12-hours format.</td>
+<td>03</td>
+</tr>
+<tr>
+<td>%tH</td>
+<td>The current timestamp's hour, in 24-hours format.</td>
+<td>15</td>
+</tr>
+<tr>
+<td>%ti</td>
+<td>The current timestamp's minutes, in 00 format.</td>
+<td>25</td>
+</tr>
+<tr>
+<td>%ts</td>
+<td>The current timestamp's seconds, in 00 format.</td>
+<td>32</td>
+</tr>
+<tr>
+<td>%tm</td>
+<td>The current timestamp's millisecond, in 000 format.</td>
+<td>633</td>
+</tr>
+<tr>
+<td>%tz</td>
+<td>The current timezone difference, in +/- 0000 format.</td>
+<td>+0300, -0500, +0000</td>
+</tr>
+<tr>
+<td>%ri</td>
+<td>The requesting user IP address (may be IPv4 or IPv6).</td>
+<td>192.168.0.1</td>
+</tr>
+<tr>
+<td>%rm</td>
+<td>The request method in upper case.</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>%rs</td>
+<td>The requesting user URL scheme.</td>
+<td>https, http</td>
+</tr>
+<tr>
+<td>%ra</td>
+<td>The requesting user URL authority.</td>
+<td>my.contorso.com:8080</td>
+</tr>
+<tr>
+<td>%rh</td>
+<td>The requesting user URL host.</td>
+<td>my.contorso.com</td>
+</tr>
+<tr>
+<td>%rp</td>
+<td>The requesting user URL port.</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>%rz</td>
+<td>The requesting user URL absolute path.</td>
+<td>/index.html</td>
+</tr>
+<tr>
+<td>%rq</td>
+<td>The requesting user URL query string.</td>
+<td>?foo=bar&amp;aaa=bbb</td>
+</tr>
+<tr>
+<td>%sc</td>
+<td>The response status code, in 000 format.</td>
+<td>404</td>
+</tr>
+<tr>
+<td>%sd</td>
+<td>The response status description.</td>
+<td>Not Found</td>
+</tr>
+<tr>
+<td>%lin</td>
+<td>The incoming request content size, in an human readable form.</td>
+<td>12,5kb</td>
+</tr>
+<tr>
+<td>%lou</td>
+<td>The outcoming response content size, in an human readable form.</td>
+<td>65,8kb</td>
+</tr>
+<tr>
+<td>%lms</td>
+<td>The server processing time of the request and deliver of the response, in milliseconds format (000).</td>
+<td>18</td>
+</tr>
+<tr>
+<td>%{header}</td>
+<td>Gets the value of an HTTP header, where header is the header name, or an empty value if the header ins't present. This field is case-insensitive.</td>
+<td>%{user-agent}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rotating-logs">Rotating logs</h2>
+<div class="TIP">
+<h5>Tip</h5>
+<p>In Sisk 0.15 and older, this function is only available with the Sisk.ServiceProvider package. In Sisk 0.16 and above, this function is implemented on it's core package.</p>
+</div>
+<p>You can configure the HTTP server to rotate the log files to a compressed .gz file when they reach a certain size. The size is checked periodically by the limiar you define.</p>
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
+
+var rotater = new RotatingLogPolicy(config.AccessLogsStream);
+rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+</code></pre>
+<p>The above code will check every six hours if the LogStream's file has reached it's 1MB limit. If so, the file is compressed to an .gz file and it then <code>access.log</code> is cleaned.</p>
+<p>During this process, writing to the file is locked until the file is compressed and cleaned. All lines that enter to be written in this period will be in a queue waiting for the end of compression.</p>
+<p>This function only works with file-based LogStreams.</p>
+<h2 id="error-logging">Error logging</h2>
+<p>When a server is not throwing errors to the debugger, it forwards the errors to log writing when there are any. You can configure error writing with:</p>
+<pre><code class="lang-cs">config.ThrowExceptions = false;
+config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
+</code></pre>
+<p>This property will only write something to the log if the error is not captured by the callback or the <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> property.</p>
+<p>The error written by the server always writes the date and time, the request headers (not the body), the error trace, and the inner exception trace, if theres any.</p>
+<h2 id="other-logging-instances">Other logging instances</h2>
+<p>Your application can have zero or multiple LogStreams, there is no limit on how many log channels it can have. Therefore, it is possible to direct your application's log to a file other than the default AccessLog or ErrorLog.</p>
+<pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
+appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
+</code></pre>
+<h2 id="extending-logstream">Extending LogStream</h2>
+<p>You can extend the <code>LogStream</code> class to write custom formats, compatible with the current Sisk log engine. The example below allows to write colorful messages into the Console through Spectre.Console library:</p>
+<pre><code class="lang-cs">public class CustomLogStream : LogStream
+{
+    protected override void WriteLineInternal(string line)
+    {
+        base.WriteLineInternal($&quot;[{DateTime.Now:g}] {line}&quot;);
+    }
+}
+</code></pre>
+<p>Another way to automatically write custom logs for each request/response is to create an <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>. The example below is a little more complete. It writes the body of the request and response in JSON to the Console. It can be useful for debugging requests in general. This example makes use of ContextBag and HttpServerHandler.</p>
+<pre><code class="lang-cs">class Program
+{
+    static async Task Main(string[] args)
+    {
+        var app = HttpServer.CreateBuilder(host =&gt;
+        {
+            host.UseListeningPort(5555);
+            host.UseHandler&lt;JsonMessageHandler&gt;();
+        });
+
+        app.Router += new Route(RouteMethod.Any, &quot;/json&quot;, request =&gt;
+        {
+            return new HttpResponse()
+                .WithContent(JsonContent.Create(new
+                {
+                    method = request.Method.Method,
+                    path = request.Path,
+                    specialMessage = &quot;Hello, world!!&quot;
+                }));
+        });
+
+        await app.StartAsync();
+    }
+}
+
+class JsonMessageHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestOpen(HttpRequest request)
+    {
+        if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+        {
+            // At this point, the connection is open and the client has sent the header specifying
+            // that the content is JSON.The line below reads the content and leaves it stored in the request.
+            //
+            // If the content is not read in the request action, the GC is likely to collect the content
+            // after sending the response to the client, so the content may not be available after the response is closed.
+            //
+            _ = request.RawBody;
+
+            // add hint in the context to tell that this request has an json body on it
+            request.Bag.Add(&quot;IsJsonRequest&quot;, true);
+        }
+    }
+
+    protected override async void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        string? requestJson = null,
+                responseJson = null,
+                responseMessage;
+
+        if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
+        {
+            // reformats the JSON using the CypherPotato.LightJson library
+            var content = result.Request.Body;
+            requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
+        }
+
+        if (result.Response is { } response)
+        {
+            var content = response.Content;
+            responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
+
+            if (content is HttpContent httpContent &amp;&amp;
+                // check if the response is JSON
+                httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                string json = await httpContent.ReadAsStringAsync();
+                responseJson = JsonValue.Deserialize(json, new JsonOptions() { WriteIndented = true }).ToString();
+            }
+        }
+        else
+        {
+            // gets the internal server handling status
+            responseMessage = result.Status.ToString();
+        }
+
+        StringBuilder outputMessage = new StringBuilder();
+
+        if (requestJson != null)
+        {
+            outputMessage.AppendLine(&quot;-----&quot;);
+            outputMessage.AppendLine($&quot;&gt;&gt;&gt; {result.Request.Method} {result.Request.Path}&quot;);
+
+            if (requestJson is not null)
+                outputMessage.AppendLine(requestJson);
+        }
+
+        outputMessage.AppendLine($&quot;&lt;&lt;&lt; {responseMessage}&quot;);
+
+        if (responseJson is not null)
+            outputMessage.AppendLine(responseJson);
+
+        outputMessage.AppendLine(&quot;-----&quot;);
+
+        await Console.Out.WriteLineAsync(outputMessage.ToString());
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/sisk-http/docs/blob/master/docs/features/logging.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
