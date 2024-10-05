@@ -33,21 +33,21 @@ Sisk allows you to build your application step by step manually, as it routes to
 ```csharp
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         var app = HttpServer.CreateBuilder(host =>
         {
             host.UseListeningPort("http://localhost:5000/");
-        });
+        }).Build();
 
-        app.Router.SetRoute(RouteMethod.Get, "/", request =>
+        app.Router.MapGet("/", request =>
         {
             return new HttpResponse()
                 .WithStatus(200)
                 .WithContent("Hello, world!");
         });
 
-        app.Start();
+        await app.StartAsync();
     }
 }
 ```

@@ -10,6 +10,11 @@
       <link rel="icon" href="../assets/img/favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
@@ -111,21 +116,21 @@ dotnet add package Sisk.HttpServer
 <p>Sisk allows you to build your application step by step manually, as it routes to the HttpServer object. However, this may not be very convenient for most projects. Therefore, we can use the builder method, which makes it easier to get our app up and running.</p>
 <pre><code class="lang-csharp">class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         var app = HttpServer.CreateBuilder(host =&gt;
         {
             host.UseListeningPort(&quot;http://localhost:5000/&quot;);
-        });
+        }).Build();
 
-        app.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt;
+        app.Router.MapGet(&quot;/&quot;, request =&gt;
         {
             return new HttpResponse()
                 .WithStatus(200)
                 .WithContent(&quot;Hello, world!&quot;);
         });
 
-        app.Start();
+        await app.StartAsync();
     }
 }
 </code></pre>

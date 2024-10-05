@@ -10,6 +10,11 @@
       <link rel="icon" href="../../assets/img/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
       <meta name="docfx:navrel" content="../../toc.html">
       <meta name="docfx:tocrel" content="../toc.html">
       
@@ -91,21 +96,10 @@
         <article data-uid="">
 <h1 id="http-server-handlers">Http server handlers</h1>
 
-<p>In Sisk version 0.16, we've introduced the <code>HttpServerHandler</code> class, which aims to extend the overral Sisk behavior and provide additional extensions in order to working with Sisk, such as handling Http requests, routers, context bags and more.</p>
+<p>In Sisk version 0.16, we've introduced the <code>HttpServerHandler</code> class, which aims to extend the overral Sisk behavior and provide additional event handlers to Sisk, such as handling Http requests, routers, context bags and more.</p>
 <p>The class concentrates events that occur during the lifetime of the entire HTTP server and also of a request. The Http protocol does not have sessions, and therefore it is not possible to preserve information from one request to another. Sisk for now provides a way for you to implement sessions, contexts, database connections and other useful providers to help your work.</p>
-<p>The events are:</p>
-<pre><code class="lang-cs">public abstract class HttpServerHandler
-{
-    protected virtual void OnSetupHttpServer(HttpServer server) { }
-    protected virtual void OnSetupRouter(Router router) { }
-    protected virtual void OnContextBagCreated(HttpContextBagRepository contextBag) { }
-    protected virtual void OnHttpRequestOpen(HttpRequest request) { }
-    protected virtual void OnHttpRequestClose(HttpServerExecutionResult result) { }
-    protected virtual void OnException(Exception exception) { }
-}
-</code></pre>
-<p>Please refer to <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">this page</a> to read where each method is triggered and what its purpose is. You can also view the <a href="/v1/advanced/request-lifecycle">lifecycle of an HTTP request</a> to understand what happens with a request and where events are fired. The HTTP server allows you to use multiple handlers at the same time. Each event call is synchronous, that is, it will blocked the current thread for each request or context until all handlers associated with that function are executed and completed.</p>
-<p>Unlike RequestHandlers, they cannot be applied to some route groups or specific routes. Instead, they are applied to the entire Http server. You can apply conditions within your Http Server Handler. Furthermore, singletons of each HttpServerHandler are defined for every Sisk application, so only one instance per <code>HttpServerHandler</code> is defined.</p>
+<p>Please refer to <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">this page</a> to read where each event is triggered and what its purpose is. You can also view the <a href="/v1/advanced/request-lifecycle">lifecycle of an HTTP request</a> to understand what happens with a request and where events are fired. The HTTP server allows you to use multiple handlers at the same time. Each event call is synchronous, that is, it will blocked the current thread for each request or context until all handlers associated with that function are executed and completed.</p>
+<p>Unlike RequestHandlers, they cannot be applied to some route groups or specific routes. Instead, they are applied to the entire HTTP server. You can apply conditions within your Http Server Handler. Furthermore, singletons of each HttpServerHandler are defined for every Sisk application, so only one instance per <code>HttpServerHandler</code> is defined.</p>
 <p>A practical example of using HttpServerHandler is to automatically dispose a database connection at the end of the request.</p>
 <pre><code class="lang-cs">// DatabaseConnectionHandler.cs
 
@@ -144,10 +138,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        var app = HttpServer.CreateBuilder(host =&gt;
-        {
-            host.UseHandler&lt;DatabaseConnectionHandler&gt;();
-        });
+        using var app = HttpServer.CreateBuilder()
+            .UseHandler&lt;DatabaseConnectionHandler&gt;()
+            .Build();
 
         app.Router.SetObject(new UserController());
         app.Start();
@@ -160,7 +153,7 @@ class Program
 [RoutePrefix(&quot;/users&quot;)]
 public class UserController : ApiController
 {
-    [RouteGet(&quot;/&quot;)]
+    [RouteGet()]
     public async Task&lt;HttpResponse&gt; List(HttpRequest request)
     {
         var db = request.GetDbContext();
@@ -169,7 +162,7 @@ public class UserController : ApiController
         return JsonOk(users);
     }
 
-    [RouteGet(&quot;/&lt;id&gt;&quot;)]
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
     public async Task&lt;HttpResponse&gt; View(HttpRequest request)
     {
         var db = request.GetDbContext();
@@ -205,7 +198,7 @@ public class ApiController : RouterModule
         return new HttpResponse(200)
             .WithContent(JsonContent.Create(value, null, new JsonSerializerOptions()
             {
-                 PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true
             }));
     }
 

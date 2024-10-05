@@ -1,64 +1,78 @@
 # Routing
 
-The router refers to what redirects requests to their proper places. A [Router](/api/Sisk.Core.Routing.Router) is responsible for routing [Route](/api/Sisk.Core.Routing.Route) to its responsible controllers, methods or callbacks. What the Router uses to match a route with a Route is the request path and its method. These two items are responsible for assigning a request to a route.
+The [Router](/api/Sisk.Core.Routing.Router) is the first step in building the server. It is responsible for housing [Route](/api/Sisk.Core.Routing.Route) objects, which are endpoints that map URLs and their methods to actions executed by the server. Each action is responsible for receiving a request and delivering a response to the client.
+
+The routes are pairs of path expressions ("path pattern") and the HTTP method that they can listen to. When a request is made to the server, it will attempt to find a route that matches the received request, then it will call the action of that route and deliver the resulting response to the client.
+
+There are multiple ways to define routes in Sisk: they can be static, dynamic or auto-scanned, defined by attributes, or directly in the Router object.
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>", (request) =>
-{
-    var name = request.Query["name"].GetString();
-    return new HttpResponse() { Content = new StringContent("Hello, " + name) };
-});
+Router mainRouter = new Router();
 
-// alternative way using the + operator
-mainRouter += new Route(RouteMethod.Get, "/", (req) =>
-{
-    return new HttpResponse()
-        .WithContent("Hello, world!");
+// maps the GET / route into the following action
+mainRouter.MapGet("/", request => {
+    return new HttpResponse("Hello, world!");
 });
 ```
 
 To understand what a route is capable of doing, we need to understand what a request is capable of doing. An [HttpRequest](/api/Sisk.Core.Http.HttpRequest) will contain everything you need. Sisk also includes some extra features that speed up the overral development.
 
+For every action received by the server, a delegate of type [RouteAction](/api/Sisk.Core.Routing.RouteAction) will be called. This delegate contains an parameter holding an [HttpRequest](/api/Sisk.Core.Http.HttpRequest) with all the necessary information about the request received by the server. The resulting object from this delegate must be an [HttpResponse](/api/Sisk.Core.Http.HttpResponse) or an object that maps to it through [implicit response types](/docs/fundamentals/responses#implicit-response-types).
+
 ## Matching routes
 
 When a request is received by the HTTP server, Sisk searches for a route that satisfies the expression of the path received by the request. The expression is always tested between the route and the request path, without considering the query string.
 
-This test does not have priority and is exclusive to a single route. When no route is tested with that request, the [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) response is returned to the client. When a path is tested but no method is tested for that request, the [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) response is sent back to the client.
+This test does not have priority and is exclusive to a single route. When no route is matched with that request, the [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) response is returned to the client. When the path pattern is matched, but the HTTP method is mismatched, the [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) response is sent back to the client.
 
 Sisk checks for the possibility of route collisions to avoid these problems. When defining routes, Sisk will look for possible routes that might collide with the route being defined. This test includes checking the path and the method that the route is set to accept.
 
-### Creating routes using paths
+### Creating routes using path patterns
 
 You can define routes using various `SetRoute` methods.
 
 ```cs
+// SetRoute way
 mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>", (request) =>
 {
-    string name = request.Query["name"]!; // name will never be null in this context
-    return request.CreateOkResponse($"Hello, {name}");
+    string name = request.RouteParameters["name"].GetString();
+    return new HttpResponse($"Hello, {name}");
 });
 
-// or multiple parameters
-mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>/surname/<surname>", (request) =>
+// Map* way
+mainRouter.MapGet("/form", (request) =>
 {
-    string name = request.Query["name"]!;
-    string surname = request.Query["surname"]!;
-    return request.CreateOkResponse($"Hello, {name} {surname}!");
+    var formData = request.GetFormData();
+    return new HttpResponse(); // empty 200 ok
+});
+
+// multiple parameters
+mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
+{
+    string name = request.RouteParameters["name"].GetString();
+    string surname = request.RouteParameters["surname"].GetString();
+
+    return new HttpResponse($"Hello, {name} {surname}!");
 });
 ```
 
-The HTTP request [Query](/api/Sisk.Core.Http.HttpRequest.Query) property also stores the content of an original query, but if there are parameters in the route with the same name as a query, it will be replaced by what is in the route. The path that is matched with an request URI is always the path as explained in [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-3.3).
+The [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) property of HttpResponse contains all the information about the path variables of the received request.
 
-You can also get an query parameter, including an route parameter, casting it to the desired type, with [GetQueryValue](/api/Sisk.Core.Http.HttpRequest.GetQueryValue):
+Every path received by the server is normalized before the path pattern test is executed, following these rules:
+
+- All empty segments are removed from the path, eg: `////foo//bar` becomes `/foo/bar`.
+- Path matching is **case-sensitive**, unless [Router.MatchRoutesIgnoreCase](/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase) is set to `true`.
+
+The [Query](/api/Sisk.Core.Http.HttpRequest.Query) and [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) properties of [HttpRequest](/api/Sisk.Core.Http.HttpRequest) return a [StringValueCollection](/api/Sisk.Core.Entity.StringValueCollection) object, where each indexed property returns a non-null [StringValue](/api/Sisk.Core.Entity.StringValue), which can be used as an option/monad to convert its raw value into a managed object.
+
+The example below reads the route parameter "id" and obtains a `Guid` from it. If the parameter is not a valid Guid, an exception is thrown, and a 500 error is returned to the client if the server is not handling [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler).
 
 ```cs
 mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) =>
 {
-    Guid id = request.GetQueryValue<Guid>("id");
+    Guid id = request.RouteParameters["id"].GetGuid();
 });
 ```
-
-Internally, the implementation of this method differs from .NET 6 to newer versions of .NET that did not yet implement `IParsable`, so to make it compatible, some converters were implemented manually. You can see the [supported types here](https://github.com/sisk-http/core/blob/main/src/Internal/Parseable.cs).
 
 > [!NOTE]
 > Paths have their trailing `/` ignored in both request and route path, that is, if you try to access a route defined as `/index/page` you'll be able to access using `/index/page/` too.
@@ -69,13 +83,13 @@ Internally, the implementation of this method differs from .NET 6 to newer versi
 
 You can also define routes dynamically using reflection with the attribute [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute). This way, the instance of a class in which its methods implement this attribute will have their routes defined in the target router.
 
-Methods marked with the route attribute must be static.
+For a method to be defined as a route, it must be marked with a [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute), such as the attribute itself or a [RouteGetAttribute](/api/Sisk.Core.Routing.RouteGetAttribute). The method can be static, instance, public, or private. When the method `SetObject(type)` or `SetObject<TType>()` is used, instance methods are ignored.
 
 ```cs
 public class MyController
 {
-    // will be reached as an instance form
-    [Route(RouteMethod.Get, "/")]
+    // will match GET /
+    [RouteGet]
     HttpResponse Index(HttpRequest request)
     {
         HttpResponse res = new HttpResponse();
@@ -83,8 +97,8 @@ public class MyController
         return res;
     }
 
-    // static methods only be reached when setting the object type
-    [Route(RouteMethod.Get, "/hello")]
+    // static methods works too
+    [RouteGet("/hello")]
     static HttpResponse Hello(HttpRequest request)
     {
         HttpResponse res = new HttpResponse();
@@ -94,42 +108,20 @@ public class MyController
 }
 ```
 
-Each route method (with the exception of Any) also contains its own attribute, such as:
-
-```cs
-public class MyController
-{
-    [RouteGet("/")]
-    HttpResponse Index(HttpRequest request)
-    {
-        return new HttpResponse()
-            .WithContent(new HtmlContent("<h1>Hello</h1>"));
-    }
-}
-```
-
-Then you can define the routes of the MyController instance:
+The line below will define both the `Index` and `Hello` methods of `MyController` as routes, as both are marked as routes, and an instance of the class has been provided, not its type. If its type had been provided instead of an instance, only the static methods would be defined.
 
 ```cs
 var myController = new MyController();
 mainRouter.SetObject(myController);
 ```
 
-Alternatively, you can define your members statically, without an instance, by passing the class's type as a parameter:
-
-```cs
-mainRouter.SetObject(typeof(MyController));
-```
-
-The diferences between `SetObject(object)` and `SetObject(type)` is the way the router searchs for route methods. The first searches all instance methods of the object. Functions will be called on a singleton of the parameter object. The second one searchs for static methods, public or not. Both methods searchs for private and public methods through reflection.
-
-Since Sisk version 0.16, it is possible to enable AutoScan, which will search for user-defined classes that implement `RouterModule` and will automatically associate it with the router. This method is experimental and is not supported with AOT compilation.
+Since Sisk version 0.16, it is possible to enable AutoScan, which will search for user-defined classes that implement `RouterModule` and will automatically associate it with the router. This is not supported with AOT compilation.
 
 ```cs
 mainRouter.AutoScanModules<ApiController>();
 ```
 
-The above instruction will search for all types which implements `ApiController` but not the type itself. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be instantiated, whether by instance activation or by searching for static methods.
+The above instruction will search for all types which implements `ApiController` but not the type itself. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be defined.
 
 ## Regex routes
 

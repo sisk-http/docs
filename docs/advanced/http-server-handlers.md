@@ -1,26 +1,12 @@
 # Http server handlers
 
-In Sisk version 0.16, we've introduced the `HttpServerHandler` class, which aims to extend the overral Sisk behavior and provide additional extensions in order to working with Sisk, such as handling Http requests, routers, context bags and more.
+In Sisk version 0.16, we've introduced the `HttpServerHandler` class, which aims to extend the overral Sisk behavior and provide additional event handlers to Sisk, such as handling Http requests, routers, context bags and more.
 
 The class concentrates events that occur during the lifetime of the entire HTTP server and also of a request. The Http protocol does not have sessions, and therefore it is not possible to preserve information from one request to another. Sisk for now provides a way for you to implement sessions, contexts, database connections and other useful providers to help your work.
 
-The events are:
+Please refer to [this page](/api/Sisk.Core.Http.Handlers.HttpServerHandler) to read where each event is triggered and what its purpose is. You can also view the [lifecycle of an HTTP request](/v1/advanced/request-lifecycle) to understand what happens with a request and where events are fired. The HTTP server allows you to use multiple handlers at the same time. Each event call is synchronous, that is, it will blocked the current thread for each request or context until all handlers associated with that function are executed and completed.
 
-```cs
-public abstract class HttpServerHandler
-{
-    protected virtual void OnSetupHttpServer(HttpServer server) { }
-    protected virtual void OnSetupRouter(Router router) { }
-    protected virtual void OnContextBagCreated(HttpContextBagRepository contextBag) { }
-    protected virtual void OnHttpRequestOpen(HttpRequest request) { }
-    protected virtual void OnHttpRequestClose(HttpServerExecutionResult result) { }
-    protected virtual void OnException(Exception exception) { }
-}
-```
-
-Please refer to [this page](/api/Sisk.Core.Http.Handlers.HttpServerHandler) to read where each method is triggered and what its purpose is. You can also view the [lifecycle of an HTTP request](/v1/advanced/request-lifecycle) to understand what happens with a request and where events are fired. The HTTP server allows you to use multiple handlers at the same time. Each event call is synchronous, that is, it will blocked the current thread for each request or context until all handlers associated with that function are executed and completed.
-
-Unlike RequestHandlers, they cannot be applied to some route groups or specific routes. Instead, they are applied to the entire Http server. You can apply conditions within your Http Server Handler. Furthermore, singletons of each HttpServerHandler are defined for every Sisk application, so only one instance per `HttpServerHandler` is defined.
+Unlike RequestHandlers, they cannot be applied to some route groups or specific routes. Instead, they are applied to the entire HTTP server. You can apply conditions within your Http Server Handler. Furthermore, singletons of each HttpServerHandler are defined for every Sisk application, so only one instance per `HttpServerHandler` is defined.
 
 A practical example of using HttpServerHandler is to automatically dispose a database connection at the end of the request.
 
@@ -66,10 +52,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        var app = HttpServer.CreateBuilder(host =>
-        {
-            host.UseHandler<DatabaseConnectionHandler>();
-        });
+        using var app = HttpServer.CreateBuilder()
+            .UseHandler<DatabaseConnectionHandler>()
+            .Build();
 
         app.Router.SetObject(new UserController());
         app.Start();
@@ -85,7 +70,7 @@ With this, the `UsersController` class can make use of the database context as:
 [RoutePrefix("/users")]
 public class UserController : ApiController
 {
-    [RouteGet("/")]
+    [RouteGet()]
     public async Task<HttpResponse> List(HttpRequest request)
     {
         var db = request.GetDbContext();
@@ -94,7 +79,7 @@ public class UserController : ApiController
         return JsonOk(users);
     }
 
-    [RouteGet("/<id>")]
+    [RouteGet("<id>")]
     public async Task<HttpResponse> View(HttpRequest request)
     {
         var db = request.GetDbContext();
@@ -133,7 +118,7 @@ public class ApiController : RouterModule
         return new HttpResponse(200)
             .WithContent(JsonContent.Create(value, null, new JsonSerializerOptions()
             {
-                 PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true
             }));
     }
 
