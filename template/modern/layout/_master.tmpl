@@ -3,166 +3,237 @@
 {{!include(favicon.ico)}}
 {{!include(logo.svg)}}
 <!DOCTYPE html>
-<html {{#_lang}}lang="{{_lang}}"{{/_lang}}>
-  <head>
-    <meta charset="utf-8">
-    {{#redirect_url}}
-      <meta http-equiv="refresh" content="0;URL='{{redirect_url}}'">
-    {{/redirect_url}}
+<html {{#_lang}}lang="{{_lang}}" {{/_lang}}>
+    <head>
+        <meta charset="utf-8">
+        {{#redirect_url}}
+        <meta http-equiv="refresh" content="0;URL='{{redirect_url}}'">
+        {{/redirect_url}}
+        {{^redirect_url}}
+        <title>{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}">
+        {{#_description}}
+        <meta name="description" content="{{_description}}">{{/_description}}
+        {{#description}}
+        <meta name="description" content="{{description}}">{{/description}}
+        <link rel="icon" href="{{_rel}}{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">
+        <link rel="stylesheet" href="{{_rel}}public/docfx.min.css">
+        <link rel="stylesheet" href="{{_rel}}public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="{{_navRel}}">
+        <meta name="docfx:tocrel" content="{{_tocRel}}">
+        {{#_noindex}}
+        <meta name="searchOption" content="noindex">{{/_noindex}}
+        {{#_enableSearch}}
+        <meta name="docfx:rel" content="{{_rel}}">{{/_enableSearch}}
+        {{#_disableNewTab}}
+        <meta name="docfx:disablenewtab" content="true">{{/_disableNewTab}}
+        {{#_disableTocFilter}}
+        <meta name="docfx:disabletocfilter" content="true">{{/_disableTocFilter}}
+        {{#docurl}}
+        <meta name="docfx:docurl" content="{{docurl}}">{{/docurl}}
+        <meta name="loc:inThisArticle" content="{{__global.inThisArticle}}">
+        <meta name="loc:searchResultsCount" content="{{__global.searchResultsCount}}">
+        <meta name="loc:searchNoResults" content="{{__global.searchNoResults}}">
+        <meta name="loc:tocFilter" content="{{__global.tocFilter}}">
+        <meta name="loc:nextArticle" content="{{__global.nextArticle}}">
+        <meta name="loc:prevArticle" content="{{__global.prevArticle}}">
+        <meta name="loc:themeLight" content="{{__global.themeLight}}">
+        <meta name="loc:themeDark" content="{{__global.themeDark}}">
+        <meta name="loc:themeAuto" content="{{__global.themeAuto}}">
+        <meta name="loc:changeTheme" content="{{__global.changeTheme}}">
+        <meta name="loc:copy" content="{{__global.copy}}">
+        <meta name="loc:downloadPdf" content="{{__global.downloadPdf}}">
+
+        <script type="module" src="./{{_rel}}public/docfx.min.js"></script>
+        <script src="/assets/js/prism.js?{{_rel}}"></script>
+        <script>
+            document.removeEventListener('DOMContentLoaded', Prism.highlightAll);
+            waitForElm('.hljs').then(() => setTimeout(rewriteHjlsToPrism, 250));
+
+            function rewriteHjlsToPrism() {
+                /*
+                    docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
+                    have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
+                    and I ain't about to do that. until the folks at Microsoft decide to actually work on this
+                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    highlight.js and calls up Prism instead.
+                */
+
+                // reset highlightjs
+                document.querySelectorAll('pre code.hljs')
+                    .forEach(code => {
+                        code.innerHTML = escapeHtml(code.innerText);
+                        var pre = code.parentNode;
+                        var apre = pre.querySelector('a');
+                        if (apre) {
+                            pre.removeChild(apre);
+                        }
+                    });
+                
+                // call Prism
+                Prism.highlightAll();
+
+                // remove hjls class
+                document.querySelectorAll('pre code.hljs')
+                    .forEach(code => {
+                        code.classList.remove('hljs');
+                    });
+            }
+
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function waitForElm(selector) { // ty https://stackoverflow.com/a/61511955/4698166
+                return new Promise(resolve => {
+                    if (document.querySelector(selector)) {
+                        return resolve(document.querySelector(selector));
+                    }
+
+                    const observer = new MutationObserver(mutations => {
+                        if (document.querySelector(selector)) {
+                            observer.disconnect();
+                            resolve(document.querySelector(selector));
+                        }
+                    });
+
+                    // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
+                    observer.observe(document.documentElement, {
+                        childList: true,
+                        subtree: true
+                    });
+                });
+            }
+        </script>
+
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        {{#_googleAnalyticsTagId}}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{_googleAnalyticsTagId}}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', '{{_googleAnalyticsTagId}}');
+        </script>
+        {{/_googleAnalyticsTagId}}
+        {{/redirect_url}}
+    </head>
+
     {{^redirect_url}}
-      <title>{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}">
-      {{#_description}}<meta name="description" content="{{_description}}">{{/_description}}
-      {{#description}}<meta name="description" content="{{description}}">{{/description}}
-      <link rel="icon" href="{{_rel}}{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">
-      <link rel="stylesheet" href="{{_rel}}public/docfx.min.css">
-      <link rel="stylesheet" href="{{_rel}}public/main.css">
 
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <body class="tex2jax_ignore" data-layout="{{_layout}}{{layout}}" data-yaml-mime="{{yamlmime}}">
+        <header class="bg-body border-bottom">
+            {{^_disableNavbar}}
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="{{_appLogoUrl}}{{^_appLogoUrl}}{{_rel}}index.html{{/_appLogoUrl}}">
+                        <img id="logo" class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}">
+                        {{_appName}}
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            {{#_enableSearch}}
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="{{__global.search}}" autocomplete="off" aria-label="Search">
+                            </form>
+                            {{/_enableSearch}}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            {{/_disableNavbar}}
+        </header>
 
-      <meta name="docfx:navrel" content="{{_navRel}}">
-      <meta name="docfx:tocrel" content="{{_tocRel}}">
-      {{#_noindex}}<meta name="searchOption" content="noindex">{{/_noindex}}
-      {{#_enableSearch}}<meta name="docfx:rel" content="{{_rel}}">{{/_enableSearch}}
-      {{#_disableNewTab}}<meta name="docfx:disablenewtab" content="true">{{/_disableNewTab}}
-      {{#_disableTocFilter}}<meta name="docfx:disabletocfilter" content="true">{{/_disableTocFilter}}
-      {{#docurl}}<meta name="docfx:docurl" content="{{docurl}}">{{/docurl}}
-      <meta name="loc:inThisArticle" content="{{__global.inThisArticle}}">
-      <meta name="loc:searchResultsCount" content="{{__global.searchResultsCount}}">
-      <meta name="loc:searchNoResults" content="{{__global.searchNoResults}}">
-      <meta name="loc:tocFilter" content="{{__global.tocFilter}}">
-      <meta name="loc:nextArticle" content="{{__global.nextArticle}}">
-      <meta name="loc:prevArticle" content="{{__global.prevArticle}}">
-      <meta name="loc:themeLight" content="{{__global.themeLight}}">
-      <meta name="loc:themeDark" content="{{__global.themeDark}}">
-      <meta name="loc:themeAuto" content="{{__global.themeAuto}}">
-      <meta name="loc:changeTheme" content="{{__global.changeTheme}}">
-      <meta name="loc:copy" content="{{__global.copy}}">
-      <meta name="loc:downloadPdf" content="{{__global.downloadPdf}}">
-
-      <script type="module" src="./{{_rel}}public/docfx.min.js"></script>
-
-      <script>
-        const theme = localStorage.getItem('theme') || 'auto'
-        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-      </script>
-
-      <!-- Cloudflare Web Analytics -->
-      <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
-      <!-- End Cloudflare Web Analytics -->
-
-      {{#_googleAnalyticsTagId}}
-      <script async src="https://www.googletagmanager.com/gtag/js?id={{_googleAnalyticsTagId}}"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', '{{_googleAnalyticsTagId}}');
-      </script>
-      {{/_googleAnalyticsTagId}}
-    {{/redirect_url}}
-  </head>
-
-  {{^redirect_url}}
-  <body class="tex2jax_ignore" data-layout="{{_layout}}{{layout}}" data-yaml-mime="{{yamlmime}}">
-    <header class="bg-body border-bottom">
-      {{^_disableNavbar}}
-      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
-        <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="{{_appLogoUrl}}{{^_appLogoUrl}}{{_rel}}index.html{{/_appLogoUrl}}">
-            <img id="logo" class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}" >
-            {{_appName}}
-          </a>
-          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-three-dots"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navpanel">
-            <div id="navbar">
-              {{#_enableSearch}}
-              <form class="search" role="search" id="search">
-                <i class="bi bi-search"></i>
-                <input class="form-control" id="search-query" type="search" disabled placeholder="{{__global.search}}" autocomplete="off" aria-label="Search">
-              </form>
-              {{/_enableSearch}}
+        <main class="container-xxl">
+            {{^_disableToc}}
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </nav>
-      {{/_disableNavbar}}
-    </header>
+            {{/_disableToc}}
 
-    <main class="container-xxl">
-      {{^_disableToc}}
-      <div class="toc-offcanvas">
-        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <nav class="toc" id="toc"></nav>
-          </div>
-        </div>
-      </div>
-      {{/_disableToc}}
+            <div class="content">
+                <div class="actionbar">
+                    {{^_disableToc}}
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    {{/_disableToc}}
 
-      <div class="content">
-        <div class="actionbar">
-          {{^_disableToc}}
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em"
-              type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas"
-              aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-            <i class="bi bi-list"></i>
-          </button>
-          {{/_disableToc}}
+                    {{^_disableBreadcrumb}}
+                    <nav id="breadcrumb"></nav>
+                    {{/_disableBreadcrumb}}
+                </div>
 
-          {{^_disableBreadcrumb}}
-          <nav id="breadcrumb"></nav>
-          {{/_disableBreadcrumb}}
-        </div>
+                <article data-uid="{{uid}}">
+                    {{!body}}
+                </article>
 
-        <article data-uid="{{uid}}">
-          {{!body}}
-        </article>
+                {{^_disableContribution}}
+                <div class="contribution d-print-none">
+                    {{#sourceurl}}
+                    <a href="{{sourceurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
+                    {{/sourceurl}}
+                    {{^sourceurl}}{{#docurl}}
+                    <a href="{{docurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
+                    {{/docurl}}{{/sourceurl}}
+                </div>
+                {{/_disableContribution}}
 
-        {{^_disableContribution}}
-        <div class="contribution d-print-none">
-          {{#sourceurl}}
-          <a href="{{sourceurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
-          {{/sourceurl}}
-          {{^sourceurl}}{{#docurl}}
-          <a href="{{docurl}}" class="edit-link">{{__global.improveThisDoc}}</a>
-          {{/docurl}}{{/sourceurl}}
-        </div>
-        {{/_disableContribution}}
+                {{^_disableNextArticle}}
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+                {{/_disableNextArticle}}
 
-        {{^_disableNextArticle}}
-        <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        {{/_disableNextArticle}}
+            </div>
 
-      </div>
+            {{^_disableAffix}}
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+            {{/_disableAffix}}
+        </main>
 
-      {{^_disableAffix}}
-      <div class="affix">
-        <nav id="affix"></nav>
-      </div>
-      {{/_disableAffix}}
-    </main>
+        {{#_enableSearch}}
+        <div class="container-xxl search-results" id="search-results"></div>
+        {{/_enableSearch}}
 
-    {{#_enableSearch}}
-    <div class="container-xxl search-results" id="search-results"></div>
-    {{/_enableSearch}}
-
-    <footer class="border-top text-secondary">
-      <div class="container-xxl">
-        <div class="flex-fill">
-          {{{_appFooter}}}{{^_appFooter}}<span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>{{/_appFooter}}
-        </div>
-      </div>
-    </footer>
-  </body>
-  {{/redirect_url}}
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    {{{_appFooter}}}{{^_appFooter}}<span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>{{/_appFooter}}
+                </div>
+            </div>
+        </footer>
+    </body>
+    {{/redirect_url}}
 </html>

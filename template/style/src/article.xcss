@@ -1,5 +1,5 @@
 article {
-    --bs-body-font-size: 17px;
+    --bs-body-font-size: 16px;
     font-size: var(--bs-body-font-size);
 
     p,
@@ -73,86 +73,86 @@ html {
         }
     }
 
-    article pre > code {
-        padding: 18px 23px !important;
-        border-radius: 6px;
-        max-height: 750px;
-        line-height: 1.6;
-        margin-block: 0.75rem;
-    }
+    // article pre > code {
+    //     padding: 18px 23px !important;
+    //     border-radius: 6px;
+    //     max-height: 750px;
+    //     line-height: 1.6;
+    //     margin-block: 0.75rem;
+    // }
 
-    & [data-bs-theme="light"] {
-        .alert {
-            border: 1px solid #00000020;
-        }
+    // & [data-bs-theme="light"] {
+    //     .alert {
+    //         border: 1px solid #00000020;
+    //     }
 
-        code {
-            border: 1px solid #00000020;
-            background: #fafafa !important;
-            color: #151620 !important;
+    //     code {
+    //         border: 1px solid #00000020;
+    //         background: #fafafa !important;
+    //         color: #151620 !important;
 
-            .hljs-keyword,
-            .hljs-literal,
-            .hljs-built_in {
-                color: #2815d4;
-            }
+    //         .hljs-keyword,
+    //         .hljs-literal,
+    //         .hljs-built_in {
+    //             color: #2815d4;
+    //         }
 
-            .hljs-string,
-            .hljs-number {
-                color: #c74646;
-            }
+    //         .hljs-string,
+    //         .hljs-number {
+    //             color: #c74646;
+    //         }
 
-            .hljs-comment {
-                color: #628562;
-                font-style: italic;
-            }
+    //         .hljs-comment {
+    //             color: #628562;
+    //             font-style: italic;
+    //         }
 
-            .hljs-title,
-            .hljs-meta {
-                color: #34859e;
-            }
-        }
-    }
+    //         .hljs-title,
+    //         .hljs-meta {
+    //             color: #34859e;
+    //         }
+    //     }
+    // }
 
-    & [data-bs-theme="dark"] {
-        .alert {
-            border: 1px solid #ffffff20;
-        }
+    // & [data-bs-theme="dark"] {
+    //     .alert {
+    //         border: 1px solid #ffffff20;
+    //     }
 
-        code {
-            border: 1px solid #ffffff20;
-            background: #272d33 !important;
-            color: #eceeff !important;
+    //     code {
+    //         border: 1px solid #ffffff20;
+    //         background: #272d33 !important;
+    //         color: #eceeff !important;
 
-            .hljs-keyword,
-            .hljs-literal,
-            .hljs-built_in {
-                color: #c0a5ff;
-                font-style: italic;
-            }
+    //         .hljs-keyword,
+    //         .hljs-literal,
+    //         .hljs-built_in {
+    //             color: #c0a5ff;
+    //             font-style: italic;
+    //         }
 
-            .hljs-string,
-            .hljs-number {
-                color: #ea9494;
-            }
+    //         .hljs-string,
+    //         .hljs-number {
+    //             color: #ea9494;
+    //         }
 
-            .hljs-comment {
-                color: #a8c8a8;
-                font-style: italic;
-            }
+    //         .hljs-comment {
+    //             color: #a8c8a8;
+    //             font-style: italic;
+    //         }
 
-            .hljs-title {
-                color: #ffe7b1;
-            }
+    //         .hljs-title {
+    //             color: #ffe7b1;
+    //         }
 
-            .hljs-meta {
-                color: #9ed7e8;
-            }
-        }
-    }
+    //         .hljs-meta {
+    //             color: #9ed7e8;
+    //         }
+    //     }
+    // }
 
-    article code {
-        padding: 2px 4px;
-        border-radius: 3px;
-    }
+    // article code {
+    //     padding: 2px 4px;
+    //     border-radius: 3px;
+    // }
 }

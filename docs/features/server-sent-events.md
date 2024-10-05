@@ -48,7 +48,7 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 
 Note that it is necessary to send the headers before sending any messages.
 
-# Wait-For-Fail connections
+## Wait-For-Fail connections
 
 Connections are normally terminated when the server is no longer able to send messages due to an possible client-side disconnection. With that, the connection is automatically terminated and the instance of the class is discarded.
 
@@ -89,7 +89,7 @@ All active server connections that are identified will be available in the colle
 >
 > Therefore, it is important to keep the connection open by sending periodic pings or extending the maximum time before the connection is closed. Read the next section to better understand sending periodic pings.
 
-# Setup connections ping policy
+## Setup connections ping policy
 
 Ping Policy is an automated way of sending periodic messages to your client. This function allows the server to understand when the client has disconnected from that connection without having to keep the connection open indefinitely.
 
@@ -112,7 +112,7 @@ public HttpResponse Events(HttpRequest request)
 
 In the code above, every 5 seconds, a new ping message will be sent to the client. This will keep the TCP connection alive and prevent it from being closed due to inactivity. Also, when a message fails to be sent, the connection is automatically closed, freeing up the resources used by the connection.
 
-# Querying connections
+## Querying connections
 
 You can search for active connections using a predicate on the connection identifier, to be able to broadcast, for example.
 

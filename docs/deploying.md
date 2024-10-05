@@ -15,7 +15,7 @@ to install .NET Runtime in your Linux server [here](https://learn.microsoft.com/
 In the folder where your project is located, open a terminal and use the .NET publish command:
 
 ```shell
-$ dotnet publish -r linux-x64 -c Release
+dotnet publish -r linux-x64 -c Release
 ```
 
 This will generate your binaries inside `bin/Release/publish/linux-x64`.
@@ -29,9 +29,9 @@ The next step is to take these files to the server where your application will b
 After that, give execution permissions to your binary file. In this case, let's consider that our project name is "my-app":
 
 ```shell
-$ cd /home/htdocs
-$ chmod +x my-app
-$ ./my-app
+cd /home/htdocs
+chmod +x my-app
+./my-app
 ```
 
 After running your application, check to see if it produces any error messages. If it didn't produce, it's because your application is running.
@@ -95,8 +95,8 @@ In this simple tutorial, we will use the content from the previous tutorial as a
 
 1. Access the folder where the service configuration files are located:
 
-    ```
-    $ cd /etc/systemd/system
+    ```sh
+    cd /etc/systemd/system
     ```
 
 2. Create your `my-app.service` file and include the contents:
@@ -124,21 +124,21 @@ In this simple tutorial, we will use the content from the previous tutorial as a
 
 3. Restart your service manager module:
 
-    ```
-    $ sudo systemctl daemon-reload
+    ```sh
+    sudo systemctl daemon-reload
     ```
 
 4. Start your new created service from the name of the file you set and check if they are running:
 
-    ```
-    $ sudo systemctl start my-app
-    $ sudo systemctl status my-app
+    ```sh
+    sudo systemctl start my-app
+    sudo systemctl status my-app
     ```
 
 5. Now if your app is running ("Active: active"), enable your service to keep run after an system reboot:
 
-    ```
-    $ sudo systemctl enable my-app
+    ```sh
+    sudo systemctl enable my-app
     ```
 
 Now you're ready to go and present your Sisk application to everyone.
