@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -237,7 +237,7 @@ Class HttpServerFlags
     <dd><p>Determines if the HTTP server should handle requests asynchronously or if
 it should limit the request processing to one request per time.
 <p>
-Default value: <code>false</code></p>
+Default value: <code>true</code></p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -245,7 +245,7 @@ Default value: <code>false</code></p>
     <dd><p>Determines if the new span-based multipart form reader should be used. This is an experimental
 feature and may not be stable for production usage.</p>
 <p>
-    Default value: <code>false</code></p>
+    Default value: <code>true</code></p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -318,13 +318,6 @@ Default value: <code>true</code></p>
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerFlags.TreatHeadAsGetMethod.html">TreatHeadAsGetMethod</a></dt>
     <dd><p>Determines if the HTTP server should automatically send HTTP headers of an pre-processed GET response
 if the request is using HEAD method.
-<p>
-Default value: <code>true</code></p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpServerFlags.UnescapedRouteMatching.html">UnescapedRouteMatching</a></dt>
-    <dd><p>Determines if the HTTP server should matches route after URL decoding the request path.
 <p>
 Default value: <code>true</code></p>
 </dd>

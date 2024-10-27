@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -198,10 +198,19 @@ Class HttpResponse
     <dt>Inherited Members</dt>
     <dd>
     <div>
+      <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_Net_Cookie_">CookieHelper.SetCookie(Cookie)</a>
+    </div>
+    <div>
       <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_">CookieHelper.SetCookie(string, string)</a>
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">CookieHelper.SetCookie(string, string, DateTime?, TimeSpan?, string, string, bool?, bool?, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_">CookieHelper.BuildCookieHeaderValue(Cookie)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">CookieHelper.BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string, string, bool?, bool?, string)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
@@ -239,6 +248,9 @@ Class HttpResponse
       <a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithContent.html#Sisk_Core_Http_HttpResponseExtensions_WithContent__1___0_System_String_System_Text_Encoding_System_String_">HttpResponseExtensions.WithContent&lt;THttpResponse&gt;(THttpResponse, string, Encoding?, string)</a>
   </div>
   <div>
+      <a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_Net_Cookie_">HttpResponseExtensions.WithCookie&lt;THttpResponse&gt;(THttpResponse, Cookie)</a>
+  </div>
+  <div>
       <a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">HttpResponseExtensions.WithCookie&lt;THttpResponse&gt;(THttpResponse, string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)</a>
   </div>
   <div>
@@ -266,7 +278,13 @@ Class HttpResponse
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor">HttpResponse()</a></dt>
-    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with HTTP OK status code and no content.</p>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with HTTP OK status
+code and no content.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_Sisk_Core_Http_HttpStatusInformation__">HttpResponse(in HttpStatusInformation)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with given status code.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -310,7 +328,7 @@ Class HttpResponse
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.Headers.html#Sisk_Core_Http_HttpResponse_Headers">Headers</a></dt>
-    <dd><p>Gets a <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> instance of the HTTP response headers.</p>
+    <dd><p>Gets or sets the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> instance of the HTTP response headers.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -320,11 +338,6 @@ Class HttpResponse
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.Status.html#Sisk_Core_Http_HttpResponse_Status">Status</a></dt>
-    <dd><p>Gets or sets the HTTP response status code.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.StatusInformation.html#Sisk_Core_Http_HttpResponse_StatusInformation">StatusInformation</a></dt>
     <dd><p>Gets or sets the HTTP status code and description for this HTTP response.</p>
 </dd>
   </dl>
@@ -332,21 +345,6 @@ Class HttpResponse
   <h2 class="section" id="methods">Methods
 </h2>
 
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.CreateEmptyResponse.html#Sisk_Core_Http_HttpResponse_CreateEmptyResponse">CreateEmptyResponse()</a></dt>
-    <dd><p>Creates an <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object which closes the connection with the client immediately (ECONNRESET).</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.CreateRedirectResponse.html#Sisk_Core_Http_HttpResponse_CreateRedirectResponse_Sisk_Core_Routing_RouteAction_">CreateRedirectResponse(RouteAction)</a></dt>
-    <dd><p>Creates an new redirect <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> which redirects to the route path defined in a action. The provided method must have a valid RouteAttribute attribute.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.CreateRedirectResponse.html#Sisk_Core_Http_HttpResponse_CreateRedirectResponse_System_String_">CreateRedirectResponse(string)</a></dt>
-    <dd><p>Creates an new redirect <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> with given location header.</p>
-</dd>
-  </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.GetRawHttpResponse.html#Sisk_Core_Http_HttpResponse_GetRawHttpResponse_System_Boolean_">GetRawHttpResponse(bool)</a></dt>
     <dd><p>Gets the raw HTTP response message.</p>

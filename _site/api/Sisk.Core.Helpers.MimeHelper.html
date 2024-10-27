@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -229,6 +229,11 @@ Class MimeHelper
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.GetMimeType.html#Sisk_Core_Helpers_MimeHelper_GetMimeType_System_String_System_String_">GetMimeType(string, string)</a></dt>
     <dd><p>Gets the content mime-type from the specified file extension.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.IsPlainTextFile.html#Sisk_Core_Helpers_MimeHelper_IsPlainTextFile_System_String_">IsPlainTextFile(string)</a></dt>
+    <dd><p>Gets an boolean indicating if the specified file is an well-known plain text file.</p>
 </dd>
   </dl>
 

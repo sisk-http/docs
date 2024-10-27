@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -262,12 +262,18 @@ Class Router
     <dd><p>Gets or sets the Router &quot;404 Not Found&quot; handler.</p>
 </dd>
   </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.Prefix.html#Sisk_Core_Routing_Router_Prefix">Prefix</a></dt>
+    <dd><p>Gets or sets the prefix which will be applied to all next defining routes in this
+router.</p>
+</dd>
+  </dl>
 
   <h2 class="section" id="methods">Methods
 </h2>
 
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules_System_Type_System_Reflection_Assembly_System_Boolean_">AutoScanModules(Type, Assembly, bool)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules_System_Type_System_Reflection_Assembly_">AutoScanModules(Type, Assembly)</a></dt>
     <dd><p>Scans for all types that implements the specified module type and associates an instance of each type to the router.</p>
 </dd>
   </dl>
@@ -279,7 +285,7 @@ for each type must be present.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1_System_Reflection_Assembly_System_Boolean_">AutoScanModules&lt;TModule&gt;(Assembly, bool)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1_System_Reflection_Assembly_">AutoScanModules&lt;TModule&gt;(Assembly)</a></dt>
     <dd><p>Scans for all types that implements <code class="typeparamref">TModule</code> and associates an instance of each type to the router. Note that, <code class="typeparamref">TModule</code> must be an <a class="xref" href="Sisk.Core.Routing.RouterModule.html">RouterModule</a> type and an accessible constructor
 for each type must be present.</p>
 </dd>
@@ -358,20 +364,23 @@ keeping the body and headers of the original request.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.SetObject.html#Sisk_Core_Routing_Router_SetObject_System_Object_">SetObject(object)</a></dt>
-    <dd><p>Searches in the specified object for instance methods marked with routing attributes, such as <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> and optionals <a class="xref" href="Sisk.Core.Routing.RequestHandlerAttribute.html">RequestHandlerAttribute</a>, and creates
-routes from them. All routes is delegated to the specified instance.</p>
+    <dd><p>Searches for all instance and static methods that are marked with an attribute of
+type <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> in the specified object and creates routes
+for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.SetObject.html#Sisk_Core_Routing_Router_SetObject_System_Type_">SetObject(Type)</a></dt>
-    <dd><p>Searches in the specified object for static methods marked with routing attributes, such as <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> and optionals <a class="xref" href="Sisk.Core.Routing.RequestHandlerAttribute.html">RequestHandlerAttribute</a>, and creates
-routes from them.</p>
+    <dd><p>Searches for all instance and static methods that are marked with an attribute of
+type <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> in the specified object and creates routes
+for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.SetObject.html#Sisk_Core_Routing_Router_SetObject__1">SetObject&lt;TObject&gt;()</a></dt>
-    <dd><p>Searches in the specified object for static methods marked with routing attributes, such as <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> and optionals <a class="xref" href="Sisk.Core.Routing.RequestHandlerAttribute.html">RequestHandlerAttribute</a>, and creates
-routes from them.</p>
+    <dd><p>Searches for all instance and static methods that are marked with an attribute of
+type <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> in the specified object and creates routes
+for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">

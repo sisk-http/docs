@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -207,6 +207,44 @@ Method ToString
   <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
 </div>
 
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_ListeningPort_ToString_" data-uid="Sisk.Core.Http.ListeningPort.ToString*"></a>
+
+<h3 id="Sisk_Core_Http_ListeningPort_ToString_System_Boolean_" data-uid="Sisk.Core.Http.ListeningPort.ToString(System.Boolean)">
+  ToString(bool)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Gets an string representation of this <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public string ToString(bool includePath = true)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>includePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+  <dd><p>Optional. Defines whether the path should be included in the result string.</p>
+</dd>
+</dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">

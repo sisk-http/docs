@@ -916,15 +916,6 @@ references:
   fullName.vb: Sisk.Core.Entity.MultipartFormCollection.GetItem(String)
   nameWithType: MultipartFormCollection.GetItem(string)
   nameWithType.vb: MultipartFormCollection.GetItem(String)
-- uid: Sisk.Core.Entity.MultipartFormCollection.GetItem(System.String,System.Boolean)
-  name: GetItem(string, bool)
-  href: api/Sisk.Core.Entity.MultipartFormCollection.GetItem.html#Sisk_Core_Entity_MultipartFormCollection_GetItem_System_String_System_Boolean_
-  commentId: M:Sisk.Core.Entity.MultipartFormCollection.GetItem(System.String,System.Boolean)
-  name.vb: GetItem(String, Boolean)
-  fullName: Sisk.Core.Entity.MultipartFormCollection.GetItem(string, bool)
-  fullName.vb: Sisk.Core.Entity.MultipartFormCollection.GetItem(String, Boolean)
-  nameWithType: MultipartFormCollection.GetItem(string, bool)
-  nameWithType.vb: MultipartFormCollection.GetItem(String, Boolean)
 - uid: Sisk.Core.Entity.MultipartFormCollection.GetItem*
   name: GetItem
   href: api/Sisk.Core.Entity.MultipartFormCollection.GetItem.html
@@ -946,21 +937,6 @@ references:
   commentId: Overload:Sisk.Core.Entity.MultipartFormCollection.GetItems
   fullName: Sisk.Core.Entity.MultipartFormCollection.GetItems
   nameWithType: MultipartFormCollection.GetItems
-- uid: Sisk.Core.Entity.MultipartFormCollection.GetString(System.String,System.Boolean,System.Text.Encoding)
-  name: GetString(string, bool, Encoding?)
-  href: api/Sisk.Core.Entity.MultipartFormCollection.GetString.html#Sisk_Core_Entity_MultipartFormCollection_GetString_System_String_System_Boolean_System_Text_Encoding_
-  commentId: M:Sisk.Core.Entity.MultipartFormCollection.GetString(System.String,System.Boolean,System.Text.Encoding)
-  name.vb: GetString(String, Boolean, Encoding)
-  fullName: Sisk.Core.Entity.MultipartFormCollection.GetString(string, bool, System.Text.Encoding?)
-  fullName.vb: Sisk.Core.Entity.MultipartFormCollection.GetString(String, Boolean, System.Text.Encoding)
-  nameWithType: MultipartFormCollection.GetString(string, bool, Encoding?)
-  nameWithType.vb: MultipartFormCollection.GetString(String, Boolean, Encoding)
-- uid: Sisk.Core.Entity.MultipartFormCollection.GetString*
-  name: GetString
-  href: api/Sisk.Core.Entity.MultipartFormCollection.GetString.html
-  commentId: Overload:Sisk.Core.Entity.MultipartFormCollection.GetString
-  fullName: Sisk.Core.Entity.MultipartFormCollection.GetString
-  nameWithType: MultipartFormCollection.GetString
 - uid: Sisk.Core.Entity.MultipartFormCollection.GetStringValue(System.String)
   name: GetStringValue(string)
   href: api/Sisk.Core.Entity.MultipartFormCollection.GetStringValue.html#Sisk_Core_Entity_MultipartFormCollection_GetStringValue_System_String_
@@ -1057,6 +1033,30 @@ references:
   commentId: Overload:Sisk.Core.Entity.MultipartObject.ContentLength
   fullName: Sisk.Core.Entity.MultipartObject.ContentLength
   nameWithType: MultipartObject.ContentLength
+- uid: Sisk.Core.Entity.MultipartObject.Equals(Sisk.Core.Entity.MultipartObject)
+  name: Equals(MultipartObject?)
+  href: api/Sisk.Core.Entity.MultipartObject.Equals.html#Sisk_Core_Entity_MultipartObject_Equals_Sisk_Core_Entity_MultipartObject_
+  commentId: M:Sisk.Core.Entity.MultipartObject.Equals(Sisk.Core.Entity.MultipartObject)
+  name.vb: Equals(MultipartObject)
+  fullName: Sisk.Core.Entity.MultipartObject.Equals(Sisk.Core.Entity.MultipartObject?)
+  fullName.vb: Sisk.Core.Entity.MultipartObject.Equals(Sisk.Core.Entity.MultipartObject)
+  nameWithType: MultipartObject.Equals(MultipartObject?)
+  nameWithType.vb: MultipartObject.Equals(MultipartObject)
+- uid: Sisk.Core.Entity.MultipartObject.Equals(System.Object)
+  name: Equals(object?)
+  href: api/Sisk.Core.Entity.MultipartObject.Equals.html#Sisk_Core_Entity_MultipartObject_Equals_System_Object_
+  commentId: M:Sisk.Core.Entity.MultipartObject.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: Sisk.Core.Entity.MultipartObject.Equals(object?)
+  fullName.vb: Sisk.Core.Entity.MultipartObject.Equals(Object)
+  nameWithType: MultipartObject.Equals(object?)
+  nameWithType.vb: MultipartObject.Equals(Object)
+- uid: Sisk.Core.Entity.MultipartObject.Equals*
+  name: Equals
+  href: api/Sisk.Core.Entity.MultipartObject.Equals.html
+  commentId: Overload:Sisk.Core.Entity.MultipartObject.Equals
+  fullName: Sisk.Core.Entity.MultipartObject.Equals
+  nameWithType: MultipartObject.Equals
 - uid: Sisk.Core.Entity.MultipartObject.Filename
   name: Filename
   href: api/Sisk.Core.Entity.MultipartObject.Filename.html#Sisk_Core_Entity_MultipartObject_Filename
@@ -1081,6 +1081,18 @@ references:
   commentId: Overload:Sisk.Core.Entity.MultipartObject.GetCommonFileFormat
   fullName: Sisk.Core.Entity.MultipartObject.GetCommonFileFormat
   nameWithType: MultipartObject.GetCommonFileFormat
+- uid: Sisk.Core.Entity.MultipartObject.GetHashCode
+  name: GetHashCode()
+  href: api/Sisk.Core.Entity.MultipartObject.GetHashCode.html#Sisk_Core_Entity_MultipartObject_GetHashCode
+  commentId: M:Sisk.Core.Entity.MultipartObject.GetHashCode
+  fullName: Sisk.Core.Entity.MultipartObject.GetHashCode()
+  nameWithType: MultipartObject.GetHashCode()
+- uid: Sisk.Core.Entity.MultipartObject.GetHashCode*
+  name: GetHashCode
+  href: api/Sisk.Core.Entity.MultipartObject.GetHashCode.html
+  commentId: Overload:Sisk.Core.Entity.MultipartObject.GetHashCode
+  fullName: Sisk.Core.Entity.MultipartObject.GetHashCode
+  nameWithType: MultipartObject.GetHashCode
 - uid: Sisk.Core.Entity.MultipartObject.HasContents
   name: HasContents
   href: api/Sisk.Core.Entity.MultipartObject.HasContents.html#Sisk_Core_Entity_MultipartObject_HasContents
@@ -1642,6 +1654,21 @@ references:
   commentId: Overload:Sisk.Core.Entity.StringValue.Clone
   fullName: Sisk.Core.Entity.StringValue.Clone
   nameWithType: StringValue.Clone
+- uid: Sisk.Core.Entity.StringValue.Create(System.String)
+  name: Create(string?)
+  href: api/Sisk.Core.Entity.StringValue.Create.html#Sisk_Core_Entity_StringValue_Create_System_String_
+  commentId: M:Sisk.Core.Entity.StringValue.Create(System.String)
+  name.vb: Create(String)
+  fullName: Sisk.Core.Entity.StringValue.Create(string?)
+  fullName.vb: Sisk.Core.Entity.StringValue.Create(String)
+  nameWithType: StringValue.Create(string?)
+  nameWithType.vb: StringValue.Create(String)
+- uid: Sisk.Core.Entity.StringValue.Create*
+  name: Create
+  href: api/Sisk.Core.Entity.StringValue.Create.html
+  commentId: Overload:Sisk.Core.Entity.StringValue.Create
+  fullName: Sisk.Core.Entity.StringValue.Create
+  nameWithType: StringValue.Create
 - uid: Sisk.Core.Entity.StringValue.Get*
   name: Get
   href: api/Sisk.Core.Entity.StringValue.Get.html
@@ -1822,15 +1849,15 @@ references:
   commentId: Overload:Sisk.Core.Entity.StringValue.GetString
   fullName: Sisk.Core.Entity.StringValue.GetString
   nameWithType: StringValue.GetString
-- uid: Sisk.Core.Entity.StringValue.Get``1
-  name: Get<T>()
-  href: api/Sisk.Core.Entity.StringValue.Get.html#Sisk_Core_Entity_StringValue_Get__1
-  commentId: M:Sisk.Core.Entity.StringValue.Get``1
-  name.vb: Get(Of T)()
-  fullName: Sisk.Core.Entity.StringValue.Get<T>()
-  fullName.vb: Sisk.Core.Entity.StringValue.Get(Of T)()
-  nameWithType: StringValue.Get<T>()
-  nameWithType.vb: StringValue.Get(Of T)()
+- uid: Sisk.Core.Entity.StringValue.Get``1(System.IFormatProvider)
+  name: Get<T>(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.Get.html#Sisk_Core_Entity_StringValue_Get__1_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.Get``1(System.IFormatProvider)
+  name.vb: Get(Of T)(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.Get<T>(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.Get(Of T)(System.IFormatProvider)
+  nameWithType: StringValue.Get<T>(IFormatProvider?)
+  nameWithType.vb: StringValue.Get(Of T)(IFormatProvider)
 - uid: Sisk.Core.Entity.StringValue.IsNull
   name: IsNull
   href: api/Sisk.Core.Entity.StringValue.IsNull.html#Sisk_Core_Entity_StringValue_IsNull
@@ -2164,6 +2191,21 @@ references:
   commentId: Overload:Sisk.Core.Helpers.MimeHelper.GetMimeType
   fullName: Sisk.Core.Helpers.MimeHelper.GetMimeType
   nameWithType: MimeHelper.GetMimeType
+- uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(System.String)
+  name: IsPlainTextFile(string)
+  href: api/Sisk.Core.Helpers.MimeHelper.IsPlainTextFile.html#Sisk_Core_Helpers_MimeHelper_IsPlainTextFile_System_String_
+  commentId: M:Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(System.String)
+  name.vb: IsPlainTextFile(String)
+  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(string)
+  fullName.vb: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(String)
+  nameWithType: MimeHelper.IsPlainTextFile(string)
+  nameWithType.vb: MimeHelper.IsPlainTextFile(String)
+- uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile*
+  name: IsPlainTextFile
+  href: api/Sisk.Core.Helpers.MimeHelper.IsPlainTextFile.html
+  commentId: Overload:Sisk.Core.Helpers.MimeHelper.IsPlainTextFile
+  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile
+  nameWithType: MimeHelper.IsPlainTextFile
 - uid: Sisk.Core.Helpers.PathHelper
   name: PathHelper
   href: api/Sisk.Core.Helpers.PathHelper.html
@@ -2266,6 +2308,15 @@ references:
   fullName.vb: Sisk.Core.Helpers.SizeHelper.New
   nameWithType: SizeHelper.SizeHelper
   nameWithType.vb: SizeHelper.New
+- uid: Sisk.Core.Helpers.SizeHelper.HumanReadableSize(System.Double)
+  name: HumanReadableSize(double)
+  href: api/Sisk.Core.Helpers.SizeHelper.HumanReadableSize.html#Sisk_Core_Helpers_SizeHelper_HumanReadableSize_System_Double_
+  commentId: M:Sisk.Core.Helpers.SizeHelper.HumanReadableSize(System.Double)
+  name.vb: HumanReadableSize(Double)
+  fullName: Sisk.Core.Helpers.SizeHelper.HumanReadableSize(double)
+  fullName.vb: Sisk.Core.Helpers.SizeHelper.HumanReadableSize(Double)
+  nameWithType: SizeHelper.HumanReadableSize(double)
+  nameWithType.vb: SizeHelper.HumanReadableSize(Double)
 - uid: Sisk.Core.Helpers.SizeHelper.HumanReadableSize(System.Int64)
   name: HumanReadableSize(long)
   href: api/Sisk.Core.Helpers.SizeHelper.HumanReadableSize.html#Sisk_Core_Helpers_SizeHelper_HumanReadableSize_System_Int64_
@@ -2341,6 +2392,33 @@ references:
   fullName.vb: Sisk.Core.Http.CookieHelper.New
   nameWithType: CookieHelper.CookieHelper
   nameWithType.vb: CookieHelper.New
+- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
+  name: BuildCookieHeaderValue(Cookie)
+  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_
+  commentId: M:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
+  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
+  nameWithType: CookieHelper.BuildCookieHeaderValue(Cookie)
+- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
+  name: BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
+  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_
+  commentId: M:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
+  name.vb: BuildCookieHeaderValue(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
+  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(string, string, System.DateTime?, System.TimeSpan?, string?, string?, bool?, bool?, string?)
+  fullName.vb: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(String, String, Date?, System.TimeSpan?, String, String, Boolean?, Boolean?, String)
+  nameWithType: CookieHelper.BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
+  nameWithType.vb: CookieHelper.BuildCookieHeaderValue(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
+- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue*
+  name: BuildCookieHeaderValue
+  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html
+  commentId: Overload:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue
+  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue
+  nameWithType: CookieHelper.BuildCookieHeaderValue
+- uid: Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
+  name: SetCookie(Cookie)
+  href: api/Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_Net_Cookie_
+  commentId: M:Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
+  fullName: Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
+  nameWithType: CookieHelper.SetCookie(Cookie)
 - uid: Sisk.Core.Http.CookieHelper.SetCookie(System.String,System.String)
   name: SetCookie(string, string)
   href: api/Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_
@@ -2401,6 +2479,33 @@ references:
   commentId: Overload:Sisk.Core.Http.DefaultMessagePage.CreateDefaultPageHtml
   fullName: Sisk.Core.Http.DefaultMessagePage.CreateDefaultPageHtml
   nameWithType: DefaultMessagePage.CreateDefaultPageHtml
+- uid: Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse(Sisk.Core.Http.HttpStatusInformation@,System.String)
+  name: CreateDefaultResponse(in HttpStatusInformation, string)
+  href: api/Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse.html#Sisk_Core_Http_DefaultMessagePage_CreateDefaultResponse_Sisk_Core_Http_HttpStatusInformation__System_String_
+  commentId: M:Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse(Sisk.Core.Http.HttpStatusInformation@,System.String)
+  name.vb: CreateDefaultResponse(HttpStatusInformation, String)
+  fullName: Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse(in Sisk.Core.Http.HttpStatusInformation, string)
+  fullName.vb: Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse(Sisk.Core.Http.HttpStatusInformation, String)
+  nameWithType: DefaultMessagePage.CreateDefaultResponse(in HttpStatusInformation, string)
+  nameWithType.vb: DefaultMessagePage.CreateDefaultResponse(HttpStatusInformation, String)
+- uid: Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse*
+  name: CreateDefaultResponse
+  href: api/Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse.html
+  commentId: Overload:Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse
+  fullName: Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse
+  nameWithType: DefaultMessagePage.CreateDefaultResponse
+- uid: Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS
+  name: DefaultPageCSS
+  href: api/Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS.html#Sisk_Core_Http_DefaultMessagePage_DefaultPageCSS
+  commentId: P:Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS
+  fullName: Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS
+  nameWithType: DefaultMessagePage.DefaultPageCSS
+- uid: Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS*
+  name: DefaultPageCSS
+  href: api/Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS.html
+  commentId: Overload:Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS
+  fullName: Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS
+  nameWithType: DefaultMessagePage.DefaultPageCSS
 - uid: Sisk.Core.Http.ForwardingResolver
   name: ForwardingResolver
   href: api/Sisk.Core.Http.ForwardingResolver.html
@@ -3085,24 +3190,24 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan
   nameWithType: HttpServerHostContextBuilder.UseAutoScan
-- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Boolean)
-  name: UseAutoScan<TModule>(bool)
-  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Boolean_
-  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Boolean)
-  name.vb: UseAutoScan(Of TModule)(Boolean)
-  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan<TModule>(bool)
-  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan(Of TModule)(Boolean)
-  nameWithType: HttpServerHostContextBuilder.UseAutoScan<TModule>(bool)
-  nameWithType.vb: HttpServerHostContextBuilder.UseAutoScan(Of TModule)(Boolean)
-- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly,System.Boolean)
-  name: UseAutoScan<TModule>(Assembly, bool)
-  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_System_Boolean_
-  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly,System.Boolean)
-  name.vb: UseAutoScan(Of TModule)(Assembly, Boolean)
-  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan<TModule>(System.Reflection.Assembly, bool)
-  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan(Of TModule)(System.Reflection.Assembly, Boolean)
-  nameWithType: HttpServerHostContextBuilder.UseAutoScan<TModule>(Assembly, bool)
-  nameWithType.vb: HttpServerHostContextBuilder.UseAutoScan(Of TModule)(Assembly, Boolean)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1
+  name: UseAutoScan<TModule>()
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1
+  name.vb: UseAutoScan(Of TModule)()
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan<TModule>()
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan(Of TModule)()
+  nameWithType: HttpServerHostContextBuilder.UseAutoScan<TModule>()
+  nameWithType.vb: HttpServerHostContextBuilder.UseAutoScan(Of TModule)()
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly)
+  name: UseAutoScan<TModule>(Assembly)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly)
+  name.vb: UseAutoScan(Of TModule)(Assembly)
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan<TModule>(System.Reflection.Assembly)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan(Of TModule)(System.Reflection.Assembly)
+  nameWithType: HttpServerHostContextBuilder.UseAutoScan<TModule>(Assembly)
+  nameWithType.vb: HttpServerHostContextBuilder.UseAutoScan(Of TModule)(Assembly)
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Action)
   name: UseBootstraper(Action)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Action_
@@ -3427,21 +3532,45 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNullOrEmpty
   fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNullOrEmpty
   nameWithType: InitializationParameterCollection.EnsureNotNullOrEmpty
-- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.Map*
-  name: Map
-  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.Map.html
-  commentId: Overload:Sisk.Core.Http.Hosting.InitializationParameterCollection.Map
-  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.Map
-  nameWithType: InitializationParameterCollection.Map
-- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.Map``1
-  name: Map<T>()
-  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.Map.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_Map__1
-  commentId: M:Sisk.Core.Http.Hosting.InitializationParameterCollection.Map``1
-  name.vb: Map(Of T)()
-  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.Map<T>()
-  fullName.vb: Sisk.Core.Http.Hosting.InitializationParameterCollection.Map(Of T)()
-  nameWithType: InitializationParameterCollection.Map<T>()
-  nameWithType.vb: InitializationParameterCollection.Map(Of T)()
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption
+  name: InitializationParameterCollection.GetValueOption
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.html
+  commentId: T:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption
+  nameWithType: InitializationParameterCollection.GetValueOption
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNull
+  name: NotNull
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_NotNull
+  commentId: F:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNull
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNull
+  nameWithType: InitializationParameterCollection.GetValueOption.NotNull
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrEmpty
+  name: NotNullOrEmpty
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_NotNullOrEmpty
+  commentId: F:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrEmpty
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrEmpty
+  nameWithType: InitializationParameterCollection.GetValueOption.NotNullOrEmpty
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrWhiteSpace
+  name: NotNullOrWhiteSpace
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_NotNullOrWhiteSpace
+  commentId: F:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrWhiteSpace
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption.NotNullOrWhiteSpace
+  nameWithType: InitializationParameterCollection.GetValueOption.NotNullOrWhiteSpace
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow(System.String,Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption)
+  name: GetValueOrThrow(string, GetValueOption)
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOrThrow_System_String_Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_
+  commentId: M:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow(System.String,Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption)
+  name.vb: GetValueOrThrow(String, GetValueOption)
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow(string, Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption)
+  fullName.vb: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow(String, Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOption)
+  nameWithType: InitializationParameterCollection.GetValueOrThrow(string, InitializationParameterCollection.GetValueOption)
+  nameWithType.vb: InitializationParameterCollection.GetValueOrThrow(String, InitializationParameterCollection.GetValueOption)
+- uid: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow*
+  name: GetValueOrThrow
+  href: api/Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow.html
+  commentId: Overload:Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow
+  fullName: Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow
+  nameWithType: InitializationParameterCollection.GetValueOrThrow
 - uid: Sisk.Core.Http.Hosting.PortableConfigurationBuilder
   name: PortableConfigurationBuilder
   href: api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder.html
@@ -3562,18 +3691,6 @@ references:
   fullName.vb: Sisk.Core.Http.HtmlContent.New
   nameWithType: HtmlContent.HtmlContent
   nameWithType.vb: HtmlContent.New
-- uid: Sisk.Core.Http.HtmlContent.DefaultEncoding
-  name: DefaultEncoding
-  href: api/Sisk.Core.Http.HtmlContent.DefaultEncoding.html#Sisk_Core_Http_HtmlContent_DefaultEncoding
-  commentId: P:Sisk.Core.Http.HtmlContent.DefaultEncoding
-  fullName: Sisk.Core.Http.HtmlContent.DefaultEncoding
-  nameWithType: HtmlContent.DefaultEncoding
-- uid: Sisk.Core.Http.HtmlContent.DefaultEncoding*
-  name: DefaultEncoding
-  href: api/Sisk.Core.Http.HtmlContent.DefaultEncoding.html
-  commentId: Overload:Sisk.Core.Http.HtmlContent.DefaultEncoding
-  fullName: Sisk.Core.Http.HtmlContent.DefaultEncoding
-  nameWithType: HtmlContent.DefaultEncoding
 - uid: Sisk.Core.Http.HttpContext
   name: HttpContext
   href: api/Sisk.Core.Http.HttpContext.html
@@ -4246,18 +4363,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.Body
   fullName: Sisk.Core.Http.HttpRequest.Body
   nameWithType: HttpRequest.Body
-- uid: Sisk.Core.Http.HttpRequest.Close
-  name: Close()
-  href: api/Sisk.Core.Http.HttpRequest.Close.html#Sisk_Core_Http_HttpRequest_Close
-  commentId: M:Sisk.Core.Http.HttpRequest.Close
-  fullName: Sisk.Core.Http.HttpRequest.Close()
-  nameWithType: HttpRequest.Close()
-- uid: Sisk.Core.Http.HttpRequest.Close*
-  name: Close
-  href: api/Sisk.Core.Http.HttpRequest.Close.html
-  commentId: Overload:Sisk.Core.Http.HttpRequest.Close
-  fullName: Sisk.Core.Http.HttpRequest.Close
-  nameWithType: HttpRequest.Close
 - uid: Sisk.Core.Http.HttpRequest.ContentLength
   name: ContentLength
   href: api/Sisk.Core.Http.HttpRequest.ContentLength.html#Sisk_Core_Http_HttpRequest_ContentLength
@@ -4318,21 +4423,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.FullUrl
   fullName: Sisk.Core.Http.HttpRequest.FullUrl
   nameWithType: HttpRequest.FullUrl
-- uid: Sisk.Core.Http.HttpRequest.GetContextBag*
-  name: GetContextBag
-  href: api/Sisk.Core.Http.HttpRequest.GetContextBag.html
-  commentId: Overload:Sisk.Core.Http.HttpRequest.GetContextBag
-  fullName: Sisk.Core.Http.HttpRequest.GetContextBag
-  nameWithType: HttpRequest.GetContextBag
-- uid: Sisk.Core.Http.HttpRequest.GetContextBag``1
-  name: GetContextBag<T>()
-  href: api/Sisk.Core.Http.HttpRequest.GetContextBag.html#Sisk_Core_Http_HttpRequest_GetContextBag__1
-  commentId: M:Sisk.Core.Http.HttpRequest.GetContextBag``1
-  name.vb: GetContextBag(Of T)()
-  fullName: Sisk.Core.Http.HttpRequest.GetContextBag<T>()
-  fullName.vb: Sisk.Core.Http.HttpRequest.GetContextBag(Of T)()
-  nameWithType: HttpRequest.GetContextBag<T>()
-  nameWithType.vb: HttpRequest.GetContextBag(Of T)()
 - uid: Sisk.Core.Http.HttpRequest.GetEventSource(System.String)
   name: GetEventSource(string?)
   href: api/Sisk.Core.Http.HttpRequest.GetEventSource.html#Sisk_Core_Http_HttpRequest_GetEventSource_System_String_
@@ -4387,15 +4477,15 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.GetQueryValue
   fullName: Sisk.Core.Http.HttpRequest.GetQueryValue
   nameWithType: HttpRequest.GetQueryValue
-- uid: Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String,``0)
-  name: GetQueryValue<T>(string, T)
-  href: api/Sisk.Core.Http.HttpRequest.GetQueryValue.html#Sisk_Core_Http_HttpRequest_GetQueryValue__1_System_String___0_
-  commentId: M:Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String,``0)
-  name.vb: GetQueryValue(Of T)(String, T)
-  fullName: Sisk.Core.Http.HttpRequest.GetQueryValue<T>(string, T)
-  fullName.vb: Sisk.Core.Http.HttpRequest.GetQueryValue(Of T)(String, T)
-  nameWithType: HttpRequest.GetQueryValue<T>(string, T)
-  nameWithType.vb: HttpRequest.GetQueryValue(Of T)(String, T)
+- uid: Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String)
+  name: GetQueryValue<T>(string)
+  href: api/Sisk.Core.Http.HttpRequest.GetQueryValue.html#Sisk_Core_Http_HttpRequest_GetQueryValue__1_System_String_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String)
+  name.vb: GetQueryValue(Of T)(String)
+  fullName: Sisk.Core.Http.HttpRequest.GetQueryValue<T>(string)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetQueryValue(Of T)(String)
+  nameWithType: HttpRequest.GetQueryValue<T>(string)
+  nameWithType.vb: HttpRequest.GetQueryValue(Of T)(String)
 - uid: Sisk.Core.Http.HttpRequest.GetRawHttpRequest(System.Boolean,System.Boolean)
   name: GetRawHttpRequest(bool, bool)
   href: api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest.html#Sisk_Core_Http_HttpRequest_GetRawHttpRequest_System_Boolean_System_Boolean_
@@ -4642,30 +4732,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.SendTo
   fullName: Sisk.Core.Http.HttpRequest.SendTo
   nameWithType: HttpRequest.SendTo
-- uid: Sisk.Core.Http.HttpRequest.SetContextBag*
-  name: SetContextBag
-  href: api/Sisk.Core.Http.HttpRequest.SetContextBag.html
-  commentId: Overload:Sisk.Core.Http.HttpRequest.SetContextBag
-  fullName: Sisk.Core.Http.HttpRequest.SetContextBag
-  nameWithType: HttpRequest.SetContextBag
-- uid: Sisk.Core.Http.HttpRequest.SetContextBag``1
-  name: SetContextBag<T>()
-  href: api/Sisk.Core.Http.HttpRequest.SetContextBag.html#Sisk_Core_Http_HttpRequest_SetContextBag__1
-  commentId: M:Sisk.Core.Http.HttpRequest.SetContextBag``1
-  name.vb: SetContextBag(Of T)()
-  fullName: Sisk.Core.Http.HttpRequest.SetContextBag<T>()
-  fullName.vb: Sisk.Core.Http.HttpRequest.SetContextBag(Of T)()
-  nameWithType: HttpRequest.SetContextBag<T>()
-  nameWithType.vb: HttpRequest.SetContextBag(Of T)()
-- uid: Sisk.Core.Http.HttpRequest.SetContextBag``1(``0)
-  name: SetContextBag<T>(T)
-  href: api/Sisk.Core.Http.HttpRequest.SetContextBag.html#Sisk_Core_Http_HttpRequest_SetContextBag__1___0_
-  commentId: M:Sisk.Core.Http.HttpRequest.SetContextBag``1(``0)
-  name.vb: SetContextBag(Of T)(T)
-  fullName: Sisk.Core.Http.HttpRequest.SetContextBag<T>(T)
-  fullName.vb: Sisk.Core.Http.HttpRequest.SetContextBag(Of T)(T)
-  nameWithType: HttpRequest.SetContextBag<T>(T)
-  nameWithType.vb: HttpRequest.SetContextBag(Of T)(T)
 - uid: Sisk.Core.Http.HttpRequest.ToString
   name: ToString()
   href: api/Sisk.Core.Http.HttpRequest.ToString.html#Sisk_Core_Http_HttpRequest_ToString
@@ -4699,6 +4765,15 @@ references:
   fullName.vb: Sisk.Core.Http.HttpResponse.New()
   nameWithType: HttpResponse.HttpResponse()
   nameWithType.vb: HttpResponse.New()
+- uid: Sisk.Core.Http.HttpResponse.#ctor(Sisk.Core.Http.HttpStatusInformation@)
+  name: HttpResponse(in HttpStatusInformation)
+  href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_Sisk_Core_Http_HttpStatusInformation__
+  commentId: M:Sisk.Core.Http.HttpResponse.#ctor(Sisk.Core.Http.HttpStatusInformation@)
+  name.vb: New(HttpStatusInformation)
+  fullName: Sisk.Core.Http.HttpResponse.HttpResponse(in Sisk.Core.Http.HttpStatusInformation)
+  fullName.vb: Sisk.Core.Http.HttpResponse.New(Sisk.Core.Http.HttpStatusInformation)
+  nameWithType: HttpResponse.HttpResponse(in HttpStatusInformation)
+  nameWithType.vb: HttpResponse.New(HttpStatusInformation)
 - uid: Sisk.Core.Http.HttpResponse.#ctor(System.Int32)
   name: HttpResponse(int)
   href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_System_Int32_
@@ -4774,39 +4849,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpResponse.Content
   fullName: Sisk.Core.Http.HttpResponse.Content
   nameWithType: HttpResponse.Content
-- uid: Sisk.Core.Http.HttpResponse.CreateEmptyResponse
-  name: CreateEmptyResponse()
-  href: api/Sisk.Core.Http.HttpResponse.CreateEmptyResponse.html#Sisk_Core_Http_HttpResponse_CreateEmptyResponse
-  commentId: M:Sisk.Core.Http.HttpResponse.CreateEmptyResponse
-  fullName: Sisk.Core.Http.HttpResponse.CreateEmptyResponse()
-  nameWithType: HttpResponse.CreateEmptyResponse()
-- uid: Sisk.Core.Http.HttpResponse.CreateEmptyResponse*
-  name: CreateEmptyResponse
-  href: api/Sisk.Core.Http.HttpResponse.CreateEmptyResponse.html
-  commentId: Overload:Sisk.Core.Http.HttpResponse.CreateEmptyResponse
-  fullName: Sisk.Core.Http.HttpResponse.CreateEmptyResponse
-  nameWithType: HttpResponse.CreateEmptyResponse
-- uid: Sisk.Core.Http.HttpResponse.CreateRedirectResponse(Sisk.Core.Routing.RouteAction)
-  name: CreateRedirectResponse(RouteAction)
-  href: api/Sisk.Core.Http.HttpResponse.CreateRedirectResponse.html#Sisk_Core_Http_HttpResponse_CreateRedirectResponse_Sisk_Core_Routing_RouteAction_
-  commentId: M:Sisk.Core.Http.HttpResponse.CreateRedirectResponse(Sisk.Core.Routing.RouteAction)
-  fullName: Sisk.Core.Http.HttpResponse.CreateRedirectResponse(Sisk.Core.Routing.RouteAction)
-  nameWithType: HttpResponse.CreateRedirectResponse(RouteAction)
-- uid: Sisk.Core.Http.HttpResponse.CreateRedirectResponse(System.String)
-  name: CreateRedirectResponse(string)
-  href: api/Sisk.Core.Http.HttpResponse.CreateRedirectResponse.html#Sisk_Core_Http_HttpResponse_CreateRedirectResponse_System_String_
-  commentId: M:Sisk.Core.Http.HttpResponse.CreateRedirectResponse(System.String)
-  name.vb: CreateRedirectResponse(String)
-  fullName: Sisk.Core.Http.HttpResponse.CreateRedirectResponse(string)
-  fullName.vb: Sisk.Core.Http.HttpResponse.CreateRedirectResponse(String)
-  nameWithType: HttpResponse.CreateRedirectResponse(string)
-  nameWithType.vb: HttpResponse.CreateRedirectResponse(String)
-- uid: Sisk.Core.Http.HttpResponse.CreateRedirectResponse*
-  name: CreateRedirectResponse
-  href: api/Sisk.Core.Http.HttpResponse.CreateRedirectResponse.html
-  commentId: Overload:Sisk.Core.Http.HttpResponse.CreateRedirectResponse
-  fullName: Sisk.Core.Http.HttpResponse.CreateRedirectResponse
-  nameWithType: HttpResponse.CreateRedirectResponse
 - uid: Sisk.Core.Http.HttpResponse.GetRawHttpResponse(System.Boolean)
   name: GetRawHttpResponse(bool)
   href: api/Sisk.Core.Http.HttpResponse.GetRawHttpResponse.html#Sisk_Core_Http_HttpResponse_GetRawHttpResponse_System_Boolean_
@@ -4885,18 +4927,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpResponse.Status
   fullName: Sisk.Core.Http.HttpResponse.Status
   nameWithType: HttpResponse.Status
-- uid: Sisk.Core.Http.HttpResponse.StatusInformation
-  name: StatusInformation
-  href: api/Sisk.Core.Http.HttpResponse.StatusInformation.html#Sisk_Core_Http_HttpResponse_StatusInformation
-  commentId: P:Sisk.Core.Http.HttpResponse.StatusInformation
-  fullName: Sisk.Core.Http.HttpResponse.StatusInformation
-  nameWithType: HttpResponse.StatusInformation
-- uid: Sisk.Core.Http.HttpResponse.StatusInformation*
-  name: StatusInformation
-  href: api/Sisk.Core.Http.HttpResponse.StatusInformation.html
-  commentId: Overload:Sisk.Core.Http.HttpResponse.StatusInformation
-  fullName: Sisk.Core.Http.HttpResponse.StatusInformation
-  nameWithType: HttpResponse.StatusInformation
 - uid: Sisk.Core.Http.HttpResponseExtensions
   name: HttpResponseExtensions
   href: api/Sisk.Core.Http.HttpResponseExtensions.html
@@ -4942,6 +4972,15 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpResponseExtensions.WithCookie
   fullName: Sisk.Core.Http.HttpResponseExtensions.WithCookie
   nameWithType: HttpResponseExtensions.WithCookie
+- uid: Sisk.Core.Http.HttpResponseExtensions.WithCookie``1(``0,System.Net.Cookie)
+  name: WithCookie<THttpResponse>(THttpResponse, Cookie)
+  href: api/Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_Net_Cookie_
+  commentId: M:Sisk.Core.Http.HttpResponseExtensions.WithCookie``1(``0,System.Net.Cookie)
+  name.vb: WithCookie(Of THttpResponse)(THttpResponse, Cookie)
+  fullName: Sisk.Core.Http.HttpResponseExtensions.WithCookie<THttpResponse>(THttpResponse, System.Net.Cookie)
+  fullName.vb: Sisk.Core.Http.HttpResponseExtensions.WithCookie(Of THttpResponse)(THttpResponse, System.Net.Cookie)
+  nameWithType: HttpResponseExtensions.WithCookie<THttpResponse>(THttpResponse, Cookie)
+  nameWithType.vb: HttpResponseExtensions.WithCookie(Of THttpResponse)(THttpResponse, Cookie)
 - uid: Sisk.Core.Http.HttpResponseExtensions.WithCookie``1(``0,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
   name: WithCookie<THttpResponse>(THttpResponse, string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
   href: api/Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_
@@ -5047,6 +5086,15 @@ references:
   fullName.vb: Sisk.Core.Http.HttpServer.CreateBuilder(System.Action(Of Sisk.Core.Http.Hosting.HttpServerHostContextBuilder))
   nameWithType: HttpServer.CreateBuilder(Action<HttpServerHostContextBuilder>)
   nameWithType.vb: HttpServer.CreateBuilder(Action(Of HttpServerHostContextBuilder))
+- uid: Sisk.Core.Http.HttpServer.CreateBuilder(System.String)
+  name: CreateBuilder(string)
+  href: api/Sisk.Core.Http.HttpServer.CreateBuilder.html#Sisk_Core_Http_HttpServer_CreateBuilder_System_String_
+  commentId: M:Sisk.Core.Http.HttpServer.CreateBuilder(System.String)
+  name.vb: CreateBuilder(String)
+  fullName: Sisk.Core.Http.HttpServer.CreateBuilder(string)
+  fullName.vb: Sisk.Core.Http.HttpServer.CreateBuilder(String)
+  nameWithType: HttpServer.CreateBuilder(string)
+  nameWithType.vb: HttpServer.CreateBuilder(String)
 - uid: Sisk.Core.Http.HttpServer.CreateBuilder(System.UInt16)
   name: CreateBuilder(ushort)
   href: api/Sisk.Core.Http.HttpServer.CreateBuilder.html#Sisk_Core_Http_HttpServer_CreateBuilder_System_UInt16_
@@ -5500,30 +5548,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction
   fullName: Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction
   nameWithType: HttpServerConfiguration.RemoteRequestsAction
-- uid: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress
-  name: ResolveForwardedOriginAddress
-  href: api/Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress.html#Sisk_Core_Http_HttpServerConfiguration_ResolveForwardedOriginAddress
-  commentId: P:Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress
-  fullName: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress
-  nameWithType: HttpServerConfiguration.ResolveForwardedOriginAddress
-- uid: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress*
-  name: ResolveForwardedOriginAddress
-  href: api/Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress.html
-  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress
-  fullName: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress
-  nameWithType: HttpServerConfiguration.ResolveForwardedOriginAddress
-- uid: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost
-  name: ResolveForwardedOriginHost
-  href: api/Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost.html#Sisk_Core_Http_HttpServerConfiguration_ResolveForwardedOriginHost
-  commentId: P:Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost
-  fullName: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost
-  nameWithType: HttpServerConfiguration.ResolveForwardedOriginHost
-- uid: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost*
-  name: ResolveForwardedOriginHost
-  href: api/Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost.html
-  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost
-  fullName: Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost
-  nameWithType: HttpServerConfiguration.ResolveForwardedOriginHost
 - uid: Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions
   name: ThrowExceptions
   href: api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions
@@ -5800,12 +5824,6 @@ references:
   commentId: F:Sisk.Core.Http.HttpServerFlags.TreatHeadAsGetMethod
   fullName: Sisk.Core.Http.HttpServerFlags.TreatHeadAsGetMethod
   nameWithType: HttpServerFlags.TreatHeadAsGetMethod
-- uid: Sisk.Core.Http.HttpServerFlags.UnescapedRouteMatching
-  name: UnescapedRouteMatching
-  href: api/Sisk.Core.Http.HttpServerFlags.UnescapedRouteMatching.html
-  commentId: F:Sisk.Core.Http.HttpServerFlags.UnescapedRouteMatching
-  fullName: Sisk.Core.Http.HttpServerFlags.UnescapedRouteMatching
-  nameWithType: HttpServerFlags.UnescapedRouteMatching
 - uid: Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize
   name: WebSocketBufferSize
   href: api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize.html
@@ -5863,6 +5881,90 @@ references:
   fullName.vb: Sisk.Core.Http.HttpStatusInformation.New
   nameWithType: HttpStatusInformation.HttpStatusInformation
   nameWithType.vb: HttpStatusInformation.New
+- uid: Sisk.Core.Http.HttpStatusInformation.Accepted
+  name: Accepted
+  href: api/Sisk.Core.Http.HttpStatusInformation.Accepted.html#Sisk_Core_Http_HttpStatusInformation_Accepted
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Accepted
+  fullName: Sisk.Core.Http.HttpStatusInformation.Accepted
+  nameWithType: HttpStatusInformation.Accepted
+- uid: Sisk.Core.Http.HttpStatusInformation.Accepted*
+  name: Accepted
+  href: api/Sisk.Core.Http.HttpStatusInformation.Accepted.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Accepted
+  fullName: Sisk.Core.Http.HttpStatusInformation.Accepted
+  nameWithType: HttpStatusInformation.Accepted
+- uid: Sisk.Core.Http.HttpStatusInformation.AlreadyReported
+  name: AlreadyReported
+  href: api/Sisk.Core.Http.HttpStatusInformation.AlreadyReported.html#Sisk_Core_Http_HttpStatusInformation_AlreadyReported
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.AlreadyReported
+  fullName: Sisk.Core.Http.HttpStatusInformation.AlreadyReported
+  nameWithType: HttpStatusInformation.AlreadyReported
+- uid: Sisk.Core.Http.HttpStatusInformation.AlreadyReported*
+  name: AlreadyReported
+  href: api/Sisk.Core.Http.HttpStatusInformation.AlreadyReported.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.AlreadyReported
+  fullName: Sisk.Core.Http.HttpStatusInformation.AlreadyReported
+  nameWithType: HttpStatusInformation.AlreadyReported
+- uid: Sisk.Core.Http.HttpStatusInformation.BadGateway
+  name: BadGateway
+  href: api/Sisk.Core.Http.HttpStatusInformation.BadGateway.html#Sisk_Core_Http_HttpStatusInformation_BadGateway
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.BadGateway
+  fullName: Sisk.Core.Http.HttpStatusInformation.BadGateway
+  nameWithType: HttpStatusInformation.BadGateway
+- uid: Sisk.Core.Http.HttpStatusInformation.BadGateway*
+  name: BadGateway
+  href: api/Sisk.Core.Http.HttpStatusInformation.BadGateway.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.BadGateway
+  fullName: Sisk.Core.Http.HttpStatusInformation.BadGateway
+  nameWithType: HttpStatusInformation.BadGateway
+- uid: Sisk.Core.Http.HttpStatusInformation.BadRequest
+  name: BadRequest
+  href: api/Sisk.Core.Http.HttpStatusInformation.BadRequest.html#Sisk_Core_Http_HttpStatusInformation_BadRequest
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.BadRequest
+  fullName: Sisk.Core.Http.HttpStatusInformation.BadRequest
+  nameWithType: HttpStatusInformation.BadRequest
+- uid: Sisk.Core.Http.HttpStatusInformation.BadRequest*
+  name: BadRequest
+  href: api/Sisk.Core.Http.HttpStatusInformation.BadRequest.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.BadRequest
+  fullName: Sisk.Core.Http.HttpStatusInformation.BadRequest
+  nameWithType: HttpStatusInformation.BadRequest
+- uid: Sisk.Core.Http.HttpStatusInformation.Conflict
+  name: Conflict
+  href: api/Sisk.Core.Http.HttpStatusInformation.Conflict.html#Sisk_Core_Http_HttpStatusInformation_Conflict
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Conflict
+  fullName: Sisk.Core.Http.HttpStatusInformation.Conflict
+  nameWithType: HttpStatusInformation.Conflict
+- uid: Sisk.Core.Http.HttpStatusInformation.Conflict*
+  name: Conflict
+  href: api/Sisk.Core.Http.HttpStatusInformation.Conflict.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Conflict
+  fullName: Sisk.Core.Http.HttpStatusInformation.Conflict
+  nameWithType: HttpStatusInformation.Conflict
+- uid: Sisk.Core.Http.HttpStatusInformation.Continue
+  name: Continue
+  href: api/Sisk.Core.Http.HttpStatusInformation.Continue.html#Sisk_Core_Http_HttpStatusInformation_Continue
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Continue
+  fullName: Sisk.Core.Http.HttpStatusInformation.Continue
+  nameWithType: HttpStatusInformation.Continue
+- uid: Sisk.Core.Http.HttpStatusInformation.Continue*
+  name: Continue
+  href: api/Sisk.Core.Http.HttpStatusInformation.Continue.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Continue
+  fullName: Sisk.Core.Http.HttpStatusInformation.Continue
+  nameWithType: HttpStatusInformation.Continue
+- uid: Sisk.Core.Http.HttpStatusInformation.Created
+  name: Created
+  href: api/Sisk.Core.Http.HttpStatusInformation.Created.html#Sisk_Core_Http_HttpStatusInformation_Created
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Created
+  fullName: Sisk.Core.Http.HttpStatusInformation.Created
+  nameWithType: HttpStatusInformation.Created
+- uid: Sisk.Core.Http.HttpStatusInformation.Created*
+  name: Created
+  href: api/Sisk.Core.Http.HttpStatusInformation.Created.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Created
+  fullName: Sisk.Core.Http.HttpStatusInformation.Created
+  nameWithType: HttpStatusInformation.Created
 - uid: Sisk.Core.Http.HttpStatusInformation.Description
   name: Description
   href: api/Sisk.Core.Http.HttpStatusInformation.Description.html#Sisk_Core_Http_HttpStatusInformation_Description
@@ -5875,6 +5977,78 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Description
   fullName: Sisk.Core.Http.HttpStatusInformation.Description
   nameWithType: HttpStatusInformation.Description
+- uid: Sisk.Core.Http.HttpStatusInformation.EarlyHints
+  name: EarlyHints
+  href: api/Sisk.Core.Http.HttpStatusInformation.EarlyHints.html#Sisk_Core_Http_HttpStatusInformation_EarlyHints
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.EarlyHints
+  fullName: Sisk.Core.Http.HttpStatusInformation.EarlyHints
+  nameWithType: HttpStatusInformation.EarlyHints
+- uid: Sisk.Core.Http.HttpStatusInformation.EarlyHints*
+  name: EarlyHints
+  href: api/Sisk.Core.Http.HttpStatusInformation.EarlyHints.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.EarlyHints
+  fullName: Sisk.Core.Http.HttpStatusInformation.EarlyHints
+  nameWithType: HttpStatusInformation.EarlyHints
+- uid: Sisk.Core.Http.HttpStatusInformation.ExpectationFailed
+  name: ExpectationFailed
+  href: api/Sisk.Core.Http.HttpStatusInformation.ExpectationFailed.html#Sisk_Core_Http_HttpStatusInformation_ExpectationFailed
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ExpectationFailed
+  fullName: Sisk.Core.Http.HttpStatusInformation.ExpectationFailed
+  nameWithType: HttpStatusInformation.ExpectationFailed
+- uid: Sisk.Core.Http.HttpStatusInformation.ExpectationFailed*
+  name: ExpectationFailed
+  href: api/Sisk.Core.Http.HttpStatusInformation.ExpectationFailed.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ExpectationFailed
+  fullName: Sisk.Core.Http.HttpStatusInformation.ExpectationFailed
+  nameWithType: HttpStatusInformation.ExpectationFailed
+- uid: Sisk.Core.Http.HttpStatusInformation.FailedDependency
+  name: FailedDependency
+  href: api/Sisk.Core.Http.HttpStatusInformation.FailedDependency.html#Sisk_Core_Http_HttpStatusInformation_FailedDependency
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.FailedDependency
+  fullName: Sisk.Core.Http.HttpStatusInformation.FailedDependency
+  nameWithType: HttpStatusInformation.FailedDependency
+- uid: Sisk.Core.Http.HttpStatusInformation.FailedDependency*
+  name: FailedDependency
+  href: api/Sisk.Core.Http.HttpStatusInformation.FailedDependency.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.FailedDependency
+  fullName: Sisk.Core.Http.HttpStatusInformation.FailedDependency
+  nameWithType: HttpStatusInformation.FailedDependency
+- uid: Sisk.Core.Http.HttpStatusInformation.Forbidden
+  name: Forbidden
+  href: api/Sisk.Core.Http.HttpStatusInformation.Forbidden.html#Sisk_Core_Http_HttpStatusInformation_Forbidden
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Forbidden
+  fullName: Sisk.Core.Http.HttpStatusInformation.Forbidden
+  nameWithType: HttpStatusInformation.Forbidden
+- uid: Sisk.Core.Http.HttpStatusInformation.Forbidden*
+  name: Forbidden
+  href: api/Sisk.Core.Http.HttpStatusInformation.Forbidden.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Forbidden
+  fullName: Sisk.Core.Http.HttpStatusInformation.Forbidden
+  nameWithType: HttpStatusInformation.Forbidden
+- uid: Sisk.Core.Http.HttpStatusInformation.Found
+  name: Found
+  href: api/Sisk.Core.Http.HttpStatusInformation.Found.html#Sisk_Core_Http_HttpStatusInformation_Found
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Found
+  fullName: Sisk.Core.Http.HttpStatusInformation.Found
+  nameWithType: HttpStatusInformation.Found
+- uid: Sisk.Core.Http.HttpStatusInformation.Found*
+  name: Found
+  href: api/Sisk.Core.Http.HttpStatusInformation.Found.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Found
+  fullName: Sisk.Core.Http.HttpStatusInformation.Found
+  nameWithType: HttpStatusInformation.Found
+- uid: Sisk.Core.Http.HttpStatusInformation.GatewayTimeout
+  name: GatewayTimeout
+  href: api/Sisk.Core.Http.HttpStatusInformation.GatewayTimeout.html#Sisk_Core_Http_HttpStatusInformation_GatewayTimeout
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.GatewayTimeout
+  fullName: Sisk.Core.Http.HttpStatusInformation.GatewayTimeout
+  nameWithType: HttpStatusInformation.GatewayTimeout
+- uid: Sisk.Core.Http.HttpStatusInformation.GatewayTimeout*
+  name: GatewayTimeout
+  href: api/Sisk.Core.Http.HttpStatusInformation.GatewayTimeout.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.GatewayTimeout
+  fullName: Sisk.Core.Http.HttpStatusInformation.GatewayTimeout
+  nameWithType: HttpStatusInformation.GatewayTimeout
 - uid: Sisk.Core.Http.HttpStatusInformation.GetHttpStatusCode
   name: GetHttpStatusCode()
   href: api/Sisk.Core.Http.HttpStatusInformation.GetHttpStatusCode.html#Sisk_Core_Http_HttpStatusInformation_GetHttpStatusCode
@@ -5908,6 +6082,438 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpStatusInformation.GetStatusCodeDescription
   fullName: Sisk.Core.Http.HttpStatusInformation.GetStatusCodeDescription
   nameWithType: HttpStatusInformation.GetStatusCodeDescription
+- uid: Sisk.Core.Http.HttpStatusInformation.Gone
+  name: Gone
+  href: api/Sisk.Core.Http.HttpStatusInformation.Gone.html#Sisk_Core_Http_HttpStatusInformation_Gone
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Gone
+  fullName: Sisk.Core.Http.HttpStatusInformation.Gone
+  nameWithType: HttpStatusInformation.Gone
+- uid: Sisk.Core.Http.HttpStatusInformation.Gone*
+  name: Gone
+  href: api/Sisk.Core.Http.HttpStatusInformation.Gone.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Gone
+  fullName: Sisk.Core.Http.HttpStatusInformation.Gone
+  nameWithType: HttpStatusInformation.Gone
+- uid: Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported
+  name: HttpVersionNotSupported
+  href: api/Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported.html#Sisk_Core_Http_HttpStatusInformation_HttpVersionNotSupported
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported
+  fullName: Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported
+  nameWithType: HttpStatusInformation.HttpVersionNotSupported
+- uid: Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported*
+  name: HttpVersionNotSupported
+  href: api/Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported
+  fullName: Sisk.Core.Http.HttpStatusInformation.HttpVersionNotSupported
+  nameWithType: HttpStatusInformation.HttpVersionNotSupported
+- uid: Sisk.Core.Http.HttpStatusInformation.ImATeapot
+  name: ImATeapot
+  href: api/Sisk.Core.Http.HttpStatusInformation.ImATeapot.html#Sisk_Core_Http_HttpStatusInformation_ImATeapot
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ImATeapot
+  fullName: Sisk.Core.Http.HttpStatusInformation.ImATeapot
+  nameWithType: HttpStatusInformation.ImATeapot
+- uid: Sisk.Core.Http.HttpStatusInformation.ImATeapot*
+  name: ImATeapot
+  href: api/Sisk.Core.Http.HttpStatusInformation.ImATeapot.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ImATeapot
+  fullName: Sisk.Core.Http.HttpStatusInformation.ImATeapot
+  nameWithType: HttpStatusInformation.ImATeapot
+- uid: Sisk.Core.Http.HttpStatusInformation.ImUsed
+  name: ImUsed
+  href: api/Sisk.Core.Http.HttpStatusInformation.ImUsed.html#Sisk_Core_Http_HttpStatusInformation_ImUsed
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ImUsed
+  fullName: Sisk.Core.Http.HttpStatusInformation.ImUsed
+  nameWithType: HttpStatusInformation.ImUsed
+- uid: Sisk.Core.Http.HttpStatusInformation.ImUsed*
+  name: ImUsed
+  href: api/Sisk.Core.Http.HttpStatusInformation.ImUsed.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ImUsed
+  fullName: Sisk.Core.Http.HttpStatusInformation.ImUsed
+  nameWithType: HttpStatusInformation.ImUsed
+- uid: Sisk.Core.Http.HttpStatusInformation.InsufficientStorage
+  name: InsufficientStorage
+  href: api/Sisk.Core.Http.HttpStatusInformation.InsufficientStorage.html#Sisk_Core_Http_HttpStatusInformation_InsufficientStorage
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.InsufficientStorage
+  fullName: Sisk.Core.Http.HttpStatusInformation.InsufficientStorage
+  nameWithType: HttpStatusInformation.InsufficientStorage
+- uid: Sisk.Core.Http.HttpStatusInformation.InsufficientStorage*
+  name: InsufficientStorage
+  href: api/Sisk.Core.Http.HttpStatusInformation.InsufficientStorage.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.InsufficientStorage
+  fullName: Sisk.Core.Http.HttpStatusInformation.InsufficientStorage
+  nameWithType: HttpStatusInformation.InsufficientStorage
+- uid: Sisk.Core.Http.HttpStatusInformation.InternalServerError
+  name: InternalServerError
+  href: api/Sisk.Core.Http.HttpStatusInformation.InternalServerError.html#Sisk_Core_Http_HttpStatusInformation_InternalServerError
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.InternalServerError
+  fullName: Sisk.Core.Http.HttpStatusInformation.InternalServerError
+  nameWithType: HttpStatusInformation.InternalServerError
+- uid: Sisk.Core.Http.HttpStatusInformation.InternalServerError*
+  name: InternalServerError
+  href: api/Sisk.Core.Http.HttpStatusInformation.InternalServerError.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.InternalServerError
+  fullName: Sisk.Core.Http.HttpStatusInformation.InternalServerError
+  nameWithType: HttpStatusInformation.InternalServerError
+- uid: Sisk.Core.Http.HttpStatusInformation.LengthRequired
+  name: LengthRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.LengthRequired.html#Sisk_Core_Http_HttpStatusInformation_LengthRequired
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.LengthRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.LengthRequired
+  nameWithType: HttpStatusInformation.LengthRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.LengthRequired*
+  name: LengthRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.LengthRequired.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.LengthRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.LengthRequired
+  nameWithType: HttpStatusInformation.LengthRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.Locked
+  name: Locked
+  href: api/Sisk.Core.Http.HttpStatusInformation.Locked.html#Sisk_Core_Http_HttpStatusInformation_Locked
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Locked
+  fullName: Sisk.Core.Http.HttpStatusInformation.Locked
+  nameWithType: HttpStatusInformation.Locked
+- uid: Sisk.Core.Http.HttpStatusInformation.Locked*
+  name: Locked
+  href: api/Sisk.Core.Http.HttpStatusInformation.Locked.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Locked
+  fullName: Sisk.Core.Http.HttpStatusInformation.Locked
+  nameWithType: HttpStatusInformation.Locked
+- uid: Sisk.Core.Http.HttpStatusInformation.LoopDetected
+  name: LoopDetected
+  href: api/Sisk.Core.Http.HttpStatusInformation.LoopDetected.html#Sisk_Core_Http_HttpStatusInformation_LoopDetected
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.LoopDetected
+  fullName: Sisk.Core.Http.HttpStatusInformation.LoopDetected
+  nameWithType: HttpStatusInformation.LoopDetected
+- uid: Sisk.Core.Http.HttpStatusInformation.LoopDetected*
+  name: LoopDetected
+  href: api/Sisk.Core.Http.HttpStatusInformation.LoopDetected.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.LoopDetected
+  fullName: Sisk.Core.Http.HttpStatusInformation.LoopDetected
+  nameWithType: HttpStatusInformation.LoopDetected
+- uid: Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed
+  name: MethodNotAllowed
+  href: api/Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed.html#Sisk_Core_Http_HttpStatusInformation_MethodNotAllowed
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed
+  fullName: Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed
+  nameWithType: HttpStatusInformation.MethodNotAllowed
+- uid: Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed*
+  name: MethodNotAllowed
+  href: api/Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed
+  fullName: Sisk.Core.Http.HttpStatusInformation.MethodNotAllowed
+  nameWithType: HttpStatusInformation.MethodNotAllowed
+- uid: Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest
+  name: MisdirectedRequest
+  href: api/Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest.html#Sisk_Core_Http_HttpStatusInformation_MisdirectedRequest
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest
+  fullName: Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest
+  nameWithType: HttpStatusInformation.MisdirectedRequest
+- uid: Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest*
+  name: MisdirectedRequest
+  href: api/Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest
+  fullName: Sisk.Core.Http.HttpStatusInformation.MisdirectedRequest
+  nameWithType: HttpStatusInformation.MisdirectedRequest
+- uid: Sisk.Core.Http.HttpStatusInformation.MovedPermanently
+  name: MovedPermanently
+  href: api/Sisk.Core.Http.HttpStatusInformation.MovedPermanently.html#Sisk_Core_Http_HttpStatusInformation_MovedPermanently
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.MovedPermanently
+  fullName: Sisk.Core.Http.HttpStatusInformation.MovedPermanently
+  nameWithType: HttpStatusInformation.MovedPermanently
+- uid: Sisk.Core.Http.HttpStatusInformation.MovedPermanently*
+  name: MovedPermanently
+  href: api/Sisk.Core.Http.HttpStatusInformation.MovedPermanently.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.MovedPermanently
+  fullName: Sisk.Core.Http.HttpStatusInformation.MovedPermanently
+  nameWithType: HttpStatusInformation.MovedPermanently
+- uid: Sisk.Core.Http.HttpStatusInformation.MultiStatus
+  name: MultiStatus
+  href: api/Sisk.Core.Http.HttpStatusInformation.MultiStatus.html#Sisk_Core_Http_HttpStatusInformation_MultiStatus
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.MultiStatus
+  fullName: Sisk.Core.Http.HttpStatusInformation.MultiStatus
+  nameWithType: HttpStatusInformation.MultiStatus
+- uid: Sisk.Core.Http.HttpStatusInformation.MultiStatus*
+  name: MultiStatus
+  href: api/Sisk.Core.Http.HttpStatusInformation.MultiStatus.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.MultiStatus
+  fullName: Sisk.Core.Http.HttpStatusInformation.MultiStatus
+  nameWithType: HttpStatusInformation.MultiStatus
+- uid: Sisk.Core.Http.HttpStatusInformation.MultipleChoices
+  name: MultipleChoices
+  href: api/Sisk.Core.Http.HttpStatusInformation.MultipleChoices.html#Sisk_Core_Http_HttpStatusInformation_MultipleChoices
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.MultipleChoices
+  fullName: Sisk.Core.Http.HttpStatusInformation.MultipleChoices
+  nameWithType: HttpStatusInformation.MultipleChoices
+- uid: Sisk.Core.Http.HttpStatusInformation.MultipleChoices*
+  name: MultipleChoices
+  href: api/Sisk.Core.Http.HttpStatusInformation.MultipleChoices.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.MultipleChoices
+  fullName: Sisk.Core.Http.HttpStatusInformation.MultipleChoices
+  nameWithType: HttpStatusInformation.MultipleChoices
+- uid: Sisk.Core.Http.HttpStatusInformation.NoContent
+  name: NoContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.NoContent.html#Sisk_Core_Http_HttpStatusInformation_NoContent
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NoContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.NoContent
+  nameWithType: HttpStatusInformation.NoContent
+- uid: Sisk.Core.Http.HttpStatusInformation.NoContent*
+  name: NoContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.NoContent.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NoContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.NoContent
+  nameWithType: HttpStatusInformation.NoContent
+- uid: Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation
+  name: NonAuthoritativeInformation
+  href: api/Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation.html#Sisk_Core_Http_HttpStatusInformation_NonAuthoritativeInformation
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation
+  fullName: Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation
+  nameWithType: HttpStatusInformation.NonAuthoritativeInformation
+- uid: Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation*
+  name: NonAuthoritativeInformation
+  href: api/Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation
+  fullName: Sisk.Core.Http.HttpStatusInformation.NonAuthoritativeInformation
+  nameWithType: HttpStatusInformation.NonAuthoritativeInformation
+- uid: Sisk.Core.Http.HttpStatusInformation.NotAcceptable
+  name: NotAcceptable
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotAcceptable.html#Sisk_Core_Http_HttpStatusInformation_NotAcceptable
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NotAcceptable
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotAcceptable
+  nameWithType: HttpStatusInformation.NotAcceptable
+- uid: Sisk.Core.Http.HttpStatusInformation.NotAcceptable*
+  name: NotAcceptable
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotAcceptable.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NotAcceptable
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotAcceptable
+  nameWithType: HttpStatusInformation.NotAcceptable
+- uid: Sisk.Core.Http.HttpStatusInformation.NotExtended
+  name: NotExtended
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotExtended.html#Sisk_Core_Http_HttpStatusInformation_NotExtended
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NotExtended
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotExtended
+  nameWithType: HttpStatusInformation.NotExtended
+- uid: Sisk.Core.Http.HttpStatusInformation.NotExtended*
+  name: NotExtended
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotExtended.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NotExtended
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotExtended
+  nameWithType: HttpStatusInformation.NotExtended
+- uid: Sisk.Core.Http.HttpStatusInformation.NotFound
+  name: NotFound
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotFound.html#Sisk_Core_Http_HttpStatusInformation_NotFound
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NotFound
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotFound
+  nameWithType: HttpStatusInformation.NotFound
+- uid: Sisk.Core.Http.HttpStatusInformation.NotFound*
+  name: NotFound
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotFound.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NotFound
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotFound
+  nameWithType: HttpStatusInformation.NotFound
+- uid: Sisk.Core.Http.HttpStatusInformation.NotImplemented
+  name: NotImplemented
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotImplemented.html#Sisk_Core_Http_HttpStatusInformation_NotImplemented
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NotImplemented
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotImplemented
+  nameWithType: HttpStatusInformation.NotImplemented
+- uid: Sisk.Core.Http.HttpStatusInformation.NotImplemented*
+  name: NotImplemented
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotImplemented.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NotImplemented
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotImplemented
+  nameWithType: HttpStatusInformation.NotImplemented
+- uid: Sisk.Core.Http.HttpStatusInformation.NotModified
+  name: NotModified
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotModified.html#Sisk_Core_Http_HttpStatusInformation_NotModified
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.NotModified
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotModified
+  nameWithType: HttpStatusInformation.NotModified
+- uid: Sisk.Core.Http.HttpStatusInformation.NotModified*
+  name: NotModified
+  href: api/Sisk.Core.Http.HttpStatusInformation.NotModified.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.NotModified
+  fullName: Sisk.Core.Http.HttpStatusInformation.NotModified
+  nameWithType: HttpStatusInformation.NotModified
+- uid: Sisk.Core.Http.HttpStatusInformation.Ok
+  name: Ok
+  href: api/Sisk.Core.Http.HttpStatusInformation.Ok.html#Sisk_Core_Http_HttpStatusInformation_Ok
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Ok
+  fullName: Sisk.Core.Http.HttpStatusInformation.Ok
+  nameWithType: HttpStatusInformation.Ok
+- uid: Sisk.Core.Http.HttpStatusInformation.Ok*
+  name: Ok
+  href: api/Sisk.Core.Http.HttpStatusInformation.Ok.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Ok
+  fullName: Sisk.Core.Http.HttpStatusInformation.Ok
+  nameWithType: HttpStatusInformation.Ok
+- uid: Sisk.Core.Http.HttpStatusInformation.PartialContent
+  name: PartialContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.PartialContent.html#Sisk_Core_Http_HttpStatusInformation_PartialContent
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PartialContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.PartialContent
+  nameWithType: HttpStatusInformation.PartialContent
+- uid: Sisk.Core.Http.HttpStatusInformation.PartialContent*
+  name: PartialContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.PartialContent.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PartialContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.PartialContent
+  nameWithType: HttpStatusInformation.PartialContent
+- uid: Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge
+  name: PayloadTooLarge
+  href: api/Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge.html#Sisk_Core_Http_HttpStatusInformation_PayloadTooLarge
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge
+  fullName: Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge
+  nameWithType: HttpStatusInformation.PayloadTooLarge
+- uid: Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge*
+  name: PayloadTooLarge
+  href: api/Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge
+  fullName: Sisk.Core.Http.HttpStatusInformation.PayloadTooLarge
+  nameWithType: HttpStatusInformation.PayloadTooLarge
+- uid: Sisk.Core.Http.HttpStatusInformation.PaymentRequired
+  name: PaymentRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.PaymentRequired.html#Sisk_Core_Http_HttpStatusInformation_PaymentRequired
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PaymentRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.PaymentRequired
+  nameWithType: HttpStatusInformation.PaymentRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.PaymentRequired*
+  name: PaymentRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.PaymentRequired.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PaymentRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.PaymentRequired
+  nameWithType: HttpStatusInformation.PaymentRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.PermanentRedirect
+  name: PermanentRedirect
+  href: api/Sisk.Core.Http.HttpStatusInformation.PermanentRedirect.html#Sisk_Core_Http_HttpStatusInformation_PermanentRedirect
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PermanentRedirect
+  fullName: Sisk.Core.Http.HttpStatusInformation.PermanentRedirect
+  nameWithType: HttpStatusInformation.PermanentRedirect
+- uid: Sisk.Core.Http.HttpStatusInformation.PermanentRedirect*
+  name: PermanentRedirect
+  href: api/Sisk.Core.Http.HttpStatusInformation.PermanentRedirect.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PermanentRedirect
+  fullName: Sisk.Core.Http.HttpStatusInformation.PermanentRedirect
+  nameWithType: HttpStatusInformation.PermanentRedirect
+- uid: Sisk.Core.Http.HttpStatusInformation.PreconditionFailed
+  name: PreconditionFailed
+  href: api/Sisk.Core.Http.HttpStatusInformation.PreconditionFailed.html#Sisk_Core_Http_HttpStatusInformation_PreconditionFailed
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PreconditionFailed
+  fullName: Sisk.Core.Http.HttpStatusInformation.PreconditionFailed
+  nameWithType: HttpStatusInformation.PreconditionFailed
+- uid: Sisk.Core.Http.HttpStatusInformation.PreconditionFailed*
+  name: PreconditionFailed
+  href: api/Sisk.Core.Http.HttpStatusInformation.PreconditionFailed.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PreconditionFailed
+  fullName: Sisk.Core.Http.HttpStatusInformation.PreconditionFailed
+  nameWithType: HttpStatusInformation.PreconditionFailed
+- uid: Sisk.Core.Http.HttpStatusInformation.PreconditionRequired
+  name: PreconditionRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.PreconditionRequired.html#Sisk_Core_Http_HttpStatusInformation_PreconditionRequired
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.PreconditionRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.PreconditionRequired
+  nameWithType: HttpStatusInformation.PreconditionRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.PreconditionRequired*
+  name: PreconditionRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.PreconditionRequired.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.PreconditionRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.PreconditionRequired
+  nameWithType: HttpStatusInformation.PreconditionRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.Processing
+  name: Processing
+  href: api/Sisk.Core.Http.HttpStatusInformation.Processing.html#Sisk_Core_Http_HttpStatusInformation_Processing
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Processing
+  fullName: Sisk.Core.Http.HttpStatusInformation.Processing
+  nameWithType: HttpStatusInformation.Processing
+- uid: Sisk.Core.Http.HttpStatusInformation.Processing*
+  name: Processing
+  href: api/Sisk.Core.Http.HttpStatusInformation.Processing.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Processing
+  fullName: Sisk.Core.Http.HttpStatusInformation.Processing
+  nameWithType: HttpStatusInformation.Processing
+- uid: Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired
+  name: ProxyAuthenticationRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired.html#Sisk_Core_Http_HttpStatusInformation_ProxyAuthenticationRequired
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired
+  nameWithType: HttpStatusInformation.ProxyAuthenticationRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired*
+  name: ProxyAuthenticationRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.ProxyAuthenticationRequired
+  nameWithType: HttpStatusInformation.ProxyAuthenticationRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable
+  name: RangeNotSatisfiable
+  href: api/Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable.html#Sisk_Core_Http_HttpStatusInformation_RangeNotSatisfiable
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable
+  fullName: Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable
+  nameWithType: HttpStatusInformation.RangeNotSatisfiable
+- uid: Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable*
+  name: RangeNotSatisfiable
+  href: api/Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable
+  fullName: Sisk.Core.Http.HttpStatusInformation.RangeNotSatisfiable
+  nameWithType: HttpStatusInformation.RangeNotSatisfiable
+- uid: Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge
+  name: RequestHeaderFieldsTooLarge
+  href: api/Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge.html#Sisk_Core_Http_HttpStatusInformation_RequestHeaderFieldsTooLarge
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge
+  fullName: Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge
+  nameWithType: HttpStatusInformation.RequestHeaderFieldsTooLarge
+- uid: Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge*
+  name: RequestHeaderFieldsTooLarge
+  href: api/Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge
+  fullName: Sisk.Core.Http.HttpStatusInformation.RequestHeaderFieldsTooLarge
+  nameWithType: HttpStatusInformation.RequestHeaderFieldsTooLarge
+- uid: Sisk.Core.Http.HttpStatusInformation.RequestTimeout
+  name: RequestTimeout
+  href: api/Sisk.Core.Http.HttpStatusInformation.RequestTimeout.html#Sisk_Core_Http_HttpStatusInformation_RequestTimeout
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.RequestTimeout
+  fullName: Sisk.Core.Http.HttpStatusInformation.RequestTimeout
+  nameWithType: HttpStatusInformation.RequestTimeout
+- uid: Sisk.Core.Http.HttpStatusInformation.RequestTimeout*
+  name: RequestTimeout
+  href: api/Sisk.Core.Http.HttpStatusInformation.RequestTimeout.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.RequestTimeout
+  fullName: Sisk.Core.Http.HttpStatusInformation.RequestTimeout
+  nameWithType: HttpStatusInformation.RequestTimeout
+- uid: Sisk.Core.Http.HttpStatusInformation.ResetContent
+  name: ResetContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.ResetContent.html#Sisk_Core_Http_HttpStatusInformation_ResetContent
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ResetContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.ResetContent
+  nameWithType: HttpStatusInformation.ResetContent
+- uid: Sisk.Core.Http.HttpStatusInformation.ResetContent*
+  name: ResetContent
+  href: api/Sisk.Core.Http.HttpStatusInformation.ResetContent.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ResetContent
+  fullName: Sisk.Core.Http.HttpStatusInformation.ResetContent
+  nameWithType: HttpStatusInformation.ResetContent
+- uid: Sisk.Core.Http.HttpStatusInformation.SeeOther
+  name: SeeOther
+  href: api/Sisk.Core.Http.HttpStatusInformation.SeeOther.html#Sisk_Core_Http_HttpStatusInformation_SeeOther
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.SeeOther
+  fullName: Sisk.Core.Http.HttpStatusInformation.SeeOther
+  nameWithType: HttpStatusInformation.SeeOther
+- uid: Sisk.Core.Http.HttpStatusInformation.SeeOther*
+  name: SeeOther
+  href: api/Sisk.Core.Http.HttpStatusInformation.SeeOther.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.SeeOther
+  fullName: Sisk.Core.Http.HttpStatusInformation.SeeOther
+  nameWithType: HttpStatusInformation.SeeOther
+- uid: Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable
+  name: ServiceUnavailable
+  href: api/Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable.html#Sisk_Core_Http_HttpStatusInformation_ServiceUnavailable
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable
+  fullName: Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable
+  nameWithType: HttpStatusInformation.ServiceUnavailable
+- uid: Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable*
+  name: ServiceUnavailable
+  href: api/Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable
+  fullName: Sisk.Core.Http.HttpStatusInformation.ServiceUnavailable
+  nameWithType: HttpStatusInformation.ServiceUnavailable
 - uid: Sisk.Core.Http.HttpStatusInformation.StatusCode
   name: StatusCode
   href: api/Sisk.Core.Http.HttpStatusInformation.StatusCode.html#Sisk_Core_Http_HttpStatusInformation_StatusCode
@@ -5920,6 +6526,42 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpStatusInformation.StatusCode
   fullName: Sisk.Core.Http.HttpStatusInformation.StatusCode
   nameWithType: HttpStatusInformation.StatusCode
+- uid: Sisk.Core.Http.HttpStatusInformation.SwitchProxy
+  name: SwitchProxy
+  href: api/Sisk.Core.Http.HttpStatusInformation.SwitchProxy.html#Sisk_Core_Http_HttpStatusInformation_SwitchProxy
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.SwitchProxy
+  fullName: Sisk.Core.Http.HttpStatusInformation.SwitchProxy
+  nameWithType: HttpStatusInformation.SwitchProxy
+- uid: Sisk.Core.Http.HttpStatusInformation.SwitchProxy*
+  name: SwitchProxy
+  href: api/Sisk.Core.Http.HttpStatusInformation.SwitchProxy.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.SwitchProxy
+  fullName: Sisk.Core.Http.HttpStatusInformation.SwitchProxy
+  nameWithType: HttpStatusInformation.SwitchProxy
+- uid: Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols
+  name: SwitchingProtocols
+  href: api/Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols.html#Sisk_Core_Http_HttpStatusInformation_SwitchingProtocols
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols
+  fullName: Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols
+  nameWithType: HttpStatusInformation.SwitchingProtocols
+- uid: Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols*
+  name: SwitchingProtocols
+  href: api/Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols
+  fullName: Sisk.Core.Http.HttpStatusInformation.SwitchingProtocols
+  nameWithType: HttpStatusInformation.SwitchingProtocols
+- uid: Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect
+  name: TemporaryRedirect
+  href: api/Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect.html#Sisk_Core_Http_HttpStatusInformation_TemporaryRedirect
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect
+  fullName: Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect
+  nameWithType: HttpStatusInformation.TemporaryRedirect
+- uid: Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect*
+  name: TemporaryRedirect
+  href: api/Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect
+  fullName: Sisk.Core.Http.HttpStatusInformation.TemporaryRedirect
+  nameWithType: HttpStatusInformation.TemporaryRedirect
 - uid: Sisk.Core.Http.HttpStatusInformation.ToString
   name: ToString()
   href: api/Sisk.Core.Http.HttpStatusInformation.ToString.html#Sisk_Core_Http_HttpStatusInformation_ToString
@@ -5932,6 +6574,114 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpStatusInformation.ToString
   fullName: Sisk.Core.Http.HttpStatusInformation.ToString
   nameWithType: HttpStatusInformation.ToString
+- uid: Sisk.Core.Http.HttpStatusInformation.TooManyRequests
+  name: TooManyRequests
+  href: api/Sisk.Core.Http.HttpStatusInformation.TooManyRequests.html#Sisk_Core_Http_HttpStatusInformation_TooManyRequests
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.TooManyRequests
+  fullName: Sisk.Core.Http.HttpStatusInformation.TooManyRequests
+  nameWithType: HttpStatusInformation.TooManyRequests
+- uid: Sisk.Core.Http.HttpStatusInformation.TooManyRequests*
+  name: TooManyRequests
+  href: api/Sisk.Core.Http.HttpStatusInformation.TooManyRequests.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.TooManyRequests
+  fullName: Sisk.Core.Http.HttpStatusInformation.TooManyRequests
+  nameWithType: HttpStatusInformation.TooManyRequests
+- uid: Sisk.Core.Http.HttpStatusInformation.Unauthorized
+  name: Unauthorized
+  href: api/Sisk.Core.Http.HttpStatusInformation.Unauthorized.html#Sisk_Core_Http_HttpStatusInformation_Unauthorized
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.Unauthorized
+  fullName: Sisk.Core.Http.HttpStatusInformation.Unauthorized
+  nameWithType: HttpStatusInformation.Unauthorized
+- uid: Sisk.Core.Http.HttpStatusInformation.Unauthorized*
+  name: Unauthorized
+  href: api/Sisk.Core.Http.HttpStatusInformation.Unauthorized.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.Unauthorized
+  fullName: Sisk.Core.Http.HttpStatusInformation.Unauthorized
+  nameWithType: HttpStatusInformation.Unauthorized
+- uid: Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons
+  name: UnavailableForLegalReasons
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons.html#Sisk_Core_Http_HttpStatusInformation_UnavailableForLegalReasons
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons
+  nameWithType: HttpStatusInformation.UnavailableForLegalReasons
+- uid: Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons*
+  name: UnavailableForLegalReasons
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnavailableForLegalReasons
+  nameWithType: HttpStatusInformation.UnavailableForLegalReasons
+- uid: Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity
+  name: UnprocessableEntity
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity.html#Sisk_Core_Http_HttpStatusInformation_UnprocessableEntity
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity
+  nameWithType: HttpStatusInformation.UnprocessableEntity
+- uid: Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity*
+  name: UnprocessableEntity
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnprocessableEntity
+  nameWithType: HttpStatusInformation.UnprocessableEntity
+- uid: Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType
+  name: UnsupportedMediaType
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType.html#Sisk_Core_Http_HttpStatusInformation_UnsupportedMediaType
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType
+  nameWithType: HttpStatusInformation.UnsupportedMediaType
+- uid: Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType*
+  name: UnsupportedMediaType
+  href: api/Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType
+  fullName: Sisk.Core.Http.HttpStatusInformation.UnsupportedMediaType
+  nameWithType: HttpStatusInformation.UnsupportedMediaType
+- uid: Sisk.Core.Http.HttpStatusInformation.UpgradeRequired
+  name: UpgradeRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.UpgradeRequired.html#Sisk_Core_Http_HttpStatusInformation_UpgradeRequired
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UpgradeRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.UpgradeRequired
+  nameWithType: HttpStatusInformation.UpgradeRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.UpgradeRequired*
+  name: UpgradeRequired
+  href: api/Sisk.Core.Http.HttpStatusInformation.UpgradeRequired.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UpgradeRequired
+  fullName: Sisk.Core.Http.HttpStatusInformation.UpgradeRequired
+  nameWithType: HttpStatusInformation.UpgradeRequired
+- uid: Sisk.Core.Http.HttpStatusInformation.UriTooLong
+  name: UriTooLong
+  href: api/Sisk.Core.Http.HttpStatusInformation.UriTooLong.html#Sisk_Core_Http_HttpStatusInformation_UriTooLong
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UriTooLong
+  fullName: Sisk.Core.Http.HttpStatusInformation.UriTooLong
+  nameWithType: HttpStatusInformation.UriTooLong
+- uid: Sisk.Core.Http.HttpStatusInformation.UriTooLong*
+  name: UriTooLong
+  href: api/Sisk.Core.Http.HttpStatusInformation.UriTooLong.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UriTooLong
+  fullName: Sisk.Core.Http.HttpStatusInformation.UriTooLong
+  nameWithType: HttpStatusInformation.UriTooLong
+- uid: Sisk.Core.Http.HttpStatusInformation.UseProxy
+  name: UseProxy
+  href: api/Sisk.Core.Http.HttpStatusInformation.UseProxy.html#Sisk_Core_Http_HttpStatusInformation_UseProxy
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.UseProxy
+  fullName: Sisk.Core.Http.HttpStatusInformation.UseProxy
+  nameWithType: HttpStatusInformation.UseProxy
+- uid: Sisk.Core.Http.HttpStatusInformation.UseProxy*
+  name: UseProxy
+  href: api/Sisk.Core.Http.HttpStatusInformation.UseProxy.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.UseProxy
+  fullName: Sisk.Core.Http.HttpStatusInformation.UseProxy
+  nameWithType: HttpStatusInformation.UseProxy
+- uid: Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates
+  name: VariantAlsoNegotiates
+  href: api/Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates.html#Sisk_Core_Http_HttpStatusInformation_VariantAlsoNegotiates
+  commentId: P:Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates
+  fullName: Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates
+  nameWithType: HttpStatusInformation.VariantAlsoNegotiates
+- uid: Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates*
+  name: VariantAlsoNegotiates
+  href: api/Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates.html
+  commentId: Overload:Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates
+  fullName: Sisk.Core.Http.HttpStatusInformation.VariantAlsoNegotiates
+  nameWithType: HttpStatusInformation.VariantAlsoNegotiates
 - uid: Sisk.Core.Http.ListeningHost
   name: ListeningHost
   href: api/Sisk.Core.Http.ListeningHost.html
@@ -5947,6 +6697,15 @@ references:
   fullName.vb: Sisk.Core.Http.ListeningHost.New()
   nameWithType: ListeningHost.ListeningHost()
   nameWithType.vb: ListeningHost.New()
+- uid: Sisk.Core.Http.ListeningHost.#ctor(Sisk.Core.Http.ListeningPort[])
+  name: ListeningHost(params ListeningPort[])
+  href: api/Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_Sisk_Core_Http_ListeningPort___
+  commentId: M:Sisk.Core.Http.ListeningHost.#ctor(Sisk.Core.Http.ListeningPort[])
+  name.vb: New(ParamArray ListeningPort())
+  fullName: Sisk.Core.Http.ListeningHost.ListeningHost(params Sisk.Core.Http.ListeningPort[])
+  fullName.vb: Sisk.Core.Http.ListeningHost.New(ParamArray Sisk.Core.Http.ListeningPort())
+  nameWithType: ListeningHost.ListeningHost(params ListeningPort[])
+  nameWithType.vb: ListeningHost.New(ParamArray ListeningPort())
 - uid: Sisk.Core.Http.ListeningHost.#ctor(System.String,Sisk.Core.Routing.Router)
   name: ListeningHost(string, Router)
   href: api/Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_System_String_Sisk_Core_Routing_Router_
@@ -6160,6 +6919,33 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHostRepository.GetEnumerator
   fullName: Sisk.Core.Http.ListeningHostRepository.GetEnumerator
   nameWithType: ListeningHostRepository.GetEnumerator
+- uid: Sisk.Core.Http.ListeningHostRepository.IndexOf(Sisk.Core.Http.ListeningHost)
+  name: IndexOf(ListeningHost)
+  href: api/Sisk.Core.Http.ListeningHostRepository.IndexOf.html#Sisk_Core_Http_ListeningHostRepository_IndexOf_Sisk_Core_Http_ListeningHost_
+  commentId: M:Sisk.Core.Http.ListeningHostRepository.IndexOf(Sisk.Core.Http.ListeningHost)
+  fullName: Sisk.Core.Http.ListeningHostRepository.IndexOf(Sisk.Core.Http.ListeningHost)
+  nameWithType: ListeningHostRepository.IndexOf(ListeningHost)
+- uid: Sisk.Core.Http.ListeningHostRepository.IndexOf*
+  name: IndexOf
+  href: api/Sisk.Core.Http.ListeningHostRepository.IndexOf.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostRepository.IndexOf
+  fullName: Sisk.Core.Http.ListeningHostRepository.IndexOf
+  nameWithType: ListeningHostRepository.IndexOf
+- uid: Sisk.Core.Http.ListeningHostRepository.Insert(System.Int32,Sisk.Core.Http.ListeningHost)
+  name: Insert(int, ListeningHost)
+  href: api/Sisk.Core.Http.ListeningHostRepository.Insert.html#Sisk_Core_Http_ListeningHostRepository_Insert_System_Int32_Sisk_Core_Http_ListeningHost_
+  commentId: M:Sisk.Core.Http.ListeningHostRepository.Insert(System.Int32,Sisk.Core.Http.ListeningHost)
+  name.vb: Insert(Integer, ListeningHost)
+  fullName: Sisk.Core.Http.ListeningHostRepository.Insert(int, Sisk.Core.Http.ListeningHost)
+  fullName.vb: Sisk.Core.Http.ListeningHostRepository.Insert(Integer, Sisk.Core.Http.ListeningHost)
+  nameWithType: ListeningHostRepository.Insert(int, ListeningHost)
+  nameWithType.vb: ListeningHostRepository.Insert(Integer, ListeningHost)
+- uid: Sisk.Core.Http.ListeningHostRepository.Insert*
+  name: Insert
+  href: api/Sisk.Core.Http.ListeningHostRepository.Insert.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostRepository.Insert
+  fullName: Sisk.Core.Http.ListeningHostRepository.Insert
+  nameWithType: ListeningHostRepository.Insert
 - uid: Sisk.Core.Http.ListeningHostRepository.IsReadOnly
   name: IsReadOnly
   href: api/Sisk.Core.Http.ListeningHostRepository.IsReadOnly.html#Sisk_Core_Http_ListeningHostRepository_IsReadOnly
@@ -6202,6 +6988,21 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHostRepository.Remove
   fullName: Sisk.Core.Http.ListeningHostRepository.Remove
   nameWithType: ListeningHostRepository.Remove
+- uid: Sisk.Core.Http.ListeningHostRepository.RemoveAt(System.Int32)
+  name: RemoveAt(int)
+  href: api/Sisk.Core.Http.ListeningHostRepository.RemoveAt.html#Sisk_Core_Http_ListeningHostRepository_RemoveAt_System_Int32_
+  commentId: M:Sisk.Core.Http.ListeningHostRepository.RemoveAt(System.Int32)
+  name.vb: RemoveAt(Integer)
+  fullName: Sisk.Core.Http.ListeningHostRepository.RemoveAt(int)
+  fullName.vb: Sisk.Core.Http.ListeningHostRepository.RemoveAt(Integer)
+  nameWithType: ListeningHostRepository.RemoveAt(int)
+  nameWithType.vb: ListeningHostRepository.RemoveAt(Integer)
+- uid: Sisk.Core.Http.ListeningHostRepository.RemoveAt*
+  name: RemoveAt
+  href: api/Sisk.Core.Http.ListeningHostRepository.RemoveAt.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostRepository.RemoveAt
+  fullName: Sisk.Core.Http.ListeningHostRepository.RemoveAt
+  nameWithType: ListeningHostRepository.RemoveAt
 - uid: Sisk.Core.Http.ListeningPort
   name: ListeningPort
   href: api/Sisk.Core.Http.ListeningPort.html
@@ -6226,6 +7027,15 @@ references:
   fullName.vb: Sisk.Core.Http.ListeningPort.New(Boolean, String, UShort)
   nameWithType: ListeningPort.ListeningPort(bool, string, ushort)
   nameWithType.vb: ListeningPort.New(Boolean, String, UShort)
+- uid: Sisk.Core.Http.ListeningPort.#ctor(System.Boolean,System.String,System.UInt16,System.String)
+  name: ListeningPort(bool, string, ushort, string)
+  href: api/Sisk.Core.Http.ListeningPort.-ctor.html#Sisk_Core_Http_ListeningPort__ctor_System_Boolean_System_String_System_UInt16_System_String_
+  commentId: M:Sisk.Core.Http.ListeningPort.#ctor(System.Boolean,System.String,System.UInt16,System.String)
+  name.vb: New(Boolean, String, UShort, String)
+  fullName: Sisk.Core.Http.ListeningPort.ListeningPort(bool, string, ushort, string)
+  fullName.vb: Sisk.Core.Http.ListeningPort.New(Boolean, String, UShort, String)
+  nameWithType: ListeningPort.ListeningPort(bool, string, ushort, string)
+  nameWithType.vb: ListeningPort.New(Boolean, String, UShort, String)
 - uid: Sisk.Core.Http.ListeningPort.#ctor(System.String)
   name: ListeningPort(string)
   href: api/Sisk.Core.Http.ListeningPort.-ctor.html#Sisk_Core_Http_ListeningPort__ctor_System_String_
@@ -6334,6 +7144,18 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningPort.Parse
   fullName: Sisk.Core.Http.ListeningPort.Parse
   nameWithType: ListeningPort.Parse
+- uid: Sisk.Core.Http.ListeningPort.Path
+  name: Path
+  href: api/Sisk.Core.Http.ListeningPort.Path.html#Sisk_Core_Http_ListeningPort_Path
+  commentId: P:Sisk.Core.Http.ListeningPort.Path
+  fullName: Sisk.Core.Http.ListeningPort.Path
+  nameWithType: ListeningPort.Path
+- uid: Sisk.Core.Http.ListeningPort.Path*
+  name: Path
+  href: api/Sisk.Core.Http.ListeningPort.Path.html
+  commentId: Overload:Sisk.Core.Http.ListeningPort.Path
+  fullName: Sisk.Core.Http.ListeningPort.Path
+  nameWithType: ListeningPort.Path
 - uid: Sisk.Core.Http.ListeningPort.Port
   name: Port
   href: api/Sisk.Core.Http.ListeningPort.Port.html#Sisk_Core_Http_ListeningPort_Port
@@ -6364,6 +7186,15 @@ references:
   commentId: M:Sisk.Core.Http.ListeningPort.ToString
   fullName: Sisk.Core.Http.ListeningPort.ToString()
   nameWithType: ListeningPort.ToString()
+- uid: Sisk.Core.Http.ListeningPort.ToString(System.Boolean)
+  name: ToString(bool)
+  href: api/Sisk.Core.Http.ListeningPort.ToString.html#Sisk_Core_Http_ListeningPort_ToString_System_Boolean_
+  commentId: M:Sisk.Core.Http.ListeningPort.ToString(System.Boolean)
+  name.vb: ToString(Boolean)
+  fullName: Sisk.Core.Http.ListeningPort.ToString(bool)
+  fullName.vb: Sisk.Core.Http.ListeningPort.ToString(Boolean)
+  nameWithType: ListeningPort.ToString(bool)
+  nameWithType.vb: ListeningPort.ToString(Boolean)
 - uid: Sisk.Core.Http.ListeningPort.ToString*
   name: ToString
   href: api/Sisk.Core.Http.ListeningPort.ToString.html
@@ -8728,6 +9559,42 @@ references:
   commentId: Overload:Sisk.Core.Routing.Route.BypassGlobalRequestHandlers
   fullName: Sisk.Core.Routing.Route.BypassGlobalRequestHandlers
   nameWithType: Route.BypassGlobalRequestHandlers
+- uid: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
+  name: Equals(Route?)
+  href: api/Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_
+  commentId: M:Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
+  name.vb: Equals(Route)
+  fullName: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route?)
+  fullName.vb: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
+  nameWithType: Route.Equals(Route?)
+  nameWithType.vb: Route.Equals(Route)
+- uid: Sisk.Core.Routing.Route.Equals(System.Object)
+  name: Equals(object?)
+  href: api/Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_System_Object_
+  commentId: M:Sisk.Core.Routing.Route.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: Sisk.Core.Routing.Route.Equals(object?)
+  fullName.vb: Sisk.Core.Routing.Route.Equals(Object)
+  nameWithType: Route.Equals(object?)
+  nameWithType.vb: Route.Equals(Object)
+- uid: Sisk.Core.Routing.Route.Equals*
+  name: Equals
+  href: api/Sisk.Core.Routing.Route.Equals.html
+  commentId: Overload:Sisk.Core.Routing.Route.Equals
+  fullName: Sisk.Core.Routing.Route.Equals
+  nameWithType: Route.Equals
+- uid: Sisk.Core.Routing.Route.GetHashCode
+  name: GetHashCode()
+  href: api/Sisk.Core.Routing.Route.GetHashCode.html#Sisk_Core_Routing_Route_GetHashCode
+  commentId: M:Sisk.Core.Routing.Route.GetHashCode
+  fullName: Sisk.Core.Routing.Route.GetHashCode()
+  nameWithType: Route.GetHashCode()
+- uid: Sisk.Core.Routing.Route.GetHashCode*
+  name: GetHashCode
+  href: api/Sisk.Core.Routing.Route.GetHashCode.html
+  commentId: Overload:Sisk.Core.Routing.Route.GetHashCode
+  fullName: Sisk.Core.Routing.Route.GetHashCode
+  nameWithType: Route.GetHashCode
 - uid: Sisk.Core.Routing.Route.IsAsync
   name: IsAsync
   href: api/Sisk.Core.Routing.Route.IsAsync.html#Sisk_Core_Routing_Route_IsAsync
@@ -8836,6 +9703,42 @@ references:
   commentId: Overload:Sisk.Core.Routing.Route.UseRegex
   fullName: Sisk.Core.Routing.Route.UseRegex
   nameWithType: Route.UseRegex
+- uid: Sisk.Core.Routing.Route.op_Equality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
+  name: operator ==(Route?, Route?)
+  href: api/Sisk.Core.Routing.Route.op_Equality.html#Sisk_Core_Routing_Route_op_Equality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_
+  commentId: M:Sisk.Core.Routing.Route.op_Equality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
+  name.vb: =(Route, Route)
+  fullName: Sisk.Core.Routing.Route.operator ==(Sisk.Core.Routing.Route?, Sisk.Core.Routing.Route?)
+  fullName.vb: Sisk.Core.Routing.Route.=(Sisk.Core.Routing.Route, Sisk.Core.Routing.Route)
+  nameWithType: Route.operator ==(Route?, Route?)
+  nameWithType.vb: Route.=(Route, Route)
+- uid: Sisk.Core.Routing.Route.op_Equality*
+  name: operator ==
+  href: api/Sisk.Core.Routing.Route.op_Equality.html
+  commentId: Overload:Sisk.Core.Routing.Route.op_Equality
+  name.vb: =
+  fullName: Sisk.Core.Routing.Route.operator ==
+  fullName.vb: Sisk.Core.Routing.Route.=
+  nameWithType: Route.operator ==
+  nameWithType.vb: Route.=
+- uid: Sisk.Core.Routing.Route.op_Inequality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
+  name: operator !=(Route?, Route?)
+  href: api/Sisk.Core.Routing.Route.op_Inequality.html#Sisk_Core_Routing_Route_op_Inequality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_
+  commentId: M:Sisk.Core.Routing.Route.op_Inequality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
+  name.vb: <>(Route, Route)
+  fullName: Sisk.Core.Routing.Route.operator !=(Sisk.Core.Routing.Route?, Sisk.Core.Routing.Route?)
+  fullName.vb: Sisk.Core.Routing.Route.<>(Sisk.Core.Routing.Route, Sisk.Core.Routing.Route)
+  nameWithType: Route.operator !=(Route?, Route?)
+  nameWithType.vb: Route.<>(Route, Route)
+- uid: Sisk.Core.Routing.Route.op_Inequality*
+  name: operator !=
+  href: api/Sisk.Core.Routing.Route.op_Inequality.html
+  commentId: Overload:Sisk.Core.Routing.Route.op_Inequality
+  name.vb: <>
+  fullName: Sisk.Core.Routing.Route.operator !=
+  fullName.vb: Sisk.Core.Routing.Route.<>
+  nameWithType: Route.operator !=
+  nameWithType.vb: Route.<>
 - uid: Sisk.Core.Routing.RouteAction
   name: RouteAction
   href: api/Sisk.Core.Routing.RouteAction.html
@@ -9274,15 +10177,12 @@ references:
   fullName.vb: Sisk.Core.Routing.Router.New
   nameWithType: Router.Router
   nameWithType.vb: Router.New
-- uid: Sisk.Core.Routing.Router.AutoScanModules(System.Type,System.Reflection.Assembly,System.Boolean)
-  name: AutoScanModules(Type, Assembly, bool)
-  href: api/Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules_System_Type_System_Reflection_Assembly_System_Boolean_
-  commentId: M:Sisk.Core.Routing.Router.AutoScanModules(System.Type,System.Reflection.Assembly,System.Boolean)
-  name.vb: AutoScanModules(Type, Assembly, Boolean)
-  fullName: Sisk.Core.Routing.Router.AutoScanModules(System.Type, System.Reflection.Assembly, bool)
-  fullName.vb: Sisk.Core.Routing.Router.AutoScanModules(System.Type, System.Reflection.Assembly, Boolean)
-  nameWithType: Router.AutoScanModules(Type, Assembly, bool)
-  nameWithType.vb: Router.AutoScanModules(Type, Assembly, Boolean)
+- uid: Sisk.Core.Routing.Router.AutoScanModules(System.Type,System.Reflection.Assembly)
+  name: AutoScanModules(Type, Assembly)
+  href: api/Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules_System_Type_System_Reflection_Assembly_
+  commentId: M:Sisk.Core.Routing.Router.AutoScanModules(System.Type,System.Reflection.Assembly)
+  fullName: Sisk.Core.Routing.Router.AutoScanModules(System.Type, System.Reflection.Assembly)
+  nameWithType: Router.AutoScanModules(Type, Assembly)
 - uid: Sisk.Core.Routing.Router.AutoScanModules*
   name: AutoScanModules
   href: api/Sisk.Core.Routing.Router.AutoScanModules.html
@@ -9298,15 +10198,15 @@ references:
   fullName.vb: Sisk.Core.Routing.Router.AutoScanModules(Of TModule)()
   nameWithType: Router.AutoScanModules<TModule>()
   nameWithType.vb: Router.AutoScanModules(Of TModule)()
-- uid: Sisk.Core.Routing.Router.AutoScanModules``1(System.Reflection.Assembly,System.Boolean)
-  name: AutoScanModules<TModule>(Assembly, bool)
-  href: api/Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1_System_Reflection_Assembly_System_Boolean_
-  commentId: M:Sisk.Core.Routing.Router.AutoScanModules``1(System.Reflection.Assembly,System.Boolean)
-  name.vb: AutoScanModules(Of TModule)(Assembly, Boolean)
-  fullName: Sisk.Core.Routing.Router.AutoScanModules<TModule>(System.Reflection.Assembly, bool)
-  fullName.vb: Sisk.Core.Routing.Router.AutoScanModules(Of TModule)(System.Reflection.Assembly, Boolean)
-  nameWithType: Router.AutoScanModules<TModule>(Assembly, bool)
-  nameWithType.vb: Router.AutoScanModules(Of TModule)(Assembly, Boolean)
+- uid: Sisk.Core.Routing.Router.AutoScanModules``1(System.Reflection.Assembly)
+  name: AutoScanModules<TModule>(Assembly)
+  href: api/Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1_System_Reflection_Assembly_
+  commentId: M:Sisk.Core.Routing.Router.AutoScanModules``1(System.Reflection.Assembly)
+  name.vb: AutoScanModules(Of TModule)(Assembly)
+  fullName: Sisk.Core.Routing.Router.AutoScanModules<TModule>(System.Reflection.Assembly)
+  fullName.vb: Sisk.Core.Routing.Router.AutoScanModules(Of TModule)(System.Reflection.Assembly)
+  nameWithType: Router.AutoScanModules<TModule>(Assembly)
+  nameWithType.vb: Router.AutoScanModules(Of TModule)(Assembly)
 - uid: Sisk.Core.Routing.Router.CallbackErrorHandler
   name: CallbackErrorHandler
   href: api/Sisk.Core.Routing.Router.CallbackErrorHandler.html#Sisk_Core_Routing_Router_CallbackErrorHandler
@@ -9535,6 +10435,18 @@ references:
   commentId: Overload:Sisk.Core.Routing.Router.NotFoundErrorHandler
   fullName: Sisk.Core.Routing.Router.NotFoundErrorHandler
   nameWithType: Router.NotFoundErrorHandler
+- uid: Sisk.Core.Routing.Router.Prefix
+  name: Prefix
+  href: api/Sisk.Core.Routing.Router.Prefix.html#Sisk_Core_Routing_Router_Prefix
+  commentId: P:Sisk.Core.Routing.Router.Prefix
+  fullName: Sisk.Core.Routing.Router.Prefix
+  nameWithType: Router.Prefix
+- uid: Sisk.Core.Routing.Router.Prefix*
+  name: Prefix
+  href: api/Sisk.Core.Routing.Router.Prefix.html
+  commentId: Overload:Sisk.Core.Routing.Router.Prefix
+  fullName: Sisk.Core.Routing.Router.Prefix
+  nameWithType: Router.Prefix
 - uid: Sisk.Core.Routing.Router.RegisterValueHandler*
   name: RegisterValueHandler
   href: api/Sisk.Core.Routing.Router.RegisterValueHandler.html

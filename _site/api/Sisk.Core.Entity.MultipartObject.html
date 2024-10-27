@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -177,7 +177,7 @@ Class MultipartObject
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class MultipartObject</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class MultipartObject : IEquatable&lt;MultipartObject&gt;</code></pre>
   </div>
 
 
@@ -191,6 +191,12 @@ Class MultipartObject
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.Core.Entity.MultipartObject.html">MultipartObject</a>&gt;</div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -203,16 +209,10 @@ Class MultipartObject
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </dd></dl>
 
@@ -259,9 +259,21 @@ nothing is returned.</p>
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.Equals.html#Sisk_Core_Entity_MultipartObject_Equals_Sisk_Core_Entity_MultipartObject_">Equals(MultipartObject?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.Equals.html#Sisk_Core_Entity_MultipartObject_Equals_System_Object_">Equals(object?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.GetCommonFileFormat.html#Sisk_Core_Entity_MultipartObject_GetCommonFileFormat">GetCommonFileFormat()</a></dt>
     <dd><p>Determines the image format based in the file header for each image content type.</p>
 </dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.GetHashCode.html#Sisk_Core_Entity_MultipartObject_GetHashCode">GetHashCode()</a></dt>
+    <dd></dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.ReadContentAsString.html#Sisk_Core_Entity_MultipartObject_ReadContentAsString">ReadContentAsString()</a></dt>

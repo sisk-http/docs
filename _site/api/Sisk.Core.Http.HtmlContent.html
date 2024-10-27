@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -312,21 +312,12 @@ Class HtmlContent
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HtmlContent.-ctor.html#Sisk_Core_Http_HtmlContent__ctor_System_String_">HtmlContent(string)</a></dt>
-    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HtmlContent.html">HtmlContent</a> class with given HTML content, using the <a class="xref" href="Sisk.Core.Http.HtmlContent.DefaultEncoding.html#Sisk_Core_Http_HtmlContent_DefaultEncoding">DefaultEncoding</a> encoding.</p>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HtmlContent.html">HtmlContent</a> class with given HTML content, using the environment default encoding.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HtmlContent.-ctor.html#Sisk_Core_Http_HtmlContent__ctor_System_String_System_Text_Encoding_">HtmlContent(string, Encoding)</a></dt>
     <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.HtmlContent.html">HtmlContent</a> class with given HTML content and encoding.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HtmlContent.DefaultEncoding.html#Sisk_Core_Http_HtmlContent_DefaultEncoding">DefaultEncoding</a></dt>
-    <dd><p>Gets or sets the default encoding which will be used on constructors.</p>
 </dd>
   </dl>
 

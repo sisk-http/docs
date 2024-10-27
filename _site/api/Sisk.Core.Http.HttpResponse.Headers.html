@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -199,12 +199,12 @@ Property Headers
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets a <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> instance of the HTTP response headers.</p>
+<div class="markdown level1 summary"><p>Gets or sets the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> instance of the HTTP response headers.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public HttpHeaderCollection Headers { get; }</code></pre>
+  <pre><code class="lang-csharp hljs">public HttpHeaderCollection Headers { get; set; }</code></pre>
 </div>
 
 

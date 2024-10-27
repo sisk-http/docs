@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -199,7 +199,8 @@ Property RouterResponse
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets or sets the HTTP response for this context. This property is only not null when a post-executing <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> was executed for this router context.</p>
+<div class="markdown level1 summary"><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> for this context. This property acessible when a post-executing
+<a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> was executed for this router context.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 

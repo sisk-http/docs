@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -177,7 +177,7 @@ Class ValueResult&lt;T&gt;
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class ValueResult&lt;T&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class ValueResult&lt;T&gt; where T : notnull</code></pre>
   </div>
 
 

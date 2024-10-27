@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -215,7 +215,8 @@ receiving request contents.</p>
     <dd><p>Represents that the request was closed by the HTTP server and executed by a router and its response was succesfully delivered.</p>
 </dd>
     <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ListeningHostNotReady"><code>ListeningHostNotReady = 9</code></dt>
-    <dd><p>Indicates that the DNS was successful, however the matched <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> does not have an valid initialized router .</p>
+    <dd><p>Indicates that the DNS was successful, however the matched <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> does
+not have an valid initialized router.</p>
 </dd>
     <dt id="Sisk_Core_Http_HttpServerExecutionStatus_MalformedRequest"><code>MalformedRequest = 10</code></dt>
     <dd><p>Indicates that the server cannot or will not process the request due to something that is perceived to be a client error.</p>

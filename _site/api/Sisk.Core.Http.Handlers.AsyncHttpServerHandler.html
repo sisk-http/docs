@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -237,7 +237,7 @@ Class AsyncHttpServerHandler
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnContextBagCreated.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnContextBagCreated_Sisk_Core_Entity_TypedValueDictionary_">OnContextBagCreated(TypedValueDictionary)</a></dt>
-    <dd><p>Method that is called when an HTTP context is created within an
+    <dd><p>Event that is called when an HTTP context is created within an
 <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
 </dd>
   </dl>
@@ -249,7 +249,7 @@ Class AsyncHttpServerHandler
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnException.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnException_System_Exception_">OnException(Exception)</a></dt>
-    <dd><p>Method that is called when an exception is caught in the HTTP server. This method is called
+    <dd><p>Event that is called when an exception is caught in the HTTP server. This method is called
 regardless of whether <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions">ThrowExceptions</a> is enabled or not.</p>
 </dd>
   </dl>
@@ -261,7 +261,7 @@ regardless of whether <a class="xref" href="Sisk.Core.Http.HttpServerConfigurati
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestClose.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestClose_Sisk_Core_Http_HttpServerExecutionResult_">OnHttpRequestClose(HttpServerExecutionResult)</a></dt>
-    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
+    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
 HTTP server.</p>
 </dd>
   </dl>
@@ -273,7 +273,7 @@ HTTP server.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnHttpRequestOpen.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnHttpRequestOpen_Sisk_Core_Http_HttpRequest_">OnHttpRequestOpen(HttpRequest)</a></dt>
-    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
+    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
 HTTP server.</p>
 </dd>
   </dl>
@@ -285,7 +285,7 @@ HTTP server.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStarted.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStarted_Sisk_Core_Http_HttpServer_">OnServerStarted(HttpServer)</a></dt>
-    <dd><p>Method that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
+    <dd><p>Event that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
 ready and listening.</p>
 </dd>
   </dl>
@@ -297,7 +297,7 @@ ready and listening.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStarting.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStarting_Sisk_Core_Http_HttpServer_">OnServerStarting(HttpServer)</a></dt>
-    <dd><p>Method that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+    <dd><p>Event that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -307,7 +307,7 @@ ready and listening.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStopped.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStopped_Sisk_Core_Http_HttpServer_">OnServerStopped(HttpServer)</a></dt>
-    <dd><p>Method that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
+    <dd><p>Event that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
 it has stopped from listening to requests.</p>
 </dd>
   </dl>
@@ -319,7 +319,7 @@ it has stopped from listening to requests.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnServerStopping.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnServerStopping_Sisk_Core_Http_HttpServer_">OnServerStopping(HttpServer)</a></dt>
-    <dd><p>Method that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
+    <dd><p>Event that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
 stopping from listening requests.</p>
 </dd>
   </dl>
@@ -331,7 +331,7 @@ stopping from listening requests.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.OnSetupRouter.html#Sisk_Core_Http_Handlers_AsyncHttpServerHandler_OnSetupRouter_Sisk_Core_Routing_Router_">OnSetupRouter(Router)</a></dt>
-    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
+    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
 </dd>
   </dl>
   <dl class="jumplist">

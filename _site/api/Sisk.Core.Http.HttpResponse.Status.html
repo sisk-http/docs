@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -199,12 +199,12 @@ Property Status
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets or sets the HTTP response status code.</p>
+<div class="markdown level1 summary"><p>Gets or sets the HTTP status code and description for this HTTP response.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public HttpStatusCode Status { get; set; }</code></pre>
+  <pre><code class="lang-csharp hljs">public HttpStatusInformation Status { get; set; }</code></pre>
 </div>
 
 
@@ -213,7 +213,7 @@ Property Status
 
 <h4 class="section">Property Value</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode">HttpStatusCode</a></dt>
+  <dt><a class="xref" href="Sisk.Core.Http.HttpStatusInformation.html">HttpStatusInformation</a></dt>
   <dd></dd>
 </dl>
 

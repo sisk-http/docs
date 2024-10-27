@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -299,6 +299,11 @@ an AOT assembly.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpServer.CreateBuilder.html#Sisk_Core_Http_HttpServer_CreateBuilder_System_String_">CreateBuilder(string)</a></dt>
+    <dd><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening host string.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServer.CreateBuilder.html#Sisk_Core_Http_HttpServer_CreateBuilder_System_UInt16_">CreateBuilder(ushort)</a></dt>
     <dd><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening port.</p>
 </dd>
@@ -320,7 +325,8 @@ an AOT assembly.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServer.Dispose.html#Sisk_Core_Http_HttpServer_Dispose">Dispose()</a></dt>
-    <dd><p>Invalidates this class and releases the resources used by it, and permanently closes the HTTP server.</p>
+    <dd><p>Invalidates this class and releases the resources used by it, and
+permanently closes the HTTP server.</p>
 </dd>
   </dl>
   <dl class="jumplist">

@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -206,7 +206,7 @@ be overloaded in the extending class and must not be called directly.</p>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public virtual void OnRouteCreating(Route configuringRoute)</code></pre>
+  <pre><code class="lang-csharp hljs">protected virtual void OnRouteCreating(Route configuringRoute)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>

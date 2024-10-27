@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -239,6 +239,11 @@ Class HttpResponseExtensions
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithContent.html#Sisk_Core_Http_HttpResponseExtensions_WithContent__1___0_System_String_System_Text_Encoding_System_String_">WithContent&lt;THttpResponse&gt;(THttpResponse, string, Encoding?, string)</a></dt>
     <dd><p>Sets an string as the HTTP response content in this <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_Net_Cookie_">WithCookie&lt;THttpResponse&gt;(THttpResponse, Cookie)</a></dt>
+    <dd><p>Sets a cookie and sends it in the response to be set by the client.</p>
 </dd>
   </dl>
   <dl class="jumplist">

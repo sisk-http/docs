@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -298,17 +298,6 @@ with the HTTP server.</p>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.html#Sisk_Core_Http_HttpServerConfiguration_RemoteRequestsAction">RemoteRequestsAction</a></dt>
     <dd><p>Gets or sets the server's action when it receives an HTTP request outside the localhost.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginAddress.html#Sisk_Core_Http_HttpServerConfiguration_ResolveForwardedOriginAddress">ResolveForwardedOriginAddress</a></dt>
-    <dd><p>Gets or sets whether the HTTP server should resolve remote (IP) addresses by the X-Forwarded-For header. This option is useful if you are using
-Sisk through a reverse proxy or load balancer.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ResolveForwardedOriginHost.html#Sisk_Core_Http_HttpServerConfiguration_ResolveForwardedOriginHost">ResolveForwardedOriginHost</a></dt>
-    <dd><p>Gets or sets whether the HTTP server should resolve remote forwarded hosts by the header X-Forwarded-Host.</p>
 </dd>
   </dl>
   <dl class="jumplist">

@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -225,7 +225,7 @@ Class HttpContext
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.HttpServer.html#Sisk_Core_Http_HttpContext_HttpServer">HttpServer</a></dt>
-    <dd><p>Gets the context HTTP Server instance.</p>
+    <dd><p>Gets the context <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> instance.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -235,7 +235,7 @@ Class HttpContext
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.MatchedRoute.html#Sisk_Core_Http_HttpContext_MatchedRoute">MatchedRoute</a></dt>
-    <dd><p>Gets the matched HTTP Route object from the Router.</p>
+    <dd><p>Gets the matched <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> for this context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -246,7 +246,7 @@ will overwrite headers set by CORS, router response or request handlers.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.Request.html#Sisk_Core_Http_HttpContext_Request">Request</a></dt>
-    <dd><p>Gets the HTTP request which is contained in this HTTP context.</p>
+    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> which is contained in this HTTP context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -262,7 +262,8 @@ created.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.RouterResponse.html#Sisk_Core_Http_HttpContext_RouterResponse">RouterResponse</a></dt>
-    <dd><p>Gets or sets the HTTP response for this context. This property is only not null when a post-executing <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> was executed for this router context.</p>
+    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> for this context. This property acessible when a post-executing
+<a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> was executed for this router context.</p>
 </dd>
   </dl>
 

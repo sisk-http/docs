@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -177,7 +177,7 @@ Class ListeningHostRepository
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class ListeningHostRepository : ICollection&lt;ListeningHost&gt;, IEnumerable&lt;ListeningHost&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class ListeningHostRepository : IList&lt;ListeningHost&gt;, ICollection&lt;ListeningHost&gt;, IEnumerable&lt;ListeningHost&gt;, IEnumerable</code></pre>
   </div>
 
 
@@ -194,6 +194,7 @@ Class ListeningHostRepository
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
@@ -257,8 +258,7 @@ Class ListeningHostRepository
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Item.html#Sisk_Core_Http_ListeningHostRepository_Item_System_Int32_">this[int]</a></dt>
-    <dd><p>Gets or sets a listening host through its index.</p>
-</dd>
+    <dd></dd>
   </dl>
 
   <h2 class="section" id="methods">Methods
@@ -290,9 +290,21 @@ Class ListeningHostRepository
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.IndexOf.html#Sisk_Core_Http_ListeningHostRepository_IndexOf_Sisk_Core_Http_ListeningHost_">IndexOf(ListeningHost)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Insert.html#Sisk_Core_Http_ListeningHostRepository_Insert_System_Int32_Sisk_Core_Http_ListeningHost_">Insert(int, ListeningHost)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Remove.html#Sisk_Core_Http_ListeningHostRepository_Remove_Sisk_Core_Http_ListeningHost_">Remove(ListeningHost)</a></dt>
     <dd><p>Try to remove a <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> from this repository. If the item is removed, this methods returns <code>true</code>.</p>
 </dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.RemoveAt.html#Sisk_Core_Http_ListeningHostRepository_RemoveAt_System_Int32_">RemoveAt(int)</a></dt>
+    <dd></dd>
   </dl>
 
 

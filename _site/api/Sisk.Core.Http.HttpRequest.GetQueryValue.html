@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -204,7 +204,8 @@ Method GetQueryValue
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public string? GetQueryValue(string queryKeyName)</code></pre>
+  <pre><code class="lang-csharp hljs">[Obsolete(&quot;This method is deprecated and will be removed in later Sisk versions. Please, use the Query property instead.&quot;)]
+public string? GetQueryValue(string queryKeyName)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -232,8 +233,8 @@ Method GetQueryValue
 
 <a id="Sisk_Core_Http_HttpRequest_GetQueryValue_" data-uid="Sisk.Core.Http.HttpRequest.GetQueryValue*"></a>
 
-<h3 id="Sisk_Core_Http_HttpRequest_GetQueryValue__1_System_String___0_" data-uid="Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String,``0)">
-  GetQueryValue&lt;T&gt;(string, T)
+<h3 id="Sisk_Core_Http_HttpRequest_GetQueryValue__1_System_String_" data-uid="Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String)">
+  GetQueryValue&lt;T&gt;(string)
   
 </h3>
 
@@ -242,16 +243,14 @@ Method GetQueryValue
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public T GetQueryValue&lt;T&gt;(string queryKeyName, T defaultValue = default) where T : struct</code></pre>
+  <pre><code class="lang-csharp hljs">[Obsolete(&quot;This method is deprecated and will be removed in later Sisk versions. Please, use the Query property instead.&quot;)]
+public T GetQueryValue&lt;T&gt;(string queryKeyName) where T : IParsable&lt;T&gt;</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>queryKeyName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd><p>The name of the URL parameter. The search is ignore-case.</p>
-</dd>
-  <dt><code>defaultValue</code> <span class="xref">T</span></dt>
-  <dd><p>The default value that will be returned if the item is not found in the query.</p>
 </dd>
 </dl>
 

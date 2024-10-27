@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class Route | Sisk Framework ">
 
-        <meta name="description" content="Represents an HTTP route to be matched by an  object.">
+        <meta name="description" content="Represents an HTTP route to be matched by an .">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -172,12 +172,12 @@ Class Route
   <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Represents an HTTP route to be matched by an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> object.</p>
+  <div class="markdown summary"><p>Represents an HTTP route to be matched by an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a>.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Route</code></pre>
+    <pre><code class="lang-csharp hljs">public class Route : IEquatable&lt;Route&gt;</code></pre>
   </div>
 
 
@@ -191,6 +191,12 @@ Class Route
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.Core.Routing.Route.html">Route</a>&gt;</div>
+    </dd>
+  </dl>
 
   <dl class="typelist derived">
     <dt>Derived</dt>
@@ -209,16 +215,10 @@ Class Route
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </dd></dl>
 
@@ -285,12 +285,12 @@ for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.Method.html#Sisk_Core_Routing_Route_Method">Method</a></dt>
-    <dd><p>Gets or sets the matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
+    <dd><p>Gets or sets the matching HTTP method.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.Name.html#Sisk_Core_Routing_Route_Name">Name</a></dt>
-    <dd><p>Gets or sets the route name. It allows it to be found by other routes and makes it easier to create links.</p>
+    <dd><p>Gets or sets the route name.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -318,9 +318,33 @@ for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_">Equals(Route?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_System_Object_">Equals(object?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.GetHashCode.html#Sisk_Core_Routing_Route_GetHashCode">GetHashCode()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">ToString()</a></dt>
     <dd><p>Gets an string notation for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
 </dd>
+  </dl>
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.op_Equality.html#Sisk_Core_Routing_Route_op_Equality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_">operator ==(Route?, Route?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.op_Inequality.html#Sisk_Core_Routing_Route_op_Inequality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_">operator !=(Route?, Route?)</a></dt>
+    <dd></dd>
   </dl>
 
 

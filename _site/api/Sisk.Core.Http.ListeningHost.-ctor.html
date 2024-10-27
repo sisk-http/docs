@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -207,6 +207,39 @@ Constructor ListeningHost
   <pre><code class="lang-csharp hljs">public ListeningHost()</code></pre>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_ListeningHost__ctor_" data-uid="Sisk.Core.Http.ListeningHost.#ctor*"></a>
+
+<h3 id="Sisk_Core_Http_ListeningHost__ctor_Sisk_Core_Http_ListeningPort___" data-uid="Sisk.Core.Http.ListeningHost.#ctor(Sisk.Core.Http.ListeningPort[])">
+  ListeningHost(params ListeningPort[])
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance with given array of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public ListeningHost(params ListeningPort[] ports)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>ports</code> <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>[]</dt>
+  <dd><p>The array of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> to listen in the <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>.</p>
+</dd>
+</dl>
 
 
 

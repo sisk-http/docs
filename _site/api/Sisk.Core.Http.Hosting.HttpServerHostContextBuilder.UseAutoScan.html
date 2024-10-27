@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -194,8 +194,8 @@ Method UseAutoScan
 
 <a id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan*"></a>
 
-<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Boolean_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Boolean)">
-  UseAutoScan&lt;TModule&gt;(bool)
+<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1">
+  UseAutoScan&lt;TModule&gt;()
   
 </h3>
 
@@ -204,15 +204,9 @@ Method UseAutoScan
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseAutoScan&lt;TModule&gt;(bool activateInstances = true) where TModule : RouterModule</code></pre>
+  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseAutoScan&lt;TModule&gt;() where TModule : RouterModule</code></pre>
 </div>
 
-<h4 class="section">Parameters</h4>
-<dl class="parameters">
-  <dt><code>activateInstances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd><p>Optional. Determines whether found types should be defined as instances or static members.</p>
-</dd>
-</dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
@@ -238,8 +232,8 @@ Method UseAutoScan
 
 <a id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan*"></a>
 
-<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_System_Boolean_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly,System.Boolean)">
-  UseAutoScan&lt;TModule&gt;(Assembly, bool)
+<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan``1(System.Reflection.Assembly)">
+  UseAutoScan&lt;TModule&gt;(Assembly)
   
 </h3>
 
@@ -248,16 +242,13 @@ Method UseAutoScan
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseAutoScan&lt;TModule&gt;(Assembly t, bool activateInstances = true) where TModule : RouterModule</code></pre>
+  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseAutoScan&lt;TModule&gt;(Assembly t) where TModule : RouterModule</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
   <dd><p>The assembly where the scanning types are.</p>
-</dd>
-  <dt><code>activateInstances</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd><p>Optional. Determines whether found types should be defined as instances or static members.</p>
 </dd>
 </dl>
 

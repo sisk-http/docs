@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -194,8 +194,8 @@ Method Get
 
 <a id="Sisk_Core_Entity_StringValue_Get_" data-uid="Sisk.Core.Entity.StringValue.Get*"></a>
 
-<h3 id="Sisk_Core_Entity_StringValue_Get__1" data-uid="Sisk.Core.Entity.StringValue.Get``1">
-  Get&lt;T&gt;()
+<h3 id="Sisk_Core_Entity_StringValue_Get__1_System_IFormatProvider_" data-uid="Sisk.Core.Entity.StringValue.Get``1(System.IFormatProvider)">
+  Get&lt;T&gt;(IFormatProvider?)
   
 </h3>
 
@@ -204,9 +204,14 @@ Method Get
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public T Get&lt;T&gt;() where T : struct</code></pre>
+  <pre><code class="lang-csharp hljs">public T Get&lt;T&gt;(IFormatProvider? fmtProvider = null) where T : IParsable&lt;T&gt;</code></pre>
 </div>
 
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>fmtProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iformatprovider">IFormatProvider</a></dt>
+  <dd></dd>
+</dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">

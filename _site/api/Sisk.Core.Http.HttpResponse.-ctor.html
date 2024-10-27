@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -199,7 +199,8 @@ Constructor HttpResponse
   
 </h3>
 
-<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with HTTP OK status code and no content.</p>
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with HTTP OK status
+code and no content.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -409,6 +410,39 @@ Constructor HttpResponse
 </dd>
   <dt><code>content</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></dt>
   <dd><p>The response content, if any.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpResponse__ctor_" data-uid="Sisk.Core.Http.HttpResponse.#ctor*"></a>
+
+<h3 id="Sisk_Core_Http_HttpResponse__ctor_Sisk_Core_Http_HttpStatusInformation__" data-uid="Sisk.Core.Http.HttpResponse.#ctor(Sisk.Core.Http.HttpStatusInformation@)">
+  HttpResponse(in HttpStatusInformation)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> instance with given status code.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public HttpResponse(in HttpStatusInformation status)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>status</code> <a class="xref" href="Sisk.Core.Http.HttpStatusInformation.html">HttpStatusInformation</a></dt>
+  <dd><p>The <a class="xref" href="Sisk.Core.Http.HttpStatusInformation.html">HttpStatusInformation</a> of this HTTP response.</p>
 </dd>
 </dl>
 

@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -248,6 +248,43 @@ Method CreateBuilder
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>port</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></dt>
+  <dd></dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_String_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder(System.String)">
+  CreateBuilder(string)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening host string.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder CreateBuilder(string listeningHost)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>listeningHost</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd></dd>
 </dl>
 

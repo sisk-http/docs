@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -223,12 +223,26 @@ Class DefaultMessagePage
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DefaultMessagePage.DefaultPageCSS.html#Sisk_Core_Http_DefaultMessagePage_DefaultPageCSS">DefaultPageCSS</a></dt>
+    <dd><p>Gets or sets the page CSS string used by the page code.</p>
+</dd>
+  </dl>
+
   <h2 class="section" id="methods">Methods
 </h2>
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.DefaultMessagePage.CreateDefaultPageHtml.html#Sisk_Core_Http_DefaultMessagePage_CreateDefaultPageHtml_System_String_System_String_">CreateDefaultPageHtml(string, string)</a></dt>
     <dd><p>Creates an static default page with given header and description.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DefaultMessagePage.CreateDefaultResponse.html#Sisk_Core_Http_DefaultMessagePage_CreateDefaultResponse_Sisk_Core_Http_HttpStatusInformation__System_String_">CreateDefaultResponse(in HttpStatusInformation, string)</a></dt>
+    <dd><p>Creates an static default page with given status code and description.</p>
 </dd>
   </dl>
 

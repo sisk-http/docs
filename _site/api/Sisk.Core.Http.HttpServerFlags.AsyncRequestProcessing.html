@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Field AsyncRequestProcessing | Sisk Framework ">
 
-        <meta name="description" content="Determines if the HTTP server should handle requests asynchronously or if it should limit the request processing to one request per time.  Default value: false">
+        <meta name="description" content="Determines if the HTTP server should handle requests asynchronously or if it should limit the request processing to one request per time.  Default value: true">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -176,7 +176,7 @@ Field AsyncRequestProcessing
 <div class="markdown summary"><p>Determines if the HTTP server should handle requests asynchronously or if
 it should limit the request processing to one request per time.
 <p>
-Default value: <code>false</code></p>
+Default value: <code>true</code></p>
 </div>
 <div class="markdown conceptual"></div>
 
@@ -188,7 +188,7 @@ Default value: <code>false</code></p>
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd>Determines if the HTTP server should handle requests asynchronously or if it should limit the request processing to one request per time.  Default value: false</dd>
+  <dd>Determines if the HTTP server should handle requests asynchronously or if it should limit the request processing to one request per time.  Default value: true</dd>
 </dl>
 
 

@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -210,9 +210,11 @@ Method GetRawHttpRequest
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>includeBody</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
+  <dd><p>Optional. Defines if the body should be included in the output.</p>
+</dd>
   <dt><code>appendExtraInfo</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
+  <dd><p>Optional. Appends extra information, such as request id and date into the output.</p>
+</dd>
 </dl>
 
 <h4 class="section">Returns</h4>

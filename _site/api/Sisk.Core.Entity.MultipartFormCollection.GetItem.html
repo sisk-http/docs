@@ -60,10 +60,10 @@
                             pre.removeChild(apre);
                         }
                     });
-                
+
                 // call Prism
                 Prism.highlightAll();
-
+                
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -211,48 +211,6 @@ Method GetItem
 <dl class="parameters">
   <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd><p>The form item name.</p>
-</dd>
-</dl>
-
-<h4 class="section">Returns</h4>
-<dl class="parameters">
-  <dt><a class="xref" href="Sisk.Core.Entity.MultipartObject.html">MultipartObject</a></dt>
-  <dd></dd>
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-<a id="Sisk_Core_Entity_MultipartFormCollection_GetItem_" data-uid="Sisk.Core.Entity.MultipartFormCollection.GetItem*"></a>
-
-<h3 id="Sisk_Core_Entity_MultipartFormCollection_GetItem_System_String_System_Boolean_" data-uid="Sisk.Core.Entity.MultipartFormCollection.GetItem(System.String,System.Boolean)">
-  GetItem(string, bool)
-  
-</h3>
-
-<div class="markdown level1 summary"><p>Reads an form item contents by it's name.</p>
-</div>
-<div class="markdown level1 conceptual"></div>
-
-<div class="codewrapper">
-  <pre><code class="lang-csharp hljs">[Obsolete(&quot;This method is deprecated. Use GetItem(string) instead.&quot;)]
-public MultipartObject? GetItem(string name, bool ignoreCase = false)</code></pre>
-</div>
-
-<h4 class="section">Parameters</h4>
-<dl class="parameters">
-  <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-  <dd><p>The form item name.</p>
-</dd>
-  <dt><code>ignoreCase</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd><p>Optional. Determines if this method should use an case-insensitive search to find the specified item.</p>
 </dd>
 </dl>
 
