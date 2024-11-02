@@ -53,13 +53,17 @@ string body = request.Body;
 // or gets it in an byte array
 byte[] bodyBytes = request.RawBody;
 
-// or else, you can stream it
+// or else, you can stream it.
 Stream requestStream = request.GetRequestStream();
 ```
 
 It is also possible to determine if there is a body in the request and if it is loaded with the properties [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents), which determines if the request has contents and [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) which indicates that the HTTP server fully received the content from the remote point.
 
-It is not possible to read the request content through `GetRequestStream` more than once. If you read with this method, the values in `RawBody` and `Body` will also not be available.
+It is not possible to read the request content through `GetRequestStream` more than once. If you read with this method, the values in `RawBody` and `Body` will also not be available. It's not necessary to dispose the request stream in the context of the request, as it is disposed at the end of the HTTP session in which it is created. Also, you can use [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) property to get the best encoding to decode the request manually.
+
+The server has limits for reading the request content, which applies to both [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) and [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body). These properties copies the entire input stream to an local buffer of the same size of [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength).
+
+A response with status 413 Content Too Large is returned to the client if the content sent is larger than [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) defined in the user configuration. Additionally, if there is no configured limit or if it is too large, the server will throw an [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) when the content sent by the client exceeds [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 GB) and if the content is attempted to be accessed through one of the properties mentioned above. You can still deal with the content through streaming.
 
 > [!NOTE]
 > Sisk follows the RFC 9110 "HTTP Semantics", which doens't allow certain requests methods to have body. These requests will immediately drop an 400 (Bad Request) with the `ContentServedOnIllegalMethod` status. Requests with bodies are not allowed in methods GET, OPTIONS, HEAD and TRACE. You can read the [RFC 9910](https://httpwg.org/spec/rfc9110.html) here.
@@ -158,19 +162,26 @@ Sisk's HTTP request lets you get uploaded multipart contents, such as a files, f
 ```cs
 static HttpResponse Index(HttpRequest request)
 {
+    // the following method reads the entire request input into an
+    // array of MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
-    foreach (MultipartObject uploadedObject in multipartFormDataObjects) {
-        // The name of the file provided by Multipart form data. Null is returned if the object is not a file.
+    
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
+    {
+        // The name of the file provided by Multipart form data.
+        // Null is returned if the object is not a file.
         Console.WriteLine("File name       : " + uploadedObject.Filename);
+
         // The multipart form data object field name.
         Console.WriteLine("Field name      : " + uploadedObject.Name);
+
         // The multipart form data content length.
         Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
-        // Determine the image format based in the file header for each image content type.
-        // If the content ins't an recognized image format, this method below will return
-        // MultipartObjectImageFormat.Unknown
-        Console.WriteLine("Image format    : " + uploadedObject.GetImageFormat());
+
+        // Determine the image format based in the file header for each
+        // known content type. If the content ins't an recognized common file
+        // format, this method below will return MultipartObjectCommonFormat.Unknown
+        Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```

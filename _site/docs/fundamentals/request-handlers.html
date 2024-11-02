@@ -165,8 +165,8 @@
 <p>Request handlers, also known as &quot;middlewares&quot;, are functions that run before or after a request is executed on the router. They can be defined per route or per router.</p>
 <p>There are two types of request handlers:</p>
 <ul>
-<li><strong>BeforeResponse</strong>: defines that the request handler will be executed before calling the router callback, but after the contents is loaded and ready.</li>
-<li><strong>AfterResponse</strong>: defines that the request handler will be executed after calling the router callback. Sending an HTTP response in this context will overwrite the router's HTTP response.</li>
+<li><strong>BeforeResponse</strong>: defines that the request handler will be executed before calling the router action.</li>
+<li><strong>AfterResponse</strong>: defines that the request handler will be executed after calling the router action. Sending an HTTP response in this context will overwrite the router's action response.</li>
 </ul>
 <p>Both requests handlers can override the actual router callback function response. By the way, request handlers can be useful for validating a request, such as authentication, content, or any other information, such as storing information, logs, or other steps that can be performed before or after a response.</p>
 <p><img src="/assets/img/requesthandlers1.png" alt=""></p>
@@ -194,8 +194,8 @@
     }
 }
 </code></pre>
-<p>In the above example, we indicated that if the &quot;Authorization&quot; header is present in the request, it should continue and the next request handler or the router callback should be called, whichever comes next. If it's a request handler is executed after the response by their property <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> and return an non-null value, it will overwrite the router's response.</p>
-<p>Whenever a Request Handler returns <code>null</code>, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.</p>
+<p>In the above example, we indicated that if the <code>Authorization</code> header is present in the request, it should continue and the next request handler or the router callback should be called, whichever comes next. If it's a request handler is executed after the response by their property <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> and return an non-null value, it will overwrite the router's response.</p>
+<p>Whenever a request handler returns <code>null</code>, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.</p>
 <h2 id="associating-a-request-handler-with-a-single-route">Associating a request handler with a single route</h2>
 <p>You can define one or more request handlers for a route.</p>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
@@ -236,16 +236,7 @@ mainRouter.SetRoute(indexRoute);
 </code></pre>
 <p>Note that it is necessary to pass the desired request handler type and not an object instance. That way, the request handler will be instantiated by the router parser. You can pass arguments in the class constructor with the <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a> property.</p>
 <p>Example:</p>
-<pre><code class="lang-cs">[RequestHandler(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })]
-static HttpResponse Index(HttpRequest request)
-{
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
-}
-
-// or with .NET 8 +
-[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
+<pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
 static HttpResponse Index(HttpRequest request)
 {
     HttpResponse res = new HttpResponse();
@@ -262,17 +253,8 @@ static HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<p>And use it with:</p>
+<p>And use it as:</p>
 <pre><code class="lang-cs">[Authenticate]
-static HttpResponse Index(HttpRequest request)
-{
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
-}
-</code></pre>
-<p>Since .NET 8 and Sisk 0.16, you can also use generic types to bind request handlers to your routes using attributes:</p>
-<pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
 static HttpResponse Index(HttpRequest request)
 {
     HttpResponse res = new HttpResponse();

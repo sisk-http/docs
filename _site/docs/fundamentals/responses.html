@@ -172,11 +172,11 @@ res.Status = System.Net.HttpStatusCode.Accepted; // 202
 </code></pre>
 <p>Or with Fluent Syntax:</p>
 <pre><code class="lang-cs">new HttpResponse()
-    .WithStatus(200)
-    // or
-    .WithStatus(HttpStatusCode.BadRequest);
+    .WithStatus(200) // or
+    .WithStatus(HttpStatusCode.Ok) // or
+    .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
-<p>You can see the full list of available HttpStatusCode <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">here</a>.</p>
+<p>You can see the full list of available HttpStatusCode <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">here</a>. You can also provide your own status code by using the <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> structure.</p>
 <h2 id="body-and-content-type">Body and content-type</h2>
 <p>Sisk supports native .NET content objects to send body in responses. You can use the <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> class to send a JSON response for example:</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
@@ -187,8 +187,8 @@ res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&qu
 <h2 id="response-headers">Response headers</h2>
 <p>You can add, edit or remove headers you're sending in the response. The example below shows how to send an redirect response to the client.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
-res.Status = System.Net.HttpStatusCode.Moved;
-res.Headers.Add(&quot;Location&quot;, &quot;/login&quot;);
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 </code></pre>
 <p>Or with Fluent Syntax:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
@@ -215,15 +215,15 @@ res.SendChunked = true;
 <p>Response streams are an managed way that allow you to send responses in a segmented way. It's a lower level operation than using HttpResponse objects, as they require you to send the headers and content manually, and then close the connection.</p>
 <p>This example opens an read-only stream for the file, copies the stream to the response output stream and doens't loads the entire file in the memory. This can be useful to serving medium or big files.</p>
 <pre><code class="lang-cs">// gets the response output stream
+using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
-var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 
 // sets the response encoding to use chunked-encoding
 // also you shouldn't send content-length header when using
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
-responseStream.SetHeader(&quot;Content-Type&quot;, contentType);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
 
 // copies the file stream to the response output stream
 fileStream.CopyTo(responseStream.ResponseStream);
@@ -236,22 +236,18 @@ return responseStream.Close();
 <p>The concept is to always return a reference type and turn it into a valid HttpResponse object. Routes that return HttpResponse do not undergo any conversion.</p>
 <p>Value types (structures) cannot be used as a return type because they are not compatible with the <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, so they must be wrapped in a ValueResult to be able to be used in handlers.</p>
 <p>Consider the following example from a router module not using HttpResponse in the return type:</p>
-<pre><code class="lang-cs">public class UsersController : RouterModule
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
+public class UsersController : RouterModule
 {
     public List&lt;User&gt; Users = new List&lt;User&gt;();
 
-    public UsersController()
-    {
-        this.Prefix = &quot;users&quot;;
-    }
-
-    [RouteGet(&quot;/&quot;)]
+    [RouteGet]
     public IEnumerable&lt;User&gt; Index(HttpRequest request)
     {
         return Users.ToArray();
     }
 
-    [RouteGet(&quot;/&lt;id&gt;&quot;)]
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
     public User View(HttpRequest request)
     {
         int id = request.Query[&quot;id&quot;].GetInteger();
@@ -260,7 +256,7 @@ return responseStream.Close();
         return dUser;
     }
 
-    [RoutePost(&quot;/&quot;)]
+    [RoutePost]
     public ValueResult&lt;bool&gt; Create(HttpRequest request)
     {
         User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
@@ -283,11 +279,13 @@ r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
     res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
     return res;
 });
+
 r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
 {
     return new HttpResponse();
     // do something with enumerableValue here
 });
+
 // registering an value handler of object must be the last
 // value handler which will be used as an fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;

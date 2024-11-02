@@ -19,12 +19,12 @@ Or with Fluent Syntax:
 
 ```cs
 new HttpResponse()
-    .WithStatus(200)
-    // or
-    .WithStatus(HttpStatusCode.BadRequest);
+    .WithStatus(200) // or
+    .WithStatus(HttpStatusCode.Ok) // or
+    .WithStatus(HttpStatusInformation.Ok);
 ```
 
-You can see the full list of available HttpStatusCode [here](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode).
+You can see the full list of available HttpStatusCode [here](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode). You can also provide your own status code by using the [HttpStatusInformation](/api/Sisk.Core.Http.HttpStatusInformation) structure.
 
 ## Body and content-type
 
@@ -45,8 +45,8 @@ You can add, edit or remove headers you're sending in the response. The example 
 
 ```cs
 HttpResponse res = new HttpResponse();
-res.Status = System.Net.HttpStatusCode.Moved;
-res.Headers.Add("Location", "/login");
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, "/login");
 ```
 
 Or with Fluent Syntax:
@@ -95,15 +95,15 @@ This example opens an read-only stream for the file, copies the stream to the re
 
 ```cs
 // gets the response output stream
+using var fileStream = File.OpenRead("my-big-file.zip");
 var responseStream = request.GetResponseStream();
-var fileStream = File.OpenRead("my-big-file.zip");
 
 // sets the response encoding to use chunked-encoding
 // also you shouldn't send content-length header when using
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
-responseStream.SetHeader("Content-Type", contentType);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
 
 // copies the file stream to the response output stream
 fileStream.CopyTo(responseStream.ResponseStream);
@@ -123,22 +123,18 @@ Value types (structures) cannot be used as a return type because they are not co
 Consider the following example from a router module not using HttpResponse in the return type:
 
 ```cs
+[RoutePrefix("/users")]
 public class UsersController : RouterModule
 {
     public List<User> Users = new List<User>();
 
-    public UsersController()
-    {
-        this.Prefix = "users";
-    }
-
-    [RouteGet("/")]
+    [RouteGet]
     public IEnumerable<User> Index(HttpRequest request)
     {
         return Users.ToArray();
     }
 
-    [RouteGet("/<id>")]
+    [RouteGet("<id>")]
     public User View(HttpRequest request)
     {
         int id = request.Query["id"].GetInteger();
@@ -147,7 +143,7 @@ public class UsersController : RouterModule
         return dUser;
     }
 
-    [RoutePost("/")]
+    [RoutePost]
     public ValueResult<bool> Create(HttpRequest request)
     {
         User fromBody = JsonSerializer.Deserialize<User>(request.Body)!;
@@ -176,11 +172,13 @@ r.RegisterValueHandler<bool>(bolVal =>
     res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
     return res;
 });
+
 r.RegisterValueHandler<IEnumerable>(enumerableValue =>
 {
     return new HttpResponse();
     // do something with enumerableValue here
 });
+
 // registering an value handler of object must be the last
 // value handler which will be used as an fallback
 r.RegisterValueHandler<object>(fallback =>

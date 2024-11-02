@@ -4,8 +4,8 @@ Request handlers, also known as "middlewares", are functions that run before or 
 
 There are two types of request handlers:
 
-- **BeforeResponse**: defines that the request handler will be executed before calling the router callback, but after the contents is loaded and ready.
-- **AfterResponse**: defines that the request handler will be executed after calling the router callback. Sending an HTTP response in this context will overwrite the router's HTTP response.
+- **BeforeResponse**: defines that the request handler will be executed before calling the router action.
+- **AfterResponse**: defines that the request handler will be executed after calling the router action. Sending an HTTP response in this context will overwrite the router's action response.
 
 Both requests handlers can override the actual router callback function response. By the way, request handlers can be useful for validating a request, such as authentication, content, or any other information, such as storing information, logs, or other steps that can be performed before or after a response.
 
@@ -42,9 +42,9 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-In the above example, we indicated that if the "Authorization" header is present in the request, it should continue and the next request handler or the router callback should be called, whichever comes next. If it's a request handler is executed after the response by their property [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) and return an non-null value, it will overwrite the router's response.
+In the above example, we indicated that if the `Authorization` header is present in the request, it should continue and the next request handler or the router callback should be called, whichever comes next. If it's a request handler is executed after the response by their property [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) and return an non-null value, it will overwrite the router's response.
 
-Whenever a Request Handler returns `null`, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.
+Whenever a request handler returns `null`, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.
 
 ## Associating a request handler with a single route
 
@@ -104,15 +104,6 @@ Note that it is necessary to pass the desired request handler type and not an ob
 Example:
 
 ```cs
-[RequestHandler(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { "arg1", 123, ... })]
-static HttpResponse Index(HttpRequest request)
-{
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent("Hello world!");
-    return res;
-}
-
-// or with .NET 8 +
 [RequestHandler<AuthenticateUserRequestHandler>("arg1", 123, ...)]
 static HttpResponse Index(HttpRequest request)
 {
@@ -134,22 +125,10 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 }
 ```
 
-And use it with:
+And use it as:
 
 ```cs
 [Authenticate]
-static HttpResponse Index(HttpRequest request)
-{
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent("Hello world!");
-    return res;
-}
-```
-
-Since .NET 8 and Sisk 0.16, you can also use generic types to bind request handlers to your routes using attributes:
-
-```cs
-[RequestHandler<AuthenticateUserRequestHandler>]
 static HttpResponse Index(HttpRequest request)
 {
     HttpResponse res = new HttpResponse();
