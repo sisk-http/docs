@@ -31,23 +31,23 @@ Now, let's create an instance of our HTTP server. For this example, we will conf
 Sisk allows you to build your application step by step manually, as it routes to the HttpServer object. However, this may not be very convenient for most projects. Therefore, we can use the builder method, which makes it easier to get our app up and running.
 
 ```csharp
+using Sisk.Core.Http;
+
 class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
-        var app = HttpServer.CreateBuilder(host =>
-        {
-            host.UseListeningPort("http://localhost:5000/");
-        }).Build();
+        using var app = HttpServer.CreateBuilder(port: 5555)
+            .UseRouter(r =>
+            {
+                r.MapGet("/", (HttpRequest request) =>
+                {
+                    return new HttpResponse("Hello, world!");
+                });
+            })
+            .Build();
 
-        app.Router.MapGet("/", request =>
-        {
-            return new HttpResponse()
-                .WithStatus(200)
-                .WithContent("Hello, world!");
-        });
-
-        await app.StartAsync();
+        app.Start();
     }
 }
 ```
