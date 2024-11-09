@@ -1,4 +1,6 @@
 nav {
+    scrollbar-width: thin;
+
     & .toc {
         > div {
             padding-bottom: 50px; // comfortable scroll
@@ -18,21 +20,27 @@ nav {
 
             > a {
                 display: block;
-                padding: 4px 8px;
+                padding: 3px 8px;
+                margin-bottom: 2px;
                 transition: none;
                 text-decoration: none;
                 opacity: .7;
                 font-weight: 500;
+                width: 95%;
+                border-radius: 4px;
                 transition: --bs-transition;
 
                 & :hover {
                     opacity: 1;
+                    background-color: --bs-body-bg-alt;
                     text-decoration: none;
                 }
             }
 
             & .active > a {
+                position: relative;
                 color: --primary;
+                background-color: --primary-opaque;
                 font-weight: 600;
                 opacity: 1;
             }

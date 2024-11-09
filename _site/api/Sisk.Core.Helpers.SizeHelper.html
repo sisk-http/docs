@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -233,31 +234,38 @@ Class SizeHelper
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitEb.html">UnitEb</a></dt>
-    <dd><p>Represents the number of bytes in one exabyte (TB).
-This is calculated as 1024 terabytes.</p>
+    <dd><p>Represents the number of bytes in one exibibyte (EiB).
+This is calculated as 1024 pebibytes.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitGb.html">UnitGb</a></dt>
-    <dd><p>Represents the number of bytes in one gigabyte (GB).
-This is calculated as 1024 megabytes.</p>
+    <dd><p>Represents the number of bytes in one gibibyte (GiB).
+This is calculated as 1024 mebibytes.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitKb.html">UnitKb</a></dt>
-    <dd><p>Represents the number of bytes in one kilobyte (KB).</p>
+    <dd><p>Represents the number of bytes in one kibibyte (KiB).
+This is calculated as 1024 bytes.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitMb.html">UnitMb</a></dt>
-    <dd><p>Represents the number of bytes in one megabyte (MB).
-This is calculated as 1024 kilobytes.</p>
+    <dd><p>Represents the number of bytes in one mebibyte (MiB).
+This is calculated as 1024 kibibytes.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitPb.html">UnitPb</a></dt>
+    <dd><p>Represents the number of bytes in one pebibyte (PiB).
+This is calculated as 1024 tebibytes.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Helpers.SizeHelper.UnitTb.html">UnitTb</a></dt>
-    <dd><p>Represents the number of bytes in one terabyte (TB).
-This is calculated as 1024 gigabytes.</p>
+    <dd><p>Represents the number of bytes in one tebibyte (TiB).
+This is calculated as 1024 gibibytes.</p>
 </dd>
   </dl>
 

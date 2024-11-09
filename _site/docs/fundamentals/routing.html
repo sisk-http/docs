@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -192,6 +193,20 @@ mainRouter.MapGet(&quot;/form&quot;, (request) =&gt;
 {
     var formData = request.GetFormData();
     return new HttpResponse(); // empty 200 ok
+});
+
+// Route.* helper methods
+mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
+{
+    var imageStream = File.OpenRead(&quot;image.png&quot;);
+    
+    return new HttpResponse()
+    {
+        // the StreamContent inner
+        // stream is disposed after sending
+        // the response.
+        Content = new StreamContent(imageStream)
+    };
 });
 
 // multiple parameters

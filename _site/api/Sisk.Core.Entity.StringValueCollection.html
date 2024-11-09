@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -237,6 +238,15 @@ Class StringValueCollection
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Add.html#Sisk_Core_Entity_StringKeyStore_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStore.Add(KeyValuePair&lt;string, string[]&gt;)</a>
     </div>
     <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.AddRange.html#Sisk_Core_Entity_StringKeyStore_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.SetRange.html#Sisk_Core_Entity_StringKeyStore_SetRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.SetRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Set.html#Sisk_Core_Entity_StringKeyStore_Set_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStore.Set(KeyValuePair&lt;string, string[]&gt;)</a>
+    </div>
+    <div>
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Set.html#Sisk_Core_Entity_StringKeyStore_Set_System_String_System_String_">StringKeyStore.Set(string, string)</a>
     </div>
     <div>
@@ -317,6 +327,12 @@ Class StringValueCollection
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.StringValueCollection.-ctor.html#Sisk_Core_Entity_StringValueCollection__ctor">StringValueCollection()</a></dt>
     <dd><p>Creates an new empty <a class="xref" href="Sisk.Core.Entity.StringValueCollection.html">StringValueCollection</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValueCollection.-ctor.html#Sisk_Core_Entity_StringValueCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String____">StringValueCollection(IDictionary&lt;string, string[]&gt;)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Entity.StringValueCollection.html">StringValueCollection</a> instance with values from another
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.idictionary">IDictionary</a> instance.</p>
 </dd>
   </dl>
   <dl class="jumplist">

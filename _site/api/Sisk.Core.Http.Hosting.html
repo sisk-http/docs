@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -205,6 +206,12 @@ Interfaces
     <h3 id="enums">
 Enums
 </h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.html">ConfigurationFileLookupDirectory</a></dt>
+      <dd><p>Represents the base directory where the <a class="xref" href="Sisk.Core.Http.Hosting.IConfigurationReader.html">IConfigurationReader</a> should search for the configuration
+file.</p>
+</dd>
+    </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilderExceptionMode.html">HttpServerHostContextBuilderExceptionMode</a></dt>
       <dd><p>Represents how the builder event error message should be displayed.</p>

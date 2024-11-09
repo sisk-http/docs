@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class HttpServerExecutionResult | Sisk Framework ">
 
-        <meta name="description" content="Represents the results of executing a request on the server.">
+        <meta name="description" content="Represents the results of an request execution on the HTTP server.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -172,7 +173,7 @@ Class HttpServerExecutionResult
   <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Represents the results of executing a request on the server.</p>
+  <div class="markdown summary"><p>Represents the results of an request execution on the HTTP server.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -224,28 +225,39 @@ Class HttpServerExecutionResult
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.Context.html#Sisk_Core_Http_HttpServerExecutionResult_Context">Context</a></dt>
+    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a> of this execution result.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.Elapsed.html#Sisk_Core_Http_HttpServerExecutionResult_Elapsed">Elapsed</a></dt>
+    <dd><p>Gets the total processing time of the HTTP session.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.IsSuccessStatus.html#Sisk_Core_Http_HttpServerExecutionResult_IsSuccessStatus">IsSuccessStatus</a></dt>
     <dd><p>Gets an boolean indicating if this execution status is an success status.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.Request.html#Sisk_Core_Http_HttpServerExecutionResult_Request">Request</a></dt>
-    <dd><p>Represents the request received in this diagnosis.</p>
+    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> received in this diagnosis.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.RequestSize.html#Sisk_Core_Http_HttpServerExecutionResult_RequestSize">RequestSize</a></dt>
-    <dd><p>Gets the request size in bytes.</p>
+    <dd><p>Gets the estimated request size in bytes.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.Response.html#Sisk_Core_Http_HttpServerExecutionResult_Response">Response</a></dt>
-    <dd><p>Represents the response sent by the server.</p>
+    <dd><p>Gets the resulted <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> send by the router, if any. This object can be null if the
+server didn't sent any response to the client.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.ResponseSize.html#Sisk_Core_Http_HttpServerExecutionResult_ResponseSize">ResponseSize</a></dt>
-    <dd><p>Gets the response size in bytes, if any.</p>
+    <dd><p>Gets the estimated response size in bytes, if any.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -255,7 +267,7 @@ Class HttpServerExecutionResult
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerExecutionResult.Status.html#Sisk_Core_Http_HttpServerExecutionResult_Status">Status</a></dt>
-    <dd><p>Represents the status of server operation.</p>
+    <dd><p>Gets the status of server operation.</p>
 </dd>
   </dl>
 

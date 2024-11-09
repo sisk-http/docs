@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -198,12 +199,6 @@ Class RequestHandler
     </dd>
   </dl>
 
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a></div>
-    </dd>
-  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -246,6 +241,11 @@ Class RequestHandler
   <h2 class="section" id="methods">Methods
 </h2>
 
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.RequestHandler.Create.html#Sisk_Core_Routing_RequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_Sisk_Core_Http_HttpResponse__Sisk_Core_Routing_RequestHandlerExecutionMode_">Create(Func&lt;HttpRequest, HttpContext, HttpResponse?&gt;, RequestHandlerExecutionMode)</a></dt>
+    <dd><p>Gets an inline <a class="xref" href="Sisk.Core.Routing.RequestHandler.html">RequestHandler</a> that resolves to the specified function.</p>
+</dd>
+  </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.RequestHandler.Next.html#Sisk_Core_Routing_RequestHandler_Next">Next()</a></dt>
     <dd><p>Returns an null <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> reference, which points to the next request handler or route action.</p>

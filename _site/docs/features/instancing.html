@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Instancing per-request members | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Instancing per-request members | Sisk Framework ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/features/instancing.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script src="/assets/js/prism.js?../../"></script>
+        <script>
+            document.removeEventListener('DOMContentLoaded', Prism.highlightAll);
+            waitForElm('.hljs').then(() => setTimeout(rewriteHjlsToPrism, 250));
+
+            function rewriteHjlsToPrism() {
+                /*
+                    docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
+                    have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
+                    and I ain't about to do that. until the folks at Microsoft decide to actually work on this
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
+                    highlight.js and calls up Prism instead.
+                */
+                
+                // reset highlightjs
+                document.querySelectorAll('pre code.hljs')
+                    .forEach(code => {
+                        code.innerHTML = escapeHtml(code.innerText);
+                        var pre = code.parentNode;
+                        var apre = pre.querySelector('a');
+                        if (apre) {
+                            pre.removeChild(apre);
+                        }
+                    });
+
+                // call Prism
+                Prism.highlightAll();
+
+                // remove hjls class
+                document.querySelectorAll('pre code.hljs')
+                    .forEach(code => {
+                        code.classList.remove('hljs');
+                        code.classList.add('ready');
+                    });
+            }
+
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function waitForElm(selector) { // ty https://stackoverflow.com/a/61511955/4698166
+                return new Promise(resolve => {
+                    if (document.querySelector(selector)) {
+                        return resolve(document.querySelector(selector));
+                    }
+
+                    const observer = new MutationObserver(mutations => {
+                        if (document.querySelector(selector)) {
+                            observer.disconnect();
+                            resolve(document.querySelector(selector));
+                        }
+                    });
+
+                    // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
+                    observer.observe(document.documentElement, {
+                        childList: true,
+                        subtree: true
+                    });
+                });
+            }
+        </script>
+
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+                </div>
+
+                <article data-uid="">
+<h1 id="instancing-per-request-members">Instancing per-request members</h1>
+
+<p>It is common to dedicate members and instances that last for the lifetime of a request, such as a database connection, an authenticated user, or a session token. One of the possibilities is through the <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, which creates a dictionary that lasts for the entire lifetime of a request.</p>
+<p>This dictionary can be accessed by <a href="/docs/fundamentals/request-handlers">request handlers</a> and define variables throughout that request. For example, a request handler that authenticates a user sets this user within the <code>HttpContext.RequestBag</code>, and within the request logic, this user can be retrieved with <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>Here’s an example:</p>
+<pre><code class="lang-csharp">public class AuthenticateUser : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        User authenticatedUser = AuthenticateUser(request);
+        context.RequestBag.Set(authenticatedUser);
+        return null; // advance to the next request handler or request logic
+    }
+}
+
+[RouteGet(&quot;/hello&quot;)]
+[RequestHandler&lt;AuthenticateUser&gt;]
+public static HttpResponse SayHello(HttpRequest request)
+{
+    var authenticatedUser = request.Bag.Get&lt;User&gt;();
+    return new HttpResponse()
+    {
+        Content = new StringContent($&quot;Hello {authenticatedUser.Name}!&quot;)
+    };
+}
+</code></pre>
+<p>This is a preliminary example of this operation. The instance of <code>User</code> was created within the request handler dedicated to authentication, and all routes that use this request handler will have the guarantee that there will be a <code>User</code> in their instance of <code>HttpContext.RequestBag</code>.</p>
+<p>It is possible to define logic to obtain instances when not previously defined in the <code>RequestBag</code> through methods like <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> or <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
+<p>Since version 1.3, the static property <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> was introduced, allowing access to the currently executing <code>HttpContext</code> of the request context. This enables exposing members of the <code>HttpContext</code> outside the current request and defining instances in route objects.</p>
+<p>The example below defines a controller that has members commonly accessed by the context of a request.</p>
+<pre><code class="lang-csharp">public abstract class Controller : RouterModule
+{
+    public DbContext Database
+    {
+        get
+        {
+            // create an DbContext or get the existing one
+            return HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
+        }
+    }
+
+    // the following line will throw if the property is accessed when the User is not
+    // defined in the request bag
+    public User AuthenticatedUser { get =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;(); }
+
+    // Exposing the HttpRequest instance is supported too
+    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+}
+</code></pre>
+<p>And define types that inherit from the controller:</p>
+<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
+public class PostsController : Controller
+{
+    [RouteGet]
+    public IEnumerable&lt;Blog&gt; ListPosts()
+    {
+        return Database.Posts
+            .Where(post =&gt; post.AuthorId == AuthenticatedUser.Id)
+            .ToList();
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public Post GetPost()
+    {
+        int blogId = Request.RouteParameters[&quot;id&quot;].GetInteger();
+
+        Post? post = Database.Posts
+            .FirstOrDefault(post =&gt; post.Id == blogId &amp;&amp; post.AuthorId == AuthenticatedUser.Id);
+
+        return post ?? new HttpResponse(404);
+    }
+}
+</code></pre>
+<p>For the example above, you will need to configure a <a href="/docs/fundamentals/responses.html#implicit-response-types">value handler</a> in your router so that the objects returned by the router are transformed into a valid <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>.</p>
+<p>Note that the methods do not have an <code>HttpRequest request</code> argument as present in other methods. This is because, since version 1.3, the router supports two types of delegates for routing responses: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, which is the default delegate that receives an <code>HttpRequest</code> argument, and <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. The <code>HttpRequest</code> object can still be accessed by both delegates through the <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> property of the static <code>HttpContext</code> on the thread.</p>
+<p>In the example above, we defined a disposable object, the <code>DbContext</code>, and we need to ensure that all instances created in a <code>DbContext</code> are disposed of when the HTTP session ends. For this, we can use two ways to achieve this. One is to create a <a href="/docs/fundamentals/request-handlers">request handler</a> that is executed after the router's action, and the other way is through a custom <a href="/docs/advanced/http-server-handlers">server handler</a>.</p>
+<p>For the first method, we can create the request handler inline directly in the <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a> method inherited from <code>RouterModule</code>:</p>
+<pre><code class="lang-csharp">public abstract class Controller : RouterModule
+{
+    ...
+
+    protected override void OnSetup(Router parentRouter)
+    {
+        base.OnSetup(parentRouter);
+
+        HasRequestHandler(RequestHandler.Create(
+            execute: (req, ctx) =&gt;
+            {
+                // get one DbContext defined in the request handler context and
+                // dispose it
+                ctx.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
+                return null;
+            },
+            executionMode: RequestHandlerExecutionMode.AfterResponse));
+    }
+}
+</code></pre>
+<p>The method above will ensure that the <code>DbContext</code> is disposed of when the HTTP session is finalized. You can do this for more members that need to be disposed of at the end of a response.</p>
+<p>For the second method, you can create a custom <a href="/docs/advanced/http-server-handlers">server handler</a> that will dispose of the <code>DbContext</code> when the HTTP session is finalized.</p>
+<pre><code class="lang-csharp">public class ObjectDisposerHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        result.Context.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
+    }
+}
+</code></pre>
+<p>And use it in your builder:</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
+    .UseHandler&lt;ObjectDisposerHandler&gt;()
+    .Build();
+</code></pre>
+<p>This is a way to handle code cleanup and keep the dependencies of a request separated by the type of module that will be used, reducing the amount of duplicated code within each action of a router. It is a practice similar to what dependency injection is used for in frameworks like ASP.NET.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/features/instancing.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -283,6 +284,14 @@ Default value: <code>false</code></p>
     <dd><p>Determines if the HTTP server should write log to OPTIONS requests.
 <p>
 Default value: <code>LogOutput.Both</code></p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpServerFlags.PreventResponseContentsInProhibitedMethods.html">PreventResponseContentsInProhibitedMethods</a></dt>
+    <dd><p>Determines if the HTTP server should prevent sending body contents in responses when the HTTP request
+method prohibits it.
+<p>
+Default value: <code>true</code></p>
 </dd>
   </dl>
   <dl class="jumplist">

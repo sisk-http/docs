@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -199,7 +200,7 @@ Property OverrideHeaders
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets or sets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> indicating HTTP headers which
+<div class="markdown level1 summary"><p>Gets or sets an <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> indicating HTTP headers which
 will overwrite headers set by CORS, router response or request handlers.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
@@ -221,6 +222,10 @@ will overwrite headers set by CORS, router response or request handlers.</p>
 
 
 
+<h4 class="section" id="Sisk_Core_Http_HttpContext_OverrideHeaders_remarks">Remarks</h4>
+<div class="markdown level1 remarks"><p>This property replaces existing headers in the final response. Use <a class="xref" href="Sisk.Core.Http.HttpContext.ExtraHeaders.html#Sisk_Core_Http_HttpContext_ExtraHeaders">ExtraHeaders</a> to
+add headers without replacing existing ones.</p>
+</div>
 
 
 

@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -200,6 +201,7 @@ Property SetCookie
 </h3>
 
 <div class="markdown level1 summary"><p>Gets or sets the value of the HTTP Set-Cookie header.</p>
+<p>Used to send cookies from the server to the client, allowing the server to store state information on the client.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -220,6 +222,10 @@ Property SetCookie
 
 
 
+<h4 class="section" id="Sisk_Core_Entity_HttpHeaderCollection_SetCookie_remarks">Remarks</h4>
+<div class="markdown level1 remarks"><p>Note: setting this property, it will override all previous Set-Cookie headers. Use the <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Add.html#Sisk_Core_Entity_StringKeyStore_Add_System_String_System_String_">Add(string, string)</a> method
+to add more than one Set-Cookie header or use the <a class="xref" href="Sisk.Core.Http.HttpResponse.SetCookie.html#Sisk_Core_Http_HttpResponse_SetCookie_System_String_System_String_">SetCookie(string, string)</a> method.</p>
+</div>
 
 
 

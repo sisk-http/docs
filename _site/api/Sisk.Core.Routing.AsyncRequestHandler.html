@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -177,7 +178,7 @@ Class AsyncRequestHandler
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class AsyncRequestHandler : RequestHandler, IRequestHandler</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class AsyncRequestHandler : IRequestHandler</code></pre>
   </div>
 
 
@@ -187,7 +188,6 @@ Class AsyncRequestHandler
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Sisk.Core.Routing.RequestHandler.html">RequestHandler</a></div>
       <div><span class="xref">AsyncRequestHandler</span></div>
     </dd>
   </dl>
@@ -203,9 +203,6 @@ Class AsyncRequestHandler
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="Sisk.Core.Routing.RequestHandler.Next.html#Sisk_Core_Routing_RequestHandler_Next">RequestHandler.Next()</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
@@ -241,13 +238,32 @@ Class AsyncRequestHandler
     <dd></dd>
   </dl>
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.ExecutionMode.html#Sisk_Core_Routing_AsyncRequestHandler_ExecutionMode">ExecutionMode</a></dt>
+    <dd><p>Gets or sets when this RequestHandler should run.</p>
+</dd>
+  </dl>
+
   <h2 class="section" id="methods">Methods
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.Create.html#Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_">Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt;, RequestHandlerExecutionMode)</a></dt>
+    <dd><p>Gets an inline <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> that resolves to the specified function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.ExecuteAsync.html#Sisk_Core_Routing_AsyncRequestHandler_ExecuteAsync_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_">ExecuteAsync(HttpRequest, HttpContext)</a></dt>
     <dd><p>This method is called by the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> before executing a request when the <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instantiates an object that implements this interface. If it returns
 a <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object, the route action is not called and all execution of the route is stopped. If it returns &quot;null&quot;, the execution is continued.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.Next.html#Sisk_Core_Routing_AsyncRequestHandler_Next">Next()</a></dt>
+    <dd><p>Returns an null <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> reference, which points to the next request handler or route action.</p>
 </dd>
   </dl>
 

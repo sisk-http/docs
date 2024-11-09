@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -199,12 +200,13 @@ Property Cookie
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets or sets the value of the HTTP Cookie header.</p>
+<div class="markdown level1 summary"><p>Gets the value of the HTTP Cookie header.</p>
+<p>Contains stored HTTP cookies previously sent by the server, allowing the server to identify the client on subsequent requests.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public string? Cookie { get; set; }</code></pre>
+  <pre><code class="lang-csharp hljs">public string? Cookie { get; }</code></pre>
 </div>
 
 
@@ -222,7 +224,7 @@ Property Cookie
 
 <h4 class="section" id="Sisk_Core_Entity_HttpHeaderCollection_Cookie_remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>Tip: use <a class="xref" href="Sisk.Core.Http.HttpRequest.Cookies.html#Sisk_Core_Http_HttpRequest_Cookies">Cookies</a> property to getting cookies values from requests and
-<a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_">SetCookie(string, string)</a> on <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> to set cookies.</p>
+<a class="xref" href="Sisk.Core.Http.HttpResponse.SetCookie.html#Sisk_Core_Http_HttpResponse_SetCookie_System_String_System_String_">SetCookie(string, string)</a> on <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> to set cookies.</p>
 </div>
 
 

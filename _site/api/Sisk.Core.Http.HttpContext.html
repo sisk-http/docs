@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -224,13 +225,24 @@ Class HttpContext
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpContext.Current.html#Sisk_Core_Http_HttpContext_Current">Current</a></dt>
+    <dd><p>Gets the current running <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpContext.ExtraHeaders.html#Sisk_Core_Http_HttpContext_ExtraHeaders">ExtraHeaders</a></dt>
+    <dd><p>Gets or sets the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> indicating HTTP headers which will
+be added (not overwritten) in the final response.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.HttpServer.html#Sisk_Core_Http_HttpContext_HttpServer">HttpServer</a></dt>
     <dd><p>Gets the context <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> instance.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.ListeningHost.html#Sisk_Core_Http_HttpContext_ListeningHost">ListeningHost</a></dt>
-    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpContext.ListeningHost.html#Sisk_Core_Http_HttpContext_ListeningHost">ListeningHost</a> instance of this HTTP context.</p>
+    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance of this HTTP context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -240,7 +252,7 @@ Class HttpContext
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.OverrideHeaders.html#Sisk_Core_Http_HttpContext_OverrideHeaders">OverrideHeaders</a></dt>
-    <dd><p>Gets or sets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> indicating HTTP headers which
+    <dd><p>Gets or sets an <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> indicating HTTP headers which
 will overwrite headers set by CORS, router response or request handlers.</p>
 </dd>
   </dl>
@@ -251,7 +263,7 @@ will overwrite headers set by CORS, router response or request handlers.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpContext.RequestBag.html#Sisk_Core_Http_HttpContext_RequestBag">RequestBag</a></dt>
-    <dd><p>Gets or sets a managed object that is accessed and modified by request handlers.</p>
+    <dd><p>Gets or sets a managed collection for this HTTP context.</p>
 </dd>
   </dl>
   <dl class="jumplist">

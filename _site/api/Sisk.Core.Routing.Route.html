@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -235,12 +236,12 @@ Class Route
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_">Route(RouteMethod, string, RouteAction)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_">Route(RouteMethod, string, Delegate?)</a></dt>
     <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_Sisk_Core_Routing_RouteAction_Sisk_Core_Routing_IRequestHandler___">Route(RouteMethod, string, string?, RouteAction, IRequestHandler[]?)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_System_Delegate_Sisk_Core_Routing_IRequestHandler___">Route(RouteMethod, string, string?, Delegate?, IRequestHandler[]?)</a></dt>
     <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
 </dd>
   </dl>
@@ -318,6 +319,16 @@ for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_Sisk_Core_Routing_RouteAction_">Any(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to any HTTP request method.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_Sisk_Core_Routing_RouteAction_">Delete(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP DELETE requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_">Equals(Route?)</a></dt>
     <dd></dd>
   </dl>
@@ -326,8 +337,38 @@ for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</
     <dd></dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_">Get(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP GET requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.GetHashCode.html#Sisk_Core_Routing_Route_GetHashCode">GetHashCode()</a></dt>
     <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_Sisk_Core_Routing_RouteAction_">Head(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP HEAD requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_Sisk_Core_Routing_RouteAction_">Options(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP OPTIONS requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_Sisk_Core_Routing_RouteAction_">Patch(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP PATCH requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_Sisk_Core_Routing_RouteAction_">Post(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP POST requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_Sisk_Core_Routing_RouteAction_">Put(string, RouteAction)</a></dt>
+    <dd><p>Creates a route that responds to HTTP PUT requests.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">ToString()</a></dt>

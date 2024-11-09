@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -237,6 +238,15 @@ Class HttpHeaderCollection
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Add.html#Sisk_Core_Entity_StringKeyStore_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStore.Add(KeyValuePair&lt;string, string[]&gt;)</a>
     </div>
     <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.AddRange.html#Sisk_Core_Entity_StringKeyStore_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.SetRange.html#Sisk_Core_Entity_StringKeyStore_SetRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.SetRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Set.html#Sisk_Core_Entity_StringKeyStore_Set_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStore.Set(KeyValuePair&lt;string, string[]&gt;)</a>
+    </div>
+    <div>
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.Set.html#Sisk_Core_Entity_StringKeyStore_Set_System_String_System_String_">StringKeyStore.Set(string, string)</a>
     </div>
     <div>
@@ -328,237 +338,327 @@ Class HttpHeaderCollection
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Accept.html#Sisk_Core_Entity_HttpHeaderCollection_Accept">Accept</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Accept header.</p>
+    <dd><p>Gets the value of the HTTP Accept header.</p>
+<p>Specifies the media types that are acceptable for the response, allowing the client to indicate its preferences.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptCharset.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptCharset">AcceptCharset</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Accept-Charset header.</p>
+    <dd><p>Gets the value of the HTTP Accept-Charset header.</p>
+<p>Indicates the character sets that are acceptable for the response, allowing the client to specify its preferred encoding.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptEncoding">AcceptEncoding</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Accept-Encoding header.</p>
+    <dd><p>Gets the value of the HTTP Accept-Encoding header.</p>
+<p>Specifies the content encodings that are acceptable for the response, allowing the client to indicate its preferences for compression.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptLanguage">AcceptLanguage</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Accept-Language header.</p>
+    <dd><p>Gets the value of the HTTP Accept-Language header.</p>
+<p>Indicates the natural languages that are preferred for the response, allowing the client to specify its language preferences.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptPatch.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptPatch">AcceptPatch</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Accept-Patch header.</p>
+    <dd><p>Gets the value of the HTTP Accept-Patch header.</p>
+<p>Indicates the patch document formats that are acceptable for the response, allowing the client to specify its preferences for patching resources.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptRanges.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptRanges">AcceptRanges</a></dt>
     <dd><p>Gets or sets the value of the HTTP Accept-Ranges header.</p>
+<p>Indicates that the server supports range requests for the resource, allowing clients to request specific byte ranges.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowCredentials.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowCredentials">AccessControlAllowCredentials</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Credentials header.</p>
+<p>Indicates whether the response to the request can expose credentials, allowing cross-origin requests to include credentials.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowHeaders">AccessControlAllowHeaders</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Headers header.</p>
+<p>Specifies which headers can be used when making the actual request in a cross-origin resource sharing (CORS) context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowMethods.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowMethods">AccessControlAllowMethods</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Methods header.</p>
+<p>Specifies the methods that are allowed when accessing the resource in a CORS context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowOrigin.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowOrigin">AccessControlAllowOrigin</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Origin header.</p>
+<p>Specifies which origins are allowed to access the resource in a CORS context, helping to control cross-origin requests.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlExposeHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlExposeHeaders">AccessControlExposeHeaders</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Expose-Headers header.</p>
+<p>Indicates which headers can be exposed as part of the response to a cross-origin request.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlMaxAge.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlMaxAge">AccessControlMaxAge</a></dt>
     <dd><p>Gets or sets the value of the HTTP Access-Control-Max-Age header.</p>
+<p>Specifies how long the results of a preflight request can be cached, reducing the number of preflight requests made.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Age.html#Sisk_Core_Entity_HttpHeaderCollection_Age">Age</a></dt>
     <dd><p>Gets or sets the value of the HTTP Age header.</p>
+<p>Indicates the age of the object in a cache, helping clients understand how fresh the cached response is.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Allow.html#Sisk_Core_Entity_HttpHeaderCollection_Allow">Allow</a></dt>
     <dd><p>Gets or sets the value of the HTTP Allow header.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AltSvc.html#Sisk_Core_Entity_HttpHeaderCollection_AltSvc">AltSvc</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Alt-Svc header.</p>
+<p>Lists the HTTP methods that are supported by the resource, informing clients about the available actions.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Authorization.html#Sisk_Core_Entity_HttpHeaderCollection_Authorization">Authorization</a></dt>
     <dd><p>Gets or sets the value of the HTTP Authorization header.</p>
+<p>Contains credentials for authenticating the client with the server, often used for basic or bearer token authentication.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.CacheControl.html#Sisk_Core_Entity_HttpHeaderCollection_CacheControl">CacheControl</a></dt>
     <dd><p>Gets or sets the value of the HTTP Cache-Control header.</p>
+<p>Directs caching mechanisms on how to cache the response, including directives for expiration and revalidation.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Connection.html#Sisk_Core_Entity_HttpHeaderCollection_Connection">Connection</a></dt>
+    <dd><p>Gets the value of the HTTP Connection header. To set this header in a HTTP response, use the
+<a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.KeepAlive.html#Sisk_Core_Http_HttpServerConfiguration_KeepAlive">KeepAlive</a> property.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentDisposition.html#Sisk_Core_Entity_HttpHeaderCollection_ContentDisposition">ContentDisposition</a></dt>
     <dd><p>Gets or sets the value of the HTTP Content-Disposition header.</p>
+<p>Indicates if the content should be displayed inline in the browser or treated as an attachment to be downloaded.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_ContentEncoding">ContentEncoding</a></dt>
     <dd><p>Gets or sets the value of the HTTP Content-Encoding header.</p>
+<p>Specifies the encoding transformations that have been applied to the response body, such as gzip or deflate. This
+header should not be interpreted as the content text charset.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLanguage">ContentLanguage</a></dt>
     <dd><p>Gets or sets the value of the HTTP Content-Language header.</p>
+<p>Indicates the natural language(s) of the intended audience for the response, helping clients understand the content's language.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentLocation.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLocation">ContentLocation</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Location header.</p>
+<p>Indicates an alternate location for the returned data, often used for redirecting clients to a different resource.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentMD5.html#Sisk_Core_Entity_HttpHeaderCollection_ContentMD5">ContentMD5</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-MD5 header.</p>
+<p>Contains the MD5 hash of the response body in an base-64 format, allowing clients to verify the integrity of the received data.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentRange.html#Sisk_Core_Entity_HttpHeaderCollection_ContentRange">ContentRange</a></dt>
     <dd><p>Gets or sets the value of the HTTP Content-Range header.</p>
+<p>Indicates the size of the response body in bytes, allowing the client to know how much data to expect.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentSecurityPolicy.html#Sisk_Core_Entity_HttpHeaderCollection_ContentSecurityPolicy">ContentSecurityPolicy</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Security-Policy header.</p>
+<p>Defines security policies for the content, helping to prevent cross-site scripting (XSS) and other code injection attacks.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentType.html#Sisk_Core_Entity_HttpHeaderCollection_ContentType">ContentType</a></dt>
     <dd><p>Gets or sets the value of the HTTP Content-Type header.</p>
+<p>Indicates the media type of the resource, allowing the client to understand how to process the response body.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Cookie.html#Sisk_Core_Entity_HttpHeaderCollection_Cookie">Cookie</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Cookie header.</p>
+    <dd><p>Gets the value of the HTTP Cookie header.</p>
+<p>Contains stored HTTP cookies previously sent by the server, allowing the server to identify the client on subsequent requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ETag.html#Sisk_Core_Entity_HttpHeaderCollection_ETag">ETag</a></dt>
+    <dd><p>Gets or sets the value of the HTTP ETag header.</p>
+<p>Provides a unique identifier for a specific version of a resource, allowing clients to cache and validate resources efficiently.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Expect.html#Sisk_Core_Entity_HttpHeaderCollection_Expect">Expect</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Expect header.</p>
+    <dd><p>Gets the value of the HTTP Expect header.</p>
+<p>Indicates that the client expects certain behaviors from the server, such as support for specific features or conditions.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Expires.html#Sisk_Core_Entity_HttpHeaderCollection_Expires">Expires</a></dt>
     <dd><p>Gets or sets the value of the HTTP Expires header.</p>
+<p>Indicates the date and time after which the response is considered stale, helping clients manage caching.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Host.html#Sisk_Core_Entity_HttpHeaderCollection_Host">Host</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Host header.</p>
+    <dd><p>Gets the value of the HTTP Host header.</p>
+<p>Specifies the domain name of the server and the TCP port number on which the server is listening, allowing for virtual hosting.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfMatch">IfMatch</a></dt>
-    <dd><p>Gets or sets the value of the HTTP If-Match header.</p>
+    <dd><p>Gets the value of the HTTP If-Match header.</p>
+<p>Used to make a conditional request, allowing the client to specify that the request should only be processed if the resource matches the given ETag.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfModifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfModifiedSince">IfModifiedSince</a></dt>
-    <dd><p>Gets or sets the value of the HTTP If-Modified-Since header.</p>
+    <dd><p>Gets the value of the HTTP If-Modified-Since header.</p>
+<p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has been modified since the given date.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfNoneMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfNoneMatch">IfNoneMatch</a></dt>
-    <dd><p>Gets or sets the value of the HTTP If-None-Match header.</p>
+    <dd><p>Gets the value of the HTTP If-None-Match header.</p>
+<p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has been modified since the given date.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfRange.html#Sisk_Core_Entity_HttpHeaderCollection_IfRange">IfRange</a></dt>
-    <dd><p>Gets or sets the value of the HTTP If-Range header.</p>
+    <dd><p>Gets the value of the HTTP If-Range header.</p>
+<p>Used to make a conditional range request, allowing the client to specify that the range should only be returned if the resource has not changed.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfUnmodifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfUnmodifiedSince">IfUnmodifiedSince</a></dt>
-    <dd><p>Gets or sets the value of the HTTP If-Unmodified-Since header.</p>
+    <dd><p>Gets the value of the HTTP If-Unmodified-Since header.</p>
+<p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has not been modified since the given date.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Location.html#Sisk_Core_Entity_HttpHeaderCollection_Location">Location</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Location header.</p>
+<p>Indicates an alternate location for the returned data, often used for redirecting clients to a different resource.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.MaxForwards.html#Sisk_Core_Entity_HttpHeaderCollection_MaxForwards">MaxForwards</a></dt>
     <dd><p>Gets or sets the value of the HTTP Max-Forwards header.</p>
+<p>Used in OPTIONS requests to limit the number of times the request can be forwarded by proxies.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Origin.html#Sisk_Core_Entity_HttpHeaderCollection_Origin">Origin</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Origin header.</p>
+    <dd><p>Gets the value of the HTTP Origin header.</p>
+<p>Indicates the origin of the request, helping servers implement CORS and manage cross-origin requests.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Pragma.html#Sisk_Core_Entity_HttpHeaderCollection_Pragma">Pragma</a></dt>
     <dd><p>Gets or sets the value of the HTTP Pragma header.</p>
+<p>Used to include implementation-specific directives that might apply to any recipient along the request/response chain.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthenticate">ProxyAuthenticate</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Proxy-Authenticate header.</p>
+<p>Used by a proxy server to request authentication from the client, indicating the authentication method required.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthorization.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthorization">ProxyAuthorization</a></dt>
     <dd><p>Gets or sets the value of the HTTP Proxy-Authorization header.</p>
+<p>Contains credentials for authenticating the client with a proxy server, allowing access to the requested resource.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Range.html#Sisk_Core_Entity_HttpHeaderCollection_Range">Range</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Range header.</p>
+    <dd><p>Gets the value of the HTTP Range header.</p>
+<p>Used to request a specific range of bytes from a resource, allowing clients to download large files in parts.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Referer.html#Sisk_Core_Entity_HttpHeaderCollection_Referer">Referer</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Referer header.</p>
+    <dd><p>Gets the value of the HTTP Referer header.</p>
+<p>Indicates the URL of the resource from which the request originated, helping servers understand the source of traffic.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.RetryAfter.html#Sisk_Core_Entity_HttpHeaderCollection_RetryAfter">RetryAfter</a></dt>
     <dd><p>Gets or sets the value of the HTTP Retry-After header.</p>
+<p>Indicates how long the client should wait before making a follow-up request, often used in rate limiting scenarios.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.SetCookie.html#Sisk_Core_Entity_HttpHeaderCollection_SetCookie">SetCookie</a></dt>
     <dd><p>Gets or sets the value of the HTTP Set-Cookie header.</p>
+<p>Used to send cookies from the server to the client, allowing the server to store state information on the client.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.TE.html#Sisk_Core_Entity_HttpHeaderCollection_TE">TE</a></dt>
-    <dd><p>Gets or sets the value of the HTTP TE header.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Trailer.html#Sisk_Core_Entity_HttpHeaderCollection_Trailer">Trailer</a></dt>
-    <dd><p>Gets or sets the value of the HTTP Trailer header.</p>
+    <dd><p>Gets the value of the HTTP TE header.</p>
+<p>Indicates the transfer encodings that are acceptable for the response, allowing for content negotiation.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.UserAgent.html#Sisk_Core_Entity_HttpHeaderCollection_UserAgent">UserAgent</a></dt>
-    <dd><p>Gets or sets the value of the HTTP User-Agent header.</p>
+    <dd><p>Gets the value of the HTTP User-Agent header.</p>
+<p>Contains information about the user agent (browser or application) making the request, including its version and platform.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Vary.html#Sisk_Core_Entity_HttpHeaderCollection_Vary">Vary</a></dt>
     <dd><p>Gets or sets the value of the HTTP Vary header.</p>
+<p>Indicates that the response varies based on the value of the specified request headers, allowing for content negotiation.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Via.html#Sisk_Core_Entity_HttpHeaderCollection_Via">Via</a></dt>
     <dd><p>Gets or sets the value of the HTTP Via header.</p>
+<p>Used to track message forwards and proxies, indicating the intermediate protocols and recipients involved in the request/response chain.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.WWWAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_WWWAuthenticate">WWWAuthenticate</a></dt>
     <dd><p>Gets or sets the value of the HTTP WWW-Authenticate header.</p>
+<p>Used in response to a request for authentication, indicating the authentication method that should be used to access the resource.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedFor.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedFor">XForwardedFor</a></dt>
-    <dd><p>Gets or sets the value of the HTTP X-Forwarded-For header.</p>
+    <dd><p>Gets the value of the HTTP X-Forwarded-For header.</p>
+<p>Used to identify the originating IP address of a client connecting to a web server through an HTTP proxy or load balancer.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedHost.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedHost">XForwardedHost</a></dt>
-    <dd><p>Gets or sets the value of the HTTP X-Forwarded-Host header.</p>
+    <dd><p>Gets the value of the HTTP X-Forwarded-Host header</p>
+<p>Used to identify the original host requested by the client in the Host HTTP request header, often used in proxy setups.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XFrameOptions.html#Sisk_Core_Entity_HttpHeaderCollection_XFrameOptions">XFrameOptions</a></dt>
+    <dd><p>Gets or sets the value of the HTTP X-Frame-Options header.</p>
+<p>Used to control whether a browser should be allowed to render a page in a iframe, frame, embed or object tag, helping to prevent clickjacking attacks.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XUACompatible.html#Sisk_Core_Entity_HttpHeaderCollection_XUACompatible">XUACompatible</a></dt>
+    <dd><p>Gets or sets the value of the HTTP X-UA-Compatible header.</p>
+<p>Used to specify the document mode that Internet Explorer should use to render the page, helping to ensure compatibility with older versions.</p>
 </dd>
   </dl>
 

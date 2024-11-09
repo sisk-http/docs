@@ -65,8 +65,8 @@ pre {
 
     text-align: left;
     font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
-    font-size: 1em;
-    line-height: 1.65;
+    font-size: 14px;
+    line-height: 1.5;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -93,6 +93,16 @@ pre {
     padding: 2px 4px;
     color: --bs-body-color;
     border-radius: 4px;
+}
+
+pre > code[class*="language-"] {
+    opacity: 0;
+    transition: .35s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    & .ready {
+        font-size: 15px;
+        opacity: 1;
+    }
 }
 
 html[data-bs-theme="light"] {
@@ -180,7 +190,7 @@ html[data-bs-theme="light"] {
 
     .token.class-name,
     .language-json .token.property {
-        color: #077b9d;
+        color: #006888;
     }
 
     .token.enum {

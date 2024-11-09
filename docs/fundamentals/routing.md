@@ -46,6 +46,20 @@ mainRouter.MapGet("/form", (request) =>
     return new HttpResponse(); // empty 200 ok
 });
 
+// Route.* helper methods
+mainRouter += Route.Get("/image.png", (request) =>
+{
+    var imageStream = File.OpenRead("image.png");
+    
+    return new HttpResponse()
+    {
+        // the StreamContent inner
+        // stream is disposed after sending
+        // the response.
+        Content = new StreamContent(imageStream)
+    };
+});
+
 // multiple parameters
 mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
 {

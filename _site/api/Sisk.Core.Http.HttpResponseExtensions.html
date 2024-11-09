@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -249,6 +250,11 @@ Class HttpResponseExtensions
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithCookie.html#Sisk_Core_Http_HttpResponseExtensions_WithCookie__1___0_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">WithCookie&lt;THttpResponse&gt;(THttpResponse, string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)</a></dt>
     <dd><p>Sets a cookie and sends it in the response to be set by the client.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpResponseExtensions.WithHeader.html#Sisk_Core_Http_HttpResponseExtensions_WithHeader__1___0_Sisk_Core_Entity_StringKeyStore_">WithHeader&lt;THttpResponse&gt;(THttpResponse, StringKeyStore)</a></dt>
+    <dd><p>Sets an list of HTTP headers in this <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>.</p>
 </dd>
   </dl>
   <dl class="jumplist">

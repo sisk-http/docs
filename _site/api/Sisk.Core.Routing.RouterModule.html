@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -260,6 +261,12 @@ value defined by <a class="xref" href="Sisk.Core.Routing.RoutePrefixAttribute.ht
     <dd><p>This method is called before a route is defined in the router and after it
 is created in this class, so its attributes and parameters can be modified. This method must
 be overloaded in the extending class and must not be called directly.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.RouterModule.OnSetup.html#Sisk_Core_Routing_RouterModule_OnSetup_Sisk_Core_Routing_Router_">OnSetup(Router)</a></dt>
+    <dd><p>Method that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is defining routes from the current
+<a class="xref" href="Sisk.Core.Routing.RouterModule.html">RouterModule</a>.</p>
 </dd>
   </dl>
 

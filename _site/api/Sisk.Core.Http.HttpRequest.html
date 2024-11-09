@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -336,6 +337,11 @@ transport context (SSL/TLS) or not.</p>
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RouteParameters.html#Sisk_Core_Http_HttpRequest_RouteParameters">RouteParameters</a></dt>
     <dd><p>Gets the <a class="xref" href="Sisk.Core.Entity.StringValueCollection.html">StringValueCollection</a> object which represents the current
 route parameters.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Uri.html#Sisk_Core_Http_HttpRequest_Uri">Uri</a></dt>
+    <dd><p>Gets the <span class="xref">System.Uri</span> component for this HTTP request requested URL.</p>
 </dd>
   </dl>
 

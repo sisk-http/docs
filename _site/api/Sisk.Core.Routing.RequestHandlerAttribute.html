@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class RequestHandlerAttribute | Sisk Framework ">
 
-        <meta name="description" content="Specifies that the method, when used on this attribute, will instantiate the type and call the  with given parameters.">
+        <meta name="description" content="Specifies that the method or class, when used on this attribute, will instantiate the type and call the  with given parameters.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -172,7 +173,7 @@ Class RequestHandlerAttribute
   <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Specifies that the method, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
+  <div class="markdown summary"><p>Specifies that the method or class, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
 </div>
   <div class="markdown conceptual"></div>
 

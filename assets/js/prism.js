@@ -2121,6 +2121,12 @@ Prism.languages.js = Prism.languages.javascript;
         sisk: 'HttpStatusInformation ListeningPort StringValue '
     };
 
+    var safeClasses = {
+        system: 'Encoding File JsonSerializer Console',
+        sisk: 'HttpServer HttpRequest HttpResponse HttpServerHostContext HttpWebSocket HttpWebSocketConnection HttpWebSocketConnectionCollection HttpHeaderCollection StringValueCollection ' +
+            'Route Router RouteGet RoutePost RoutePut RouteDelete RoutePatch RouteHead RouteOptions RouteAny '
+    };
+
     // keywords
     function keywordsToPattern(words) {
         return '\\b(?:' + words.trim().replace(/ /g, '|') + ')\\b';
@@ -2129,6 +2135,7 @@ Prism.languages.js = Prism.languages.javascript;
     var keywords = RegExp(keywordsToPattern(keywordKinds.type + ' ' + keywordKinds.typeDeclaration + ' ' + keywordKinds.contextual + ' ' + keywordKinds.other));
     var enums = RegExp(keywordsToPattern(safeEnums.system + ' ' + safeEnums.sisk));
     var structs = RegExp(keywordsToPattern(safeStructs.system + ' ' + safeStructs.sisk));
+    var classNames = RegExp(keywordsToPattern(safeClasses.system + ' ' + safeClasses.sisk));
     var nonTypeKeywords = keywordsToPattern(keywordKinds.typeDeclaration + ' ' + keywordKinds.contextual + ' ' + keywordKinds.other);
     var nonContextualKeywords = keywordsToPattern(keywordKinds.type + ' ' + keywordKinds.typeDeclaration + ' ' + keywordKinds.other);
 
@@ -2229,8 +2236,7 @@ Prism.languages.js = Prism.languages.javascript;
             },
             {
                 // Variable, field and parameter declaration
-                // (Foo bar, Bar baz, Foo[,,] bay, Foo<Bar, FooBar<Bar>> bax)
-                pattern: re(/\b(Encoding|File|JsonSerializer|Console)\b/.source, [typeExpression, nonContextualKeywords, name]),
+                pattern: classNames,
                 inside: typeInside
             }
         ],

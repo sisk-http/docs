@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -251,6 +252,24 @@ Class TypedValueDictionary
 </h2>
 
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync.html#Sisk_Core_Entity_TypedValueDictionary_GetOrAddAsync__1_System_Func_System_Threading_Tasks_Task___0___">GetOrAddAsync&lt;T&gt;(Func&lt;Task&lt;T&gt;&gt;)</a></dt>
+    <dd><p>Asynchronously gets a singleton previously defined in this context bag via its type <code class="typeparamref">T</code>.
+If it does not exist, it adds the object to the context bag using the provided asynchronous <code class="paramref">getter</code> function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.GetOrAdd.html#Sisk_Core_Entity_TypedValueDictionary_GetOrAdd__1_System_Func___0__">GetOrAdd&lt;T&gt;(Func&lt;T&gt;)</a></dt>
+    <dd><p>Gets a singleton previously defined in this context bag via its type <code class="typeparamref">T</code>.
+If it does not exist, it adds the object to the context bag using the provided <code class="paramref">getter</code> function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.GetOrDefault.html#Sisk_Core_Entity_TypedValueDictionary_GetOrDefault__1">GetOrDefault&lt;T&gt;()</a></dt>
+    <dd><p>Gets a singleton previously defined in this context bag via its type <code class="typeparamref">T</code>.
+Returns the default value if the object is not defined.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.GetTypeKeyName.html#Sisk_Core_Entity_TypedValueDictionary_GetTypeKeyName_System_Type_">GetTypeKeyName(Type)</a></dt>
     <dd><p>Gets the Type full qualified key name.</p>
 </dd>
@@ -266,7 +285,7 @@ Class TypedValueDictionary
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.IsSet.html#Sisk_Core_Entity_TypedValueDictionary_IsSet__1___0__">IsSet&lt;T&gt;(out T?)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.IsSet.html#Sisk_Core_Entity_TypedValueDictionary_IsSet__1___0__">IsSet&lt;T&gt;(out T)</a></dt>
     <dd><p>Determines whether the specified <code class="typeparamref">T</code> singleton is defined in this context and tries to
 output it.</p>
 </dd>

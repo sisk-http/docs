@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -223,12 +224,27 @@ Class MimeHelper
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.DefaultMimeType.html#Sisk_Core_Helpers_MimeHelper_DefaultMimeType">DefaultMimeType</a></dt>
+    <dd><p>Gets or sets the <a class="xref" href="Sisk.Core.Helpers.MimeHelper.html">MimeHelper</a> default fallback mime-type.</p>
+</dd>
+  </dl>
+
   <h2 class="section" id="methods">Methods
 </h2>
 
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.GetMimeType.html#Sisk_Core_Helpers_MimeHelper_GetMimeType_System_String_System_String_">GetMimeType(string, string)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.GetMimeType.html#Sisk_Core_Helpers_MimeHelper_GetMimeType_System_String_System_String_">GetMimeType(string, string?)</a></dt>
     <dd><p>Gets the content mime-type from the specified file extension.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.MimeHelper.IsBrowserKnownInlineMimeType.html#Sisk_Core_Helpers_MimeHelper_IsBrowserKnownInlineMimeType_System_String_">IsBrowserKnownInlineMimeType(string)</a></dt>
+    <dd><p>Determines whether the specified mime-type is considered an inline content type
+that can be displayed directly in the browser.</p>
 </dd>
   </dl>
   <dl class="jumplist">

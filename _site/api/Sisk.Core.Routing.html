@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -193,12 +194,12 @@ is an shorthand from <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.Core.Routing.RequestHandlerAttribute.html">RequestHandlerAttribute</a></dt>
-      <dd><p>Specifies that the method, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
+      <dd><p>Specifies that the method or class, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.Core.Routing.RequestHandlerAttribute-1.html">RequestHandlerAttribute&lt;T&gt;</a></dt>
-      <dd><p>Specifies that the method, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
+      <dd><p>Specifies that the method or class, when used on this attribute, will instantiate the type and call the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> with given parameters.</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -291,6 +292,11 @@ Delegates
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.Core.Routing.ExceptionErrorCallback.html">ExceptionErrorCallback</a></dt>
       <dd><p>Represents the function that is called after the route action threw an exception.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Sisk.Core.Routing.ParameterlessRouteAction.html">ParameterlessRouteAction</a></dt>
+      <dd><p>Represents the function that is called after the route is matched with the request.</p>
 </dd>
     </dl>
     <dl class="jumplist">

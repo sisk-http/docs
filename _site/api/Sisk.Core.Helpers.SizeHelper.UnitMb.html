@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Field UnitMb | Sisk Framework ">
 
-        <meta name="description" content="Represents the number of bytes in one megabyte (MB). This is calculated as 1024 kilobytes.">
+        <meta name="description" content="Represents the number of bytes in one mebibyte (MiB). This is calculated as 1024 kibibytes.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -173,8 +174,8 @@ Field UnitMb
   <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
 </div>
 
-<div class="markdown summary"><p>Represents the number of bytes in one megabyte (MB).
-This is calculated as 1024 kilobytes.</p>
+<div class="markdown summary"><p>Represents the number of bytes in one mebibyte (MiB).
+This is calculated as 1024 kibibytes.</p>
 </div>
 <div class="markdown conceptual"></div>
 
@@ -186,7 +187,7 @@ This is calculated as 1024 kilobytes.</p>
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-  <dd>Represents the number of bytes in one megabyte (MB). This is calculated as 1024 kilobytes.</dd>
+  <dd>Represents the number of bytes in one mebibyte (MiB). This is calculated as 1024 kibibytes.</dd>
 </dl>
 
 

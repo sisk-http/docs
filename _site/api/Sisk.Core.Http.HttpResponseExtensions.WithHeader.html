@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -264,6 +265,54 @@ Method WithHeader
   <dd><p>The <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object.</p>
 </dd>
   <dt><code>headers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a></dt>
+  <dd><p>The collection of HTTP headers.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><span class="xref">THttpResponse</span></dt>
+  <dd><p>The self <code class="typeparamref">THttpResponse</code> object.</p>
+</dd>
+</dl>
+
+<h4 class="section">Type Parameters</h4>
+<dl class="parameters">
+  <dt><code>THttpResponse</code></dt>
+  <dd><p>The type which implements <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpResponseExtensions_WithHeader_" data-uid="Sisk.Core.Http.HttpResponseExtensions.WithHeader*"></a>
+
+<h3 id="Sisk_Core_Http_HttpResponseExtensions_WithHeader__1___0_Sisk_Core_Entity_StringKeyStore_" data-uid="Sisk.Core.Http.HttpResponseExtensions.WithHeader``1(``0,Sisk.Core.Entity.StringKeyStore)">
+  WithHeader&lt;THttpResponse&gt;(THttpResponse, StringKeyStore)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Sets an list of HTTP headers in this <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static THttpResponse WithHeader&lt;THttpResponse&gt;(this THttpResponse response, StringKeyStore headers) where THttpResponse : HttpResponse</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>response</code> <span class="xref">THttpResponse</span></dt>
+  <dd><p>The <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object.</p>
+</dd>
+  <dt><code>headers</code> <a class="xref" href="Sisk.Core.Entity.StringKeyStore.html">StringKeyStore</a></dt>
   <dd><p>The collection of HTTP headers.</p>
 </dd>
 </dl>

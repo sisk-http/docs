@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -177,7 +178,7 @@ Class HttpResponseStream
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpResponseStream : CookieHelper</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpResponseStream</code></pre>
   </div>
 
 
@@ -187,7 +188,6 @@ Class HttpResponseStream
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Sisk.Core.Http.CookieHelper.html">CookieHelper</a></div>
       <div><span class="xref">HttpResponseStream</span></div>
     </dd>
   </dl>
@@ -197,21 +197,6 @@ Class HttpResponseStream
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_Net_Cookie_">CookieHelper.SetCookie(Cookie)</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_">CookieHelper.SetCookie(string, string)</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">CookieHelper.SetCookie(string, string, DateTime?, TimeSpan?, string, string, bool?, bool?, string)</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_">CookieHelper.BuildCookieHeaderValue(Cookie)</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">CookieHelper.BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string, string, bool?, bool?, string)</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
@@ -266,8 +251,18 @@ will do nothing.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStream.SetCookieHeader.html#Sisk_Core_Http_Streams_HttpResponseStream_SetCookieHeader_System_String_System_String_">SetCookieHeader(string, string)</a></dt>
-    <dd><p>Abstract method that calls the &quot;Set-Cookie&quot; header with the value of the created cookie.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStream.SetCookie.html#Sisk_Core_Http_Streams_HttpResponseStream_SetCookie_System_Net_Cookie_">SetCookie(Cookie)</a></dt>
+    <dd><p>Sets a cookie and sends it in the response to be set by the client.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStream.SetCookie.html#Sisk_Core_Http_Streams_HttpResponseStream_SetCookie_System_String_System_String_">SetCookie(string, string)</a></dt>
+    <dd><p>Sets a cookie and sends it in the response to be set by the client.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStream.SetCookie.html#Sisk_Core_Http_Streams_HttpResponseStream_SetCookie_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">SetCookie(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)</a></dt>
+    <dd><p>Sets a cookie and sends it in the response to be set by the client.</p>
 </dd>
   </dl>
   <dl class="jumplist">

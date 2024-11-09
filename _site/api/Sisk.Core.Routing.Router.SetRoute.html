@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -233,17 +234,17 @@ Method SetRoute
 
 <a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
 
-<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,Sisk.Core.Routing.RouteAction,System.String)">
-  SetRoute(RouteMethod, string, RouteAction, string?)
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate)">
+  SetRoute(RouteMethod, string, Delegate)
   
 </h3>
 
-<div class="markdown level1 summary"><p>Defines an route with their method, path, action function and name.</p>
+<div class="markdown level1 summary"><p>Defines an route with their method, path and action function.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, RouteAction action, string? name)</code></pre>
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -254,7 +255,46 @@ Method SetRoute
   <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd><p>The route path.</p>
 </dd>
-  <dt><code>action</code> <a class="xref" href="Sisk.Core.Routing.RouteAction.html">RouteAction</a></dt>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The route function to be called after matched.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate,System.String)">
+  SetRoute(RouteMethod, string, Delegate, string?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route with their method, path, action function and name.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action, string? name)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route path.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
   <dd><p>The route function to be called after matched.</p>
 </dd>
   <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>

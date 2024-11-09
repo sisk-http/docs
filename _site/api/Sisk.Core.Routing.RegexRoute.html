@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -218,6 +219,30 @@ Class RegexRoute
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_">Route.Equals(Route)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_">Route.Get(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_Sisk_Core_Routing_RouteAction_">Route.Post(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_Sisk_Core_Routing_RouteAction_">Route.Put(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_Sisk_Core_Routing_RouteAction_">Route.Patch(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_Sisk_Core_Routing_RouteAction_">Route.Head(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_Sisk_Core_Routing_RouteAction_">Route.Any(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_Sisk_Core_Routing_RouteAction_">Route.Delete(string, RouteAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_Sisk_Core_Routing_RouteAction_">Route.Options(string, RouteAction)</a>
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Routing.Route.Bag.html#Sisk_Core_Routing_Route_Bag">Route.Bag</a>

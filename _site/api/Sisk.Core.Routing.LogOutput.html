@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -194,13 +195,13 @@ public enum LogOutput</code></pre>
   <h2 id="fields">Fields
 </h2>
   <dl class="parameters">
-    <dt id="Sisk_Core_Routing_LogOutput_AccessLog"><code>AccessLog = 1</code></dt>
+    <dt id="Sisk_Core_Routing_LogOutput_AccessLog"><code>AccessLog = 2</code></dt>
     <dd><p>Determines that the context or the route can write log messages only to the access logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_AccessLogsStream">AccessLogsStream</a>.</p>
 </dd>
     <dt id="Sisk_Core_Routing_LogOutput_Both"><code>Both = AccessLog | ErrorLog</code></dt>
     <dd><p>Determines that the context or the route can write log messages to both error and access logs.</p>
 </dd>
-    <dt id="Sisk_Core_Routing_LogOutput_ErrorLog"><code>ErrorLog = 2</code></dt>
+    <dt id="Sisk_Core_Routing_LogOutput_ErrorLog"><code>ErrorLog = 4</code></dt>
     <dd><p>Determines that the context or the route can write error messages only to the error logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream">ErrorsLogsStream</a>.</p>
 </dd>
     <dt id="Sisk_Core_Routing_LogOutput_None"><code>None = 0</code></dt>

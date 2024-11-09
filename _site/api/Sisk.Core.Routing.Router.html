@@ -46,10 +46,10 @@
                     docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
                     have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
                     and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    abandoned project ("docfx"), I'm just gonna leave this shit below that kills the
+                    project ("docfx"), I'm just gonna leave this shit below that kills the
                     highlight.js and calls up Prism instead.
                 */
-
+                
                 // reset highlightjs
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
@@ -63,11 +63,12 @@
 
                 // call Prism
                 Prism.highlightAll();
-                
+
                 // remove hjls class
                 document.querySelectorAll('pre code.hljs')
                     .forEach(code => {
                         code.classList.remove('hljs');
+                        code.classList.add('ready');
                     });
             }
 
@@ -394,13 +395,18 @@ for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_">SetRoute(RouteMethod, string, RouteAction, string?)</a></dt>
-    <dd><p>Defines an route with their method, path, action function and name.</p>
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_Sisk_Core_Routing_IRequestHandler___">SetRoute(RouteMethod, string, RouteAction, string?, IRequestHandler[])</a></dt>
+    <dd><p>Defines an route with their method, path, action function, name and request handlers.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_Sisk_Core_Routing_IRequestHandler___">SetRoute(RouteMethod, string, RouteAction, string?, IRequestHandler[])</a></dt>
-    <dd><p>Defines an route with their method, path, action function, name and request handlers.</p>
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_">SetRoute(RouteMethod, string, Delegate)</a></dt>
+    <dd><p>Defines an route with their method, path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_">SetRoute(RouteMethod, string, Delegate, string?)</a></dt>
+    <dd><p>Defines an route with their method, path, action function and name.</p>
 </dd>
   </dl>
   <dl class="jumplist">
