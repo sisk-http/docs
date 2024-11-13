@@ -266,12 +266,44 @@ for these methods.</p>
 
 
 
-<h4 class="section">Exceptions</h4>
+
+
+
+<a id="Sisk_Core_Routing_Router_SetObject_" data-uid="Sisk.Core.Routing.Router.SetObject*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetObject_System_Type_System_Object_" data-uid="Sisk.Core.Routing.Router.SetObject(System.Type,System.Object)">
+  SetObject(Type, object)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Searches for all instance and static methods that are marked with an attribute of
+type <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> in the specified object and creates routes
+for these methods.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetObject(Type attrClassType, object instance)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
-  <dd><p>An exception is thrown when a method has an erroneous signature.</p>
+  <dt><code>attrClassType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+  <dd><p>The type of the class where the methods are. The routing methods must be marked with any <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a>.</p>
+</dd>
+  <dt><code>instance</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+  <dd><p>The instance of the object where the route methods are.</p>
 </dd>
 </dl>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -292,6 +324,53 @@ for these methods.</p>
   <pre><code class="lang-csharp hljs">public void SetObject&lt;TObject&gt;()</code></pre>
 </div>
 
+
+
+<h4 class="section">Type Parameters</h4>
+<dl class="parameters">
+  <dt><code>TObject</code></dt>
+  <dd><p>The type of the class where the methods are. The routing methods must be marked with any <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a>.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+<h4 class="section">Exceptions</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+  <dd><p>An exception is thrown when a method has an erroneous signature.</p>
+</dd>
+</dl>
+
+
+
+<a id="Sisk_Core_Routing_Router_SetObject_" data-uid="Sisk.Core.Routing.Router.SetObject*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetObject__1___0_" data-uid="Sisk.Core.Routing.Router.SetObject``1(``0)">
+  SetObject&lt;TObject&gt;(TObject)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Searches for all instance and static methods that are marked with an attribute of
+type <a class="xref" href="Sisk.Core.Routing.RouteAttribute.html">RouteAttribute</a> in the specified object and creates routes
+for these methods.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetObject&lt;TObject&gt;(TObject instance) where TObject : notnull</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>instance</code> <span class="xref">TObject</span></dt>
+  <dd><p>The instance of <code class="typeparamref">TObject</code> to invoke the instance methods on.</p>
+</dd>
+</dl>
 
 
 <h4 class="section">Type Parameters</h4>

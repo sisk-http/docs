@@ -312,7 +312,8 @@ code and no content.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.SendChunked.html#Sisk_Core_Http_HttpResponse_SendChunked">SendChunked</a></dt>
-    <dd><p>Gets or sets whether the HTTP response can be sent chunked.</p>
+    <dd><p>Gets or sets whether the HTTP response will be sent chunked. When setting this property to <code>true</code>,
+the Content-Length header is automatically omitted.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -334,7 +335,7 @@ code and no content.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.GetRawHttpResponse.html#Sisk_Core_Http_HttpResponse_GetRawHttpResponse_System_Boolean_">GetRawHttpResponse(bool)</a></dt>
-    <dd><p>Gets the raw HTTP response message.</p>
+    <dd><p>Gets a visual representation of this HTTP response.</p>
 </dd>
   </dl>
   <dl class="jumplist">

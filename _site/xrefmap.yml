@@ -4744,30 +4744,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.GetMultipartFormContent
   fullName: Sisk.Core.Http.HttpRequest.GetMultipartFormContent
   nameWithType: HttpRequest.GetMultipartFormContent
-- uid: Sisk.Core.Http.HttpRequest.GetQueryValue(System.String)
-  name: GetQueryValue(string)
-  href: api/Sisk.Core.Http.HttpRequest.GetQueryValue.html#Sisk_Core_Http_HttpRequest_GetQueryValue_System_String_
-  commentId: M:Sisk.Core.Http.HttpRequest.GetQueryValue(System.String)
-  name.vb: GetQueryValue(String)
-  fullName: Sisk.Core.Http.HttpRequest.GetQueryValue(string)
-  fullName.vb: Sisk.Core.Http.HttpRequest.GetQueryValue(String)
-  nameWithType: HttpRequest.GetQueryValue(string)
-  nameWithType.vb: HttpRequest.GetQueryValue(String)
-- uid: Sisk.Core.Http.HttpRequest.GetQueryValue*
-  name: GetQueryValue
-  href: api/Sisk.Core.Http.HttpRequest.GetQueryValue.html
-  commentId: Overload:Sisk.Core.Http.HttpRequest.GetQueryValue
-  fullName: Sisk.Core.Http.HttpRequest.GetQueryValue
-  nameWithType: HttpRequest.GetQueryValue
-- uid: Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String)
-  name: GetQueryValue<T>(string)
-  href: api/Sisk.Core.Http.HttpRequest.GetQueryValue.html#Sisk_Core_Http_HttpRequest_GetQueryValue__1_System_String_
-  commentId: M:Sisk.Core.Http.HttpRequest.GetQueryValue``1(System.String)
-  name.vb: GetQueryValue(Of T)(String)
-  fullName: Sisk.Core.Http.HttpRequest.GetQueryValue<T>(string)
-  fullName.vb: Sisk.Core.Http.HttpRequest.GetQueryValue(Of T)(String)
-  nameWithType: HttpRequest.GetQueryValue<T>(string)
-  nameWithType.vb: HttpRequest.GetQueryValue(Of T)(String)
 - uid: Sisk.Core.Http.HttpRequest.GetRawHttpRequest(System.Boolean,System.Boolean)
   name: GetRawHttpRequest(bool, bool)
   href: api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest.html#Sisk_Core_Http_HttpRequest_GetRawHttpRequest_System_Boolean_System_Boolean_
@@ -5536,18 +5512,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServer.EventSources
   fullName: Sisk.Core.Http.HttpServer.EventSources
   nameWithType: HttpServer.EventSources
-- uid: Sisk.Core.Http.HttpServer.GetVersion
-  name: GetVersion()
-  href: api/Sisk.Core.Http.HttpServer.GetVersion.html#Sisk_Core_Http_HttpServer_GetVersion
-  commentId: M:Sisk.Core.Http.HttpServer.GetVersion
-  fullName: Sisk.Core.Http.HttpServer.GetVersion()
-  nameWithType: HttpServer.GetVersion()
-- uid: Sisk.Core.Http.HttpServer.GetVersion*
-  name: GetVersion
-  href: api/Sisk.Core.Http.HttpServer.GetVersion.html
-  commentId: Overload:Sisk.Core.Http.HttpServer.GetVersion
-  fullName: Sisk.Core.Http.HttpServer.GetVersion
-  nameWithType: HttpServer.GetVersion
 - uid: Sisk.Core.Http.HttpServer.IsDynamicCodeSupported
   name: IsDynamicCodeSupported
   href: api/Sisk.Core.Http.HttpServer.IsDynamicCodeSupported.html#Sisk_Core_Http_HttpServer_IsDynamicCodeSupported
@@ -11158,6 +11122,15 @@ references:
   commentId: M:Sisk.Core.Routing.Router.SetObject(System.Type)
   fullName: Sisk.Core.Routing.Router.SetObject(System.Type)
   nameWithType: Router.SetObject(Type)
+- uid: Sisk.Core.Routing.Router.SetObject(System.Type,System.Object)
+  name: SetObject(Type, object)
+  href: api/Sisk.Core.Routing.Router.SetObject.html#Sisk_Core_Routing_Router_SetObject_System_Type_System_Object_
+  commentId: M:Sisk.Core.Routing.Router.SetObject(System.Type,System.Object)
+  name.vb: SetObject(Type, Object)
+  fullName: Sisk.Core.Routing.Router.SetObject(System.Type, object)
+  fullName.vb: Sisk.Core.Routing.Router.SetObject(System.Type, Object)
+  nameWithType: Router.SetObject(Type, object)
+  nameWithType.vb: Router.SetObject(Type, Object)
 - uid: Sisk.Core.Routing.Router.SetObject*
   name: SetObject
   href: api/Sisk.Core.Routing.Router.SetObject.html
@@ -11173,6 +11146,15 @@ references:
   fullName.vb: Sisk.Core.Routing.Router.SetObject(Of TObject)()
   nameWithType: Router.SetObject<TObject>()
   nameWithType.vb: Router.SetObject(Of TObject)()
+- uid: Sisk.Core.Routing.Router.SetObject``1(``0)
+  name: SetObject<TObject>(TObject)
+  href: api/Sisk.Core.Routing.Router.SetObject.html#Sisk_Core_Routing_Router_SetObject__1___0_
+  commentId: M:Sisk.Core.Routing.Router.SetObject``1(``0)
+  name.vb: SetObject(Of TObject)(TObject)
+  fullName: Sisk.Core.Routing.Router.SetObject<TObject>(TObject)
+  fullName.vb: Sisk.Core.Routing.Router.SetObject(Of TObject)(TObject)
+  nameWithType: Router.SetObject<TObject>(TObject)
+  nameWithType.vb: Router.SetObject(Of TObject)(TObject)
 - uid: Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.Route)
   name: SetRoute(Route)
   href: api/Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_Route_
@@ -11528,6 +11510,42 @@ references:
   commentId: Overload:Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration
   fullName: Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration
   nameWithType: IniConfigurationPipeline.ReadConfiguration
+- uid: Sisk.IniConfiguration.IniConfigurationReader
+  name: IniConfigurationReader
+  href: api/Sisk.IniConfiguration.IniConfigurationReader.html
+  commentId: T:Sisk.IniConfiguration.IniConfigurationReader
+  fullName: Sisk.IniConfiguration.IniConfigurationReader
+  nameWithType: IniConfigurationReader
+- uid: Sisk.IniConfiguration.IniConfigurationReader.#ctor
+  name: IniConfigurationReader()
+  href: api/Sisk.IniConfiguration.IniConfigurationReader.-ctor.html#Sisk_IniConfiguration_IniConfigurationReader__ctor
+  commentId: M:Sisk.IniConfiguration.IniConfigurationReader.#ctor
+  name.vb: New()
+  fullName: Sisk.IniConfiguration.IniConfigurationReader.IniConfigurationReader()
+  fullName.vb: Sisk.IniConfiguration.IniConfigurationReader.New()
+  nameWithType: IniConfigurationReader.IniConfigurationReader()
+  nameWithType.vb: IniConfigurationReader.New()
+- uid: Sisk.IniConfiguration.IniConfigurationReader.#ctor*
+  name: IniConfigurationReader
+  href: api/Sisk.IniConfiguration.IniConfigurationReader.-ctor.html
+  commentId: Overload:Sisk.IniConfiguration.IniConfigurationReader.#ctor
+  name.vb: New
+  fullName: Sisk.IniConfiguration.IniConfigurationReader.IniConfigurationReader
+  fullName.vb: Sisk.IniConfiguration.IniConfigurationReader.New
+  nameWithType: IniConfigurationReader.IniConfigurationReader
+  nameWithType.vb: IniConfigurationReader.New
+- uid: Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
+  name: ReadConfiguration(ConfigurationContext)
+  href: api/Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration.html#Sisk_IniConfiguration_IniConfigurationReader_ReadConfiguration_Sisk_Core_Http_Hosting_ConfigurationContext_
+  commentId: M:Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
+  fullName: Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
+  nameWithType: IniConfigurationReader.ReadConfiguration(ConfigurationContext)
+- uid: Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration*
+  name: ReadConfiguration
+  href: api/Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration.html
+  commentId: Overload:Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration
+  fullName: Sisk.IniConfiguration.IniConfigurationReader.ReadConfiguration
+  nameWithType: IniConfigurationReader.ReadConfiguration
 - uid: Sisk.IniConfiguration.IniDocument
   name: IniDocument
   href: api/Sisk.IniConfiguration.IniDocument.html
@@ -11978,18 +11996,6 @@ references:
   commentId: Overload:Sisk.Ssl.SslProxy.CheckCertificateRevocation
   fullName: Sisk.Ssl.SslProxy.CheckCertificateRevocation
   nameWithType: SslProxy.CheckCertificateRevocation
-- uid: Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit
-  name: CheckGatewayConnectionOnInit
-  href: api/Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit.html#Sisk_Ssl_SslProxy_CheckGatewayConnectionOnInit
-  commentId: P:Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit
-  fullName: Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit
-  nameWithType: SslProxy.CheckGatewayConnectionOnInit
-- uid: Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit*
-  name: CheckGatewayConnectionOnInit
-  href: api/Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit.html
-  commentId: Overload:Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit
-  fullName: Sisk.Ssl.SslProxy.CheckGatewayConnectionOnInit
-  nameWithType: SslProxy.CheckGatewayConnectionOnInit
 - uid: Sisk.Ssl.SslProxy.ClientCertificateRequired
   name: ClientCertificateRequired
   href: api/Sisk.Ssl.SslProxy.ClientCertificateRequired.html#Sisk_Ssl_SslProxy_ClientCertificateRequired
