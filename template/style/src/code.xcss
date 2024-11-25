@@ -1,0 +1,36 @@
+code,
+.hljs {
+    font-family: --bs-font-monospace;
+
+}
+
+:not(pre) > code {
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+html[data-bs-theme="light"] {
+    .hljs {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid #d9d9d9;
+    }
+
+    :not(pre) > code {
+        background-color: #f0f0f0;
+        color: #000;
+    }
+}
+
+html[data-bs-theme="dark"] {
+    .hljs {
+        background-color: #1c2127;
+        border-radius: 8px;
+        border: 1px solid #2e3642;
+    }
+
+    :not(pre) > code {
+        background-color: #1c2127;
+        color: white;
+    }
+}

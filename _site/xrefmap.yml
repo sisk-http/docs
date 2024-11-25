@@ -289,6 +289,33 @@ references:
   fullName.vb: Sisk.Core.Entity.HttpHeaderCollection.New()
   nameWithType: HttpHeaderCollection.HttpHeaderCollection()
   nameWithType.vb: HttpHeaderCollection.New()
+- uid: Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String[]})
+  name: HttpHeaderCollection(IDictionary<string, string[]>)
+  href: api/Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String____
+  commentId: M:Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String[]})
+  name.vb: New(IDictionary(Of String, String()))
+  fullName: Sisk.Core.Entity.HttpHeaderCollection.HttpHeaderCollection(System.Collections.Generic.IDictionary<string, string[]>)
+  fullName.vb: Sisk.Core.Entity.HttpHeaderCollection.New(System.Collections.Generic.IDictionary(Of String, String()))
+  nameWithType: HttpHeaderCollection.HttpHeaderCollection(IDictionary<string, string[]>)
+  nameWithType.vb: HttpHeaderCollection.New(IDictionary(Of String, String()))
+- uid: Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})
+  name: HttpHeaderCollection(IDictionary<string, string?>)
+  href: api/Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String__
+  commentId: M:Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})
+  name.vb: New(IDictionary(Of String, String))
+  fullName: Sisk.Core.Entity.HttpHeaderCollection.HttpHeaderCollection(System.Collections.Generic.IDictionary<string, string?>)
+  fullName.vb: Sisk.Core.Entity.HttpHeaderCollection.New(System.Collections.Generic.IDictionary(Of String, String))
+  nameWithType: HttpHeaderCollection.HttpHeaderCollection(IDictionary<string, string?>)
+  nameWithType.vb: HttpHeaderCollection.New(IDictionary(Of String, String))
+- uid: Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Net.WebHeaderCollection)
+  name: HttpHeaderCollection(WebHeaderCollection)
+  href: api/Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Net_WebHeaderCollection_
+  commentId: M:Sisk.Core.Entity.HttpHeaderCollection.#ctor(System.Net.WebHeaderCollection)
+  name.vb: New(WebHeaderCollection)
+  fullName: Sisk.Core.Entity.HttpHeaderCollection.HttpHeaderCollection(System.Net.WebHeaderCollection)
+  fullName.vb: Sisk.Core.Entity.HttpHeaderCollection.New(System.Net.WebHeaderCollection)
+  nameWithType: HttpHeaderCollection.HttpHeaderCollection(WebHeaderCollection)
+  nameWithType.vb: HttpHeaderCollection.New(WebHeaderCollection)
 - uid: Sisk.Core.Entity.HttpHeaderCollection.#ctor*
   name: HttpHeaderCollection
   href: api/Sisk.Core.Entity.HttpHeaderCollection.-ctor.html
@@ -1309,6 +1336,15 @@ references:
   fullName.vb: Sisk.Core.Entity.StringKeyStore.New(System.Collections.Generic.IEqualityComparer(Of String))
   nameWithType: StringKeyStore.StringKeyStore(IEqualityComparer<string>)
   nameWithType.vb: StringKeyStore.New(IEqualityComparer(Of String))
+- uid: Sisk.Core.Entity.StringKeyStore.#ctor(System.Collections.Generic.IEqualityComparer{System.String},System.Collections.Generic.IDictionary{System.String,System.String[]})
+  name: StringKeyStore(IEqualityComparer<string>, IDictionary<string, string[]>?)
+  href: api/Sisk.Core.Entity.StringKeyStore.-ctor.html#Sisk_Core_Entity_StringKeyStore__ctor_System_Collections_Generic_IEqualityComparer_System_String__System_Collections_Generic_IDictionary_System_String_System_String____
+  commentId: M:Sisk.Core.Entity.StringKeyStore.#ctor(System.Collections.Generic.IEqualityComparer{System.String},System.Collections.Generic.IDictionary{System.String,System.String[]})
+  name.vb: New(IEqualityComparer(Of String), IDictionary(Of String, String()))
+  fullName: Sisk.Core.Entity.StringKeyStore.StringKeyStore(System.Collections.Generic.IEqualityComparer<string>, System.Collections.Generic.IDictionary<string, string[]>?)
+  fullName.vb: Sisk.Core.Entity.StringKeyStore.New(System.Collections.Generic.IEqualityComparer(Of String), System.Collections.Generic.IDictionary(Of String, String()))
+  nameWithType: StringKeyStore.StringKeyStore(IEqualityComparer<string>, IDictionary<string, string[]>?)
+  nameWithType.vb: StringKeyStore.New(IEqualityComparer(Of String), IDictionary(Of String, String()))
 - uid: Sisk.Core.Entity.StringKeyStore.#ctor*
   name: StringKeyStore
   href: api/Sisk.Core.Entity.StringKeyStore.-ctor.html
@@ -1369,6 +1405,15 @@ references:
   fullName.vb: Sisk.Core.Entity.StringKeyStore.AddRange(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, String())))
   nameWithType: StringKeyStore.AddRange(IEnumerable<KeyValuePair<string, string[]>>)
   nameWithType.vb: StringKeyStore.AddRange(IEnumerable(Of KeyValuePair(Of String, String())))
+- uid: Sisk.Core.Entity.StringKeyStore.AddRange(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name: AddRange(IEnumerable<KeyValuePair<string, string?>>)
+  href: api/Sisk.Core.Entity.StringKeyStore.AddRange.html#Sisk_Core_Entity_StringKeyStore_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___
+  commentId: M:Sisk.Core.Entity.StringKeyStore.AddRange(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name.vb: AddRange(IEnumerable(Of KeyValuePair(Of String, String)))
+  fullName: Sisk.Core.Entity.StringKeyStore.AddRange(System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string?>>)
+  fullName.vb: Sisk.Core.Entity.StringKeyStore.AddRange(System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, String)))
+  nameWithType: StringKeyStore.AddRange(IEnumerable<KeyValuePair<string, string?>>)
+  nameWithType.vb: StringKeyStore.AddRange(IEnumerable(Of KeyValuePair(Of String, String)))
 - uid: Sisk.Core.Entity.StringKeyStore.AddRange*
   name: AddRange
   href: api/Sisk.Core.Entity.StringKeyStore.AddRange.html
@@ -2605,96 +2650,6 @@ references:
   commentId: N:Sisk.Core.Http
   fullName: Sisk.Core.Http
   nameWithType: Sisk.Core.Http
-- uid: Sisk.Core.Http.CookieHelper
-  name: CookieHelper
-  href: api/Sisk.Core.Http.CookieHelper.html
-  commentId: T:Sisk.Core.Http.CookieHelper
-  fullName: Sisk.Core.Http.CookieHelper
-  nameWithType: CookieHelper
-- uid: Sisk.Core.Http.CookieHelper.#ctor
-  name: CookieHelper()
-  href: api/Sisk.Core.Http.CookieHelper.-ctor.html#Sisk_Core_Http_CookieHelper__ctor
-  commentId: M:Sisk.Core.Http.CookieHelper.#ctor
-  name.vb: New()
-  fullName: Sisk.Core.Http.CookieHelper.CookieHelper()
-  fullName.vb: Sisk.Core.Http.CookieHelper.New()
-  nameWithType: CookieHelper.CookieHelper()
-  nameWithType.vb: CookieHelper.New()
-- uid: Sisk.Core.Http.CookieHelper.#ctor*
-  name: CookieHelper
-  href: api/Sisk.Core.Http.CookieHelper.-ctor.html
-  commentId: Overload:Sisk.Core.Http.CookieHelper.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Http.CookieHelper.CookieHelper
-  fullName.vb: Sisk.Core.Http.CookieHelper.New
-  nameWithType: CookieHelper.CookieHelper
-  nameWithType.vb: CookieHelper.New
-- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
-  name: BuildCookieHeaderValue(Cookie)
-  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_
-  commentId: M:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
-  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.Net.Cookie)
-  nameWithType: CookieHelper.BuildCookieHeaderValue(Cookie)
-- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
-  name: BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
-  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Http_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_
-  commentId: M:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
-  name.vb: BuildCookieHeaderValue(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
-  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(string, string, System.DateTime?, System.TimeSpan?, string?, string?, bool?, bool?, string?)
-  fullName.vb: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue(String, String, Date?, System.TimeSpan?, String, String, Boolean?, Boolean?, String)
-  nameWithType: CookieHelper.BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
-  nameWithType.vb: CookieHelper.BuildCookieHeaderValue(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
-- uid: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue*
-  name: BuildCookieHeaderValue
-  href: api/Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue.html
-  commentId: Overload:Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue
-  fullName: Sisk.Core.Http.CookieHelper.BuildCookieHeaderValue
-  nameWithType: CookieHelper.BuildCookieHeaderValue
-- uid: Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
-  name: SetCookie(Cookie)
-  href: api/Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_Net_Cookie_
-  commentId: M:Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
-  fullName: Sisk.Core.Http.CookieHelper.SetCookie(System.Net.Cookie)
-  nameWithType: CookieHelper.SetCookie(Cookie)
-- uid: Sisk.Core.Http.CookieHelper.SetCookie(System.String,System.String)
-  name: SetCookie(string, string)
-  href: api/Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_
-  commentId: M:Sisk.Core.Http.CookieHelper.SetCookie(System.String,System.String)
-  name.vb: SetCookie(String, String)
-  fullName: Sisk.Core.Http.CookieHelper.SetCookie(string, string)
-  fullName.vb: Sisk.Core.Http.CookieHelper.SetCookie(String, String)
-  nameWithType: CookieHelper.SetCookie(string, string)
-  nameWithType.vb: CookieHelper.SetCookie(String, String)
-- uid: Sisk.Core.Http.CookieHelper.SetCookie(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
-  name: SetCookie(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
-  href: api/Sisk.Core.Http.CookieHelper.SetCookie.html#Sisk_Core_Http_CookieHelper_SetCookie_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_
-  commentId: M:Sisk.Core.Http.CookieHelper.SetCookie(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)
-  name.vb: SetCookie(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
-  fullName: Sisk.Core.Http.CookieHelper.SetCookie(string, string, System.DateTime?, System.TimeSpan?, string?, string?, bool?, bool?, string?)
-  fullName.vb: Sisk.Core.Http.CookieHelper.SetCookie(String, String, Date?, System.TimeSpan?, String, String, Boolean?, Boolean?, String)
-  nameWithType: CookieHelper.SetCookie(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)
-  nameWithType.vb: CookieHelper.SetCookie(String, String, Date?, TimeSpan?, String, String, Boolean?, Boolean?, String)
-- uid: Sisk.Core.Http.CookieHelper.SetCookie*
-  name: SetCookie
-  href: api/Sisk.Core.Http.CookieHelper.SetCookie.html
-  commentId: Overload:Sisk.Core.Http.CookieHelper.SetCookie
-  fullName: Sisk.Core.Http.CookieHelper.SetCookie
-  nameWithType: CookieHelper.SetCookie
-- uid: Sisk.Core.Http.CookieHelper.SetCookieHeader(System.String,System.String)
-  name: SetCookieHeader(string, string)
-  href: api/Sisk.Core.Http.CookieHelper.SetCookieHeader.html#Sisk_Core_Http_CookieHelper_SetCookieHeader_System_String_System_String_
-  commentId: M:Sisk.Core.Http.CookieHelper.SetCookieHeader(System.String,System.String)
-  name.vb: SetCookieHeader(String, String)
-  fullName: Sisk.Core.Http.CookieHelper.SetCookieHeader(string, string)
-  fullName.vb: Sisk.Core.Http.CookieHelper.SetCookieHeader(String, String)
-  nameWithType: CookieHelper.SetCookieHeader(string, string)
-  nameWithType.vb: CookieHelper.SetCookieHeader(String, String)
-- uid: Sisk.Core.Http.CookieHelper.SetCookieHeader*
-  name: SetCookieHeader
-  href: api/Sisk.Core.Http.CookieHelper.SetCookieHeader.html
-  commentId: Overload:Sisk.Core.Http.CookieHelper.SetCookieHeader
-  fullName: Sisk.Core.Http.CookieHelper.SetCookieHeader
-  nameWithType: CookieHelper.SetCookieHeader
 - uid: Sisk.Core.Http.DefaultMessagePage
   name: DefaultMessagePage
   href: api/Sisk.Core.Http.DefaultMessagePage.html
@@ -3892,36 +3847,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.PortableConfigurationBuilder.WithParameters
   fullName: Sisk.Core.Http.Hosting.PortableConfigurationBuilder.WithParameters
   nameWithType: PortableConfigurationBuilder.WithParameters
-- uid: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection
-  name: PortableConfigurationRequireSection
-  href: api/Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.html
-  commentId: T:Sisk.Core.Http.Hosting.PortableConfigurationRequireSection
-  fullName: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection
-  nameWithType: PortableConfigurationRequireSection
-- uid: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.All
-  name: All
-  href: api/Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.html#Sisk_Core_Http_Hosting_PortableConfigurationRequireSection_All
-  commentId: F:Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.All
-  fullName: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.All
-  nameWithType: PortableConfigurationRequireSection.All
-- uid: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ListeningHost
-  name: ListeningHost
-  href: api/Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.html#Sisk_Core_Http_Hosting_PortableConfigurationRequireSection_ListeningHost
-  commentId: F:Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ListeningHost
-  fullName: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ListeningHost
-  nameWithType: PortableConfigurationRequireSection.ListeningHost
-- uid: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.Parameters
-  name: Parameters
-  href: api/Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.html#Sisk_Core_Http_Hosting_PortableConfigurationRequireSection_Parameters
-  commentId: F:Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.Parameters
-  fullName: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.Parameters
-  nameWithType: PortableConfigurationRequireSection.Parameters
-- uid: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ServerConfiguration
-  name: ServerConfiguration
-  href: api/Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.html#Sisk_Core_Http_Hosting_PortableConfigurationRequireSection_ServerConfiguration
-  commentId: F:Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ServerConfiguration
-  fullName: Sisk.Core.Http.Hosting.PortableConfigurationRequireSection.ServerConfiguration
-  nameWithType: PortableConfigurationRequireSection.ServerConfiguration
 - uid: Sisk.Core.Http.HtmlContent
   name: HtmlContent
   href: api/Sisk.Core.Http.HtmlContent.html
@@ -4081,30 +4006,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpContext.RouterResponse
   fullName: Sisk.Core.Http.HttpContext.RouterResponse
   nameWithType: HttpContext.RouterResponse
-- uid: Sisk.Core.Http.HttpContextBagRepository
-  name: HttpContextBagRepository
-  href: api/Sisk.Core.Http.HttpContextBagRepository.html
-  commentId: T:Sisk.Core.Http.HttpContextBagRepository
-  fullName: Sisk.Core.Http.HttpContextBagRepository
-  nameWithType: HttpContextBagRepository
-- uid: Sisk.Core.Http.HttpContextBagRepository.#ctor
-  name: HttpContextBagRepository()
-  href: api/Sisk.Core.Http.HttpContextBagRepository.-ctor.html#Sisk_Core_Http_HttpContextBagRepository__ctor
-  commentId: M:Sisk.Core.Http.HttpContextBagRepository.#ctor
-  name.vb: New()
-  fullName: Sisk.Core.Http.HttpContextBagRepository.HttpContextBagRepository()
-  fullName.vb: Sisk.Core.Http.HttpContextBagRepository.New()
-  nameWithType: HttpContextBagRepository.HttpContextBagRepository()
-  nameWithType.vb: HttpContextBagRepository.New()
-- uid: Sisk.Core.Http.HttpContextBagRepository.#ctor*
-  name: HttpContextBagRepository
-  href: api/Sisk.Core.Http.HttpContextBagRepository.-ctor.html
-  commentId: Overload:Sisk.Core.Http.HttpContextBagRepository.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Http.HttpContextBagRepository.HttpContextBagRepository
-  fullName.vb: Sisk.Core.Http.HttpContextBagRepository.New
-  nameWithType: HttpContextBagRepository.HttpContextBagRepository
-  nameWithType.vb: HttpContextBagRepository.New
 - uid: Sisk.Core.Http.HttpKnownHeaderNames
   name: HttpKnownHeaderNames
   href: api/Sisk.Core.Http.HttpKnownHeaderNames.html
@@ -7906,93 +7807,6 @@ references:
   commentId: Overload:Sisk.Core.Http.LogStream.WriteLineInternal
   fullName: Sisk.Core.Http.LogStream.WriteLineInternal
   nameWithType: LogStream.WriteLineInternal
-- uid: Sisk.Core.Http.MimeHelper
-  name: MimeHelper
-  href: api/Sisk.Core.Http.MimeHelper.html
-  commentId: T:Sisk.Core.Http.MimeHelper
-  fullName: Sisk.Core.Http.MimeHelper
-  nameWithType: MimeHelper
-- uid: Sisk.Core.Http.MimeHelper.GetMimeType(System.String,System.String)
-  name: GetMimeType(string, string)
-  href: api/Sisk.Core.Http.MimeHelper.GetMimeType.html#Sisk_Core_Http_MimeHelper_GetMimeType_System_String_System_String_
-  commentId: M:Sisk.Core.Http.MimeHelper.GetMimeType(System.String,System.String)
-  name.vb: GetMimeType(String, String)
-  fullName: Sisk.Core.Http.MimeHelper.GetMimeType(string, string)
-  fullName.vb: Sisk.Core.Http.MimeHelper.GetMimeType(String, String)
-  nameWithType: MimeHelper.GetMimeType(string, string)
-  nameWithType.vb: MimeHelper.GetMimeType(String, String)
-- uid: Sisk.Core.Http.MimeHelper.GetMimeType*
-  name: GetMimeType
-  href: api/Sisk.Core.Http.MimeHelper.GetMimeType.html
-  commentId: Overload:Sisk.Core.Http.MimeHelper.GetMimeType
-  fullName: Sisk.Core.Http.MimeHelper.GetMimeType
-  nameWithType: MimeHelper.GetMimeType
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler
-  name: ReceiveRequestEventHandler
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.html
-  commentId: T:Sisk.Core.Http.ReceiveRequestEventHandler
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler
-  nameWithType: ReceiveRequestEventHandler
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.#ctor(System.Object,System.IntPtr)
-  name: ReceiveRequestEventHandler(object, nint)
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.-ctor.html#Sisk_Core_Http_ReceiveRequestEventHandler__ctor_System_Object_System_IntPtr_
-  commentId: M:Sisk.Core.Http.ReceiveRequestEventHandler.#ctor(System.Object,System.IntPtr)
-  name.vb: New(Object, IntPtr)
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.ReceiveRequestEventHandler(object, nint)
-  fullName.vb: Sisk.Core.Http.ReceiveRequestEventHandler.New(Object, System.IntPtr)
-  nameWithType: ReceiveRequestEventHandler.ReceiveRequestEventHandler(object, nint)
-  nameWithType.vb: ReceiveRequestEventHandler.New(Object, IntPtr)
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.#ctor*
-  name: ReceiveRequestEventHandler
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.-ctor.html
-  commentId: Overload:Sisk.Core.Http.ReceiveRequestEventHandler.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.ReceiveRequestEventHandler
-  fullName.vb: Sisk.Core.Http.ReceiveRequestEventHandler.New
-  nameWithType: ReceiveRequestEventHandler.ReceiveRequestEventHandler
-  nameWithType.vb: ReceiveRequestEventHandler.New
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke(System.Object,Sisk.Core.Http.HttpRequest,System.AsyncCallback,System.Object)
-  name: BeginInvoke(object, HttpRequest, AsyncCallback, object)
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke.html#Sisk_Core_Http_ReceiveRequestEventHandler_BeginInvoke_System_Object_Sisk_Core_Http_HttpRequest_System_AsyncCallback_System_Object_
-  commentId: M:Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke(System.Object,Sisk.Core.Http.HttpRequest,System.AsyncCallback,System.Object)
-  name.vb: BeginInvoke(Object, HttpRequest, AsyncCallback, Object)
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke(object, Sisk.Core.Http.HttpRequest, System.AsyncCallback, object)
-  fullName.vb: Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke(Object, Sisk.Core.Http.HttpRequest, System.AsyncCallback, Object)
-  nameWithType: ReceiveRequestEventHandler.BeginInvoke(object, HttpRequest, AsyncCallback, object)
-  nameWithType.vb: ReceiveRequestEventHandler.BeginInvoke(Object, HttpRequest, AsyncCallback, Object)
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke*
-  name: BeginInvoke
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke.html
-  commentId: Overload:Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.BeginInvoke
-  nameWithType: ReceiveRequestEventHandler.BeginInvoke
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke(System.IAsyncResult)
-  name: EndInvoke(IAsyncResult)
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke.html#Sisk_Core_Http_ReceiveRequestEventHandler_EndInvoke_System_IAsyncResult_
-  commentId: M:Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke(System.IAsyncResult)
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke(System.IAsyncResult)
-  nameWithType: ReceiveRequestEventHandler.EndInvoke(IAsyncResult)
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke*
-  name: EndInvoke
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke.html
-  commentId: Overload:Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.EndInvoke
-  nameWithType: ReceiveRequestEventHandler.EndInvoke
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.Invoke(System.Object,Sisk.Core.Http.HttpRequest)
-  name: Invoke(object, HttpRequest)
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.Invoke.html#Sisk_Core_Http_ReceiveRequestEventHandler_Invoke_System_Object_Sisk_Core_Http_HttpRequest_
-  commentId: M:Sisk.Core.Http.ReceiveRequestEventHandler.Invoke(System.Object,Sisk.Core.Http.HttpRequest)
-  name.vb: Invoke(Object, HttpRequest)
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.Invoke(object, Sisk.Core.Http.HttpRequest)
-  fullName.vb: Sisk.Core.Http.ReceiveRequestEventHandler.Invoke(Object, Sisk.Core.Http.HttpRequest)
-  nameWithType: ReceiveRequestEventHandler.Invoke(object, HttpRequest)
-  nameWithType.vb: ReceiveRequestEventHandler.Invoke(Object, HttpRequest)
-- uid: Sisk.Core.Http.ReceiveRequestEventHandler.Invoke*
-  name: Invoke
-  href: api/Sisk.Core.Http.ReceiveRequestEventHandler.Invoke.html
-  commentId: Overload:Sisk.Core.Http.ReceiveRequestEventHandler.Invoke
-  fullName: Sisk.Core.Http.ReceiveRequestEventHandler.Invoke
-  nameWithType: ReceiveRequestEventHandler.Invoke
 - uid: Sisk.Core.Http.RequestListenAction
   name: RequestListenAction
   href: api/Sisk.Core.Http.RequestListenAction.html
@@ -8086,72 +7900,6 @@ references:
   commentId: Overload:Sisk.Core.Http.RotatingLogPolicy.MaximumSize
   fullName: Sisk.Core.Http.RotatingLogPolicy.MaximumSize
   nameWithType: RotatingLogPolicy.MaximumSize
-- uid: Sisk.Core.Http.ServerExecutionEventHandler
-  name: ServerExecutionEventHandler
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.html
-  commentId: T:Sisk.Core.Http.ServerExecutionEventHandler
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler
-  nameWithType: ServerExecutionEventHandler
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.#ctor(System.Object,System.IntPtr)
-  name: ServerExecutionEventHandler(object, nint)
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.-ctor.html#Sisk_Core_Http_ServerExecutionEventHandler__ctor_System_Object_System_IntPtr_
-  commentId: M:Sisk.Core.Http.ServerExecutionEventHandler.#ctor(System.Object,System.IntPtr)
-  name.vb: New(Object, IntPtr)
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.ServerExecutionEventHandler(object, nint)
-  fullName.vb: Sisk.Core.Http.ServerExecutionEventHandler.New(Object, System.IntPtr)
-  nameWithType: ServerExecutionEventHandler.ServerExecutionEventHandler(object, nint)
-  nameWithType.vb: ServerExecutionEventHandler.New(Object, IntPtr)
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.#ctor*
-  name: ServerExecutionEventHandler
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.-ctor.html
-  commentId: Overload:Sisk.Core.Http.ServerExecutionEventHandler.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.ServerExecutionEventHandler
-  fullName.vb: Sisk.Core.Http.ServerExecutionEventHandler.New
-  nameWithType: ServerExecutionEventHandler.ServerExecutionEventHandler
-  nameWithType.vb: ServerExecutionEventHandler.New
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke(System.Object,Sisk.Core.Http.HttpServerExecutionResult,System.AsyncCallback,System.Object)
-  name: BeginInvoke(object, HttpServerExecutionResult, AsyncCallback, object)
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke.html#Sisk_Core_Http_ServerExecutionEventHandler_BeginInvoke_System_Object_Sisk_Core_Http_HttpServerExecutionResult_System_AsyncCallback_System_Object_
-  commentId: M:Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke(System.Object,Sisk.Core.Http.HttpServerExecutionResult,System.AsyncCallback,System.Object)
-  name.vb: BeginInvoke(Object, HttpServerExecutionResult, AsyncCallback, Object)
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke(object, Sisk.Core.Http.HttpServerExecutionResult, System.AsyncCallback, object)
-  fullName.vb: Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke(Object, Sisk.Core.Http.HttpServerExecutionResult, System.AsyncCallback, Object)
-  nameWithType: ServerExecutionEventHandler.BeginInvoke(object, HttpServerExecutionResult, AsyncCallback, object)
-  nameWithType.vb: ServerExecutionEventHandler.BeginInvoke(Object, HttpServerExecutionResult, AsyncCallback, Object)
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke*
-  name: BeginInvoke
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke.html
-  commentId: Overload:Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.BeginInvoke
-  nameWithType: ServerExecutionEventHandler.BeginInvoke
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke(System.IAsyncResult)
-  name: EndInvoke(IAsyncResult)
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke.html#Sisk_Core_Http_ServerExecutionEventHandler_EndInvoke_System_IAsyncResult_
-  commentId: M:Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke(System.IAsyncResult)
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke(System.IAsyncResult)
-  nameWithType: ServerExecutionEventHandler.EndInvoke(IAsyncResult)
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke*
-  name: EndInvoke
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke.html
-  commentId: Overload:Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.EndInvoke
-  nameWithType: ServerExecutionEventHandler.EndInvoke
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.Invoke(System.Object,Sisk.Core.Http.HttpServerExecutionResult)
-  name: Invoke(object, HttpServerExecutionResult)
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.Invoke.html#Sisk_Core_Http_ServerExecutionEventHandler_Invoke_System_Object_Sisk_Core_Http_HttpServerExecutionResult_
-  commentId: M:Sisk.Core.Http.ServerExecutionEventHandler.Invoke(System.Object,Sisk.Core.Http.HttpServerExecutionResult)
-  name.vb: Invoke(Object, HttpServerExecutionResult)
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.Invoke(object, Sisk.Core.Http.HttpServerExecutionResult)
-  fullName.vb: Sisk.Core.Http.ServerExecutionEventHandler.Invoke(Object, Sisk.Core.Http.HttpServerExecutionResult)
-  nameWithType: ServerExecutionEventHandler.Invoke(object, HttpServerExecutionResult)
-  nameWithType.vb: ServerExecutionEventHandler.Invoke(Object, HttpServerExecutionResult)
-- uid: Sisk.Core.Http.ServerExecutionEventHandler.Invoke*
-  name: Invoke
-  href: api/Sisk.Core.Http.ServerExecutionEventHandler.Invoke.html
-  commentId: Overload:Sisk.Core.Http.ServerExecutionEventHandler.Invoke
-  fullName: Sisk.Core.Http.ServerExecutionEventHandler.Invoke
-  nameWithType: ServerExecutionEventHandler.Invoke
 - uid: Sisk.Core.Http.Streams
   name: Sisk.Core.Http.Streams
   href: api/Sisk.Core.Http.Streams.html
@@ -9334,66 +9082,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.Invoke
   fullName: Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.Invoke
   nameWithType: WebSocketUnregistrationHandler.Invoke
-- uid: Sisk.Core.Internal.ServiceProvider
-  name: Sisk.Core.Internal.ServiceProvider
-  href: api/Sisk.Core.Internal.ServiceProvider.html
-  commentId: N:Sisk.Core.Internal.ServiceProvider
-  fullName: Sisk.Core.Internal.ServiceProvider
-  nameWithType: Sisk.Core.Internal.ServiceProvider
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext
-  name: ConfigurationContext
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.html
-  commentId: T:Sisk.Core.Internal.ServiceProvider.ConfigurationContext
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext
-  nameWithType: ConfigurationContext
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile
-  name: ConfigurationFile
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile.html#Sisk_Core_Internal_ServiceProvider_ConfigurationContext_ConfigurationFile
-  commentId: P:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile
-  nameWithType: ConfigurationContext.ConfigurationFile
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile*
-  name: ConfigurationFile
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile.html
-  commentId: Overload:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.ConfigurationFile
-  nameWithType: ConfigurationContext.ConfigurationFile
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host
-  name: Host
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host.html#Sisk_Core_Internal_ServiceProvider_ConfigurationContext_Host
-  commentId: P:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host
-  nameWithType: ConfigurationContext.Host
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host*
-  name: Host
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host.html
-  commentId: Overload:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Host
-  nameWithType: ConfigurationContext.Host
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters
-  name: Parameters
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters.html#Sisk_Core_Internal_ServiceProvider_ConfigurationContext_Parameters
-  commentId: P:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters
-  nameWithType: ConfigurationContext.Parameters
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters*
-  name: Parameters
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters.html
-  commentId: Overload:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.Parameters
-  nameWithType: ConfigurationContext.Parameters
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost
-  name: TargetListeningHost
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost.html#Sisk_Core_Internal_ServiceProvider_ConfigurationContext_TargetListeningHost
-  commentId: P:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost
-  nameWithType: ConfigurationContext.TargetListeningHost
-- uid: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost*
-  name: TargetListeningHost
-  href: api/Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost.html
-  commentId: Overload:Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost
-  fullName: Sisk.Core.Internal.ServiceProvider.ConfigurationContext.TargetListeningHost
-  nameWithType: ConfigurationContext.TargetListeningHost
 - uid: Sisk.Core.Routing
   name: Sisk.Core.Routing
   href: api/Sisk.Core.Routing.html
@@ -9598,132 +9286,6 @@ references:
   commentId: F:Sisk.Core.Routing.LogOutput.None
   fullName: Sisk.Core.Routing.LogOutput.None
   nameWithType: LogOutput.None
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback
-  name: MethodNotAllowedErrorCallback
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.html
-  commentId: T:Sisk.Core.Routing.MethodNotAllowedErrorCallback
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback
-  nameWithType: MethodNotAllowedErrorCallback
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.#ctor(System.Object,System.IntPtr)
-  name: MethodNotAllowedErrorCallback(object, nint)
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.-ctor.html#Sisk_Core_Routing_MethodNotAllowedErrorCallback__ctor_System_Object_System_IntPtr_
-  commentId: M:Sisk.Core.Routing.MethodNotAllowedErrorCallback.#ctor(System.Object,System.IntPtr)
-  name.vb: New(Object, IntPtr)
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.MethodNotAllowedErrorCallback(object, nint)
-  fullName.vb: Sisk.Core.Routing.MethodNotAllowedErrorCallback.New(Object, System.IntPtr)
-  nameWithType: MethodNotAllowedErrorCallback.MethodNotAllowedErrorCallback(object, nint)
-  nameWithType.vb: MethodNotAllowedErrorCallback.New(Object, IntPtr)
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.#ctor*
-  name: MethodNotAllowedErrorCallback
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.-ctor.html
-  commentId: Overload:Sisk.Core.Routing.MethodNotAllowedErrorCallback.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.MethodNotAllowedErrorCallback
-  fullName.vb: Sisk.Core.Routing.MethodNotAllowedErrorCallback.New
-  nameWithType: MethodNotAllowedErrorCallback.MethodNotAllowedErrorCallback
-  nameWithType.vb: MethodNotAllowedErrorCallback.New
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke(Sisk.Core.Http.HttpContext,System.AsyncCallback,System.Object)
-  name: BeginInvoke(HttpContext, AsyncCallback, object)
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke.html#Sisk_Core_Routing_MethodNotAllowedErrorCallback_BeginInvoke_Sisk_Core_Http_HttpContext_System_AsyncCallback_System_Object_
-  commentId: M:Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke(Sisk.Core.Http.HttpContext,System.AsyncCallback,System.Object)
-  name.vb: BeginInvoke(HttpContext, AsyncCallback, Object)
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke(Sisk.Core.Http.HttpContext, System.AsyncCallback, object)
-  fullName.vb: Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke(Sisk.Core.Http.HttpContext, System.AsyncCallback, Object)
-  nameWithType: MethodNotAllowedErrorCallback.BeginInvoke(HttpContext, AsyncCallback, object)
-  nameWithType.vb: MethodNotAllowedErrorCallback.BeginInvoke(HttpContext, AsyncCallback, Object)
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke*
-  name: BeginInvoke
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke.html
-  commentId: Overload:Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.BeginInvoke
-  nameWithType: MethodNotAllowedErrorCallback.BeginInvoke
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke(System.IAsyncResult)
-  name: EndInvoke(IAsyncResult)
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke.html#Sisk_Core_Routing_MethodNotAllowedErrorCallback_EndInvoke_System_IAsyncResult_
-  commentId: M:Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke(System.IAsyncResult)
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke(System.IAsyncResult)
-  nameWithType: MethodNotAllowedErrorCallback.EndInvoke(IAsyncResult)
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke*
-  name: EndInvoke
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke.html
-  commentId: Overload:Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.EndInvoke
-  nameWithType: MethodNotAllowedErrorCallback.EndInvoke
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke(Sisk.Core.Http.HttpContext)
-  name: Invoke(HttpContext)
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke.html#Sisk_Core_Routing_MethodNotAllowedErrorCallback_Invoke_Sisk_Core_Http_HttpContext_
-  commentId: M:Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke(Sisk.Core.Http.HttpContext)
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke(Sisk.Core.Http.HttpContext)
-  nameWithType: MethodNotAllowedErrorCallback.Invoke(HttpContext)
-- uid: Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke*
-  name: Invoke
-  href: api/Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke.html
-  commentId: Overload:Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke
-  fullName: Sisk.Core.Routing.MethodNotAllowedErrorCallback.Invoke
-  nameWithType: MethodNotAllowedErrorCallback.Invoke
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback
-  name: NoMatchedRouteErrorCallback
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.html
-  commentId: T:Sisk.Core.Routing.NoMatchedRouteErrorCallback
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback
-  nameWithType: NoMatchedRouteErrorCallback
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.#ctor(System.Object,System.IntPtr)
-  name: NoMatchedRouteErrorCallback(object, nint)
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.-ctor.html#Sisk_Core_Routing_NoMatchedRouteErrorCallback__ctor_System_Object_System_IntPtr_
-  commentId: M:Sisk.Core.Routing.NoMatchedRouteErrorCallback.#ctor(System.Object,System.IntPtr)
-  name.vb: New(Object, IntPtr)
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.NoMatchedRouteErrorCallback(object, nint)
-  fullName.vb: Sisk.Core.Routing.NoMatchedRouteErrorCallback.New(Object, System.IntPtr)
-  nameWithType: NoMatchedRouteErrorCallback.NoMatchedRouteErrorCallback(object, nint)
-  nameWithType.vb: NoMatchedRouteErrorCallback.New(Object, IntPtr)
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.#ctor*
-  name: NoMatchedRouteErrorCallback
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.-ctor.html
-  commentId: Overload:Sisk.Core.Routing.NoMatchedRouteErrorCallback.#ctor
-  name.vb: New
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.NoMatchedRouteErrorCallback
-  fullName.vb: Sisk.Core.Routing.NoMatchedRouteErrorCallback.New
-  nameWithType: NoMatchedRouteErrorCallback.NoMatchedRouteErrorCallback
-  nameWithType.vb: NoMatchedRouteErrorCallback.New
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke(System.AsyncCallback,System.Object)
-  name: BeginInvoke(AsyncCallback, object)
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke.html#Sisk_Core_Routing_NoMatchedRouteErrorCallback_BeginInvoke_System_AsyncCallback_System_Object_
-  commentId: M:Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke(System.AsyncCallback,System.Object)
-  name.vb: BeginInvoke(AsyncCallback, Object)
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke(System.AsyncCallback, object)
-  fullName.vb: Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke(System.AsyncCallback, Object)
-  nameWithType: NoMatchedRouteErrorCallback.BeginInvoke(AsyncCallback, object)
-  nameWithType.vb: NoMatchedRouteErrorCallback.BeginInvoke(AsyncCallback, Object)
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke*
-  name: BeginInvoke
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke.html
-  commentId: Overload:Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.BeginInvoke
-  nameWithType: NoMatchedRouteErrorCallback.BeginInvoke
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke(System.IAsyncResult)
-  name: EndInvoke(IAsyncResult)
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke.html#Sisk_Core_Routing_NoMatchedRouteErrorCallback_EndInvoke_System_IAsyncResult_
-  commentId: M:Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke(System.IAsyncResult)
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke(System.IAsyncResult)
-  nameWithType: NoMatchedRouteErrorCallback.EndInvoke(IAsyncResult)
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke*
-  name: EndInvoke
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke.html
-  commentId: Overload:Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.EndInvoke
-  nameWithType: NoMatchedRouteErrorCallback.EndInvoke
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke
-  name: Invoke()
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke.html#Sisk_Core_Routing_NoMatchedRouteErrorCallback_Invoke
-  commentId: M:Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke()
-  nameWithType: NoMatchedRouteErrorCallback.Invoke()
-- uid: Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke*
-  name: Invoke
-  href: api/Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke.html
-  commentId: Overload:Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke
-  fullName: Sisk.Core.Routing.NoMatchedRouteErrorCallback.Invoke
-  nameWithType: NoMatchedRouteErrorCallback.Invoke
 - uid: Sisk.Core.Routing.ParameterlessRouteAction
   name: ParameterlessRouteAction
   href: api/Sisk.Core.Routing.ParameterlessRouteAction.html
@@ -11474,42 +11036,6 @@ references:
   commentId: N:Sisk.IniConfiguration
   fullName: Sisk.IniConfiguration
   nameWithType: Sisk.IniConfiguration
-- uid: Sisk.IniConfiguration.IniConfigurationPipeline
-  name: IniConfigurationPipeline
-  href: api/Sisk.IniConfiguration.IniConfigurationPipeline.html
-  commentId: T:Sisk.IniConfiguration.IniConfigurationPipeline
-  fullName: Sisk.IniConfiguration.IniConfigurationPipeline
-  nameWithType: IniConfigurationPipeline
-- uid: Sisk.IniConfiguration.IniConfigurationPipeline.#ctor
-  name: IniConfigurationPipeline()
-  href: api/Sisk.IniConfiguration.IniConfigurationPipeline.-ctor.html#Sisk_IniConfiguration_IniConfigurationPipeline__ctor
-  commentId: M:Sisk.IniConfiguration.IniConfigurationPipeline.#ctor
-  name.vb: New()
-  fullName: Sisk.IniConfiguration.IniConfigurationPipeline.IniConfigurationPipeline()
-  fullName.vb: Sisk.IniConfiguration.IniConfigurationPipeline.New()
-  nameWithType: IniConfigurationPipeline.IniConfigurationPipeline()
-  nameWithType.vb: IniConfigurationPipeline.New()
-- uid: Sisk.IniConfiguration.IniConfigurationPipeline.#ctor*
-  name: IniConfigurationPipeline
-  href: api/Sisk.IniConfiguration.IniConfigurationPipeline.-ctor.html
-  commentId: Overload:Sisk.IniConfiguration.IniConfigurationPipeline.#ctor
-  name.vb: New
-  fullName: Sisk.IniConfiguration.IniConfigurationPipeline.IniConfigurationPipeline
-  fullName.vb: Sisk.IniConfiguration.IniConfigurationPipeline.New
-  nameWithType: IniConfigurationPipeline.IniConfigurationPipeline
-  nameWithType.vb: IniConfigurationPipeline.New
-- uid: Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
-  name: ReadConfiguration(ConfigurationContext)
-  href: api/Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration.html#Sisk_IniConfiguration_IniConfigurationPipeline_ReadConfiguration_Sisk_Core_Http_Hosting_ConfigurationContext_
-  commentId: M:Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
-  fullName: Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration(Sisk.Core.Http.Hosting.ConfigurationContext)
-  nameWithType: IniConfigurationPipeline.ReadConfiguration(ConfigurationContext)
-- uid: Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration*
-  name: ReadConfiguration
-  href: api/Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration.html
-  commentId: Overload:Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration
-  fullName: Sisk.IniConfiguration.IniConfigurationPipeline.ReadConfiguration
-  nameWithType: IniConfigurationPipeline.ReadConfiguration
 - uid: Sisk.IniConfiguration.IniConfigurationReader
   name: IniConfigurationReader
   href: api/Sisk.IniConfiguration.IniConfigurationReader.html
@@ -11786,60 +11312,6 @@ references:
   commentId: Overload:Sisk.IniConfiguration.IniSection.Values
   fullName: Sisk.IniConfiguration.IniSection.Values
   nameWithType: IniSection.Values
-- uid: Sisk.IniConfiguration.Parser
-  name: Sisk.IniConfiguration.Parser
-  href: api/Sisk.IniConfiguration.Parser.html
-  commentId: N:Sisk.IniConfiguration.Parser
-  fullName: Sisk.IniConfiguration.Parser
-  nameWithType: Sisk.IniConfiguration.Parser
-- uid: Sisk.IniConfiguration.Parser.IniParser
-  name: IniParser
-  href: api/Sisk.IniConfiguration.Parser.IniParser.html
-  commentId: T:Sisk.IniConfiguration.Parser.IniParser
-  fullName: Sisk.IniConfiguration.Parser.IniParser
-  nameWithType: IniParser
-- uid: Sisk.IniConfiguration.Parser.IniParser.#ctor(System.IO.TextReader)
-  name: IniParser(TextReader)
-  href: api/Sisk.IniConfiguration.Parser.IniParser.-ctor.html#Sisk_IniConfiguration_Parser_IniParser__ctor_System_IO_TextReader_
-  commentId: M:Sisk.IniConfiguration.Parser.IniParser.#ctor(System.IO.TextReader)
-  name.vb: New(TextReader)
-  fullName: Sisk.IniConfiguration.Parser.IniParser.IniParser(System.IO.TextReader)
-  fullName.vb: Sisk.IniConfiguration.Parser.IniParser.New(System.IO.TextReader)
-  nameWithType: IniParser.IniParser(TextReader)
-  nameWithType.vb: IniParser.New(TextReader)
-- uid: Sisk.IniConfiguration.Parser.IniParser.#ctor*
-  name: IniParser
-  href: api/Sisk.IniConfiguration.Parser.IniParser.-ctor.html
-  commentId: Overload:Sisk.IniConfiguration.Parser.IniParser.#ctor
-  name.vb: New
-  fullName: Sisk.IniConfiguration.Parser.IniParser.IniParser
-  fullName.vb: Sisk.IniConfiguration.Parser.IniParser.New
-  nameWithType: IniParser.IniParser
-  nameWithType.vb: IniParser.New
-- uid: Sisk.IniConfiguration.Parser.IniParser.Dispose
-  name: Dispose()
-  href: api/Sisk.IniConfiguration.Parser.IniParser.Dispose.html#Sisk_IniConfiguration_Parser_IniParser_Dispose
-  commentId: M:Sisk.IniConfiguration.Parser.IniParser.Dispose
-  fullName: Sisk.IniConfiguration.Parser.IniParser.Dispose()
-  nameWithType: IniParser.Dispose()
-- uid: Sisk.IniConfiguration.Parser.IniParser.Dispose*
-  name: Dispose
-  href: api/Sisk.IniConfiguration.Parser.IniParser.Dispose.html
-  commentId: Overload:Sisk.IniConfiguration.Parser.IniParser.Dispose
-  fullName: Sisk.IniConfiguration.Parser.IniParser.Dispose
-  nameWithType: IniParser.Dispose
-- uid: Sisk.IniConfiguration.Parser.IniParser.Parse
-  name: Parse()
-  href: api/Sisk.IniConfiguration.Parser.IniParser.Parse.html#Sisk_IniConfiguration_Parser_IniParser_Parse
-  commentId: M:Sisk.IniConfiguration.Parser.IniParser.Parse
-  fullName: Sisk.IniConfiguration.Parser.IniParser.Parse()
-  nameWithType: IniParser.Parse()
-- uid: Sisk.IniConfiguration.Parser.IniParser.Parse*
-  name: Parse
-  href: api/Sisk.IniConfiguration.Parser.IniParser.Parse.html
-  commentId: Overload:Sisk.IniConfiguration.Parser.IniParser.Parse
-  fullName: Sisk.IniConfiguration.Parser.IniParser.Parse
-  nameWithType: IniParser.Parse
 - uid: Sisk.IniConfiguration.Serializer
   name: Sisk.IniConfiguration.Serializer
   href: api/Sisk.IniConfiguration.Serializer.html
@@ -11934,14 +11406,14 @@ references:
   fullName: Sisk.Ssl.CertificateUtil.CreateDevelopmentCertificate
   nameWithType: CertificateUtil.CreateDevelopmentCertificate
 - uid: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(System.String[])
-  name: CreateTrustedDevelopmentCertificate(string[])
+  name: CreateTrustedDevelopmentCertificate(params string[])
   href: api/Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate.html#Sisk_Ssl_CertificateUtil_CreateTrustedDevelopmentCertificate_System_String___
   commentId: M:Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(System.String[])
-  name.vb: CreateTrustedDevelopmentCertificate(String())
-  fullName: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(string[])
-  fullName.vb: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(String())
-  nameWithType: CertificateUtil.CreateTrustedDevelopmentCertificate(string[])
-  nameWithType.vb: CertificateUtil.CreateTrustedDevelopmentCertificate(String())
+  name.vb: CreateTrustedDevelopmentCertificate(ParamArray String())
+  fullName: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(params string[])
+  fullName.vb: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate(ParamArray String())
+  nameWithType: CertificateUtil.CreateTrustedDevelopmentCertificate(params string[])
+  nameWithType.vb: CertificateUtil.CreateTrustedDevelopmentCertificate(ParamArray String())
 - uid: Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate*
   name: CreateTrustedDevelopmentCertificate
   href: api/Sisk.Ssl.CertificateUtil.CreateTrustedDevelopmentCertificate.html
@@ -12122,15 +11594,15 @@ references:
   commentId: T:Sisk.Ssl.SslProxyExtensions
   fullName: Sisk.Ssl.SslProxyExtensions
   nameWithType: SslProxyExtensions
-- uid: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder,System.Int16,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Authentication.SslProtocols,System.Boolean,System.Object)
-  name: UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?)
-  href: api/Sisk.Ssl.SslProxyExtensions.UseSsl.html#Sisk_Ssl_SslProxyExtensions_UseSsl_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_System_Int16_System_Security_Cryptography_X509Certificates_X509Certificate_System_Security_Authentication_SslProtocols_System_Boolean_System_Object_
-  commentId: M:Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder,System.Int16,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Authentication.SslProtocols,System.Boolean,System.Object)
-  name.vb: UseSsl(HttpServerHostContextBuilder, Short, X509Certificate, SslProtocols, Boolean, Object)
-  fullName: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder, short, System.Security.Cryptography.X509Certificates.X509Certificate?, System.Security.Authentication.SslProtocols, bool, object?)
-  fullName.vb: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder, Short, System.Security.Cryptography.X509Certificates.X509Certificate, System.Security.Authentication.SslProtocols, Boolean, Object)
-  nameWithType: SslProxyExtensions.UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?)
-  nameWithType.vb: SslProxyExtensions.UseSsl(HttpServerHostContextBuilder, Short, X509Certificate, SslProtocols, Boolean, Object)
+- uid: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder,System.Int16,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Authentication.SslProtocols,System.Boolean,System.Object,System.Boolean)
+  name: UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?, bool)
+  href: api/Sisk.Ssl.SslProxyExtensions.UseSsl.html#Sisk_Ssl_SslProxyExtensions_UseSsl_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_System_Int16_System_Security_Cryptography_X509Certificates_X509Certificate_System_Security_Authentication_SslProtocols_System_Boolean_System_Object_System_Boolean_
+  commentId: M:Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder,System.Int16,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Authentication.SslProtocols,System.Boolean,System.Object,System.Boolean)
+  name.vb: UseSsl(HttpServerHostContextBuilder, Short, X509Certificate, SslProtocols, Boolean, Object, Boolean)
+  fullName: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder, short, System.Security.Cryptography.X509Certificates.X509Certificate?, System.Security.Authentication.SslProtocols, bool, object?, bool)
+  fullName.vb: Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder, Short, System.Security.Cryptography.X509Certificates.X509Certificate, System.Security.Authentication.SslProtocols, Boolean, Object, Boolean)
+  nameWithType: SslProxyExtensions.UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?, bool)
+  nameWithType.vb: SslProxyExtensions.UseSsl(HttpServerHostContextBuilder, Short, X509Certificate, SslProtocols, Boolean, Object, Boolean)
 - uid: Sisk.Ssl.SslProxyExtensions.UseSsl*
   name: UseSsl
   href: api/Sisk.Ssl.SslProxyExtensions.UseSsl.html
@@ -12173,45 +11645,3 @@ references:
   commentId: Overload:Sisk.Ssl.SslProxyServerHandler.SecureProxy
   fullName: Sisk.Ssl.SslProxyServerHandler.SecureProxy
   nameWithType: SslProxyServerHandler.SecureProxy
-- uid: Sisk.SslProxy
-  name: Sisk.SslProxy
-  href: api/Sisk.SslProxy.html
-  commentId: N:Sisk.SslProxy
-  fullName: Sisk.SslProxy
-  nameWithType: Sisk.SslProxy
-- uid: Sisk.SslProxy.SecureProxyForwardingResolver
-  name: SecureProxyForwardingResolver
-  href: api/Sisk.SslProxy.SecureProxyForwardingResolver.html
-  commentId: T:Sisk.SslProxy.SecureProxyForwardingResolver
-  fullName: Sisk.SslProxy.SecureProxyForwardingResolver
-  nameWithType: SecureProxyForwardingResolver
-- uid: Sisk.SslProxy.SecureProxyForwardingResolver.#ctor
-  name: SecureProxyForwardingResolver()
-  href: api/Sisk.SslProxy.SecureProxyForwardingResolver.-ctor.html#Sisk_SslProxy_SecureProxyForwardingResolver__ctor
-  commentId: M:Sisk.SslProxy.SecureProxyForwardingResolver.#ctor
-  name.vb: New()
-  fullName: Sisk.SslProxy.SecureProxyForwardingResolver.SecureProxyForwardingResolver()
-  fullName.vb: Sisk.SslProxy.SecureProxyForwardingResolver.New()
-  nameWithType: SecureProxyForwardingResolver.SecureProxyForwardingResolver()
-  nameWithType.vb: SecureProxyForwardingResolver.New()
-- uid: Sisk.SslProxy.SecureProxyForwardingResolver.#ctor*
-  name: SecureProxyForwardingResolver
-  href: api/Sisk.SslProxy.SecureProxyForwardingResolver.-ctor.html
-  commentId: Overload:Sisk.SslProxy.SecureProxyForwardingResolver.#ctor
-  name.vb: New
-  fullName: Sisk.SslProxy.SecureProxyForwardingResolver.SecureProxyForwardingResolver
-  fullName.vb: Sisk.SslProxy.SecureProxyForwardingResolver.New
-  nameWithType: SecureProxyForwardingResolver.SecureProxyForwardingResolver
-  nameWithType.vb: SecureProxyForwardingResolver.New
-- uid: Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress(Sisk.Core.Http.HttpRequest,System.Net.IPEndPoint)
-  name: OnResolveClientAddress(HttpRequest, IPEndPoint)
-  href: api/Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress.html#Sisk_SslProxy_SecureProxyForwardingResolver_OnResolveClientAddress_Sisk_Core_Http_HttpRequest_System_Net_IPEndPoint_
-  commentId: M:Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress(Sisk.Core.Http.HttpRequest,System.Net.IPEndPoint)
-  fullName: Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress(Sisk.Core.Http.HttpRequest, System.Net.IPEndPoint)
-  nameWithType: SecureProxyForwardingResolver.OnResolveClientAddress(HttpRequest, IPEndPoint)
-- uid: Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress*
-  name: OnResolveClientAddress
-  href: api/Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress.html
-  commentId: Overload:Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress
-  fullName: Sisk.SslProxy.SecureProxyForwardingResolver.OnResolveClientAddress
-  nameWithType: SecureProxyForwardingResolver.OnResolveClientAddress

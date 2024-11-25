@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -12,9 +12,9 @@
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
+        
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
 
@@ -36,80 +36,13 @@
         <meta name="loc:downloadPdf" content="Download PDF">
 
         <script type="module" src="./../public/docfx.min.js"></script>
-        <script src="/assets/js/prism.js?../"></script>
-        <script>
-            document.removeEventListener('DOMContentLoaded', Prism.highlightAll);
-            waitForElm('.hljs').then(() => setTimeout(rewriteHjlsToPrism, 250));
-
-            function rewriteHjlsToPrism() {
-                /*
-                    docfx that it won't let you turn highlightjs off and you have to deal with that shit. already
-                    have looked everywhere and can't find a way to do it without rebuilding the whole docfx template,
-                    and I ain't about to do that. until the folks at Microsoft decide to actually work on this
-                    project ("docfx"), I'm just gonna leave this shit below that kills the
-                    highlight.js and calls up Prism instead.
-                */
-                
-                // reset highlightjs
-                document.querySelectorAll('pre code.hljs')
-                    .forEach(code => {
-                        code.innerHTML = escapeHtml(code.innerText);
-                        var pre = code.parentNode;
-                        var apre = pre.querySelector('a');
-                        if (apre) {
-                            pre.removeChild(apre);
-                        }
-                    });
-
-                // call Prism
-                Prism.highlightAll();
-
-                // remove hjls class
-                document.querySelectorAll('pre code.hljs')
-                    .forEach(code => {
-                        code.classList.remove('hljs');
-                        code.classList.add('ready');
-                    });
-            }
-
-            function escapeHtml(unsafe) {
-                return unsafe
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
-            }
-
-            function waitForElm(selector) { // ty https://stackoverflow.com/a/61511955/4698166
-                return new Promise(resolve => {
-                    if (document.querySelector(selector)) {
-                        return resolve(document.querySelector(selector));
-                    }
-
-                    const observer = new MutationObserver(mutations => {
-                        if (document.querySelector(selector)) {
-                            observer.disconnect();
-                            resolve(document.querySelector(selector));
-                        }
-                    });
-
-                    // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
-                    observer.observe(document.documentElement, {
-                        childList: true,
-                        subtree: true
-                    });
-                });
-            }
-        </script>
-
         <script>
             const theme = localStorage.getItem('theme') || 'auto';
             document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
         </script>
 
         <!-- Cloudflare Web Analytics -->
-        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
 
     </head>
@@ -130,7 +63,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -239,6 +172,9 @@ Class StringValueCollection
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.AddRange.html#Sisk_Core_Entity_StringKeyStore_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStore.AddRange.html#Sisk_Core_Entity_StringKeyStore_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___">StringKeyStore.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Entity.StringKeyStore.SetRange.html#Sisk_Core_Entity_StringKeyStore_SetRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStore.SetRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>

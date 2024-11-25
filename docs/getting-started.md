@@ -35,16 +35,17 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        var app = HttpServer.CreateBuilder(host =>
-        {
-            host.UseListeningPort("http://localhost:5000/");
-        }).Build();
+        using var app = HttpServer.CreateBuilder()
+            .UseListeningPort("http://localhost:5000/")
+            .Build();
 
         app.Router.MapGet("/", request =>
         {
             return new HttpResponse()
-                .WithStatus(200)
-                .WithContent("Hello, world!");
+            {
+                Status = 200,
+                Content = new StringContent("Hello, world!")
+            };
         });
 
         await app.StartAsync();

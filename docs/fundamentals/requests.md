@@ -42,6 +42,8 @@ http://localhost:5000/user/login?email=foo@bar.com
 | [Query](/api/Sisk.Core.Http.HttpRequest.Query) | Gets the request query in a named value collection. | `{StringValueCollection object}` |
 | [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | Determines if the request is using SSL (true) or not (false). | `false` |
 
+You can also opt by using the [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri) property, which includes everything above in one object.
+
 ## Getting the request body
 
 Some requests include body such as forms, files, or API transactions. You can get the body of a request from the property:
@@ -165,7 +167,7 @@ static HttpResponse Index(HttpRequest request)
     // the following method reads the entire request input into an
     // array of MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
-    
+
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
         // The name of the file provided by Multipart form data.
