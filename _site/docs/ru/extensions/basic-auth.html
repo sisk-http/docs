@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Базовая аутентификация | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Базовая аутентификация | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/basic-auth.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="базовая-аутентификация">Базовая аутентификация</h1>
+
+<p>Пакет Basic Auth добавляет обработчик запросов, способный обрабатывать схему аутентификации по basic в вашем приложении Sisk с минимальной конфигурацией и усилиями.</p>
+<p>Базовая аутентификация HTTP - это минимальная форма ввода аутентификации запросов пользователем по идентификатору и паролю, где сеанс контролируется исключительно клиентом, и нет токенов аутентификации или доступа.</p>
+<img src="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication/httpauth.png">
+<p>Подробнее о схеме аутентификации Basic см. в <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication">спецификации MDN</a>.</p>
+<h2 id="установка">Установка</h2>
+<p>Чтобы начать, установите пакет Sisk.BasicAuth в свой проект:</p>
+<pre><code>&gt; dotnet add package Sisk.BasicAuth
+</code></pre>
+<p>Более подробную информацию о том, как установить его в вашем проекте, см. в <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">хранилище Nuget</a>.</p>
+<h2 id="создание-обработчика-аутентификации">Создание обработчика аутентификации</h2>
+<p>Вы можете управлять схемой аутентификации для всего модуля или для отдельных маршрутов. Для этого сначала напишем наш первый обработчик базовой аутентификации.</p>
+<p>В примере ниже устанавливается соединение с базой данных, проверяется существование пользователя и действительность пароля, а затем пользователь сохраняется в контекстном мешке.</p>
+<pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
+{
+    public UserAuthHandler() : base()
+    {
+        Realm = &quot;Чтобы войти на эту страницу, пожалуйста, укажите свои учетные данные.&quot;;
+    }
+
+    public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
+    {
+        DbContext db = new DbContext();
+
+        // в этом случае мы используем адрес электронной почты в качестве поля идентификатора пользователя, поэтому мы будем искать пользователя по его адресу электронной почты.
+        User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
+        if (user == null)
+        {
+            return base.CreateUnauthorizedResponse(&quot;Извините! Пользователь по этому адресу электронной почты не найден.&quot;);
+        }
+
+        // проверяет, что пароль учетных данных действителен для этого пользователя.
+        if (!user.ValidatePassword(credentials.Password))
+        {
+            return base.CreateUnauthorizedResponse(&quot;Неверные учетные данные.&quot;);
+        }
+
+        // добавляет залогинившегося пользователя в контекст HTTP
+        // и продолжает выполнение
+        context.Bag.Add(&quot;loggedUser&quot;, user);
+        return null;
+    }
+}
+</code></pre>
+<p>Поэтому просто свяжите этот обработчик запросов с нашим маршрутом или классом.</p>
+<pre><code class="lang-cs">public class UsersController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler(typeof(UserAuthHandler))]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;Привет, &quot; + loggedUser.Name + &quot;!&quot;;
+    }
+}
+</code></pre>
+<p>Или используя класс <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>:</p>
+<pre><code class="lang-cs">public class UsersController : RouterModule
+{
+    public ClientModule()
+    {
+        // теперь все маршруты внутри этого класса будут обрабатываться
+        // UserAuthHandler.
+        base.HasRequestHandler(new UserAuthHandler());
+    }
+
+    [RouteGet(&quot;/&quot;)]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;Привет, &quot; + loggedUser.Name + &quot;!&quot;;
+    }
+}
+</code></pre>
+<h2 id="примечания">Примечания</h2>
+<p>Основная ответственность за базовую аутентификацию выполняется на стороне клиента. Хранение, управление кэшем и шифрование выполняются локально на клиенте. Сервер только получает учетные данные и проверяет, разрешен ли доступ.</p>
+<p>Обратите внимание, что этот метод не является одним из самых безопасных, поскольку возлагает значительную ответственность на клиента, которое может быть трудно отслеживать и поддерживать безопасность его учетных данных. Кроме того, крайне важно, чтобы пароли передавались в защищенном контексте соединения (SSL), поскольку у них нет никакого встроенного шифрования. Краткое перехвата заголовков запроса может раскрыть учетные данные доступа вашего пользователя.</p>
+<p>Для приложений в production выбирайте более надежные решения для аутентификации и избегайте использования слишком большого количества готовых компонентов, поскольку они могут не адаптироваться к потребностям вашего проекта и привести к возникновению уязвимостей безопасности.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/basic-auth.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

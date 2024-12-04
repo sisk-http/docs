@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Forwarding Resolvers | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Forwarding Resolvers | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/advanced/forwarding-resolvers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="forwarding-resolvers">Forwarding Resolvers</h1>
+
+<p>Um Forwarding Resolver é um auxiliar que ajuda a decodificar informações que identificam o cliente por meio de uma solicitação, proxy, CDN ou balanceadores de carga. Quando seu serviço Sisk é executado por meio de um proxy inverso ou avançado, o endereço IP, o host e o protocolo do cliente podem ser diferentes da solicitação original, pois é um encaminhamento de um serviço para outro. Essa funcionalidade do Sisk permite que você controle e resolva essas informações antes de trabalhar com a solicitação. Esses proxies geralmente fornecem cabeçalhos úteis para identificar seu cliente.</p>
+<p>Atualmente, com a classe <a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a>, é possível resolver o endereço IP do cliente, o host e o protocolo HTTP usado. Após a versão 1.0 do Sisk, o servidor não possui mais uma implementação padrão para decodificar esses cabeçalhos por motivos de segurança que variam de serviço para serviço.</p>
+<p>Por exemplo, o cabeçalho <code>X-Forwarded-For</code> inclui informações sobre os endereços IP que encaminharam a solicitação. Este cabeçalho é usado por proxies para transportar uma cadeia de informações para o serviço final e inclui o IP de todos os proxies usados, incluindo o endereço real do cliente. O problema é: às vezes é desafiador identificar o IP remoto do cliente e não há uma regra específica para identificar este cabeçalho. É altamente recomendável ler a documentação dos cabeçalhos que você está prestes a implementar abaixo:</p>
+<ul>
+<li>Leia sobre o cabeçalho <code>X-Forwarded-For</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns">aqui</a>.</li>
+<li>Leia sobre o cabeçalho <code>X-Forwarded-Host</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host">aqui</a>.</li>
+<li>Leia sobre o cabeçalho <code>X-Forwarded-Proto</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto">aqui</a>.</li>
+</ul>
+<h2 id="a-classe-forwardingresolver">A classe ForwardingResolver</h2>
+<p>Esta classe possui três métodos virtuais que permitem a implementação mais adequada para cada serviço. Cada método é responsável por resolver informações da solicitação por meio de um proxy: o endereço IP do cliente, o host da solicitação e o protocolo de segurança usado. Por padrão, o Sisk sempre usará as informações da solicitação original, sem resolver nenhum cabeçalho.</p>
+<p>O exemplo abaixo mostra como essa implementação pode ser usada. Este exemplo resolve o endereço IP do cliente através do cabeçalho <code>X-Forwarded-For</code> e lança um erro quando mais de um IP foi encaminhado na solicitação.</p>
+<blockquote>
+<p>[!IMPORTANTE]
+Não use este exemplo em código de produção. Verifique sempre se a implementação é apropriada para uso. Leia a documentação do cabeçalho antes de implementá-lo.</p>
+</blockquote>
+<pre><code class="lang-cs">class Program
+{
+    static void Main(string[] args)
+    {
+        using var host = HttpServer.CreateBuilder()
+            .UseForwardingResolver&lt;Resolver&gt;()
+            .UseListeningPort(5555)
+            .Build();
+
+        host.Router.SetRoute(RouteMethod.Any, Route.AnyPath, request =&gt;
+            new HttpResponse(&quot;Hello, world!!!&quot;));
+
+        host.Start();
+    }
+
+    class Resolver : ForwardingResolver
+    {
+        public override IPAddress OnResolveClientAddress(HttpRequest request, IPEndPoint connectingEndpoint)
+        {
+            string? forwardedFor = request.Headers.XForwardedFor;
+            if (forwardedFor is null)
+            {
+                throw new Exception(&quot;O cabeçalho X-Forwarded-For está faltando.&quot;);
+            }
+            string[] ipAddresses = forwardedFor.Split(',');
+            if (ipAddresses.Length != 1)
+            {
+                throw new Exception(&quot;Número excessivo de endereços no cabeçalho X-Forwarded-For.&quot;);
+            }
+
+            return IPAddress.Parse(ipAddresses[0]);
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/advanced/forwarding-resolvers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

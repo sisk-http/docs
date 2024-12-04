@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Eventos Server-Sent-Events | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Eventos Server-Sent-Events | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/features/server-sent-events.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="eventos-server-sent-events">Eventos Server-Sent-Events</h1>
+
+<p>O Sisk suporta o envio de mensagens através de Eventos Envio de Servidor (SSE) diretamente. Você pode criar conexões descartáveis e persistentes, obter as conexões durante a execução e usá-las.</p>
+<p>Este recurso possui algumas limitações impostas por navegadores, como o envio apenas de mensagens de texto e a impossibilidade de fechar permanentemente uma conexão. Uma conexão fechada do lado do servidor terá um cliente tentando reconectar periodicamente a cada 5 segundos (3 para alguns navegadores).</p>
+<p>Essas conexões são úteis para enviar eventos do servidor para o cliente sem que o cliente precise solicitar a informação a cada vez.</p>
+<h2 id="criando-uma-conexão-sse">Criando uma conexão SSE</h2>
+<p>Uma conexão SSE funciona como uma solicitação HTTP regular, mas em vez de enviar uma resposta e fechar a conexão imediatamente, a conexão é mantida aberta para enviar mensagens.</p>
+<p>Ao chamar o método <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a>, a solicitação é colocada em estado de espera enquanto a instância SSE é criada.</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource();
+
+    sse.Send(&quot;Olá, mundo!&quot;);
+
+    return sse.Close();
+});
+</code></pre>
+<p>No código acima, criamos uma conexão SSE e enviamos uma mensagem &quot;Olá, mundo!&quot;, então fechamos a conexão SSE do lado do servidor.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Ao fechar uma conexão do lado do servidor, por padrão o cliente tentará se reconectar e a conexão será reiniciada, executando o método novamente, para sempre.</p>
+<p>É comum encaminhar uma mensagem de término do servidor sempre que a conexão é fechada do lado do servidor para evitar que o cliente tente se reconectar novamente.</p>
+</div>
+<h2 id="adicionando-cabeçalhos">Adicionando cabeçalhos</h2>
+<p>Se você precisar enviar cabeçalhos, pode usar o método <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a> antes de enviar qualquer mensagem.</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource();
+    sse.AppendHeader(&quot;Header-Key&quot;, &quot;Header-value&quot;);
+
+    sse.Send(&quot;Olá!&quot;);
+
+    return sse.Close();
+});
+</code></pre>
+<p>Observe que é necessário enviar os cabeçalhos antes de enviar qualquer mensagem.</p>
+<h2 id="conexões-wait-for-fail">Conexões Wait-For-Fail</h2>
+<p>As conexões são normalmente terminadas quando o servidor não consegue mais enviar mensagens devido a uma possível desconexão do cliente. Com isso, a conexão é automaticamente encerrada e a instância da classe é descartada.</p>
+<p>Mesmo com uma reconexão, a instância da classe não funcionará, pois está vinculada à conexão anterior. Em algumas situações, você pode precisar dessa conexão posteriormente e não deseja gerenciá-la através do método de callback da rota.</p>
+<p>Para isso, podemos identificar as conexões SSE com um identificador e obtê-las usando-o posteriormente, mesmo fora do callback da rota. Além disso, marcamos a conexão com <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a> para não terminar a rota e terminar a conexão automaticamente.</p>
+<p>Uma conexão SSE em KeepAlive aguardará um erro de envio (causado por desconexão) para recomeçar a execução do método. Também é possível definir um Timeout para isso. Após o tempo, se nenhuma mensagem foi enviada, a conexão é encerrada e a execução é retomada.</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource(&quot;my-index-connection&quot;);
+
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // aguardar 15 segundos sem nenhuma mensagem antes de terminar a conexão
+
+    return sse.Close();
+});
+</code></pre>
+<p>O método acima criará a conexão, a manejará e aguardará uma desconexão ou erro.</p>
+<pre><code class="lang-cs">HttpRequestEventSource? evs = server.EventSources.GetByIdentifier(&quot;my-index-connection&quot;);
+if (evs != null)
+{
+    // a conexão ainda está ativa
+    evs.Send(&quot;Olá novamente!&quot;);
+}
+</code></pre>
+<p>E o trecho acima tentará procurar a conexão recém-criada e, se ela existir, enviará uma mensagem para ela.</p>
+<p>Todas as conexões ativas do servidor que forem identificadas estarão disponíveis na coleção <a href="/api/Sisk.Core.Http.HttpServer.EventSources">HttpServer.EventSources</a>. Esta coleção armazena apenas conexões ativas e identificadas. Conexões fechadas são removidas da coleção.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>É importante notar que o keep alive possui um limite estabelecido por componentes que podem estar conectados ao Sisk de forma não controlada, como um proxy web, um kernel HTTP ou um driver de rede, e eles fecham conexões inativas após um determinado período de tempo.</p>
+<p>Portanto, é importante manter a conexão aberta enviando pings periódicos ou estendendo o tempo máximo antes que a conexão seja fechada. Leia a próxima seção para entender melhor o envio de pings periódicos.</p>
+</div>
+<h2 id="configuração-da-política-de-ping-de-conexões">Configuração da política de ping de conexões</h2>
+<p>A Política de Ping é uma maneira automatizada de enviar mensagens periódicas para seu cliente. Essa função permite que o servidor entenda quando o cliente se desconectou dessa conexão sem precisar manter a conexão aberta indefinidamente.</p>
+<pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
+public HttpResponse Events(HttpRequest request)
+{
+    var sse = request.GetEventSource();
+    sse.WithPing(ping =&gt;
+    {
+        ping.DataMessage = &quot;ping-message&quot;;
+        ping.Interval = TimeSpan.FromSeconds(5);
+        ping.Start();
+    });
+
+    sse.KeepAlive();
+    return sse.Close();
+}
+</code></pre>
+<p>No código acima, a cada 5 segundos, uma nova mensagem de ping será enviada para o cliente. Isso manterá a conexão TCP ativa e impedirá que ela seja fechada devido à inatividade. Além disso, quando uma mensagem falha em ser enviada, a conexão é automaticamente fechada, liberando os recursos usados pela conexão.</p>
+<h2 id="consultando-conexões">Consultando conexões</h2>
+<p>Você pode pesquisar conexões ativas usando um predicado no identificador da conexão, para poder transmitir, por exemplo.</p>
+<pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;my-connection-&quot;));
+foreach (HttpRequestEventSource e in evs)
+{
+    e.Send(&quot;Transmissão para todos os eventos que começam com 'my-connection-'&quot;);
+}
+</code></pre>
+<p>Você também pode usar o método <a href="/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All">All</a> para obter todas as conexões SSE ativas.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/features/server-sent-events.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

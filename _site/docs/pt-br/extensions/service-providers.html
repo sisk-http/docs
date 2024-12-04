@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fornecedores de Servi&#231;os | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Fornecedores de Servi&#231;os | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/extensions/service-providers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="fornecedores-de-serviços">Fornecedores de Serviços</h1>
+
+<p>Os Fornecedores de Serviços são uma maneira simples de transportar seu aplicativo em diferentes ambientes e configurações facilmente, sem precisar alterar seu código para isso. A classe <a href="/read?q=/contents/Sisk/Provider/ServiceProvider">ServiceProvider</a> é acessível por tipo que define um aplicativo com seu roteador, configuração e outras configurações já disponíveis no Sisk.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>O pacote Sisk.ServiceProvider não é mais mantido. Por favor, use a classe <a href="/api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder">HttpServerHostContextBuilder</a> em vez disso.</p>
+</div>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Desde a versão 0.16 do Sisk, esse recurso está integrado ao seu núcleo e não é mais necessário instalar um pacote adicional para isso. Por favor, <a href="https://github.com/sisk-http/docs/blob/master/archive/0.16/service-providers-migration">leia este documento</a> com mais detalhes, especificação de migração e muito mais.</p>
+<p>O pacote será mantido apenas para a versão 0.15 enquanto ela ainda for mantida.</p>
+</div>
+<p>Os Fornecedores de Serviços são gerenciados por um arquivo JSON de configurações que é lido pelo aplicativo que está próximo ao seu executável. Este é um exemplo de arquivo de configuração de serviço:</p>
+<pre><code class="lang-json">{
+    &quot;Server&quot;: {
+        &quot;DefaultEncoding&quot;: &quot;UTF-8&quot;,
+        &quot;ThrowExceptions&quot;: true,
+        &quot;IncludeRequestIdHeader&quot;: true
+    },
+    &quot;ListeningHost&quot;: {
+        &quot;Label&quot;: &quot;Meu aplicativo sisk&quot;,
+        &quot;Ports&quot;: [
+            &quot;http://localhost:80/&quot;,
+            &quot;https://localhost:443/&quot;,  // Arquivos de configuração também suportam comentários
+        ],
+        &quot;CrossOriginResourceSharingPolicy&quot;: {
+            &quot;AllowOrigin&quot;: &quot;*&quot;,
+            &quot;AllowOrigins&quot;: [ &quot;*&quot; ],   // novo em 0.14
+            &quot;AllowMethods&quot;: [ &quot;*&quot; ],
+            &quot;AllowHeaders&quot;: [ &quot;*&quot; ],
+            &quot;MaxAge&quot;: 3600
+        },
+        &quot;Parameters&quot;: {
+            &quot;MySqlConnection&quot;: &quot;server=localhost;user=root;&quot;
+        }
+    }
+}
+</code></pre>
+<p>Este arquivo é lido junto com o executável do servidor, independentemente da plataforma de build. Por padrão, o nome do arquivo é <code>service-config.json</code> e deve permanecer no mesmo diretório do executável de saída. Também é possível alterar o nome do arquivo ajustando a classe <a href="/api/Sisk/Provider/ServiceProvider">ServiceProvider</a>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Em arquivos de configuração de provedores de serviço do Sisk, é permitido escrever <code>// single</code> ou <code>/* multi-line comments */</code>, pois eles são ignorados pelo interpretador.</p>
+</div>
+<h2 id="instalando">Instalando</h2>
+<p>Você pode instalar o pacote Sisk.SericeProviders executando:</p>
+<pre><code>dotnet add package Sisk.SericeProviders
+</code></pre>
+<p>Você pode encontrar mais opções baixando-o <a href="https://www.nuget.org/packages/Sisk.ServiceProvider/">aqui</a>.</p>
+<h2 id="criando-uma-instância-de-provedor-de-serviço">Criando uma instância de provedor de serviço</h2>
+<p>Nesta sessão, aprenderemos como configurar o aplicativo para executar um provedor de serviço Sisk. Primeiro, você precisará ter a versão mais recente do Sisk instalada em seu projeto.</p>
+<p>Primeiro, configuremos uma instância da classe RouterFactory que será configurada e emitirá um roteador. Esta classe não é o ponto de entrada do aplicativo, mas é o objeto que executará os objetos de tempo de execução.</p>
+<pre><code class="lang-cs">public class Application : RouterFactory
+{
+    public string? MySqlConnection { get; set; }
+
+    // Abaixo, indicamos ao roteador para procurar as rotas em nossa instância do aplicativo.
+    // Você pode definir as rotas em outro objeto ou tipo também.
+    public override Router BuildRouter()
+    {
+        Router r = new Router();
+        r.SetObject(this);
+        return r;
+    }
+
+    // Em setupParameters, podemos definir os parâmetros definidos na seção de parâmetros do nosso JSON.
+    public override void Setup(NameValueCollection setupParameters)
+    {
+        this.MySqlConnection = setupParameters[&quot;MySqlConnection&quot;] ?? throw new ArgumentNullException(nameof(MySqlConnection));
+    }
+
+    // Método síncrono chamado imediatamente antes do início do servidor HTTP.
+    public override void Bootstrap()
+    {
+        ;
+    }
+
+    [Route(RouteMethod.Get, &quot;/&quot;)]
+    public HttpResponse IndexPage(HttpRequest request)
+    {
+        HttpResponse htmlResponse = new HttpResponse();
+        htmlResponse.Content = new StringContent(&quot;Olá, mundo!&quot;, System.Text.Encoding.UTF8, &quot;text/plain&quot;);
+        return htmlResponse;
+    }
+}
+</code></pre>
+<p>Agora, podemos configurar um serviço em nosso ponto de entrada do programa:</p>
+<pre><code class="lang-cs">public class Program
+{
+    public static Application App { get; set; }
+
+    static void Main(string[] args)
+    {
+        App = new Application();
+        ServiceProvider provider = new(App, &quot;config.json&quot;);
+        provider.ConfigureInit(config =&gt;
+        {
+            // Define o loop de solicitação principal como a informação cultural brasileira.
+            config.UseLocale(CultureInfo.GetCultureInfo(&quot;pt-BR&quot;));
+
+            // Define as bandeiras HTTP no início do servidor.
+            config.UseFlags(new HttpServerFlags()
+            {
+                SendSiskHeader = true
+            });
+
+            // Indica que após iniciar o servidor, ele não deve terminar o loop principal.
+            config.UseHauting(true);
+
+            // Sobrescreve os parâmetros de configuração do servidor HTTP,
+            // mesmo que tenham sido parametrizados no arquivo JSON de configuração.
+            config.UseConfiguration(httpConfig =&gt;
+            {
+                if (httpConfig.AccessLogsStream?.FilePath != null)
+                {
+                    RotatingLogPolicy policy = new RotatingLogPolicy(httpConfig.AccessLogsStream);
+                    policy.Configure(1024 * 1024, TimeSpan.FromHours(6));
+                }
+            });
+
+            // Sobrescreve os parâmetros CORS diretamente para o servidor HTTP
+            config.UseCors(cors =&gt;
+            {
+                cors.AllowMethods = new[] { &quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot; };
+            });
+
+            // Sobrescreve propriedades diretamente para o servidor HTTP
+            config.UseHttpServer(http =&gt;
+            {
+                http.EventSources.OnEventSourceRegistered += (sender, ws) =&gt;
+                {
+                    Console.WriteLine(&quot;Nova fonte de eventos: &quot; + ws.Identifier);
+                };
+                http.EventSources.OnEventSourceUnregistration += (sender, ws) =&gt;
+                {
+                    Console.WriteLine(&quot;Fonte de eventos fechada: &quot; + ws.Identifier);
+                };
+            });
+        });
+    }
+}
+</code></pre>
+<p>Agora nosso aplicativo está pronto para ser iniciado com um arquivo JSON que configura as portas, métodos, nomes de host e parâmetros.</p>
+<h2 id="estrutura-do-arquivo-de-configuração">Estrutura do arquivo de configuração</h2>
+<p>O arquivo JSON é composto pelas propriedades:</p>
+<table>
+    <thead>
+        <tr>
+            <th>Propriedade</th>
+            <th>Obrigatório</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Server</td>
+            <td>Obrigatório</td>
+            <td>Representa o próprio servidor com suas configurações.</td>
+        </tr>
+        <tr>
+            <td>Server.AccessLogsStream</td>
+            <td>Opcional</td>
+            <td>Padrão para <code>console</code>. Especifica o fluxo de saída do log de acesso. Pode ser um nome de arquivo,
+                <code>null</code> ou <code>console</code>.</td>
+        </tr>
+        <tr>
+            <td>Server.ErrorsLogsStream</td>
+            <td>Opcional</td>
+            <td>Padrão para <code>null</code>. Especifica o fluxo de saída do log de erros. Pode ser um nome de arquivo,
+                <code>null</code> ou <code>console</code>.</td>
+        </tr>
+        <tr>
+            <td>Server.ResolveForwardedOriginAddress</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>false</code>. Especifica se o servidor HTTP deve resolver o cabeçalho
+                <code>X-Forwarded-For</code> para o endereço IP do usuário. (Recomendado para servidores proxy)</td>
+        </tr>
+        <tr>
+            <td>Server.ResolveForwardedOriginHost</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>false</code>. Especifica se o servidor HTTP deve resolver o cabeçalho
+                <code>X-Forwarded-Host</code> para o host do servidor.</td>
+        </tr>
+        <tr>
+            <td>Server.DefaultEncoding</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>UTF-8</code>. Especifica a codificação de texto padrão usada pelo servidor HTTP.</td>
+        </tr>
+        <tr>
+            <td>Server.MaximumContentLength</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>0</code>. Especifica o tamanho máximo do conteúdo em bytes. Zero significa infinito.</td>
+        </tr>
+        <tr>
+            <td>Server.IncludeRequestIdHeader</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>false</code>. Especifica se o servidor HTTP deve enviar o cabeçalho
+                <code>X-Request-Id</code>.</td>
+        </tr>
+        <tr>
+            <td>Server.ThrowExceptions</td>
+            <td>Opcional</td>
+            <td>Padrão para
+                <code>true</code>. Especifica se as exceções não tratadas devem ser lançadas. Defina como
+                <code>false</code> em produção e
+                <code>true</code> quando depurando.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost</td>
+            <td>Obrigatório</td>
+            <td>Representa o host de escuta do servidor.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Label</td>
+            <td>Opcional</td>
+            <td>Representa o rótulo do aplicativo.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Ports</td>
+            <td>Obrigatório</td>
+            <td>Representa um array de strings, correspondente à sintaxe
+                <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy</td>
+            <td>Opcional</td>
+            <td>Configuração da política CORS para o aplicativo.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>false</code>. Specifies the
+                <code>Allow-Credentials</code> header.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects an array of strings. Specifies the
+                <code>Expose-Headers</code> header.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects a string. Specifies the
+                <code>Allow-Origin</code> header.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects an array of strings.
+                Specifies multiple
+                <code>Allow-Origin</code> headers. See <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins>AllowOrigins</a> for more information.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects an array of strings. Specifies the
+                <code>Allow-Methods</code> header.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects an array of strings. Specifies the
+                <code>Allow-Headers</code> header.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
+            <td>Opcional</td>
+            <td>Defaults to
+                <code>null</code>. This property expects an integer. Specifies the
+                <code>Max-Age</code> header in seconds.</td>
+        </tr>
+    </tbody>
+</table>
+<p sourceFile=" docs pt-br extensions service-providers.md">You can see an example of how to use each property at the top of this page.
+<pre><code class="lang-cs"></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+<pre><code></code></pre>
+</a></td></tr></tbody></table>
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/extensions/service-providers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

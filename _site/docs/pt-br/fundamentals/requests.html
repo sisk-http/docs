@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Requisi&#231;&#245;es | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Requisi&#231;&#245;es | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/fundamentals/requests.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="requisições">Requisições</h1>
+
+<p>Solicitações são estruturas que representam uma mensagem de solicitação HTTP. O objeto <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> contém funções úteis para lidar com mensagens HTTP em todo o seu aplicativo.</p>
+<p>Uma solicitação HTTP é formada pelo método, caminho, versão, cabeçalhos e corpo.</p>
+<p>Neste documento, ensinaremos como obter cada um desses elementos.</p>
+<h2 id="obtendo-o-método-da-solicitação">Obtendo o método da solicitação</h2>
+<p>Para obter o método da solicitação recebida, você pode usar a propriedade Method:</p>
+<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+{
+    HttpMethod requestMethod = request.Method;
+    ...
+}
+</code></pre>
+<p>Esta propriedade retorna o método da solicitação representado por um objeto <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Ao contrário dos métodos de rota, esta propriedade não serve o item <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Em vez disso, ele retorna o verdadeiro método da solicitação.</p>
+</div>
+<h2 id="obtendo-os-componentes-do-url-da-solicitação">Obtendo os componentes do URL da solicitação</h2>
+<p>Você pode obter vários componentes de um URL através de certas propriedades de uma solicitação. Para este exemplo, vamos considerar o URL:</p>
+<pre><code>http://localhost:5000/user/login?email=foo@bar.com
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Nome do componente</th>
+<th>Descrição</th>
+<th>Valor do componente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
+<td>Obtém o caminho da solicitação.</td>
+<td><code>/user/login</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
+<td>Obtém o caminho da solicitação e a string de consulta.</td>
+<td><code>/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
+<td>Obtém a string completa da solicitação HTTP.</td>
+<td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
+<td>Obtém o host da solicitação.</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
+<td>Obtém o host e a porta da solicitação.</td>
+<td><code>localhost:5000</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
+<td>Obtém a consulta da solicitação.</td>
+<td><code>?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
+<td>Obtém a consulta da solicitação em uma coleção de valores nomeados.</td>
+<td><code>{StringValueCollection object}</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
+<td>Determina se a solicitação está usando SSL (true) ou não (false).</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>Você também pode optar por usar a propriedade <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, que inclui tudo acima em um único objeto.</p>
+<h2 id="obtendo-o-corpo-da-solicitação">Obtendo o corpo da solicitação</h2>
+<p>Algumas solicitações incluem um corpo, como formulários, arquivos ou transações de API. Você pode obter o corpo de uma solicitação a partir da propriedade:</p>
+<pre><code class="lang-cs">// obtém o corpo da solicitação como uma string, usando o codificador de solicitação como o codificador
+string body = request.Body;
+
+// ou obtém como um array de bytes
+byte[] bodyBytes = request.RawBody;
+
+// ou, caso contrário, você pode transmiti-lo.
+Stream requestStream = request.GetRequestStream();
+</code></pre>
+<p>Também é possível determinar se há um corpo na solicitação e se ele foi carregado com as propriedades <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, que determina se a solicitação possui conteúdo e <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, que indica que o servidor HTTP recebeu completamente o conteúdo do ponto remoto.</p>
+<p>Não é possível ler o conteúdo da solicitação através de <code>GetRequestStream</code> mais de uma vez. Se você ler com este método, os valores em <code>RawBody</code> e <code>Body</code> também não estarão disponíveis. Não é necessário descartar o fluxo de solicitação no contexto da solicitação HTTP, pois ele é descartado no final da sessão HTTP em que é criado.</p>
+<p>Você também pode usar a propriedade <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> para obter o melhor codificador para decodificar a solicitação manualmente.</p>
+<p>O servidor tem limites para ler o conteúdo da solicitação, o que se aplica a ambos <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> e <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>. Essas propriedades copiam todo o fluxo de entrada para um buffer local do mesmo tamanho de <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
+<p>Uma resposta com status 413 Content Too Large é retornada ao cliente se o conteúdo enviado for maior que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> definido na configuração do usuário. Além disso, se não houver um limite configurado ou se for muito grande, o servidor lançará uma exceção <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> quando o conteúdo enviado pelo cliente exceder <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) e se o conteúdo for tentado ser acessado através de uma das propriedades mencionadas acima. Você ainda pode lidar com o conteúdo através de streaming.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Sisk segue a RFC 9110 &quot;HTTP Semantics&quot;, que não permite que certos métodos de solicitação tenham corpo. Essas solicitações descartarão imediatamente um 400 (Bad Request) com o status <code>ContentServedOnIllegalMethod</code>.
+Você pode desabilitar esse recurso definindo <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> para <code>false</code>.</p>
+</div>
+<h2 id="obtendo-o-contexto-da-solicitação">Obtendo o contexto da solicitação</h2>
+<p>O HTTP Context é um objeto exclusivo do Sisk que armazena informações do servidor HTTP, rota, roteador e manipulador de solicitação. Você pode usá-lo para se organizar em um ambiente onde esses objetos são difíceis de organizar.</p>
+<p>O objeto <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> contém informações armazenadas que são passadas de um manipulador de solicitação para outro ponto, e pode ser consumido no destino final. Este objeto também pode ser usado por manipuladores de solicitação que executam após o callback da rota.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Esta propriedade também é acessível por <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> propriedade.</p>
+</div>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public string Identifier { get; init; } = Guid.NewGuid().ToString();
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers[&quot;Authorization&quot;] != null)
+        {
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
+            return null;
+        }
+        else
+        {
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-cs">public class MyController
+{
+    [Route(RouteMethod.Get, &quot;/&quot;)
+    [RequestHandler(typeof(AuthenticateUserRequestHandler))
+    static HttpResponse Index(HttpRequest request)
+    {
+        var authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        res.Content = new StringContent($&quot;Hello, {authUser}!
+        return res;
+    }
+}
+
+
+
+
+</code></pre>
+<p>You can also use the <code>Bag.Set()</code> and <code>Bag.Get()</code> helper methods to get or set objects by their type singletons.</p>
+<pre><code class="lang-cs">public class Authenticate : RequestHandler
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        request.Bag.Set&lt;User&gt;(authUser);
+    }
+    [RouteGet(&quot;/&quot;)
+    [RequestHandler&lt;Authenticate&gt;
+    public static HttpResponse Test(HttpRequest request)
+    {
+        var user = request.Bag.Get&lt;User&gt;.
+    }
+
+
+## Obtendo dados do formulário
+
+You can get the values of a form data in a [NameValueCollection](https://learn.microsoft.
+```cs
+static HttpResponse Index(HttpRequest request)
+    var form = request.GetFormContent();
+    string? username = form[&quot;username&quot;];
+    string? password = form[&quot;password&quot;];
+    if (AttempLogin(username, password) == true
+    {
+        ...
+    }
+## Obtendo dados de formulário multipart
+Sisk's HTTP request lets you get uploaded multipart contents, such as a files, form fields, or any binary content.
+```cs
+static HttpResponse Index(HttpRequest request)
+    var multipartFormDataObjects = request.GetMultipartFormContent();
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects
+    {
+        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
+        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
+        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
+        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
+    }
+
+## Suporte de eventos do servidor
+Sisk supports Server-side events, which allows sending chunks as an stream and keeping the connection between the server and the client alive.
+    public class MyController
+    [Route(RouteMethod.Get, &quot;/event-source
+    static HttpResponse ServerEventsResponse(HttpRequest request)
+    var serverEvents = request.GetEventSource();
+    string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato
+    foreach (fruit in fruits
+        serverEvents.Send(fruit);
+    Thread.Sleep(15000
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/fundamentals/requests.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

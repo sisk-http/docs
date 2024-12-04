@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Развертывание | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Развертывание | Sisk Framework ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/deploying.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="развертывание">Развертывание</h1>
+
+<p>Процесс развертывания приложения Sisk состоит в публикации вашего проекта в production. Хотя процесс относительно прост, стоит отметить детали, которые могут быть фатальными для безопасности и стабильности инфраструктуры развертывания.</p>
+<p>В идеале вы должны быть готовы развернуть свое приложение в облако после проведения всех возможных тестов, чтобы убедиться, что оно готово к работе.</p>
+<h2 id="публикация-вашего-приложения">Публикация вашего приложения</h2>
+<p>Публикация вашего приложения или службы Sisk заключается в создании готовых и оптимизированных для production бинарных файлов. В этом примере мы скомпилируем бинарные файлы для production, чтобы они работали на машине, на которой установлен .NET Runtime.</p>
+<p>Вам понадобится .NET SDK, установленный на вашей машине, чтобы построить ваше приложение, и .NET Runtime, установленный на целевом сервере, чтобы запустить ваше приложение. Вы можете узнать, как установить .NET Runtime на вашем сервере Linux <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">здесь</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> и <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a>.</p>
+<p>В папке, где находится ваш проект, откройте терминал и используйте команду .NET publish:</p>
+<pre><code class="lang-shell">dotnet publish -r linux-x64 -c Release
+</code></pre>
+<p>Это создаст ваши бинарные файлы внутри <code>bin/Release/publish/linux-x64</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Если ваше приложение работает с помощью пакета Sisk.ServiceProvider, вам следует скопировать ваш <code>service-config.json</code> на хост-сервер вместе со всеми сгенерированными <code>dotnet publish</code> бинарными файлами.
+Вы можете оставить файл предварительно настроенным с переменными среды, портами прослушивания, хостами и дополнительными конфигурациями сервера.</p>
+</div>
+<p>Следующим шагом является перемещение этих файлов на сервер, где будет размещено ваше приложение.</p>
+<p>После этого предоставьте исполняемые права вашему бинарному файлу. В этом случае, предположим, что имя вашего проекта - &quot;my-app&quot;:</p>
+<pre><code class="lang-shell">cd /home/htdocs
+chmod +x my-app
+./my-app
+</code></pre>
+<p>После запуска вашего приложения проверьте, не выдает ли оно каких-либо сообщений об ошибках. Если ошибок нет, значит, ваше приложение запущено.</p>
+<p>На этом этапе, вероятно, будет невозможно получить доступ к вашему приложению извне вашего сервера, так как не были настроены правила доступа, такие как брандмауэр. Мы рассмотрим это на следующих этапах.</p>
+<p>У вас должен быть адрес виртуального хоста, на котором ваше приложение прослушивает. Это настраивается вручную в приложении и зависит от того, как вы создаете свою службу Sisk.</p>
+<p>Если вы <strong>не</strong> используете пакет Sisk.ServiceProvider, вы должны найти его там, где вы определили экземпляр HttpServer:</p>
+<pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
+// sisk должен прослушивать по http://localhost:5000/
+</code></pre>
+<p>Ассоциирование ListeningHost вручную:</p>
+<pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
+</code></pre>
+<p>Или если вы используете пакет Sisk.ServiceProvider, в вашем <code>service-config.json</code>:</p>
+<pre><code class="lang-json">{
+  &quot;Server&quot;: { },
+  &quot;ListeningHost&quot;: {
+    &quot;Ports&quot;: [
+      &quot;http://localhost:5000/&quot;
+    ]
+  }
+}
+</code></pre>
+<p>Из этого мы можем создать обратный прокси, который будет прослушивать вашу службу и делать трафик доступным через открытую сеть.</p>
+<h2 id="проксирование-вашего-приложения">Проксирование вашего приложения</h2>
+<p>Проксирование вашей службы означает, что вы не будете напрямую открывать вашу службу Sisk для внешней сети. Эта практика очень распространена при развертывании серверов, потому что:</p>
+<ul>
+<li>Позволяет ассоциировать SSL-сертификат с вашим приложением;</li>
+<li>Создавать правила доступа перед доступом к службе и избегать перегрузок;</li>
+<li>Управлять пропускной способностью и ограничениями на запросы;</li>
+<li>Разделять балансировщики нагрузки для вашего приложения;</li>
+<li>Предотвращать нанесение ущерба безопасности инфраструктуре при сбое.</li>
+</ul>
+<p>Вы можете обслуживать ваше приложение через обратный прокси, такой как <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> или <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>, или вы можете использовать туннель http-over-dns, такой как <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>.</p>
+<p>Также не забудьте правильно разрешить заголовки перенаправления вашего прокси, чтобы получить информацию о клиенте, такую как IP-адрес и хост, через <a href="/docs/advanced/forwarding-resolvers">решатели перенаправления</a>.</p>
+<p>Следующим шагом после создания вашего туннеля, настройки брандмауэра и запуска вашего приложения является создание службы для вашего приложения.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Использование SSL-сертификатов непосредственно в службе Sisk на системах, отличных от Windows, невозможно. Это связано с реализацией HttpListener, которая является центральным модулем для того, как осуществляется управление очередию HTTP в Sisk, и эта реализация отличается в зависимости от операционной системы. Вы можете использовать SSL в службе Sisk, если вы <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ассоциируете сертификат с виртуальным хостом с помощью IIS</a>. Для других систем настоятельно рекомендуется использовать обратный прокси.</p>
+</div>
+<h2 id="создание-службы">Создание службы</h2>
+<p>Создание службы сделает ваше приложение всегда доступным, даже после перезапуска экземпляра сервера или непредвиденного сбоя.</p>
+<p>В этом простом руководстве мы будем использовать содержимое предыдущего руководства в качестве демонстрации, чтобы ваше приложение всегда было активным.</p>
+<ol>
+<li><p>Перейдите в папку, где находятся файлы конфигурации службы:</p>
+<pre><code class="lang-sh">cd /etc/systemd/system
+</code></pre>
+</li>
+<li><p>Создайте файл <code>my-app.service</code> и включите в него содержимое:</p>
+<pre><code class="lang-ini">[Unit]
+Description=&lt;описание вашего приложения&gt;
+
+[Service]
+# задайте пользователя, который запустит службу
+User=&lt;пользователь, который запустит службу&gt;
+
+# путь ExecStart не является относительным к WorkingDirectory.
+# задайте его как полный путь к исполняемому файлу
+WorkingDirectory=/home/htdocs
+ExecStart=/home/htdocs/my-app
+
+# задайте службу для автоматического перезапуска при сбое
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</li>
+<li><p>Перезапустите модуль менеджера служб:</p>
+<pre><code class="lang-sh">sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li><p>Запустите новую созданную службу по имени файла, который вы задали, и проверьте, работают ли они:</p>
+<pre><code class="lang-sh">sudo systemctl start my-app
+sudo systemctl status my-app
+</code></pre>
+</li>
+<li><p>Теперь, если ваше приложение запущено (&quot;Active: active&quot;), включите службу, чтобы она запускалась после перезагрузки системы:</p>
+<pre><code class="lang-sh">sudo systemctl enable my-app
+</code></pre>
+</li>
+</ol>
+<p>Теперь вы готовы представить ваше приложение Sisk всему миру.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/deploying.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

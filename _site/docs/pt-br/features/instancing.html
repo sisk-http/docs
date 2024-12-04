@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Instanciando membros por solicita&#231;&#227;o | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Instanciando membros por solicita&#231;&#227;o | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/features/instancing.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="instanciando-membros-por-solicitação">Instanciando membros por solicitação</h1>
+
+<p>É comum dedicar membros e instâncias que duram por toda a vida de uma solicitação, como uma conexão com banco de dados, um usuário autenticado ou um token de sessão. Uma das possibilidades é através do <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, que cria um dicionário que dura por toda a vida de uma solicitação.</p>
+<p>Este dicionário pode ser acessado por <a href="/docs/fundamentals/request-handlers">tratadores de solicitação</a> e definir variáveis ​​durante toda a solicitação. Por exemplo, um tratador de solicitação que autentica um usuário define esse usuário dentro do <code>HttpContext.RequestBag</code>, e dentro da lógica da solicitação, esse usuário pode ser recuperado com <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>Aqui está um exemplo:</p>
+<pre><code class="lang-csharp">public class AuthenticateUser : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        User authenticatedUser = AuthenticateUser(request);
+        context.RequestBag.Set(authenticatedUser);
+        return null; // avançar para o próximo tratador de solicitação ou lógica da solicitação
+    }
+}
+
+[RouteGet(&quot;/hello&quot;)]
+[RequestHandler&lt;AuthenticateUser&gt;]
+public static HttpResponse SayHello(HttpRequest request)
+{
+    var authenticatedUser = request.Bag.Get&lt;User&gt;();
+    return new HttpResponse()
+    {
+        Content = new StringContent($&quot;Olá {authenticatedUser.Name}!&quot;)
+    };
+}
+</code></pre>
+<p>Este é um exemplo preliminar dessa operação. A instância de <code>User</code> foi criada dentro do tratador de solicitação dedicado à autenticação, e todas as rotas que usam esse tratador de solicitação terão a garantia de que haverá um <code>User</code> em sua instância de <code>HttpContext.RequestBag</code>.</p>
+<p>É possível definir lógica para obter instâncias quando não definidas anteriormente no <code>RequestBag</code> através de métodos como <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> ou <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
+<p>Desde a versão 1.3, a propriedade estática <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> foi introduzida, permitindo o acesso ao <code>HttpContext</code> atualmente em execução do contexto da solicitação. Isso permite expor membros do <code>HttpContext</code> fora do contexto da solicitação atual e definir instâncias em objetos de rota.</p>
+<p>O exemplo abaixo define um controlador que possui membros comumente acessados pelo contexto de uma solicitação.</p>
+<pre><code class="lang-csharp">public abstract class Controller : RouterModule
+{
+    public DbContext Database
+    {
+        get
+        {
+            // criar um DbContext ou obter o existente
+            return HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
+        }
+    }
+
+    // a linha seguinte lançará uma exceção se a propriedade for acessada quando o User não
+    // estiver definido no bag da solicitação
+    public User AuthenticatedUser { get =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;(); }
+
+    // Expor a instância HttpRequest também é suportado
+    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+}
+</code></pre>
+<p>E definir tipos que herdam do controlador:</p>
+<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
+public class PostsController : Controller
+{
+    [RouteGet]
+    public IEnumerable&lt;Blog&gt; ListPosts()
+    {
+        return Database.Posts
+            .Where(post =&gt; post.AuthorId == AuthenticatedUser.Id)
+            .ToList();
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public Post GetPost()
+    {
+        int blogId = Request.RouteParameters[&quot;id&quot;].GetInteger();
+
+        Post? post = Database.Posts
+            .FirstOrDefault(post =&gt; post.Id == blogId &amp;&amp; post.AuthorId == AuthenticatedUser.Id);
+
+        return post ?? new HttpResponse(404);
+    }
+}
+</code></pre>
+<p>Para o exemplo acima, você precisará configurar um <a href="/docs/fundamentals/responses.html#implicit-response-types">tratador de valor</a> no seu roteador para que os objetos retornados pelo roteador sejam transformados em um <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> válido.</p>
+<p>Observe que os métodos não têm um argumento <code>HttpRequest request</code> como presente em outros métodos. Isso ocorre porque, desde a versão 1.3, o roteador suporta dois tipos de delegados para roteamento de respostas: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, que é o delegado padrão que recebe um argumento <code>HttpRequest</code>, e <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. O objeto <code>HttpRequest</code> ainda pode ser acessado por ambos os delegados através da propriedade <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> do <code>HttpContext</code> estático no thread.</p>
+<p>No exemplo acima, definimos um objeto descartável, o <code>DbContext</code>, e precisamos garantir que todas as instâncias criadas em um <code>DbContext</code> sejam descartadas quando a sessão HTTP terminar. Para isso, podemos usar duas maneiras de alcançar isso. Uma é criar um <a href="/docs/fundamentals/request-handlers">tratador de solicitação</a> que é executado após a ação do roteador, e a outra maneira é através de um <a href="/docs/advanced/http-server-handlers">tratador de servidor</a> personalizado.</p>
+<p>Para o primeiro método, podemos criar o tratador de solicitação inline diretamente no método <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a> herdado de <code>RouterModule</code>:</p>
+<pre><code class="lang-csharp">public abstract class Controller : RouterModule
+{
+    ...
+
+    protected override void OnSetup(Router parentRouter)
+    {
+        base.OnSetup(parentRouter);
+
+        HasRequestHandler(RequestHandler.Create(
+            execute: (req, ctx) =&gt;
+            {
+                // obter um DbContext definido no contexto do tratador de solicitação e
+                // descartá-lo
+                ctx.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
+                return null;
+            },
+            executionMode: RequestHandlerExecutionMode.AfterResponse));
+    }
+}
+</code></pre>
+<p>O método acima garantirá que o <code>DbContext</code> seja descartado quando a sessão HTTP for finalizada. Você pode fazer isso para mais membros que precisam ser descartados no final de uma resposta.</p>
+<p>Para o segundo método, você pode criar um <a href="/docs/advanced/http-server-handlers">tratador de servidor</a> personalizado que descartará o <code>DbContext</code> quando a sessão HTTP for finalizada.</p>
+<pre><code class="lang-csharp">public class ObjectDisposerHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        result.Context.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
+    }
+}
+</code></pre>
+<p>E usá-lo no seu construtor:</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
+    .UseHandler&lt;ObjectDisposerHandler&gt;()
+    .Build();
+</code></pre>
+<p>Esta é uma maneira de lidar com a limpeza de código e manter as dependências de uma solicitação separadas pelo tipo de módulo que será usado, reduzindo a quantidade de código duplicado dentro de cada ação de um roteador. É uma prática semelhante ao que a injeção de dependência é usada em frameworks como ASP.NET.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/features/instancing.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

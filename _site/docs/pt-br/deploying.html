@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Implanta&#231;&#227;o de aplica&#231;&#245;es Sisk | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Implanta&#231;&#227;o de aplica&#231;&#245;es Sisk | Sisk Framework ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/deploying.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="implantação-de-aplicações-sisk">Implantação de aplicações Sisk</h1>
+
+<p>O processo de implantação de um aplicativo Sisk consiste em publicar seu projeto em produção. Embora o processo seja relativamente simples, vale ressaltar detalhes que podem ser letais para a segurança e estabilidade da infraestrutura do deployment.</p>
+<p>Idealmente, você deve estar pronto para implantar seu aplicativo na nuvem, após realizar todos os testes possíveis para ter seu aplicativo pronto.</p>
+<h2 id="publicando-seu-aplicativo">Publicando seu aplicativo</h2>
+<p>Publicar seu aplicativo ou serviço Sisk consiste em gerar binários prontos e otimizados para produção. Neste exemplo, compilaremos os binários para produção para serem executados em uma máquina que tenha o .NET Runtime instalado na máquina.</p>
+<p>Você precisará do .NET SDK instalado em sua máquina para compilar seu aplicativo e do .NET Runtime instalado no servidor de destino para executar seu aplicativo. Você pode aprender como instalar o .NET Runtime em seu servidor Linux <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">aqui</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> e <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a>.</p>
+<p>Na pasta onde seu projeto está localizado, abra um terminal e use o comando .NET publish:</p>
+<pre><code class="lang-shell">dotnet publish -r linux-x64 -c Release
+</code></pre>
+<p>Isso irá gerar seus binários dentro de <code>bin/Release/publish/linux-x64</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Se seu aplicativo estiver sendo executado usando o pacote Sisk.ServiceProvider, você deve copiar seu <code>service-config.json</code> para o servidor host junto com todos os binários gerados por <code>dotnet publish</code>.
+Você pode deixar o arquivo pré-configurado, com variáveis de ambiente, portas de escuta e hosts, e configurações adicionais do servidor.</p>
+</div>
+<p>O próximo passo é levar esses arquivos para o servidor onde seu aplicativo será hospedado.</p>
+<p>Depois disso, dê permissões de execução para seu arquivo binário. Neste caso, vamos considerar que o nome do nosso projeto é &quot;meu-app&quot;:</p>
+<pre><code class="lang-shell">cd /home/htdocs
+chmod +x meu-app
+./meu-app
+</code></pre>
+<p>Depois de executar seu aplicativo, verifique se ele produz alguma mensagem de erro. Se não produzir, significa que seu aplicativo está em execução.</p>
+<p>Neste ponto, provavelmente não será possível acessar seu aplicativo por rede externa fora do seu servidor, pois regras de acesso como Firewall não foram configuradas. Consideraremos isso nos próximos passos.</p>
+<p>Você deve ter o endereço do host virtual onde seu aplicativo está ouvindo. Isso é definido manualmente no aplicativo e depende de como você está instanciando seu serviço Sisk.</p>
+<p>Se você <strong>não</strong> estiver usando o pacote Sisk.ServiceProvider, você deve encontrá-lo onde definiu sua instância HttpServer:</p>
+<pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
+// sisk deve escutar em http://localhost:5000/
+</code></pre>
+<p>Associando um ListeningHost manualmente:</p>
+<pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
+</code></pre>
+<p>Ou se você estiver usando o pacote Sisk.ServiceProvider, em seu service-config.json:</p>
+<pre><code class="lang-json">{
+  &quot;Server&quot;: { },
+  &quot;ListeningHost&quot;: {
+    &quot;Ports&quot;: [
+      &quot;http://localhost:5000/&quot;
+    ]
+  }
+}
+</code></pre>
+<p>A partir daqui, podemos criar um proxy inverso para escutar seu serviço e tornar o tráfego disponível na rede aberta.</p>
+<h2 id="proximando-seu-aplicativo">Proximando seu aplicativo</h2>
+<p>Proximar seu serviço significa não expor diretamente seu serviço Sisk a uma rede externa. Essa prática é muito comum para implantações de servidor porque:</p>
+<ul>
+<li>Permite associar um certificado SSL ao seu aplicativo;</li>
+<li>Cria regras de acesso antes de acessar o serviço e evita sobrecargas;</li>
+<li>Controle de largura de banda e limites de solicitações;</li>
+<li>Separação de balanceadores de carga para seu aplicativo;</li>
+<li>Previne danos à segurança de infraestruturas com falhas.</li>
+</ul>
+<p>Você pode servir seu aplicativo através de um proxy inverso como <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> ou <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>, ou você pode usar um túnel http-over-dns como <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>.</p>
+<p>Lembre-se também de resolver corretamente os cabeçalhos de encaminhamento do seu proxy para obter as informações do seu cliente, como endereço IP e host, através de <a href="/docs/advanced/forwarding-resolvers">resolvers de encaminhamento</a>.</p>
+<p>O próximo passo após criar seu túnel, configuração do firewall e ter seu aplicativo em execução é criar um serviço para seu aplicativo.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>O uso de certificados SSL diretamente no serviço Sisk em sistemas operacionais não Windows não é possível. Este é um ponto da implementação do HttpListener, que é o módulo central para como o gerenciamento de fila HTTP é feito no Sisk, e essa implementação varia de sistema operacional para sistema operacional. Você pode usar SSL em seu serviço Sisk se <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">associar um certificado ao host virtual com IIS</a>. Para outros sistemas, o uso de um proxy inverso é altamente recomendado.</p>
+</div>
+<h2 id="criando-um-serviço">Criando um serviço</h2>
+<p>Criar um serviço fará com que seu aplicativo esteja sempre disponível, mesmo após reiniciar a instância do seu servidor ou uma falha irrecuperável.</p>
+<p>Neste tutorial simples, usaremos o conteúdo do tutorial anterior como um showcase para manter seu serviço sempre ativo.</p>
+<ol>
+<li><p>Acesse a pasta onde os arquivos de configuração do serviço estão localizados:</p>
+<pre><code class="lang-sh">cd /etc/systemd/system
+</code></pre>
+</li>
+<li><p>Crie seu arquivo <code>meu-app.service</code> e inclua o conteúdo:</p>
+<pre><code class="lang-ini">[Unit]
+Description=&lt;descrição sobre seu aplicativo&gt;
+
+[Service]
+# defina o usuário que iniciará o serviço
+User=&lt;usuário que iniciará o serviço&gt;
+
+# o ExecStart é não relativo ao WorkingDirectory.
+# defina-o como o caminho completo para o arquivo executável
+WorkingDirectory=/home/htdocs
+ExecStart=/home/htdocs/meu-app
+
+# defina o serviço para reiniciar sempre em caso de falha
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</li>
+<li><p>Reinicie o módulo gerenciador de serviços:</p>
+<pre><code class="lang-sh">sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li><p>Inicie seu novo serviço criado a partir do nome do arquivo que você definiu e verifique se eles estão em execução:</p>
+<pre><code class="lang-sh">sudo systemctl start meu-app
+sudo systemctl status meu-app
+</code></pre>
+</li>
+<li><p>Agora, se seu aplicativo estiver em execução (&quot;Active: active&quot;), habilite seu serviço para mantê-lo em execução após uma reinicialização do sistema:</p>
+<pre><code class="lang-sh">sudo systemctl enable meu-app
+</code></pre>
+</li>
+</ol>
+<p>Agora você está pronto para apresentar seu aplicativo Sisk a todos.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/deploying.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

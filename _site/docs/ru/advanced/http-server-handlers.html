@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Обработчики HTTP-сервера | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Обработчики HTTP-сервера | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/advanced/http-server-handlers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="обработчики-http-сервера">Обработчики HTTP-сервера</h1>
+
+<p>В версии 0.16 Sisk был представлен класс <code>HttpServerHandler</code>, который призван расширить общие возможности Sisk и предоставить дополнительные обработчики событий Sisk, такие как обработка HTTP-запросов, маршрутизаторов, контекстных мешков и многое другое.</p>
+<p>Класс концентрирует события, которые происходят в течение жизненного цикла всего HTTP-сервера и отдельного запроса. Протокол HTTP не имеет сессий, и поэтому невозможно сохранять информацию из одного запроса в другой. Sisk на данный момент предоставляет способ для вас реализовать сессии, контексты, подключения к базе данных и другие полезные провайдеры, чтобы помочь в вашей работе.</p>
+<p>Для того чтобы узнать, где вызывается каждое событие и для чего оно предназначено, обратитесь к этой странице (/api/Sisk.Core.Http.Handlers.HttpServerHandler). Вы также можете просмотреть жизненный цикл HTTP-запроса (/v1/advanced/request-lifecycle), чтобы понять, что происходит с запросом и где вызываются события. HTTP-сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события синхронный, то есть он заблокирует текущий поток для каждого запроса или контекста до тех пор, пока не будут выполнены и завершены все обработчики, связанные с этой функцией.</p>
+<p>В отличие от RequestHandlers, их нельзя применять к определенным группам маршрутов или конкретным маршрутам. Вместо этого они применяются ко всему HTTP-серверу. Вы можете применять условия в своем Http Server Handler. Кроме того, для каждого приложения Sisk определяются сингletons каждого HttpServerHandler, поэтому для каждого <code>HttpServerHandler</code> определяется только один экземпляр.</p>
+<p>Практический пример использования HttpServerHandler - автоматическое освобождение подключения к базе данных в конце запроса.</p>
+<pre><code class="lang-cs">// DatabaseConnectionHandler.cs
+
+public class DatabaseConnectionHandler : HttpServerHandler
+{
+    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        var requestBag = result.Request.Context.RequestBag;
+
+        // проверяет, определен ли в запросе DbContext
+        if (requestBag.IsSet&lt;DbContext&gt;())
+        {
+            var db = requestBag.Get&lt;DbContext&gt;();
+            db.Dispose();
+        }
+    }
+}
+
+public static class DatabaseConnectionHandlerExtensions
+{
+    // позволяет пользователю создать DbContext из HTTP-запроса
+    // и сохранить его в его контекстном мешке
+    public static DbContext GetDbContext(this HttpRequest request)
+    {
+        var db = new DbContext();
+        return request.SetContextBag&lt;DbContext&gt;(db);
+    }
+}
+</code></pre>
+<p>С приведенным выше кодом расширение <code>GetDbContext</code> позволяет создавать контекст подключения непосредственно из объекта HttpRequest. Необработанное подключение может вызвать проблемы при работе с базой данных, поэтому оно завершается в <code>OnHttpRequestClose</code>.</p>
+<p>Вы можете зарегистрировать обработчик на HTTP-сервере в своем билдере или непосредственно с помощью <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
+<pre><code class="lang-cs">// Program.cs
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseHandler&lt;DatabaseConnectionHandler&gt;()
+            .Build();
+
+        app.Router.SetObject(new UserController());
+        app.Start();
+    }
+}
+</code></pre>
+<p>С этим <code>UsersController</code> может использовать контекст базы данных следующим образом:</p>
+<pre><code class="lang-cs">// UserController.cs
+
+[RoutePrefix(&quot;/users&quot;)]
+public class UserController : ApiController
+{
+    [RouteGet()]
+    public async Task&lt;HttpResponse&gt; List(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var users = db.Users.ToArray();
+
+        return JsonOk(users);
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; View(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+
+        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
+
+        return JsonOk(user);
+    }
+
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+
+        ArgumentNullException.ThrowIfNull(user);
+
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+
+        return JsonMessage(&quot;User added.&quot;);
+    }
+}
+</code></pre>
+<p>Код выше использует методы <code>JsonOk</code> и <code>JsonMessage</code>, которые встроены в <code>ApiController</code>, который наследуется от <code>RouterController</code>:</p>
+<pre><code class="lang-cs">// ApiController.cs
+
+public class ApiController : RouterModule
+{
+    public HttpResponse JsonOk(object value)
+    {
+        return new HttpResponse(200)
+            .WithContent(JsonContent.Create(value, null, new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            }));
+    }
+
+    public HttpResponse JsonMessage(string message, int statusCode = 200)
+    {
+        return new HttpResponse(statusCode)
+            .WithContent(JsonContent.Create(new
+            {
+                Message = message
+            }));
+    }
+}
+</code></pre>
+<p>Разработчики могут реализовать сессии, контексты и подключения к базе данных с помощью этого класса. Предоставленный код демонстрирует практический пример с DatabaseConnectionHandler, автоматизируя освобождение подключения к базе данных в конце каждого запроса.</p>
+<p>Интеграция проста, обработчики регистрируются во время настройки сервера. Класс HttpServerHandler предоставляет мощный набор инструментов для управления ресурсами и расширения поведения Sisk в HTTP-приложениях.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/advanced/http-server-handlers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

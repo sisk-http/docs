@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Начало работы с Sisk | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Начало работы с Sisk | Sisk Framework ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/getting-started.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="начало-работы-с-sisk">Начало работы с Sisk</h1>
+
+<p>Sisk может работать в любой среде .NET. В этом руководстве мы научим вас, как создать приложение Sisk с использованием .NET. Если вы еще не установили его, пожалуйста, загрузите SDK отсюда <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">https://dotnet.microsoft.com/en-us/download/dotnet/7.0</a>.</p>
+<p>В этом учебном пособии мы рассмотрим, как создать структуру проекта, получить запрос, получить параметр URL и отправить ответ. В этом руководстве мы сосредоточимся на создании простого сервера с использованием C#. Вы также можете использовать свой любимый язык программирования.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Вам может быть интересно ознакомиться с проектом quickstart. Дополнительную информацию можно найти в этом репозитории <a href="https://github.com/sisk-http/quickstart">https://github.com/sisk-http/quickstart</a>.</p>
+</div>
+<h2 id="создание-проекта">Создание проекта</h2>
+<p>Назовем наш проект &quot;My Sisk Application&quot;. После того, как вы настроили .NET, вы можете создать свой проект с помощью следующей команды:</p>
+<pre><code class="lang-bash">dotnet new console -n my-sisk-application
+</code></pre>
+<p>Затем перейдите в каталог вашего проекта и установите Sisk с помощью инструмента .NET:</p>
+<pre><code class="lang-bash">cd my-sisk-application
+dotnet add package Sisk.HttpServer
+</code></pre>
+<p>Дополнительные способы установки Sisk в вашем проекте можно найти <a href="https://www.nuget.org/packages/Sisk.HttpServer/">здесь</a>.</p>
+<p>Теперь давайте создадим экземпляр нашего HTTP-сервера. В этом примере мы настроим его для прослушивания на порту 5000.</p>
+<h2 id="создание-http-сервера">Создание HTTP-сервера</h2>
+<p>Sisk позволяет создавать ваше приложение пошагово вручную, так как он маршрутизирует к объекту HttpServer. Однако это может быть не очень удобно для большинства проектов. Поэтому мы можем использовать метод builder, который упрощает запуск нашего приложения.</p>
+<pre><code class="lang-csharp">class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseListeningPort(&quot;http://localhost:5000/&quot;)
+            .Build();
+
+        app.Router.MapGet(&quot;/&quot;, request =&gt;
+        {
+            return new HttpResponse()
+            {
+                Status = 200,
+                Content = new StringContent(&quot;Hello, world!&quot;)
+            };
+        });
+
+        await app.StartAsync();
+    }
+}
+</code></pre>
+<p>Важно понимать каждый важный компонент Sisk. Позже в этом документе вы узнаете больше о том, как работает Sisk.</p>
+<h2 id="ручной-упрощенный-настройка">Ручной (упрощенный) настройка</h2>
+<p>Вы можете узнать, как работает каждый механизм Sisk, в <a href="/docs/advanced/manual-setup">этом разделе</a> документации, который объясняет поведение и взаимосвязи HttpServer, Router, ListeningPort и других компонентов.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/getting-started.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Провайдеры услуг | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Провайдеры услуг | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/service-providers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="провайдеры-услуг">Провайдеры услуг</h1>
+
+<p>Провайдеры услуг - простой способ переносить ваше приложение в разные среды и конфигурации без необходимости изменять код. Класс <a href="/read?q=/contents/Sisk/Provider/ServiceProvider">ServiceProvider</a> доступен по типу, который устанавливает приложение с вашим маршрутизатором, конфигурацией и другими настройками, уже доступными в Sisk.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Пакет Sisk.ServiceProvider больше не поддерживается. Пожалуйста, используйте класс <a href="/api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder">HttpServerHostContextBuilder</a> вместо него.</p>
+</div>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>С версии Sisk 0.16 эта функция встроена в его ядро, и больше не требуется устанавливать дополнительный пакет для этого. Пожалуйста, <a href="https://github.com/sisk-http/docs/blob/master/archive/0.16/service-providers-migration">прочитайте этот документ</a> с более подробной информацией, спецификацией миграции и т.д.</p>
+<p>Пакет будет поддерживаться только для версии 0.15, пока она поддерживается.</p>
+</div>
+<p>Провайдеры услуг управляются файлом настроек JSON, который считывается приложением рядом с исполняемым файлом. Вот пример файла настроек службы:</p>
+<pre><code class="lang-json">{
+    &quot;Server&quot;: {
+        &quot;DefaultEncoding&quot;: &quot;UTF-8&quot;,
+        &quot;ThrowExceptions&quot;: true,
+        &quot;IncludeRequestIdHeader&quot;: true
+    },
+    &quot;ListeningHost&quot;: {
+        &quot;Label&quot;: &quot;My sisk application&quot;,
+        &quot;Ports&quot;: [
+            &quot;http://localhost:80/&quot;,
+            &quot;https://localhost:443/&quot;,  // Файлы конфигурации также поддерживают комментарии
+        ],
+        &quot;CrossOriginResourceSharingPolicy&quot;: {
+            &quot;AllowOrigin&quot;: &quot;*&quot;,
+            &quot;AllowOrigins&quot;: [ &quot;*&quot; ],   // новое с 0.14
+            &quot;AllowMethods&quot;: [ &quot;*&quot; ],
+            &quot;AllowHeaders&quot;: [ &quot;*&quot; ],
+            &quot;MaxAge&quot;: 3600
+        },
+        &quot;Parameters&quot;: {
+            &quot;MySqlConnection&quot;: &quot;server=localhost;user=root;&quot;
+        }
+    }
+}
+</code></pre>
+<p>Этот файл считывается вместе с исполняемым файлом сервера, независимо от платформы сборки. По умолчанию имя файла - <code>service-config.json</code> и оно должно находиться в той же директории, что и исполняемый файл. Также можно изменить имя файла, настроек класса <a href="/api/Sisk/Provider/ServiceProvider">ServiceProvider</a>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>В файлах конфигурации провайдеров услуг Sisk разрешено использовать <code>// single</code> или <code>/* multi-line comments */</code>, так как они игнорируются интерпретатором.</p>
+</div>
+<h2 id="установка">Установка</h2>
+<p>Вы можете установить пакет Sisk.SericeProviders с помощью:</p>
+<pre><code>dotnet add package Sisk.SericeProviders
+</code></pre>
+<p>Более подробную информацию о загрузке можно найти <a href="https://www.nuget.org/packages/Sisk.ServiceProvider/">здесь</a>.</p>
+<h2 id="создание-экземпляра-провайдера-услуг">Создание экземпляра провайдера услуг</h2>
+<p>В этом сеансе мы узнаем, как настроить приложение для запуска провайдера услуг Sisk. Прежде всего, вам нужно установить последнюю версию Sisk в вашем проекте.</p>
+<p>Сначала давайте настроим экземпляр класса RouterFactory, который будет настроен и выпустит маршрутизатор. Этот класс не является точкой входа в приложение, но тем не менее, это объект, который будет запускать объекты runtime.</p>
+<pre><code class="lang-cs">public class Application : RouterFactory
+{
+    public string? MySqlConnection { get; set; }
+
+    // Ниже мы указываем маршрутизатору, чтобы он искал маршруты в нашем экземпляре приложения.
+    // Вы можете определить маршруты на другом объекте или типе.
+    public override Router BuildRouter()
+    {
+        Router r = new Router();
+        r.SetObject(this);
+        return r;
+    }
+
+    // В setupParameters мы можем установить параметры, указанные в разделе параметров нашего JSON.
+    public override void Setup(NameValueCollection setupParameters)
+    {
+        this.MySqlConnection = setupParameters[&quot;MySqlConnection&quot;] ?? throw new ArgumentNullException(nameof(MySqlConnection));
+    }
+
+    // Синхронная методика, вызываемая непосредственно перед запуском HTTP-сервера.
+    public override void Bootstrap()
+    {
+        ;
+    }
+
+    [Route(RouteMethod.Get, &quot;/&quot;)]
+    public HttpResponse IndexPage(HttpRequest request)
+    {
+        HttpResponse htmlResponse = new HttpResponse();
+        htmlResponse.Content = new StringContent(&quot;Hello, world!&quot;, System.Text.Encoding.UTF8, &quot;text/plain&quot;);
+        return htmlResponse;
+    }
+}
+</code></pre>
+<p>Теперь мы можем настроить службу в точке входа в наше приложение:</p>
+<pre><code class="lang-cs">public class Program
+{
+    public static Application App { get; set; }
+
+    static void Main(string[] args)
+    {
+        App = new Application();
+        ServiceProvider provider = new(App, &quot;config.json&quot;);
+        provider.ConfigureInit(config =&gt;
+        {
+            // Определяет основной цикл запросов как информационную культуру португальского языка.
+            config.UseLocale(CultureInfo.GetCultureInfo(&quot;pt-BR&quot;));
+
+            // Устанавливает флаги HTTP на сервере при запуске.
+            config.UseFlags(new HttpServerFlags()
+            {
+                SendSiskHeader = true
+            });
+
+            // Указывает, что после запуска сервера он не должен завершать основной цикл.
+            config.UseHauting(true);
+
+            // Переопределяет параметры конфигурации HTTP-сервера, даже если они были параметризированы в файле конфигурации JSON.
+            config.UseConfiguration(httpConfig =&gt;
+            {
+                if (httpConfig.AccessLogsStream?.FilePath != null)
+                {
+                    RotatingLogPolicy policy = new RotatingLogPolicy(httpConfig.AccessLogsStream);
+                    policy.Configure(1024 * 1024, TimeSpan.FromHours(6));
+                }
+            });
+
+            // Переопределяет параметры CORS из файла конфигурации
+            config.UseCors(cors =&gt;
+            {
+                cors.AllowMethods = new[] { &quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot; };
+            });
+
+            // Переопределяет свойства непосредственно HTTP-серверу
+            config.UseHttpServer(http =&gt;
+            {
+                http.EventSources.OnEventSourceRegistered += (sender, ws) =&gt;
+                {
+                    Console.WriteLine(&quot;Новый источник событий: &quot; + ws.Identifier);
+                };
+                http.EventSources.OnEventSourceUnregistration += (sender, ws) =&gt;
+                {
+                    Console.WriteLine(&quot;Закрыт источник событий: &quot; + ws.Identifier);
+                };
+            });
+        });
+    }
+}
+</code></pre>
+<p>Теперь наше приложение готово к запуску с файлом JSON, который настраивает порты, методы, имена хостов и параметры.</p>
+<h2 id="структура-файла-конфигурации">Структура файла конфигурации</h2>
+<p>Файл JSON состоит из свойств:</p>
+<table>
+<thead>
+<tr>
+<th>Свойство</th>
+<th>Обязательно</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>Да</td>
+<td>Представляет сам сервер со своими настройками.</td>
+</tr>
+<tr>
+<td>Server.AccessLogsStream</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>console</code>. Указывает поток вывода журнала доступа. Может быть именем файла, <code>null</code> или <code>console</code>.</td>
+</tr>
+<tr>
+<td>Server.ErrorsLogsStream</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Указывает поток вывода журнала ошибок. Может быть именем файла, <code>null</code> или <code>console</code>.</td>
+</tr>
+<tr>
+<td>Server.ResolveForwardedOriginAddress</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>false</code>. Указывает, должен ли HTTP-сервер разрешать заголовки <code>X-Forwarded-For</code> на IP-адрес пользователя. (Рекомендуется для прокси-серверов)</td>
+</tr>
+<tr>
+<td>Server.ResolveForwardedOriginHost</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>false</code>. Указывает, должен ли HTTP-сервер разрешать заголовки <code>X-Forwarded-Host</code> на хост-сервер.</td>
+</tr>
+<tr>
+<td>Server.DefaultEncoding</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>UTF-8</code>. Указывает кодировку текста, используемую по умолчанию HTTP-сервером.</td>
+</tr>
+<tr>
+<td>Server.MaximumContentLength</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>0</code>. Указывает максимальный размер контента в байтах. Ноль означает бесконечность.</td>
+</tr>
+<tr>
+<td>Server.IncludeRequestIdHeader</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>false</code>. Указывает, должен ли HTTP-сервер отправлять заголовок <code>X-Request-Id</code>.</td>
+</tr>
+<tr>
+<td>Server.ThrowExceptions</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>true</code>. Указывает, должны ли необработанные исключения вызывать. Установите <code>false</code> при работе в режиме производства и <code>true</code> при отладке.</td>
+</tr>
+<tr>
+<td>ListeningHost</td>
+<td>Да</td>
+<td>Представляет хост, на котором работает сервер.</td>
+</tr>
+<tr>
+<td>ListeningHost.Label</td>
+<td>Необязательно</td>
+<td>Представляет метку приложения.</td>
+</tr>
+<tr>
+<td>ListeningHost.Ports</td>
+<td>Да</td>
+<td>Представляет массив строк, соответствующий синтаксису <code>ListeningPort</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy</td>
+<td>Необязательно</td>
+<td>Настройка заголовков CORS для приложения.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>false</code>. Указывает заголовок <code>Allow-Credentials</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает массив строк. Указывает заголовок <code>Expose-Headers</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает строку. Указывает заголовок <code>Allow-Origin</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает массив строк. Указывает несколько заголовков <code>Allow-Origin</code>. См. [AllowOrigins для более подробной информации.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает массив строк. Указывает заголовок <code>Allow-Methods</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает массив строк. Указывает заголовок <code>Allow-Headers</code>.</td>
+</tr>
+<tr>
+<td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
+<td>Необязательно</td>
+<td>По умолчанию равно <code>null</code>. Этот параметр ожидает целое число. Указывает заголовок <code>Max-Age</code> в секундах.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-cs">
+</code></pre>
+<pre><code class="lang-cs">```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+```cs
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/service-providers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>
