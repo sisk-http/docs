@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/features/websockets.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<h2 id="websockets">WebSockets</h2>
+<p>Sisk也支持WebSockets，例如接收和发送消息到客户端。</p>
+<p>此功能在大多数浏览器中都能正常工作，但在Sisk中仍处于实验阶段。如果您发现任何错误，请在github上报告。</p>
+<h2 id="异步接收和发送消息">异步接收和发送消息</h2>
+<p>以下示例演示了WebSocket在实践中的工作方式，并以打开连接、接收消息并将其显示在控制台为例。</p>
+<p>WebSocket接收到的所有消息都是以字节接收的，因此您需要在接收时对其进行解码。</p>
+<p>默认情况下，消息被分割成块，最后一部分作为消息的最终数据包发送。您可以使用<a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a>标志配置数据包大小。此缓冲区对于发送和接收消息都是相同的。</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        ws.OnReceive += (sender, msg) =&gt;
+        {
+            string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
+            Console.WriteLine(&quot;Received message: &quot; + msgText);
+
+            // 获取接收消息的HttpWebSocket上下文
+            HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
+            senderWebSocket.Send(&quot;Response!&quot;);
+        };
+
+        ws.WaitForClose();
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="同步接收和发送消息">同步接收和发送消息</h2>
+<p>以下示例包含一种使用同步WebSocket的方法，无需异步上下文，您可以接收消息、处理它们并完成使用套接字。</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/connect&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+        WebSocketMessage? msg;
+
+    askName:
+        ws.Send(&quot;What is your name?&quot;);
+        msg = ws.WaitNext();
+
+        string? name = msg?.GetString();
+
+        if (string.IsNullOrEmpty(name))
+        {
+            ws.Send(&quot;Please, insert your name!&quot;);
+            goto askName;
+        }
+
+    askAge:
+        ws.Send(&quot;And your age?&quot;);
+        msg = ws.WaitNext();
+
+        if (!Int32.TryParse(msg?.GetString(), out int age))
+        {
+            ws.Send(&quot;Please, insert an valid number&quot;);
+            goto askAge;
+        }
+
+        ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="发送消息">发送消息</h2>
+<p>Send方法有三个重载，允许您发送文本、字节数组或字节跨度。如果服务器的<a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a>标志大于总有效负载大小，则它们都会被分块。</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        byte[] myByteArrayContent = ...;
+
+        ws.Send(&quot;Hello, world&quot;);     // 将被编码为UTF-8字节数组
+        ws.Send(myByteArrayContent);
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="等待websocket关闭">等待WebSocket关闭</h2>
+<p><a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a>方法阻止当前调用堆栈，直到连接由客户端或服务器终止。</p>
+<p>通过此方法，请求的回调执行将阻塞，直到客户端或服务器断开连接。</p>
+<p>您也可以使用<a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a>方法手动关闭连接。此方法返回一个空的<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>对象，该对象不会发送到客户端，但作为接收HTTP请求的函数的返回值。</p>
+<pre><code class="lang-cs">static ListeningHost BuildLhA()
+{
+    Router r = new Router();
+
+    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    {
+        var ws = req.GetWebSocket();
+
+        // 等待客户端关闭连接
+        ws.WaitForClose();
+
+        // 等待60秒内没有消息交换，或者某个方关闭连接
+        ws.WaitForClose(TimeSpan.FromSeconds(60));
+
+        return ws.Close();
+    });
+
+    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+}
+</code></pre>
+<h2 id="ping策略">Ping策略</h2>
+<p>类似于Server Side Events中的Ping策略，您还可以配置Ping策略来保持TCP连接处于活动状态，即使没有活动。</p>
+<pre><code class="lang-cs">ws.WithPing(ping =&gt;
+{
+    ping.DataMessage = &quot;ping-message&quot;;
+    ping.Interval = TimeSpan.FromSeconds(5);
+    ping.Start();
+});
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/features/websockets.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

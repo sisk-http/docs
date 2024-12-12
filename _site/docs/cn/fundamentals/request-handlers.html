@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/request-handlers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<p>请求处理程序，也称为“中间件”，是在路由执行请求之前或之后运行的函数。它们可以按路由或按路由器定义。</p>
+<p>存在两种类型的请求处理程序：</p>
+<ul>
+<li><strong>BeforeResponse</strong>: 定义请求处理程序将在调用路由器操作之前执行。</li>
+<li><strong>AfterResponse</strong>: 定义请求处理程序将在调用路由器操作之后执行。在此上下文中发送 HTTP 响应将覆盖路由器的操作响应。</li>
+</ul>
+<p>两个请求处理程序都可以覆盖实际路由器回调函数的响应。顺便说一句，请求处理程序可用于验证请求，例如身份验证、内容或任何其他信息，例如存储信息、日志或可以在响应之前或之后执行的其他步骤。</p>
+<p><img src="/assets/img/requesthandlers1.png" alt=""></p>
+<p>这样，请求处理程序可以中断所有此执行并返回响应，从而在完成循环之前丢弃其他所有内容。</p>
+<p>示例：假设用户身份验证请求处理程序未对其进行身份验证。它将阻止请求生命周期继续，并挂起。如果这发生在第二个请求处理程序中，则不会评估第三个及以后的请求处理程序。</p>
+<p><img src="/assets/img/requesthandlers2.png" alt=""></p>
+<h2 id="创建请求处理程序">创建请求处理程序</h2>
+<p>要创建请求处理程序，我们可以创建一个继承 <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> 接口的类，采用以下格式：</p>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization != null)
+        {
+            // 返回 null 表示请求周期可以继续
+            return null;
+        }
+        else
+        {
+            // 返回 HttpResponse 对象表示此响应将覆盖相邻响应。
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+</code></pre>
+<p>在上面的示例中，我们指示如果请求中包含 <code>Authorization</code> 标头，则应继续执行，并调用下一个请求处理程序或路由器回调，无论哪个先到。如果请求处理程序在响应之后执行，并且其 <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> 属性返回非空值，它将覆盖路由器的响应。</p>
+<p>每当请求处理程序返回 <code>null</code> 时，它都表示请求必须继续，必须调用下一个对象或以路由器响应结束周期。</p>
+<h2 id="将请求处理程序与单个路由关联">将请求处理程序与单个路由关联</h2>
+<p>您可以为路由定义一个或多个请求处理程序。</p>
+<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler(),     // before request handler
+    new ValidateJsonContentRequestHandler(),  // before request handler
+    //                                        -- method IndexPage will be executed here
+    new WriteToLogRequestHandler()            // after request handler
+});
+</code></pre>
+<p>或者创建 <a href="/api/Sisk.Core.Routing.Route">Route</a> 对象：</p>
+<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
+indexRoute.RequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<h2 id="将请求处理程序与路由器关联">将请求处理程序与路由器关联</h2>
+<p>您可以定义一个全局请求处理程序，它将在路由器上的所有路由上运行。</p>
+<pre><code class="lang-cs">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+</code></pre>
+<h2 id="将请求处理程序与属性关联">将请求处理程序与属性关联</h2>
+<p>您可以在方法属性以及路由属性中定义请求处理程序。</p>
+<pre><code class="lang-cs">public class MyController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
+    static HttpResponse Index(HttpRequest request)
+    {
+        return new HttpResponse()
+            .WithContent(new StringContent(&quot;Hello world!&quot;));
+    }
+}
+</code></pre>
+<p>请注意，必须传递所需的请求处理程序类型，而不是对象实例。这样，路由器解析器将实例化请求处理程序。您可以通过 <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a> 属性使用构造函数参数将参数传递给类。</p>
+<p>示例：</p>
+<pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
+static HttpResponse Index(HttpRequest request)
+{
+    HttpResponse res = new HttpResponse();
+    res.Content = new StringContent(&quot;Hello world!&quot;);
+    return res;
+}
+</code></pre>
+<p>您还可以创建自己的属性，该属性实现 RequestHandler：</p>
+<pre><code class="lang-cs">public class AuthenticateAttribute : RequestHandlerAttribute
+{
+    public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })
+    {
+        ;
+    }
+}
+</code></pre>
+<p>并使用它：</p>
+<pre><code class="lang-cs">[Authenticate]
+static HttpResponse Index(HttpRequest request)
+{
+    HttpResponse res = new HttpResponse();
+    res.Content = new StringContent(&quot;Hello world!&quot;);
+    return res;
+}
+</code></pre>
+<h2 id="跳过全局请求处理程序">跳过全局请求处理程序</h2>
+<p>在路由上定义全局请求处理程序后，您可以忽略特定路由上的此请求处理程序。</p>
+<pre><code class="lang-cs">var myRequestHandler = new AuthenticateUserRequestHandler();
+mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    myRequestHandler
+};
+
+mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quot;, IndexPage, null)
+{
+    BypassGlobalRequestHandlers = new IRequestHandler[]
+    {
+        myRequestHandler,                    // ok: 与全局请求处理程序中实例化的相同引用
+        new AuthenticateUserRequestHandler() // wrong: 不会跳过全局请求处理程序
+    }
+});
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>如果您要跳过请求处理程序，则必须使用与在全局请求处理程序中实例化的相同引用。创建另一个请求处理程序实例将不会跳过全局请求处理程序，因为其引用将发生变化。请务必在 GlobalRequestHandlers 和 BypassGlobalRequestHandlers 中使用相同的请求处理程序引用。</p>
+</div>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/request-handlers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

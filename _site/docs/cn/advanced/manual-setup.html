@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/advanced/manual-setup.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<h2 id="手动高级设置">手动（高级）设置</h2>
+<p>在本节中，我们将创建一个没有任何预定义标准的 HTTP 服务器，以一种完全抽象的方式。在这里，您可以手动构建 HTTP 服务器的工作方式。每个 ListeningHost 都有一个路由器，一个 HTTP 服务器可以有多个 ListeningHost，每个 ListeningHost 指向不同主机上的不同端口。</p>
+<p>首先，我们需要理解请求/响应的概念。它非常简单：对于每个请求，都必须有一个响应。Sisk 也遵循这个原则。让我们创建一个方法，它以 HTML 格式响应“Hello, World！”消息，并指定状态码和标头。</p>
+<pre><code class="lang-csharp">// Program.cs
+using Sisk.Core.Http;
+using Sisk.Core.Routing;
+
+static HttpResponse IndexPage(HttpRequest request)
+{
+    HttpResponse indexResponse = new HttpResponse
+    {
+        Status = System.Net.HttpStatusCode.OK,
+        Content = new HtmlContent(@&quot;
+            &lt;html&gt;
+                &lt;body&gt;
+                    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+                &lt;/body&gt;
+            &lt;/html&gt;
+        &quot;)
+    };
+
+    return indexResponse;
+}
+</code></pre>
+<p>下一步是将此方法与 HTTP 路由关联。</p>
+<h2 id="路由器">路由器</h2>
+<p>路由器是请求路由的抽象，是服务请求和响应之间的桥梁。路由器管理服务路由、函数和错误。</p>
+<p>一个路由器可以有多个路由，每个路由可以在该路径上执行不同的操作，例如执行一个函数、服务一个页面或提供服务器上的资源。</p>
+<p>让我们创建第一个路由器，并将我们的 <code>IndexPage</code> 方法与索引路径关联。</p>
+<pre><code class="lang-csharp">Router mainRouter = new Router();
+
+// SetRoute 将所有索引路由与我们的方法关联。
+mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
+</code></pre>
+<p>现在我们的路由器可以接收请求并发送响应。但是，<code>mainRouter</code> 没有与主机或服务器关联，因此它无法单独工作。下一步是创建我们的 ListeningHost。</p>
+<h2 id="监听主机和端口">监听主机和端口</h2>
+<p><a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> 可以托管路由器和同一路由器的多个监听端口。<a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> 是 HTTP 服务器将监听的前缀。</p>
+<p>在这里，我们可以创建一个 <code>ListeningHost</code>，它指向我们路由器的两个端点：</p>
+<pre><code class="lang-csharp">ListeningHost myHost = new ListeningHost
+{
+    Router = new Router(),
+    Ports = new ListeningPort[]
+    {
+        new ListeningPort(&quot;http://localhost:5000/&quot;)
+    }
+};
+</code></pre>
+<p>现在我们的 HTTP 服务器将监听指定的端点并将请求重定向到我们的路由器。</p>
+<h2 id="服务器配置">服务器配置</h2>
+<p>服务器配置负责 HTTP 服务器本身的大多数行为。在此配置中，我们可以将 <code>ListeningHosts</code> 与我们的服务器关联。</p>
+<pre><code class="lang-csharp">HttpServerConfiguration config = new HttpServerConfiguration();
+config.ListeningHosts.Add(myHost); // 将我们的 ListeningHost 添加到此服务器配置
+</code></pre>
+<p>接下来，我们可以创建我们的 HTTP 服务器：</p>
+<pre><code class="lang-csharp">HttpServer server = new HttpServer(config);
+server.Start();    // 启动服务器
+Console.ReadKey(); // 防止应用程序退出
+</code></pre>
+<p>现在我们可以编译我们的可执行文件并使用以下命令运行我们的 HTTP 服务器：</p>
+<pre><code class="lang-bash">dotnet watch
+</code></pre>
+<p>在运行时，打开浏览器并导航到服务器路径，您应该会看到：</p>
+<img src="/assets/img/localhost.png">
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/advanced/manual-setup.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

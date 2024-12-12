@@ -1,16 +1,47 @@
-# Провайдеры услуг
+# Поставщики услуг
 
-Провайдеры услуг - простой способ переносить ваше приложение в разные среды и конфигурации без необходимости изменять код. Класс [ServiceProvider](/read?q=/contents/Sisk/Provider/ServiceProvider) доступен по типу, который устанавливает приложение с вашим маршрутизатором, конфигурацией и другими настройками, уже доступными в Sisk.
+Поставщики услуг - это способ перенести ваше приложение Sisk в разные среды с помощью портативного файла конфигурации. Эта функция позволяет изменять порт сервера, параметры и другие опции без необходимости модификации кода приложения для каждой среды. Этот модуль зависит от синтаксиса построения Sisk и может быть настроен с помощью метода UsePortableConfiguration.
 
-> [!IMPORTANT]
-> Пакет Sisk.ServiceProvider больше не поддерживается. Пожалуйста, используйте класс [HttpServerHostContextBuilder](/api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder) вместо него.
+Поставщик конфигурации реализуется с помощью IConfigurationProvider, который предоставляет читатель конфигурации и может принимать любую реализацию. По умолчанию Sisk предоставляет читатель конфигурации JSON, но также есть пакет для файлов INI. Вы также можете создать свой собственный поставщик конфигурации и зарегистрировать его с помощью:
 
-> [!WARNING]
-> С версии Sisk 0.16 эта функция встроена в его ядро, и больше не требуется устанавливать дополнительный пакет для этого. Пожалуйста, [прочитайте этот документ](https://github.com/sisk-http/docs/blob/master/archive/0.16/service-providers-migration) с более подробной информацией, спецификацией миграции и т.д.
->
-> Пакет будет поддерживаться только для версии 0.15, пока она поддерживается.
+```csharp
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
+    {
+        config.WithConfigReader<MyConfigurationReader>();
+    })
+    .Build();
+```
 
-Провайдеры услуг управляются файлом настроек JSON, который считывается приложением рядом с исполняемым файлом. Вот пример файла настроек службы:
+Как уже упоминалось ранее, по умолчанию используется поставщик JSON-файла. По умолчанию искомый файл называется service-config.json, и он ищется в текущем каталоге выполняемого процесса, а не в каталоге исполняемого файла.
+
+Вы можете изменить имя файла, а также то, где Sisk должен искать файл конфигурации, с помощью:
+
+```csharp
+using Sisk.Core.Http;
+using Sisk.Core.Http.Hosting;
+
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
+    {
+        config.WithConfigFile("config.toml",
+            createIfDontExists: true,
+            lookupDirectories:
+                ConfigurationFileLookupDirectory.CurrentDirectory |
+                ConfigurationFileLookupDirectory.AppDirectory);
+    })
+    .Build();
+```
+
+Код выше будет искать файл config.toml в текущем каталоге выполняемого процесса. Если файл не найден, он будет искать его в каталоге, где находится исполняемый файл. Если файл не существует, параметр createIfDontExists будет выполнен, создавая файл без содержимого в последнем протестированном пути (на основе lookupDirectories), и в консоли будет выброшено исключение, предотвращая инициализацию приложения.
+
+> [!TIP]
+> 
+> Вы можете ознакомиться с исходным кодом читателя конфигурации INI и читателя конфигурации JSON, чтобы понять, как реализован IConfigurationProvider.
+
+## Чтение конфигураций из JSON-файла
+
+По умолчанию Sisk предоставляет поставщик конфигурации, который считывает конфигурации из JSON-файла. Этот файл следует фиксированной структуре и состоит из следующих параметров:
 
 ```json
 {
@@ -23,11 +54,11 @@
         "Label": "My sisk application",
         "Ports": [
             "http://localhost:80/",
-            "https://localhost:443/",  // Файлы конфигурации также поддерживают комментарии
+            "https://localhost:443/",  // В JSON-файлах также поддерживаются комментарии
         ],
         "CrossOriginResourceSharingPolicy": {
             "AllowOrigin": "*",
-            "AllowOrigins": [ "*" ],   // новое с 0.14
+            "AllowOrigins": [ "*" ],   // новое с версии 0.14
             "AllowMethods": [ "*" ],
             "AllowHeaders": [ "*" ],
             "MaxAge": 3600
@@ -39,1125 +70,136 @@
 }
 ```
 
-Этот файл считывается вместе с исполняемым файлом сервера, независимо от платформы сборки. По умолчанию имя файла - `service-config.json` и оно должно находиться в той же директории, что и исполняемый файл. Также можно изменить имя файла, настроек класса [ServiceProvider](/api/Sisk/Provider/ServiceProvider).
+Параметры, созданные из файла конфигурации, можно получить в конструкторе сервера:
 
-> [!TIP]
-> В файлах конфигурации провайдеров услуг Sisk разрешено использовать `// single` или `/* multi-line comments */`, так как они игнорируются интерпретатором.
-
-## Установка
-
-Вы можете установить пакет Sisk.SericeProviders с помощью:
-
-    dotnet add package Sisk.SericeProviders
-
-Более подробную информацию о загрузке можно найти [здесь](https://www.nuget.org/packages/Sisk.ServiceProvider/).
-
-## Создание экземпляра провайдера услуг
-
-В этом сеансе мы узнаем, как настроить приложение для запуска провайдера услуг Sisk. Прежде всего, вам нужно установить последнюю версию Sisk в вашем проекте.
-
-Сначала давайте настроим экземпляр класса RouterFactory, который будет настроен и выпустит маршрутизатор. Этот класс не является точкой входа в приложение, но тем не менее, это объект, который будет запускать объекты runtime.
-
-```cs
-public class Application : RouterFactory
-{
-    public string? MySqlConnection { get; set; }
-
-    // Ниже мы указываем маршрутизатору, чтобы он искал маршруты в нашем экземпляре приложения.
-    // Вы можете определить маршруты на другом объекте или типе.
-    public override Router BuildRouter()
+```csharp
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
     {
-        Router r = new Router();
-        r.SetObject(this);
-        return r;
-    }
-
-    // В setupParameters мы можем установить параметры, указанные в разделе параметров нашего JSON.
-    public override void Setup(NameValueCollection setupParameters)
-    {
-        this.MySqlConnection = setupParameters["MySqlConnection"] ?? throw new ArgumentNullException(nameof(MySqlConnection));
-    }
-
-    // Синхронная методика, вызываемая непосредственно перед запуском HTTP-сервера.
-    public override void Bootstrap()
-    {
-        ;
-    }
-
-    [Route(RouteMethod.Get, "/")]
-    public HttpResponse IndexPage(HttpRequest request)
-    {
-        HttpResponse htmlResponse = new HttpResponse();
-        htmlResponse.Content = new StringContent("Hello, world!", System.Text.Encoding.UTF8, "text/plain");
-        return htmlResponse;
-    }
-}
-```
-
-Теперь мы можем настроить службу в точке входа в наше приложение:
-
-```cs
-public class Program
-{
-    public static Application App { get; set; }
-
-    static void Main(string[] args)
-    {
-        App = new Application();
-        ServiceProvider provider = new(App, "config.json");
-        provider.ConfigureInit(config =>
+        config.WithParameters(paramCollection =>
         {
-            // Определяет основной цикл запросов как информационную культуру португальского языка.
-            config.UseLocale(CultureInfo.GetCultureInfo("pt-BR"));
-
-            // Устанавливает флаги HTTP на сервере при запуске.
-            config.UseFlags(new HttpServerFlags()
-            {
-                SendSiskHeader = true
-            });
-
-            // Указывает, что после запуска сервера он не должен завершать основной цикл.
-            config.UseHauting(true);
-
-            // Переопределяет параметры конфигурации HTTP-сервера, даже если они были параметризированы в файле конфигурации JSON.
-            config.UseConfiguration(httpConfig =>
-            {
-                if (httpConfig.AccessLogsStream?.FilePath != null)
-                {
-                    RotatingLogPolicy policy = new RotatingLogPolicy(httpConfig.AccessLogsStream);
-                    policy.Configure(1024 * 1024, TimeSpan.FromHours(6));
-                }
-            });
-
-            // Переопределяет параметры CORS из файла конфигурации
-            config.UseCors(cors =>
-            {
-                cors.AllowMethods = new[] { "GET", "POST", "PUT", "DELETE" };
-            });
-
-            // Переопределяет свойства непосредственно HTTP-серверу
-            config.UseHttpServer(http =>
-            {
-                http.EventSources.OnEventSourceRegistered += (sender, ws) =>
-                {
-                    Console.WriteLine("Новый источник событий: " + ws.Identifier);
-                };
-                http.EventSources.OnEventSourceUnregistration += (sender, ws) =>
-                {
-                    Console.WriteLine("Закрыт источник событий: " + ws.Identifier);
-                };
-            });
+            string databaseConnection = paramCollection.GetValueOrThrow("MySqlConnection");
         });
-    }
-}
+    })
+    .Build();
 ```
 
-Теперь наше приложение готово к запуску с файлом JSON, который настраивает порты, методы, имена хостов и параметры.
+Каждый читатель конфигурации предоставляет способ чтения параметров инициализации сервера. Некоторые свойства указаны как находящиеся в окружении процесса, а не определенные в файле конфигурации, например, конфиденциальные данные API, ключи API и т. д.
 
 ## Структура файла конфигурации
 
-Файл JSON состоит из свойств:
-
-| Свойство | Обязательно | Описание |
-|---|---|---|
-| Server | Да | Представляет сам сервер со своими настройками. |
-| Server.AccessLogsStream | Необязательно | По умолчанию равно `console`. Указывает поток вывода журнала доступа. Может быть именем файла, `null` или `console`. |
-| Server.ErrorsLogsStream | Необязательно | По умолчанию равно `null`. Указывает поток вывода журнала ошибок. Может быть именем файла, `null` или `console`. |
-| Server.ResolveForwardedOriginAddress | Необязательно | По умолчанию равно `false`. Указывает, должен ли HTTP-сервер разрешать заголовки `X-Forwarded-For` на IP-адрес пользователя. (Рекомендуется для прокси-серверов) |
-| Server.ResolveForwardedOriginHost | Необязательно | По умолчанию равно `false`. Указывает, должен ли HTTP-сервер разрешать заголовки `X-Forwarded-Host` на хост-сервер. |
-| Server.DefaultEncoding | Необязательно | По умолчанию равно `UTF-8`. Указывает кодировку текста, используемую по умолчанию HTTP-сервером. |
-| Server.MaximumContentLength | Необязательно | По умолчанию равно `0`. Указывает максимальный размер контента в байтах. Ноль означает бесконечность. |
-| Server.IncludeRequestIdHeader | Необязательно | По умолчанию равно `false`. Указывает, должен ли HTTP-сервер отправлять заголовок `X-Request-Id`. |
-| Server.ThrowExceptions | Необязательно | По умолчанию равно `true`. Указывает, должны ли необработанные исключения вызывать. Установите `false` при работе в режиме производства и `true` при отладке. |
-| ListeningHost | Да | Представляет хост, на котором работает сервер. |
-| ListeningHost.Label | Необязательно | Представляет метку приложения. |
-| ListeningHost.Ports | Да | Представляет массив строк, соответствующий синтаксису `ListeningPort`. |
-| ListeningHost.CrossOriginResourceSharingPolicy | Необязательно | Настройка заголовков CORS для приложения. |
-| ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials | Необязательно | По умолчанию равно `false`. Указывает заголовок `Allow-Credentials`. |
-| ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders | Необязательно | По умолчанию равно `null`. Этот параметр ожидает массив строк. Указывает заголовок `Expose-Headers`. |
-| ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin | Необязательно | По умолчанию равно `null`. Этот параметр ожидает строку. Указывает заголовок `Allow-Origin`. |
-| ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins | Необязательно | По умолчанию равно `null`. Этот параметр ожидает массив строк. Указывает несколько заголовков `Allow-Origin`. См. [AllowOrigins для более подробной информации. |
-| ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods | Необязательно | По умолчанию равно `null`. Этот параметр ожидает массив строк. Указывает заголовок `Allow-Methods`. |
-| ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders | Необязательно | По умолчанию равно `null`. Этот параметр ожидает массив строк. Указывает заголовок `Allow-Headers`. |
-| ListeningHost.CrossOriginResourceSharingPolicy.MaxAge | Необязательно | По умолчанию равно `null`. Этот параметр ожидает целое число. Указывает заголовок `Max-Age` в секундах. |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```cs
-
-```
-
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
+JSON-файл конфигурации состоит из следующих свойств:
+
+<table>
+    <thead>
+        <tr>
+            <th>Свойство</th>
+            <th>Обязательно</th>
+            <th>Описание</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Server</td>
+            <td>Да</td>
+            <td>Представляет сам сервер со своими настройками.</td>
+        </tr>
+        <tr>
+            <td>Server.AccessLogsStream</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>console</code>. Указывает поток вывода журнала доступа. Может быть именем файла, 
+                <code>null</code> или <code>console</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>Server.ErrorsLogsStream</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Указывает поток вывода журнала ошибок. Может быть именем файла, 
+                <code>null</code> или <code>console</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>Server.MaximumContentLength</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>0</code>. Указывает максимальный размер контента в байтах. Ноль означает бесконечность.</td>
+        </tr>
+        <tr>
+            <td>Server.IncludeRequestIdHeader</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>false</code>. Указывает, должен ли HTTP-сервер отправлять заголовок <code>X-Request-Id</code>.</td>
+        </tr>
+        <tr>
+            <td>Server.ThrowExceptions</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>true</code>. Указывает, должны ли необработанные исключения быть брошены. Установите значение 
+                <code>false</code> при работе в режиме производства и <code>true</code> при отладке.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost</td>
+            <td>Да</td>
+            <td>Представляет хост, на котором слушает сервер.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Label</td>
+            <td>Опционально</td>
+            <td>Представляет метку приложения.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Ports</td>
+            <td>Да</td>
+            <td>Представляет массив строк, соответствующих синтаксису <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy</td>
+            <td>Опционально</td>
+            <td>Настройка заголовков CORS для приложения.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>false</code>. Указывает заголовок <code>Allow-Credentials</code>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает массив строк. Указывает заголовок 
+                <code>Expose-Headers</code>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает строку. Указывает заголовок 
+                <code>Allow-Origin</code>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает массив строк. Указывает 
+                несколько заголовков <code>Allow-Origin</code>. См. <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> 
+                для получения более подробной информации.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает массив строк. Указывает заголовок 
+                <code>Allow-Methods</code>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает массив строк. Указывает заголовок 
+                <code>Allow-Headers</code>.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
+            <td>Опционально</td>
+            <td>По умолчанию равно <code>null</code>. Это свойство ожидает целое число. Указывает заголовок 
+                <code>Max-Age</code> в секундах.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Parameters</td>
+            <td>Опционально</td>
+            <td>Указывает свойства, передаваемые в метод настройки приложения.</td>
+        </tr>
+    </tbody>
+</table>

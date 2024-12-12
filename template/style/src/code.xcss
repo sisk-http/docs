@@ -4,6 +4,30 @@ code,
 
 }
 
+pre {
+    position: relative;
+    line-height: 1.5;
+
+    & :has(ul) > code {
+        padding-left: 50px !important;
+    }
+
+    > ul {
+        position: absolute;
+        top: 1.1em;
+        left: 1em;
+        padding-left: 0;
+        opacity: .7;
+        
+        > li {
+            line-height: 1.5;
+            list-style: none;
+            color: var(--bs-body-color);
+            text-align: right;
+        }
+    }
+}
+
 :not(pre) > code {
     border-radius: 4px;
     padding: 2px 4px;
@@ -11,7 +35,7 @@ code,
 
 html[data-bs-theme="light"] {
     .hljs {
-        background-color: #f9f9f9;
+        background-color: white;
         border-radius: 8px;
         border: 1px solid #d9d9d9;
     }
@@ -24,7 +48,7 @@ html[data-bs-theme="light"] {
 
 html[data-bs-theme="dark"] {
     .hljs {
-        background-color: #1c2127;
+        background-color: #0c0e11;
         border-radius: 8px;
         border: 1px solid #2e3642;
     }

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/requests.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<p>请求是表示 HTTP 请求消息的结构。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象包含用于在整个应用程序中处理 HTTP 消息的有用函数。</p>
+<p>HTTP 请求由方法、路径、版本、标头和正文组成。</p>
+<p>在本文档中，我们将教您如何获取这些元素的每个部分。</p>
+<h2 id="获取请求方法">获取请求方法</h2>
+<p>要获取接收到的请求的方法，可以使用 Method 属性：</p>
+<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+{
+    HttpMethod requestMethod = request.Method;
+    ...
+}
+</code></pre>
+<p>此属性返回请求的方法，由 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> 对象表示。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>与路由方法不同，此属性不包含 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> 项。而是返回实际的请求方法。</p>
+</div>
+<h2 id="获取请求-url-组件">获取请求 URL 组件</h2>
+<p>您可以通过请求的某些属性获取 URL 的各种组件。 以下是一个示例 URL：</p>
+<pre><code>http://localhost:5000/user/login?email=foo@bar.com
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>描述</th>
+<th>组件值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
+<td>获取请求路径。</td>
+<td><code>/user/login</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
+<td>获取请求路径和查询字符串。</td>
+<td><code>/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
+<td>获取整个请求 URL 字符串。</td>
+<td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
+<td>获取请求主机。</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
+<td>获取请求主机和端口。</td>
+<td><code>localhost:5000</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
+<td>获取请求查询。</td>
+<td><code>?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
+<td>获取请求查询作为命名值集合。</td>
+<td><code>{StringValueCollection 对象}</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
+<td>确定请求是否使用 SSL（true）或不使用 SSL（false）。</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> 属性，该属性包含上述所有内容在一个对象中。</p>
+<h2 id="获取请求正文">获取请求正文</h2>
+<p>某些请求包含正文，例如表单、文件或 API 事务。您可以从属性获取请求的正文：</p>
+<pre><code class="lang-cs">// 获取请求正文作为字符串，使用请求编码作为编码器
+string body = request.Body;
+
+// 或以字节数组获取
+byte[] bodyBytes = request.RawBody;
+
+// 或流式传输它
+Stream requestStream = request.GetRequestStream();
+</code></pre>
+<p>还可以确定请求中是否存在正文以及是否已加载正文，使用 <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> 属性。</p>
+<p>通过 <code>GetRequestStream</code> 读取请求内容一次以上是不可能的。如果使用此方法读取，则 <code>RawBody</code> 和 <code>Body</code> 中的值也将不可用。在请求上下文中，无需处理请求流，因为它将在 HTTP 会话结束时自动处理。此外，您可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> 属性获取最佳编码，以手动解码请求。</p>
+<p>服务器对读取请求内容有限制，这适用于 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>。这些属性将整个输入流复制到与 <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> 相同大小的本地缓冲区中。</p>
+<p>如果发送的内容大于 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> 中定义的用户配置，则服务器会向客户端返回状态 413 Content Too Large 的响应。此外，如果未配置限制或限制太大，则服务器将在内容发送到客户端超过 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（2 GB）时抛出 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception%EF%BC%9Fview=net-8.0">OutOfMemoryException</a>。您可以通过流式传输来处理内容。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Sisk 遵循 RFC 9110 &quot;HTTP Semantics&quot;，它不允许某些请求方法具有正文。这些请求将立即返回 400 (Bad Request) 以及 <code>ContentServedOnIllegalMethod</code> 状态。GET、OPTIONS、HEAD 和 TRACE 方法不允许使用请求正文。您可以在这里阅读 <a href="https://httpwg.org/spec/rfc9110.html">RFC 9910</a>。</p>
+<p>您可以通过将 <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> 设为 <code>false</code> 来禁用此功能。</p>
+</div>
+<h2 id="获取请求上下文">获取请求上下文</h2>
+<p>HTTP 上下文是 Sisk 的一个专用对象，用于存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织在组织这些对象的环境中难以组织的代码。</p>
+<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> 对象包含从一个请求处理程序传递到另一个点存储的信息，并且可以在最终目的地被消费。此对象也可以由在路由回调之后运行的请求处理程序使用。</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>此属性也可以通过 <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> 属性访问。</p>
+</div>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public string Identifier { get; init; } = Guid.NewGuid().ToString();
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers[&quot;Authorization&quot;] != null)
+        {
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
+            return null;
+        }
+        else
+        {
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+</code></pre>
+<p>上面的请求处理程序将定义 <code>AuthenticatedUser</code> 在请求袋中，并在最终回调中可以被消费：</p>
+<pre><code class="lang-cs">public class MyController
+{
+    [Route(RouteMethod.Get, &quot;/&quot;)
+    [RequestHandler(typeof(AuthenticateUserRequestHandler))
+    static HttpResponse Index(HttpRequest request)
+    {
+        var user = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        res.Content = new StringContent($&quot;Hello, {user}!&quot;);
+        return res;
+    }
+}
+</code></pre>
+<p>您还可以使用 <code>Bag.Set()</code> 和 <code>Bag.Get()</code> 助手方法来获取或设置类型为 <code>object</code> 的对象。</p>
+<pre><code class="lang-cs">public class Authenticate : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        request.Bag.Set&lt;User&gt;(authUser);
+    }
+}
+
+[RouteGet(&quot;/&quot;)]
+[RequestHandler&lt;Authenticate&gt;
+public static HttpResponse Test(HttpRequest request)
+{
+    var user = request.Bag.Get&lt;User&gt;();
+}
+</code></pre>
+<h2 id="获取表单数据">获取表单数据</h2>
+<p>您可以使用 NameValueCollection 获取表单数据。</p>
+<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+{
+    var form = request.GetFormContent();
+
+    string? username = form[&quot;username&quot;];
+    string? password = form[&quot;password&quot;];
+
+    if (AttempLogin(username, password) == true)
+    {
+        ...
+    }
+}
+</code></pre>
+<h2 id="获取多部分表单数据">获取多部分表单数据</h2>
+<p>Sisk 的 HTTP 请求允许您获取上传的 multipart 内容，例如文件、表单字段或任何二进制内容。</p>
+<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+{
+    var multipartFormDataObjects = request.GetMultipartFormContent();
+
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
+    {
+        // 文件名由 Multipart form data 提供的名称。
+        // Null 是返回的 object 如果不是文件。
+        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
+
+        // Multipart form data 
+        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
+
+        // Multipart form data 内容长度。
+        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
+
+        // 根据文件头来确定图像格式。如果内容不是一个已知的常见文件格式。
+        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
+    }
+}
+</code></pre>
+<p>You can read more about Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> and its methods, properties and functionalities.</p>
+<h2 id="server-sent-events-support">Server-sent events support</h2>
+<p>Sisk supports [Server-sent events](<a href="https://developer.mozilla">https://developer.mozilla</a>.</p>
+<p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> method will put the HttpRequest in its listener state. From this, the context of this HTTP request will not expect an HttpResponse as it will overlap the packets sent by server side events.</p>
+<p>After sending all packets, the callback must return the <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> method, which will send the final response to the server and indicate that the streaming has ended.</p>
+<p>It is not possible to predict the total length of all packets that will be sent, so it is not possible to determine the end of the connection with `Content-Length header.</p>
+<p>By default, most browsers restart streams if the <a href="https://developer.mozilla.org/en-US/api/EventSource.close">EventSource.close</a> method is not called on the client side after receiving all the packets, causing infinite additional processing on the server side. To avoid this kind of problem, it's common to send a final packet indicating that the event source has finished sending all packets.</p>
+<p>The example below shows how the browser can communicate with the server that supports Server-side events.</p>
+<pre><code class="lang-html">&lt;html&gt;
+    &lt;b&gt;Fruits:&lt;/b&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+            &lt;li&gt;
+                &lt;li&gt;
+                    &lt;li&gt;
+                        &lt;li&gt;
+                            &lt;li&gt;
+                                &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                                    &lt;li&gt;
+                               
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/requests.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

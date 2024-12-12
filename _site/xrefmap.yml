@@ -2530,6 +2530,15 @@ references:
   fullName.vb: Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(Boolean, Char, System.ReadOnlySpan(Of String))
   nameWithType: PathHelper.FilesystemCombinePaths(bool, char, ReadOnlySpan<string>)
   nameWithType.vb: PathHelper.FilesystemCombinePaths(Boolean, Char, ReadOnlySpan(Of String))
+- uid: Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(System.Boolean,System.Char,System.String[])
+  name: FilesystemCombinePaths(bool, char, params string[])
+  href: api/Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths.html#Sisk_Core_Helpers_PathHelper_FilesystemCombinePaths_System_Boolean_System_Char_System_String___
+  commentId: M:Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(System.Boolean,System.Char,System.String[])
+  name.vb: FilesystemCombinePaths(Boolean, Char, ParamArray String())
+  fullName: Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(bool, char, params string[])
+  fullName.vb: Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(Boolean, Char, ParamArray String())
+  nameWithType: PathHelper.FilesystemCombinePaths(bool, char, params string[])
+  nameWithType.vb: PathHelper.FilesystemCombinePaths(Boolean, Char, ParamArray String())
 - uid: Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths(System.String[])
   name: FilesystemCombinePaths(params string[])
   href: api/Sisk.Core.Helpers.PathHelper.FilesystemCombinePaths.html#Sisk_Core_Helpers_PathHelper_FilesystemCombinePaths_System_String___
@@ -3922,6 +3931,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpContext.HttpServer
   fullName: Sisk.Core.Http.HttpContext.HttpServer
   nameWithType: HttpContext.HttpServer
+- uid: Sisk.Core.Http.HttpContext.IsRequestContext
+  name: IsRequestContext
+  href: api/Sisk.Core.Http.HttpContext.IsRequestContext.html#Sisk_Core_Http_HttpContext_IsRequestContext
+  commentId: P:Sisk.Core.Http.HttpContext.IsRequestContext
+  fullName: Sisk.Core.Http.HttpContext.IsRequestContext
+  nameWithType: HttpContext.IsRequestContext
+- uid: Sisk.Core.Http.HttpContext.IsRequestContext*
+  name: IsRequestContext
+  href: api/Sisk.Core.Http.HttpContext.IsRequestContext.html
+  commentId: Overload:Sisk.Core.Http.HttpContext.IsRequestContext
+  fullName: Sisk.Core.Http.HttpContext.IsRequestContext
+  nameWithType: HttpContext.IsRequestContext
 - uid: Sisk.Core.Http.HttpContext.ListeningHost
   name: ListeningHost
   href: api/Sisk.Core.Http.HttpContext.ListeningHost.html#Sisk_Core_Http_HttpContext_ListeningHost
@@ -4510,6 +4531,18 @@ references:
   commentId: T:Sisk.Core.Http.HttpRequest
   fullName: Sisk.Core.Http.HttpRequest
   nameWithType: HttpRequest
+- uid: Sisk.Core.Http.HttpRequest.Abort
+  name: Abort()
+  href: api/Sisk.Core.Http.HttpRequest.Abort.html#Sisk_Core_Http_HttpRequest_Abort
+  commentId: M:Sisk.Core.Http.HttpRequest.Abort
+  fullName: Sisk.Core.Http.HttpRequest.Abort()
+  nameWithType: HttpRequest.Abort()
+- uid: Sisk.Core.Http.HttpRequest.Abort*
+  name: Abort
+  href: api/Sisk.Core.Http.HttpRequest.Abort.html
+  commentId: Overload:Sisk.Core.Http.HttpRequest.Abort
+  fullName: Sisk.Core.Http.HttpRequest.Abort
+  nameWithType: HttpRequest.Abort
 - uid: Sisk.Core.Http.HttpRequest.Authority
   name: Authority
   href: api/Sisk.Core.Http.HttpRequest.Authority.html#Sisk_Core_Http_HttpRequest_Authority
@@ -5650,18 +5683,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
   fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
   nameWithType: HttpServerConfiguration.DefaultCultureInfo
-- uid: Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding
-  name: DefaultEncoding
-  href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding.html#Sisk_Core_Http_HttpServerConfiguration_DefaultEncoding
-  commentId: P:Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding
-  fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding
-  nameWithType: HttpServerConfiguration.DefaultEncoding
-- uid: Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding*
-  name: DefaultEncoding
-  href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding.html
-  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding
-  fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultEncoding
-  nameWithType: HttpServerConfiguration.DefaultEncoding
 - uid: Sisk.Core.Http.HttpServerConfiguration.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.HttpServerConfiguration.Dispose.html#Sisk_Core_Http_HttpServerConfiguration_Dispose
@@ -6004,6 +6025,12 @@ references:
   commentId: F:Sisk.Core.Http.HttpServerFlags.AsyncRequestProcessing
   fullName: Sisk.Core.Http.HttpServerFlags.AsyncRequestProcessing
   nameWithType: HttpServerFlags.AsyncRequestProcessing
+- uid: Sisk.Core.Http.HttpServerFlags.ConvertIAsyncEnumerableIntoEnumerable
+  name: ConvertIAsyncEnumerableIntoEnumerable
+  href: api/Sisk.Core.Http.HttpServerFlags.ConvertIAsyncEnumerableIntoEnumerable.html
+  commentId: F:Sisk.Core.Http.HttpServerFlags.ConvertIAsyncEnumerableIntoEnumerable
+  fullName: Sisk.Core.Http.HttpServerFlags.ConvertIAsyncEnumerableIntoEnumerable
+  nameWithType: HttpServerFlags.ConvertIAsyncEnumerableIntoEnumerable
 - uid: Sisk.Core.Http.HttpServerFlags.EnableNewMultipartFormReader
   name: EnableNewMultipartFormReader
   href: api/Sisk.Core.Http.HttpServerFlags.EnableNewMultipartFormReader.html
@@ -7747,6 +7774,15 @@ references:
   commentId: M:Sisk.Core.Http.LogStream.WriteException(System.Exception)
   fullName: Sisk.Core.Http.LogStream.WriteException(System.Exception)
   nameWithType: LogStream.WriteException(Exception)
+- uid: Sisk.Core.Http.LogStream.WriteException(System.Exception,System.String)
+  name: WriteException(Exception, string?)
+  href: api/Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_System_String_
+  commentId: M:Sisk.Core.Http.LogStream.WriteException(System.Exception,System.String)
+  name.vb: WriteException(Exception, String)
+  fullName: Sisk.Core.Http.LogStream.WriteException(System.Exception, string?)
+  fullName.vb: Sisk.Core.Http.LogStream.WriteException(System.Exception, String)
+  nameWithType: LogStream.WriteException(Exception, string?)
+  nameWithType.vb: LogStream.WriteException(Exception, String)
 - uid: Sisk.Core.Http.LogStream.WriteException*
   name: WriteException
   href: api/Sisk.Core.Http.LogStream.WriteException.html
@@ -8491,6 +8527,15 @@ references:
   commentId: M:Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start
   fullName: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start()
   nameWithType: HttpStreamPingPolicy.Start()
+- uid: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start(System.String,System.TimeSpan)
+  name: Start(string, TimeSpan)
+  href: api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start_System_String_System_TimeSpan_
+  commentId: M:Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start(System.String,System.TimeSpan)
+  name.vb: Start(String, TimeSpan)
+  fullName: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start(string, System.TimeSpan)
+  fullName.vb: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start(String, System.TimeSpan)
+  nameWithType: HttpStreamPingPolicy.Start(string, TimeSpan)
+  nameWithType.vb: HttpStreamPingPolicy.Start(String, TimeSpan)
 - uid: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start*
   name: Start
   href: api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html
@@ -8600,13 +8645,13 @@ references:
   nameWithType: HttpWebSocket.Send(byte[], int, int)
   nameWithType.vb: HttpWebSocket.Send(Byte(), Integer, Integer)
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Object)
-  name: Send(object?)
+  name: Send(object)
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Object_
   commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Object)
   name.vb: Send(Object)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(object?)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(object)
   fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.Send(Object)
-  nameWithType: HttpWebSocket.Send(object?)
+  nameWithType: HttpWebSocket.Send(object)
   nameWithType.vb: HttpWebSocket.Send(Object)
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.ReadOnlyMemory{System.Byte})
   name: Send(ReadOnlyMemory<byte>)
@@ -8632,6 +8677,39 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.Send
   fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send
   nameWithType: HttpWebSocket.Send
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Byte[])
+  name: SendAsync(byte[])
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Byte___
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Byte[])
+  name.vb: SendAsync(Byte())
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(byte[])
+  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(Byte())
+  nameWithType: HttpWebSocket.SendAsync(byte[])
+  nameWithType.vb: HttpWebSocket.SendAsync(Byte())
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Object)
+  name: SendAsync(object)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Object_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Object)
+  name.vb: SendAsync(Object)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(object)
+  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(Object)
+  nameWithType: HttpWebSocket.SendAsync(object)
+  nameWithType.vb: HttpWebSocket.SendAsync(Object)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String)
+  name: SendAsync(string)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String)
+  name.vb: SendAsync(String)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(string)
+  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(String)
+  nameWithType: HttpWebSocket.SendAsync(string)
+  nameWithType.vb: HttpWebSocket.SendAsync(String)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync*
+  name: SendAsync
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html
+  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync
+  nameWithType: HttpWebSocket.SendAsync
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.State
   name: State
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.State.html#Sisk_Core_Http_Streams_HttpWebSocket_State
@@ -10345,6 +10423,15 @@ references:
   fullName.vb: Sisk.Core.Routing.Router.New()
   nameWithType: Router.Router()
   nameWithType.vb: Router.New()
+- uid: Sisk.Core.Routing.Router.#ctor(System.Collections.Generic.IEnumerable{Sisk.Core.Routing.Route})
+  name: Router(params IEnumerable<Route>)
+  href: api/Sisk.Core.Routing.Router.-ctor.html#Sisk_Core_Routing_Router__ctor_System_Collections_Generic_IEnumerable_Sisk_Core_Routing_Route__
+  commentId: M:Sisk.Core.Routing.Router.#ctor(System.Collections.Generic.IEnumerable{Sisk.Core.Routing.Route})
+  name.vb: New(IEnumerable(Of Route))
+  fullName: Sisk.Core.Routing.Router.Router(params System.Collections.Generic.IEnumerable<Sisk.Core.Routing.Route>)
+  fullName.vb: Sisk.Core.Routing.Router.New(System.Collections.Generic.IEnumerable(Of Sisk.Core.Routing.Route))
+  nameWithType: Router.Router(params IEnumerable<Route>)
+  nameWithType.vb: Router.New(IEnumerable(Of Route))
 - uid: Sisk.Core.Routing.Router.#ctor*
   name: Router
   href: api/Sisk.Core.Routing.Router.-ctor.html

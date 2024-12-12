@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/responses.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<p>响应表示 HTTP 请求的 HTTP 响应。它们由服务器发送给客户端，作为请求资源、页面、文档、文件或其他对象的指示。</p>
+<p>HTTP 响应由状态、标头和内容组成。</p>
+<p>在本文件中，我们将教您如何使用 Sisk 架构 HTTP 响应。</p>
+<h2 id="设置-http-状态">设置 HTTP 状态</h2>
+<p>HTTP 状态列表自 HTTP/1.0 以来一直相同，Sisk 支持所有状态。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Accepted; // 202
+</code></pre>
+<p>或者使用流畅语法：</p>
+<pre><code class="lang-cs">new HttpResponse()
+    .WithStatus(200) // 或者
+    .WithStatus(HttpStatusCode.Ok) // 或者
+    .WithStatus(HttpStatusInformation.Ok);
+</code></pre>
+<p>您可以查看 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">此处</a> 获取所有可用 HttpStatusCode 的完整列表。您还可以通过使用 <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 结构提供您自己的状态代码。</p>
+<h2 id="内容和内容类型">内容和内容类型</h2>
+<p>Sisk 支持使用本机 .NET 内容对象发送响应正文。例如，您可以使用 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> 类发送 JSON 响应：</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
+</code></pre>
+<p>如果服务器无法从响应内容中隐式获取 Content-Length 标头，则响应将使用 Chunked-Encoding 发送。</p>
+<p>您还可以通过发送 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> 或使用 GetResponseStream 方法来流式传输响应。</p>
+<h2 id="响应标头">响应标头</h2>
+<p>您可以添加、编辑或删除发送到响应中的标头。以下示例演示如何向客户端发送重定向响应：</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
+</code></pre>
+<p>或者使用流畅语法：</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
+</code></pre>
+<p>当您使用 HttpHeaderCollection 的 <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> 方法时，您是在添加标头到请求中，而不会更改已经发送的标头。 <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> 方法使用指定的名称替换具有相同名称的标头值。 HttpHeaderCollection 的索引器内部调用 Set 方法来替换标头。</p>
+<h2 id="发送-cookie">发送 cookie</h2>
+<p>Sisk 提供了方便定义客户端 cookie 的方法。通过此方法设置的 cookie 已经进行了 URL 编码，符合 RFC-6265 标准。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
+</code></pre>
+<p>或者使用流畅语法：</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
+</code></pre>
+<p>还有其他 <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">更完整的版本</a> 具有相同方法。</p>
+<h2 id="分块响应">分块响应</h2>
+<p>您可以将传输编码设置为分块以发送大型响应。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SendChunked = true;
+</code></pre>
+<p>使用分块编码时，Content-Length 标头会自动省略。</p>
+<h2 id="响应流">响应流</h2>
+<p>响应流是一种受管理的方式，允许您分段发送响应。它比使用 HttpResponse 对象更低级别的操作，因为它们要求您手动发送标头和内容，然后关闭连接。</p>
+<p>此示例打开文件只读流，将流复制到响应输出流，并且不会将整个文件加载到内存中。这对于处理中等或大型文件很有用。</p>
+<pre><code class="lang-cs">// 获取响应输出流
+using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
+var responseStream = request.GetResponseStream();
+
+// 设置响应编码为分块编码
+// 同样，您不应该在使用分块编码时发送 content-length 标头
+responseStream.SendChunked = true;
+responseStream.SetStatus(200);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
+
+// 将文件流复制到响应输出流
+fileStream.CopyTo(responseStream.ResponseStream);
+
+// 关闭流
+return responseStream.Close();
+</code></pre>
+<h2 id="隐式响应类型">隐式响应类型</h2>
+<p>从版本 0.15 开始，您可以使用除 HttpResponse 之外的其他返回类型，但必须配置路由器如何处理每种类型的对象。</p>
+<p>该概念始终返回引用类型并将其转换为有效的 HttpResponse 对象。返回 HttpResponse 的路由不会进行任何转换。</p>
+<p>值类型（结构）不能用作返回类型，因为它们与 <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a> 不兼容，因此必须将其包装在 ValueResult 中才能在处理程序中使用。</p>
+<p>考虑一个不使用 HttpResponse 的路由模块的以下示例：</p>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
+public class UsersController : RouterModule
+{
+    public List&lt;User&gt; Users = new List&lt;User&gt;();
+
+    [RouteGet]
+    public IEnumerable&lt;User&gt; Index(HttpRequest request)
+    {
+        return Users.ToArray();
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public User View(HttpRequest request)
+    {
+        int id = request.Query[&quot;id&quot;].GetInteger();
+        User dUser = Users.First(u =&gt; u.Id == id);
+
+        return dUser;
+    }
+
+    [RoutePost]
+    public ValueResult&lt;bool&gt; Create(HttpRequest request)
+    {
+        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        Users.Add(fromBody);
+
+        return true;
+    }
+}
+</code></pre>
+<p>这样，现在需要在路由器中定义如何处理每种类型的对象。对象始终是处理程序的第一个参数，并且输出类型必须是有效的 HttpResponse。此外，路由结果的对象永远不能为 null。</p>
+<p>对于 ValueResult 类型，不需要指示输入对象是 ValueResult，只需要 T，因为 ValueResult 是其原始组件的对象反射。</p>
+<p>类型关联不比较注册类型与路由器回调返回类型的比较。相反，它检查路由器结果类型是否可分配给注册类型。</p>
+<p>注册类型为 Object 的处理程序将回退到所有先前未验证的类型。值处理程序的插入顺序也至关重要，因此注册 Object 处理程序将忽略所有其他特定于类型的处理程序。始终先注册特定值处理程序以确保顺序。</p>
+<pre><code class="lang-cs">Router r = new Router();
+r.SetObject(new UsersController());
+
+r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+    return res;
+});
+
+r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
+{
+    return new HttpResponse();
+    // 在这里做一些事情与 enumerableValue
+});
+
+// 注册类型为 object 的值处理程序必须是最后一个
+// 值处理程序，它将用作回退
+r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = HttpStatusCode.OK;
+    res.Content = JsonContent.Create(fallback);
+    return res;
+});
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/fundamentals/responses.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

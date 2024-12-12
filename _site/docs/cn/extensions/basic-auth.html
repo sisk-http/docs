@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/extensions/basic-auth.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<h2 id="基本身份验证">基本身份验证</h2>
+<p>Basic Auth 包增加了一个请求处理程序，能够处理您的 Sisk 应用程序中的基本身份验证方案，配置和操作非常简单。</p>
+<p>基本 HTTP 身份验证是一种最简单的请求身份验证形式，通过用户 ID 和密码来验证请求，会话由客户端完全控制，没有身份验证或访问令牌。</p>
+<img src="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication/httpauth.png">
+<p>在 <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication">MDN 规范</a> 中了解更多关于基本身份验证方案的信息。</p>
+<h2 id="安装">安装</h2>
+<p>要开始使用，请在您的项目中安装 Sisk.BasicAuth 包：</p>
+<pre><code>&gt; dotnet add package Sisk.BasicAuth
+</code></pre>
+<p>您可以在 <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget 存储库</a> 中查看更多安装方法。</p>
+<h2 id="创建您的身份验证处理程序">创建您的身份验证处理程序</h2>
+<p>您可以控制整个模块或单个路由的身份验证方案。为此，让我们首先编写第一个基本身份验证处理程序。</p>
+<p>在下面的示例中，建立数据库连接，检查用户是否存在以及密码是否有效，然后将用户存储在上下文袋中。</p>
+<pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
+{
+    public UserAuthHandler() : base()
+    {
+        Realm = &quot;要进入此页面，请提供您的凭据。 &quot;;
+    }
+
+    public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
+    {
+        DbContext db = new DbContext();
+
+        // 在这种情况下，我们使用电子邮件作为用户 ID 字段，因此我们将根据电子邮件搜索用户。
+        User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
+        if (user == null)
+        {
+            return base.CreateUnauthorizedResponse(&quot;对不起！未找到此电子邮件的用户。&quot;);
+        }
+
+        // 验证凭据密码对于此用户有效。
+        if (!user.ValidatePassword(credentials.Password))
+        {
+            return base.CreateUnauthorizedResponse(&quot;凭据无效。&quot;);
+        }
+
+        // 将已登录的用户添加到 HTTP 上下文中
+        // 并继续执行
+        context.Bag.Add(&quot;loggedUser&quot;, user);
+        return null;
+    }
+}
+</code></pre>
+<p>因此，只需将此请求处理程序与我们的路由或类关联即可。</p>
+<pre><code class="lang-cs">public class UsersController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler(typeof(UserAuthHandler))]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;您好，&quot; + loggedUser.Name + &quot;！&quot;;
+    }
+}
+</code></pre>
+<p>或者使用 <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a> 类：</p>
+<pre><code class="lang-cs">public class UsersController : RouterModule
+{
+    public ClientModule()
+    {
+        // 现在，此类中的所有路由都将由 UserAuthHandler 处理。
+        base.HasRequestHandler(new UserAuthHandler());
+    }
+
+    [RouteGet(&quot;/&quot;)]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;您好，&quot; + loggedUser.Name + &quot;！&quot;;
+    }
+}
+</code></pre>
+<h2 id="备注">备注</h2>
+<p>基本身份验证的主要责任由客户端承担。存储、缓存控制和加密都由客户端本地处理。服务器仅接收凭据并验证是否允许访问。</p>
+<p>请注意，这种方法不是最安全的，因为它将很大一部分责任放在客户端，这可能难以追踪和维护其凭据的安全性。此外，对于密码，必须在安全的连接上下文中（SSL）传输，因为它们本身没有加密。请求标头中的短暂拦截可能会暴露用户的访问凭据。</p>
+<p>对于生产应用程序，请选择更强大的身份验证解决方案，避免使用过多的现成的组件，因为它们可能无法适应您的项目需求，并最终导致暴露安全风险。</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/extensions/basic-auth.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>
