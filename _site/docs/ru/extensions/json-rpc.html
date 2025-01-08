@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> | Sisk Framework </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content=" | Sisk Framework ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/json-rpc.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll("pre").forEach(pre => {
+                    const lineCount = pre.innerText.split('\n').length;
+                    const lis = [];
+                    
+                    for(var i = 1; i < lineCount; i++)
+                        lis.push(el("li", i))
+                    
+                    pre.appendChild(el("ul", ...lis));
+                });
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+
+        <script>
+
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+
+    </head>
+
+
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk Framework">
+                        Sisk Framework
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+
+<p>Экспериментальный модуль Sisk имеет API JSON-RPC 2.0, который позволяет создавать еще более простые приложения. Это расширение строго реализует интерфейс транспорта JSON-RPC 2.0 и предлагает транспорт через HTTP GET, POST-запросы и также WebSocket с Sisk.</p>
+<p>Вы можете установить расширение с помощью Nuget с помощью следующей команды. Обратите внимание, что в экспериментальных/бета-версиях вам следует включить опцию поиска предварительных версий пакетов в Visual Studio.</p>
+<pre><code class="lang-bash">dotnet add package Sisk.JsonRpc
+</code></pre>
+<h2 id="интерфейс-транспорта">Интерфейс транспорта</h2>
+<p>JSON-RPC - это протокол асинхронного удаленного вызова процедуры (RDP), который использует JSON для односторонней передачи данных. Запрос JSON-RPC обычно идентифицируется ID, а ответ поставляется по тому же ID, который был отправлен в запросе. Не все запросы требуют ответа, которые называются &quot;уведомлениями&quot;.</p>
+<p><a href="https://www.jsonrpc.org/specification">Спецификация JSON-RPC 2.0</a> подробно объясняет, как работает транспорт. Этот транспорт независим от того, где он будет использоваться. Sisk реализует этот протокол через HTTP, следуя согласованностям <a href="https://www.jsonrpc.org/historical/json-rpc-over-http.html">JSON-RPC over HTTP</a>, которые частично поддерживают GET-запросы, но полностью поддерживают POST-запросы. Также поддерживаются WebSocket, обеспечивающие асинхронную передачу сообщений.</p>
+<p>Запрос JSON-RPC похож на:</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;method&quot;: &quot;Sum&quot;,
+    &quot;params&quot;: [1, 2, 4],
+    &quot;id&quot;: 1
+}
+</code></pre>
+<p>А успешный ответ похож на:</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: 7,
+    &quot;id&quot;: 1
+}
+</code></pre>
+<h2 id="методы-json-rpc">Методы JSON-RPC</h2>
+<p>В следующем примере показано, как создать API JSON-RPC с использованием Sisk. Класс математических операций выполняет удаленные операции и доставляет сериализованный ответ клиенту.</p>
+<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
+    .UseJsonRPC((sender, args) =&gt;
+    {
+        // добавляем все методы, помеченные WebMethod, в обработчик JSON-RPC
+        args.Handler.Methods.AddMethodsFromType(new MathOperations());
+        
+        // связывает маршрут /service с обработчиком JSON-RPC для POST и GET-запросов
+        args.Router.MapPost(&quot;/service&quot;, args.Handler.Transport.HttpPost);
+        args.Router.MapGet(&quot;/service&quot;, args.Handler.Transport.HttpGet);
+        
+        // создает обработчик WebSocket на GET /ws
+        args.Router.MapGet(&quot;/ws&quot;, request =&gt;
+        {
+            var ws = request.GetWebSocket();
+            ws.OnReceive += args.Handler.Transport.WebSocket;
+
+            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
+            return ws.Close();
+        });
+    })
+    .Build();
+
+await app.StartAsync();
+
+public class MathOperations
+{
+    [WebMethod]
+    public float Sum(float a, float b)
+    {
+        return a + b;
+    }
+    
+    [WebMethod]
+    public double Sqrt(float a)
+    {
+        return Math.Sqrt(a);
+    }
+}
+</code></pre>
+<p>В приведенном выше примере методы <code>Sum</code> и <code>Sqrt</code> будут сопоставлены с обработчиком JSON-RPC, и эти методы будут доступны по <code>GET /service</code>, <code>POST /service</code> и <code>GET /ws</code>. Имена методов не чувствительны к регистру.</p>
+<p>Параметры метода автоматически десериализуются в их конкретные типы. Поддерживается использование запроса с именованными параметрами. Сериализация JSON выполняется библиотекой <a href="https://github.com/CypherPotato/LightJson">LightJson</a>. При некорректной десериализации типа можно создать конкретный <a href="https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters">преобразователь JSON</a> для этого типа и связать его с <a href="?">JsonSerializerOptions</a> позже.</p>
+<p>Вы также можете получить объект <code>$.params</code> из запроса JSON-RPC непосредственно в своем методе.</p>
+<pre><code class="lang-csharp">[WebMethod]
+public float Sum(JsonArray|JsonObject @params)
+{
+    ...
+}
+</code></pre>
+<p>Для этого <code>@params</code> должен быть <strong>единственным</strong> параметром в вашем методе с именем <code>params</code> (на C#, необходимо использовать <code>@</code> для экранирования этого имени параметра).</p>
+<p>Десериализация параметров выполняется как для именованных объектов, так и для позиционных массивов. Например, следующий метод может быть вызван удаленно как с помощью запросов:</p>
+<pre><code class="lang-csharp">[WebMethod]
+public float AddUserToStore(string apiKey, User user, UserStore store)
+{
+    ...
+}
+</code></pre>
+<p>Для массива необходимо соблюдать порядок параметров.</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;method&quot;: &quot;AddUserToStore&quot;,
+    &quot;params&quot;: [
+        &quot;1234567890&quot;,
+        {
+            &quot;name&quot;: &quot;John Doe&quot;,
+            &quot;email&quot;: &quot;john@example.com&quot;
+        },
+        {
+            &quot;name&quot;: &quot;My Store&quot;
+        }
+    ],
+    &quot;id&quot;: 1
+
+}
+</code></pre>
+<h2 id="настройка-сериализатора">Настройка сериализатора</h2>
+<p>Вы можете настроить сериализатор JSON в свойстве <a href="/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions">JsonRpcHandler.JsonSerializerOptions</a>. В этом свойстве можно включить использование <a href="https://json5.org/">JSON5</a> для десериализации сообщений. Хотя это не соответствует спецификации JSON-RPC 2.0, JSON5 является расширением JSON, которое позволяет писать более удобочитаемые и понятные тексты.</p>
+<pre><code class="lang-C#">using var host = HttpServer.CreateBuilder ( 5556 )
+    .UseJsonRPC ( ( o, e ) =&gt; {
+
+        // использует компаратор имен, очищенный от символов
+        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
+
+        // включает JSON5 для интерпретатора JSON. даже при активации этого параметра, все равно разрешается использовать обычный JSON
+        e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
+
+        // связывает маршрут POST /service с обработчиком JSON-RPC
+        e.Router.MapPost ( &quot;/service&quot;, e.Handler.Transport.HttpPost );
+    } )
+    .Build ();
+
+host.Start ();
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/extensions/json-rpc.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

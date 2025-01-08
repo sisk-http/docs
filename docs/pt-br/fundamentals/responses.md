@@ -1,6 +1,4 @@
-# Respostas
-
-Respostas representam objetos que são respostas HTTP a solicitações HTTP. Elas são enviadas pelo servidor para o cliente como uma indicação da solicitação de um recurso, página, documento, arquivo ou outro objeto.
+Respostas representam objetos que são respostas HTTP para solicitações HTTP. Elas são enviadas pelo servidor para o cliente como uma indicação da solicitação de um recurso, página, documento, arquivo ou outro objeto.
 
 Uma resposta HTTP é formada por status, cabeçalhos e conteúdo.
 
@@ -24,7 +22,7 @@ new HttpResponse()
     .WithStatus(HttpStatusInformation.Ok);
 ```
 
-Você pode ver a lista completa de `HttpStatusCode` disponíveis [aqui](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode). Você também pode fornecer seu próprio código de status usando a estrutura [HttpStatusInformation](/api/Sisk.Core.Http.HttpStatusInformation).
+Você pode ver a lista completa de códigos de status HttpStatusCode disponíveis [aqui](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode). Você também pode fornecer seu próprio código de status usando a estrutura [HttpStatusInformation](/api/Sisk.Core.Http.HttpStatusInformation).
 
 ## Corpo e tipo de conteúdo
 
@@ -35,9 +33,9 @@ HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 ```
 
-O servidor sempre tentará calcular o `Content-Length` a partir do que você definiu no conteúdo, se você não o tiver definido explicitamente em um cabeçalho. Se o servidor não conseguir obter implicitamente o cabeçalho `Content-Length` do conteúdo da resposta, a resposta será enviada com `Chunked-Encoding`.
+O servidor sempre tentará calcular o `Content-Length` com base no que você definiu no conteúdo, se você não tiver definido explicitamente em um cabeçalho. Se o servidor não conseguir obter implicitamente o cabeçalho Content-Length do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.
 
-Você também pode transmitir a resposta enviando um [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) ou usando o método `GetResponseStream`.
+Você também pode transmitir a resposta enviando um [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) ou usando o método GetResponseStream.
 
 ## Cabeçalhos de resposta
 
@@ -56,11 +54,11 @@ new HttpResponse(301)
     .WithHeader("Location", "/login");
 ```
 
-Quando você usa o método [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) de `HttpHeaderCollection`, você está adicionando um cabeçalho à solicitação sem alterar os que já foram enviados. O método [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) substitui os cabeçalhos com o mesmo nome pelo valor instruído. O índice de `HttpHeaderCollection` chama internamente o método `Set` para substituir os cabeçalhos.
+Quando você usa o método [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) de HttpHeaderCollection, você está adicionando um cabeçalho à solicitação sem alterar os que já foram enviados. O método [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) substitui os cabeçalhos com o mesmo nome pelo valor instruído. O índice de HttpHeaderCollection chama internamente o método Set para substituir os cabeçalhos.
 
 ## Envio de cookies
 
-O Sisk possui métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método são já codificados em URL e se encaixam no padrão RFC-6265.
+O Sisk possui métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método já estão codificados em URL e atendem ao padrão RFC-6265.
 
 ```cs
 HttpResponse res = new HttpResponse();
@@ -85,16 +83,16 @@ HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 ```
 
-Ao usar `chunked-encoding`, o cabeçalho `Content-Length` é omitido automaticamente.
+Ao usar chunked-encoding, o cabeçalho Content-Length é omitido automaticamente.
 
 ## Stream de resposta
 
-Os streams de resposta são uma maneira gerenciada de permitir que você envie respostas de forma segmentada. É uma operação de nível inferior do que usar objetos `HttpResponse`, pois exige que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.
+Os streams de resposta são uma maneira gerenciada que permite enviar respostas de forma segmentada. É uma operação de nível inferior do que usar objetos HttpResponse, pois exige que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.
 
 Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.
 
 ```cs
-// obtém o stream de saída da resposta
+// abre o stream de resposta para o arquivo
 using var fileStream = File.OpenRead("my-big-file.zip");
 var responseStream = request.GetResponseStream();
 
@@ -105,22 +103,55 @@ responseStream.SendChunked = true;
 responseStream.SetStatus(200);
 responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
 
-// copia o stream de arquivo para o stream de saída da resposta
+// copia o stream do arquivo para o stream de saída da resposta
 fileStream.CopyTo(responseStream.ResponseStream);
 
 // fecha o stream
 return responseStream.Close();
 ```
 
+## Compressão GZip, Deflate e Brotli
+
+Você pode enviar respostas com conteúdo compactado no Sisk com compressão de conteúdo HTTP. Primeiro, encapsule seu objeto [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) dentro de um dos compactadores abaixo para enviar a resposta compactada ao cliente.
+
+```cs
+router.MapGet("/hello.html", request => {
+    string myHtml = "...";
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // ou Content = new BrotliContent(new HtmlContent(myHtml)),
+        // ou Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+```
+
+Você também pode usar esses conteúdos compactados com streams.
+
+```cs
+router.MapGet("/archive.zip", request => {
+    
+    // não aplique "using" aqui. o HttpServer descartará seu conteúdo
+    // após enviar a resposta.
+    var archive = File.OpenRead("/path/to/big-file.zip");
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+```
+
+Os cabeçalhos Content-Encoding são definidos automaticamente ao usar esses conteúdos.
+
 ## Tipos de resposta implícitos
 
-Desde a versão 0.15, você pode usar outros tipos de retorno além de `HttpResponse`, mas é necessário configurar o roteador como ele irá lidar com cada tipo de objeto.
+Desde a versão 0.15, você pode usar outros tipos de retorno além de HttpResponse, mas é necessário configurar o roteador como ele irá lidar com cada tipo de objeto.
 
-O conceito é sempre retornar um tipo de referência e transformá-lo em um objeto `HttpResponse` válido. Rotas que retornam `HttpResponse` não passam por nenhuma conversão.
+O conceito é sempre retornar um tipo de referência e transformá-lo em um objeto HttpResponse válido. Rotas que retornam HttpResponse não passam por nenhuma conversão.
 
-Tipos de valor (estruturas) não podem ser usados como tipo de retorno porque não são compatíveis com o [RouterCallback](/api/Sisk.Core.Routing.RouterCallback), portanto, devem ser envoltos em um `ValueResult` para poderem ser usados em manipuladores.
+Tipos de valor (estruturas) não podem ser usados como tipo de retorno porque não são compatíveis com o [RouterCallback](/api/Sisk.Core.Routing.RouterCallback), portanto, devem ser envoltos em um ValueResult para poderem ser usados em manipuladores.
 
-Considere o seguinte exemplo de um módulo de roteador que não usa `HttpResponse` no tipo de retorno:
+Considere o seguinte exemplo de um módulo de roteador que não usa HttpResponse no tipo de retorno:
 
 ```cs
 [RoutePrefix("/users")]
@@ -154,13 +185,13 @@ public class UsersController : RouterModule
 }
 ```
 
-Com isso, agora é necessário definir no roteador como ele irá lidar com cada tipo de objeto. Os objetos são sempre o primeiro argumento do manipulador e o tipo de saída deve ser um `HttpResponse` válido. Além disso, os objetos de saída de uma rota nunca devem ser nulos.
+Com isso, agora é necessário definir no roteador como ele irá lidar com cada tipo de objeto. Os objetos são sempre o primeiro argumento do manipulador e o tipo de saída deve ser um HttpResponse válido. Além disso, os objetos de saída de uma rota nunca devem ser nulos.
 
-Para tipos `ValueResult` não é necessário indicar que o objeto de entrada é um `ValueResult` e apenas T, já que `ValueResult` é um objeto refletido de seu componente original.
+Para tipos ValueResult não é necessário indicar que o objeto de entrada é um ValueResult e apenas T, pois ValueResult é um objeto refletido do seu componente original.
 
 A associação de tipos não compara o que foi registrado com o tipo do objeto retornado pelo callback do roteador. Em vez disso, verifica se o tipo do resultado do roteador é atribuível ao tipo registrado.
 
-Registrar um manipulador de tipo `Object` será usado como fallback para todos os tipos previamente não validados. A ordem de inserção dos manipuladores de valor também importa, então registrar um manipulador `Object` ignorará todos os outros manipuladores específicos de tipo. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.
+Registrar um manipulador de tipo Object será usado como fallback para todos os tipos de objeto previamente não validados. A ordem de inserção dos manipuladores de valor também importa, então registrar um manipulador Object último garantirá que ele ignore todos os outros manipuladores específicos de tipo. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.
 
 ```cs
 Router r = new Router();
@@ -179,7 +210,7 @@ r.RegisterValueHandler<IEnumerable>(enumerableValue =>
     // faça algo com enumerableValue aqui
 });
 
-// registrar um manipulador de valor de objeto deve ser o último
+// registrar um manipulador de valor de object deve ser o último
 // manipulador de valor que será usado como fallback
 r.RegisterValueHandler<object>(fallback =>
 {

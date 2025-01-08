@@ -112,6 +112,39 @@ fileStream.CopyTo(responseStream.ResponseStream);
 return responseStream.Close();
 ```
 
+## GZip, Deflate and Brotli compression
+
+You can send responses with compressed content in Sisk with compressing HTTP contents. Firstly, encapsulate your [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) object within one of the compressors below to send the compressed response to the client.
+
+```cs
+router.MapGet("/hello.html", request => {
+    string myHtml = "...";
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // or Content = new BrotliContent(new HtmlContent(myHtml)),
+        // or Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+```
+
+You can also use these compressed contents with streams.
+
+```cs
+router.MapGet("/archive.zip", request => {
+    
+    // do not apply "using" here. the HttpServer will discard your content
+    // after sending the response.
+    var archive = File.OpenRead("/path/to/big-file.zip");
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+```
+
+The Content-Encoding headers are automatically set when using these contents.
+
 ## Implicit response types
 
 Since version 0.15, you can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.

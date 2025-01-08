@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../../toc.html">
@@ -57,17 +57,17 @@
         </script>
         
         <!-- Cloudflare Web Analytics -->
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
 
         <script>
 
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }
-
+        
         </script>
 
     </head>
@@ -88,7 +88,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -135,6 +135,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
                                     Português
@@ -146,6 +152,124 @@
 
                 <article data-uid="">
 
+<p>Sisk has an experimental module for a <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a> API, which allows you to create even simpler applications. This extension strictly implements the JSON-RPC 2.0 transport interface and offers transport via HTTP GET, POST requests, and also web-sockets with Sisk.</p>
+<p>You can install the extension via Nuget with the command below. Note that, in experimental/beta versions, you should enable the option to search for pre-release packages in Visual Studio.</p>
+<pre><code class="lang-bash">dotnet add package Sisk.JsonRpc
+</code></pre>
+<h2 id="transport-interface">Transport Interface</h2>
+<p>JSON-RPC is a stateless, asynchronous remote procedure execution (RDP) protocol that uses JSON for unilateral data communication. A JSON-RPC request is typically identified by an ID, and a response is delivered by the same ID that was sent in the request. Not all requests require a response, which are called &quot;notifications&quot;.</p>
+<p>The <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 specification</a> explains in detail how the transport works. This transport is agnostic of where it will be used. Sisk implements this protocol through HTTP, following the conformities of <a href="https://www.jsonrpc.org/historical/json-rpc-over-http.html">JSON-RPC over HTTP</a>, which partially supports GET requests, but completely supports POST requests. Web-sockets are also supported, providing asynchronous message communication.</p>
+<p>A JSON-RPC request looks similar to:</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;method&quot;: &quot;Sum&quot;,
+    &quot;params&quot;: [1, 2, 4],
+    &quot;id&quot;: 1
+}
+</code></pre>
+<p>And a successful response looks similar to:</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: 7,
+    &quot;id&quot;: 1
+}
+</code></pre>
+<h2 id="json-rpc-methods">JSON-RPC Methods</h2>
+<p>The following example shows how to create a JSON-RPC API using Sisk. A mathematical operations class performs the remote operations and delivers the serialized response to the client.</p>
+<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
+    .UseJsonRPC((sender, args) =&gt;
+    {
+        // add all methods tagged with WebMethod to the JSON-RPC handler
+        args.Handler.Methods.AddMethodsFromType(new MathOperations());
+        
+        // maps the /service route to handle JSON-RPC POST and GET requests
+        args.Router.MapPost(&quot;/service&quot;, args.Handler.Transport.HttpPost);
+        args.Router.MapGet(&quot;/service&quot;, args.Handler.Transport.HttpGet);
+        
+        // creates an websocket handler on GET /ws
+        args.Router.MapGet(&quot;/ws&quot;, request =&gt;
+        {
+            var ws = request.GetWebSocket();
+            ws.OnReceive += args.Handler.Transport.WebSocket;
+
+            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
+            return ws.Close();
+        });
+    })
+    .Build();
+
+await app.StartAsync();
+
+public class MathOperations
+{
+    [WebMethod]
+    public float Sum(float a, float b)
+    {
+        return a + b;
+    }
+    
+    [WebMethod]
+    public double Sqrt(float a)
+    {
+        return Math.Sqrt(a);
+    }
+}
+</code></pre>
+<p>The above example will map the <code>Sum</code> and <code>Sqrt</code> methods to the JSON-RPC handler, and these methods will be available at <code>GET /service</code>, <code>POST /service</code> and <code>GET /ws</code>. Method names are case-insensitive.</p>
+<p>Method parameters are automatically deserialized to their specific types. Using a request with named parameters is also supported. JSON serialization is done by the <a href="https://github.com/CypherPotato/LightJson">LightJson</a> library. When a type is not correctly deserialized, you can create a specific <a href="https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters">JSON converter</a> for that type and associate it with your <a href="?">JsonSerializerOptions</a> later.</p>
+<p>You can also get the <code>$.params</code> raw object from the JSON-RPC request directly in your method.</p>
+<pre><code class="lang-csharp">[WebMethod]
+public float Sum(JsonArray|JsonObject @params)
+{
+    ...
+}
+</code></pre>
+<p>For this to occur, <code>@params</code> must be the <strong>only</strong> parameter in your method, with exactly the name <code>params</code> (in C#, the <code>@</code> is necessary to escape this parameter name).</p>
+<p>Parameter deserialization occurs for both named objects or positional arrays. For example, the following method can be called remotely by both requests:</p>
+<pre><code class="lang-csharp">[WebMethod]
+public float AddUserToStore(string apiKey, User user, UserStore store)
+{
+    ...
+}
+</code></pre>
+<p>For an array, the order of the parameters must be followed.</p>
+<pre><code class="lang-json">{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;method&quot;: &quot;AddUserToStore&quot;,
+    &quot;params&quot;: [
+        &quot;1234567890&quot;,
+        {
+            &quot;name&quot;: &quot;John Doe&quot;,
+            &quot;email&quot;: &quot;john@example.com&quot;
+        },
+        {
+            &quot;name&quot;: &quot;My Store&quot;
+        }
+    ],
+    &quot;id&quot;: 1
+
+}
+</code></pre>
+<h2 id="customizing-the-serializer">Customizing the serializer</h2>
+<p>You can customize the JSON serializer in the <a href="/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions">JsonRpcHandler.JsonSerializerOptions</a> property. In this property, you can enable the use of <a href="https://json5.org/">JSON5</a> for deserializing messages. Although not a conformity with JSON-RPC 2.0, JSON5 is an extension of JSON that allows for more human-readable and legible writing.</p>
+<pre><code class="lang-C#">using var host = HttpServer.CreateBuilder ( 5556 )
+    .UseJsonRPC ( ( o, e ) =&gt; {
+
+        // uses a sanitized name comparer. this comparer compares only letters
+        // and digits in a name, and discards other symbols. ex:
+        // foo_bar10 == FooBar10
+        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
+
+        // enables JSON5 for the JSON interpreter. even activating this, plain JSON is still allowed
+        e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
+
+        // maps the POST /service route to the JSON RPC handler
+        e.Router.MapPost ( &quot;/service&quot;, e.Handler.Transport.HttpPost );
+    } )
+    .Build ();
+
+host.Start ();
+</code></pre>
 
 </article>
 

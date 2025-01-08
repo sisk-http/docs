@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../../toc.html">
@@ -57,7 +57,7 @@
         </script>
         
         <!-- Cloudflare Web Analytics -->
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
 
         <script>
@@ -88,7 +88,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -222,6 +222,31 @@ fileStream.CopyTo(responseStream.ResponseStream);
 // closes the stream
 return responseStream.Close();
 </code></pre>
+<h2 id="gzip-deflate-and-brotli-compression">GZip, Deflate and Brotli compression</h2>
+<p>You can send responses with compressed content in Sisk with compressing HTTP contents. Firstly, encapsulate your <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> object within one of the compressors below to send the compressed response to the client.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
+    string myHtml = &quot;...&quot;;
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // or Content = new BrotliContent(new HtmlContent(myHtml)),
+        // or Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+</code></pre>
+<p>You can also use these compressed contents with streams.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
+    
+    // do not apply &quot;using&quot; here. the HttpServer will discard your content
+    // after sending the response.
+    var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+</code></pre>
+<p>The Content-Encoding headers are automatically set when using these contents.</p>
 <h2 id="implicit-response-types">Implicit response types</h2>
 <p>Since version 0.15, you can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.</p>
 <p>The concept is to always return a reference type and turn it into a valid HttpResponse object. Routes that return HttpResponse do not undergo any conversion.</p>

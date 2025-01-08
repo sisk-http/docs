@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../../../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../../../toc.html">
@@ -57,7 +57,7 @@
         </script>
         
         <!-- Cloudflare Web Analytics -->
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
+        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
 
         <script>
@@ -88,7 +88,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -166,13 +166,13 @@ res.Status = System.Net.HttpStatusCode.Accepted; // 202
     .WithStatus(HttpStatusCode.Ok) // 或者
     .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
-<p>您可以查看 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">此处</a> 获取所有可用 HttpStatusCode 的完整列表。您还可以通过使用 <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 结构提供您自己的状态代码。</p>
-<h2 id="内容和内容类型">内容和内容类型</h2>
-<p>Sisk 支持使用本机 .NET 内容对象发送响应正文。例如，您可以使用 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> 类发送 JSON 响应：</p>
+<p>您可以查看 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">此处</a> 获取所有可用 HttpStatusCode 的完整列表。您还可以使用 <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 结构提供您自己的状态代码。</p>
+<h2 id="内容和-content-type">内容和 content-type</h2>
+<p>Sisk 支持使用本机 .NET 内容对象发送响应中的内容。您可以使用 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> 类发送 JSON 响应，例如：</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>如果服务器无法从响应内容中隐式获取 Content-Length 标头，则响应将使用 Chunked-Encoding 发送。</p>
+<p>服务器将始终尝试从您在内容中定义的内容中计算 <code>Content-Length</code>，如果您没有在标头中明确定义它。如果服务器无法从响应内容中隐式获取 Content-Length 标头，则响应将使用 Chunked-Encoding 发送。</p>
 <p>您还可以通过发送 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> 或使用 GetResponseStream 方法来流式传输响应。</p>
 <h2 id="响应标头">响应标头</h2>
 <p>您可以添加、编辑或删除发送到响应中的标头。以下示例演示如何向客户端发送重定向响应：</p>
@@ -184,7 +184,7 @@ res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
-<p>当您使用 HttpHeaderCollection 的 <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> 方法时，您是在添加标头到请求中，而不会更改已经发送的标头。 <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> 方法使用指定的名称替换具有相同名称的标头值。 HttpHeaderCollection 的索引器内部调用 Set 方法来替换标头。</p>
+<p>当您使用 HttpHeaderCollection 的 <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> 方法时，您是在向请求添加标头，而不会更改已经发送的标头。<a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> 方法用指示的值替换具有相同名称的标头。HttpHeaderCollection 的索引器内部调用 Set 方法来替换标头。</p>
 <h2 id="发送-cookie">发送 cookie</h2>
 <p>Sisk 提供了方便定义客户端 cookie 的方法。通过此方法设置的 cookie 已经进行了 URL 编码，符合 RFC-6265 标准。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
@@ -194,21 +194,21 @@ res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>还有其他 <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">更完整的版本</a> 具有相同方法。</p>
+<p>还有其他 <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">更完整的版本</a> 。</p>
 <h2 id="分块响应">分块响应</h2>
-<p>您可以将传输编码设置为分块以发送大型响应。</p>
+<p>您可以设置传输编码为分块以发送大型响应。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 </code></pre>
 <p>使用分块编码时，Content-Length 标头会自动省略。</p>
 <h2 id="响应流">响应流</h2>
-<p>响应流是一种受管理的方式，允许您分段发送响应。它比使用 HttpResponse 对象更低级别的操作，因为它们要求您手动发送标头和内容，然后关闭连接。</p>
-<p>此示例打开文件只读流，将流复制到响应输出流，并且不会将整个文件加载到内存中。这对于处理中等或大型文件很有用。</p>
+<p>响应流是一种受管理的方式，允许您分段发送响应。它比使用 HttpResponse 对象更低级操作，因为它们要求您手动发送标头和内容，然后关闭连接。</p>
+<p>此示例打开文件的只读流，将流复制到响应输出流，并且不会将整个文件加载到内存中。这对于服务中等或大型文件很有用。</p>
 <pre><code class="lang-cs">// 获取响应输出流
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
-// 设置响应编码为分块编码
+// 设置响应编码为使用分块编码
 // 同样，您不应该在使用分块编码时发送 content-length 标头
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -220,11 +220,35 @@ fileStream.CopyTo(responseStream.ResponseStream);
 // 关闭流
 return responseStream.Close();
 </code></pre>
+<h2 id="gzipdeflate-和-brotli-压缩">GZip、Deflate 和 Brotli 压缩</h2>
+<p>您可以使用 Sisk 压缩 HTTP 内容来发送带有压缩内容的响应。首先，将您的 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> 对象封装到以下压缩器之一中，以将压缩响应发送到客户端。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
+    string myHtml = &quot;...&quot;;
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // 或者 Content = new BrotliContent(new HtmlContent(myHtml)),
+        // 或者 Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+</code></pre>
+<p>您也可以使用这些压缩内容与流一起使用。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
+    
+    // 不要在此处使用 &quot;using&quot;。HttpServer 会在发送响应后丢弃您的内容。
+    var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+</code></pre>
+<p>使用这些内容会自动设置 Content-Encoding 标头。</p>
 <h2 id="隐式响应类型">隐式响应类型</h2>
-<p>从版本 0.15 开始，您可以使用除 HttpResponse 之外的其他返回类型，但必须配置路由器如何处理每种类型的对象。</p>
+<p>从 0.15 版本开始，您可以使用 HttpResponse 以外的其他返回类型，但必须配置路由器如何处理每个类型的对象。</p>
 <p>该概念始终返回引用类型并将其转换为有效的 HttpResponse 对象。返回 HttpResponse 的路由不会进行任何转换。</p>
 <p>值类型（结构）不能用作返回类型，因为它们与 <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a> 不兼容，因此必须将其包装在 ValueResult 中才能在处理程序中使用。</p>
-<p>考虑一个不使用 HttpResponse 的路由模块的以下示例：</p>
+<p>考虑来自不使用 HttpResponse 的路由模块的以下示例：</p>
 <pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
 public class UsersController : RouterModule
 {
@@ -255,10 +279,10 @@ public class UsersController : RouterModule
     }
 }
 </code></pre>
-<p>这样，现在需要在路由器中定义如何处理每种类型的对象。对象始终是处理程序的第一个参数，并且输出类型必须是有效的 HttpResponse。此外，路由结果的对象永远不能为 null。</p>
-<p>对于 ValueResult 类型，不需要指示输入对象是 ValueResult，只需要 T，因为 ValueResult 是其原始组件的对象反射。</p>
-<p>类型关联不比较注册类型与路由器回调返回类型的比较。相反，它检查路由器结果类型是否可分配给注册类型。</p>
-<p>注册类型为 Object 的处理程序将回退到所有先前未验证的类型。值处理程序的插入顺序也至关重要，因此注册 Object 处理程序将忽略所有其他特定于类型的处理程序。始终先注册特定值处理程序以确保顺序。</p>
+<p>因此，现在需要在路由器中定义如何处理每个类型的对象。对象始终是处理程序的第一个参数，并且输出类型必须是有效的 HttpResponse。此外，路由输出对象的输出对象永远不能为 null。</p>
+<p>对于 ValueResult 类型，无需指示输入对象是 ValueResult，只需 T，因为 ValueResult 是其原始组件的对象反射。</p>
+<p>类型关联不比较注册类型与路由器结果类型。相反，它检查路由器结果类型是否可分配给注册类型。</p>
+<p>注册类型为 Object 的处理程序将作为回退用于所有先前未验证的类型。值处理程序的插入顺序也至关重要，因此注册 Object 处理程序将忽略所有其他特定于类型的处理程序。始终先注册特定值处理程序以确保顺序。</p>
 <pre><code class="lang-cs">Router r = new Router();
 r.SetObject(new UsersController());
 
@@ -272,10 +296,10 @@ r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
 r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
 {
     return new HttpResponse();
-    // 在这里做一些事情与 enumerableValue
+    // 在这里执行一些操作
 });
 
-// 注册类型为 object 的值处理程序必须是最后一个
+// 注册 Object 类型的值处理程序必须是最后一个
 // 值处理程序，它将用作回退
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {

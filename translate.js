@@ -16,6 +16,8 @@ function enumerateMdFiles(dir) {
     const files = fs.readdirSync(dir);
     let mdFiles = [];
 
+    const excludePattern = /[\\\/](ru|cn|pt-br)[\\\/]/i;
+    
     for (const file of files) {
         const filePath = path.join(dir, file);
 
@@ -26,7 +28,9 @@ function enumerateMdFiles(dir) {
 
             mdFiles = mdFiles.concat(enumerateMdFiles(filePath));
         } else if (file.endsWith('.md') || file.endsWith('.yml')) {
-            mdFiles.push(filePath);
+
+            if (!excludePattern.test(filePath))
+                mdFiles.push(filePath);
         }
     }
 
@@ -57,6 +61,7 @@ async function translate(text, prompt) {
                 content: text
             }],
             temperature: 0.1,
+            top_p: 0.5,
             max_tokens: 8192
         })
     });
@@ -88,7 +93,8 @@ const prompt = `
     variables. You should NOT translate markdown warning boxes tags. You must translate the input
     text to ${toLanguage}. You must reply only with the translated text, no greetings or
     anything. You should not translate markdown warning tags. You're translating a piece of
-    documentation of the Sisk Framework, an .NET web-server written in C#.
+    documentation of the Sisk Framework, an .NET web-server written in C#. You must preserve
+    links targets.
 `;
 
 (async () => {
