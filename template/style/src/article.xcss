@@ -1,5 +1,5 @@
 article {
-    --bs-body-font-size: 15px;
+    --bs-body-font-size: 14px;
     font-size: var(--bs-body-font-size);
 
     p,
@@ -8,27 +8,34 @@ article {
     }
 
     h1 {
-        margin-bottom: 1rem;
-        font-size: 1.8rem;
+        margin-bottom: 1em;
+        font-size: 1.8em;
         font-weight: 600;
-    }
 
+        & :first-child {
+            font-size: 2.35em;
+        }
+    }
+    
     h2 {
-        margin-block: 3.75rem 1rem;
-        font-size: 1.5rem;
+        margin-block: 3.75em 1.25em;
+        font-size: 1.5em;
         font-weight: 600;
+        
+        padding-top: 1.5em;
+        border-top: 1px solid --bs-border-color;
     }
 
     h3 {
-        margin-block: 3rem 1rem;
-        font-size: 1.3rem;
+        margin-block: 3em 1em;
+        font-size: 1.3em;
         font-weight: 500;
     }
 
     h4 {
         font-weight: 500 !important;
-        font-size: 1.15rem;
-        margin-block: 2.5rem .8rem;
+        font-size: 1.15em;
+        margin-block: 2.5em .8em;
     }
 
     a {
@@ -68,7 +75,7 @@ article {
 
 html {
     article pre > .code-action {
-        top: .5rem;
+        top: .5em;
         opacity: .7;
 
         & :hover {
@@ -81,7 +88,7 @@ html {
     //     border-radius: 6px;
     //     max-height: 750px;
     //     line-height: 1.6;
-    //     margin-block: 0.75rem;
+    //     margin-block: 0.75em;
     // }
 
     & [data-bs-theme="light"] {
@@ -123,7 +130,7 @@ html {
             border: 1px solid #ffffff20;
         }
     }
-
+    
     //     code {
     //         border: 1px solid #ffffff20;
     //         background: #272d33 !important;

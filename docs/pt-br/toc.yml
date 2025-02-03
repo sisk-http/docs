@@ -1,64 +1,68 @@
-- name: Bem-vindo
+itens:
 
-- name: Começando
+- nome: Bem-vindo
+
+- nome: Introdução
   href: getting-started.md
-- name: Instalando
+- nome: Instalando
   href: installing.md
-- name: Suporte AOT nativo
+- nome: Suporte Nativo AOT
   href: native-aot.md
-- name: Deploying
+- nome: Implantando
   href: deploying.md
-- name: Trabalhando com SSL
+- nome: Trabalhando com SSL
   href: ssl.md
-- name: Configuração do Windows
+- nome: Configuração do Windows
   href: registering-namespace.md
-- name: Histórico de alterações
+- nome: Registros de Alterações
   href: changelogs.md
 
-- name: Fundamentos
+- nome: Fundamentos
 
-- name: Roteamento
+- nome: Roteamento
   href: fundamentals/routing.md
-- name: Handlers de requisições
+- nome: Manipuladores de Requisição
   href: fundamentals/request-handlers.md
-- name: Requisições
+- nome: Requisições
   href: fundamentals/requests.md
-- name: Respostas
+- nome: Respostas
   href: fundamentals/responses.md
 
-- name: Recursos
+- nome: Recursos
 
-- name: Log
+- nome: Registro de Logs
   href: features/logging.md
-- name: Eventos enviados pelo servidor
+- nome: Eventos Enviados pelo Servidor
   href: features/server-sent-events.md
-- name: Websockets
+- nome: Websockets
   href: features/websockets.md
-- name: Sintaxe de descarte
+- nome: Sintaxe de Descarte
   href: features/discard-syntax.md
-- name: Instâncias por requisição
+- nome: Injeção de Dependência
   href: features/instancing.md
 
-- name: Extensões
+- nome: Extensões
 
-- name: Configuração INI
-  href: extensions/ini-configuration.md
-- name: Proxy SSL
+- nome: JSON-RPC
+  href: extensions/json-rpc.md
+- nome: Proxy SSL
   href: extensions/ssl-proxy.md
-- name: Autenticação básica
+- nome: Autenticação Básica
   href: extensions/basic-auth.md
-- name: Fornecedores de serviço
+- nome: Fornecedores de Serviços
   href: extensions/service-providers.md
+- nome: Configuração INI
+  href: extensions/ini-configuration.md
 
-- name: Avançado
+- nome: Avançado
 
-- name: Configuração manual
+- nome: Configuração Manual
   href: advanced/manual-setup.md
-- name: Ciclo de vida da requisição
+- nome: Ciclo de Vida da Requisição
   href: advanced/request-lifecycle.md
-- name: Resolvers de encaminhamento
+- nome: Resolvidores de Encaminhamento
   href: advanced/forwarding-resolvers.md
-- name: Handlers de servidor HTTP
+- nome: Manipuladores de Servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuração de vários hosts
+- nome: Configuração de Multi-Hospedagem
   href: advanced/multi-host-setup.md

@@ -1,66 +1,68 @@
-- name: 欢迎
+itens:
 
-- name: 开始使用
+- nome: Bem-vindo
+
+- nome: Introdução
   href: getting-started.md
-- name: 安装
+- nome: Instalando
   href: installing.md
-- name: 本地 AOT 支持
+- nome: Suporte Nativo AOT
   href: native-aot.md
-- name: 部署
+- nome: Implantando
   href: deploying.md
-- name: 使用 SSL
+- nome: Trabalhando com SSL
   href: ssl.md
-- name: Windows 设置
+- nome: Configuração do Windows
   href: registering-namespace.md
-- name: 版本历史
+- nome: Registros de Alterações
   href: changelogs.md
 
-- name: 基础知识
+- nome: Fundamentos
 
-- name: 路由
+- nome: Roteamento
   href: fundamentals/routing.md
-- name: 请求处理程序
+- nome: Manipuladores de Requisição
   href: fundamentals/request-handlers.md
-- name: 请求
+- nome: Requisições
   href: fundamentals/requests.md
-- name: 响应
+- nome: Respostas
   href: fundamentals/responses.md
 
-- name: 功能
+- nome: Recursos
 
-- name: 日志记录
+- nome: Registro de Logs
   href: features/logging.md
-- name: 服务端发送事件
+- nome: Eventos Enviados pelo Servidor
   href: features/server-sent-events.md
-- name: WebSocket
+- nome: Websockets
   href: features/websockets.md
-- name: 丢弃语法
+- nome: Sintaxe de Descarte
   href: features/discard-syntax.md
-- name: 每请求实例
+- nome: Injeção de Dependência
   href: features/instancing.md
 
-- name: 扩展
+- nome: Extensões
 
-- name: INI 配置
-  href: extensions/ini-configuration.md
-- name: SSL 代理
+- nome: JSON-RPC
+  href: extensions/json-rpc.md
+- nome: Proxy SSL
   href: extensions/ssl-proxy.md
-- name: 基本身份验证
+- nome: Autenticação Básica
   href: extensions/basic-auth.md
-- name: 服务提供程序
+- nome: Fornecedores de Serviços
   href: extensions/service-providers.md
-- name: INI 配置
+- nome: Configuração INI
   href: extensions/ini-configuration.md
 
-- name: 高级
+- nome: Avançado
 
-- name: 手动设置
+- nome: Configuração Manual
   href: advanced/manual-setup.md
-- name: 请求生命周期
+- nome: Ciclo de Vida da Requisição
   href: advanced/request-lifecycle.md
-- name: 转发解析器
+- nome: Resolvidores de Encaminhamento
   href: advanced/forwarding-resolvers.md
-- name: HTTP 服务器处理程序
+- nome: Manipuladores de Servidor HTTP
   href: advanced/http-server-handlers.md
-- name: 多主机设置
+- nome: Configuração de Multi-Hospedagem
   href: advanced/multi-host-setup.md

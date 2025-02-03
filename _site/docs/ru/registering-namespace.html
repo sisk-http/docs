@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Настройка резервирования имен пространств имен в Windows | Sisk Framework </title>
+        <title>Configurando reservas de namespace no Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Настройка резервирования имен пространств имен в Windows | Sisk Framework ">
+        <meta name="title" content="Configurando reservas de namespace no Windows | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -151,13 +151,21 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="настройка-резервирования-имен-пространств-имен-в-windows">Настройка резервирования имен пространств имен в Windows</h1>
+<h1 id="configurando-reservas-de-namespace-no-windows">Configurando reservas de namespace no Windows</h1>
 
-<p>Sisk работает с сетевым интерфейсом HttpListener, который связывает виртуальный хост с системой для прослушивания запросов.</p>
-<p>В Windows эта связка несколько ограничительна, позволяя только localhost как действительный хост. При попытке прослушивания другого хоста на сервере возникает ошибка отказа в доступе. В этом руководстве объясняется, как предоставить разрешение на прослушивание на любом хосте, который вам нужен в системе.</p>
+<p>Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.</p>
+<p>No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.</p>
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
 <pre><code class="lang-bat">@echo off
 
-:: вставьте префикс здесь, без пробелов или кавычек
+:: insira o prefixo aqui, sem espaços ou aspas
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -165,16 +173,32 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Где в <code>PREFIX</code> указан префикс (&quot;Хост прослушивания-&gt;Порт&quot;), на который будет прослушиваться ваш сервер. Он должен быть отформатирован с использованием схемы URL, хоста, порта и слеша в конце, например:</p>
-<pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
+<p>Onde em <code>PREFIX</code>, é o prefixo (&quot;Host de Escuta-&gt;Porta&quot;) que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:</p>
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
+<pre><code class="lang-bat">SET PREFIX=http://meu-aplicativo.exemplo.teste/
 </code></pre>
-<p>Чтобы вы могли прослушивать ваше приложение через:</p>
+<p>Para que você possa ser ouvido em sua aplicação por meio de:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">class Program
 {
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://my-application.example.test/&quot;)
+            .UseListeningPort(&quot;http://meu-aplicativo.exemplo.teste/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;
@@ -182,7 +206,7 @@ pause
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Hello, world!&quot;)
+                Content = new StringContent(&quot;Olá, mundo!&quot;)
             };
         });
 

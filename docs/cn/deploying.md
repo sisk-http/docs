@@ -1,55 +1,57 @@
-部署您的 Sisk 应用程序的过程包括将您的项目发布到生产环境。虽然这个过程相对简单，但需要注意一些细节，这些细节对于部署基础设施的安全性和稳定性至关重要。
+# Implantando seu Aplicativo Sisk
 
-理想情况下，在完成所有可能的测试并准备好应用程序后，您应该能够将应用程序部署到云端。
+O processo de implantar um aplicativo Sisk consiste em publicar seu projeto em produção. Embora o processo seja relativamente simples, é importante notar detalhes que podem ser letais para a segurança e estabilidade da infraestrutura de implantação.
 
-## 发布您的应用程序
+Idealmente, você deve estar pronto para implantar seu aplicativo na nuvem, após realizar todos os testes possíveis para ter seu aplicativo pronto.
 
-发布您的 Sisk 应用程序或服务是指生成针对生产环境进行优化和准备就绪的二进制文件。在本例中，我们将编译生产环境的二进制文件，以便在安装了 .NET Runtime 的机器上运行。
+## Publicando seu app
 
-为了构建您的应用程序，您需要在计算机上安装 .NET SDK，并在目标服务器上安装 .NET Runtime 才能运行应用程序。您可以了解如何在 Linux 服务器 [此处](https://learn.microsoft.com/en-us/dotnet/core/install/linux)、[Windows](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70) 和 [Mac OS](https://learn.microsoft.com/en-us/dotnet/core/install/macos) 上安装 .NET Runtime。
+Publicar seu aplicativo ou serviço Sisk é gerar binários prontos e otimizados para produção. Neste exemplo, vamos compilar os binários para produção para executar em uma máquina que tenha o .NET Runtime instalado.
 
-在项目所在的文件夹中，打开一个终端并使用 .NET publish 命令：
+Você precisará ter o .NET SDK instalado em sua máquina para compilar seu aplicativo e o .NET Runtime instalado no servidor de destino para executar seu aplicativo. Você pode aprender como instalar o .NET Runtime em seu servidor Linux [aqui](https://learn.microsoft.com/en-us/dotnet/core/install/linux), [Windows](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70) e [Mac OS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
+
+No diretório onde seu projeto está localizado, abra um terminal e use o comando de publicação do .NET:
 
 ```shell
-dotnet publish -r linux-x64 -c Release
+$ dotnet publish -r linux-x64 -c Release
 ```
 
-这将在 `bin/Release/publish/linux-x64` 目录中生成您的二进制文件。
+Isso gerará seus binários dentro de `bin/Release/publish/linux-x64`.
 
 > [!NOTE]
-> 如果您的应用程序使用 Sisk.ServiceProvider 包运行，您应该将 `service-config.json` 文件复制到您的主机服务器，以及 `dotnet publish` 生成的所有二进制文件。
-> 您可以保留预配置的文件，其中包含环境变量、侦听端口和主机以及其他服务器配置。
+> Se seu aplicativo estiver executando usando o pacote Sisk.ServiceProvider, você deve copiar seu `service-config.json` para o servidor de hospedagem junto com todos os binários gerados pelo `dotnet publish`.
+> Você pode deixar o arquivo pré-configurado, com variáveis de ambiente, portas e hosts de escuta e configurações adicionais do servidor.
 
-下一步是将这些文件传输到将托管您的应用程序的服务器。
+A próxima etapa é levar esses arquivos para o servidor onde seu aplicativo será hospedado.
 
-之后，为您的二进制文件授予执行权限。在本例中，假设我们的项目名称为“my-app”：
+Depois disso, dê permissões de execução para o seu arquivo binário. Neste caso, vamos considerar que o nome do nosso projeto é "my-app":
 
 ```shell
-cd /home/htdocs
-chmod +x my-app
-./my-app
+$ cd /home/htdocs
+$ chmod +x my-app
+$ ./my-app
 ```
 
-运行应用程序后，检查它是否产生任何错误消息。如果没有产生错误消息，则表示您的应用程序正在运行。
+Depois de executar seu aplicativo, verifique se ele produz alguma mensagem de erro. Se não produzir, é porque seu aplicativo está executando.
 
-此时，由于尚未配置防火墙等访问规则，您可能无法通过服务器外部的网络访问您的应用程序。我们将在后续步骤中考虑这一点。
+Neste ponto, provavelmente não será possível acessar seu aplicativo pela rede externa fora do seu servidor, pois as regras de acesso, como Firewall, não foram configuradas. Vamos considerar isso nas próximas etapas.
 
-您应该知道虚拟主机的地址，您的应用程序正在侦听该地址。这在应用程序中手动设置，取决于您如何实例化 Sisk 服务。
+Você deve ter o endereço do host virtual onde seu aplicativo está escutando. Isso é definido manualmente no aplicativo e depende de como você está instanciando seu serviço Sisk.
 
-如果您 **未** 使用 Sisk.ServiceProvider 包，则应该在您定义 HttpServer 实例的地方找到它：
+Se você **não** estiver usando o pacote Sisk.ServiceProvider, você deve encontrar o endereço onde definiu sua instância de HttpServer:
 
 ```cs
 HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
-// sisk 应该侦听 http://localhost:5000/
+// sisk deve escutar em http://localhost:5000/
 ```
 
-手动关联侦听主机：
+Associando um ListeningHost manualmente:
 
 ```cs
 config.ListeningHosts.Add(new ListeningHost("https://localhost:5000/", router));
 ```
 
-或者，如果您使用 Sisk.ServiceProvider 包，请在 `service-config.json` 中：
+Ou se você estiver usando o pacote Sisk.ServiceProvider, em seu `service-config.json`:
 
 ```json
 {
@@ -62,57 +64,64 @@ config.ListeningHosts.Add(new ListeningHost("https://localhost:5000/", router));
 }
 ```
 
-由此，我们可以创建一个反向代理来侦听您的服务，并使流量可通过开放网络访问。
+A partir disso, podemos criar um proxy reverso para escutar seu serviço e tornar o tráfego disponível sobre a rede aberta.
 
-## 代理您的应用程序
+## Proxyando seu aplicativo
 
-代理您的服务意味着不直接将您的 Sisk 服务公开到外部网络。这种做法对于服务器部署非常常见，因为：
+Proxyar seu serviço significa não expor diretamente seu serviço Sisk à rede externa. Essa prática é muito comum para implantações de servidor porque:
 
-- 允许您在应用程序中关联 SSL 证书；
-- 在访问服务之前创建访问规则，避免过载；
-- 控制带宽和请求限制；
-- 为您的应用程序设置独立的负载均衡器；
-- 防止安全损坏不可恢复的基础设施。
+- Permite associar um certificado SSL ao seu aplicativo;
+- Cria regras de acesso antes de acessar o serviço e evitar sobrecargas;
+- Controla a largura de banda e os limites de solicitação;
+- Separa os balanceadores de carga para o seu aplicativo;
+- Previne danos de segurança à infraestrutura de falha.
 
-您可以通过反向代理（例如 [Nginx](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&tabs=linux-ubuntu#install-nginx) 或 [Apache](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0)）或使用类似 [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/) 的 HTTP-over-DNS 隧道来提供您的应用程序。
+Você pode servir seu aplicativo por meio de um proxy reverso como [Nginx](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&tabs=linux-ubuntu#install-nginx) ou [Apache](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0), ou você pode usar um túnel http-over-dns como [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/).
 
-另外，请务必正确解析代理的转发标头，以便通过 [转发解析器](/docs/advanced/forwarding-resolvers) 获取客户端信息，例如 IP 地址和主机。
+Além disso, lembre-se de resolver corretamente os cabeçalhos de encaminhamento do proxy para obter as informações do cliente, como endereço IP e host, por meio de [resolutores de encaminhamento](/docs/advanced/forwarding-resolvers).
 
-在创建隧道、防火墙配置并使应用程序运行之后，下一步是为您的应用程序创建服务。
+A próxima etapa após criar seu túnel, configurar o firewall e ter seu aplicativo em execução é criar um serviço para o seu aplicativo.
 
 > [!NOTE]
-> 在非 Windows 系统上直接在 Sisk 服务中使用 SSL 证书是不可能的。这是 HttpListener 实现的一个要点，HttpListener 是 Sisk 中 HTTP 队列管理的核心模块，而这种实现在不同的操作系统之间有所不同。如果您使用反向代理，则可以将 SSL 证书与虚拟主机关联，从而在 Sisk 服务中使用 SSL。对于其他系统，强烈建议使用反向代理。
+> Usar certificados SSL diretamente no serviço Sisk em sistemas não-Windows não é possível. Isso é um ponto da implementação do HttpListener, que é o módulo central para como a gestão da fila HTTP é feita no Sisk, e essa implementação varia de sistema operacional para sistema operacional. Você pode usar SSL no seu serviço Sisk se [associar um certificado ao host virtual com o IIS](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis). Para outros sistemas, usar um proxy reverso é altamente recomendado.
 
+## Criando um serviço
 
+Criar um serviço fará com que seu aplicativo esteja sempre disponível, mesmo após reiniciar a instância do servidor ou uma falha não recuperável.
 
-## 创建一个服务
+Neste tutorial simples, vamos usar o conteúdo do tutorial anterior como um exemplo para manter seu serviço sempre ativo.
 
-创建服务将使您的应用程序始终可用，即使在重新启动服务器实例或发生不可恢复的崩溃后也是如此。
-
-在本简短的教程中，我们将使用先前教程的内容作为展示，以使您的服务始终处于活动状态。
-
-1. 访问服务配置文件所在的文件夹：
+1. Acesse o diretório onde os arquivos de configuração do serviço estão localizados:
 
     ```sh
     cd /etc/systemd/system
     ```
 
-2. 创建您的 `my-app.service` 文件并包含以下内容：
-
+2. Crie seu arquivo `my-app.service` e inclua o conteúdo:
+    
+    <div class="script-header">
+        <span>
+            my-app.service
+        </span>
+        <span>
+            INI
+        </span>
+    </div>
+    
     ```ini
     [Unit]
-    Description=<关于您的应用程序的描述>
+    Description=<descrição sobre seu app>
 
     [Service]
-    # 设置将启动服务的用户
-    User=<将启动服务的用户>
+    # defina o usuário que lançará o serviço
+    User=<usuário que lançará o serviço>
 
-    # ExecStart 路径不是相对于 WorkingDirectory 的。
-    # 将其设置为可执行文件的完整路径
+    # o caminho do ExecStart não é relativo ao WorkingDirectory.
+    # defina-o como o caminho completo para o arquivo executável
     WorkingDirectory=/home/htdocs
     ExecStart=/home/htdocs/my-app
 
-    # 设置服务在崩溃时始终重新启动
+    # defina o serviço para sempre reiniciar em caso de falha
     Restart=always
     RestartSec=3
 
@@ -120,23 +129,23 @@ config.ListeningHosts.Add(new ListeningHost("https://localhost:5000/", router));
     WantedBy=multi-user.target
     ```
 
-3. 重新启动您的服务管理器模块：
+3. Reinicie o módulo de gerenciamento de serviços:
 
     ```sh
-    sudo systemctl daemon-reload
+    $ sudo systemctl daemon-reload
     ```
 
-4. 从您设置的文件名开始启动您的新创建的服务，并检查它们是否正在运行：
+4. Inicie seu novo serviço criado a partir do nome do arquivo que você definiu e verifique se ele está em execução:
 
     ```sh
-    sudo systemctl start my-app
-    sudo systemctl status my-app
+    $ sudo systemctl start my-app
+    $ sudo systemctl status my-app
     ```
 
-5. 现在，如果您的应用程序正在运行（“Active: active”），请启用您的服务，以便在系统重新启动后保持运行：
-
+5. Agora, se seu aplicativo estiver em execução ("Active: active"), habilite seu serviço para continuar em execução após uma reinicialização do sistema:
+    
     ```sh
-    sudo systemctl enable my-app
+    $ sudo systemctl enable my-app
     ```
 
-现在，您已经准备好向所有人展示您的 Sisk 应用程序。
+Agora você está pronto para apresentar seu aplicativo Sisk a todos.

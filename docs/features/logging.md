@@ -10,8 +10,31 @@ In this article we will show you how to configure logging for your application.
 
 Logs to files open the file, write the line text, and then close the file for every line written. This procedure was adopted to maintain write responsiveness in the logs.
 
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-config.AccessLogsStream = new LogStream("logs/access.log");
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseConfiguration(config => {
+                config.AccessLogsStream = new LogStream("logs/access.log");
+            })
+            .Build();
+        
+        ...
+        
+        await app.StartAsync();
+    }
+}
 ```
 
 The above code will write all incoming requests to the `logs/access.log` file. Note that, the file is created automatically if it does not exist, however the folder before it does not. It's not necessary to create the `logs/` directory as the LogStream class automatically creates it.
@@ -20,8 +43,21 @@ The above code will write all incoming requests to the `logs/access.log` file. N
 
 You can write log files to TextWriter objects instances, such as `Console.Out`, by passing an TextWriter object in the constructor:
 
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-config.AccessLogsStream = new LogStream(Console.Out);
+using var app = HttpServer.CreateBuilder()
+    .UseConfiguration(config => {
+        config.AccessLogsStream = new LogStream("logs/access.log");
+    })
+    .Build();
 ```
 
 For every message written in the stream-based log, the `TextWriter.Flush()` method is called.
@@ -36,37 +72,40 @@ config.AccessLogsFormat = "%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq 
 
 It will write an message like:
 
-    29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ \[200 OK\] 689B -> 707B in 84ms \[Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36\]
+    29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 
 You can format your log file by the format described by the table:
 
-|Variable|Description|Example|
-|--- |--- |--- |
-|%dd|The current timestamp's day, in 00 format.|25|
-|%dm|The current timestamp's month, in 00 format.|03|
-|%dmm|The current timestamp's month, in abreviated name format.|mar.|
-|%dmmm|The current timestamp's month, in full name format.|March|
-|%dy|The current timestamp's year, in 0000 format.|2023|
-|%th|The current timestamp's hour, in 12-hours format.|03|
-|%tH|The current timestamp's hour, in 24-hours format.|15|
-|%ti|The current timestamp's minutes, in 00 format.|25|
-|%ts|The current timestamp's seconds, in 00 format.|32|
-|%tm|The current timestamp's millisecond, in 000 format.|633|
-|%tz|The current timezone difference, in +/- 0000 format.|+0300, -0500, +0000|
-|%ri|The requesting user IP address (may be IPv4 or IPv6).|192.168.0.1|
-|%rm|The request method in upper case.|GET|
-|%rs|The requesting user URL scheme.|https, http|
-|%ra|The requesting user URL authority.|my.contorso.com:8080|
-|%rh|The requesting user URL host.|my.contorso.com|
-|%rp|The requesting user URL port.|8080|
-|%rz|The requesting user URL absolute path.|/index.html|
-|%rq|The requesting user URL query string.|?foo=bar&aaa=bbb|
-|%sc|The response status code, in 000 format.|404|
-|%sd|The response status description.|Not Found|
-|%lin|The incoming request content size, in an human readable form.|12,5kb|
-|%lou|The outcoming response content size, in an human readable form.|65,8kb|
-|%lms|The server processing time of the request and deliver of the response, in milliseconds format (000).|18|
-|%{header}|Gets the value of an HTTP header, where header is the header name, or an empty value if the header ins't present. This field is case-insensitive.|%{user-agent}|
+| Value  | What it represents                                                                 | Example                               |
+|--------|-----------------------------------------------------------------------------------|---------------------------------------|
+| %dd    | Day of the month (formatted as two digits)                                        | 05                                    |
+| %dmmm  | Full name of the month                                                            | July                                  |
+| %dmm   | Abbreviated name of the month (three letters)                                  | Jul                                  |
+| %dm    | Month number (formatted as two digits)                                          | 07                                    |
+| %dy    | Year (formatted as four digits)                                                 | 2023                                 |
+| %th    | Hour in 12-hour format                                                          | 03                                    |
+| %tH    | Hour in 24-hour format (HH)                                                    | 15                                    |
+| %ti    | Minutes (formatted as two digits)                                               | 30                                    |
+| %ts    | Seconds (formatted as two digits)                                               | 45                                    |
+| %tm    | Milliseconds (formatted as three digits)                                        | 123                                   |
+| %tz    | Time zone offset (total hours in UTC)                                         | +03:00                               |
+| %ri    | Client's remote IP address                                                       | 192.168.1.100                        |
+| %rm    | HTTP method (uppercase)                                                          | GET                                   |
+| %rs    | URI scheme (http/https)                                                          | https                                |
+| %ra    | URI authority (domain)                                                           | example.com                          |
+| %rh    | Host of the request                                                             | www.example.com                       |
+| %rp    | Port of the request                                                             | 443                                  |
+| %rz    | Path of the request                                                             | /path/to/resource                    |
+| %rq    | Query string                                                                    | ?key=value&another=123               |
+| %sc    | HTTP response status code                                                      | 200                                  |
+| %sd    | HTTP response status description                                              | OK                                   |
+| %lin   | Human-readable size of the request                                             | 1.2 KB                               |
+| %linr  | Raw size of the request (bytes)                                                | 1234                                |
+| %lou   | Human-readable size of the response                                            | 2.5 KB                               |
+| %lour  | Raw size of the response (bytes)                                               | 2560                                |
+| %lms   | Elapsed time in milliseconds                                                   | 120                                  |
+| %ls    | Execution status                                                                | Executed                |
+
 
 
 ## Rotating logs
@@ -115,6 +154,16 @@ appMessages.WriteLine("Application started at {0}", DateTime.Now);
 
 You can extend the `LogStream` class to write custom formats, compatible with the current Sisk log engine. The example below allows to write colorful messages into the Console through Spectre.Console library:
 
+<div class="script-header">
+    <span>
+        CustomLogStream.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+
 ```cs
 public class CustomLogStream : LogStream
 {
@@ -126,6 +175,15 @@ public class CustomLogStream : LogStream
 ```
 
 Another way to automatically write custom logs for each request/response is to create an [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler). The example below is a little more complete. It writes the body of the request and response in JSON to the Console. It can be useful for debugging requests in general. This example makes use of ContextBag and HttpServerHandler.
+
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 class Program
@@ -152,7 +210,18 @@ class Program
         await app.StartAsync();
     }
 }
+```
 
+<div class="script-header">
+    <span>
+        JsonMessageHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```cs
 class JsonMessageHandler : HttpServerHandler
 {
     protected override void OnHttpRequestOpen(HttpRequest request)
@@ -184,12 +253,12 @@ class JsonMessageHandler : HttpServerHandler
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
-
+        
         if (result.Response is { } response)
         {
             var content = response.Content;
             responseMessage = $"{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}";
-
+            
             if (content is HttpContent httpContent &&
                 // check if the response is JSON
                 httpContent.Headers.ContentType?.MediaType?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
@@ -203,7 +272,7 @@ class JsonMessageHandler : HttpServerHandler
             // gets the internal server handling status
             responseMessage = result.Status.ToString();
         }
-
+        
         StringBuilder outputMessage = new StringBuilder();
 
         if (requestJson != null)

@@ -2,6 +2,11 @@ nav {
     scrollbar-width: thin;
 
     & .toc {
+
+        .filter {
+            display: none;
+        }
+
         > div {
             padding-bottom: 50px; // comfortable scroll
         }
@@ -32,7 +37,6 @@ nav {
 
                 & :hover {
                     opacity: 1;
-                    background-color: --bs-body-bg-alt;
                     text-decoration: none;
                 }
             }
@@ -40,7 +44,6 @@ nav {
             & .active > a {
                 position: relative;
                 color: --primary;
-                background-color: --primary-opaque;
                 font-weight: 600;
                 opacity: 1;
             }
@@ -73,6 +76,10 @@ nav {
             & :hover {
                 opacity: 1;
             }
+        }
+
+        ul li {
+            margin: .6rem 0;
         }
     }
 }

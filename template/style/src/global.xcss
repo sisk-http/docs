@@ -1,5 +1,6 @@
 :root {
     --bs-font-sans-serif: "Inter", system-ui, -apple-system, Arial, sans-serif;
+    --bs-font-monospace: "Geist Mono", "Geist Mono Fallback", ui-monospace, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, Courier New, monospace, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     --bs-body-font-size: 16px;
     --bs-link-color: --primary;
     --bs-transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -13,13 +14,16 @@ html[data-bs-theme="dark"] {
     --bs-danger-bg-subtle: #362829;
     --bs-warning-bg-subtle: #332701;
     --bs-info-bg-subtle: #183338;
-    --bs-body-bg: #0e1013;
-    --bs-body-bg-alt: #222427;
+    --bs-body-bg: #010102;
+    --bs-body-bg-alt: #0c0e0f;
+    
+    --code-block-border: #2e3642;
 }
 
 html[data-bs-theme="light"] {
     --primary: rgb(7, 45, 172);
     --primary-opaque: rgb(7, 45, 172, 15%);
+    --bs-body-color: #000000;
     --bs-link-color-rgb: 7, 45, 172;
     --bs-code-color: #5342f0;
     --bs-danger-bg-subtle: #ffe8ea;
@@ -27,6 +31,8 @@ html[data-bs-theme="light"] {
     --bs-info-bg-subtle: #eafbff;
     --bs-body-bg: #ffffff;
     --bs-body-bg-alt: #f6f6f6;
+        
+    --code-block-border: #d9d9d9;
 }
 
 .bg-body {

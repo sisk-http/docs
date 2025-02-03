@@ -1,34 +1,43 @@
-## Sisk 入门指南
+# Introdução ao Sisk
 
-Sisk 可以运行在任何 .NET 环境中。在本指南中，我们将教您如何使用 .NET 创建一个 Sisk 应用程序。如果您还没有安装，请从 [这里](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) 下载 SDK。
+Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK [aqui](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 
-在本教程中，我们将介绍如何创建项目结构、接收请求、获取 URL 参数以及发送响应。本指南将重点介绍使用 C# 构建一个简单的服务器。您也可以使用您喜欢的编程语言。
+Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
 
 > [!NOTE]
-> 您可能对快速入门项目感兴趣。有关更多信息，请查看 [这个存储库](https://github.com/sisk-http/quickstart)。
+> Você pode estar interessado em um projeto de início rápido. Verifique [este repositório](https://github.com/sisk-http/quickstart) para obter mais informações.
 
-## 创建项目
+## Criando um Projeto
 
-让我们将我们的项目命名为“我的 Sisk 应用程序”。在您设置好 .NET 后，可以使用以下命令创建项目：
+Vamos nomear nosso projeto "Meu Aplicativo Sisk". Uma vez que você tenha o .NET configurado, você pode criar seu projeto com o seguinte comando:
 
 ```bash
-dotnet new console -n my-sisk-application
+dotnet new console -n meu-aplicativo-sisk
 ```
 
-接下来，导航到您的项目目录，并使用 .NET 实用工具安装 Sisk：
+Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário .NET:
 
 ```bash
-cd my-sisk-application
+cd meu-aplicativo-sisk
 dotnet add package Sisk.HttpServer
 ```
 
-您可以在 [这里](https://www.nuget.org/packages/Sisk.HttpServer/) 找到有关在项目中安装 Sisk 的其他方法。
+Você pode encontrar maneiras adicionais de instalar o Sisk no seu projeto [aqui](https://www.nuget.org/packages/Sisk.HttpServer/).
 
-现在，让我们创建一个 HTTP 服务器实例。在本例中，我们将配置它在端口 5000 上侦听。
+Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para ouvir na porta 5000.
 
-## 构建 HTTP 服务器
+## Construindo o Servidor HTTP
 
-Sisk 允许您逐步手动构建应用程序，因为它会路由到 HttpServer 对象。但是，对于大多数项目来说，这可能不太方便。因此，我们可以使用构建器方法，这使得启动应用程序变得更加容易。
+Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construtor, que facilita a inicialização do nosso aplicativo.
+
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 class Program
@@ -38,26 +47,23 @@ class Program
         using var app = HttpServer.CreateBuilder()
             .UseListeningPort("http://localhost:5000/")
             .Build();
-
+        
         app.Router.MapGet("/", request =>
         {
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Hello, world!")
+                Content = new StringContent("Olá, mundo!")
             };
         });
-
+        
         await app.StartAsync();
     }
 }
 ```
 
-了解 Sisk 的每个重要组件非常重要。在本文档的后面部分，您将学习有关 Sisk 如何工作的更多信息。
+É importante entender cada componente vital do Sisk. Mais tarde, neste documento, você aprenderá mais sobre como o Sisk funciona.
 
-## 手动（高级）设置
+## Configuração Manual (avançada)
 
-您可以在文档的 [这个部分](/docs/advanced/manual-setup) 中了解每个 Sisk 机制的工作原理，该部分解释了 HttpServer、Router、ListeningPort 以及其他组件的行为和关系。
-
-
-
+Você pode aprender como cada mecanismo do Sisk funciona na [esta seção](/docs/advanced/manual-setup) da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.

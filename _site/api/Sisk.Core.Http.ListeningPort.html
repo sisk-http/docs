@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Struct ListeningPort | Sisk Framework </title>
+        <title>Struct ListeningPort | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Struct ListeningPort | Sisk Framework ">
+        <meta name="title" content="Struct ListeningPort | Sisk ">
 
         <meta name="description" content="Provides a structure to contain a listener port for an  instance.">
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../index.html">
-                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -311,6 +311,11 @@ and path.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningPort.Parse.html#Sisk_Core_Http_ListeningPort_Parse_System_String_">Parse(string)</a></dt>
+    <dd><p>Parses a string into a <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.ListeningPort.ToString.html#Sisk_Core_Http_ListeningPort_ToString">ToString()</a></dt>
     <dd><p>Gets an string representation of this <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
 </dd>
@@ -319,6 +324,18 @@ and path.</p>
     <dt><a class="xref" href="Sisk.Core.Http.ListeningPort.ToString.html#Sisk_Core_Http_ListeningPort_ToString_System_Boolean_">ToString(bool)</a></dt>
     <dd><p>Gets an string representation of this <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
 </dd>
+  </dl>
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningPort.op_Equality.html#Sisk_Core_Http_ListeningPort_op_Equality_Sisk_Core_Http_ListeningPort_Sisk_Core_Http_ListeningPort_">operator ==(ListeningPort, ListeningPort)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningPort.op_Inequality.html#Sisk_Core_Http_ListeningPort_op_Inequality_Sisk_Core_Http_ListeningPort_Sisk_Core_Http_ListeningPort_">operator !=(ListeningPort, ListeningPort)</a></dt>
+    <dd></dd>
   </dl>
 
   <h2 class="section" id="eii">Explicit Interface Implementations

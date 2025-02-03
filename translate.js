@@ -17,7 +17,7 @@ function enumerateMdFiles(dir) {
     let mdFiles = [];
 
     const excludePattern = /[\\\/](ru|cn|pt-br)[\\\/]/i;
-    
+
     for (const file of files) {
         const filePath = path.join(dir, file);
 
@@ -52,16 +52,16 @@ async function translate(text, prompt) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: 'gemma2-9b-it',
+            model: 'llama-3.3-70b-specdec',
             messages: [{
                 role: 'system',
-                content: prompt.trim().replace(/\s+/g, ' ')
+                content: prompt.trim()
             }, {
                 role: 'user',
                 content: text
             }],
             temperature: 0.1,
-            top_p: 0.5,
+            top_p: 0.75,
             max_tokens: 8192
         })
     });
@@ -88,13 +88,23 @@ if (process.argv.length < 4) {
 const toLanguage = process.argv[2];
 const dest = process.argv[3];
 const prompt = `
-    You're an translator AI helper. Your goal is to translate the given markdown code language
-    into another language. You should translate texts, code comments, but not code symbols or
-    variables. You should NOT translate markdown warning boxes tags. You must translate the input
-    text to ${toLanguage}. You must reply only with the translated text, no greetings or
-    anything. You should not translate markdown warning tags. You're translating a piece of
-    documentation of the Sisk Framework, an .NET web-server written in C#. You must preserve
-    links targets.
+    You're an translator AI helper. Your goal is to translate the given markdown code language into another language. You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#.
+
+    You must translate the user input to Brazilan Portuguese.
+
+    <translate_code>
+    - You should translate texts, code comments, but not code symbols,
+    variables or constants names.
+    - You should NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
+    - You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
+    - You MUST keep link targets.
+    - You MUST NOT translate script-header file names or language names.
+    </translate_code>
+
+    <output>
+    - You MUST reply ONLY with the translated text, no greetings or advices.
+    - The translated text must follow the original input structure.
+    </output>
 `;
 
 (async () => {

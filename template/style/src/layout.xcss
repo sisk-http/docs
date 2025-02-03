@@ -5,9 +5,12 @@ main.container-xxl {
     > .toc-offcanvas {
         max-width: 260px !important;
     }
+    
+    @media (min-width: 1100px) {
 
-    // content wrapper
-    > .content {
-        max-width: 960px;
+        // content wrapper
+        > .content {
+            max-width: 720px;
+        }
     }
 }

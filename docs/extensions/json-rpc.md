@@ -1,3 +1,5 @@
+# JSON-RPC Extension
+
 Sisk has an experimental module for a [JSON-RPC 2.0](https://www.jsonrpc.org/specification) API, which allows you to create even simpler applications. This extension strictly implements the JSON-RPC 2.0 transport interface and offers transport via HTTP GET, POST requests, and also web-sockets with Sisk.
 
 You can install the extension via Nuget with the command below. Note that, in experimental/beta versions, you should enable the option to search for pre-release packages in Visual Studio.
@@ -37,6 +39,16 @@ And a successful response looks similar to:
 
 The following example shows how to create a JSON-RPC API using Sisk. A mathematical operations class performs the remote operations and delivers the serialized response to the client.
 
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+
 ```csharp
 using var app = HttpServer.CreateBuilder(port: 5555)
     .UseJsonRPC((sender, args) =>
@@ -61,7 +73,18 @@ using var app = HttpServer.CreateBuilder(port: 5555)
     .Build();
 
 await app.StartAsync();
+```
 
+<div class="script-header">
+    <span>
+        MathOperations.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```csharp
 public class MathOperations
 {
     [WebMethod]
@@ -83,6 +106,16 @@ The above example will map the `Sum` and `Sqrt` methods to the JSON-RPC handler,
 Method parameters are automatically deserialized to their specific types. Using a request with named parameters is also supported. JSON serialization is done by the [LightJson](https://github.com/CypherPotato/LightJson) library. When a type is not correctly deserialized, you can create a specific [JSON converter](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) for that type and associate it with your [JsonSerializerOptions](?) later.
 
 You can also get the `$.params` raw object from the JSON-RPC request directly in your method.
+
+<div class="script-header">
+    <span>
+        MathOperations.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 
 ```csharp
 [WebMethod]
@@ -129,7 +162,17 @@ For an array, the order of the parameters must be followed.
 
 You can customize the JSON serializer in the [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) property. In this property, you can enable the use of [JSON5](https://json5.org/) for deserializing messages. Although not a conformity with JSON-RPC 2.0, JSON5 is an extension of JSON that allows for more human-readable and legible writing.
 
-```C#
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+
+```csharp
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 

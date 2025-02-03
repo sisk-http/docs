@@ -1,15 +1,25 @@
-# Instancing per-request members
+# Dependency injection
+
 It is common to dedicate members and instances that last for the lifetime of a request, such as a database connection, an authenticated user, or a session token. One of the possibilities is through the [HttpContext.RequestBag](/api/Sisk.Core.Http.HttpContext), which creates a dictionary that lasts for the entire lifetime of a request.
 
 This dictionary can be accessed by [request handlers](/docs/fundamentals/request-handlers) and define variables throughout that request. For example, a request handler that authenticates a user sets this user within the `HttpContext.RequestBag`, and within the request logic, this user can be retrieved with `HttpContext.RequestBag.Get<User>()`.
 
 Here’s an example:
 
+<div class="script-header">
+    <span>
+        RequestHandlers/AuthenticateUser.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```csharp
 public class AuthenticateUser : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
         User authenticatedUser = AuthenticateUser(request);
@@ -17,7 +27,18 @@ public class AuthenticateUser : IRequestHandler
         return null; // advance to the next request handler or request logic
     }
 }
+```
 
+<div class="script-header">
+    <span>
+        Controllers/HelloController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```csharp
 [RouteGet("/hello")]
 [RequestHandler<AuthenticateUser>]
 public static HttpResponse SayHello(HttpRequest request)
@@ -37,6 +58,15 @@ It is possible to define logic to obtain instances when not previously defined i
 Since version 1.3, the static property [HttpContext.Current](/api/Sisk.Core.Http.HttpContext.Current) was introduced, allowing access to the currently executing `HttpContext` of the request context. This enables exposing members of the `HttpContext` outside the current request and defining instances in route objects.
 
 The example below defines a controller that has members commonly accessed by the context of a request.
+
+<div class="script-header">
+    <span>
+        Controllers/Controller.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 public abstract class Controller : RouterModule
@@ -60,6 +90,15 @@ public abstract class Controller : RouterModule
 ```
 
 And define types that inherit from the controller:
+
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 [RoutePrefix("/api/posts")]
@@ -94,6 +133,15 @@ In the example above, we defined a disposable object, the `DbContext`, and we ne
 
 For the first method, we can create the request handler inline directly in the [OnSetup](/api/Sisk.Core.Routing.RouterModule.OnSetup) method inherited from `RouterModule`:
 
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```csharp
 public abstract class Controller : RouterModule
 {
@@ -116,9 +164,22 @@ public abstract class Controller : RouterModule
 }
 ```
 
+> [!TIP]
+>
+> Since Sisk version 1.4, the property [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) is introduced and enabled by default, which defines whether the HTTP server should dispose all `IDisposable` values in the context bag when an HTTP session is closed.
+
 The method above will ensure that the `DbContext` is disposed of when the HTTP session is finalized. You can do this for more members that need to be disposed of at the end of a response.
 
 For the second method, you can create a custom [server handler](/docs/advanced/http-server-handlers) that will dispose of the `DbContext` when the HTTP session is finalized.
+
+<div class="script-header">
+    <span>
+        Server/Handlers/ObjectDisposerHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 public class ObjectDisposerHandler : HttpServerHandler
@@ -130,7 +191,16 @@ public class ObjectDisposerHandler : HttpServerHandler
 }
 ```
 
-And use it in your builder:
+And use it in your app builder:
+
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 using var host = HttpServer.CreateBuilder()

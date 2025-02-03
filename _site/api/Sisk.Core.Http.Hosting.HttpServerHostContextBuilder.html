@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Class HttpServerHostContextBuilder | Sisk Framework </title>
+        <title>Class HttpServerHostContextBuilder | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Class HttpServerHostContextBuilder | Sisk Framework ">
+        <meta name="title" content="Class HttpServerHostContextBuilder | Sisk ">
 
         <meta name="description" content="Represents a context constructor for .">
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../index.html">
-                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -250,6 +250,11 @@ Class HttpServerHostContextBuilder
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Action_">UseBootstraper(string, Action)</a></dt>
+    <dd><p>Adds an function that will be executed immediately before starting the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseConfiguration_System_Action_Sisk_Core_Http_HttpServerConfiguration__">UseConfiguration(Action&lt;HttpServerConfiguration&gt;)</a></dt>
     <dd><p>Calls an action that has the HTTP server configuration as an argument.</p>
 </dd>
@@ -262,11 +267,6 @@ Class HttpServerHostContextBuilder
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseCors_System_Action_Sisk_Core_Entity_CrossOriginResourceSharingHeaders__">UseCors(Action&lt;CrossOriginResourceSharingHeaders&gt;)</a></dt>
     <dd><p>Calls an action that has an <a class="xref" href="Sisk.Core.Entity.CrossOriginResourceSharingHeaders.html">CrossOriginResourceSharingHeaders</a> instance from the main listening host as an argument.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseFlags_Sisk_Core_Http_HttpServerFlags_">UseFlags(HttpServerFlags)</a></dt>
-    <dd><p>Overrides the HTTP server flags with the provided flags.</p>
 </dd>
   </dl>
   <dl class="jumplist">

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Deploying your Sisk Application | Sisk Framework </title>
+        <title>Deploying your Sisk Application | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Deploying your Sisk Application | Sisk Framework ">
+        <meta name="title" content="Deploying your Sisk Application | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../index.html">
-                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -161,7 +161,7 @@
 .NET Runtime installed on the target server to run your app. You can learn how
 to install .NET Runtime in your Linux server <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">here</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> and <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a>.</p>
 <p>In the folder where your project is located, open a terminal and use the .NET publish command:</p>
-<pre><code class="lang-shell">dotnet publish -r linux-x64 -c Release
+<pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
 </code></pre>
 <p>This will generate your binaries inside <code>bin/Release/publish/linux-x64</code>.</p>
 <div class="NOTE">
@@ -171,9 +171,9 @@ You can leave the file preconfigured, with environment variables, listening port
 </div>
 <p>The next step is to take these files to the server where your application will be hosted.</p>
 <p>After that, give execution permissions to your binary file. In this case, let's consider that our project name is &quot;my-app&quot;:</p>
-<pre><code class="lang-shell">cd /home/htdocs
-chmod +x my-app
-./my-app
+<pre><code class="lang-shell">$ cd /home/htdocs
+$ chmod +x my-app
+$ ./my-app
 </code></pre>
 <p>After running your application, check to see if it produces any error messages. If it didn't produce, it's because your application is running.</p>
 <p>At this point, it will probably not be possible to access your application by external net ouside your server, as access rules such as Firewall have not been configured. We will consider this in the next steps.</p>
@@ -221,6 +221,14 @@ chmod +x my-app
 </code></pre>
 </li>
 <li><p>Create your <code>my-app.service</code> file and include the contents:</p>
+ <div class="script-header">
+     <span>
+         my-app.service
+     </span>
+     <span>
+         INI
+     </span>
+ </div>
 <pre><code class="lang-ini">[Unit]
 Description=&lt;description about your app&gt;
 
@@ -242,16 +250,16 @@ WantedBy=multi-user.target
 </code></pre>
 </li>
 <li><p>Restart your service manager module:</p>
-<pre><code class="lang-sh">sudo systemctl daemon-reload
+<pre><code class="lang-sh">$ sudo systemctl daemon-reload
 </code></pre>
 </li>
 <li><p>Start your new created service from the name of the file you set and check if they are running:</p>
-<pre><code class="lang-sh">sudo systemctl start my-app
-sudo systemctl status my-app
+<pre><code class="lang-sh">$ sudo systemctl start my-app
+$ sudo systemctl status my-app
 </code></pre>
 </li>
 <li><p>Now if your app is running (&quot;Active: active&quot;), enable your service to keep run after an system reboot:</p>
-<pre><code class="lang-sh">sudo systemctl enable my-app
+<pre><code class="lang-sh">$ sudo systemctl enable my-app
 </code></pre>
 </li>
 </ol>

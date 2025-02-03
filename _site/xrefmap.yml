@@ -2416,6 +2416,27 @@ references:
   commentId: Overload:Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue
   fullName: Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue
   nameWithType: CookieHelper.BuildCookieHeaderValue
+- uid: Sisk.Core.Helpers.HeaderHelper
+  name: HeaderHelper
+  href: api/Sisk.Core.Helpers.HeaderHelper.html
+  commentId: T:Sisk.Core.Helpers.HeaderHelper
+  fullName: Sisk.Core.Helpers.HeaderHelper
+  nameWithType: HeaderHelper
+- uid: Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders(System.Net.Http.Headers.HttpContentHeaders,System.Net.Http.Headers.HttpContentHeaders,System.Boolean)
+  name: CopyHttpHeaders(HttpContentHeaders, HttpContentHeaders, bool)
+  href: api/Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders.html#Sisk_Core_Helpers_HeaderHelper_CopyHttpHeaders_System_Net_Http_Headers_HttpContentHeaders_System_Net_Http_Headers_HttpContentHeaders_System_Boolean_
+  commentId: M:Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders(System.Net.Http.Headers.HttpContentHeaders,System.Net.Http.Headers.HttpContentHeaders,System.Boolean)
+  name.vb: CopyHttpHeaders(HttpContentHeaders, HttpContentHeaders, Boolean)
+  fullName: Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders(System.Net.Http.Headers.HttpContentHeaders, System.Net.Http.Headers.HttpContentHeaders, bool)
+  fullName.vb: Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders(System.Net.Http.Headers.HttpContentHeaders, System.Net.Http.Headers.HttpContentHeaders, Boolean)
+  nameWithType: HeaderHelper.CopyHttpHeaders(HttpContentHeaders, HttpContentHeaders, bool)
+  nameWithType.vb: HeaderHelper.CopyHttpHeaders(HttpContentHeaders, HttpContentHeaders, Boolean)
+- uid: Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders*
+  name: CopyHttpHeaders
+  href: api/Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders.html
+  commentId: Overload:Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders
+  fullName: Sisk.Core.Helpers.HeaderHelper.CopyHttpHeaders
+  nameWithType: HeaderHelper.CopyHttpHeaders
 - uid: Sisk.Core.Helpers.MimeHelper
   name: MimeHelper
   href: api/Sisk.Core.Helpers.MimeHelper.html
@@ -3775,6 +3796,15 @@ references:
   commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Action)
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Action)
   nameWithType: HttpServerHostContextBuilder.UseBootstraper(Action)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Action)
+  name: UseBootstraper(string, Action)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Action_
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Action)
+  name.vb: UseBootstraper(String, Action)
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(string, System.Action)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(String, System.Action)
+  nameWithType: HttpServerHostContextBuilder.UseBootstraper(string, Action)
+  nameWithType.vb: HttpServerHostContextBuilder.UseBootstraper(String, Action)
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper*
   name: UseBootstraper
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html
@@ -3817,18 +3847,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors
   nameWithType: HttpServerHostContextBuilder.UseCors
-- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags(Sisk.Core.Http.HttpServerFlags)
-  name: UseFlags(HttpServerFlags)
-  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseFlags_Sisk_Core_Http_HttpServerFlags_
-  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags(Sisk.Core.Http.HttpServerFlags)
-  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags(Sisk.Core.Http.HttpServerFlags)
-  nameWithType: HttpServerHostContextBuilder.UseFlags(HttpServerFlags)
-- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags*
-  name: UseFlags
-  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags.html
-  commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags
-  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseFlags
-  nameWithType: HttpServerHostContextBuilder.UseFlags
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver(Sisk.Core.Http.ForwardingResolver)
   name: UseForwardingResolver(ForwardingResolver)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver_Sisk_Core_Http_ForwardingResolver_
@@ -6013,6 +6031,30 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream
   fullName: Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream
   nameWithType: HttpServerConfiguration.AccessLogsStream
+- uid: Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing
+  name: AsyncRequestProcessing
+  href: api/Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing.html#Sisk_Core_Http_HttpServerConfiguration_AsyncRequestProcessing
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing
+  fullName: Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing
+  nameWithType: HttpServerConfiguration.AsyncRequestProcessing
+- uid: Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing*
+  name: AsyncRequestProcessing
+  href: api/Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing
+  fullName: Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing
+  nameWithType: HttpServerConfiguration.AsyncRequestProcessing
+- uid: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+  name: ConvertIAsyncEnumerableIntoEnumerable
+  href: api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable.html#Sisk_Core_Http_HttpServerConfiguration_ConvertIAsyncEnumerableIntoEnumerable
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+  fullName: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+  nameWithType: HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+- uid: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable*
+  name: ConvertIAsyncEnumerableIntoEnumerable
+  href: api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+  fullName: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+  nameWithType: HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
 - uid: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
   name: DefaultCultureInfo
   href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo.html#Sisk_Core_Http_HttpServerConfiguration_DefaultCultureInfo
@@ -6037,6 +6079,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.Dispose
   fullName: Sisk.Core.Http.HttpServerConfiguration.Dispose
   nameWithType: HttpServerConfiguration.Dispose
+- uid: Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
+  name: DisposeDisposableContextValues
+  href: api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.html#Sisk_Core_Http_HttpServerConfiguration_DisposeDisposableContextValues
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
+  fullName: Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
+  nameWithType: HttpServerConfiguration.DisposeDisposableContextValues
+- uid: Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues*
+  name: DisposeDisposableContextValues
+  href: api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
+  fullName: Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
+  nameWithType: HttpServerConfiguration.DisposeDisposableContextValues
 - uid: Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream
   name: ErrorsLogsStream
   href: api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream
@@ -6049,18 +6103,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream
   fullName: Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream
   nameWithType: HttpServerConfiguration.ErrorsLogsStream
-- uid: Sisk.Core.Http.HttpServerConfiguration.Flags
-  name: Flags
-  href: api/Sisk.Core.Http.HttpServerConfiguration.Flags.html#Sisk_Core_Http_HttpServerConfiguration_Flags
-  commentId: P:Sisk.Core.Http.HttpServerConfiguration.Flags
-  fullName: Sisk.Core.Http.HttpServerConfiguration.Flags
-  nameWithType: HttpServerConfiguration.Flags
-- uid: Sisk.Core.Http.HttpServerConfiguration.Flags*
-  name: Flags
-  href: api/Sisk.Core.Http.HttpServerConfiguration.Flags.html
-  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.Flags
-  fullName: Sisk.Core.Http.HttpServerConfiguration.Flags
-  nameWithType: HttpServerConfiguration.Flags
+- uid: Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash
+  name: ForceTrailingSlash
+  href: api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.html#Sisk_Core_Http_HttpServerConfiguration_ForceTrailingSlash
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash
+  fullName: Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash
+  nameWithType: HttpServerConfiguration.ForceTrailingSlash
+- uid: Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash*
+  name: ForceTrailingSlash
+  href: api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash
+  fullName: Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash
+  nameWithType: HttpServerConfiguration.ForceTrailingSlash
 - uid: Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver
   name: ForwardingResolver
   href: api/Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver.html#Sisk_Core_Http_HttpServerConfiguration_ForwardingResolver
@@ -6073,6 +6127,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver
   fullName: Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver
   nameWithType: HttpServerConfiguration.ForwardingResolver
+- uid: Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout.html#Sisk_Core_Http_HttpServerConfiguration_IdleConnectionTimeout
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout
+  nameWithType: HttpServerConfiguration.IdleConnectionTimeout
+- uid: Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout*
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout
+  nameWithType: HttpServerConfiguration.IdleConnectionTimeout
 - uid: Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader
   name: IncludeRequestIdHeader
   href: api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader.html#Sisk_Core_Http_HttpServerConfiguration_IncludeRequestIdHeader
@@ -6121,6 +6187,30 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength
   fullName: Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength
   nameWithType: HttpServerConfiguration.MaximumContentLength
+- uid: Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings
+  name: NormalizeHeadersEncodings
+  href: api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings.html#Sisk_Core_Http_HttpServerConfiguration_NormalizeHeadersEncodings
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings
+  fullName: Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings
+  nameWithType: HttpServerConfiguration.NormalizeHeadersEncodings
+- uid: Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings*
+  name: NormalizeHeadersEncodings
+  href: api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings
+  fullName: Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings
+  nameWithType: HttpServerConfiguration.NormalizeHeadersEncodings
+- uid: Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode
+  name: OptionsLogMode
+  href: api/Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode.html#Sisk_Core_Http_HttpServerConfiguration_OptionsLogMode
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode
+  fullName: Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode
+  nameWithType: HttpServerConfiguration.OptionsLogMode
+- uid: Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode*
+  name: OptionsLogMode
+  href: api/Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode
+  fullName: Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode
+  nameWithType: HttpServerConfiguration.OptionsLogMode
 - uid: Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction
   name: RemoteRequestsAction
   href: api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.html#Sisk_Core_Http_HttpServerConfiguration_RemoteRequestsAction
@@ -6133,6 +6223,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction
   fullName: Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction
   nameWithType: HttpServerConfiguration.RemoteRequestsAction
+- uid: Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader
+  name: SendSiskHeader
+  href: api/Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader.html#Sisk_Core_Http_HttpServerConfiguration_SendSiskHeader
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader
+  fullName: Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader
+  nameWithType: HttpServerConfiguration.SendSiskHeader
+- uid: Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader*
+  name: SendSiskHeader
+  href: api/Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader
+  fullName: Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader
+  nameWithType: HttpServerConfiguration.SendSiskHeader
 - uid: Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions
   name: ThrowExceptions
   href: api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions
@@ -7762,6 +7864,15 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningPort.IsPathRoot
   fullName: Sisk.Core.Http.ListeningPort.IsPathRoot
   nameWithType: ListeningPort.IsPathRoot
+- uid: Sisk.Core.Http.ListeningPort.Parse(System.String)
+  name: Parse(string)
+  href: api/Sisk.Core.Http.ListeningPort.Parse.html#Sisk_Core_Http_ListeningPort_Parse_System_String_
+  commentId: M:Sisk.Core.Http.ListeningPort.Parse(System.String)
+  name.vb: Parse(String)
+  fullName: Sisk.Core.Http.ListeningPort.Parse(string)
+  fullName.vb: Sisk.Core.Http.ListeningPort.Parse(String)
+  nameWithType: ListeningPort.Parse(string)
+  nameWithType.vb: ListeningPort.Parse(String)
 - uid: Sisk.Core.Http.ListeningPort.Parse(System.String,System.IFormatProvider)
   name: Parse(string, IFormatProvider?)
   href: api/Sisk.Core.Http.ListeningPort.Parse.html#Sisk_Core_Http_ListeningPort_Parse_System_String_System_IFormatProvider_
@@ -7849,6 +7960,42 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningPort.TryParse
   fullName: Sisk.Core.Http.ListeningPort.TryParse
   nameWithType: ListeningPort.TryParse
+- uid: Sisk.Core.Http.ListeningPort.op_Equality(Sisk.Core.Http.ListeningPort,Sisk.Core.Http.ListeningPort)
+  name: operator ==(ListeningPort, ListeningPort)
+  href: api/Sisk.Core.Http.ListeningPort.op_Equality.html#Sisk_Core_Http_ListeningPort_op_Equality_Sisk_Core_Http_ListeningPort_Sisk_Core_Http_ListeningPort_
+  commentId: M:Sisk.Core.Http.ListeningPort.op_Equality(Sisk.Core.Http.ListeningPort,Sisk.Core.Http.ListeningPort)
+  name.vb: =(ListeningPort, ListeningPort)
+  fullName: Sisk.Core.Http.ListeningPort.operator ==(Sisk.Core.Http.ListeningPort, Sisk.Core.Http.ListeningPort)
+  fullName.vb: Sisk.Core.Http.ListeningPort.=(Sisk.Core.Http.ListeningPort, Sisk.Core.Http.ListeningPort)
+  nameWithType: ListeningPort.operator ==(ListeningPort, ListeningPort)
+  nameWithType.vb: ListeningPort.=(ListeningPort, ListeningPort)
+- uid: Sisk.Core.Http.ListeningPort.op_Equality*
+  name: operator ==
+  href: api/Sisk.Core.Http.ListeningPort.op_Equality.html
+  commentId: Overload:Sisk.Core.Http.ListeningPort.op_Equality
+  name.vb: =
+  fullName: Sisk.Core.Http.ListeningPort.operator ==
+  fullName.vb: Sisk.Core.Http.ListeningPort.=
+  nameWithType: ListeningPort.operator ==
+  nameWithType.vb: ListeningPort.=
+- uid: Sisk.Core.Http.ListeningPort.op_Inequality(Sisk.Core.Http.ListeningPort,Sisk.Core.Http.ListeningPort)
+  name: operator !=(ListeningPort, ListeningPort)
+  href: api/Sisk.Core.Http.ListeningPort.op_Inequality.html#Sisk_Core_Http_ListeningPort_op_Inequality_Sisk_Core_Http_ListeningPort_Sisk_Core_Http_ListeningPort_
+  commentId: M:Sisk.Core.Http.ListeningPort.op_Inequality(Sisk.Core.Http.ListeningPort,Sisk.Core.Http.ListeningPort)
+  name.vb: <>(ListeningPort, ListeningPort)
+  fullName: Sisk.Core.Http.ListeningPort.operator !=(Sisk.Core.Http.ListeningPort, Sisk.Core.Http.ListeningPort)
+  fullName.vb: Sisk.Core.Http.ListeningPort.<>(Sisk.Core.Http.ListeningPort, Sisk.Core.Http.ListeningPort)
+  nameWithType: ListeningPort.operator !=(ListeningPort, ListeningPort)
+  nameWithType.vb: ListeningPort.<>(ListeningPort, ListeningPort)
+- uid: Sisk.Core.Http.ListeningPort.op_Inequality*
+  name: operator !=
+  href: api/Sisk.Core.Http.ListeningPort.op_Inequality.html
+  commentId: Overload:Sisk.Core.Http.ListeningPort.op_Inequality
+  name.vb: <>
+  fullName: Sisk.Core.Http.ListeningPort.operator !=
+  fullName.vb: Sisk.Core.Http.ListeningPort.<>
+  nameWithType: ListeningPort.operator !=
+  nameWithType.vb: ListeningPort.<>
 - uid: Sisk.Core.Http.LogStream
   name: LogStream
   href: api/Sisk.Core.Http.LogStream.html
@@ -10066,30 +10213,6 @@ references:
   commentId: Overload:Sisk.Core.Routing.Route.Delete
   fullName: Sisk.Core.Routing.Route.Delete
   nameWithType: Route.Delete
-- uid: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
-  name: Equals(Route?)
-  href: api/Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_
-  commentId: M:Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
-  name.vb: Equals(Route)
-  fullName: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route?)
-  fullName.vb: Sisk.Core.Routing.Route.Equals(Sisk.Core.Routing.Route)
-  nameWithType: Route.Equals(Route?)
-  nameWithType.vb: Route.Equals(Route)
-- uid: Sisk.Core.Routing.Route.Equals(System.Object)
-  name: Equals(object?)
-  href: api/Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_System_Object_
-  commentId: M:Sisk.Core.Routing.Route.Equals(System.Object)
-  name.vb: Equals(Object)
-  fullName: Sisk.Core.Routing.Route.Equals(object?)
-  fullName.vb: Sisk.Core.Routing.Route.Equals(Object)
-  nameWithType: Route.Equals(object?)
-  nameWithType.vb: Route.Equals(Object)
-- uid: Sisk.Core.Routing.Route.Equals*
-  name: Equals
-  href: api/Sisk.Core.Routing.Route.Equals.html
-  commentId: Overload:Sisk.Core.Routing.Route.Equals
-  fullName: Sisk.Core.Routing.Route.Equals
-  nameWithType: Route.Equals
 - uid: Sisk.Core.Routing.Route.Get(System.String,Sisk.Core.Routing.RouteAction)
   name: Get(string, RouteAction)
   href: api/Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_
@@ -10105,18 +10228,6 @@ references:
   commentId: Overload:Sisk.Core.Routing.Route.Get
   fullName: Sisk.Core.Routing.Route.Get
   nameWithType: Route.Get
-- uid: Sisk.Core.Routing.Route.GetHashCode
-  name: GetHashCode()
-  href: api/Sisk.Core.Routing.Route.GetHashCode.html#Sisk_Core_Routing_Route_GetHashCode
-  commentId: M:Sisk.Core.Routing.Route.GetHashCode
-  fullName: Sisk.Core.Routing.Route.GetHashCode()
-  nameWithType: Route.GetHashCode()
-- uid: Sisk.Core.Routing.Route.GetHashCode*
-  name: GetHashCode
-  href: api/Sisk.Core.Routing.Route.GetHashCode.html
-  commentId: Overload:Sisk.Core.Routing.Route.GetHashCode
-  fullName: Sisk.Core.Routing.Route.GetHashCode
-  nameWithType: Route.GetHashCode
 - uid: Sisk.Core.Routing.Route.Head(System.String,Sisk.Core.Routing.RouteAction)
   name: Head(string, RouteAction)
   href: api/Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_Sisk_Core_Routing_RouteAction_
@@ -10300,42 +10411,6 @@ references:
   commentId: Overload:Sisk.Core.Routing.Route.UseRegex
   fullName: Sisk.Core.Routing.Route.UseRegex
   nameWithType: Route.UseRegex
-- uid: Sisk.Core.Routing.Route.op_Equality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
-  name: operator ==(Route?, Route?)
-  href: api/Sisk.Core.Routing.Route.op_Equality.html#Sisk_Core_Routing_Route_op_Equality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_
-  commentId: M:Sisk.Core.Routing.Route.op_Equality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
-  name.vb: =(Route, Route)
-  fullName: Sisk.Core.Routing.Route.operator ==(Sisk.Core.Routing.Route?, Sisk.Core.Routing.Route?)
-  fullName.vb: Sisk.Core.Routing.Route.=(Sisk.Core.Routing.Route, Sisk.Core.Routing.Route)
-  nameWithType: Route.operator ==(Route?, Route?)
-  nameWithType.vb: Route.=(Route, Route)
-- uid: Sisk.Core.Routing.Route.op_Equality*
-  name: operator ==
-  href: api/Sisk.Core.Routing.Route.op_Equality.html
-  commentId: Overload:Sisk.Core.Routing.Route.op_Equality
-  name.vb: =
-  fullName: Sisk.Core.Routing.Route.operator ==
-  fullName.vb: Sisk.Core.Routing.Route.=
-  nameWithType: Route.operator ==
-  nameWithType.vb: Route.=
-- uid: Sisk.Core.Routing.Route.op_Inequality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
-  name: operator !=(Route?, Route?)
-  href: api/Sisk.Core.Routing.Route.op_Inequality.html#Sisk_Core_Routing_Route_op_Inequality_Sisk_Core_Routing_Route_Sisk_Core_Routing_Route_
-  commentId: M:Sisk.Core.Routing.Route.op_Inequality(Sisk.Core.Routing.Route,Sisk.Core.Routing.Route)
-  name.vb: <>(Route, Route)
-  fullName: Sisk.Core.Routing.Route.operator !=(Sisk.Core.Routing.Route?, Sisk.Core.Routing.Route?)
-  fullName.vb: Sisk.Core.Routing.Route.<>(Sisk.Core.Routing.Route, Sisk.Core.Routing.Route)
-  nameWithType: Route.operator !=(Route?, Route?)
-  nameWithType.vb: Route.<>(Route, Route)
-- uid: Sisk.Core.Routing.Route.op_Inequality*
-  name: operator !=
-  href: api/Sisk.Core.Routing.Route.op_Inequality.html
-  commentId: Overload:Sisk.Core.Routing.Route.op_Inequality
-  name.vb: <>
-  fullName: Sisk.Core.Routing.Route.operator !=
-  fullName.vb: Sisk.Core.Routing.Route.<>
-  nameWithType: Route.operator !=
-  nameWithType.vb: Route.<>
 - uid: Sisk.Core.Routing.RouteAction
   name: RouteAction
   href: api/Sisk.Core.Routing.RouteAction.html

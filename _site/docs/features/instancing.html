@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Instancing per-request members | Sisk Framework </title>
+        <title>Dependency injection | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Instancing per-request members | Sisk Framework ">
+        <meta name="title" content="Dependency injection | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -151,15 +151,23 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="instancing-per-request-members">Instancing per-request members</h1>
+<h1 id="dependency-injection">Dependency injection</h1>
 
 <p>It is common to dedicate members and instances that last for the lifetime of a request, such as a database connection, an authenticated user, or a session token. One of the possibilities is through the <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, which creates a dictionary that lasts for the entire lifetime of a request.</p>
 <p>This dictionary can be accessed by <a href="/docs/fundamentals/request-handlers">request handlers</a> and define variables throughout that request. For example, a request handler that authenticates a user sets this user within the <code>HttpContext.RequestBag</code>, and within the request logic, this user can be retrieved with <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
 <p>Here’s an example:</p>
+<div class="script-header">
+    <span>
+        RequestHandlers/AuthenticateUser.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class AuthenticateUser : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
         User authenticatedUser = AuthenticateUser(request);
@@ -167,8 +175,16 @@
         return null; // advance to the next request handler or request logic
     }
 }
-
-[RouteGet(&quot;/hello&quot;)]
+</code></pre>
+<div class="script-header">
+    <span>
+        Controllers/HelloController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/hello&quot;)]
 [RequestHandler&lt;AuthenticateUser&gt;]
 public static HttpResponse SayHello(HttpRequest request)
 {
@@ -183,6 +199,14 @@ public static HttpResponse SayHello(HttpRequest request)
 <p>It is possible to define logic to obtain instances when not previously defined in the <code>RequestBag</code> through methods like <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> or <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
 <p>Since version 1.3, the static property <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> was introduced, allowing access to the currently executing <code>HttpContext</code> of the request context. This enables exposing members of the <code>HttpContext</code> outside the current request and defining instances in route objects.</p>
 <p>The example below defines a controller that has members commonly accessed by the context of a request.</p>
+<div class="script-header">
+    <span>
+        Controllers/Controller.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
     public DbContext Database
@@ -203,6 +227,14 @@ public static HttpResponse SayHello(HttpRequest request)
 }
 </code></pre>
 <p>And define types that inherit from the controller:</p>
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
 public class PostsController : Controller
 {
@@ -230,6 +262,14 @@ public class PostsController : Controller
 <p>Note that the methods do not have an <code>HttpRequest request</code> argument as present in other methods. This is because, since version 1.3, the router supports two types of delegates for routing responses: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, which is the default delegate that receives an <code>HttpRequest</code> argument, and <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. The <code>HttpRequest</code> object can still be accessed by both delegates through the <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> property of the static <code>HttpContext</code> on the thread.</p>
 <p>In the example above, we defined a disposable object, the <code>DbContext</code>, and we need to ensure that all instances created in a <code>DbContext</code> are disposed of when the HTTP session ends. For this, we can use two ways to achieve this. One is to create a <a href="/docs/fundamentals/request-handlers">request handler</a> that is executed after the router's action, and the other way is through a custom <a href="/docs/advanced/http-server-handlers">server handler</a>.</p>
 <p>For the first method, we can create the request handler inline directly in the <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a> method inherited from <code>RouterModule</code>:</p>
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
     ...
@@ -250,8 +290,20 @@ public class PostsController : Controller
     }
 }
 </code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Since Sisk version 1.4, the property <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> is introduced and enabled by default, which defines whether the HTTP server should dispose all <code>IDisposable</code> values in the context bag when an HTTP session is closed.</p>
+</div>
 <p>The method above will ensure that the <code>DbContext</code> is disposed of when the HTTP session is finalized. You can do this for more members that need to be disposed of at the end of a response.</p>
 <p>For the second method, you can create a custom <a href="/docs/advanced/http-server-handlers">server handler</a> that will dispose of the <code>DbContext</code> when the HTTP session is finalized.</p>
+<div class="script-header">
+    <span>
+        Server/Handlers/ObjectDisposerHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class ObjectDisposerHandler : HttpServerHandler
 {
     protected override void OnHttpRequestClose(HttpServerExecutionResult result)
@@ -260,7 +312,15 @@ public class PostsController : Controller
     }
 }
 </code></pre>
-<p>And use it in your builder:</p>
+<p>And use it in your app builder:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
     .UseHandler&lt;ObjectDisposerHandler&gt;()
     .Build();

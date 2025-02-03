@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configuring namespace reservations on Windows | Sisk Framework </title>
+        <title>Configuring namespace reservations on Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configuring namespace reservations on Windows | Sisk Framework ">
+        <meta name="title" content="Configuring namespace reservations on Windows | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../index.html">
-                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -155,6 +155,14 @@
 
 <p>Sisk works with the HttpListener network interface, which binds a virtual host to the system to listen for requests.</p>
 <p>On Windows, this binding is a bit restrictive, only allowing localhost to be bound as a valid host. When attempting to listen to another host, an access denied error is thrown on the server. This tutorial explains how to grant authorization to listen on any host you want on the system.</p>
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
 <pre><code class="lang-bat">@echo off
 
 :: insert prefix here, without spaces or quotes
@@ -166,9 +174,25 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 </code></pre>
 <p>Where in <code>PREFIX</code>, is the prefix (&quot;Listening Host-&gt;Port&quot;) that your server will listen to. It must be formatted with the URL scheme, host, port and a slash at the end, example:</p>
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
 <pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
 <p>So that you can be listened in your application through:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">class Program
 {
     static async Task Main(string[] args)

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Come&#231;ando com o Sisk | Sisk Framework </title>
+        <title>Introdu&#231;&#227;o ao Sisk | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Come&#231;ando com o Sisk | Sisk Framework ">
+        <meta name="title" content="Introdu&#231;&#227;o ao Sisk | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -151,26 +151,34 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="começando-com-o-sisk">Começando com o Sisk</h1>
+<h1 id="introdução-ao-sisk">Introdução ao Sisk</h1>
 
-<p>O Sisk pode ser executado em qualquer ambiente .NET. Neste guia, ensinaremos como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, faça o download do SDK de <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">aqui</a>.</p>
-<p>Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia focará na construção de um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.</p>
+<p>Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">aqui</a>.</p>
+<p>Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Você pode estar interessado em um projeto rápido. Verifique <a href="https://github.com/sisk-http/quickstart">este repositório</a> para mais informações.</p>
+<p>Você pode estar interessado em um projeto de início rápido. Verifique <a href="https://github.com/sisk-http/quickstart">este repositório</a> para obter mais informações.</p>
 </div>
 <h2 id="criando-um-projeto">Criando um Projeto</h2>
-<p>Vamos nomear nosso projeto &quot;Meu Aplicativo Sisk&quot;. Depois de configurar o .NET, você pode criar seu projeto com o seguinte comando:</p>
-<pre><code class="lang-bash">dotnet new console -n meu-sisk-application
+<p>Vamos nomear nosso projeto &quot;Meu Aplicativo Sisk&quot;. Uma vez que você tenha o .NET configurado, você pode criar seu projeto com o seguinte comando:</p>
+<pre><code class="lang-bash">dotnet new console -n meu-aplicativo-sisk
 </code></pre>
-<p>Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta utilitária .NET:</p>
-<pre><code class="lang-bash">cd meu-sisk-application
+<p>Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário .NET:</p>
+<pre><code class="lang-bash">cd meu-aplicativo-sisk
 dotnet add package Sisk.HttpServer
 </code></pre>
-<p>Você pode encontrar outras maneiras de instalar o Sisk em seu projeto <a href="https://www.nuget.org/packages/Sisk.HttpServer/">aqui</a>.</p>
-<p>Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para escutar na porta 5000.</p>
+<p>Você pode encontrar maneiras adicionais de instalar o Sisk no seu projeto <a href="https://www.nuget.org/packages/Sisk.HttpServer/">aqui</a>.</p>
+<p>Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para ouvir na porta 5000.</p>
 <h2 id="construindo-o-servidor-http">Construindo o Servidor HTTP</h2>
-<p>O Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construção, o que torna mais fácil colocar nosso aplicativo em funcionamento.</p>
+<p>Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construtor, que torna mais fácil colocar nosso aplicativo em execução.</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">class Program
 {
     static async Task Main(string[] args)
@@ -178,7 +186,7 @@ dotnet add package Sisk.HttpServer
         using var app = HttpServer.CreateBuilder()
             .UseListeningPort(&quot;http://localhost:5000/&quot;)
             .Build();
-
+        
         app.Router.MapGet(&quot;/&quot;, request =&gt;
         {
             return new HttpResponse()
@@ -187,14 +195,14 @@ dotnet add package Sisk.HttpServer
                 Content = new StringContent(&quot;Olá, mundo!&quot;)
             };
         });
-
+        
         await app.StartAsync();
     }
 }
 </code></pre>
 <p>É importante entender cada componente vital do Sisk. Mais tarde neste documento, você aprenderá mais sobre como o Sisk funciona.</p>
-<h2 id="configuração-manual-avançada">Configuração manual (avançada)</h2>
-<p>Você pode aprender como cada mecanismo do Sisk funciona em <a href="/docs/advanced/manual-setup">esta seção</a> da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.</p>
+<h2 id="configuração-manual-avançada">Configuração Manual (avançada)</h2>
+<p>Você pode aprender como cada mecanismo do Sisk funciona <a href="/docs/advanced/manual-setup">nesta seção</a> da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.</p>
 
 </article>
 

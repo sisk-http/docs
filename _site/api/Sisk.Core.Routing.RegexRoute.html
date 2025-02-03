@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Class RegexRoute | Sisk Framework </title>
+        <title>Class RegexRoute | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Class RegexRoute | Sisk Framework ">
+        <meta name="title" content="Class RegexRoute | Sisk ">
 
         <meta name="description" content="Represents an  which it&#39;s implementation already enables .">
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -42,7 +42,7 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll("pre").forEach(pre => {
                     const lineCount = pre.innerText.split('\n').length;
@@ -54,14 +54,14 @@
                     pre.appendChild(el("ul", ...lis));
                 });
             });
-        </script>
+        </script> -->
         
         <!-- Cloudflare Web Analytics -->
         <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
         <!-- End Cloudflare Web Analytics -->
-
+        
         <script>
-
+            
             function switchLanguage(lang) {
                 const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
@@ -78,8 +78,8 @@
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
                     <a class="navbar-brand" href="../index.html">
-                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk Framework">
-                        Sisk Framework
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
+                        Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-three-dots"></i>
@@ -169,7 +169,7 @@ Class RegexRoute
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RegexRoute : Route, IEquatable&lt;Route&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class RegexRoute : Route</code></pre>
   </div>
 
 
@@ -184,12 +184,6 @@ Class RegexRoute
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.Core.Routing.Route.html">Route</a>&gt;</div>
-    </dd>
-  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -200,15 +194,6 @@ Class RegexRoute
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">Route.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Routing.Route.GetHashCode.html#Sisk_Core_Routing_Route_GetHashCode">Route.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_System_Object_">Route.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="Sisk.Core.Routing.Route.Equals.html#Sisk_Core_Routing_Route_Equals_Sisk_Core_Routing_Route_">Route.Equals(Route)</a>
     </div>
     <div>
       <a class="xref" href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_">Route.Get(string, RouteAction)</a>
@@ -271,13 +256,16 @@ Class RegexRoute
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </dd></dl>
 

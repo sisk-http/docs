@@ -1,11 +1,22 @@
-Sisk 使用 HttpListener 网络接口，将虚拟主机绑定到系统以侦听请求。
+# Configurando reservas de namespace no Windows
 
-在 Windows 上，此绑定有点限制，只允许 localhost 绑定为有效主机。尝试侦听其他主机时，服务器会抛出拒绝访问错误。本教程解释了如何授予对系统上任何主机侦听的授权。
+Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.
+
+No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.
+
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
 
 ```bat
 @echo off
 
-:: 在此处插入前缀，不带空格或引号
+:: insira o prefixo aqui, sem espaços ou aspas
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -14,13 +25,31 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-其中 `PREFIX` 是服务器将侦听的前缀 ("侦听主机->端口")。它必须使用 URL 方案、主机、端口和结尾的斜杠格式化，例如：
+Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:
+
+<div class="script-header">
+    <span>
+        Namespace Setup.bat
+    </span>
+    <span>
+        BATCH
+    </span>
+</div>
 
 ```bat
-SET PREFIX=http://my-application.example.test/
+SET PREFIX=http://meu-aplicativo.exemplo.teste/
 ```
 
-这样您就可以通过以下方式在应用程序中侦听：
+Para que você possa ser ouvido em sua aplicação por meio de:
+
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```csharp
 class Program
@@ -28,7 +57,7 @@ class Program
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort("http://my-application.example.test/")
+            .UseListeningPort("http://meu-aplicativo.exemplo.teste/")
             .Build();
 
         app.Router.MapGet("/", request =>
@@ -36,7 +65,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Hello, world!")
+                Content = new StringContent("Olá, mundo!")
             };
         });
 
