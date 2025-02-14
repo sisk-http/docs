@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>日志记录 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="日志记录 | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,193 +151,246 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="日志记录">日志记录</h1>
 
-<p>您可以配置 Sisk 自动写入访问日志和错误日志。可以定义日志轮转、扩展和频率。</p>
-<p><a href="/api/Sisk.Core.Http.LogStream">LogStream</a> 类提供了一种异步写入日志并将其保留在可等待的写入队列中的方法。</p>
-<p>在本文中，我们将向您展示如何配置应用程序的日志记录。</p>
+<p>您可以配置 Sisk 自动写入访问和错误日志。它也可以定义日志轮换、扩展和频率。</p>
+<p><a href="/api/Sisk.Core.Http.LogStream">LogStream</a> 类提供了一种异步写入日志和保持可等待写入队列的方式。</p>
+<p>在本文中，我们将向您展示如何为您的应用程序配置日志记录。</p>
 <h2 id="基于文件的访问日志">基于文件的访问日志</h2>
-<p>将日志写入文件会打开文件、写入行文本，然后关闭文件以写入每一行。采用此过程是为了在日志中保持写入响应性。</p>
-<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+<p>日志写入文件时，会打开文件，写入行文本，然后为每行写入关闭文件。这种过程是为了保持日志的写入响应性。</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseConfiguration(config =&gt; {
+                config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+            })
+            .Build();
+        
+        ...
+        
+        await app.StartAsync();
+    }
+}
 </code></pre>
-<p>上述代码将所有传入请求写入 <code>logs/access.log</code> 文件。请注意，如果文件不存在，则会自动创建该文件，但其父文件夹则不会。无需创建 <code>logs/</code> 目录，因为 LogStream 类会自动创建它。</p>
+<p>上面的代码将写入所有传入的请求到 <code>logs/access.log</code> 文件。注意，如果文件不存在，它将自动创建，但是文件夹不会自动创建。您不需要创建 <code>logs/</code> 目录，因为 <code>LogStream</code> 类会自动创建它。</p>
 <h2 id="基于流的日志记录">基于流的日志记录</h2>
-<p>您可以通过在构造函数中传递 TextWriter 对象实例（例如 <code>Console.Out</code>）将日志文件写入 TextWriter 对象实例。</p>
-<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(Console.Out);
+<p>您可以将日志文件写入 <code>TextWriter</code> 对象实例，例如 <code>Console.Out</code>，通过在构造函数中传递 <code>TextWriter</code> 对象：</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
+    .UseConfiguration(config =&gt; {
+        config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+    })
+    .Build();
 </code></pre>
-<p>对于流式日志中写入的每个消息，都会调用 <code>TextWriter.Flush()</code> 方法。</p>
+<p>对于流式日志记录中的每个消息，<code>TextWriter.Flush()</code> 方法都会被调用。</p>
 <h2 id="访问日志格式">访问日志格式</h2>
-<p>您可以通过预定义变量自定义访问日志格式。请考虑以下行：</p>
-<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
+<p>您可以通过预定义变量自定义访问日志格式。考虑以下行：</p>
+<pre><code class="lang-csharp">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
 </code></pre>
-<p>它将写入类似于以下消息：</p>
-<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ \[200 OK\] 689B -&gt; 707B in 84ms \[Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36\]
+<p>它将写入一条消息，如下所示：</p>
+<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 </code></pre>
-<p>您可以通过表格中描述的格式来格式化您的日志文件：</p>
+<p>您可以通过表格中描述的格式格式化日志文件：</p>
 <table>
 <thead>
 <tr>
-<th>Variable</th>
-<th>Description</th>
-<th>Example</th>
+<th>值</th>
+<th>代表什么</th>
+<th>示例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>%dd</td>
-<td>当前时间戳的日，以 00 格式。</td>
-<td>25</td>
-</tr>
-<tr>
-<td>%dm</td>
-<td>当前时间戳的月，以 00 格式。</td>
-<td>03</td>
-</tr>
-<tr>
-<td>%dmm</td>
-<td>当前时间戳的月，以缩写形式。</td>
-<td>mar.</td>
+<td>月份中的某一天（以两位数字格式化）</td>
+<td>05</td>
 </tr>
 <tr>
 <td>%dmmm</td>
-<td>当前时间戳的月，以完整名称形式。</td>
-<td>三月</td>
+<td>月份的全名</td>
+<td>July</td>
+</tr>
+<tr>
+<td>%dmm</td>
+<td>月份的缩写（三个字母）</td>
+<td>Jul</td>
+</tr>
+<tr>
+<td>%dm</td>
+<td>月份号（以两位数字格式化）</td>
+<td>07</td>
 </tr>
 <tr>
 <td>%dy</td>
-<td>当前时间戳的年，以 0000 格式。</td>
+<td>年份（以四位数字格式化）</td>
 <td>2023</td>
 </tr>
 <tr>
 <td>%th</td>
-<td>当前时间戳的小时，以 12 小时格式。</td>
+<td>12 小时格式的小时</td>
 <td>03</td>
 </tr>
 <tr>
 <td>%tH</td>
-<td>当前时间戳的小时，以 24 小时格式。</td>
+<td>24 小时格式的小时（HH）</td>
 <td>15</td>
 </tr>
 <tr>
 <td>%ti</td>
-<td>当前时间戳的分钟，以 00 格式。</td>
-<td>25</td>
+<td>分钟（以两位数字格式化）</td>
+<td>30</td>
 </tr>
 <tr>
 <td>%ts</td>
-<td>当前时间戳的秒，以 00 格式。</td>
-<td>32</td>
+<td>秒（以两位数字格式化）</td>
+<td>45</td>
 </tr>
 <tr>
 <td>%tm</td>
-<td>当前时间戳的毫秒，以 000 格式。</td>
-<td>633</td>
+<td>毫秒（以三位数字格式化）</td>
+<td>123</td>
 </tr>
 <tr>
 <td>%tz</td>
-<td>当前时区差，以 +/- 0000 格式。</td>
-<td>+0300, -0500, +0000</td>
+<td>时区偏移（以 UTC 为单位的总小时）</td>
+<td>+03:00</td>
 </tr>
 <tr>
 <td>%ri</td>
-<td>请求用户的 IP 地址（可能是 IPv4 或 IPv6）。</td>
-<td>192.168.0.1</td>
+<td>客户端的远程 IP 地址</td>
+<td>192.168.1.100</td>
 </tr>
 <tr>
 <td>%rm</td>
-<td>请求方法（大写）。</td>
+<td>HTTP 方法（大写）</td>
 <td>GET</td>
 </tr>
 <tr>
 <td>%rs</td>
-<td>请求用户的 URL 方案。</td>
-<td>https, http</td>
+<td>URI 方案（http/https）</td>
+<td>https</td>
 </tr>
 <tr>
 <td>%ra</td>
-<td>请求用户的 URL 权威。</td>
-<td>my.contorso.com:8080</td>
+<td>URI 权威（域）</td>
+<td>example.com</td>
 </tr>
 <tr>
 <td>%rh</td>
-<td>请求用户的 URL 主机。</td>
-<td>my.contorso.com</td>
+<td>请求的主机</td>
+<td><a href="http://www.example.com">www.example.com</a></td>
 </tr>
 <tr>
 <td>%rp</td>
-<td>请求用户的 URL 端口。</td>
-<td>8080</td>
+<td>请求的端口</td>
+<td>443</td>
 </tr>
 <tr>
 <td>%rz</td>
-<td>请求用户的 URL 绝对路径。</td>
-<td>/index.html</td>
+<td>请求的路径</td>
+<td>/path/to/resource</td>
 </tr>
 <tr>
 <td>%rq</td>
-<td>请求用户的 URL 查询字符串。?foo=bar&amp;aaa=bbb</td>
-<td></td>
+<td>查询字符串</td>
+<td>?key=value&amp;another=123</td>
 </tr>
 <tr>
 <td>%sc</td>
-<td>响应状态码，以 000 格式。</td>
-<td>404</td>
+<td>HTTP 响应状态代码</td>
+<td>200</td>
 </tr>
 <tr>
 <td>%sd</td>
-<td>响应状态描述。</td>
-<td>未找到</td>
+<td>HTTP 响应状态描述</td>
+<td>OK</td>
 </tr>
 <tr>
 <td>%lin</td>
-<td>传入请求内容大小，以人类可读形式。</td>
-<td>12,5kb</td>
+<td>请求的可读大小</td>
+<td>1.2 KB</td>
+</tr>
+<tr>
+<td>%linr</td>
+<td>请求的原始大小（字节）</td>
+<td>1234</td>
 </tr>
 <tr>
 <td>%lou</td>
-<td>输出响应内容大小，以人类可读形式。</td>
-<td>65,8kb</td>
+<td>响应的可读大小</td>
+<td>2.5 KB</td>
+</tr>
+<tr>
+<td>%lour</td>
+<td>响应的原始大小（字节）</td>
+<td>2560</td>
 </tr>
 <tr>
 <td>%lms</td>
-<td>服务器处理请求和传递响应的时间，以毫秒格式（000）。</td>
-<td>18</td>
+<td>耗时的毫秒数</td>
+<td>120</td>
 </tr>
 <tr>
-<td>%{header}</td>
-<td>获取 HTTP 标头的值，其中 header 是标头名称，如果标头不存在，则为空值。此字段不区分大小写。</td>
-<td>%{user-agent}</td>
+<td>%ls</td>
+<td>执行状态</td>
+<td>Executed</td>
 </tr>
 </tbody>
 </table>
-<h2 id="旋转日志">旋转日志</h2>
+<h2 id="日志轮换">日志轮换</h2>
 <div class="TIP">
 <h5>Tip</h5>
 <p>在 Sisk 0.15 及更早版本中，此功能仅在 Sisk.ServiceProvider 包中可用。在 Sisk 0.16 及更高版本中，此功能已在核心包中实现。</p>
 </div>
-<p>您可以配置 HTTP 服务器在日志文件达到特定大小时将其旋转到压缩的 .gz 文件。大小由您定义的 limiar 定期检查。</p>
-<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
+<p>您可以配置 HTTP 服务器，当日志文件达到一定大小时，将其轮换到压缩的 .gz 文件。大小是由您定义的阈值周期性检查的。</p>
+<pre><code class="lang-csharp">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
 
 var rotater = new RotatingLogPolicy(config.AccessLogsStream);
 rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
 </code></pre>
-<p>上述代码每六小时检查一次 LogStream 文件是否已达到 1 MB 的限制。如果达到，则压缩文件到 .gz 文件，然后清理 <code>access.log</code>。</p>
-<p>在此过程中，写入文件将被锁定，直到文件被压缩和清理为止。所有进入写入的行的队列将等待压缩结束。</p>
-<p>此功能仅适用于基于文件的 LogStream。</p>
+<p>上面的代码将每 6 小时检查一次 LogStream 的文件是否达到 1MB 限制。如果达到限制，文件将被压缩到 .gz 文件，然后 <code>access.log</code> 将被清空。</p>
+<p>在此过程中，写入文件将被锁定，直到文件被压缩和清空。在此期间，所有要写入的行将在队列中等待压缩完成。</p>
+<p>此功能仅适用于基于文件的 LogStreams。</p>
 <h2 id="错误日志记录">错误日志记录</h2>
-<p>当服务器未将错误转发到调试器时，它会将错误转发到日志记录。您可以使用以下内容配置错误写入：</p>
-<pre><code class="lang-cs">config.ThrowExceptions = false;
+<p>当服务器不将错误抛给调试器时，它会将错误转发到日志写入器。您可以使用以下代码配置错误写入：</p>
+<pre><code class="lang-csharp">config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
 </code></pre>
 <p>此属性仅在错误未被回调或 <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> 属性捕获时写入日志。</p>
-<p>服务器写入的错误始终会写入日期和时间、请求标头（不包括正文）、错误跟踪和任何内部异常跟踪。</p>
+<p>服务器写入的错误始终包含日期和时间、请求头（不包括正文）、错误跟踪和内部异常跟踪（如果有）。</p>
 <h2 id="其他日志实例">其他日志实例</h2>
-<p>您的应用程序可以具有零个或多个 LogStream，它可以具有任意数量的日志通道。因此，可以将应用程序的日志定向到与默认 AccessLog 或 ErrorLog 不同的文件。</p>
-<pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
-appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
+<p>您的应用程序可以有零个或多个 LogStreams，没有限制。因此，您可以将应用程序的日志定向到其他文件，而不是默认的 AccessLog 或 ErrorLog。</p>
+<pre><code class="lang-csharp">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
+appMessages.WriteLine(&quot;应用程序在 {0} 启动&quot;, DateTime.Now);
 </code></pre>
 <h2 id="扩展-logstream">扩展 LogStream</h2>
-<p>您可以扩展 <code>LogStream</code> 类以写入自定义格式，与当前 Sisk 日志引擎兼容。以下示例允许将彩色消息写入使用 Spectre.Console 库的控制台。</p>
-<pre><code class="lang-cs">public class CustomLogStream : LogStream
+<p>您可以扩展 <code>LogStream</code> 类以写入自定义格式，兼容当前的 Sisk 日志引擎。以下示例允许通过 Spectre.Console 库将彩色消息写入控制台：</p>
+<div class="script-header">
+    <span>
+        CustomLogStream.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">public class CustomLogStream : LogStream
 {
     protected override void WriteLineInternal(string line)
     {
@@ -345,8 +398,16 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
     }
 }
 </code></pre>
-<p>另一种自动为每个请求/响应写入自定义日志的方法是创建 <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>。以下示例更加完整。它将请求和响应的正文以 JSON 格式写入控制台。这对于调试请求非常有用。此示例使用 ContextBag 和 HttpServerHandler。</p>
-<pre><code class="lang-cs">class Program
+<p>另一种自动为每个请求/响应写入自定义日志的方法是创建 <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>。以下示例更为完整。它将请求和响应的正文以 JSON 格式写入控制台。它可以用于调试请求。这个示例使用了 ContextBag 和 HttpServerHandler。</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">class Program
 {
     static async Task Main(string[] args)
     {
@@ -370,22 +431,29 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
         await app.StartAsync();
     }
 }
-
-class JsonMessageHandler : HttpServerHandler
+</code></pre>
+<div class="script-header">
+    <span>
+        JsonMessageHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">class JsonMessageHandler : HttpServerHandler
 {
     protected override void OnHttpRequestOpen(HttpRequest request)
     {
         if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // At this point, the connection is open and the client has sent the header specifying
-            // that the content is JSON.The line below reads the content and leaves it stored in the request.
+            // 在此时，连接已经打开，客户端已经发送了指定内容为 JSON 的头。
+            // 下一行读取内容并将其存储在请求中。
             //
-            // If the content is not read in the request action, the GC is likely to collect the content
-            // after sending the response to the client, so the content may not be available after the response is closed.
+            // 如果在请求操作中不读取内容，GC 可能会在发送响应给客户端后收集内容，因此内容可能在响应关闭后不可用。
             //
             _ = request.RawBody;
 
-            // add hint in the context to tell that this request has an json body on it
+            // 在上下文中添加提示，指示此请求具有 JSON 正文
             request.Bag.Add(&quot;IsJsonRequest&quot;, true);
         }
     }
@@ -398,18 +466,18 @@ class JsonMessageHandler : HttpServerHandler
 
         if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
         {
-            // reformats the JSON using the CypherPotato.LightJson library
+            // 使用 CypherPotato.LightJson 库重新格式化 JSON
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
-
+        
         if (result.Response is { } response)
         {
             var content = response.Content;
             responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
-
+            
             if (content is HttpContent httpContent &amp;&amp;
-                // check if the response is JSON
+                // 检查响应是否为 JSON
                 httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -418,24 +486,28 @@ class JsonMessageHandler : HttpServerHandler
         }
         else
         {
-            // gets the internal server handling status
+            // 获取内部服务器处理状态
             responseMessage = result.Status.ToString();
         }
-
+        
         StringBuilder outputMessage = new StringBuilder();
 
-        if (requestJson is not null)
+        if (requestJson != null)
         {
             outputMessage.AppendLine(&quot;-----&quot;);
             outputMessage.AppendLine($&quot;&gt;&gt;&gt; {result.Request.Method} {result.Request.Path}&quot;);
 
-            if (requestJson is not null
+            if (requestJson is not null)
                 outputMessage.AppendLine(requestJson);
         }
-        outputMessage.AppendLine(&quot;&lt;&lt;&lt; {responseMessage}&quot;);
-        if (responseJson is not null
+
+        outputMessage.AppendLine($&quot;&lt;&lt;&lt; {responseMessage}&quot;);
+
+        if (responseJson is not null)
             outputMessage.AppendLine(responseJson);
+
         outputMessage.AppendLine(&quot;-----&quot;);
+
         await Console.Out.WriteLineAsync(outputMessage.ToString());
     }
 }

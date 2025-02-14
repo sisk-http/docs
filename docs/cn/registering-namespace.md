@@ -1,8 +1,8 @@
-# Configurando reservas de namespace no Windows
+# 在 Windows 上配置命名空间预留
 
-Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.
+Sisk 与 HttpListener 网络接口一起工作，将虚拟主机绑定到系统以侦听请求。
 
-No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.
+在 Windows 上，此绑定有一些限制，只允许将 localhost 绑定为有效主机。当尝试侦听另一个主机时，服务器会抛出访问被拒绝错误。此教程解释了如何授予在系统上侦听任何主机的授权。
 
 <div class="script-header">
     <span>
@@ -16,7 +16,7 @@ No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o lo
 ```bat
 @echo off
 
-:: insira o prefixo aqui, sem espaços ou aspas
+:: 在这里插入前缀，不要包含空格或引号
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -25,7 +25,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:
+在 `PREFIX` 中，是服务器将要侦听的前缀（“侦听主机->端口”）。它必须以 URL 方案、主机、端口和末尾斜杠的格式编写，例如：
 
 <div class="script-header">
     <span>
@@ -37,10 +37,10 @@ Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouv
 </div>
 
 ```bat
-SET PREFIX=http://meu-aplicativo.exemplo.teste/
+SET PREFIX=http://my-application.example.test/
 ```
 
-Para que você possa ser ouvido em sua aplicação por meio de:
+这样，您就可以通过以下方式在应用程序中侦听：
 
 <div class="script-header">
     <span>
@@ -57,7 +57,7 @@ class Program
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort("http://meu-aplicativo.exemplo.teste/")
+            .UseListeningPort("http://my-application.example.test/")
             .Build();
 
         app.Router.MapGet("/", request =>
@@ -65,7 +65,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Olá, mundo!")
+                Content = new StringContent("Hello, world!")
             };
         });
 

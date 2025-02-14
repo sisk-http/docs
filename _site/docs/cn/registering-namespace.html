@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configurando reservas de namespace no Windows | Sisk </title>
+        <title>在 Windows 上配置命名空间预留 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configurando reservas de namespace no Windows | Sisk ">
+        <meta name="title" content="在 Windows 上配置命名空间预留 | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -151,10 +151,10 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="configurando-reservas-de-namespace-no-windows">Configurando reservas de namespace no Windows</h1>
+<h1 id="在-windows-上配置命名空间预留">在 Windows 上配置命名空间预留</h1>
 
-<p>Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.</p>
-<p>No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.</p>
+<p>Sisk 与 HttpListener 网络接口一起工作，将虚拟主机绑定到系统以侦听请求。</p>
+<p>在 Windows 上，此绑定有一些限制，只允许将 localhost 绑定为有效主机。当尝试侦听另一个主机时，服务器会抛出访问被拒绝错误。此教程解释了如何授予在系统上侦听任何主机的授权。</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -165,7 +165,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: insira o prefixo aqui, sem espaços ou aspas
+:: 在这里插入前缀，不要包含空格或引号
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -173,7 +173,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Onde em <code>PREFIX</code>, é o prefixo (&quot;Host de Escuta-&gt;Porta&quot;) que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:</p>
+<p>在 <code>PREFIX</code> 中，是服务器将要侦听的前缀（“侦听主机-&gt;端口”）。它必须以 URL 方案、主机、端口和末尾斜杠的格式编写，例如：</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -182,9 +182,9 @@ pause
         BATCH
     </span>
 </div>
-<pre><code class="lang-bat">SET PREFIX=http://meu-aplicativo.exemplo.teste/
+<pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>Para que você possa ser ouvido em sua aplicação por meio de:</p>
+<p>这样，您就可以通过以下方式在应用程序中侦听：</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -198,7 +198,7 @@ pause
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://meu-aplicativo.exemplo.teste/&quot;)
+            .UseListeningPort(&quot;http://my-application.example.test/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;
@@ -206,7 +206,7 @@ pause
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Olá, mundo!&quot;)
+                Content = new StringContent(&quot;Hello, world!&quot;)
             };
         });
 

@@ -153,13 +153,13 @@
                 <article data-uid="">
 <h1 id="ini-配置提供程序">INI 配置提供程序</h1>
 
-<p>Sisk 提供了一种除了 JSON 之外的获取启动配置的方法。实际上，任何实现 <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> 的管道都可以与 <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> 一起使用，从任何文件类型读取服务器配置。</p>
-<p><a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> 包提供了一个基于流的 INI 文件读取器，它不会为常见的语法错误抛出异常，并且具有简单的配置语法。该包可以在 Sisk 框架之外使用，为需要高效 INI 文档读取器的项目提供灵活性。</p>
+<p>Sisk 有一种方法可以获取启动配置，而不仅仅是 JSON。事实上，任何实现 <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> 的管道都可以与 <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>一起使用，从任何文件类型中读取服务器配置。</p>
+<p><a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> 包提供了一个基于流的 INI 文件读取器，它不会为常见的语法错误抛出异常，并且具有简单的配置语法。这个包可以在 Sisk 框架之外使用，为需要高效 INI 文档读取器的项目提供了灵活性。</p>
 <h2 id="安装">安装</h2>
-<p>要安装该包，您可以从以下开始：</p>
+<p>要安装包，可以从以下开始：</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>并在您的代码中使用它，如下例所示：</p>
+<p>并在代码中使用，如下面的示例所示：</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
@@ -171,7 +171,7 @@
             {
                 config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
 
-                // 向配置读取器添加 IniConfigurationPipeline
+                // 添加 IniConfigurationPipeline 到配置读取器
                 config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
             })
             .UseRouter(r =&gt;
@@ -190,7 +190,7 @@
     }
 }
 </code></pre>
-<p>上面的代码将查找进程当前目录（CurrentDirectory）中的 app.ini 文件。INI 文件如下所示：</p>
+<p>上面的代码将在进程的当前目录（CurrentDirectory）中查找一个 app.ini 文件。INI 文件的内容如下：</p>
 <pre><code class="lang-ini">[Server]
 # 支持多个监听地址
 Listen = http://localhost:5552/
@@ -206,30 +206,29 @@ AllowOrigin = *
 [Parameters]
 Name = &quot;Kanye West&quot;
 </code></pre>
-<h2 id="ini-语言和语法">INI 语言和语法</h2>
-<p>当前实现的语言版本：</p>
+<h2 id="ini-风格和语法">INI 风格和语法</h2>
+<p>当前实现风格：</p>
 <ul>
-<li>属性和部分名称不区分大小写。</li>
-<li>属性名称和值会被修剪。</li>
-<li>值可以用单引号或双引号引起来。引号内部可以有换行符。</li>
-<li>使用 <code>#</code> 和 <code>;</code> 支持注释。也允许<strong>尾随注释</strong>。</li>
+<li>属性和节名是 <strong>大小写不敏感</strong> 的。</li>
+<li>属性名和值是 <strong>修剪</strong> 的。</li>
+<li>值可以用单引号或双引号引起来。引号内可以有换行符。</li>
+<li>支持使用 <code>#</code> 和 <code>;</code> 的注释。<strong>尾部注释也是允许的</strong>。</li>
 <li>属性可以有多个值。</li>
 </ul>
-<p>有关 Sisk 中使用的 INI 解析器“语言”的详细文档，请参阅 <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">GitHub 上的文档</a>。</p>
-<p>使用以下 ini 代码作为示例：</p>
+<p>详细的 INI 解析器语法文档可以在 <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">GitHub</a> 上找到。</p>
+<p>使用以下 INI 代码作为示例：</p>
 <pre><code class="lang-ini">One = 1
-Value = this is an value
-Another value = &quot;this value
-    has an line break on it&quot;
-
-; the code below has some colors
+Value = 这是一个值
+Another value = &quot;这个值
+    有一个换行符&quot;
+; 下面的代码有一些颜色
 [some section]
 Color = Red
 Color = Blue
-Color = Yellow ; do not use yellow
+Color = Yellow ; 不要使用黄色
 </code></pre>
-<p>使用以下代码解析它：</p>
-<pre><code class="lang-csharp">// 从字符串解析 ini 文本
+<p>可以使用以下代码解析：</p>
+<pre><code class="lang-csharp">// 从字符串解析 INI 文本
 IniDocument doc = IniDocument.FromString(iniText);
 
 // 获取一个值
@@ -243,8 +242,8 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <table>
 <thead>
 <tr>
-<th>部分和名称</th>
-<th>是否允许多个值</th>
+<th>节和名称</th>
+<th>允许多个值</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -267,7 +266,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.IncludeRequestIdHeader</code></td>
 <td>否</td>
-<td>指定 HTTP 服务器是否应发送 X-Request-Id 标头。</td>
+<td>指定是否应发送 X-Request-Id 标头。</td>
 </tr>
 <tr>
 <td><code>Server.ThrowExceptions</code></td>
@@ -297,7 +296,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
 <td>否</td>
-<td>指定多个 Allow-Origin 标头，用逗号分隔。有关 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> 的更多信息。</td>
+<td>指定多个 Allow-Origin 标头，逗号分隔。<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> 有更多信息。</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigin</code></td>

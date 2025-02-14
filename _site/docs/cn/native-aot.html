@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>原生 AOT 支持 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="原生 AOT 支持 | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -151,13 +151,14 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="原生-aot-支持">原生 AOT 支持</h1>
 
-<p>.NET 7 引入了 <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">Native AOT</a>，这是一种 .NET 编译模式，允许您在任何受支持的平台上导出已就绪的二进制文件，而无需在目标机器上安装 .NET 运行时。</p>
-<p>使用 Native AOT，您的代码将被编译为本地代码，并且已经包含了执行所需的一切。Sisk 自 0.9.1 版本开始就一直在尝试此功能，它通过定义应用程序动态路由的功能来改进对 Native AOT 的支持，而不会影响编译过程并发出警告消息。</p>
-<p>Sisk 使用反射来获取将从类型和对象定义的方法。此外，Sisk 还使用反射来初始化诸如 <code>RequestHandlerAttribute</code> 等属性，这些属性是从类型初始化的。为了正常工作，AOT 编译使用修剪，其中应该指定动态类型将在最终程序集中使用哪些。</p>
-<p>考虑以下示例，这是一个调用 RequestHandler 的路由。</p>
+<p>在 .NET 7 中，<a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">原生 AOT</a> 被引入，这是一种 .NET 编译模式，允许您在任何支持的平台上导出准备好的二进制文件，而无需在目标机器上安装 .NET 运行时。</p>
+<p>使用原生 AOT，您的代码被编译为本机代码，并且已经包含了执行所需的一切。Sisk 从 0.9.1 版本开始尝试使用此功能，并通过提供定义动态路由的功能而不影响编译的警告消息来改进对原生 AOT 的支持。</p>
+<p>Sisk 使用反射来获取将从类型和对象定义的方法。此外，Sisk 使用反射来获取诸如 <code>RequestHandlerAttribute</code> 之类的属性，这些属性从类型初始化。为了正常工作，AOT 编译使用修剪，其中动态类型应指定将在最终程序集中使用什么。</p>
+<p>考虑以下示例，它是一个调用 RequestHandler 的路由。</p>
 <pre><code class="lang-cs">[Route(RouteMethod.Get, &quot;/&quot;, LogMode = LogOutput.None)]
-[RequestHandler(typeof(MyRequestHandler)) ]
+[RequestHandler(typeof(MyRequestHandler))]
 static HttpResponse IndexPage(HttpRequest request)
 {
     HttpResponse htmlResponse = new HttpResponse();
@@ -165,17 +166,17 @@ static HttpResponse IndexPage(HttpRequest request)
     return htmlResponse;
 }
 </code></pre>
-<p>此 RequestHandler 在运行时动态调用，并且此调用必须被分割，并且此分割必须是显式的。</p>
-<p>为了更好地理解编译器将从 <code>MyRequestHandler</code> 中考虑哪些内容应该保留在最终编译中：</p>
+<p>此 RequestHandler 在运行时动态调用，并且此调用必须被分段，并且此分段必须被显式地。</p>
+<p>为了更好地理解编译器将从 <code>MyRequestHandler</code> 中保留什么内容以便在最终编译中使用：</p>
 <ul>
 <li>公共属性；</li>
 <li>公共和私有字段；</li>
 <li>公共和私有构造函数；</li>
-<li>公共和私有方法；</li>
+<li>公共和私有方法_;</li>
 </ul>
-<p>编译器将删除您在 RequestHandler 中未提及的所有内容。</p>
-<p>请记住，您在应用程序中使用的所有其他组件、类和程序包都应与 AOT 修剪兼容，否则您的代码将无法按预期工作。顺便说一句，如果想要构建性能至关重要的项目，Sisk 不会让您失望。</p>
-<p>您可以在官方 <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">Microsoft 文档</a> 中阅读有关 Native AOT 及其工作方式的更多信息。</p>
+<p>您在 RequestHandler 中的任何内容如果不在上述列表中，都将被编译器删除。</p>
+<p>请记住，您在应用程序中使用的所有其他组件、类和包都应与 AOT 修剪兼容，否则您的代码将无法按预期运行。另外，Sisk 将不会让您如果想要构建一个性能优先的东西。</p>
+<p>您可以在官方的 <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">Microsoft 文档</a> 中阅读更多关于原生 AOT 和其工作原理的信息。</p>
 
 </article>
 

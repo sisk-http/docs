@@ -1,30 +1,30 @@
-# Implantando seu Aplicativo Sisk
+# Развертывание вашего приложения Sisk
 
-O processo de implantar um aplicativo Sisk consiste em publicar seu projeto em produção. Embora o processo seja relativamente simples, é importante notar detalhes que podem ser letais para a segurança e estabilidade da infraestrutura de implantação.
+Процесс развертывания приложения Sisk состоит в том, чтобы опубликовать ваш проект в производстве. Хотя процесс относительно прост, стоит отметить детали, которые могут быть опасны для безопасности и стабильности инфраструктуры развертывания.
 
-Idealmente, você deve estar pronto para implantar seu aplicativo na nuvem, após realizar todos os testes possíveis para ter seu aplicativo pronto.
+Идеально, вы должны быть готовы развернуть ваше приложение в облаке после проведения всех возможных тестов, чтобы ваше приложение было готово.
 
-## Publicando seu app
+## Публикация вашего приложения
 
-Publicar seu aplicativo ou serviço Sisk é gerar binários prontos e otimizados para produção. Neste exemplo, vamos compilar os binários para produção para executar em uma máquina que tenha o .NET Runtime instalado.
+Публикация вашего приложения Sisk или сервиса заключается в генерации бинарных файлов, готовых и оптимизированных для производства. В этом примере мы скомпилируем бинарные файлы для производства, чтобы они могли работать на машине, на которой установлен .NET Runtime.
 
-Você precisará ter o .NET SDK instalado em sua máquina para compilar seu aplicativo e o .NET Runtime instalado no servidor de destino para executar seu aplicativo. Você pode aprender como instalar o .NET Runtime em seu servidor Linux [aqui](https://learn.microsoft.com/en-us/dotnet/core/install/linux), [Windows](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70) e [Mac OS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
+Вам понадобится .NET SDK, установленный на вашей машине, чтобы построить ваше приложение, и .NET Runtime, установленный на целевом сервере, чтобы запустить ваше приложение. Вы можете узнать, как установить .NET Runtime на вашем Linux-сервере [здесь](https://learn.microsoft.com/en-us/dotnet/core/install/linux), [Windows](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70) и [Mac OS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
 
-No diretório onde seu projeto está localizado, abra um terminal e use o comando de publicação do .NET:
+В папке, где находится ваш проект, откройте терминал и используйте команду .NET publish:
 
 ```shell
 $ dotnet publish -r linux-x64 -c Release
 ```
 
-Isso gerará seus binários dentro de `bin/Release/publish/linux-x64`.
+Это сгенерирует ваши бинарные файлы внутри `bin/Release/publish/linux-x64`.
 
 > [!NOTE]
-> Se seu aplicativo estiver executando usando o pacote Sisk.ServiceProvider, você deve copiar seu `service-config.json` para o servidor de hospedagem junto com todos os binários gerados pelo `dotnet publish`.
-> Você pode deixar o arquivo pré-configurado, com variáveis de ambiente, portas e hosts de escuta e configurações adicionais do servidor.
+> Если ваше приложение запускается с помощью пакета Sisk.ServiceProvider, вы должны скопировать ваш `service-config.json` на ваш хост-сервер вместе со всеми бинарными файлами, сгенерированными командой `dotnet publish`.
+> Вы можете оставить файл предварительно настроенным, с переменными окружения, портами и хостами, а также дополнительными настройками сервера.
 
-A próxima etapa é levar esses arquivos para o servidor onde seu aplicativo será hospedado.
+Следующий шаг - перенести эти файлы на сервер, где будет размещено ваше приложение.
 
-Depois disso, dê permissões de execução para o seu arquivo binário. Neste caso, vamos considerar que o nome do nosso projeto é "my-app":
+После этого, дайте права на выполнение вашему бинарному файлу. В этом случае давайте рассмотрим, что наш проект называется "my-app":
 
 ```shell
 $ cd /home/htdocs
@@ -32,26 +32,26 @@ $ chmod +x my-app
 $ ./my-app
 ```
 
-Depois de executar seu aplicativo, verifique se ele produz alguma mensagem de erro. Se não produzir, é porque seu aplicativo está executando.
+После запуска вашего приложения, проверьте, не выдает ли оно какие-либо сообщения об ошибках. Если оно не выдало, это означает, что ваше приложение работает.
 
-Neste ponto, provavelmente não será possível acessar seu aplicativo pela rede externa fora do seu servidor, pois as regras de acesso, como Firewall, não foram configuradas. Vamos considerar isso nas próximas etapas.
+На этом этапе, скорее всего, не будет возможно получить доступ к вашему приложению из внешней сети, поскольку правила доступа, такие как брандмауэр, не настроены. Мы рассмотрим это в следующих шагах.
 
-Você deve ter o endereço do host virtual onde seu aplicativo está escutando. Isso é definido manualmente no aplicativo e depende de como você está instanciando seu serviço Sisk.
+У вас должна быть адрес виртуального хоста, на котором слушает ваше приложение. Это устанавливается вручную в приложении и зависит от того, как вы создаете экземпляр вашего сервиса Sisk.
 
-Se você **não** estiver usando o pacote Sisk.ServiceProvider, você deve encontrar o endereço onde definiu sua instância de HttpServer:
+Если вы **не** используете пакет Sisk.ServiceProvider, вы должны найти его там, где вы определили экземпляр вашего HttpServer:
 
 ```cs
 HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
-// sisk deve escutar em http://localhost:5000/
+// sisk должен слушать на http://localhost:5000/
 ```
 
-Associando um ListeningHost manualmente:
+Присвоение ListeningHost вручную:
 
 ```cs
 config.ListeningHosts.Add(new ListeningHost("https://localhost:5000/", router));
 ```
 
-Ou se você estiver usando o pacote Sisk.ServiceProvider, em seu `service-config.json`:
+Или если вы используете пакет Sisk.ServiceProvider, в вашем `service-config.json`:
 
 ```json
 {
@@ -64,40 +64,40 @@ Ou se você estiver usando o pacote Sisk.ServiceProvider, em seu `service-config
 }
 ```
 
-A partir disso, podemos criar um proxy reverso para escutar seu serviço e tornar o tráfego disponível sobre a rede aberta.
+Из этого мы можем создать обратный прокси, чтобы слушать ваш сервис и сделать трафик доступным по открытой сети.
 
-## Proxyando seu aplicativo
+## Проксирование вашего приложения
 
-Proxyar seu serviço significa não expor diretamente seu serviço Sisk à rede externa. Essa prática é muito comum para implantações de servidor porque:
+Проксирование вашего сервиса означает, что вы не直接 подвергаете ваш сервис Sisk внешней сети. Эта практика очень распространена для серверных развертываний, потому что:
 
-- Permite associar um certificado SSL ao seu aplicativo;
-- Cria regras de acesso antes de acessar o serviço e evitar sobrecargas;
-- Controla a largura de banda e os limites de solicitação;
-- Separa os balanceadores de carga para o seu aplicativo;
-- Previne danos de segurança à infraestrutura de falha.
+- Позволяет присвоить сертификат SSL в вашем приложении;
+- Создать правила доступа перед доступом к сервису и избежать перегрузок;
+- Контролировать пропускную способность и ограничения запросов;
+- Отделить балансировщики нагрузки для вашего приложения;
+- Предотвратить повреждение безопасности из-за неисправной инфраструктуры.
 
-Você pode servir seu aplicativo por meio de um proxy reverso como [Nginx](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&tabs=linux-ubuntu#install-nginx) ou [Apache](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0), ou você pode usar um túnel http-over-dns como [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/).
+Вы можете обслуживать ваше приложение через обратный прокси, такой как [Nginx](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&tabs=linux-ubuntu#install-nginx) или [Apache](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0), или вы можете использовать туннель http-over-dns, такой как [Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/).
 
-Além disso, lembre-se de resolver corretamente os cabeçalhos de encaminhamento do proxy para obter as informações do cliente, como endereço IP e host, por meio de [resolutores de encaminhamento](/docs/advanced/forwarding-resolvers).
+Также помните, что необходимо правильно разрешить заголовки прокси для получения информации о клиенте, такой как IP-адрес и хост, через [forwarding resolvers](/docs/advanced/forwarding-resolvers).
 
-A próxima etapa após criar seu túnel, configurar o firewall e ter seu aplicativo em execução é criar um serviço para o seu aplicativo.
+Следующий шаг после создания туннеля, настройки брандмауэра и запуска вашего приложения - создать сервис для вашего приложения.
 
 > [!NOTE]
-> Usar certificados SSL diretamente no serviço Sisk em sistemas não-Windows não é possível. Isso é um ponto da implementação do HttpListener, que é o módulo central para como a gestão da fila HTTP é feita no Sisk, e essa implementação varia de sistema operacional para sistema operacional. Você pode usar SSL no seu serviço Sisk se [associar um certificado ao host virtual com o IIS](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis). Para outros sistemas, usar um proxy reverso é altamente recomendado.
+> Использование сертификатов SSL напрямую в сервисе Sisk на не-Windows системах невозможно. Это связано с реализацией HttpListener, который является центральным модулем для управления очередью HTTP в Sisk, и эта реализация варьируется от операционной системы к операционной системе. Вы можете использовать SSL в вашем сервисе Sisk, если [присвоите сертификат виртуальному хосту с помощью IIS](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis). Для других систем использование обратного прокси высоко рекомендуется.
 
-## Criando um serviço
+## Создание сервиса
 
-Criar um serviço fará com que seu aplicativo esteja sempre disponível, mesmo após reiniciar a instância do servidor ou uma falha não recuperável.
+Создание сервиса сделает ваше приложение всегда доступным, даже после перезапуска вашего сервера или неисправной ошибки.
 
-Neste tutorial simples, vamos usar o conteúdo do tutorial anterior como um exemplo para manter seu serviço sempre ativo.
+В этом простом учебнике мы будем использовать содержимое из предыдущего учебника в качестве примера, чтобы ваш сервис всегда был активен.
 
-1. Acesse o diretório onde os arquivos de configuração do serviço estão localizados:
+1. Получите доступ к папке, где находятся файлы конфигурации сервиса:
 
     ```sh
     cd /etc/systemd/system
     ```
 
-2. Crie seu arquivo `my-app.service` e inclua o conteúdo:
+2. Создайте файл `my-app.service` и включите содержимое:
     
     <div class="script-header">
         <span>
@@ -110,18 +110,18 @@ Neste tutorial simples, vamos usar o conteúdo do tutorial anterior como um exem
     
     ```ini
     [Unit]
-    Description=<descrição sobre seu app>
+    Description=<описание вашего приложения>
 
     [Service]
-    # defina o usuário que lançará o serviço
-    User=<usuário que lançará o serviço>
+    # задайте пользователя, который будет запускать сервис
+    User=<пользователь, который будет запускать сервис>
 
-    # o caminho do ExecStart não é relativo ao WorkingDirectory.
-    # defina-o como o caminho completo para o arquivo executável
+    # путь к ExecStart не относителен к WorkingDirectory.
+    # задайте его как полный путь к исполняемому файлу
     WorkingDirectory=/home/htdocs
     ExecStart=/home/htdocs/my-app
 
-    # defina o serviço para sempre reiniciar em caso de falha
+    # задайте сервис для перезапуска после краха
     Restart=always
     RestartSec=3
 
@@ -129,23 +129,23 @@ Neste tutorial simples, vamos usar o conteúdo do tutorial anterior como um exem
     WantedBy=multi-user.target
     ```
 
-3. Reinicie o módulo de gerenciamento de serviços:
+3. Перезапустите модуль сервиса:
 
     ```sh
     $ sudo systemctl daemon-reload
     ```
 
-4. Inicie seu novo serviço criado a partir do nome do arquivo que você definiu e verifique se ele está em execução:
+4. Запустите созданный сервис с именем файла, который вы задали, и проверьте, запущен ли он:
 
     ```sh
     $ sudo systemctl start my-app
     $ sudo systemctl status my-app
     ```
 
-5. Agora, se seu aplicativo estiver em execução ("Active: active"), habilite seu serviço para continuar em execução após uma reinicialização do sistema:
+5. Теперь, если ваше приложение запущено ("Active: active"), включите сервис, чтобы он запускался после перезапуска системы:
     
     ```sh
     $ sudo systemctl enable my-app
     ```
 
-Agora você está pronto para apresentar seu aplicativo Sisk a todos.
+Теперь вы готовы представить ваше приложение Sisk всем.

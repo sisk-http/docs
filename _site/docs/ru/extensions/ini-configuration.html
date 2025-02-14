@@ -153,13 +153,13 @@
                 <article data-uid="">
 <h1 id="провайдер-конфигурации-ini">Провайдер конфигурации INI</h1>
 
-<p>Sisk предоставляет способ получения настроек запуска, отличных от JSON. Фактически, любой pipeline, реализующий <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, может использоваться с <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, считывая конфигурацию сервера из любого типа файла.</p>
-<p>Пакет <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> предоставляет потокоориентированный читатель файлов INI, который не выбрасывает исключения для распространенных синтаксических ошибок и имеет простую синтаксис конфигурации. Этот пакет может использоваться вне фреймворка Sisk, предлагая гибкость для проектов, которым требуется эффективный читатель документа INI.</p>
+<p>Sisk имеет метод для получения конфигураций запуска, отличных от JSON. На самом деле, любой конвейер, реализующий <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, может быть использован с <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, читая конфигурацию сервера из любого типа файла.</p>
+<p>Пакет <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> предоставляет потоковый читатель файлов INI, который не выбрасывает исключения для обычных синтаксических ошибок и имеет простой синтаксис конфигурации. Этот пакет можно использовать вне框ворка Sisk, предлагая гибкость для проектов, которые требуют эффективного читателя документов INI.</p>
 <h2 id="установка">Установка</h2>
-<p>Для установки пакета можно начать с:</p>
+<p>Чтобы установить пакет, можно начать с:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>и использовать его в своем коде, как показано в примере ниже:</p>
+<p>и использовать его в коде, как показано в примере ниже:</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
@@ -171,7 +171,7 @@
             {
                 config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
 
-                // добавляет IniConfigurationPipeline к pipeline чтения конфигурации
+                // добавляет IniConfigurationPipeline в читатель конфигурации
                 config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
             })
             .UseRouter(r =&gt;
@@ -182,7 +182,7 @@
 
         Host.Start();
     }
-    
+
     static HttpResponse SayHello(HttpRequest request)
     {
         string? name = Host.Parameters[&quot;name&quot;] ?? &quot;world&quot;;
@@ -190,9 +190,9 @@
     }
 }
 </code></pre>
-<p>Код выше будет искать файл app.ini в текущей директории процесса (CurrentDirectory). Файл INI выглядит так:</p>
+<p>Код выше будет искать файл app.ini в текущем каталоге процесса (CurrentDirectory). Файл INI выглядит так:</p>
 <pre><code class="lang-ini">[Server]
-# Поддерживаются несколько адресов прослушивания
+# Множественные адреса прослушивания поддерживаются
 Listen = http://localhost:5552/
 Listen = http://localhost:5553/
 ThrowExceptions = false
@@ -206,29 +206,28 @@ AllowOrigin = *
 [Parameters]
 Name = &quot;Kanye West&quot;
 </code></pre>
-<h2 id="синтаксис-и-формат-ini">Синтаксис и формат INI</h2>
-<p>Текущий реализованный формат:</p>
+<h2 id="вкус-и-синтаксис-ini">Вкус и синтаксис INI</h2>
+<p>Текущая реализация вкуса:</p>
 <ul>
-<li>Имена свойств и разделов нечувствительны к регистру.</li>
-<li>Имена свойств и значения отбрасываются.</li>
-<li>Значения могут быть заключены в одинарные или двойные кавычки. Кавычки могут содержать переносы строк.</li>
-<li>Комментарии поддерживаются с помощью <code>#</code> и <code>;</code>. Также разрешены ** trailing comments**.</li>
+<li>Имена свойств и секций <strong>не чувствительны к регистру</strong>.</li>
+<li>Имена свойств и значения <strong>обрезаются</strong>.</li>
+<li>Значения можно заключать в одинарные или двойные кавычки. Кавычки могут содержать переносы строк внутри себя.</li>
+<li>Комментарии поддерживаются с помощью <code>#</code> и <code>;</code>. Также <strong>допускаются комментарии в конце строки</strong>.</li>
 <li>Свойства могут иметь несколько значений.</li>
 </ul>
-<p>Более подробно документация по &quot;формату&quot; парсера INI, используемого в Sisk, <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">доступна на GitHub</a>.</p>
+<p>Подробнее, документация для &quot;вкуса&quot; парсера INI, используемого в Sisk, доступна <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">на GitHub</a>.</p>
 <p>Используя следующий код INI в качестве примера:</p>
 <pre><code class="lang-ini">One = 1
-Value = this is an value
-Another value = &quot;this value
-    has an line break on it&quot;
-
-; the code below has some colors
+Value = это значение
+Another value = &quot;это значение
+    имеет перенос строки&quot;
+; код ниже имеет некоторые цвета
 [some section]
 Color = Red
 Color = Blue
-Color = Yellow ; do not use yellow
+Color = Yellow ; не используйте желтый
 </code></pre>
-<p>Парсировать его с помощью:</p>
+<p>Парсить его можно с помощью:</p>
 <pre><code class="lang-csharp">// парсить текст INI из строки
 IniDocument doc = IniDocument.FromString(iniText);
 
@@ -243,8 +242,8 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <table>
 <thead>
 <tr>
-<th>Раздел и имя</th>
-<th>Разрешены ли несколько значений</th>
+<th>Секция и имя</th>
+<th>Разрешить несколько значений</th>
 <th>Описание</th>
 </tr>
 </thead>
@@ -257,12 +256,12 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.Encoding</code></td>
 <td>Нет</td>
-<td>Кодировка по умолчанию сервера.</td>
+<td>Кодировка сервера по умолчанию.</td>
 </tr>
 <tr>
 <td><code>Server.MaximumContentLength</code></td>
 <td>Нет</td>
-<td>Максимальный размер контента сервера в байтах.</td>
+<td>Максимальный размер содержимого в байтах.</td>
 </tr>
 <tr>
 <td><code>Server.IncludeRequestIdHeader</code></td>
@@ -272,7 +271,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.ThrowExceptions</code></td>
 <td>Нет</td>
-<td>Указывает, должны ли необработанные исключения выбрасываться.</td>
+<td>Указывает, должны ли быть выброшены необработанные исключения.</td>
 </tr>
 <tr>
 <td><code>Server.AccessLogsStream</code></td>
@@ -297,7 +296,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
 <td>Нет</td>
-<td>Указывает несколько заголовков Allow-Origin, разделенных запятыми. <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> для получения более подробной информации.</td>
+<td>Указывает несколько заголовков Allow-Origin, разделенных запятыми. <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> для более подробной информации.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigin</code></td>

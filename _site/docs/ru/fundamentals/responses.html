@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>Ответы | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="Ответы | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,78 +151,79 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="ответы">Ответы</h1>
 
-<p>От Responses представляют собой объекты HTTP-ответов на HTTP-запросы. Они отправляются сервером клиенту в качестве указания на запрос ресурса, страницы, документа, файла или другого объекта.</p>
+<p>Ответы представляют собой объекты, которые являются HTTP-ответами на HTTP-запросы. Они отправляются сервером клиенту в качестве указания на запрос ресурса, страницы, документа, файла или другого объекта.</p>
 <p>HTTP-ответ состоит из статуса, заголовков и содержимого.</p>
-<p>В этом документе мы научим вас, как архитектурировать HTTP-ответы с помощью Sisk.</p>
+<p>В этом документе мы научим вас, как проектировать HTTP-ответы с помощью Sisk.</p>
 <h2 id="установка-http-статуса">Установка HTTP-статуса</h2>
-<p>Список HTTP-статусов тот же с HTTP/1.0, и Sisk поддерживает все их.</p>
+<p>Список HTTP-статусов остался неизменным с HTTP/1.0, и Sisk поддерживает все они.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = System.Net.HttpStatusCode.Accepted; // 202
 </code></pre>
-<p>Или с помощью флюидной синтаксиса:</p>
+<p>Или с помощью синтаксиса Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse()
     .WithStatus(200) // или
     .WithStatus(HttpStatusCode.Ok) // или
     .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
-<p>Полный список доступных кодов HttpStatusCode можно посмотреть <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">здесь</a>. Вы также можете указать свой собственный код статуса, используя структуру <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>.</p>
-<h2 id="тело-и-content-type">Тело и content-type</h2>
-<p>Sisk поддерживает использование встроенных .NET объектов контента для отправки тела в ответах. Вы можете использовать класс <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> для отправки JSON-ответа, например:</p>
+<p>Вы можете увидеть полный список доступных HttpStatusCode <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">здесь</a>. Вы также можете предоставить свой собственный код статуса, используя структуру <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>.</p>
+<h2 id="тело-и-тип-содержимого">Тело и тип содержимого</h2>
+<p>Sisk поддерживает родные объекты .NET для отправки тела в ответах. Вы можете использовать класс <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a>, чтобы отправить JSON-ответ, например:</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>Сервер всегда будет пытаться рассчитать <code>Content-Length</code> на основе того, что вы определили в контенте, если вы не указали его явно в заголовке. Если сервер не может неявно получить заголовок <code>Content-Length</code> из содержимого ответа, ответ будет отправлен с кодировкой Chunked-Encoding.</p>
-<p>Вы также можете передавать ответ по потоку, отправляя <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> или используя метод GetResponseStream.</p>
+<p>Сервер всегда попытается рассчитать <code>Content-Length</code> из того, что вы определили в содержимом, если вы не определили его явно в заголовке. Если сервер не может неявно получить заголовок <code>Content-Length</code> из содержимого ответа, ответ будет отправлен с Chunked-Encoding.</p>
+<p>Вы также можете передавать ответ, отправляя <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> или используя метод <code>GetResponseStream</code>.</p>
 <h2 id="заголовки-ответа">Заголовки ответа</h2>
-<p>Вы можете добавлять, изменять или удалять заголовки, которые вы отправляете в ответе. Ниже приведен пример того, как отправить ответ перенаправления клиенту.</p>
+<p>Вы можете добавлять, редактировать или удалять заголовки, которые вы отправляете в ответе. Пример ниже показывает, как отправить ответ с перенаправлением клиенту.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = HttpStatusCode.Moved;
 res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 </code></pre>
-<p>Или с помощью флюидной синтаксиса:</p>
+<p>Или с помощью синтаксиса Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
-<p>При использовании метода <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> HttpHeaderCollection, вы добавляете заголовок к запросу без изменения уже отправленных заголовков. Метод <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> заменяет заголовки с тем же именем на указанное значение. Индексатор HttpHeaderCollection внутренне вызывает метод Set для замены заголовков.</p>
-<h2 id="отправка-cookie">Отправка cookie</h2>
-<p>Sisk предоставляет методы для упрощения определения cookie в клиенте. Cookie, установленные с помощью этого метода, уже закодированы URL и соответствуют стандарту RFC-6265.</p>
+<p>Когда вы используете метод <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> класса HttpHeaderCollection, вы добавляете заголовок к запросу без изменения уже отправленных заголовков. Метод <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> заменяет заголовки с тем же именем на указанное значение. Индексатор класса HttpHeaderCollection внутренне вызывает метод Set для замены заголовков.</p>
+<h2 id="отправка-файлов-cookie">Отправка файлов cookie</h2>
+<p>Sisk имеет методы, которые облегчают определение файлов cookie на клиенте. Файлы cookie, установленные этим методом, уже URL-кодированы и соответствуют стандарту RFC-6265.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 </code></pre>
-<p>Или с помощью флюидной синтаксиса:</p>
+<p>Или с помощью синтаксиса Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>Существуют другие <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">более полные версии</a> этого метода.</p>
-<h2 id="chunked-ответы">Chunked ответы</h2>
-<p>Вы можете установить кодировку передачи на chunked для отправки больших ответов.</p>
+<p>Существуют другие <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">более полные версии</a> того же метода.</p>
+<h2 id="фрагментированные-ответы">Фрагментированные ответы</h2>
+<p>Вы можете установить кодирование передачи на фрагментированное, чтобы отправить большие ответы.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 </code></pre>
-<p>При использовании chunked-encoding заголовок <code>Content-Length</code> автоматически опускается.</p>
+<p>При использовании фрагментированного кодирования заголовок <code>Content-Length</code> автоматически опускается.</p>
 <h2 id="поток-ответа">Поток ответа</h2>
-<p>Потоки ответов - это управляемый способ отправки ответов по частям. Это более низкоуровневая операция, чем использование объектов HttpResponse, так как они требуют от вас отправки заголовков и содержимого вручную, а затем закрытия соединения.</p>
-<p>Этот пример открывает для чтения поток файла, копирует поток в поток выходных данных ответа и не загружает весь файл в память. Это может быть полезно для обслуживания средних или больших файлов.</p>
-<pre><code class="lang-cs">// получает поток выходных данных ответа
+<p>Потоки ответа являются управляемым способом, который позволяет отправлять ответы поэтапно. Это более низкоуровневая операция, чем использование объектов HttpResponse, поскольку они требуют от вас отправки заголовков и содержимого вручную, а затем закрытия соединения.</p>
+<p>Этот пример открывает поток только для чтения файла, копирует поток в поток вывода ответа и не загружает весь файл в память. Это может быть полезно для обслуживания средних или больших файлов.</p>
+<pre><code class="lang-cs">// получает поток вывода ответа
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
-// устанавливает кодировку ответа на chunked-encoding
-// также не следует отправлять заголовок Content-Length при использовании
-// chunked-encoding
+// устанавливает кодирование ответа для использования фрагментированного кодирования
+// также не следует отправлять заголовок content-length при использовании
+// фрагментированного кодирования
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
 responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
 
-// копирует поток файла в поток выходных данных ответа
+// копирует поток файла в поток вывода ответа
 fileStream.CopyTo(responseStream.ResponseStream);
 
 // закрывает поток
 return responseStream.Close();
 </code></pre>
 <h2 id="сжатие-gzip-deflate-и-brotli">Сжатие GZip, Deflate и Brotli</h2>
-<p>Вы можете отправлять ответы с сжатым содержимым в Sisk с помощью сжатия HTTP-контента. Сначала оберните свой объект <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> в один из компрессоров ниже, чтобы отправить сжатый ответ клиенту.</p>
+<p>Вы можете отправлять ответы со сжатым содержимым в Sisk, сжимая HTTP-содержимое. Сначала оберните объект <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> в один из компрессоров ниже, чтобы отправить сжатый ответ клиенту.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
     string myHtml = &quot;...&quot;;
     
@@ -233,10 +234,10 @@ return responseStream.Close();
     };
 });
 </code></pre>
-<p>Вы также можете использовать эти сжатые контенты с потоками.</p>
+<p>Вы также можете использовать эти сжатые содержимые с потоками.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
     
-    // не применяйте &quot;using&quot; здесь. HttpServer будет discard your content
+    // не применять &quot;using&quot; здесь. HttpServer будет удалять ваше содержимое
     // после отправки ответа.
     var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
     
@@ -245,12 +246,12 @@ return responseStream.Close();
     }
 });
 </code></pre>
-<p>Заголовки <code>Content-Encoding</code> автоматически устанавливаются при использовании этих контентов.</p>
-<h2 id="явно-определенные-типы-ответа">Явно определенные типы ответа</h2>
-<p>С версии 0.15 вы можете использовать типы возвращаемых значений, отличные от HttpResponse, но необходимо настроить маршрутизатор, как он будет обрабатывать каждый тип объекта.</p>
-<p>Суть в том, чтобы всегда возвращать ссылку на тип объекта и преобразовывать его в валидный объект HttpResponse. Маршруты, возвращающие HttpResponse, не подвергаются преобразованию.</p>
-<p>Типы значений (структуры) не могут использоваться в качестве типа возвращаемого значения, так как они не совместимы с <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, поэтому их необходимо обернуть в ValueResult, чтобы их можно было использовать в обработчиках.</p>
-<p>Рассмотрим следующий пример из модуля маршрутизатора, который не использует HttpResponse в типе возвращаемого значения:</p>
+<p>Заголовки <code>Content-Encoding</code> автоматически устанавливаются при использовании этих содержимых.</p>
+<h2 id="неявные-типы-ответов">Неявные типы ответов</h2>
+<p>Поскольку версии 0.15, вы можете использовать другие типы возврата, кроме HttpResponse, но необходимо настроить маршрутизатор, чтобы он обрабатывал каждый тип объекта.</p>
+<p>Концепция заключается в том, чтобы всегда возвращать ссылочный тип и преобразовывать его в допустимый объект HttpResponse. Маршруты, которые возвращают HttpResponse, не подвергаются никакому преобразованию.</p>
+<p>Типы значений (структуры) не могут использоваться в качестве типа возврата, поскольку они не совместимы с <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, поэтому они должны быть завернуты в ValueResult, чтобы их можно было использовать в обработчиках.</p>
+<p>Рассмотрим следующий пример из модуля маршрутизатора, не использующего HttpResponse в качестве типа возврата:</p>
 <pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
 public class UsersController : RouterModule
 {
@@ -281,10 +282,10 @@ public class UsersController : RouterModule
     }
 }
 </code></pre>
-<p>В этом случае необходимо определить в маршрутизаторе, как он будет обрабатывать каждый тип объекта. Объекты всегда являются первым аргументом обработчика, и тип выходного значения должен быть валидным HttpResponse. Также объекты выходных данных маршрута не должны быть null.</p>
-<p>Для типов ValueResult не нужно указывать, что входной объект - ValueResult, и только T, так как ValueResult - это объект, отраженный от его исходного компонента.</p>
-<p>Сопоставление типов не сравнивает зарегистрированный тип с типом возвращаемого объекта маршрутизатора. Вместо этого оно проверяет, является ли тип результата маршрута присваиваемым зарегистрированному типу.</p>
-<p>Регистрация обработчика типа Object будет использоваться в качестве fallback для всех ранее невалидированных типов. Порядок вставки обработчиков значений также имеет значение, поэтому регистрация обработчика Object должна быть последней, так как он будет игнорировать все другие типы, специфичные для значения.</p>
+<p>С этого момента необходимо определить в маршрутизаторе, как он будет обрабатывать каждый тип объекта. Объекты всегда являются первым аргументом обработчика, а тип вывода должен быть допустимым объектом HttpResponse. Кроме того, объекты вывода маршрута никогда не должны быть null.</p>
+<p>Для типов ValueResult не нужно указывать, что входной объект является ValueResult, и только T, поскольку ValueResult является объектом, отраженным от его исходного компонента.</p>
+<p>Связь типов не сравнивает, что было зарегистрировано с типом объекта, возвращаемого из маршрута. Вместо этого он проверяет, является ли тип результата маршрута назначаемым для зарегистрированного типа.</p>
+<p>Регистрация обработчика типа Object приведет к тому, что все предыдущие непроверенные типы будут игнорироваться. Порядок вставки обработчиков значений также имеет значение, поэтому регистрация обработчика Object будет игнорировать все другие типоспецифические обработчики. Всегда регистрируйте конкретные обработчики значений сначала, чтобы обеспечить порядок.</p>
 <pre><code class="lang-cs">Router r = new Router();
 r.SetObject(new UsersController());
 
@@ -298,11 +299,11 @@ r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
 r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
 {
     return new HttpResponse();
-    // здесь можно сделать что-то с enumerableValue
+    // do something with enumerableValue here
 });
 
-// регистрация обработчика типа object должна быть последней
-// и будет использоваться в качестве fallback
+// регистрация обработчика значения объекта должна быть последней
+// значение-обработчик, который будет использоваться в качестве fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {
     HttpResponse res = new HttpResponse();

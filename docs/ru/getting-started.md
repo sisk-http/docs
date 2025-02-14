@@ -1,34 +1,34 @@
-# Introdução ao Sisk
+# Начало работы с Sisk
 
-Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK [aqui](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+Sisk может работать в любой среде .NET. В этом руководстве мы научим вас, как создать приложение Sisk с использованием .NET. Если вы еще не установили его, пожалуйста, скачайте SDK с [сюда](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 
-Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
+В этом учебнике мы расскажем, как создать структуру проекта, получить запрос, получить параметр URL и отправить ответ. Это руководство будет сосредоточено на построении простого сервера с использованием C#. Вы также можете использовать свой любимый язык программирования.
 
 > [!NOTE]
-> Você pode estar interessado em um projeto de início rápido. Verifique [este repositório](https://github.com/sisk-http/quickstart) para obter mais informações.
+> Вам может быть интересно начать с проекта быстрого старта. Проверьте [этот репозиторий](https://github.com/sisk-http/quickstart) для получения дополнительной информации.
 
-## Criando um Projeto
+## Создание проекта
 
-Vamos nomear nosso projeto "Meu Aplicativo Sisk". Uma vez que você tenha o .NET configurado, você pode criar seu projeto com o seguinte comando:
+Давайте назовем наш проект "Мое приложение Sisk". Как только у вас будет настроена среда .NET, вы можете создать свой проект с помощью следующей команды:
 
 ```bash
-dotnet new console -n meu-aplicativo-sisk
+dotnet new console -n my-sisk-application
 ```
 
-Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário .NET:
+Далее перейдите в каталог вашего проекта и установите Sisk с помощью утилиты .NET:
 
 ```bash
-cd meu-aplicativo-sisk
+cd my-sisk-application
 dotnet add package Sisk.HttpServer
 ```
 
-Você pode encontrar maneiras adicionais de instalar o Sisk no seu projeto [aqui](https://www.nuget.org/packages/Sisk.HttpServer/).
+Вы можете найти дополнительные способы установки Sisk в вашем проекте [здесь](https://www.nuget.org/packages/Sisk.HttpServer/).
 
-Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para ouvir na porta 5000.
+Теперь давайте создадим экземпляр нашего веб-сервера. В этом примере мы настроим его на прослушивание порта 5000.
 
-## Construindo o Servidor HTTP
+## Построение веб-сервера
 
-Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construtor, que facilita a inicialização do nosso aplicativo.
+Sisk позволяет вам строить свое приложение шаг за шагом вручную, поскольку оно маршрутизируется к объекту HttpServer. Однако это может быть не очень удобно для большинства проектов. Поэтому мы можем использовать метод построения, который упрощает запуск нашего приложения.
 
 <div class="script-header">
     <span>
@@ -53,7 +53,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Olá, mundo!")
+                Content = new StringContent("Hello, world!")
             };
         });
         
@@ -62,8 +62,8 @@ class Program
 }
 ```
 
-É importante entender cada componente vital do Sisk. Mais tarde, neste documento, você aprenderá mais sobre como o Sisk funciona.
+Важно понять каждый важный компонент Sisk. Позже в этом документе вы узнаете больше о том, как работает Sisk.
 
-## Configuração Manual (avançada)
+## Ручная (расширенная) настройка
 
-Você pode aprender como cada mecanismo do Sisk funciona na [esta seção](/docs/advanced/manual-setup) da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.
+Вы можете узнать, как работает каждый механизм Sisk в [этом разделе](/docs/advanced/manual-setup) документации, который объясняет поведение и отношения между HttpServer, Router, ListeningPort и другими компонентами.

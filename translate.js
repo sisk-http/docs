@@ -67,9 +67,20 @@ async function translate(text, prompt) {
     });
 
     if (!response.ok) {
-        console.error("Failed to translate the markdown file.");
-        console.error(await response.text());
-        process.exit(1);
+        
+        const resJson = await response.json();
+        if (resJson.error?.code == "rate_limit_exceeded") {
+            const retryAfter = response.headers.get("Retry-After");
+            console.error("Rate limit exceeded! Retrying in " + retryAfter + " seconds.");
+            await sleep(retryAfter * 1000);
+            
+            return await translate(text, prompt);
+            
+        } else {
+            console.error("Failed to translate the markdown file.");
+            console.error(await response.text());
+            process.exit(1);
+        }
     }
 
     const data = await response.json();
@@ -89,9 +100,9 @@ const toLanguage = process.argv[2];
 const dest = process.argv[3];
 const prompt = `
     You're an translator AI helper. Your goal is to translate the given markdown code language into another language. You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#.
-
-    You must translate the user input to Brazilan Portuguese.
-
+    
+    You must translate the user input to ${toLanguage}.
+    
     <translate_code>
     - You should translate texts, code comments, but not code symbols,
     variables or constants names.
@@ -100,7 +111,7 @@ const prompt = `
     - You MUST keep link targets.
     - You MUST NOT translate script-header file names or language names.
     </translate_code>
-
+    
     <output>
     - You MUST reply ONLY with the translated text, no greetings or advices.
     - The translated text must follow the original input structure.
@@ -126,19 +137,15 @@ const prompt = `
 
         console.log("Translated: ", fileName);
 
-        // wait 5s (rate-limit)
-        await sleep(10_000);
+        // wait 10s (rate-limit)
+        await sleep(500);
         translatedCount++;
-
-        if (translatedCount % 5 === 0) {
-            await sleep(30_000);
-        }
     }
-
+    
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {
         console.log(`${translatedCount} files translated.`);
     }
 
-})().then(console.log);
+})().then(() => console.log("Finished!"));

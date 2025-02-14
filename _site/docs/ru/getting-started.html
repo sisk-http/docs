@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Introdu&#231;&#227;o ao Sisk | Sisk </title>
+        <title>Начало работы с Sisk | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Introdu&#231;&#227;o ao Sisk | Sisk ">
+        <meta name="title" content="Начало работы с Sisk | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -151,26 +151,26 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="introdução-ao-sisk">Introdução ao Sisk</h1>
+<h1 id="начало-работы-с-sisk">Начало работы с Sisk</h1>
 
-<p>Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">aqui</a>.</p>
-<p>Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.</p>
+<p>Sisk может работать в любой среде .NET. В этом руководстве мы научим вас, как создать приложение Sisk с использованием .NET. Если вы еще не установили его, пожалуйста, скачайте SDK с <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">сюда</a>.</p>
+<p>В этом учебнике мы расскажем, как создать структуру проекта, получить запрос, получить параметр URL и отправить ответ. Это руководство будет сосредоточено на построении простого сервера с использованием C#. Вы также можете использовать свой любимый язык программирования.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Você pode estar interessado em um projeto de início rápido. Verifique <a href="https://github.com/sisk-http/quickstart">este repositório</a> para obter mais informações.</p>
+<p>Вам может быть интересно начать с проекта быстрого старта. Проверьте <a href="https://github.com/sisk-http/quickstart">этот репозиторий</a> для получения дополнительной информации.</p>
 </div>
-<h2 id="criando-um-projeto">Criando um Projeto</h2>
-<p>Vamos nomear nosso projeto &quot;Meu Aplicativo Sisk&quot;. Uma vez que você tenha o .NET configurado, você pode criar seu projeto com o seguinte comando:</p>
-<pre><code class="lang-bash">dotnet new console -n meu-aplicativo-sisk
+<h2 id="создание-проекта">Создание проекта</h2>
+<p>Давайте назовем наш проект &quot;Мое приложение Sisk&quot;. Как только у вас будет настроена среда .NET, вы можете создать свой проект с помощью следующей команды:</p>
+<pre><code class="lang-bash">dotnet new console -n my-sisk-application
 </code></pre>
-<p>Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário .NET:</p>
-<pre><code class="lang-bash">cd meu-aplicativo-sisk
+<p>Далее перейдите в каталог вашего проекта и установите Sisk с помощью утилиты .NET:</p>
+<pre><code class="lang-bash">cd my-sisk-application
 dotnet add package Sisk.HttpServer
 </code></pre>
-<p>Você pode encontrar maneiras adicionais de instalar o Sisk no seu projeto <a href="https://www.nuget.org/packages/Sisk.HttpServer/">aqui</a>.</p>
-<p>Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para ouvir na porta 5000.</p>
-<h2 id="construindo-o-servidor-http">Construindo o Servidor HTTP</h2>
-<p>Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construtor, que facilita a inicialização do nosso aplicativo.</p>
+<p>Вы можете найти дополнительные способы установки Sisk в вашем проекте <a href="https://www.nuget.org/packages/Sisk.HttpServer/">здесь</a>.</p>
+<p>Теперь давайте создадим экземпляр нашего веб-сервера. В этом примере мы настроим его на прослушивание порта 5000.</p>
+<h2 id="построение-веб-сервера">Построение веб-сервера</h2>
+<p>Sisk позволяет вам строить свое приложение шаг за шагом вручную, поскольку оно маршрутизируется к объекту HttpServer. Однако это может быть не очень удобно для большинства проектов. Поэтому мы можем использовать метод построения, который упрощает запуск нашего приложения.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -192,7 +192,7 @@ dotnet add package Sisk.HttpServer
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Olá, mundo!&quot;)
+                Content = new StringContent(&quot;Hello, world!&quot;)
             };
         });
         
@@ -200,9 +200,9 @@ dotnet add package Sisk.HttpServer
     }
 }
 </code></pre>
-<p>É importante entender cada componente vital do Sisk. Mais tarde, neste documento, você aprenderá mais sobre como o Sisk funciona.</p>
-<h2 id="configuração-manual-avançada">Configuração Manual (avançada)</h2>
-<p>Você pode aprender como cada mecanismo do Sisk funciona na <a href="/docs/advanced/manual-setup">esta seção</a> da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.</p>
+<p>Важно понять каждый важный компонент Sisk. Позже в этом документе вы узнаете больше о том, как работает Sisk.</p>
+<h2 id="ручная-расширенная-настройка">Ручная (расширенная) настройка</h2>
+<p>Вы можете узнать, как работает каждый механизм Sisk в <a href="/docs/advanced/manual-setup">этом разделе</a> документации, который объясняет поведение и отношения между HttpServer, Router, ListeningPort и другими компонентами.</p>
 
 </article>
 

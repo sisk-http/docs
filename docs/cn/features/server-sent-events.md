@@ -1,16 +1,16 @@
-## Server Sent Events
+# 服务器发送事件
 
-Sisk 支持开箱即用地通过 Server Sent Events 发送消息。您可以创建可丢弃的和持久连接，在运行时获取连接并使用它们。
+Sisk 支持通过服务器发送事件（Server Sent Events）发送消息。您可以创建可抛弃和持久的连接，在运行时获取这些连接并使用它们。
 
-此功能受到浏览器的一些限制，例如只能发送文本消息，并且无法永久关闭连接。服务器端关闭连接会导致客户端每隔 5 秒（某些浏览器为 3 秒）尝试重新连接一次。
+此功能有一些限制，例如只能发送文本消息，无法永久关闭连接。服务器端关闭的连接将导致客户端每 5 秒（某些浏览器为 3 秒）尝试重新连接一次。
 
-这些连接对于从服务器向客户端发送事件非常有用，而无需客户端每次都请求信息。
+这些连接对于从服务器向客户端发送事件而无需客户端每次请求信息非常有用。
 
 ## 创建 SSE 连接
 
-SSE 连接的工作方式类似于常规 HTTP 请求，但它不会在发送响应并立即关闭连接后保持连接打开以发送消息。
+SSE 连接的工作方式与普通 HTTP 请求类似，但不是发送响应并立即关闭连接，而是保持连接打开以发送消息。
 
-通过调用 [HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法，请求将处于等待状态，同时创建 SSE 实例。
+调用 [HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法，请求将被置于等待状态，同时创建 SSE 实例。
 
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
@@ -23,16 +23,16 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 });
 ```
 
-在上面的代码中，我们创建了一个 SSE 连接并发送一条“Hello, world”消息，然后我们从服务器端关闭 SSE 连接。
+在上面的代码中，我们创建一个 SSE 连接并发送一个“Hello, world”消息，然后我们从服务器端关闭 SSE 连接。
 
 > [!NOTE]
-> 当关闭服务器端连接时，默认情况下，客户端将尝试再次连接，并且连接将重新启动，无限期地执行该方法。
+> 当关闭服务器端连接时，客户端将默认尝试重新连接，并且连接将被重启，方法将被再次执行，直到永远。
 >
-> 通常，当从服务器关闭连接时，从服务器转发终止消息很常见，以防止客户端再次尝试连接。
+> 通常，当连接从服务器端关闭时，会从服务器发送终止消息以防止客户端尝试重新连接。
 
-## 追加标头
+## 添加头部
 
-如果您需要发送标头，可以在发送任何消息之前使用 [HttpRequestEventSource.AppendHeader](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader) 方法。
+如果需要发送头部，可以使用 [HttpRequestEventSource.AppendHeader](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader) 方法，在发送任何消息之前。
 
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
@@ -46,52 +46,52 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 });
 ```
 
-请注意，在发送任何消息之前必须发送标头。
+注意，必须在发送任何消息之前发送头部。
 
-## Wait-For-Fail 连接
+## 等待失败连接
 
-连接通常在服务器无法再发送消息时终止，例如由于客户端断开连接。这样，连接会自动终止，并且实例将被丢弃。
+连接通常在服务器无法发送消息时终止，可能是由于客户端断开连接。这样，连接将被自动终止，类的实例将被丢弃。
 
-即使重新连接，该实例也无法使用，因为它与之前的连接相关联。在某些情况下，您可能需要稍后使用此连接，并且不想通过路由的回调方法来管理它。
+即使重新连接，类的实例也将不起作用，因为它与之前的连接相关联。在某些情况下，您可能需要稍后使用此连接，并且不希望通过路由的回调方法来管理它。
 
-为此，我们可以使用标识符标识 SSE 连接，并稍后使用它来获取它们，即使不在路由的回调之外。此外，我们使用 [WaitForFail](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail) 标记连接，以便不终止路由并自动终止连接。
+为此，我们可以使用标识符来标识 SSE 连接，并稍后使用它来获取连接，即使在路由的回调方法之外。另外，我们将连接标记为 [WaitForFail](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail)，以防止路由自动终止连接。
 
-保持活动状态的 SSE 连接将等待发送错误（由断开连接引起）来恢复方法执行。还可以为此设置一个超时。在该时间过后，如果未发送任何消息，则会终止连接并恢复执行。
+SSE 连接在 KeepAlive 时将等待发送错误（由断开连接引起）以恢复方法执行。也可以为此设置超时时间。超时后，如果没有发送任何消息，连接将被终止，执行将恢复。
 
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
 {
     var sse = req.GetEventSource("my-index-connection");
 
-    sse.WaitForFail(TimeSpan.FromSeconds(15)); // 等待 15 秒，如果没有消息则终止连接
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // 等待 15 秒内没有任何消息发送后终止连接
 
     return sse.Close();
 });
 ```
 
-上述方法将创建连接，处理它并等待断开连接或错误。
+上面的方法将创建连接，处理它，并等待断开连接或错误。
 
 ```cs
 HttpRequestEventSource? evs = server.EventSources.GetByIdentifier("my-index-connection");
 if (evs != null)
 {
-    // 连接仍然存在
+    // 连接仍然活着
     evs.Send("Hello again!");
 }
 ```
 
-上面的代码片段将尝试查找新创建的连接，如果存在，则向其发送一条消息。
+上面的代码片段将尝试查找新创建的连接，如果它存在，则向其发送消息。
 
-所有活动服务器连接都将包含在 [HttpServer.EventSources](/api/Sisk.Core.Http.HttpServer.EventSources) 集合中。此集合仅存储活动和已标识的连接。已关闭的连接将从集合中移除。
+所有活动的服务器连接都将在 [HttpServer.EventSources](/api/Sisk.Core.Http.HttpServer.EventSources) 集合中可用。该集合仅存储活动的和标识的连接。已关闭的连接将从集合中删除。
 
 > [!NOTE]
-> 重要的是要注意，保持活动状态受到可能以不可控方式连接到 Sisk 的组件（例如 Web 代理、HTTP 内核或网络驱动程序）的限制，它们会在一段时间后关闭空闲连接。
+> 需要注意的是，保持活动有一个由可能以不可控方式连接到 Sisk 的组件（如 Web 代理、HTTP 内核或网络驱动程序）建立的限制，这些组件在一段时间后会关闭空闲连接。
 >
-> 因此，通过发送周期性 ping 或延长连接关闭的最大时间来保持连接打开非常重要。阅读下一节，以更好地了解发送周期性 ping。
+> 因此，保持连接打开非常重要，可以通过发送周期性的 ping 消息或延长连接关闭前的最大时间来实现。阅读下一节以更好地理解发送周期性的 ping 消息。
 
 ## 设置连接 ping 策略
 
-Ping 策略是一种自动向客户端发送周期性消息的方法。此功能允许服务器了解客户端何时断开该连接，而无需无限期地保持连接打开。
+Ping 策略是一种自动向客户端发送周期性消息的方法。该功能允许服务器在不需要保持连接打开的情况下了解客户端是否断开了连接。
 
 ```cs
 [RouteGet("/sse")]
@@ -110,11 +110,11 @@ public HttpResponse Events(HttpRequest request)
 }
 ```
 
-在上面的代码中，每隔 5 秒，将向客户端发送一条新的 ping 消息。这将保持 TCP 连接活动，并防止由于空闲而关闭连接。此外，当消息发送失败时，连接会自动关闭，释放连接使用的资源。
+在上面的代码中，每 5 秒将向客户端发送一个新的 ping 消息。这将保持 TCP 连接打开，并防止它由于不活动而被关闭。另外，当消息发送失败时，连接将被自动关闭，释放连接使用的资源。
 
 ## 查询连接
 
-您可以使用连接标识符上的谓词来搜索活动连接，例如广播。
+可以使用连接标识符的谓词来搜索活动连接，以便广播。
 
 ```cs
 HttpRequestEventSource[] evs = server.EventSources.Find(es => es.StartsWith("my-connection-"));
@@ -124,4 +124,4 @@ foreach (HttpRequestEventSource e in evs)
 }
 ```
 
-您还可以使用 [All](/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All) 方法获取所有活动 SSE 连接。
+也可以使用 [All](/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All) 方法来获取所有活动的 SSE 连接。

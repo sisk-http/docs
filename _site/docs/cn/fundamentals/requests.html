@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>请求 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="请求 | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,10 +151,11 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="请求">请求</h1>
 
-<p>请求是表示 HTTP 请求消息的结构。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象包含用于在整个应用程序中处理 HTTP 消息的有用函数。</p>
-<p>HTTP 请求由方法、路径、版本、标头和正文组成。</p>
-<p>在本文档中，我们将教您如何获取这些元素的每个部分。</p>
+<p>请求是代表 HTTP 请求消息的结构。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象包含处理 HTTP 消息的有用函数，适用于整个应用程序。</p>
+<p>一个 HTTP 请求由方法、路径、版本、头部和正文组成。</p>
+<p>在本文档中，我们将教您如何获取这些元素。</p>
 <h2 id="获取请求方法">获取请求方法</h2>
 <p>要获取接收到的请求的方法，可以使用 Method 属性：</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
@@ -163,14 +164,14 @@
     ...
 }
 </code></pre>
-<p>此属性返回请求的方法，由 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> 对象表示。</p>
+<p>此属性返回由 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> 对象表示的请求方法。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>与路由方法不同，此属性不包含 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> 项。而是返回实际的请求方法。</p>
+<p>与路由方法不同，此属性不支持 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> 项。相反，它返回实际的请求方法。</p>
 </div>
 <h2 id="获取请求-url-组件">获取请求 URL 组件</h2>
-<p>您可以通过请求的某些属性获取 URL 的各种组件。 以下是一个示例 URL：</p>
-<pre><code>http://localhost:5000/user/login?email=foo@bar.com
+<p>您可以通过请求的某些属性从 URL 中获取各种组件。对于此示例，让我们考虑以下 URL：</p>
+<pre><code class="lang-http">http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
 <thead>
@@ -193,7 +194,7 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
-<td>获取整个请求 URL 字符串。</td>
+<td>获取整个 URL 请求字符串。</td>
 <td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
@@ -218,35 +219,35 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
-<td>确定请求是否使用 SSL（true）或不使用 SSL（false）。</td>
+<td>确定请求是否使用 SSL（true）或不使用（false）。</td>
 <td><code>false</code></td>
 </tr>
 </tbody>
 </table>
-<p>您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> 属性，该属性包含上述所有内容在一个对象中。</p>
+<p>您也可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> 属性，该属性包含上述所有内容。</p>
 <h2 id="获取请求正文">获取请求正文</h2>
-<p>某些请求包含正文，例如表单、文件或 API 事务。您可以从属性获取请求的正文：</p>
-<pre><code class="lang-cs">// 获取请求正文作为字符串，使用请求编码作为编码器
+<p>一些请求包含正文，例如表单、文件或 API 事务。您可以从以下属性获取请求正文：</p>
+<pre><code class="lang-cs">// 以字符串形式获取请求正文，使用请求编码作为编码器
 string body = request.Body;
 
-// 或以字节数组获取
+// 或以字节数组形式获取
 byte[] bodyBytes = request.RawBody;
 
-// 或流式传输它
+// 或者，您可以将其作为流进行处理。
 Stream requestStream = request.GetRequestStream();
 </code></pre>
-<p>还可以确定请求中是否存在正文以及是否已加载正文，使用 <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> 属性。</p>
-<p>通过 <code>GetRequestStream</code> 读取请求内容一次以上是不可能的。如果使用此方法读取，则 <code>RawBody</code> 和 <code>Body</code> 中的值也将不可用。在请求上下文中，无需处理请求流，因为它将在 HTTP 会话结束时自动处理。此外，您可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> 属性获取最佳编码，以手动解码请求。</p>
-<p>服务器对读取请求内容有限制，这适用于 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>。这些属性将整个输入流复制到与 <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> 相同大小的本地缓冲区中。</p>
-<p>如果发送的内容大于 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> 中定义的用户配置，则服务器会向客户端返回状态 413 Content Too Large 的响应。此外，如果未配置限制或限制太大，则服务器将在内容发送到客户端超过 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（2 GB）时抛出 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception%EF%BC%9Fview=net-8.0">OutOfMemoryException</a>。您可以通过流式传输来处理内容。</p>
+<p>您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> 属性确定请求是否包含正文以及是否已加载。</p>
+<p>不可能多次读取请求内容通过 <code>GetRequestStream</code> 方法。如果您使用此方法读取，则 <code>RawBody</code> 和 <code>Body</code> 的值也将不可用。在请求的上下文中，不需要处理请求流，因为它将在创建的 HTTP 会话结束时被处理。您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> 属性获取解码请求的最佳编码。</p>
+<p>服务器对读取请求内容有限制，这适用于 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>。这些属性将整个输入流复制到一个大小与 <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> 相同的本地缓冲区中。</p>
+<p>如果客户端发送的内容大于 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>。您仍然可以通过流处理内容。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk 遵循 RFC 9110 &quot;HTTP Semantics&quot;，它不允许某些请求方法具有正文。这些请求将立即返回 400 (Bad Request) 以及 <code>ContentServedOnIllegalMethod</code> 状态。GET、OPTIONS、HEAD 和 TRACE 方法不允许使用请求正文。您可以在这里阅读 <a href="https://httpwg.org/spec/rfc9110.html">RFC 9910</a>。</p>
-<p>您可以通过将 <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> 设为 <code>false</code> 来禁用此功能。</p>
+<p>Sisk 遵循 RFC 9110“HTTP 语义”，该语义不允许某些请求方法具有正文。这些请求将立即返回状态代码 400（错误请求）和 <code>ContentServedOnIllegalMethod</code> 状态。GET、OPTIONS、HEAD 和 TRACE 方法不允许包含正文。您可以在此处阅读 <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110</a>。</p>
+<p>您可以通过将 <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> 设置为 <code>false</code> 来禁用此功能。</p>
 </div>
 <h2 id="获取请求上下文">获取请求上下文</h2>
-<p>HTTP 上下文是 Sisk 的一个专用对象，用于存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织在组织这些对象的环境中难以组织的代码。</p>
-<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> 对象包含从一个请求处理程序传递到另一个点存储的信息，并且可以在最终目的地被消费。此对象也可以由在路由回调之后运行的请求处理程序使用。</p>
+<p>HTTP 上下文是 Sisk 的一个独特对象，存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织自己在这些对象难以组织的环境中。</p>
+<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> 对象包含从一个请求处理程序传递到另一个点的存储信息，并可以在最终目的地消费。该对象也可以由在路由回调之后运行的请求处理程序使用。</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>此属性也可以通过 <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> 属性访问。</p>
@@ -270,20 +271,21 @@ Stream requestStream = request.GetRequestStream();
     }
 }
 </code></pre>
-<p>上面的请求处理程序将定义 <code>AuthenticatedUser</code> 在请求袋中，并在最终回调中可以被消费：</p>
+<p>上面的请求处理程序将在请求包中定义 <code>AuthenticatedUser</code>，并可以稍后在最终回调中使用：</p>
 <pre><code class="lang-cs">public class MyController
 {
-    [Route(RouteMethod.Get, &quot;/&quot;)
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))
+    [Route(RouteMethod.Get, &quot;/&quot;)]
+    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
     static HttpResponse Index(HttpRequest request)
     {
-        var user = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
-        res.Content = new StringContent($&quot;Hello, {user}!&quot;);
+        HttpResponse res = new HttpResponse();
+        string authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        res.Content = new StringContent($&quot;Hello, {authUser}!&quot;);
         return res;
     }
 }
 </code></pre>
-<p>您还可以使用 <code>Bag.Set()</code> 和 <code>Bag.Get()</code> 助手方法来获取或设置类型为 <code>object</code> 的对象。</p>
+<p>您还可以使用 <code>Bag.Set()</code> 和 <code>Bag.Get()</code> 帮助器方法按类型单例获取或设置对象。</p>
 <pre><code class="lang-cs">public class Authenticate : RequestHandler
 {
     public override HttpResponse? Execute(HttpRequest request, HttpContext context)
@@ -293,14 +295,14 @@ Stream requestStream = request.GetRequestStream();
 }
 
 [RouteGet(&quot;/&quot;)]
-[RequestHandler&lt;Authenticate&gt;
+[RequestHandler&lt;Authenticate&gt;]
 public static HttpResponse Test(HttpRequest request)
 {
     var user = request.Bag.Get&lt;User&gt;();
 }
 </code></pre>
 <h2 id="获取表单数据">获取表单数据</h2>
-<p>您可以使用 NameValueCollection 获取表单数据。</p>
+<p>您可以使用以下示例在 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> 中获取表单数据的值：</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
@@ -315,431 +317,89 @@ public static HttpResponse Test(HttpRequest request)
 }
 </code></pre>
 <h2 id="获取多部分表单数据">获取多部分表单数据</h2>
-<p>Sisk 的 HTTP 请求允许您获取上传的 multipart 内容，例如文件、表单字段或任何二进制内容。</p>
+<p>Sisk 的 HTTP 请求允许您获取上传的多部分内容，例如文件、表单字段或任何二进制内容。</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
+    // 以下方法将整个请求输入读入 MultipartObject 数组
     var multipartFormDataObjects = request.GetMultipartFormContent();
 
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // 文件名由 Multipart form data 提供的名称。
-        // Null 是返回的 object 如果不是文件。
-        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
+        // 多部分表单数据对象的文件名。
+        // 如果对象不是文件，则返回 null。
+        Console.WriteLine(&quot;文件名       : &quot; + uploadedObject.Filename);
 
-        // Multipart form data 
-        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
+        // 多部分表单数据对象的字段名。
+        Console.WriteLine(&quot;字段名      : &quot; + uploadedObject.Name);
 
-        // Multipart form data 内容长度。
-        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
+        // 多部分表单数据内容长度。
+        Console.WriteLine(&quot;内容长度  : &quot; + uploadedObject.ContentLength);
 
-        // 根据文件头来确定图像格式。如果内容不是一个已知的常见文件格式。
-        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
+        // 根据每个已知内容类型的文件头确定图像格式。
+        // 如果内容不是已知的常见文件格式，则以下方法将返回 MultipartObjectCommonFormat.Unknown
+        Console.WriteLine(&quot;常见格式   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>You can read more about Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> and its methods, properties and functionalities.</p>
-<h2 id="server-sent-events-support">Server-sent events support</h2>
-<p>Sisk supports [Server-sent events](<a href="https://developer.mozilla">https://developer.mozilla</a>.</p>
-<p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> method will put the HttpRequest in its listener state. From this, the context of this HTTP request will not expect an HttpResponse as it will overlap the packets sent by server side events.</p>
-<p>After sending all packets, the callback must return the <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> method, which will send the final response to the server and indicate that the streaming has ended.</p>
-<p>It is not possible to predict the total length of all packets that will be sent, so it is not possible to determine the end of the connection with `Content-Length header.</p>
-<p>By default, most browsers restart streams if the <a href="https://developer.mozilla.org/en-US/api/EventSource.close">EventSource.close</a> method is not called on the client side after receiving all the packets, causing infinite additional processing on the server side. To avoid this kind of problem, it's common to send a final packet indicating that the event source has finished sending all packets.</p>
-<p>The example below shows how the browser can communicate with the server that supports Server-side events.</p>
+<p>您可以在 <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> 中阅读更多关于 Sisk 的信息及其方法、属性和功能。</p>
+<h2 id="服务器发送事件支持">服务器发送事件支持</h2>
+<p>Sisk 支持 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">服务器发送事件</a>，允许将块作为流发送并保持服务器和客户端之间的连接。</p>
+<p>调用 <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠由服务器发送的数据包。</p>
+<p>发送所有数据包后，回调必须返回 <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> 方法，该方法将发送最终响应给服务器并指示流媒体已结束。</p>
+<p>由于无法预测将要发送的所有数据包的总长度，因此无法使用 <code>Content-Length</code> 标头确定连接的末尾。</p>
+<p>大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的其他方法。因此，在使用需要特定请求标头的事件源请求的请求处理程序时要小心，因为它们可能没有这些标头。</p>
+<p>此外，大多数浏览器如果客户端在接收到所有数据包后没有调用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> 方法，则会重新启动流，从而导致服务器端无限增加的处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。</p>
+<p>以下示例显示浏览器如何与支持服务器发送事件的服务器进行通信。</p>
 <pre><code class="lang-html">&lt;html&gt;
-    &lt;b&gt;Fruits:&lt;/b&gt;
-    &lt;ul&gt;
-        &lt;li&gt;
-            &lt;li&gt;
-                &lt;li&gt;
-                    &lt;li&gt;
-                        &lt;li&gt;
-                            &lt;li&gt;
-                                &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                                    &lt;li&gt;
-                               
+    &lt;body&gt;
+        &lt;b&gt;水果:&lt;/b&gt;
+        &lt;ul&gt;&lt;/ul&gt;
+    &lt;/body&gt;
+    &lt;script&gt;
+        const evtSource = new EventSource('/event-source');
+        const eventList = document.querySelector('ul');
+
+        evtSource.onmessage = (e) =&gt; {
+            const newElement = document.createElement(&quot;li&quot;);
+
+            newElement.textContent = `message: ${e.data}`;
+            eventList.appendChild(newElement);
+
+            if (e.data == &quot;Tomato&quot;) {
+                evtSource.close();
+            }
+        }
+    &lt;/script&gt;
+&lt;/html&gt;
 </code></pre>
+<p>并逐渐将消息发送给客户端：</p>
+<pre><code class="lang-cs">public class MyController
+{
+    [Route(RouteMethod.Get, &quot;/event-source&quot;)]
+    static HttpResponse ServerEventsResponse(HttpRequest request)
+    {
+        var serverEvents = request.GetEventSource();
+
+        string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
+
+        foreach (string fruit in fruits)
+        {
+            serverEvents.Send(fruit);
+            Thread.Sleep(1500);
+        }
+
+        return serverEvents.Close();
+    }
+}
+</code></pre>
+<p>运行此代码时，我们预计会得到类似的结果：</p>
+<img src="/assets/img/server side events demo.gif">
+<h2 id="解析代理-ip-和主机">解析代理 IP 和主机</h2>
+<p>Sisk 可以与代理一起使用，因此 IP 地址可以在客户端到代理的交易中被代理端点替换。</p>
+<p>您可以在 Sisk 中使用 <a href="/docs/advanced/forwarding-resolvers">转发解析器</a> 定义自己的解析器。</p>
+<h2 id="标头编码">标头编码</h2>
+<p>标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码错误编码的标头。</p>
+<p>此操作代价高昂，默认情况下禁用，但可以在 <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a> 标志下启用。</p>
 
 </article>
 

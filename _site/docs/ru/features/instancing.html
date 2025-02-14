@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Создание экземпляров на запрос | Sisk </title>
+        <title>Внедрение зависимостей | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Создание экземпляров на запрос | Sisk ">
+        <meta name="title" content="Внедрение зависимостей | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,12 +151,19 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="создание-экземпляров-на-запрос">Создание экземпляров на запрос</h1>
+<h1 id="внедрение-зависимостей">Внедрение зависимостей</h1>
 
-<p>Часто используются члены и экземпляры, которые существуют в течение всей жизни запроса, например, соединение с базой данных, аутентифицированный пользователь или токен сеанса.</p>
-<p>Одним из способов этого является использование <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, которое создает словарь, существующий в течение всей жизни запроса.</p>
-<p>Этот словарь можно получить с помощью <a href="/docs/fundamentals/request-handlers">обработчиков запросов</a> и определить переменные в течение всего запроса. Например, обработчик запроса, аутентифицирующий пользователя, устанавливает этого пользователя в <code>HttpContext.RequestBag</code>, и в логике запроса этот пользователь можно получить с помощью <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>Обычно выделяют члены и экземпляры, которые существуют в течение всего времени жизни запроса, такие как соединение с базой данных, аутентифицированный пользователь или токен сессии. Одним из возможностей является использование <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, который создает словарь, существующий в течение всего времени жизни запроса.</p>
+<p>Этот словарь можно получить у <a href="/docs/fundamentals/request-handlers">обработчиков запросов</a> и определить переменные на протяжении всего запроса. Например, обработчик запроса, который аутентифицирует пользователя, устанавливает этого пользователя в <code>HttpContext.RequestBag</code>, и в логике запроса этот пользователь можно получить с помощью <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
 <p>Вот пример:</p>
+<div class="script-header">
+    <span>
+        RequestHandlers/AuthenticateUser.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class AuthenticateUser : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
@@ -165,11 +172,19 @@
     {
         User authenticatedUser = AuthenticateUser(request);
         context.RequestBag.Set(authenticatedUser);
-        return null; // перейти к следующему обработчику запроса или логике запроса
+        return null; // advance to the next request handler or request logic
     }
 }
-
-[RouteGet(&quot;/hello&quot;)]
+</code></pre>
+<div class="script-header">
+    <span>
+        Controllers/HelloController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/hello&quot;)]
 [RequestHandler&lt;AuthenticateUser&gt;]
 public static HttpResponse SayHello(HttpRequest request)
 {
@@ -180,10 +195,18 @@ public static HttpResponse SayHello(HttpRequest request)
     };
 }
 </code></pre>
-<p>Это предварительный пример этой операции. Экземпляр <code>User</code> был создан в обработчике запроса, предназначенном для аутентификации, и все маршруты, использующие этот обработчик запроса, будут иметь гарантию, что в их экземпляре <code>HttpContext.RequestBag</code> будет <code>User</code>.</p>
-<p>Можно определить логику для получения экземпляров, если они не были ранее определены в <code>RequestBag</code>, с помощью методов, таких как <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> или <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
-<p>С версии 1.3 была введена статическая свойство <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>, позволяющая получить доступ к выполняющемуся в данный момент <code>HttpContext</code> контекста запроса. Это позволяет экспортировать члены <code>HttpContext</code> за пределами текущего запроса и определять экземпляры в объектах маршрутов.</p>
-<p>Ниже приведен пример, в котором определяется контроллер, имеющий члены, которые часто используются в контексте запроса.</p>
+<p>Это предварительный пример этой операции. Экземпляр <code>User</code> был создан в обработчике запроса, посвященном аутентификации, и все маршруты, которые используют этот обработчик запроса, будут иметь гарантию, что в их экземпляре <code>HttpContext.RequestBag</code> будет <code>User</code>.</p>
+<p>Возможно определить логику получения экземпляров, когда они не были предварительно определены в <code>RequestBag</code>, через методы типа <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> или <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
+<p>С версии 1.3 был введен статический свойство <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>, которое позволяет получить доступ к текущему контексту запроса. Это позволяет экспонировать члены <code>HttpContext</code> вне текущего запроса и определять экземпляры в объектах маршрутов.</p>
+<p>Пример ниже определяет контроллер, который имеет члены, обычно доступные контекстом запроса.</p>
+<div class="script-header">
+    <span>
+        Controllers/Controller.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
     public DbContext Database
@@ -195,14 +218,23 @@ public static HttpResponse SayHello(HttpRequest request)
         }
     }
 
-    // следующий ряд будет выбрасывать ошибку, если свойство будет обращаться к нему, когда пользователь не определен в запросе
+    // следующая строка выдаст исключение, если свойство доступно, когда User не
+    // определен в пакете запроса
     public User AuthenticatedUser { get =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;(); }
 
-    // Экспортирование экземпляра HttpRequest также поддерживается
+    // экспонирование экземпляра HttpRequest также поддерживается
     public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
 }
 </code></pre>
-<p>И определение типов, наследующих от контроллера:</p>
+<p>И определить типы, которые наследуются от контроллера:</p>
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
 public class PostsController : Controller
 {
@@ -226,10 +258,18 @@ public class PostsController : Controller
     }
 }
 </code></pre>
-<p>Для примера выше вам потребуется настроить <a href="/docs/fundamentals/responses.html#implicit-response-types">обработчик значений</a> в маршрутизаторе, чтобы объекты, возвращаемые маршрутизатором, преобразовывались в допустимый <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>.</p>
-<p>Обратите внимание, что методы не имеют аргумента <code>HttpRequest request</code>, как в других методах. Это связано с тем, что с версии 1.3 маршрутизатор поддерживает два типа делегатов для маршрутизации ответов: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, который является по умолчанию делегатом, который получает аргумент <code>HttpRequest</code>, и <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. Экземпляр <code>HttpRequest</code> все еще можно получить с помощью обоих делегатов через свойство <code>Request</code> статического <code>HttpContext</code> на потоке.</p>
-<p>В примере выше мы определили объект, который можно утилизировать, <code>DbContext</code>, и нам нужно убедиться, что все экземпляры, созданные в <code>DbContext</code>, будут утилизированы при завершении HTTP-сессии. Для этого мы можем использовать два способа. Первый - создать <a href="/docs/fundamentals/request-handlers">обработчик запроса</a>, который выполняется после действия маршрутизатора, а второй - использовать пользовательский <a href="/docs/advanced/http-server-handlers">обработчик сервера</a>.</p>
-<p>Для первого метода мы можем создать обработчик запроса inline непосредственно в методе <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a>, унаследованном от <code>RouterModule</code>:</p>
+<p>Для примера выше вам необходимо настроить <a href="/docs/fundamentals/responses.html#implicit-response-types">обработчик значения</a> в вашем маршрутизаторе, чтобы объекты, возвращаемые маршрутизатором, были преобразованы в допустимый <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>.</p>
+<p>Обратите внимание, что методы не имеют аргумента <code>HttpRequest request</code>, как это присутствует в других методах. Это связано с тем, что с версии 1.3 маршрутизатор поддерживает два типа делегатов для маршрутизации ответов: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, который является делегатом по умолчанию, получающим аргумент <code>HttpRequest</code>, и <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. Экземпляр <code>HttpRequest</code> все равно можно получить через свойство <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> статического <code>HttpContext</code> в потоке.</p>
+<p>В примере выше мы определили объект, подлежащий удалению, <code>DbContext</code>, и нам необходимо обеспечить, чтобы все экземпляры, созданные в <code>DbContext</code>, были удалены, когда HTTP-сессия завершается. Для этого можно использовать два способа достижения этой цели. Один из них - создать <a href="/docs/fundamentals/request-handlers">обработчик запроса</a>, который выполняется после действия маршрутизатора, а другой способ - через пользовательский <a href="/docs/advanced/http-server-handlers">обработчик сервера</a>.</p>
+<p>Для первого метода можно создать обработчик запроса trực в методе <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a>, унаследованном от <code>RouterModule</code>:</p>
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
     ...
@@ -241,7 +281,8 @@ public class PostsController : Controller
         HasRequestHandler(RequestHandler.Create(
             execute: (req, ctx) =&gt;
             {
-                // получить один DbContext, определенный в контексте обработчика запроса, и утилизировать его
+                // получить один DbContext, определенный в контексте обработчика запроса и
+                // удалить его
                 ctx.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
                 return null;
             },
@@ -249,8 +290,20 @@ public class PostsController : Controller
     }
 }
 </code></pre>
-<p>Метод выше обеспечит утилизацию <code>DbContext</code> при завершении HTTP-сессии. Вы можете сделать это для более членов, которые должны быть утилизированы в конце ответа.</p>
-<p>Для второго метода вы можете создать пользовательский <a href="/docs/advanced/http-server-handlers">обработчик сервера</a>, который утилизирует <code>DbContext</code> при завершении HTTP-сессии.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>С версии Sisk 1.4 свойство <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> было введено и включено по умолчанию, которое определяет, должен ли HTTP-сервер удалять все значения <code>IDisposable</code> в пакете контекста, когда HTTP-сессия закрывается.</p>
+</div>
+<p>Метод выше обеспечит удаление <code>DbContext</code>, когда HTTP-сессия завершается. Вы можете сделать это для других членов, которые необходимо удалить в конце ответа.</p>
+<p>Для второго метода можно создать пользовательский <a href="/docs/advanced/http-server-handlers">обработчик сервера</a>, который будет удалять <code>DbContext</code>, когда HTTP-сессия завершается.</p>
+<div class="script-header">
+    <span>
+        Server/Handlers/ObjectDisposerHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class ObjectDisposerHandler : HttpServerHandler
 {
     protected override void OnHttpRequestClose(HttpServerExecutionResult result)
@@ -259,12 +312,20 @@ public class PostsController : Controller
     }
 }
 </code></pre>
-<p>И использовать его в вашем билдере:</p>
+<p>И использовать его в вашем построителе приложения:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
     .UseHandler&lt;ObjectDisposerHandler&gt;()
     .Build();
 </code></pre>
-<p>Это способ обработки очистки кода и разделения зависимостей запроса по типу модуля, который будет использоваться, что сокращает количество дублируемого кода в каждом действии маршрутизатора. Это практика, похожая на то, что используется в зависимостном впрыскивании в фреймворках, таких как ASP.NET.</p>
+<p>Это один из способов обработки очистки кода и поддержания зависимостей запроса, разделенных по типу модуля, который будет использоваться, уменьшая количество дублирующего кода внутри каждого действия маршрутизатора. Это практика, аналогичная тому, для чего используется внедрение зависимостей в фреймворках типа ASP.NET.</p>
 
 </article>
 

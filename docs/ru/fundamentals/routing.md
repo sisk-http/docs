@@ -1,103 +1,108 @@
 # Маршрутизация
 
-Маршрутизатор ([Router](/api/Sisk.Core.Routing.Router)) является первым шагом при построении сервера. Он отвечает за хранение объектов [Route](/api/Sisk.Core.Routing.Route), которые представляют собой конечные точки, которые сопоставляют URL-адреса и их методы с действиями, выполняемыми сервером. Каждое действие отвечает за прием запроса и отправку ответа клиенту.
+[Маршрутизатор](/api/Sisk.Core.Routing.Router) является первым шагом в построении сервера. Он отвечает за хранение объектов [Route](/api/Sisk.Core.Routing.Route), которые являются конечными точками, сопоставляющими URL и их методы с действиями, выполняемыми сервером. Каждое действие отвечает за получение запроса и доставку ответа клиенту.
 
-Маршруты представляют собой пары выражений пути ("шаблон пути") и HTTP-метода, на который они могут реагировать. Когда поступает запрос к серверу, он пытается найти маршрут, соответствующий полученному запросу, а затем вызывает действие этого маршрута и отправляет полученный ответ клиенту.
+Маршруты представляют собой пары выражений пути ("шаблон пути") и HTTP-метода, на который они могут реагировать. Когда сервер получает запрос, он попытается найти маршрут, соответствующий полученному запросу, а затем вызовет действие этого маршрута и доставит результирующий ответ клиенту.
 
-Существует несколько способов определения маршрутов в Sisk: они могут быть статическими, динамическими или автоматически сканируемыми, определены с помощью атрибутов или непосредственно в объекте Router.
+Существует несколько способов определить маршруты в Sisk: они могут быть статическими, динамическими или автоматически сканированными, определены атрибутами или直接 в объекте Маршрутизатор.
 
 ```cs
 Router mainRouter = new Router();
 
-// сопоставляет GET / с последующим действием
+// сопоставляет GET / с следующим действием
 mainRouter.MapGet("/", request => {
-    return new HttpResponse("Hello, world!");
+    return new HttpResponse("Привет, мир!");
 });
 ```
 
-Чтобы понять, что может делать маршрут, нужно понять, что может делать запрос. [HttpRequest](/api/Sisk.Core.Http.HttpRequest) будет содержать все необходимые сведения. Sisk также включает некоторые дополнительные функции, которые ускоряют общий процесс разработки.
+Чтобы понять, что может делать маршрут, нам нужно понять, что может делать запрос. [HttpRequest](/api/Sisk.Core.Http.HttpRequest) будет содержать все необходимое. Sisk также включает некоторые дополнительные функции, которые ускоряют общее развитие.
 
-Для каждого действия, полученного сервером, будет вызываться делегат типа [RouteAction](/api/Sisk.Core.Routing.RouteAction). Этот делегат содержит параметр, содержащий [HttpRequest](/api/Sisk.Core.Http.HttpRequest) со всеми необходимыми сведениями о запросе, полученном сервером. Результирующий объект из этого делегата должен быть [HttpResponse](/api/Sisk.Core.Http.HttpResponse) или объектом, который отображается на него через [явные типы ответов](/docs/fundamentals/responses#явные-типы-ответов).
+Для каждого полученного сервером действия будет вызван делегат типа [RouteAction](/api/Sisk.Core.Routing.RouteAction). Этот делегат содержит параметр, который держит [HttpRequest](/api/Sisk.Core.Http.HttpRequest) со всей необходимой информацией о полученном запросе. Результирующий объект от этого делегата должен быть [HttpResponse](/api/Sisk.Core.Http.HttpResponse) или объектом, который сопоставляется с ним через [неявные типы ответов](/docs/fundamentals/responses#implicit-response-types).
 
 ## Сопоставление маршрутов
 
-Когда к HTTP-серверу поступает запрос, Sisk ищет маршрут, который удовлетворяет выражению пути, полученному в запросе. Выражение всегда проверяется между маршрутом и путем запроса, без учета строки запроса.
+Когда сервер получает запрос, Sisk ищет маршрут, удовлетворяющий выражению пути, полученному запросом. Это выражение всегда тестируется между маршрутом и путем запроса, без учета строки запроса.
 
-Этот тест не имеет приоритета и является исключительным для одного маршрута. Когда маршрут не сопоставляется с запросом, сервер возвращает клиенту ответ [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler). Если шаблон пути совпадает, но HTTP-метод не совпадает, сервер возвращает клиенту ответ [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler).
+Этот тест не имеет приоритета и исключителен для одного маршрута. Когда нет маршрута, соответствующего этому запросу, возвращается ответ [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) клиенту. Когда шаблон пути совпадает, но HTTP-метод не совпадает, возвращается ответ [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) клиенту.
 
-Sisk проверяет возможность столкновения маршрутов, чтобы избежать этих проблем. При определении маршрутов Sisk будет искать возможные маршруты, которые могут столкнуться с определенным маршрутом. Этот тест включает проверку пути и метода, которые маршрут настроен принимать.
+Sisk проверяет возможность коллизий маршрутов, чтобы избежать этих проблем. Когда определяются маршруты, Sisk будет искать возможные маршруты, которые могут столкнуться с определяемым маршрутом. Этот тест включает проверку пути и метода, который маршрут установлен для приема.
 
-### Создание маршрутов с использованием шаблонов пути
+### Создание маршрутов с помощью шаблонов пути
 
-Вы можете определить маршруты с использованием различных методов `SetRoute`.
+Вы можете определить маршруты, используя различные методы `SetRoute`.
 
 ```cs
 // способ SetRoute
-mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>", (request) => {
+mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>", (request) =>
+{
     string name = request.RouteParameters["name"].GetString();
-    return new HttpResponse($"Hello, {name}");
+    return new HttpResponse($"Привет, {name}");
 });
 
 // способ Map*
-mainRouter.MapGet("/form", (request) => {
+mainRouter.MapGet("/form", (request) =>
+{
     var formData = request.GetFormData();
-    return new HttpResponse(); // пустой 200 ok
+    return new HttpResponse(); // пустой 200 ок
 });
 
-// вспомогательные методы Route.*
-mainRouter += Route.Get("/image.png", (request) => {
+// помощник методов Route.*
+mainRouter += Route.Get("/image.png", (request) =>
+{
     var imageStream = File.OpenRead("image.png");
-
+    
     return new HttpResponse()
     {
-        // внутренний StreamContent
-        // поток будет освобожден после отправки
-        // ответа.
+        // StreamContent inner
+        // stream is disposed after sending
+        // the response.
         Content = new StreamContent(imageStream)
     };
 });
 
 // несколько параметров
-mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) => {
+mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
+{
     string name = request.RouteParameters["name"].GetString();
     string surname = request.RouteParameters["surname"].GetString();
 
-    return new HttpResponse($"Hello, {name} {surname}!");
+    return new HttpResponse($"Привет, {name} {surname}!");
 });
 ```
 
-Свойство [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) объекта HttpResponse содержит все сведения о переменных пути полученного запроса.
+Свойство [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) объекта HttpResponse содержит всю информацию о переменных пути полученного запроса.
 
-Каждый путь, полученный сервером, нормализуется перед выполнением теста шаблона пути, следуя этим правилам:
+Каждый путь, полученный сервером, нормализуется перед выполнением теста шаблона пути, следующим этими правилами:
 
 - Все пустые сегменты удаляются из пути, например: `////foo//bar` становится `/foo/bar`.
-- Сопоставление путей **чувствительно к регистру**, если [Router.MatchRoutesIgnoreCase](/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase) не установлено в `true`.
+- Сопоставление пути **чувствительно к регистру**, если только [Router.MatchRoutesIgnoreCase](/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase) не установлен в `true`.
 
-Свойства [Query](/api/Sisk.Core.Http.HttpRequest.Query) и [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) объекта [HttpRequest](/api/Sisk.Core.Http.HttpRequest) возвращают объект [StringValueCollection](/api/Sisk.Core.Entity.StringValueCollection), где каждая индексируемая свойство возвращает непустой [StringValue](/api/Sisk.Core.Entity.StringValue), который может использоваться в качестве опции/монад для преобразования его исходного значения в управляемый объект.
+Свойства [Query](/api/Sisk.Core.Http.HttpRequest.Query) и [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) объекта [HttpRequest](/api/Sisk.Core.Http.HttpRequest) возвращают объект [StringValueCollection](/api/Sisk.Core.Entity.StringValueCollection), где каждый индексированный свойство возвращает не-нулевой [StringValue](/api/Sisk.Core.Entity.StringValue), который можно использовать как опцию/монаду для преобразования его сырого значения в управляемый объект.
 
-В следующем примере читается параметр маршрута "id" и извлекается из него `Guid`. Если параметр не является действительным `Guid`, вызывается исключение, и клиенту возвращается ошибка 500, если сервер не обрабатывает [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler).
+Пример ниже читает параметр маршрута "id" и получает из него `Guid`. Если параметр не является допустимым Guid, выбрасывается исключение, и возвращается ошибка 500 клиенту, если сервер не обрабатывает [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler).
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) => {
+mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) =>
+{
     Guid id = request.RouteParameters["id"].GetGuid();
 });
 ```
 
 > [!NOTE]
-> Пути игнорируют слеш в конце пути в обоих запросах и маршрутах, то есть, если вы попытаетесь получить доступ к маршруту, определенному как `/index/page`, вы сможете получить доступ с помощью `/index/page/` также.
+> Пути имеют свой завершающий `/` игнорируемый как в запросе, так и в пути маршрута, то есть, если вы попытаетесь получить доступ к маршруту, определённому как `/index/page`, вы сможете получить доступ, используя `/index/page/` тоже.
 >
-> Вы также можете принудительно заставить URL-адреса завершаться `/`, включив флаг [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash).
+> Вы также можете принудительно завершать URL `/`, включив флаг [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash).
 
-### Создание маршрутов с использованием экземпляров классов
+### Создание маршрутов с помощью экземпляров классов
 
-Вы также можете динамически определять маршруты с помощью рефлексии с помощью атрибута [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute). Таким образом, экземпляр класса, в котором реализованы его методы, будут иметь свои маршруты, определенные в целевом маршрутизаторе.
+Вы также можете определить маршруты динамически с помощью рефлексии и атрибута [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute). Таким образом, экземпляр класса, в котором его методы реализуют этот атрибут, будут иметь свои маршруты определены в целевом маршрутизаторе.
 
-Для того, чтобы метод был определен как маршрут, он должен быть помечен атрибутом [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute), например, атрибут сам по себе или [RouteGetAttribute](/api/Sisk.Core.Routing.RouteGetAttribute). Метод может быть статическим, экземпляром класса, публичным или приватным. Когда используется метод `SetObject(type)` или `SetObject<TType>()`, статические методы игнорируются.
+Чтобы метод был определен как маршрут, он должен быть помечен атрибутом [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute), таким как сам атрибут или [RouteGetAttribute](/api/Sisk.Core.Routing.RouteGetAttribute). Метод может быть статическим, экземпляром, публичным или приватным. Когда метод `SetObject(type)` или `SetObject<TType>()` используется, методы экземпляра игнорируются.
 
 ```cs
 public class MyController
 {
-    // сопоставляется с GET /
+    // будет соответствовать GET /
     [RouteGet]
     HttpResponse Index(HttpRequest request)
     {
@@ -106,7 +111,7 @@ public class MyController
         return res;
     }
 
-    // статические методы тоже работают
+    // статические методы также работают
     [RouteGet("/hello")]
     static HttpResponse Hello(HttpRequest request)
     {
@@ -117,1568 +122,123 @@ public class MyController
 }
 ```
 
-Строка ниже определит методы `Index` и `Hello` класса `MyController` как маршруты, так как оба они помечены как маршруты, и был предоставлен экземпляр класса, а не его тип. Если бы был предоставлен тип вместо экземпляра, то были бы определены только статические методы.
+Строка ниже определит оба метода `Index` и `Hello` класса `MyController` как маршруты, поскольку они помечены как маршруты, и предоставлен экземпляр класса, а не его тип. Если бы его тип был предоставлен вместо экземпляра, только статические методы были бы определены.
 
 ```cs
 var myController = new MyController();
 mainRouter.SetObject(myController);
 ```
 
-С версии Sisk 0.16 и выше, стало возможным включить AutoScan, который будет искать пользовательские классы, реализующие `RouterModule` и автоматически связывать их с маршрутизатором. Это не поддерживается при компиляции AOT.
+С версии Sisk 0.16 возможно включить AutoScan, который будет искать пользовательские классы, реализующие `RouterModule`, и автоматически ассоциировать его с маршрутизатором. Это не поддерживается с AOT-компиляцией.
 
 ```cs
 mainRouter.AutoScanModules<ApiController>();
 ```
 
-В приведенном выше примере, указанный параметр `mainRouter.AutoScanModules` будет искать все типы, которые реализуют `ApiController` но не сам тип. Два необязательных параметра указывают, как метод будет искать эти типы. Первый аргумент подразумевает сборку, где будут искаться типы, а второй указывает, как типы будут определены.
+Вышеуказанная инструкция будет искать все типы, которые реализуют `ApiController`, но не сам тип. Два необязательных параметра указывают, как метод будет искать эти типы. Первый аргумент подразумевает сборку, где будут искаться типы, а второй указывает, каким образом будут определены типы.
 
-## Маршруты с использованием регулярных выражений
+## Маршруты с помощью регулярных выражений
 
-Вместо использования стандартных HTTP-методов сопоставления путей, вы можете пометить маршрут для интерпретации с помощью регулярных выражений.
+Вместо использования методов сопоставления пути HTTP по умолчанию вы можете пометить маршрут как интерпретируемый с помощью регулярного выражения.
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, @"\/[a-z]+/", "My route", IndexPage, null);
+Route indexRoute = new Route(RouteMethod.Get, @"\/[a-z]+\/", "My route", IndexPage, null);
 indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 ```
 
-Или с помощью класса RegexRoute
+Или с помощью класса [RegexRoute](/api/Sisk.Core.Routing.RegexRoute):
 
 ```cs
-RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @"/uploads/(?<filename>.*\.(jpeg|jpg|png)", request =>
+RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =>
 {
-    string filename = request.Query["filename"].GetString();
-    return new HttpResponse($"Acessing file {filename}");
+    return new HttpResponse("hello, world");
 });
 mainRouter.SetRoute(indexRoute);
 ```
 
-You can also capture groups from the regex pattern into the [Request.Query](/api/Sisk.Core.Http.HttpRequest.Query) contents:
-
-## Маршруты с любым методом
-
-You can define a route to be matched only by its path and skip the HTTP method. This can be useful for you to do method validation inside the route callback.
+Вы также можете захватить группы из шаблона регулярного выражения в содержимое [Request.Query](/api/Sisk.Core.Http.HttpRequest.Query):
 
 ```cs
-// the following route will match all POST requests
+[RegexRoute(RouteMethod.Get, @"/uploads/(?<filename>.*\.(jpeg|jpg|png))")]
+static HttpResponse RegexRoute(HttpRequest request)
+{
+    string filename = request.Query["filename"].GetString();
+    return new HttpResponse().WithContent($"Acessing file {filename}");
+}
+```
+
+## Маршруты для любого метода
+
+Вы можете определить маршрут, который будет соответствовать только его пути и пропустит HTTP-метод. Это может быть полезно для вас, чтобы выполнить проверку метода внутри маршрута.
+
+```cs
+// будет соответствовать / на любой HTTP-метод
 mainRouter.SetRoute(RouteMethod.Any, "/", callbackFunction);
 ```
 
-## Маршруты с любым путем
+## Маршруты для любого пути
 
-Any path routes test for any path received by the HTTP server, subject to the route method being tested. If the route method is RouteMethod.Any and the route uses [Route.AnyPath](/api/Sisk.Core.Routing.Route.AnyPath) in its path expression, this route will match all requests from the HTTP server, and no other routes can be defined.
+Маршруты для любого пути тестируют любой путь, полученный HTTP-сервером, подлежащий маршруту метода. Если маршрут метода равен RouteMethod.Any и маршрут использует [Route.AnyPath](/api/Sisk.Core.Routing.Route.AnyPath) в его выражении пути, этот маршрут будет слушать все запросы от HTTP-сервера, и не могут быть определены другие маршруты.
 
 ```cs
-// the following route will match all POST requests
+// следующий маршрут будет соответствовать всем запросам POST
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 ```
 
-## Игнорирование регистра маршрутов
+## Игнорирование регистра при сопоставлении маршрутов
 
-По умолчанию, интерпретация маршрутов с запросами является регистро-чувствительной. Чтобы сделать его регистро-нечувствительным, включите этот параметр.
+По умолчанию интерпретация маршрутов с запросами чувствительна к регистру. Чтобы сделать его игнорируемым, включите эту опцию:
 
 ```cs
 mainRouter.MatchRoutesIgnoreCase = true;
 ```
 
-This will also enable the option `RegexOptions.IgnoreCase` for routes where it's regex-matching.
+Это также включит опцию `RegexOptions.IgnoreCase` для маршрутов, где используется сопоставление с помощью регулярных выражений.
 
-## Обработка ошибок
+## Обработчик не найденного (404) обратного вызова
 
-Обработка ошибок
-
-Route callbacks can throw errors during server execution. If not handled correctly, the overall functioning of the HTTP server can be terminated. The router has a callback for when a route callback fails and prevents service interruption.
-
-This method is only reachable when [ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) is set to false.
+Вы можете создать пользовательский обратный вызов для случая, когда запрос не соответствует ни одному известному маршруту.
 
 ```cs
-mainRouter.CallbackErrorHandler = (ex, context) => {
-    return new HttpResponse(500.Content("Error: {ex.Message}");
+mainRouter.NotFoundErrorHandler = () =>
+{
+    return new HttpResponse(404)
+    {
+        // С версии v0.14
+        Content = new HtmlContent("<h1>Не найдено</h1>")
+        // более старые версии
+        Content = new StringContent("<h1>Не найдено</h1>", Encoding.UTF8, "text/html")
+    };
+};
 ```
 
+## Обработчик метода не допускается (405) обратного вызова
 
+Вы также можете создать пользовательский обратный вызов для случая, когда запрос соответствует его пути, но не соответствует методу.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```cs
+mainRouter.MethodNotAllowedErrorHandler = (context) =>
+{
+    return new HttpResponse(405)
+    {
+        Content = new StringContent($"Метод не допускается для этого маршрута.")
+    };
+};
+```
 
+## Внутренний обработчик ошибок
 
+Обратные вызовы маршрутов могут выбрасывать ошибки во время выполнения сервера. Если они не обрабатываются правильно, общая работа HTTP-сервера может быть прервана. Маршрутизатор имеет обратный вызов для случая, когда обратный вызов маршрута неудачно и предотвращает прерывание службы.
 
+Этот метод доступен только тогда, когда [ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) установлен в `false`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```cs
-
-
-
-
-
-
-
-
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
 ```cs
+mainRouter.CallbackErrorHandler = (ex, context) =>
+{
+    return new HttpResponse(500)
+    {
+        Content = new StringContent($"Ошибка: {ex.Message}")
+    };
+};
+```

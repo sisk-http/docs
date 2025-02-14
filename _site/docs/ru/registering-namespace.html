@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configurando reservas de namespace no Windows | Sisk </title>
+        <title>Настройка резервирования пространств имен в Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configurando reservas de namespace no Windows | Sisk ">
+        <meta name="title" content="Настройка резервирования пространств имен в Windows | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -151,10 +151,10 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="configurando-reservas-de-namespace-no-windows">Configurando reservas de namespace no Windows</h1>
+<h1 id="настройка-резервирования-пространств-имен-в-windows">Настройка резервирования пространств имен в Windows</h1>
 
-<p>Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.</p>
-<p>No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.</p>
+<p>Sisk работает с сетевым интерфейсом HttpListener, который связывает виртуальный хост с системой для прослушивания запросов.</p>
+<p>В Windows это связывание немного ограничено, разрешая связывать только localhost в качестве допустимого хоста. При попытке прослушивать другой хост на сервере возникает ошибка доступа. Это руководство объясняет, как предоставить авторизацию для прослушивания на любом хосте, который вы хотите на системе.</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -165,7 +165,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: insira o prefixo aqui, sem espaços ou aspas
+:: вставьте префикс здесь, без пробелов или кавычек
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -173,7 +173,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Onde em <code>PREFIX</code>, é o prefixo (&quot;Host de Escuta-&gt;Porta&quot;) que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:</p>
+<p>Где в <code>PREFIX</code> находится префикс (&quot;Хост-&gt;Порт прослушивания&quot;), который будет прослушивать ваш сервер. Он должен быть отформатирован по схеме URL, хосту, порту и слэшу в конце, например:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -182,9 +182,9 @@ pause
         BATCH
     </span>
 </div>
-<pre><code class="lang-bat">SET PREFIX=http://meu-aplicativo.exemplo.teste/
+<pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>Para que você possa ser ouvido em sua aplicação por meio de:</p>
+<p>Таким образом, вы можете прослушивать в вашем приложении через:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -198,7 +198,7 @@ pause
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://meu-aplicativo.exemplo.teste/&quot;)
+            .UseListeningPort(&quot;http://my-application.example.test/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;
@@ -206,7 +206,7 @@ pause
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Olá, mundo!&quot;)
+                Content = new StringContent(&quot;Hello, world!&quot;)
             };
         });
 

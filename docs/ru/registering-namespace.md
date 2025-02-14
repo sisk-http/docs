@@ -1,8 +1,8 @@
-# Configurando reservas de namespace no Windows
+# Настройка резервирования пространств имен в Windows
 
-Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.
+Sisk работает с сетевым интерфейсом HttpListener, который связывает виртуальный хост с системой для прослушивания запросов.
 
-No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.
+В Windows это связывание немного ограничено, разрешая связывать только localhost в качестве допустимого хоста. При попытке прослушивать другой хост на сервере возникает ошибка доступа. Это руководство объясняет, как предоставить авторизацию для прослушивания на любом хосте, который вы хотите на системе.
 
 <div class="script-header">
     <span>
@@ -16,7 +16,7 @@ No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o lo
 ```bat
 @echo off
 
-:: insira o prefixo aqui, sem espaços ou aspas
+:: вставьте префикс здесь, без пробелов или кавычек
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -25,7 +25,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:
+Где в `PREFIX` находится префикс ("Хост->Порт прослушивания"), который будет прослушивать ваш сервер. Он должен быть отформатирован по схеме URL, хосту, порту и слэшу в конце, например:
 
 <div class="script-header">
     <span>
@@ -37,10 +37,10 @@ Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouv
 </div>
 
 ```bat
-SET PREFIX=http://meu-aplicativo.exemplo.teste/
+SET PREFIX=http://my-application.example.test/
 ```
 
-Para que você possa ser ouvido em sua aplicação por meio de:
+Таким образом, вы можете прослушивать в вашем приложении через:
 
 <div class="script-header">
     <span>
@@ -57,7 +57,7 @@ class Program
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort("http://meu-aplicativo.exemplo.teste/")
+            .UseListeningPort("http://my-application.example.test/")
             .Build();
 
         app.Router.MapGet("/", request =>
@@ -65,7 +65,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Olá, mundo!")
+                Content = new StringContent("Hello, world!")
             };
         });
 

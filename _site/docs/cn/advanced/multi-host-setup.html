@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>每个服务器多个监听主机 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="每个服务器多个监听主机 | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,39 +151,40 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="每个服务器多个监听主机">每个服务器多个监听主机</h1>
 
-<p>Sisk 框架一直以来都支持每个服务器使用多个主机，也就是说，单个 HTTP 服务器可以监听多个端口，每个端口都有其自己的路由器和运行在其上的服务。</p>
-<p>这样，使用 Sisk 在单个 HTTP 服务器上轻松分离职责并管理服务。以下示例展示了创建两个监听主机，每个主机监听不同的端口，具有不同的路由器和操作。</p>
-<p>阅读 <a href="/v1/getting-started.md#manually-creating-your-app">手动创建应用程序</a> 了解有关此抽象的详细信息。</p>
+<p>Sisk Framework一直支持在每个服务器上使用多个主机，即单个HTTP服务器可以监听多个端口，每个端口都有自己的路由器和服务运行在上面。</p>
+<p>这样，使用Sisk就可以轻松地分离责任并管理单个HTTP服务器上的服务。下面的例子展示了创建两个ListeningHosts，每个监听不同的端口，具有不同的路由器和动作。</p>
+<p>阅读<a href="/v1/getting-started.md#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E6%82%A8%E7%9A%84%E5%BA%94%E7%94%A8">手动创建您的应用</a>以了解有关此抽象的详细信息。</p>
 <pre><code class="lang-cs">static void Main(string[] args)
 {
-    // 创建两个监听主机，每个主机都有自己的路由器，并监听自己的端口
+    // 创建两个监听主机，每个都有自己的路由器和监听端口
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host A!&quot;));
+    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;来自主机A的问候！&quot;));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host B!&quot;));
+    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;来自主机B的问候！&quot;));
 
-    // 创建服务器配置并添加两个监听主机
+    // 创建一个服务器配置并添加两个监听主机
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // 创建一个使用指定配置的 HTTP 服务器
+    // 创建一个使用指定配置的HTTP服务器
     //
     HttpServer server = new HttpServer(configuration);
 
     // 启动服务器
     server.Start();
 
-    Console.WriteLine(&quot;尝试访问主机 A 在 {0}&quot;, server.ListeningPrefixes[0]);
-    Console.WriteLine(&quot;尝试访问主机 B 在 {0}&quot;, server.ListeningPrefixes[1]);
+    Console.WriteLine(&quot;尝试访问主机A在 {0}&quot;, server.ListeningPrefixes[0]);
+    Console.WriteLine(&quot;尝试访问主机B在 {0}&quot;, server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

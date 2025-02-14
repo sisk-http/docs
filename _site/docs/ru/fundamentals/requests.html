@@ -153,7 +153,7 @@
                 <article data-uid="">
 <h1 id="запросы">Запросы</h1>
 
-<p>Запросы представляют собой структуры, которые представляют сообщение HTTP-запроса. Объект <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> содержит полезные функции для обработки сообщений HTTP в вашем приложении.</p>
+<p>Запросы представляют собой структуры, которые представляют сообщение HTTP-запроса. Объект <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> содержит полезные функции для обработки HTTP-сообщений на протяжении всего вашего приложения.</p>
 <p>HTTP-запрос формируется методом, путем, версией, заголовками и телом.</p>
 <p>В этом документе мы научим вас, как получить каждый из этих элементов.</p>
 <h2 id="получение-метода-запроса">Получение метода запроса</h2>
@@ -167,10 +167,10 @@
 <p>Это свойство возвращает метод запроса, представленный объектом <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>В отличие от маршрутных методов, это свойство не возвращает элемент <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Вместо этого оно возвращает настоящий метод запроса.</p>
+<p>В отличие от методов маршрутизации, это свойство не обслуживает элемент <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Вместо этого оно возвращает фактический метод запроса.</p>
 </div>
-<h2 id="получение-компонентов-url-адреса-запроса">Получение компонентов URL-адреса запроса</h2>
-<p>Вы можете получить различные компоненты из URL-адреса с помощью определенных свойств запроса. Для этого примера рассмотрим URL-адрес:</p>
+<h2 id="получение-компонентов-url">Получение компонентов URL</h2>
+<p>Вы можете получить различные компоненты из URL через определенные свойства запроса. Для этого примера давайте рассмотрим URL:</p>
 <pre><code>http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
@@ -192,45 +192,65 @@
 <td>Получает путь запроса и строку запроса.</td>
 <td><code>/user/login?email=foo@bar.com</code></td>
 </tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
+<td>Получает всю строку URL запроса.</td>
+<td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
+<td>Получает хост запроса.</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
+<td>Получает хост и порт запроса.</td>
+<td><code>localhost:5000</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
+<td>Получает строку запроса запроса.</td>
+<td><code>?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
+<td>Получает строку запроса запроса в виде коллекции именованных значений.</td>
+<td><code>{StringValueCollection object}</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
+<td>Определяет, использует ли запрос SSL (true) или нет (false).</td>
+<td><code>false</code></td>
+</tr>
 </tbody>
 </table>
-<ul>
-<li><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a> | Получает полный URL-адрес запроса. | <code>http://localhost:5000/user/login?email=foo@bar.com</code> |
-| <a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a> | Получает хост запроса. | <code>localhost</code> |
-| <a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a> | Получает хост и порт запроса. | <code>localhost:5000</code> |
-| <a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a> | Получает запрос запроса. | <code>?email=foo@bar.com</code> |
-| <a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> | Получает запрос запроса в коллекцию значений с именем. | <code>{StringValueCollection object}</code> |
-| <a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a> | Определяет, использует ли запрос SSL (true) или нет (false). | <code>false</code> |</li>
-</ul>
-<p>Вы также можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, которое включает все вышеперечисленное в одном объекте.</p>
+<p>Вы также можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, которое включает все вышеперечисленное в один объект.</p>
 <h2 id="получение-тела-запроса">Получение тела запроса</h2>
-<p>Некоторые запросы включают тело, например, формы, файлы или транзакции API. Вы можете получить тело запроса из свойства:</p>
-<pre><code class="lang-cs">// получает тело запроса в виде строки, используя кодировку запроса в качестве кодировщика
+<p>Некоторые запросы включают тело, такие как формы, файлы или транзакции API. Вы можете получить тело запроса из свойства:</p>
+<pre><code class="lang-cs">// получает тело запроса как строку, используя кодировку запроса в качестве декодера
 string body = request.Body;
 
 // или получает его в виде массива байтов
 byte[] bodyBytes = request.RawBody;
 
-// или иначе, вы можете получить его потоком
+// или вы можете передать его как поток.
 Stream requestStream = request.GetRequestStream();
 </code></pre>
-<p>Также можно определить, есть ли тело в запросе и загружено ли оно с помощью свойств <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, которое определяет, имеет ли запрос содержимое, и <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, которое указывает на то, что HTTP-сервер полностью получил содержимое из удаленного узла.</p>
-<p>Невозможно прочитать содержимое запроса через <code>GetRequestStream</code> более одного раза. Если вы прочитаете с помощью этого метода, значения в <code>RawBody</code> и <code>Body</code> также не будут доступны. Не нужно освобождать поток запроса в контексте запроса, так как он освобождается в конце HTTP-сессии, в которой он был создан. Также вы можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>, чтобы получить лучшую кодировку для декодирования запроса вручную.</p>
-<p>Сервер имеет ограничения для чтения содержимого запроса, которые применяются как к <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a>, так и к <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>. Эти свойства копируют весь входной поток в локальный буфер, размером с <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
-<p>Ответ с кодом состояния 413 Content Too Large возвращается клиенту, если отправленное содержимое больше, чем <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, определенный в конфигурации пользователя. Кроме того, если конфигурация не задана или она слишком велика, сервер выбросит исключение <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>, когда содержимое, отправленное клиентом, превышает <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 ГБ) и если содержимое пытаются получить с помощью одного из упомянутых выше свойств. Вы все еще можете обрабатывать содержимое с помощью потоковой передачи.</p>
+<p>Также возможно определить, есть ли тело в запросе и загружено ли оно с помощью свойств <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, которое определяет, есть ли содержимое в запросе, и <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, которое указывает, что HTTP-сервер полностью получил содержимое из удаленной точки.</p>
+<p>Невозможно прочитать содержимое запроса через <code>GetRequestStream</code> более одного раза. Если вы прочитаете с помощью этого метода, значения в <code>RawBody</code> и <code>Body</code> также не будут доступны. Не нужно освобождать поток запроса в контексте запроса, поскольку он освобождается в конце HTTP-сессии, в которой он создается. Кроме того, вы можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>, чтобы получить лучшую кодировку для декодирования запроса вручную.</p>
+<p>Сервер имеет ограничения на чтение содержимого запроса, которые применяются как к <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a>, так и к <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>. Эти свойства копируют весь входной поток в локальный буфер того же размера, что и <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
+<p>Ответ со статусом 413 Содержимое слишком велико возвращается клиенту, если отправленное содержимое больше <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, определенного в конфигурации пользователя. Кроме того, если нет настроенного ограничения или если оно слишком велико, сервер выдаст исключение <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>, когда содержимое, отправленное клиентом, превышает <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 ГБ), и если содержимое попытается получить доступ через одно из вышеупомянутых свойств. Вы все равно можете иметь дело с содержимым через поток.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk следует RFC 9110 &quot;HTTP Semantics&quot;, которые не разрешают определенным методам запроса иметь тело. Эти запросы немедленно сбросят 400 (Bad Request) с статусом <code>ContentServedOnIllegalMethod</code>. Запросы с телами не разрешены в методах GET, OPTIONS, HEAD и TRACE. Вы можете прочитать <a href="https://httpwg.org/spec/rfc9110.html">RFC 9910</a> здесь.</p>
+<p>Sisk следует RFC 9110 &quot;HTTP Semantics&quot;, который не позволяет определенным методам запроса иметь тело. Эти запросы сразу же возвращают 400 (Плохой запрос) со статусом <code>ContentServedOnIllegalMethod</code>. Запросы с телом не допускаются в методах GET, OPTIONS, HEAD и TRACE. Вы можете прочитать <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110</a> здесь.</p>
+<p>Вы можете отключить эту функцию, установив <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> в <code>false</code>.</p>
 </div>
-<blockquote>
-<p>You can disable this feature by setting <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> to <code>false</code>.</p>
-</blockquote>
 <h2 id="получение-контекста-запроса">Получение контекста запроса</h2>
-<p>HTTP-контекст - это эксклюзивный объект Sisk, который хранит информацию о HTTP-сервере, маршруте, маршрутизаторе и обработчике запроса. Вы можете использовать его, чтобы организовать себя в среде, где эти объекты сложно организовать.</p>
-<p>Объект <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> содержит хранимую информацию, которая передается из обработчика запроса в другое место, и может быть использована в конечном вызове. Этот объект также может быть использован обработчиками запроса, которые выполняются после вызова маршрута.</p>
+<p>Контекст HTTP — это эксклюзивный объект Sisk, который хранит информацию о сервере HTTP, маршруте, маршрутизаторе и обработчике запроса. Вы можете использовать его, чтобы организовать себя в среде, где эти объекты трудно организовать.</p>
+<p>Объект <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> содержит сохраненную информацию, которая передается из обработчика запроса в другую точку и может быть потреблена в конечной точке. Этот объект также может быть использован обработчиками запросов, которые запускаются после обратного вызова маршрута.</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>This property is also accessible by <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> property.</p>
+<p>Это свойство также доступно через свойство <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a>.</p>
 </div>
 <pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
 {
@@ -238,40 +258,51 @@ Stream requestStream = request.GetRequestStream();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
 
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
-
-    if (request.Headers[&quot;Authorization&quot;] != null)
     {
-        context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
-        return null;
-    }
-    else
-    {
-        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        if (request.Headers[&quot;Authorization&quot;] != null)
+        {
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
+            return null;
+        }
+        else
+        {
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
     }
 }
 </code></pre>
-<p>The above request handler will define <code>AuthenticatedUser</code> in the request bag, and can be consumed later in the final callback:</p>
+<p>Вышеуказанный обработчик запроса определит <code>AuthenticatedUser</code> в сумке запроса и может быть потреблен позже в конечном вызове:</p>
 <pre><code class="lang-cs">public class MyController
 {
-    [RouteGet(&quot;/&quot;)]
-    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;
+    [Route(RouteMethod.Get, &quot;/&quot;)]
+    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
     static HttpResponse Index(HttpRequest request)
     {
-        var user = request.Context.RequestBag.Get&lt;User&gt;();
+        HttpResponse res = new HttpResponse();
+        string authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        res.Content = new StringContent($&quot;Hello, {authUser}!&quot;);
+        return res;
     }
 }
 </code></pre>
-<p>You can also use the <code>Bag.Set()</code> and <code>Bag.Get()</code> helper methods to get or set objects by their type singletons.</p>
+<p>Вы также можете использовать методы <code>Bag.Set()</code> и <code>Bag.Get()</code>, чтобы получить или задать объекты по их типам-одиночкам.</p>
 <pre><code class="lang-cs">public class Authenticate : RequestHandler
 {
     public override HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        request.Bag.Set&lt;User&gt;
+        request.Bag.Set&lt;User&gt;(authUser);
     }
+}
+
+[RouteGet(&quot;/&quot;)]
+[RequestHandler&lt;Authenticate&gt;]
+public static HttpResponse Test(HttpRequest request)
+{
+    var user = request.Bag.Get&lt;User&gt;();
 }
 </code></pre>
 <h2 id="получение-данных-формы">Получение данных формы</h2>
-<p>You can get the values of a form data in a [NameValueCollection](https://learn.</p>
+<p>Вы можете получить значения данных формы в <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> с помощью следующего примера:</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
@@ -279,553 +310,98 @@ Stream requestStream = request.GetRequestStream();
     string? username = form[&quot;username&quot;];
     string? password = form[&quot;password&quot;];
 
-    if (AttempLogin(username, password) == true
+    if (AttempLogin(username, password) == true)
     {
         ...
     }
 }
 </code></pre>
-<h2 id="получение-многочленных-данных-формы">Получение многочленных данных формы</h2>
-<p>Sisk's HTTP request lets you get uploaded multipart contents, such as files, form fields, or any binary content.</p>
+<h2 id="получение-данных-формы-multipart">Получение данных формы multipart</h2>
+<p>Sisk позволяет получить загруженные multipart-содержимое, такое как файлы, поля формы или любое бинарное содержимое.</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
+    // следующий метод читает весь входной запрос в массив
+    // MultipartObject
     var multipartFormDataObjects = request.GetMultipartFormContent();
 
-    foreach (MultipartObject uploadedObject in multipartFormDataObjects
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename;
-        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name;
-        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength;
-        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat();
+        // имя файла, предоставленное данными multipart-формы.
+        // Null возвращается, если объект не является файлом.
+        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
+
+        // имя поля multipart-формы.
+        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
+
+        // длина содержимого multipart-формы.
+        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
+
+        // определяет формат файла на основе заголовка файла для каждого
+        // известного типа содержимого. Если содержимое не является признанным обычным форматом файла,
+        // этот метод ниже вернет MultipartObjectCommonFormat.Unknown
+        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
     }
+}
 </code></pre>
-<p>You can read more about Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> and it's methods, properties and functionalities.</p>
-<h2 id="поддержка-событий-сервер-side-events">Поддержка событий сервер-side events</h2>
-<p>Sisk supports <a href="https://developer.mozilla.org/en-US/API/EventSource/close">Server-side events</a></p>
-<p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> method will put the HttpRequest in it's listener state. From this, the context of this HTTP request will not expect an HttpResponse as it will overlap the packets sent by server-side events.</p>
-<p>After sending all packets, the callback must return the <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> method, which will send the final response to the server and indicate that the streaming has ended.</p>
-<p>It's not possible to predict the total length of all packets that will be sent, so it's not possible to determine the end of the connection with `Content-Length header.</p>
-<p>By default, most browsers restart streams if the `EventSource.close</p>
+<p>Вы можете прочитать больше о Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> и их методах, свойствах и функциях.</p>
+<h2 id="поддержка-серверных-событий">Поддержка серверных событий</h2>
+<p>Sisk поддерживает <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">Server-sent events</a>, которые позволяют отправлять фрагменты как поток и сохранять соединение между сервером и клиентом.</p>
+<p>Вызов метода <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> приведет к тому, что HttpRequest будет находиться в состоянии прослушивания. С этого момента контекст этого HTTP-запроса не будет ожидать HttpResponse, поскольку он перекроет пакеты, отправленные серверными событиями.</p>
+<p>После отправки всех пакетов обратный вызов должен вернуть метод <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>, который отправит окончательный ответ серверу и укажет, что потоковая передача завершилась.</p>
+<p>Невозможно предсказать общую длину всех пакетов, которые будут отправлены, поэтому невозможно определить конец соединения с помощью заголовка <code>Content-Length</code>.</p>
+<p>По умолчанию большинства браузеров серверные события не поддерживают отправку HTTP-заголовков или методов, кроме метода GET. Поэтому будьте осторожны при использовании обработчиков запросов с запросами event-source, которые требуют определенных заголовков в запросе, поскольку они, вероятно, не будут иметь их.</p>
+<p>Кроме того, большинство браузеров перезапускают потоки, если метод <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> не вызван на стороне клиента после получения всех пакетов, что вызывает бесконечную дополнительную обработку на стороне сервера. Чтобы избежать этой проблемы, обычно отправляют окончательный пакет, указывающий, что источник событий завершил отправку всех пакетов.</p>
+<p>Пример ниже показывает, как браузер может общаться с сервером, поддерживающим серверные события.</p>
 <pre><code class="lang-html">&lt;html&gt;
-&lt;body&gt;
-&lt;b&gt;Fruits:&lt;/b&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;li&gt;
-&lt;li&gt;
-&lt;li&gt;
+    &lt;body&gt;
+        &lt;b&gt;Fruits:&lt;/b&gt;
+        &lt;ul&gt;&lt;/ul&gt;
+    &lt;/body&gt;
+    &lt;script&gt;
+        const evtSource = new EventSource('/event-source');
+        const eventList = document.querySelector('ul');
+
+        evtSource.onmessage = (e) =&gt; {
+            const newElement = document.createElement(&quot;li&quot;);
+
+            newElement.textContent = `message: ${e.data}`;
+            eventList.appendChild(newElement);
+
+            if (e.data == &quot;Tomato&quot;) {
+                evtSource.close();
+            }
+        }
+    &lt;/script&gt;
+&lt;/html&gt;
 </code></pre>
-<p>And progressively send the messages to the client:</p>
+<p>И прогрессивно отправлять сообщения клиенту:</p>
 <pre><code class="lang-cs">public class MyController
+{
+    [Route(RouteMethod.Get, &quot;/event-source&quot;)]
+    static HttpResponse ServerEventsResponse(HttpRequest request)
+    {
+        var serverEvents = request.GetEventSource();
+
+        string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
+
+        foreach (string fruit in fruits)
+        {
+            serverEvents.Send(fruit);
+            Thread.Sleep(1500);
+        }
+
+        return serverEvents.Close();
+    }
+}
 </code></pre>
-<pre><code class="lang-html"></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
+<p>При запуске этого кода мы ожидаем результат, аналогичный этому:</p>
+<img src="/assets/img/server side events demo.gif">
+<h2 id="разрешение-прокси-ip-и-хостов">Разрешение прокси-IP и хостов</h2>
+<p>Sisk можно использовать с прокси, и поэтому IP-адреса могут быть заменены на конечную точку прокси в транзакции от клиента к прокси.</p>
+<p>Вы можете определить свои собственные разрешители в Sisk с помощью <a href="/docs/advanced/forwarding-resolvers">forwarding resolvers</a>.</p>
+<h2 id="кодирование-заголовков">Кодирование заголовков</h2>
+<p>Кодирование заголовков может быть проблемой для некоторых реализаций. В Windows не поддерживаются заголовки UTF-8, поэтому используется ASCII. Sisk имеет встроенный конвертер кодировки, который может быть полезен для декодирования неправильно закодированных заголовков.</p>
+<p>Эта операция дорога и отключена по умолчанию, но может быть включена под флагом <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
 
 </article>
 

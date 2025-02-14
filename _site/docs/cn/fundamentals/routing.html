@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>路由 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="路由 | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -151,10 +151,11 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="路由">路由</h1>
 
-<p>路由是构建服务器的第一步。它负责容纳路由对象（/api/Sisk.Core.Routing.Route），这些对象是将 URL 和其方法映射到服务器执行的操作的端点。每个操作负责接收请求并向客户端发送响应。</p>
-<p>路由是路径表达式（“路径模式”）和它们可以侦听的 HTTP 方法的组合。当向服务器发出请求时，它将尝试找到与接收到的请求匹配的路由，然后它将调用该路由的操作并向客户端发送生成的响应。</p>
-<p>在 Sisk 中有多种定义路由的方式：它们可以是静态的、动态的或自动扫描的，由属性定义，也可以直接在路由对象中定义。</p>
+<p><a href="/api/Sisk.Core.Routing.Router">路由器</a> 是构建服务器的第一步。它负责容纳 <a href="/api/Sisk.Core.Routing.Route">路由</a> 对象，这些对象是将 URL 和其方法映射到服务器执行的操作的端点。每个操作负责接收请求并将响应发送回客户端。</p>
+<p>路由是路径表达式（“路径模式”）和它们可以监听的 HTTP 方法的对。 当请求发送到服务器时，它将尝试找到匹配接收到的请求的路由，然后调用该路由的操作并将结果响应发送回客户端。</p>
+<p>在 Sisk 中，有多种方式来定义路由：它们可以是静态的、动态的或自动扫描的，可以使用属性定义，也可以直接在路由器对象中定义。</p>
 <pre><code class="lang-cs">Router mainRouter = new Router();
 
 // 将 GET / 路由映射到以下操作
@@ -162,66 +163,70 @@ mainRouter.MapGet(&quot;/&quot;, request =&gt; {
     return new HttpResponse(&quot;Hello, world!&quot;);
 });
 </code></pre>
-<p>要了解路由的功能，我们需要了解请求的功能。HttpRequest（/api/Sisk.Core.Http.HttpRequest）将包含您需要的所有信息。Sisk 还包含一些加速整体开发的额外功能。</p>
-<p>对于服务器接收到的每个操作，将调用类型为 RouteAction（/api/Sisk.Core.Routing.RouteAction）的委托。此委托包含一个参数，其中包含一个 HttpRequest（/api/Sisk.Core.Http.HttpRequest），其中包含有关服务器接收到的请求的所有必要信息。此委托的结果必须是 HttpResponse（/api/Sisk.Core.Http.HttpResponse）或通过隐式响应类型（/docs/fundamentals/responses#implicit-response-types）映射到它的对象。</p>
+<p>要了解路由可以做什么，我们需要了解请求可以做什么。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 将包含所有需要的信息。 Sisk 还包括一些额外的功能，可以加快整体开发速度。</p>
+<p>对于服务器接收到的每个操作，都会调用一个 <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> 类型的委托。这个委托包含一个参数，持有一个 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象，包含有关请求的所有必要信息。从这个委托返回的对象必须是 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 或通过 <a href="/docs/fundamentals/responses#implicit-response-types">隐式响应类型</a> 映射到它的对象。</p>
 <h2 id="匹配路由">匹配路由</h2>
-<p>当 HTTP 服务器收到请求时，Sisk 会搜索满足接收到的请求路径表达式的路由。表达式始终在路由和请求路径之间进行测试，而不考虑查询字符串。</p>
-<p>此测试没有优先级，并且仅限于单个路由。当没有路由与该请求匹配时，将向客户端返回 Router.NotFoundErrorHandler（/api/Sisk.Core.Routing.Router.NotFoundErrorHandler）响应。当路径模式匹配，但 HTTP 方法不匹配时，将向客户端发送 Router.MethodNotAllowedErrorHandler（/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler）响应。</p>
-<p>Sisk 检查路由冲突的可能性以避免这些问题。在定义路由时，Sisk 将查找可能与正在定义的路由发生冲突的可能路由。此测试包括检查路径和路由设置接受的方法。</p>
+<p>当请求发送到 HTTP 服务器时，Sisk 会搜索一个满足请求路径表达式的路由。该表达式始终在路由和请求路径之间进行测试，而不考虑查询字符串。</p>
+<p>此测试没有优先级，并且仅限于单个路由。当没有路由与该请求匹配时，返回 <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> 响应给客户端。当路径模式匹配，但 HTTP 方法不匹配时，发送 <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> 响应给客户端。</p>
+<p>Sisk 检查路由碰撞的可能性，以避免这些问题。在定义路由时，Sisk 将查找可能与要定义的路由碰撞的可能路由。这个测试包括检查路由的路径和方法。</p>
 <h3 id="使用路径模式创建路由">使用路径模式创建路由</h3>
 <p>您可以使用各种 <code>SetRoute</code> 方法定义路由。</p>
 <pre><code class="lang-cs">// SetRoute 方式
-mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt; {
+mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
+{
     string name = request.RouteParameters[&quot;name&quot;].GetString();
     return new HttpResponse($&quot;Hello, {name}&quot;);
 });
 
 // Map* 方式
-mainRouter.MapGet(&quot;/form&quot;, (request) =&gt; {
+mainRouter.MapGet(&quot;/form&quot;, (request) =&gt;
+{
     var formData = request.GetFormData();
     return new HttpResponse(); // 空 200 ok
 });
 
-// Route.* 助手方法
-mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt; {
+// Route.* 帮助方法
+mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
+{
     var imageStream = File.OpenRead(&quot;image.png&quot;);
     
     return new HttpResponse()
     {
-        // streamContent 内的 Stream
-        // 在发送响应后会释放
+        // StreamContent 内部流在发送响应后被释放
         Content = new StreamContent(imageStream)
     };
 });
 
 // 多个参数
-mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (request) =&gt; {
+mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (request) =&gt;
+{
     string name = request.RouteParameters[&quot;name&quot;].GetString();
     string surname = request.RouteParameters[&quot;surname&quot;].GetString();
 
     return new HttpResponse($&quot;Hello, {name} {surname}!&quot;);
 });
 </code></pre>
-<p>HttpRequest（/api/Sisk.Core.Http.HttpRequest）的 RouteParameters 属性包含有关接收到的请求路径变量的所有信息。</p>
-<p>在执行路径模式测试之前，服务器接收到的所有路径都将被标准化，遵循以下规则：</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpResponse</a> 包含有关请求路径变量的所有信息。</p>
+<p>每个发送到服务器的路径在执行路径模式测试之前都会被规范化，遵循以下规则：</p>
 <ul>
-<li>从路径中删除所有空段，例如： <code>////foo//bar</code> 变为 <code>/foo/bar</code>。</li>
-<li>路径匹配是 <strong>区分大小写的</strong>，除非 Router.MatchRoutesIgnoreCase（/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase）设置为 <code>true</code>。</li>
+<li>所有空段都从路径中删除，例如：<code>////foo//bar</code> 变为 <code>/foo/bar</code>。</li>
+<li>路径匹配是 <strong>区分大小写</strong> 的，除非 <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> 设置为 <code>true</code>。</li>
 </ul>
-<p>HttpRequest（/api/Sisk.Core.Http.HttpRequest）的 Query 和 RouteParameters 属性返回一个 StringValueCollection（/api/Sisk.Core.Entity.StringValueCollection）对象，其中每个索引属性返回一个非空 StringValue（/api/Sisk.Core.Entity.StringValue），可以将其用作选项/单态来将其原始值转换为托管对象。</p>
-<p>以下示例读取路由参数“id”，并从中获取一个 Guid。如果参数不是有效的 Guid，则会抛出异常，并且如果服务器未处理 Router.CallbackErrorHandler（/api/Sisk.Core.Routing.Router.CallbackErrorHandler），则向客户端返回 500 错误。</p>
-<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt; {
+<p><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 返回一个 <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a> 对象，其中每个索引属性返回一个非空 <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>，可以用作一个选项/单子来将其原始值转换为一个托管对象。</p>
+<p>以下示例读取路由参数“id”并从中获取一个 <code>Guid</code>。如果参数不是有效的 Guid，抛出一个异常，并在服务器不处理 <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> 时返回 500 错误给客户端。</p>
+<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
+{
     Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
 });
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>路径在请求和路由路径中都忽略了尾随 <code>/</code>，也就是说，如果您尝试访问定义为 <code>/index/page</code> 的路由，您也可以使用 <code>/index/page/</code> 访问。</p>
-<p>您还可以强制 URL 以 <code>/</code> 结尾，方法是启用 <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a> 标志。</p>
+<p>路径的尾部 <code>/</code> 在请求路径和路由路径中都会被忽略，即，如果您尝试访问定义为 <code>/index/page</code> 的路由，您也可以使用 <code>/index/page/</code> 来访问。</p>
+<p>您还可以通过启用 <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a> 标志来强制 URL 以 <code>/</code> 结尾。</p>
 </div>
 <h3 id="使用类实例创建路由">使用类实例创建路由</h3>
-<p>您还可以使用反射动态定义路由，并使用带有 <code>RouteAttribute</code>（/api/Sisk.Core.Routing.RouteAttribute）属性的类实例。这样，其方法实现此属性的类实例的路由将定义在目标路由器中。</p>
-<p>对于方法要被定义为路由，它必须标记为 <code>RouteAttribute</code>（/api/Sisk.Core.Routing.RouteAttribute），例如属性本身或 <code>RouteGetAttribute</code>（/api/Sisk.Core.Routing.RouteGetAttribute）。该方法可以是静态的、实例的、公共的或私有的。当使用 <code>SetObject(type)</code> 或 <code>SetObject&lt;TType&gt;()</code> 方法时，将忽略实例方法。</p>
+<p>您还可以使用反射和 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 属性动态定义路由。这样，具有此属性的类的实例将在目标路由器中定义其路由。</p>
+<p>要将方法定义为路由，它必须用 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 标记，例如该属性本身或 <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>。该方法可以是静态的、实例的、公共的或私有的。当使用 <code>SetObject(type)</code> 或 <code>SetObject&lt;TType&gt;()</code> 方法时，实例方法将被忽略。</p>
 <pre><code class="lang-cs">public class MyController
 {
     // 将匹配 GET /
@@ -233,7 +238,7 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
         return res;
     }
 
-    // 静态方法也行
+    // 静态方法也可以
     [RouteGet(&quot;/hello&quot;)]
     static HttpResponse Hello(HttpRequest request)
     {
@@ -243,934 +248,83 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
     }
 }
 </code></pre>
-<p>以下行将定义 <code>MyController</code> 中的 <code>Index</code> 和 <code>Hello</code> 方法作为路由，因为这两个方法都标记为路由，并且已经提供了类的实例，而不是其类型。如果提供了类型而不是实例，则只会定义静态方法。</p>
+<p>以下行将定义 <code>MyController</code> 类的 <code>Index</code> 和 <code>Hello</code> 方法作为路由，因为它们都被标记为路由，并且提供了类的实例，而不是其类型。如果提供的是其类型而不是实例，则仅定义静态方法。</p>
 <pre><code class="lang-cs">var myController = new MyController();
 mainRouter.SetObject(myController);
 </code></pre>
-<p>从 Sisk 版本 0.16 开始，可以启用 AutoScan，它将搜索实现 <code>RouterModule</code> 的用户定义类，并自动将其与路由器关联。这在 AOT 编译中不受支持。</p>
+<p>从 Sisk 0.16 版开始，可以启用 AutoScan，它将搜索实现 <code>RouterModule</code> 的用户定义类，并将其自动关联到路由器。这不支持 AOT 编译。</p>
 <pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
 </code></pre>
-<p>上面的指令将搜索实现 <code>ApiController</code> 但不是类型本身的所有类型。两个可选参数指示方法将如何搜索这些类型。第一个参数表示搜索这些类型的程序集，第二个参数表示定义这些类型的方式。</p>
-<h2 id="正则表达式路由">正则表达式路由</h2>
-<p>您可以使用正则表达式来匹配路由，而不是使用默认的 HTTP 路径匹配方法。</p>
+<p>上述指令将搜索所有实现 <code>ApiController</code> 的类型，但不包括该类型本身。两个可选参数指示方法将如何搜索这些类型。第一个参数表示将在其中搜索类型的程序集，第二个参数表示类型将被定义的方式。</p>
+<h2 id="正则路由">正则路由</h2>
+<p>您可以将路由标记为使用正则表达式来解释，而不是使用默认的 HTTP 路径匹配方法。</p>
 <pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;My route&quot;, IndexPage, null);
 indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 </code></pre>
-<p>也可以使用 <code>RegexRoute</code>（/api/Sisk.Core.Routing.RegexRoute）类：</p>
-<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;, request =&gt; {
-    string filename = request.Query[&quot;filename&quot;].GetString();
-    return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
+<p>或者使用 <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a> 类：</p>
+<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
+{
+    return new HttpResponse(&quot;hello, world&quot;);
 });
 mainRouter.SetRoute(indexRoute);
 </code></pre>
-<p>您还可以将正则表达式模式中的分组捕获到 <code>Request.Query</code>（/api/Sisk.Core.Http.HttpRequest.Query）内容中：</p>
-<h2 id="任何方法路由">任何方法路由</h2>
-<p>您可以定义一个路由，使其仅匹配其路径，并跳过 HTTP 方法。这对于在路由回调中进行方法验证可能很有用。</p>
-<pre><code class="lang-cs">// 将匹配任何 HTTP 方法的 / 路由
+<p>您还可以从正则表达式模式中捕获组到 <a href="/api/Sisk.Core.Http.HttpRequest.Query">Request.Query</a> 内容中：</p>
+<pre><code class="lang-cs">[RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
+static HttpResponse RegexRoute(HttpRequest request)
+{
+    string filename = request.Query[&quot;filename&quot;].GetString();
+    return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
+}
+</code></pre>
+<h2 id="任意方法路由">任意方法路由</h2>
+<p>您可以定义一个路由，以便仅通过其路径匹配，并跳过 HTTP 方法。这可以用于在路由回调内部执行方法验证。</p>
+<pre><code class="lang-cs">// 将匹配 / 的任何 HTTP 方法
 mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 </code></pre>
-<h2 id="任何路径路由">任何路径路由</h2>
-<p>任何路径路由测试接收到的所有请求，subject to the route method being tested. If the route method is RouteMethod.Any and the route uses <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a> in its path expression, this route will listen to all requests from the HTTP server, and no other routes can be defined.</p>
-<pre><code class="lang-cs">// the following route will match all POST requests
+<h2 id="任意路径路由">任意路径路由</h2>
+<p>任意路径路由测试从 HTTP 服务器接收的任何路径，受路由方法的约束。如果路由方法是 RouteMethod.Any，并且路由在其路径表达式中使用 <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>，则此路由将监听所有 HTTP 服务器请求，并且不能定义其他路由。</p>
+<pre><code class="lang-cs">// 下面的路由将匹配所有 POST 请求
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 </code></pre>
 <h2 id="忽略大小写路由匹配">忽略大小写路由匹配</h2>
 <p>默认情况下，路由与请求的解释是区分大小写的。要使其忽略大小写，请启用此选项：</p>
 <pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
 </code></pre>
-<p>这也会为路由启用 <code>RegexOptions.IgnoreCase</code> 选项。</p>
-<h2 id="未找到-404-回调处理程序">未找到 (404) 回调处理程序</h2>
-<p>您可以创建自定义回调，用于处理请求不匹配任何已知路由的情况。</p>
-<pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt; {
+<p>这也将为使用正则表达式匹配的路由启用 <code>RegexOptions.IgnoreCase</code> 选项。</p>
+<h2 id="未找到404回调处理程序">未找到（404）回调处理程序</h2>
+<p>您可以为没有匹配任何已知路由的请求创建一个自定义回调。</p>
+<pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
+{
     return new HttpResponse(404)
     {
-        // 
+        // 自 v0.14 起
         Content = new HtmlContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;)
-        // older versions
+        // 旧版本
         Content = new StringContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;, Encoding.UTF8, &quot;text/html&quot;)
     };
 };
 </code></pre>
-<h2 id="方法不允许-405-回调处理程序">方法不允许 (405) 回调处理程序</h2>
-<p>您还可以创建自定义回调，用于处理请求匹配其路径，但方法不匹配的情况。</p>
-<pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt; {
+<h2 id="方法不允许405回调处理程序">方法不允许（405）回调处理程序</h2>
+<p>您还可以为匹配其路径但不匹配方法的请求创建一个自定义回调。</p>
+<pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
+{
     return new HttpResponse(405)
     {
-        Content = new StringContent($&quot;Method not allowed for this route.&quot;);
+        Content = new StringContent($&quot;Method not allowed for this route.&quot;)
+    };
 };
 </code></pre>
 <h2 id="内部错误处理程序">内部错误处理程序</h2>
-<p>路由回调在服务器执行期间可能会抛出错误。如果未正确处理，则可能会导致服务器整体功能中断。路由器有一个回调，用于处理路由回调失败，并防止服务中断。</p>
-<p>此方法仅在 <code>ThrowExceptions</code> 设置为 <code>false</code> 时才可访问。</p>
-<pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt; {
+<p>路由回调可以在服务器执行期间抛出错误。如果不正确处理，可能会终止 HTTP 服务器的整体功能。路由器具有一个回调，当路由回调失败时调用，以防止服务中断。</p>
+<p>此方法仅在 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> 设置为 <code>false</code> 时可访问。</p>
+<pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
+{
     return new HttpResponse(500)
     {
-        Content = new StringContent($&quot;Error: {ex.Message}&quot;);
+        Content = new StringContent($&quot;Error: {ex.Message}&quot;)
+    };
 };
-</code></pre>
-<pre><code class="lang-cs">
-
-
-
-
-
-
-
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-
-
-
-
-```cs
-```cs
-
-
-
-
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
-```cs
 </code></pre>
 
 </article>
