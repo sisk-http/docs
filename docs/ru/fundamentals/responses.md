@@ -37,7 +37,7 @@ res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 
 Сервер всегда попытается рассчитать `Content-Length` из того, что вы определили в содержимом, если вы не определили его явно в заголовке. Если сервер не может неявно получить заголовок `Content-Length` из содержимого ответа, ответ будет отправлен с Chunked-Encoding.
 
-Вы также можете передавать ответ, отправляя [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) или используя метод [GetResponseStream](#response-stream).
+Вы также можете передавать ответ, отправляя [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) или используя метод `GetResponseStream`.
 
 ## Заголовки ответа
 

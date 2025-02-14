@@ -37,7 +37,7 @@ res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 
 服务器将始终尝试从内容中计算 `Content-Length`，如果您没有在头部中显式定义它。如果服务器无法从响应内容中隐式获取 `Content-Length` 头部，响应将以分块编码发送。
 
-您还可以通过发送 [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) 或使用 [GetResponseStream](#response-stream) 方法来流式传输响应。
+您还可以通过发送 [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) 或使用 `GetResponseStream` 方法来流式传输响应。
 
 ## 响应头
 

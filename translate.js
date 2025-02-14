@@ -67,15 +67,15 @@ async function translate(text, prompt) {
     });
 
     if (!response.ok) {
-        
+
         const resJson = await response.json();
         if (resJson.error?.code == "rate_limit_exceeded") {
             const retryAfter = response.headers.get("Retry-After");
             console.error("Rate limit exceeded! Retrying in " + retryAfter + " seconds.");
             await sleep(retryAfter * 1000);
-            
+
             return await translate(text, prompt);
-            
+
         } else {
             console.error("Failed to translate the markdown file.");
             console.error(await response.text());
@@ -98,25 +98,40 @@ if (process.argv.length < 4) {
 
 const toLanguage = process.argv[2];
 const dest = process.argv[3];
-const prompt = `
-    You're an translator AI helper. Your goal is to translate the given markdown code language into another language. You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#.
+
+function getPrompt(fileName) {
+    const baseText = `
+        You're an translator AI helper. Your goal is to translate the given markdown code language into another language. You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#.
+        
+        You must translate the user input to ${toLanguage} from English. The input file name is "${fileName}"".
+        
+        <translate_code>
+        - You SHOULD translate texts, code comments, but not code symbols, variables or constants names.
+        - You MUST NOT translate script-header file names or language names.
+        </translate_code>
+        
+        <translate_markdown>
+        - You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
+        - You SHOULD NOT translate HTML tag names inside Markdown.
+        - You SHOULD NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
+        - You MUST keep absolute link targets (eg. links which points to "/spec" or starts with "https://...").
+        </translate_markdown>
+        
+        <translate_yml>
+        - You SHOULD ONLY translate YAML values, NOT the keys.
+        - You MUST NOT translate YAML keys.
+        - You MUST NOT alter the YAML file structure.
+        </translate_yml>
+        
+        <output>
+        - You MUST reply ONLY with the translated text, no greetings, advices or comments.
+        - The translated text must follow the original input structure.
+        </output>
+    `;
     
-    You must translate the user input to ${toLanguage}.
-    
-    <translate_code>
-    - You should translate texts, code comments, but not code symbols,
-    variables or constants names.
-    - You should NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
-    - You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
-    - You MUST keep link targets.
-    - You MUST NOT translate script-header file names or language names.
-    </translate_code>
-    
-    <output>
-    - You MUST reply ONLY with the translated text, no greetings or advices.
-    - The translated text must follow the original input structure.
-    </output>
-`;
+    const baseTextLines = baseText.trim().split('\n');
+    return baseTextLines.map(line => line.trim()).join('\n');
+}
 
 (async () => {
     var translatedCount = 0;
@@ -124,24 +139,25 @@ const prompt = `
         const fileContents = fs.readFileSync(mdFile, 'utf8');
 
         const fileName = mdFile.replace(targetDir, '');
+        const prompt = getPrompt(fileName);
         const translationPath = path.join(targetDir, dest, fileName);
         const translationDir = path.dirname(translationPath);
 
         if (fs.existsSync(translationPath)) {
             continue;
         }
-
+        
         const translated = await translate(fileContents, prompt);
         fs.mkdirSync(translationDir, { recursive: true });
         fs.writeFileSync(translationPath, translated);
 
-        console.log("Translated: ", fileName);
-
+        console.log("- Translated: ", fileName);
+        
         // wait 10s (rate-limit)
         await sleep(500);
         translatedCount++;
     }
-    
+
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {
