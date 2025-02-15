@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Proveedor de configuraci&#243;n INI | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Proveedor de configuraci&#243;n INI | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/ini-configuration.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="proveedor-de-configuración-ini">Proveedor de configuración INI</h1>
+
+<p>Sisk tiene un método para obtener configuraciones de inicio diferentes a JSON. De hecho, cualquier canal que implemente <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> se puede utilizar con <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, leyendo la configuración del servidor desde cualquier tipo de archivo.</p>
+<p>El paquete <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> proporciona un lector de archivos INI basado en flujo que no lanza excepciones por errores de sintaxis comunes y tiene una sintaxis de configuración simple. Este paquete se puede utilizar fuera del marco de Sisk, ofreciendo flexibilidad para proyectos que requieren un lector de documentos INI eficiente.</p>
+<h2 id="instalación">Instalación</h2>
+<p>Para instalar el paquete, puede comenzar con:</p>
+<pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
+</code></pre>
+<p>y utilizarlo en su código como se muestra en el ejemplo a continuación:</p>
+<pre><code class="lang-cs">class Program
+{
+    static HttpServerHostContext Host = null!;
+
+    static void Main(string[] args)
+    {
+        Host = HttpServer.CreateBuilder()
+            .UsePortableConfiguration(config =&gt;
+            {
+                config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
+
+                // agrega el IniConfigurationPipeline al lector de configuración
+                config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
+            })
+            .UseRouter(r =&gt;
+            {
+                r.MapGet(&quot;/&quot;, SayHello);
+            })
+            .Build();
+
+        Host.Start();
+    }
+
+    static HttpResponse SayHello(HttpRequest request)
+    {
+        string? name = Host.Parameters[&quot;name&quot;] ?? &quot;world&quot;;
+        return new HttpResponse($&quot;Hola, {name}!&quot;);
+    }
+}
+</code></pre>
+<p>El código anterior buscará un archivo app.ini en el directorio actual del proceso (CurrentDirectory). El archivo INI se ve así:</p>
+<pre><code class="lang-ini">[Server]
+# Se admiten varias direcciones de escucha
+Listen = http://localhost:5552/
+Listen = http://localhost:5553/
+ThrowExceptions = false
+AccessLogsStream = console
+
+[Cors]
+AllowMethods = GET, POST
+AllowHeaders = Content-Type, Authorization
+AllowOrigin = *
+
+[Parameters]
+Name = &quot;Kanye West&quot;
+</code></pre>
+<h2 id="sabor-y-sintaxis-ini">Sabor y sintaxis INI</h2>
+<p>Implementación actual del sabor:</p>
+<ul>
+<li>Los nombres de propiedades y secciones son <strong>insensibles a mayúsculas y minúsculas</strong>.</li>
+<li>Los nombres de propiedades y valores son <strong>recortados</strong>.</li>
+<li>Los valores pueden estar entre comillas simples o dobles. Las comillas pueden tener saltos de línea dentro de ellas.</li>
+<li>Se admiten comentarios con <code>#</code> y <code>;</code>. También se admiten <strong>comentarios al final</strong>.</li>
+<li>Las propiedades pueden tener varios valores.</li>
+</ul>
+<p>En detalle, la documentación para el &quot;sabor&quot; del analizador INI utilizado en Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponible en GitHub</a>.</p>
+<p>Utilizando el siguiente código INI como ejemplo:</p>
+<pre><code class="lang-ini">One = 1
+Value = este es un valor
+Another value = &quot;este valor
+    tiene un salto de línea en él&quot;
+
+; el código a continuación tiene algunos colores
+[some section]
+Color = Rojo
+Color = Azul
+Color = Amarillo ; no use amarillo
+</code></pre>
+<p>Analícelo con:</p>
+<pre><code class="lang-csharp">// analice el texto INI desde la cadena
+IniDocument doc = IniDocument.FromString(iniText);
+
+// obtenga un valor
+string? one = doc.Global.GetOne(&quot;one&quot;);
+string? anotherValue = doc.Global.GetOne(&quot;another value&quot;);
+
+// obtenga varios valores
+string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color&quot;);
+</code></pre>
+<h2 id="parámetros-de-configuración">Parámetros de configuración</h2>
+<table>
+<thead>
+<tr>
+<th>Sección y nombre</th>
+<th>Admite varios valores</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Server.Listen</code></td>
+<td>Sí</td>
+<td>Las direcciones/puertos de escucha del servidor.</td>
+</tr>
+<tr>
+<td><code>Server.Encoding</code></td>
+<td>No</td>
+<td>La codificación predeterminada del servidor.</td>
+</tr>
+<tr>
+<td><code>Server.MaximumContentLength</code></td>
+<td>No</td>
+<td>El tamaño máximo de contenido en bytes del servidor.</td>
+</tr>
+<tr>
+<td><code>Server.IncludeRequestIdHeader</code></td>
+<td>No</td>
+<td>Especifica si el servidor HTTP debe enviar el encabezado X-Request-Id.</td>
+</tr>
+<tr>
+<td><code>Server.ThrowExceptions</code></td>
+<td>No</td>
+<td>Especifica si las excepciones no controladas deben lanzarse.</td>
+</tr>
+<tr>
+<td><code>Server.AccessLogsStream</code></td>
+<td>No</td>
+<td>Especifica la secuencia de salida de registros de acceso.</td>
+</tr>
+<tr>
+<td><code>Server.ErrorsLogsStream</code></td>
+<td>No</td>
+<td>Especifica la secuencia de salida de registros de errores.</td>
+</tr>
+<tr>
+<td><code>Cors.AllowMethods</code></td>
+<td>No</td>
+<td>Especifica el valor del encabezado Allow-Methods de CORS.</td>
+</tr>
+<tr>
+<td><code>Cors.AllowHeaders</code></td>
+<td>No</td>
+<td>Especifica el valor del encabezado Allow-Headers de CORS.</td>
+</tr>
+<tr>
+<td><code>Cors.AllowOrigins</code></td>
+<td>No</td>
+<td>Especifica varios encabezados Allow-Origin, separados por comas. <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> para más información.</td>
+</tr>
+<tr>
+<td><code>Cors.AllowOrigin</code></td>
+<td>No</td>
+<td>Especifica un encabezado Allow-Origin.</td>
+</tr>
+<tr>
+<td><code>Cors.ExposeHeaders</code></td>
+<td>No</td>
+<td>Especifica el valor del encabezado Expose-Headers de CORS.</td>
+</tr>
+<tr>
+<td><code>Cors.AllowCredentials</code></td>
+<td>No</td>
+<td>Especifica el valor del encabezado Allow-Credentials de CORS.</td>
+</tr>
+<tr>
+<td><code>Cors.MaxAge</code></td>
+<td>No</td>
+<td>Especifica el valor del encabezado Max-Age de CORS.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/ini-configuration.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

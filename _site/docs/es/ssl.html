@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Trabajando con SSL | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Trabajando con SSL | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/ssl.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="trabajando-con-ssl">Trabajando con SSL</h1>
+
+<p>Trabajar con SSL para desarrollo puede ser necesario cuando se trabaja en contextos que requieren seguridad, como la mayoría de los escenarios de desarrollo web. Sisk opera sobre HttpListener, que no admite HTTPS de forma nativa, solo HTTP. Sin embargo, existen soluciones alternativas que te permiten trabajar con SSL en Sisk. Consulta a continuación:</p>
+<h2 id="a-través-de-iis-en-windows">A través de IIS en Windows</h2>
+<ul>
+<li>Disponible en: Windows</li>
+<li>Esfuerzo: medio</li>
+</ul>
+<p>Si estás en Windows, puedes utilizar IIS para habilitar SSL en tu servidor HTTP. Para que esto funcione, es recomendable que sigas <a href="/docs/registering-namespace">este tutorial</a> con anticipación si deseas que tu aplicación escuche en un host diferente a &quot;localhost&quot;.</p>
+<p>Para que esto funcione, debes instalar IIS a través de las características de Windows. IIS está disponible de forma gratuita para usuarios de Windows y Windows Server. Para configurar SSL en tu aplicación, ten el certificado SSL listo, incluso si es auto-firmado. A continuación, puedes ver <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">cómo configurar SSL en IIS 7 o superior</a>.</p>
+<h2 id="a-través-de-mitmproxy">A través de mitmproxy</h2>
+<ul>
+<li>Disponible en: Linux, macOS, Windows</li>
+<li>Esfuerzo: fácil</li>
+</ul>
+<p><strong>mitmproxy</strong> es una herramienta de proxy de interceptación que permite a los desarrolladores y testers de seguridad inspeccionar, modificar y grabar el tráfico HTTP y HTTPS entre un cliente (como un navegador web) y un servidor. Puedes utilizar la utilidad <strong>mitmdump</strong> para iniciar un proxy SSL inverso entre tu cliente y tu aplicación Sisk.</p>
+<ol>
+<li>Primero, instala <a href="https://mitmproxy.org/">mitmproxy</a> en tu máquina.</li>
+<li>Inicia tu aplicación Sisk. En este ejemplo, utilizaremos el puerto 8000 como el puerto HTTP inseguro.</li>
+<li>Inicia el servidor mitmproxy para escuchar el puerto seguro en 8001:</li>
+</ol>
+<pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
+</code></pre>
+<p>Y listo! Ya puedes acceder a tu aplicación a través de <code>https://localhost:8001/</code>. Tu aplicación no necesita estar en ejecución para iniciar <code>mitmdump</code>.</p>
+<h2 id="a-través-del-paquete-sisksslproxy">A través del paquete Sisk.SslProxy</h2>
+<ul>
+<li>Disponible en: Linux, macOS, Windows</li>
+<li>Esfuerzo: fácil</li>
+</ul>
+<p>El paquete Sisk.SslProxy es una forma sencilla de habilitar SSL en tu aplicación Sisk. Sin embargo, es un paquete <strong>extremadamente experimental</strong>. Puede ser inestable trabajar con este paquete, pero puedes ser parte del pequeño porcentaje de personas que contribuirán a hacer que este paquete sea viable y estable. Para empezar, puedes instalar el paquete Sisk.SslProxy con:</p>
+<pre><code class="lang-sh">dotnet add package Sisk.SslProxy
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Debes habilitar &quot;Habilitar paquetes de pre-lanzamiento&quot; en el Administrador de paquetes de Visual Studio para instalar Sisk.SslProxy.</p>
+</div>
+<p>Nuevamente, es un proyecto experimental, así que no pienses en ponerlo en producción.</p>
+<p>En este momento, Sisk.SslProxy puede manejar la mayoría de las características de HTTP/1.1, incluyendo HTTP Continue, Chunked-Encoding, WebSockets y SSE. Lee más sobre SslProxy <a href="/docs/extensions/ssl-proxy">aquí</a>.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/ssl.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

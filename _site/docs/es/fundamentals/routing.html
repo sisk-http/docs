@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Enrutamiento | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Enrutamiento | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/fundamentals/routing.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="enrutamiento">Enrutamiento</h1>
+
+<p>El <a href="/api/Sisk.Core.Routing.Router">Router</a> es el primer paso en la construcción del servidor. Es responsable de contener objetos <a href="/api/Sisk.Core.Routing.Route">Route</a>, que son puntos de conexión que asignan URLs y sus métodos a acciones ejecutadas por el servidor. Cada acción es responsable de recibir una solicitud y entregar una respuesta al cliente.</p>
+<p>Las rutas son pares de expresiones de ruta (&quot;patrón de ruta&quot;) y el método HTTP que pueden escuchar. Cuando se realiza una solicitud al servidor, intentará encontrar una ruta que coincida con la solicitud recibida, luego llamará a la acción de esa ruta y entregará la respuesta resultante al cliente.</p>
+<p>Hay varias formas de definir rutas en Sisk: pueden ser estáticas, dinámicas o auto-escaneadas, definidas por atributos o directamente en el objeto Router.</p>
+<pre><code class="lang-cs">Router mainRouter = new Router();
+
+// asigna la ruta GET / a la siguiente acción
+mainRouter.MapGet(&quot;/&quot;, request =&gt; {
+    return new HttpResponse(&quot;Hola, mundo!&quot;);
+});
+</code></pre>
+<p>Para entender qué es capaz de hacer una ruta, necesitamos entender qué es capaz de hacer una solicitud. Un <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> contendrá todo lo que necesite. Sisk también incluye algunas características adicionales que aceleran el desarrollo general.</p>
+<p>Para cada acción recibida por el servidor, se llamará a un delegado de tipo <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>. Este delegado contiene un parámetro que contiene un <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> con toda la información necesaria sobre la solicitud recibida por el servidor. El objeto resultante de este delegado debe ser un <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> o un objeto que se asigna a él a través de <a href="/docs/fundamentals/responses#implicit-response-types">tipos de respuesta implícitos</a>.</p>
+<h2 id="coincidencia-de-rutas">Coincidencia de rutas</h2>
+<p>Cuando se recibe una solicitud por el servidor HTTP, Sisk busca una ruta que satisfaga la expresión de la ruta recibida por la solicitud. La expresión siempre se prueba entre la ruta y la ruta de la solicitud, sin considerar la cadena de consulta.</p>
+<p>Esta prueba no tiene prioridad y es exclusiva de una sola ruta. Cuando no se encuentra una ruta que coincida con la solicitud, se devuelve la respuesta <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> al cliente. Cuando se coincide con el patrón de ruta, pero el método HTTP no coincide, se envía la respuesta <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> al cliente.</p>
+<p>Sisk verifica la posibilidad de colisiones de rutas para evitar estos problemas. Al definir rutas, Sisk buscará rutas posibles que puedan colisionar con la ruta que se está definiendo. Esta prueba incluye la comprobación de la ruta y el método que la ruta está configurada para aceptar.</p>
+<h3 id="creación-de-rutas-utilizando-patrones-de-ruta">Creación de rutas utilizando patrones de ruta</h3>
+<p>Puedes definir rutas utilizando varios métodos SetRoute.</p>
+<pre><code class="lang-cs">// forma SetRoute
+mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
+{
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
+    return new HttpResponse($&quot;Hola, {name}&quot;);
+});
+
+// forma Map*
+mainRouter.MapGet(&quot;/form&quot;, (request) =&gt;
+{
+    var formData = request.GetFormData();
+    return new HttpResponse(); // 200 ok vacío
+});
+
+// métodos de ayuda Route.*
+mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
+{
+    var imageStream = File.OpenRead(&quot;image.png&quot;);
+    
+    return new HttpResponse()
+    {
+        // el StreamContent interno
+        // se desecha después de enviar
+        // la respuesta.
+        Content = new StreamContent(imageStream)
+    };
+});
+
+// varios parámetros
+mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (request) =&gt;
+{
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
+    string surname = request.RouteParameters[&quot;surname&quot;].GetString();
+
+    return new HttpResponse($&quot;Hola, {name} {surname}!&quot;);
+});
+</code></pre>
+<p>La propiedad <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> de HttpResponse contiene toda la información sobre las variables de ruta de la solicitud recibida.</p>
+<p>Cada ruta recibida por el servidor se normaliza antes de que se ejecute la prueba de patrón de ruta, siguiendo estas reglas:</p>
+<ul>
+<li>Todos los segmentos vacíos se eliminan de la ruta, por ejemplo: <code>////foo//bar</code> se convierte en <code>/foo/bar</code>.</li>
+<li>La coincidencia de ruta es <strong>sensible a mayúsculas y minúsculas</strong>, a menos que <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> esté establecido en <code>true</code>.</li>
+</ul>
+<p>Las propiedades <a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> y <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> de <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> devuelven un objeto <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a>, donde cada propiedad indexada devuelve un <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a> no nulo, que se puede utilizar como una opción/monada para convertir su valor raw en un objeto administrado.</p>
+<p>El ejemplo siguiente lee el parámetro de ruta &quot;id&quot; y obtiene un <code>Guid</code> de él. Si el parámetro no es un Guid válido, se lanza una excepción y se devuelve un error 500 al cliente si el servidor no está manejando <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>.</p>
+<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
+{
+    Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
+});
+</code></pre>
+<blockquote>
+<p>[!NOTA]
+Las rutas tienen su <code>/</code> final ignorado en ambas rutas de solicitud y ruta, es decir, si intentas acceder a una ruta definida como <code>/index/page</code> podrás acceder utilizando <code>/index/page/</code> también.</p>
+<p>También puedes forzar a las URLs a terminar con <code>/</code> habilitando la bandera <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a>.</p>
+</blockquote>
+<h3 id="creación-de-rutas-utilizando-instancias-de-clase">Creación de rutas utilizando instancias de clase</h3>
+<p>También puedes definir rutas dinámicamente utilizando reflexión con el atributo <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>. De esta manera, la instancia de una clase en la que sus métodos implementan este atributo tendrá sus rutas definidas en el router de destino.</p>
+<p>Para que un método se defina como una ruta, debe estar marcado con un <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>, como el atributo en sí o un <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. El método puede ser estático, de instancia, público o privado. Cuando se utiliza el método <code>SetObject(type)</code> o <code>SetObject&lt;TType&gt;()</code>, se ignoran los métodos de instancia.</p>
+<pre><code class="lang-cs">public class MyController
+{
+    // coincidirá con GET /
+    [RouteGet]
+    HttpResponse Index(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent(&quot;Índice!&quot;);
+        return res;
+    }
+
+    // los métodos estáticos también funcionan
+    [RouteGet(&quot;/hello&quot;)]
+    static HttpResponse Hello(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent(&quot;Hola mundo!&quot;);
+        return res;
+    }
+}
+</code></pre>
+<p>La línea siguiente definirá tanto el método <code>Index</code> como el método <code>Hello</code> de <code>MyController</code> como rutas, ya que ambos están marcados como rutas, y se ha proporcionado una instancia de la clase, no su tipo. Si se hubiera proporcionado su tipo en lugar de una instancia, solo se definirían los métodos estáticos.</p>
+<pre><code class="lang-cs">var myController = new MyController();
+mainRouter.SetObject(myController);
+</code></pre>
+<p>Desde la versión 0.16 de Sisk, es posible habilitar AutoScan, que buscará clases definidas por el usuario que implementen <code>RouterModule</code> y las asociará automáticamente con el router. Esto no es compatible con la compilación AOT.</p>
+<pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
+</code></pre>
+<p>La instrucción anterior buscará todos los tipos que implementan <code>ApiController</code>, pero no el tipo en sí. Los dos parámetros opcionales indican cómo se buscarán estos tipos. El primer argumento implica el ensamblado donde se buscarán los tipos y el segundo indica la forma en que se definirán los tipos.</p>
+<h2 id="rutas-de-regex">Rutas de regex</h2>
+<p>En lugar de utilizar los métodos de coincidencia de ruta HTTP predeterminados, puedes marcar una ruta para que se interprete con Regex.</p>
+<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;Mi ruta&quot;, IndexPage, null);
+indexRoute.UseRegex = true;
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<p>O con la clase <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a>:</p>
+<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
+{
+    return new HttpResponse(&quot;hola, mundo&quot;);
+});
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<p>También puedes capturar grupos de la expresión regular en el contenido de <a href="/api/Sisk.Core.Http.HttpRequest.Query">Request.Query</a>:</p>
+<pre><code class="lang-cs">[RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
+static HttpResponse RegexRoute(HttpRequest request)
+{
+    string filename = request.Query[&quot;filename&quot;].GetString();
+    return new HttpResponse().WithContent($&quot;Accediendo al archivo {filename}&quot;);
+}
+</code></pre>
+<h2 id="rutas-de-cualquier-método">Rutas de cualquier método</h2>
+<p>Puedes definir una ruta para que se ajuste solo por su ruta y omitir el método HTTP. Esto puede ser útil para que realices la validación de método dentro de la acción de la ruta.</p>
+<pre><code class="lang-cs">// coincidirá con / en cualquier método HTTP
+mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
+</code></pre>
+<h2 id="rutas-de-cualquier-ruta">Rutas de cualquier ruta</h2>
+<p>Las rutas de cualquier ruta prueban cualquier ruta recibida por el servidor HTTP, sujeta al método de ruta que se está probando. Si el método de ruta es RouteMethod.Any y la ruta utiliza <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a> en su expresión de ruta, esta ruta escuchará todas las solicitudes del servidor HTTP, y no se pueden definir otras rutas.</p>
+<pre><code class="lang-cs">// la siguiente ruta coincidirá con todas las solicitudes POST
+mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
+</code></pre>
+<h2 id="coincidencia-de-ruta-sin-distinguir-mayúsculas-y-minúsculas">Coincidencia de ruta sin distinguir mayúsculas y minúsculas</h2>
+<p>De forma predeterminada, la interpretación de rutas con solicitudes es sensible a mayúsculas y minúsculas. Para hacer que ignore mayúsculas y minúsculas, habilita esta opción:</p>
+<pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
+</code></pre>
+<p>Esto también habilitará la opción <code>RegexOptions.IgnoreCase</code> para rutas donde se utilice la coincidencia de regex.</p>
+<h2 id="controlador-de-errores-no-encontrado-404">Controlador de errores no encontrado (404)</h2>
+<p>Puedes crear un controlador de errores personalizado para cuando una solicitud no coincida con ninguna ruta conocida.</p>
+<pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
+{
+    return new HttpResponse(404)
+    {
+        // Desde la versión v0.14
+        Content = new HtmlContent(&quot;&lt;h1&gt;No encontrado&lt;/h1&gt;&quot;)
+        // versiones anteriores
+        Content = new StringContent(&quot;&lt;h1&gt;No encontrado&lt;/h1&gt;&quot;, Encoding.UTF8, &quot;text/html&quot;)
+    };
+};
+</code></pre>
+<h2 id="controlador-de-errores-de-método-no-permitido-405">Controlador de errores de método no permitido (405)</h2>
+<p>También puedes crear un controlador de errores personalizado para cuando una solicitud coincida con su ruta, pero no coincida con el método.</p>
+<pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
+{
+    return new HttpResponse(405)
+    {
+        Content = new StringContent($&quot;Método no permitido para esta ruta.&quot;)
+    };
+};
+</code></pre>
+<h2 id="controlador-de-errores-internos">Controlador de errores internos</h2>
+<p>Las acciones de ruta pueden lanzar errores durante la ejecución del servidor. Si no se manejan correctamente, el funcionamiento general del servidor HTTP puede interrumpirse. El router tiene un controlador de errores para cuando una acción de ruta falle y evita la interrupción del servicio.</p>
+<p>Este método solo es accesible cuando <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> está establecido en <code>false</code>.</p>
+<pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
+{
+    return new HttpResponse(500)
+    {
+        Content = new StringContent($&quot;Error: {ex.Message}&quot;)
+    };
+};
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/fundamentals/routing.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

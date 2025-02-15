@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registro | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Registro | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/features/logging.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="registro">Registro</h1>
+
+<p>Puedes configurar Sisk para que escriba automáticamente los registros de acceso y error. Es posible definir la rotación de registros, extensiones y frecuencia.</p>
+<p>La clase <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> proporciona una forma asíncrona de escribir registros y mantenerlos en una cola de escritura esperable.</p>
+<p>En este artículo te mostraremos cómo configurar el registro para tu aplicación.</p>
+<h2 id="registros-de-acceso-basados-en-archivos">Registros de acceso basados en archivos</h2>
+<p>Los registros en archivos abren el archivo, escriben el texto de la línea y luego cierran el archivo para cada línea escrita. Este procedimiento se adoptó para mantener la respuesta de escritura en los registros.</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseConfiguration(config =&gt; {
+                config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+            })
+            .Build();
+        
+        ...
+        
+        await app.StartAsync();
+    }
+}
+</code></pre>
+<p>El código anterior escribirá todas las solicitudes entrantes en el archivo <code>logs/access.log</code>. Ten en cuenta que, si el archivo no existe, se crea automáticamente, sin embargo, la carpeta anterior no. No es necesario crear el directorio <code>logs/</code> ya que la clase LogStream lo crea automáticamente.</p>
+<h2 id="registro-basado-en-flujo">Registro basado en flujo</h2>
+<p>Puedes escribir archivos de registro en objetos TextWriter, como <code>Console.Out</code>, pasando un objeto TextWriter en el constructor:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">using var app = HttpServer.CreateBuilder()
+    .UseConfiguration(config =&gt; {
+        config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+    })
+    .Build();
+</code></pre>
+<p>Para cada mensaje escrito en el registro basado en flujo, se llama al método <code>TextWriter.Flush()</code>.</p>
+<h2 id="formato-de-registro-de-acceso">Formato de registro de acceso</h2>
+<p>Puedes personalizar el formato de registro de acceso mediante variables predefinidas. Considera la siguiente línea:</p>
+<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou en %lmsms [%{user-agent}]&quot;;
+</code></pre>
+<p>Escribirá un mensaje como:</p>
+<pre><code>29/mar./2023 15:21:47 -0300 Ejecutado ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B en 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+</code></pre>
+<p>Puedes formatear tu archivo de registro según el formato descrito en la tabla:</p>
+<table>
+<thead>
+<tr>
+<th>Valor</th>
+<th>Lo que representa</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%dd</td>
+<td>Día del mes (formateado como dos dígitos)</td>
+<td>05</td>
+</tr>
+<tr>
+<td>%dmmm</td>
+<td>Nombre completo del mes</td>
+<td>Julio</td>
+</tr>
+<tr>
+<td>%dmm</td>
+<td>Nombre abreviado del mes (tres letras)</td>
+<td>Jul</td>
+</tr>
+<tr>
+<td>%dm</td>
+<td>Número de mes (formateado como dos dígitos)</td>
+<td>07</td>
+</tr>
+<tr>
+<td>%dy</td>
+<td>Año (formateado como cuatro dígitos)</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>%th</td>
+<td>Hora en formato de 12 horas</td>
+<td>03</td>
+</tr>
+<tr>
+<td>%tH</td>
+<td>Hora en formato de 24 horas (HH)</td>
+<td>15</td>
+</tr>
+<tr>
+<td>%ti</td>
+<td>Minutos (formateados como dos dígitos)</td>
+<td>30</td>
+</tr>
+<tr>
+<td>%ts</td>
+<td>Segundos (formateados como dos dígitos)</td>
+<td>45</td>
+</tr>
+<tr>
+<td>%tm</td>
+<td>Milisegundos (formateados como tres dígitos)</td>
+<td>123</td>
+</tr>
+<tr>
+<td>%tz</td>
+<td>Desplazamiento de zona horaria (total de horas en UTC)</td>
+<td>+03:00</td>
+</tr>
+<tr>
+<td>%ri</td>
+<td>Dirección IP remota del cliente</td>
+<td>192.168.1.100</td>
+</tr>
+<tr>
+<td>%rm</td>
+<td>Método HTTP (en mayúsculas)</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>%rs</td>
+<td>Esquema de URI (http/https)</td>
+<td>https</td>
+</tr>
+<tr>
+<td>%ra</td>
+<td>Autoridad de URI (dominio)</td>
+<td>example.com</td>
+</tr>
+<tr>
+<td>%rh</td>
+<td>Host de la solicitud</td>
+<td><a href="http://www.example.com">www.example.com</a></td>
+</tr>
+<tr>
+<td>%rp</td>
+<td>Puerto de la solicitud</td>
+<td>443</td>
+</tr>
+<tr>
+<td>%rz</td>
+<td>Ruta de la solicitud</td>
+<td>/path/to/resource</td>
+</tr>
+<tr>
+<td>%rq</td>
+<td>Cadena de consulta</td>
+<td>?key=value&amp;another=123</td>
+</tr>
+<tr>
+<td>%sc</td>
+<td>Código de estado de respuesta HTTP</td>
+<td>200</td>
+</tr>
+<tr>
+<td>%sd</td>
+<td>Descripción de estado de respuesta HTTP</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>%lin</td>
+<td>Tamaño legible de la solicitud</td>
+<td>1.2 KB</td>
+</tr>
+<tr>
+<td>%linr</td>
+<td>Tamaño bruto de la solicitud (bytes)</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>%lou</td>
+<td>Tamaño legible de la respuesta</td>
+<td>2.5 KB</td>
+</tr>
+<tr>
+<td>%lour</td>
+<td>Tamaño bruto de la respuesta (bytes)</td>
+<td>2560</td>
+</tr>
+<tr>
+<td>%lms</td>
+<td>Tiempo transcurrido en milisegundos</td>
+<td>120</td>
+</tr>
+<tr>
+<td>%ls</td>
+<td>Estado de ejecución</td>
+<td>Ejecutado</td>
+</tr>
+</tbody>
+</table>
+<h2 id="registros-rotativos">Registros rotativos</h2>
+<div class="TIP">
+<h5>Tip</h5>
+<p>En Sisk 0.15 y versiones anteriores, esta función solo está disponible con el paquete Sisk.ServiceProvider. En Sisk 0.16 y superior, esta función se implementa en el paquete principal.</p>
+</div>
+<p>Puedes configurar el servidor HTTP para que gire los archivos de registro a un archivo comprimido .gz cuando alcancen un tamaño determinado. El tamaño se comprueba periódicamente por el límite que defines.</p>
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
+
+var rotater = new RotatingLogPolicy(config.AccessLogsStream);
+rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+</code></pre>
+<p>El código anterior comprueba cada seis horas si el archivo de LogStream ha alcanzado su límite de 1MB. Si es así, el archivo se comprime a un archivo .gz y luego se limpia el archivo <code>access.log</code>.</p>
+<p>Durante este proceso, la escritura en el archivo está bloqueada hasta que el archivo se comprima y limpie. Todas las líneas que entren para ser escritas en este período esperarán hasta el final de la compresión.</p>
+<p>Esta función solo funciona con LogStreams basados en archivos.</p>
+<h2 id="registro-de-errores">Registro de errores</h2>
+<p>Cuando un servidor no está lanzando errores al depurador, los reenvía a la escritura de registros cuando hay alguno. Puedes configurar la escritura de errores con:</p>
+<pre><code class="lang-cs">config.ThrowExceptions = false;
+config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
+</code></pre>
+<p>Esta propiedad solo escribirá algo en el registro si el error no es capturado por la devolución de llamada o la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>.</p>
+<p>El error escrito por el servidor siempre escribe la fecha y hora, los encabezados de la solicitud (no el cuerpo), la traza del error y la traza de la excepción interna, si la hay.</p>
+<h2 id="otras-instancias-de-registro">Otras instancias de registro</h2>
+<p>Tu aplicación puede tener cero o varias instancias de LogStream, no hay límite en la cantidad de canales de registro que puede tener. Por lo tanto, es posible dirigir el registro de tu aplicación a un archivo diferente al registro de acceso o error predeterminado.</p>
+<pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
+appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
+</code></pre>
+<h2 id="extensión-de-logstream">Extensión de LogStream</h2>
+<p>Puedes extender la clase <code>LogStream</code> para escribir formatos personalizados, compatibles con el motor de registro actual de Sisk. El ejemplo siguiente permite escribir mensajes con colores en la consola a través de la biblioteca Spectre.Console:</p>
+<div class="script-header">
+    <span>
+        CustomLogStream.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class CustomLogStream : LogStream
+{
+    protected override void WriteLineInternal(string line)
+    {
+        base.WriteLineInternal($&quot;[{DateTime.Now:g}] {line}&quot;);
+    }
+}
+</code></pre>
+<p>Otra forma de escribir automáticamente registros personalizados para cada solicitud/respuesta es crear un <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>. El ejemplo siguiente es un poco más completo. Escribe el cuerpo de la solicitud y la respuesta en JSON en la consola. Puede ser útil para depurar solicitudes en general. Este ejemplo utiliza ContextBag y HttpServerHandler.</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class Program
+{
+    static async Task Main(string[] args)
+    {
+        var app = HttpServer.CreateBuilder(host =&gt;
+        {
+            host.UseListeningPort(5555);
+            host.UseHandler&lt;JsonMessageHandler&gt;();
+        });
+
+        app.Router += new Route(RouteMethod.Any, &quot;/json&quot;, request =&gt;
+        {
+            return new HttpResponse()
+                .WithContent(JsonContent.Create(new
+                {
+                    method = request.Method.Method,
+                    path = request.Path,
+                    specialMessage = &quot;Hello, world!!&quot;
+                }));
+        });
+
+        await app.StartAsync();
+    }
+}
+</code></pre>
+<div class="script-header">
+    <span>
+        JsonMessageHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class JsonMessageHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestOpen(HttpRequest request)
+    {
+        if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+        {
+            // En este punto, la conexión está abierta y el cliente ha enviado el encabezado que especifica
+            // que el contenido es JSON. La línea siguiente lee el contenido y lo deja almacenado en la solicitud.
+            //
+            // Si el contenido no se lee en la acción de la solicitud, es probable que el GC lo recolecte
+            // después de enviar la respuesta al cliente, por lo que el contenido puede no estar disponible después de cerrar la respuesta.
+            //
+            _ = request.RawBody;
+
+            // agregar una pista en el contexto para indicar que esta solicitud tiene un cuerpo JSON
+            request.Bag.Add(&quot;IsJsonRequest&quot;, true);
+        }
+    }
+
+    protected override async void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        string? requestJson = null,
+                responseJson = null,
+                responseMessage;
+
+        if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
+        {
+            // reformatea el JSON utilizando la biblioteca CypherPotato.LightJson
+            var content = result.Request.Body;
+            requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
+        }
+        
+        if (result.Response is { } response)
+        {
+            var content = response.Content;
+            responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
+            
+            if (content is HttpContent httpContent &amp;&amp;
+                // verificar si la respuesta es JSON
+                httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                string json = await httpContent.ReadAsStringAsync();
+                responseJson = JsonValue.Deserialize(json, new JsonOptions() { WriteIndented = true }).ToString();
+            }
+        }
+        else
+        {
+            // obtener el estado de manejo interno del servidor
+            responseMessage = result.Status.ToString();
+        }
+        
+        StringBuilder outputMessage = new StringBuilder();
+
+        if (requestJson != null)
+        {
+            outputMessage.AppendLine(&quot;-----&quot;);
+            outputMessage.AppendLine($&quot;&gt;&gt;&gt; {result.Request.Method} {result.Request.Path}&quot;);
+
+            if (requestJson is not null)
+                outputMessage.AppendLine(requestJson);
+        }
+
+        outputMessage.AppendLine($&quot;&lt;&lt;&lt; {responseMessage}&quot;);
+
+        if (responseJson is not null)
+            outputMessage.AppendLine(responseJson);
+
+        outputMessage.AppendLine(&quot;-----&quot;);
+
+        await Console.Out.WriteLineAsync(outputMessage.ToString());
+    }
+}
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/features/logging.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

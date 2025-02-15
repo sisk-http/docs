@@ -42,37 +42,24 @@
         </script>
         
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        <!-- <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll("pre").forEach(pre => {
-                    const lineCount = pre.innerText.split('\n').length;
-                    const lis = [];
-                    
-                    for(var i = 1; i < lineCount; i++)
-                        lis.push(el("li", i))
-                    
-                    pre.appendChild(el("ul", ...lis));
-                });
-            });
-        </script> -->
         
-        <!-- Cloudflare Web Analytics -->
-        <script defer="" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e1483f9ff9e246f4bd69e45a87ef6923"}'></script>
-        <!-- End Cloudflare Web Analytics -->
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
         
         <script>
             
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }
         
         </script>
-
+        
     </head>
-
-
+    
+    
     <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
@@ -129,7 +116,13 @@
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
                                 </a>
                             </li>
                         </ul>

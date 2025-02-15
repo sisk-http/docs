@@ -1,0 +1,66 @@
+items:
+- name: Bienvenida
+- name: Empezando
+  href: getting-started.md
+- name: Instalación
+  href: installing.md
+- name: Soporte de AOT Nativo
+  href: native-aot.md
+- name: Despliegue
+  href: deploying.md
+- name: Trabajando con SSL
+  href: ssl.md
+- name: Configuración de Windows
+  href: registering-namespace.md
+- name: Registros de cambios
+  href: changelogs.md
+
+- name: Fundamentos
+
+- name: Enrutamiento
+  href: fundamentals/routing.md
+- name: Controladores de solicitudes
+  href: fundamentals/request-handlers.md
+- name: Solicitudes
+  href: fundamentals/requests.md
+- name: Respuestas
+  href: fundamentals/responses.md
+
+- name: Características
+
+- name: Registro de eventos
+  href: features/logging.md
+- name: Eventos enviados por el servidor
+  href: features/server-sent-events.md
+- name: Websockets
+  href: features/websockets.md
+- name: Sintaxis de descarte
+  href: features/discard-syntax.md
+- name: Inyección de dependencias
+  href: features/instancing.md
+
+- name: Extensiones
+
+- name: JSON-RPC
+  href: extensions/json-rpc.md
+- name: Proxy SSL
+  href: extensions/ssl-proxy.md
+- name: Autenticación básica
+  href: extensions/basic-auth.md
+- name: Proveedores de servicios
+  href: extensions/service-providers.md
+- name: Configuración INI
+  href: extensions/ini-configuration.md
+
+- name: Avanzado
+
+- name: Configuración manual
+  href: advanced/manual-setup.md
+- name: Ciclo de vida de la solicitud
+  href: advanced/request-lifecycle.md
+- name: Resolutores de reenvío
+  href: advanced/forwarding-resolvers.md
+- name: Controladores de servidor HTTP
+  href: advanced/http-server-handlers.md
+- name: Configuración de multi-host
+  href: advanced/multi-host-setup.md

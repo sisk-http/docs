@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Autenticaci&#243;n B&#225;sica | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Autenticaci&#243;n B&#225;sica | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/basic-auth.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="autenticación-básica">Autenticación Básica</h1>
+
+<p>El paquete de Autenticación Básica agrega un controlador de solicitudes capaz de manejar el esquema de autenticación básica en su aplicación Sisk con muy poca configuración y esfuerzo.
+La autenticación HTTP básica es una forma minimalista de autenticar solicitudes mediante un identificador de usuario y una contraseña, donde la sesión es controlada exclusivamente
+por el cliente y no hay tokens de autenticación o acceso.</p>
+<img src="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication/httpauth.png">
+<p>Lea más sobre el esquema de autenticación básica en la <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication">especificación de MDN</a>.</p>
+<h2 id="instalación">Instalación</h2>
+<p>Para empezar, instale el paquete Sisk.BasicAuth en su proyecto:</p>
+<pre><code>&gt; dotnet add package Sisk.BasicAuth
+</code></pre>
+<p>Puede ver más formas de instalarlo en su proyecto en el <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">repositorio de Nuget</a>.</p>
+<h2 id="creación-de-su-controlador-de-autenticación">Creación de su controlador de autenticación</h2>
+<p>Puede controlar el esquema de autenticación para un módulo completo o para rutas individuales. Para ello, primero escribamos nuestro primer controlador de autenticación básica.</p>
+<p>En el ejemplo a continuación, se establece una conexión con la base de datos, se verifica si el usuario existe y si la contraseña es válida, y después de eso, se almacena el usuario en la bolsa de contexto.</p>
+<pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
+{
+    public UserAuthHandler() : base()
+    {
+        Realm = &quot;Para entrar en esta página, por favor, informe sus credenciales.&quot;;
+    }
+
+    public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
+    {
+        DbContext db = new DbContext();
+
+        // en este caso, estamos utilizando el correo electrónico como el campo de identificador de usuario, así que
+        // vamos a buscar un usuario utilizando su correo electrónico.
+        User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
+        if (user == null)
+        {
+            return base.CreateUnauthorizedResponse(&quot;Lo sentimos, no se encontró ningún usuario con este correo electrónico.&quot;);
+        }
+
+        // valida que la contraseña de las credenciales sea válida para este usuario.
+        if (!user.ValidatePassword(credentials.Password))
+        {
+            return base.CreateUnauthorizedResponse(&quot;Credenciales inválidas.&quot;);
+        }
+
+        // agrega el usuario conectado a la bolsa de contexto
+        // y continúa la ejecución
+        context.Bag.Add(&quot;loggedUser&quot;, user);
+        return null;
+    }
+}
+</code></pre>
+<p>Así que solo asocie este controlador de solicitudes con nuestra ruta o clase.</p>
+<pre><code class="lang-cs">public class UsersController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler(typeof(UserAuthHandler))]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;Hola, &quot; + loggedUser.Name + &quot;!&quot;;
+    }
+}
+</code></pre>
+<p>O utilizando la clase <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>:</p>
+<pre><code class="lang-cs">public class UsersController : RouterModule
+{
+    public ClientModule()
+    {
+        // ahora todas las rutas dentro de esta clase serán manejadas por
+        // UserAuthHandler.
+        base.HasRequestHandler(new UserAuthHandler());
+    }
+
+    [RouteGet(&quot;/&quot;)]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
+        return &quot;Hola, &quot; + loggedUser.Name + &quot;!&quot;;
+    }
+}
+</code></pre>
+<h2 id="observaciones">Observaciones</h2>
+<p>La responsabilidad principal de la autenticación básica se lleva a cabo en el lado del cliente. El almacenamiento, el control de caché,
+y el cifrado se manejan localmente en el cliente. El servidor solo recibe las credenciales y valida si se permite o no el acceso.</p>
+<p>Tenga en cuenta que este método no es uno de los más seguros porque coloca una gran responsabilidad en
+el cliente, lo que puede ser difícil de rastrear y mantener la seguridad de sus credenciales. Además, es
+fundamental que las contraseñas se transmitan en un contexto de conexión segura (SSL), ya que no tienen cifrado inherente. Una breve intercepción en los encabezados de una solicitud puede exponer las credenciales de acceso de su usuario.</p>
+<p>Opte por soluciones de autenticación más robustas para aplicaciones en producción y evite utilizar demasiados componentes prefabricados,
+ya que pueden no adaptarse a las necesidades de su proyecto y terminar exponiéndolo a riesgos de seguridad.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/basic-auth.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>

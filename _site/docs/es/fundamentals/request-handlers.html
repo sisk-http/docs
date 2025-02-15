@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Manejo de solicitudes | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Manejo de solicitudes | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/fundamentals/request-handlers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>
+            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }
+        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="manejo-de-solicitudes">Manejo de solicitudes</h1>
+
+<p>Los controladores de solicitudes, también conocidos como &quot;middlewares&quot;, son funciones que se ejecutan antes o después de que se ejecute una solicitud en el enrutador. Pueden definirse por ruta o por enrutador.</p>
+<p>Existen dos tipos de controladores de solicitudes:</p>
+<ul>
+<li><strong>BeforeResponse</strong>: define que el controlador de solicitudes se ejecutará antes de llamar a la acción del enrutador.</li>
+<li><strong>AfterResponse</strong>: define que el controlador de solicitudes se ejecutará después de llamar a la acción del enrutador. Enviar una respuesta HTTP en este contexto sobrescribirá la respuesta de la acción del enrutador.</li>
+</ul>
+<p>Ambos controladores de solicitudes pueden anular la respuesta real de la función de devolución de llamada del enrutador. Además, los controladores de solicitudes pueden ser útiles para validar una solicitud, como la autenticación, el contenido o cualquier otra información, como almacenar información, registros o otros pasos que se pueden realizar antes o después de una respuesta.</p>
+<p><img src="/assets/img/requesthandlers1.png" alt=""></p>
+<p>De esta manera, un controlador de solicitudes puede interrumpir toda esta ejecución y devolver una respuesta antes de terminar el ciclo, descartando todo lo demás en el proceso.</p>
+<p>Ejemplo: supongamos que un controlador de solicitudes de autenticación de usuario no autentica al usuario. Evitará que el ciclo de vida de la solicitud continúe y se suspenderá. Si esto sucede en el controlador de solicitudes en la posición dos, el tercero y siguientes no se evaluarán.</p>
+<p><img src="/assets/img/requesthandlers2.png" alt=""></p>
+<h2 id="crear-un-controlador-de-solicitudes">Crear un controlador de solicitudes</h2>
+<p>Para crear un controlador de solicitudes, podemos crear una clase que herede de la interfaz <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, en este formato:</p>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization != null)
+        {
+            // Devolver null indica que el ciclo de la solicitud puede continuar
+            return null;
+        }
+        else
+        {
+            // Devolver un objeto HttpResponse indica que esta respuesta sobrescribirá las respuestas adyacentes.
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+</code></pre>
+<p>En el ejemplo anterior, indicamos que si el encabezado <code>Authorization</code> está presente en la solicitud, debe continuar y llamar al siguiente controlador de solicitudes o a la función de devolución de llamada del enrutador, lo que sea que venga a continuación. Si un controlador de solicitudes se ejecuta después de la respuesta por su propiedad <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> y devuelve un valor no nulo, sobrescribirá la respuesta del enrutador.</p>
+<p>Siempre que un controlador de solicitudes devuelva <code>null</code>, indica que la solicitud debe continuar y el siguiente objeto debe ser llamado o el ciclo debe terminar con la respuesta del enrutador.</p>
+<h2 id="asociar-un-controlador-de-solicitudes-con-una-sola-ruta">Asociar un controlador de solicitudes con una sola ruta</h2>
+<p>Puedes definir uno o más controladores de solicitudes para una ruta.</p>
+<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler(),     // controlador de solicitudes antes de la solicitud
+    new ValidateJsonContentRequestHandler(),  // controlador de solicitudes antes de la solicitud
+    //                                        -- el método IndexPage se ejecutará aquí
+    new WriteToLogRequestHandler()            // controlador de solicitudes después de la solicitud
+});
+</code></pre>
+<p>O creando un objeto <a href="/api/Sisk.Core.Routing.Route">Route</a>:</p>
+<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
+indexRoute.RequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<h2 id="asociar-un-controlador-de-solicitudes-con-un-enrutador">Asociar un controlador de solicitudes con un enrutador</h2>
+<p>Puedes definir un controlador de solicitudes global que se ejecutará en todas las rutas del enrutador.</p>
+<pre><code class="lang-cs">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+</code></pre>
+<h2 id="asociar-un-controlador-de-solicitudes-con-un-atributo">Asociar un controlador de solicitudes con un atributo</h2>
+<p>Puedes definir un controlador de solicitudes en un atributo de método junto con un atributo de ruta.</p>
+<pre><code class="lang-cs">public class MyController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
+    static HttpResponse Index(HttpRequest request)
+    {
+        return new HttpResponse()
+            .WithContent(new StringContent(&quot;Hello world!&quot;));
+    }
+}
+</code></pre>
+<p>Ten en cuenta que es necesario pasar el tipo de controlador de solicitudes deseado y no una instancia del objeto. De esta manera, el controlador de solicitudes se instanciará mediante el analizador del enrutador. Puedes pasar argumentos en el constructor de la clase con la propiedad <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a>.</p>
+<p>Ejemplo:</p>
+<pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
+static HttpResponse Index(HttpRequest request)
+{
+    HttpResponse res = new HttpResponse();
+    res.Content = new StringContent(&quot;Hello world!&quot;);
+    return res;
+}
+</code></pre>
+<p>También puedes crear tu propio atributo que implemente RequestHandler:</p>
+<pre><code class="lang-cs">public class AuthenticateAttribute : RequestHandlerAttribute
+{
+    public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })
+    {
+        ;
+    }
+}
+</code></pre>
+<p>Y utilizarlo de la siguiente manera:</p>
+<pre><code class="lang-cs">[Authenticate]
+static HttpResponse Index(HttpRequest request)
+{
+    HttpResponse res = new HttpResponse();
+    res.Content = new StringContent(&quot;Hello world!&quot;);
+    return res;
+}
+</code></pre>
+<h2 id="saltar-un-controlador-de-solicitudes-global">Saltar un controlador de solicitudes global</h2>
+<p>Después de definir un controlador de solicitudes global en una ruta, puedes ignorar este controlador de solicitudes en rutas específicas.</p>
+<pre><code class="lang-cs">var myRequestHandler = new AuthenticateUserRequestHandler();
+mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    myRequestHandler
+};
+
+mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quot;, IndexPage, null)
+{
+    BypassGlobalRequestHandlers = new IRequestHandler[]
+    {
+        myRequestHandler,                    // ok: la misma instancia de lo que está en los controladores de solicitudes globales
+        new AuthenticateUserRequestHandler() // incorrecto: no saltará el controlador de solicitudes global
+    }
+});
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Si estás saltando un controlador de solicitudes, debes utilizar la misma referencia de lo que instanciaste antes para saltar. Crear otra instancia de controlador de solicitudes no saltará el controlador de solicitudes global, ya que su referencia cambiará. Recuerda utilizar la misma referencia del controlador de solicitudes utilizada en ambos GlobalRequestHandlers y BypassGlobalRequestHandlers.</p>
+</div>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/fundamentals/request-handlers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+            </script>
+        </footer>
+    </body>
+</html>
