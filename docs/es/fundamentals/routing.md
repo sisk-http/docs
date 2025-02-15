@@ -15,7 +15,7 @@ mainRouter.MapGet("/", request => {
 });
 ```
 
-Para entender qué es capaz de hacer una ruta, necesitamos entender qué es capaz de hacer una solicitud. Un [HttpRequest](/api/Sisk.Core.Http.HttpRequest) contendrá todo lo que necesite. Sisk también incluye algunas características adicionales que aceleran el desarrollo general.
+Para entender qué es capaz de hacer una ruta, debemos entender qué es capaz de hacer una solicitud. Un [HttpRequest](/api/Sisk.Core.Http.HttpRequest) contendrá todo lo que necesite. Sisk también incluye algunas características adicionales que aceleran el desarrollo en general.
 
 Para cada acción recibida por el servidor, se llamará a un delegado de tipo [RouteAction](/api/Sisk.Core.Routing.RouteAction). Este delegado contiene un parámetro que contiene un [HttpRequest](/api/Sisk.Core.Http.HttpRequest) con toda la información necesaria sobre la solicitud recibida por el servidor. El objeto resultante de este delegado debe ser un [HttpResponse](/api/Sisk.Core.Http.HttpResponse) o un objeto que se asigna a él a través de [tipos de respuesta implícitos](/docs/fundamentals/responses#implicit-response-types).
 
@@ -29,7 +29,7 @@ Sisk verifica la posibilidad de colisiones de rutas para evitar estos problemas.
 
 ### Creación de rutas utilizando patrones de ruta
 
-Puedes definir rutas utilizando varios métodos SetRoute.
+Puedes definir rutas utilizando varios métodos `SetRoute`.
 
 ```cs
 // forma SetRoute
@@ -53,8 +53,7 @@ mainRouter += Route.Get("/image.png", (request) =>
     
     return new HttpResponse()
     {
-        // el StreamContent interno
-        // se desecha después de enviar
+        // el contenido de StreamContent se descarta después de enviar
         // la respuesta.
         Content = new StreamContent(imageStream)
     };
@@ -91,7 +90,7 @@ mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) =>
 > [!NOTA]
 > Las rutas tienen su `/` final ignorado en ambas rutas de solicitud y ruta, es decir, si intentas acceder a una ruta definida como `/index/page` podrás acceder utilizando `/index/page/` también.
 >
-> También puedes forzar a las URLs a terminar con `/` habilitando la bandera [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash).
+> También puedes forzar las URLs a terminar con `/` habilitando la bandera [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash).
 
 ### Creación de rutas utilizando instancias de clase
 
@@ -112,7 +111,7 @@ public class MyController
     }
 
     // los métodos estáticos también funcionan
-    [RouteGet("/hello")]
+    [RouteGet("/hola")]
     static HttpResponse Hello(HttpRequest request)
     {
         HttpResponse res = new HttpResponse();
@@ -122,7 +121,7 @@ public class MyController
 }
 ```
 
-La línea siguiente definirá tanto el método `Index` como el método `Hello` de `MyController` como rutas, ya que ambos están marcados como rutas, y se ha proporcionado una instancia de la clase, no su tipo. Si se hubiera proporcionado su tipo en lugar de una instancia, solo se definirían los métodos estáticos.
+La línea siguiente definirá tanto el método `Index` como el método `Hello` de `MyController` como rutas, ya que ambos están marcados como rutas, y se ha proporcionado una instancia de la clase, no su tipo. Si se hubiera proporcionado su tipo en lugar de una instancia, solo se habrían definido los métodos estáticos.
 
 ```cs
 var myController = new MyController();
@@ -157,20 +156,20 @@ RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =
 mainRouter.SetRoute(indexRoute);
 ```
 
-También puedes capturar grupos de la expresión regular en el contenido de [Request.Query](/api/Sisk.Core.Http.HttpRequest.Query):
+También puedes capturar grupos de la expresión regular en el contenido de [HttpRequest.RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters):
 
 ```cs
 [RegexRoute(RouteMethod.Get, @"/uploads/(?<filename>.*\.(jpeg|jpg|png))")]
 static HttpResponse RegexRoute(HttpRequest request)
 {
-    string filename = request.Query["filename"].GetString();
+    string filename = request.RouteParameters["filename"].GetString();
     return new HttpResponse().WithContent($"Accediendo al archivo {filename}");
 }
 ```
 
 ## Rutas de cualquier método
 
-Puedes definir una ruta para que se ajuste solo por su ruta y omitir el método HTTP. Esto puede ser útil para que realices la validación de método dentro de la acción de la ruta.
+Puedes definir una ruta para que se ajuste solo por su ruta y omitir el método HTTP. Esto puede ser útil para que realices la validación de método dentro de la devolución de llamada de la ruta.
 
 ```cs
 // coincidirá con / en cualquier método HTTP
@@ -179,7 +178,7 @@ mainRouter.SetRoute(RouteMethod.Any, "/", callbackFunction);
 
 ## Rutas de cualquier ruta
 
-Las rutas de cualquier ruta prueban cualquier ruta recibida por el servidor HTTP, sujeta al método de ruta que se está probando. Si el método de ruta es RouteMethod.Any y la ruta utiliza [Route.AnyPath](/api/Sisk.Core.Routing.Route.AnyPath) en su expresión de ruta, esta ruta escuchará todas las solicitudes del servidor HTTP, y no se pueden definir otras rutas.
+Las rutas de cualquier ruta prueban cualquier ruta recibida por el servidor HTTP, sujeto al método de ruta que se está probando. Si el método de ruta es RouteMethod.Any y la ruta utiliza [Route.AnyPath](/api/Sisk.Core.Routing.Route.AnyPath) en su expresión de ruta, esta ruta escuchará todas las solicitudes del servidor HTTP, y no se pueden definir otras rutas.
 
 ```cs
 // la siguiente ruta coincidirá con todas las solicitudes POST
@@ -194,9 +193,9 @@ De forma predeterminada, la interpretación de rutas con solicitudes es sensible
 mainRouter.MatchRoutesIgnoreCase = true;
 ```
 
-Esto también habilitará la opción `RegexOptions.IgnoreCase` para rutas donde se utilice la coincidencia de regex.
+Esto también habilitará la opción `RegexOptions.IgnoreCase` para rutas donde se realice la coincidencia con regex.
 
-## Controlador de errores no encontrado (404)
+## Controlador de errores de no encontrado (404)
 
 Puedes crear un controlador de errores personalizado para cuando una solicitud no coincida con ninguna ruta conocida.
 
@@ -229,7 +228,7 @@ mainRouter.MethodNotAllowedErrorHandler = (context) =>
 
 ## Controlador de errores internos
 
-Las acciones de ruta pueden lanzar errores durante la ejecución del servidor. Si no se manejan correctamente, el funcionamiento general del servidor HTTP puede interrumpirse. El router tiene un controlador de errores para cuando una acción de ruta falle y evita la interrupción del servicio.
+Las devoluciones de llamada de ruta pueden generar errores durante la ejecución del servidor. Si no se manejan correctamente, el funcionamiento general del servidor HTTP puede interrumpirse. El router tiene una devolución de llamada para cuando una devolución de llamada de ruta falla y evita la interrupción del servicio.
 
 Este método solo es accesible cuando [ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) está establecido en `false`.
 

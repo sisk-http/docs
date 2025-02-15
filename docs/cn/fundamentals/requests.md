@@ -18,16 +18,16 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-此属性返回由 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象表示的请求方法。
+该属性返回请求的方法，表示为 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象。
 
 > [!NOTE]
-> 与路由方法不同，此属性不支持 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回实际的请求方法。
+> 与路由方法不同，该属性不提供 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回实际的请求方法。
 
 ## 获取请求 URL 组件
 
 您可以通过请求的某些属性从 URL 中获取各种组件。对于此示例，让我们考虑以下 URL：
 
-```http
+``` 
 http://localhost:5000/user/login?email=foo@bar.com
 ```
 
@@ -59,24 +59,22 @@ byte[] bodyBytes = request.RawBody;
 Stream requestStream = request.GetRequestStream();
 ```
 
-您还可以使用 [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) 和 [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) 属性确定请求是否包含正文以及是否已加载。
+还可以使用 [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) 和 [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) 属性确定请求是否包含正文以及是否已加载。
 
-不可能多次读取请求内容通过 `GetRequestStream` 方法。如果您使用此方法读取，则 `RawBody` 和 `Body` 的值也将不可用。在请求的上下文中，不需要处理请求流，因为它将在创建的 HTTP 会话结束时被处理。您还可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取解码请求的最佳编码。
+无法多次通过 `GetRequestStream` 方法读取请求内容。如果使用此方法读取，则 `RawBody` 和 `Body` 的值也将不可用。无需在请求上下文中释放请求流，因为它将在创建的 HTTP 会话结束时释放。还可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取解码请求的最佳编码。
 
-服务器对读取请求内容有限制，这适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性将整个输入流复制到一个大小与 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength) 相同的本地缓冲区中。
+服务器对读取请求内容有限制，这适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性将整个输入流复制到一个与 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength) 相同大小的本地缓冲区中。
 
-如果客户端发送的内容大于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)。您仍然可以通过流处理内容。
+如果客户端发送的内容大于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)。仍然可以通过流处理内容。
 
 > [!NOTE]
-> Sisk 遵循 RFC 9110“HTTP 语义”，该语义不允许某些请求方法具有正文。这些请求将立即返回状态代码 400（错误请求）和 `ContentServedOnIllegalMethod` 状态。GET、OPTIONS、HEAD 和 TRACE 方法不允许包含正文。您可以在此处阅读 [RFC 9110](https://httpwg.org/spec/rfc9110.html)。
->
-> 您可以通过将 [ThrowContentOnNonSemanticMethods](/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods) 设置为 `false` 来禁用此功能。
+> 虽然 Sisk 允许这样做，但为了创建应用程序，始终遵循 HTTP 语义是一个好主意，不要在不允许的方法中获取或提供内容。请阅读有关 [RFC 9110“HTTP 语义”](https://httpwg.org/spec/rfc9110.html) 的信息。
 
 ## 获取请求上下文
 
 HTTP 上下文是 Sisk 的一个独特对象，存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织自己在这些对象难以组织的环境中。
 
-[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象包含从一个请求处理程序传递到另一个点的存储信息，并可以在最终目的地消费。该对象也可以由在路由回调之后运行的请求处理程序使用。
+[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象包含存储的信息，可以从一个请求处理程序传递到另一个点，并可以在最终目标中使用。此对象也可以由在路由回调之后运行的请求处理程序使用。
 
 > [!TIP]
 > 此属性也可以通过 [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) 属性访问。
@@ -179,28 +177,28 @@ static HttpResponse Index(HttpRequest request)
         // 多部分表单数据内容长度。
         Console.WriteLine("内容长度  : " + uploadedObject.ContentLength);
 
-        // 根据每个已知内容类型的文件头确定图像格式。
-        // 如果内容不是已知的常见文件格式，则以下方法将返回 MultipartObjectCommonFormat.Unknown
+        // 根据文件头确定每个已知内容类型的图像格式。
+        // 如果内容不是已知的常见文件格式，则此方法将返回 MultipartObjectCommonFormat.Unknown
         Console.WriteLine("常见格式   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
 
-您可以在 [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) 中阅读更多关于 Sisk 的信息及其方法、属性和功能。
+您可以阅读更多关于 Sisk [多部分表单对象](/api/Sisk.Core.Entity.MultipartObject)及其方法、属性和功能的信息。
 
 ## 服务器发送事件支持
 
 Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)，允许将块作为流发送并保持服务器和客户端之间的连接。
 
-调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠由服务器发送的数据包。
+调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠数据包。
 
 发送所有数据包后，回调必须返回 [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) 方法，该方法将发送最终响应给服务器并指示流媒体已结束。
 
-由于无法预测将要发送的所有数据包的总长度，因此无法使用 `Content-Length` 标头确定连接的末尾。
+无法预测将发送的所有数据包的总长度，因此无法使用 `Content-Length` 标头确定连接的末尾。
 
-大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的其他方法。因此，在使用需要特定请求标头的事件源请求的请求处理程序时要小心，因为它们可能没有这些标头。
+大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的方法。因此，在使用需要特定请求标头的请求处理程序处理事件源请求时要小心，因为它们可能没有这些标头。
 
-此外，大多数浏览器如果客户端在接收到所有数据包后没有调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close) 方法，则会重新启动流，从而导致服务器端无限增加的处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。
+此外，大多数浏览器如果客户端在接收到所有数据包后未调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close) 方法，则会重新启动流媒体，从而导致服务器端无限增加额外处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。
 
 以下示例显示浏览器如何与支持服务器发送事件的服务器进行通信。
 
@@ -251,7 +249,7 @@ public class MyController
 }
 ```
 
-运行此代码时，我们预计会得到类似的结果：
+运行此代码时，我们期望得到类似以下的结果：
 
 <img src="/assets/img/server side events demo.gif" />
 
@@ -263,6 +261,6 @@ Sisk 可以与代理一起使用，因此 IP 地址可以在客户端到代理�
 
 ## 标头编码
 
-标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码错误编码的标头。
+标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码不正确编码的标头。
 
 此操作代价高昂，默认情况下禁用，但可以在 [NormalizeHeadersEncodings](/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings) 标志下启用。

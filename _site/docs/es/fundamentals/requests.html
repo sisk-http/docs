@@ -160,7 +160,7 @@
 <p>Esta propiedad devuelve el método de la solicitud representado por un objeto <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>A diferencia de los métodos de ruta, esta propiedad no sirve el elemento <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. En su lugar, devuelve el método de solicitud real.</p>
+<p>A diferencia de los métodos de ruta, esta propiedad no sirve para el elemento <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. En su lugar, devuelve el método de solicitud real.</p>
 </div>
 <h2 id="obtener-componentes-de-la-url-de-la-solicitud">Obtener componentes de la URL de la solicitud</h2>
 <p>Puede obtener varios componentes de una URL a través de ciertas propiedades de una solicitud. Para este ejemplo, consideremos la URL:</p>
@@ -182,7 +182,7 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
-<td>Obtiene la ruta de la solicitud y la cadena de consulta.</td>
+<td>Obtiene la ruta y la cadena de consulta de la solicitud.</td>
 <td><code>/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
@@ -212,7 +212,7 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
-<td>Determina si la solicitud está utilizando SSL (true) o no (false).</td>
+<td>Determina si la solicitud utiliza SSL (true) o no (false).</td>
 <td><code>false</code></td>
 </tr>
 </tbody>
@@ -226,20 +226,19 @@ string body = request.Body;
 // o lo obtiene en un arreglo de bytes
 byte[] bodyBytes = request.RawBody;
 
-// o también, puede transmitirlo.
+// o también puede transmitirlo.
 Stream requestStream = request.GetRequestStream();
 </code></pre>
 <p>También es posible determinar si hay un cuerpo en la solicitud y si está cargado con las propiedades <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, que determina si la solicitud tiene contenido y <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> que indica que el servidor HTTP recibió completamente el contenido del punto remoto.</p>
-<p>No es posible leer el contenido de la solicitud a través de <code>GetRequestStream</code> más de una vez. Si lee con este método, los valores en <code>RawBody</code> y <code>Body</code> no estarán disponibles. No es necesario desechar el flujo de solicitud en el contexto de la solicitud, ya que se descarta al final de la sesión HTTP en la que se crea. También puede utilizar la propiedad <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> para obtener la mejor codificación para decodificar la solicitud manualmente.</p>
+<p>No es posible leer el contenido de la solicitud a través de <code>GetRequestStream</code> más de una vez. Si lee con este método, los valores en <code>RawBody</code> y <code>Body</code> no estarán disponibles. No es necesario desechar el flujo de solicitud en el contexto de la solicitud, ya que se desecha al final de la sesión HTTP en la que se crea. También puede utilizar la propiedad <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> para obtener la mejor codificación para decodificar la solicitud manualmente.</p>
 <p>El servidor tiene límites para leer el contenido de la solicitud, que se aplica tanto a <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> como a <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>. Estas propiedades copian el flujo de entrada completo en un búfer local del mismo tamaño que <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
 <p>Una respuesta con estado 413 Contenido demasiado grande se devuelve al cliente si el contenido enviado es mayor que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> definido en la configuración del usuario. Además, si no hay un límite configurado o si es demasiado grande, el servidor lanzará una <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> cuando el contenido enviado por el cliente exceda <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) y si el contenido se intenta acceder a través de una de las propiedades mencionadas anteriormente. Todavía puede tratar con el contenido a través de transmisión.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk sigue la semántica HTTP RFC 9110, que no permite que ciertos métodos de solicitud tengan un cuerpo. Estas solicitudes inmediatamente caerán en un 400 (Solicitud incorrecta) con el estado <code>ContentServedOnIllegalMethod</code>. Las solicitudes con cuerpos no están permitidas en los métodos GET, OPTIONS, HEAD y TRACE. Puede leer la <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110</a> aquí.</p>
-<p>Puede deshabilitar esta función estableciendo <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> en <code>false</code>.</p>
+<p>Aunque Sisk lo permite, siempre es una buena idea seguir la semántica HTTP para crear su aplicación y no obtener o servir contenido en métodos que no lo permiten. Lea sobre <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;Semántica HTTP&quot;</a>.</p>
 </div>
 <h2 id="obtener-el-contexto-de-la-solicitud">Obtener el contexto de la solicitud</h2>
-<p>El contexto de HTTP es un objeto exclusivo de Sisk que almacena información del servidor HTTP, ruta, enrutador y controlador de solicitud. Puede utilizarlo para organizar el entorno donde estos objetos son difíciles de organizar.</p>
+<p>El contexto HTTP es un objeto exclusivo de Sisk que almacena información del servidor HTTP, ruta, enrutador y controlador de solicitud. Puede utilizarlo para organizarse en un entorno donde estos objetos son difíciles de organizar.</p>
 <p>El objeto <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> contiene información almacenada que se pasa de un controlador de solicitud a otro punto y se puede consumir en el destino final. Este objeto también se puede utilizar por controladores de solicitud que se ejecutan después de la devolución de llamada de la ruta.</p>
 <div class="TIP">
 <h5>Tip</h5>
@@ -278,7 +277,7 @@ Stream requestStream = request.GetRequestStream();
     }
 }
 </code></pre>
-<p>También puede utilizar los métodos de ayuda <code>Bag.Set()</code> y <code>Bag.Get()</code> para obtener o establecer objetos por sus tipos singleton.</p>
+<p>También puede utilizar los métodos auxiliares <code>Bag.Set()</code> y <code>Bag.Get()</code> para obtener o establecer objetos por sus singleton de tipo.</p>
 <pre><code class="lang-cs">public class Authenticate : RequestHandler
 {
     public override HttpResponse? Execute(HttpRequest request, HttpContext context)
@@ -310,7 +309,7 @@ public static HttpResponse Test(HttpRequest request)
 }
 </code></pre>
 <h2 id="obtener-datos-de-formulario-multipart">Obtener datos de formulario multipart</h2>
-<p>La solicitud HTTP de Sisk le permite obtener contenidos multipart, como archivos, campos de formulario o contenido binario.</p>
+<p>La solicitud HTTP de Sisk le permite obtener contenidos multipart, como archivos, campos de formulario o cualquier contenido binario.</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     // el siguiente método lee la entrada de solicitud completa en un
@@ -329,20 +328,20 @@ public static HttpResponse Test(HttpRequest request)
         // La longitud del contenido de los datos de formulario multipart.
         Console.WriteLine(&quot;Longitud del contenido  : &quot; + uploadedObject.ContentLength);
 
-        // Determina el formato de archivo común en función del encabezado del archivo para cada
+        // Determina el formato de imagen en función del encabezado del archivo para cada
         // tipo de contenido conocido. Si el contenido no es un formato de archivo común reconocido,
         // el método siguiente devolverá MultipartObjectCommonFormat.Unknown
         Console.WriteLine(&quot;Formato común   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>Puede leer más sobre los objetos de formulario multipart de Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> y sus métodos, propiedades y funcionalidades.</p>
+<p>Puede leer más sobre los objetos de formulario multipart de Sisk y sus métodos, propiedades y funcionalidades.</p>
 <h2 id="soporte-para-eventos-enviados-por-el-servidor">Soporte para eventos enviados por el servidor</h2>
 <p>Sisk admite <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">eventos enviados por el servidor</a>, que permite enviar fragmentos como un flujo y mantener la conexión entre el servidor y el cliente viva.</p>
 <p>Llamando al método <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> se pondrá la solicitud HTTP en su estado de escucha. A partir de esto, el contexto de esta solicitud HTTP no esperará una respuesta HTTP, ya que se superpondrá a los paquetes enviados por eventos del servidor.</p>
 <p>Después de enviar todos los paquetes, la devolución de llamada debe devolver el método <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>, que enviará la respuesta final al servidor y indicará que la transmisión ha terminado.</p>
 <p>No es posible predecir qué será la longitud total de todos los paquetes que se enviarán, por lo que no es posible determinar el final de la conexión con el encabezado <code>Content-Length</code>.</p>
-<p>Por defecto, la mayoría de los navegadores no admiten la transmisión de encabezados HTTP o métodos diferentes al GET. Por lo tanto, tenga cuidado al utilizar controladores de solicitud con solicitudes de evento de origen que requieren encabezados específicos en la solicitud, ya que es probable que no los tengan.</p>
+<p>Por defecto, la mayoría de los navegadores no admiten el envío de encabezados HTTP o métodos diferentes al GET. Por lo tanto, tenga cuidado al utilizar controladores de solicitud con solicitudes de evento de origen que requieren encabezados específicos en la solicitud, ya que es probable que no los tengan.</p>
 <p>Además, la mayoría de los navegadores reinician las transmisiones si el método <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> no se llama en el lado del cliente después de recibir todos los paquetes, lo que causa un procesamiento adicional infinito en el lado del servidor. Para evitar este tipo de problema, es común enviar un paquete final que indique que el evento de origen ha terminado de enviar todos los paquetes.</p>
 <p>El ejemplo siguiente muestra cómo el navegador puede comunicarse con el servidor que admite eventos enviados por el servidor.</p>
 <pre><code class="lang-html">&lt;html&gt;
@@ -367,7 +366,7 @@ public static HttpResponse Test(HttpRequest request)
     &lt;/script&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Y progresivamente enviar los mensajes al cliente:</p>
+<p>Y envíe progresivamente los mensajes al cliente:</p>
 <pre><code class="lang-cs">public class MyController
 {
     [Route(RouteMethod.Get, &quot;/event-source&quot;)]
@@ -389,12 +388,12 @@ public static HttpResponse Test(HttpRequest request)
 </code></pre>
 <p>Al ejecutar este código, esperamos un resultado similar a este:</p>
 <img src="/assets/img/server side events demo.gif">
-<h2 id="resolución-de-direcciones-ip-y-hosts-proxy">Resolución de direcciones IP y hosts proxy</h2>
+<h2 id="resolución-de-ips-y-hosts-proxy">Resolución de IPs y hosts proxy</h2>
 <p>Sisk se puede utilizar con proxies, y por lo tanto, las direcciones IP pueden reemplazarse por el punto final del proxy en la transacción desde un cliente hasta el proxy.</p>
 <p>Puede definir sus propios resolutores en Sisk con <a href="/docs/advanced/forwarding-resolvers">resolutores de reenvío</a>.</p>
 <h2 id="codificación-de-encabezados">Codificación de encabezados</h2>
-<p>La codificación de encabezados puede ser un problema para algunas implementaciones. En Windows, los encabezados UTF-8 no están soportados, por lo que se utiliza ASCII. Sisk tiene un convertidor de codificación incorporado, que puede ser útil para decodificar encabezados codificados incorrectamente.</p>
-<p>Esta operación es costosa y está deshabilitada por defecto, pero se puede habilitar bajo la bandera <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
+<p>La codificación de encabezados puede ser un problema para algunas implementaciones. En Windows, los encabezados UTF-8 no son compatibles, por lo que se utiliza ASCII. Sisk tiene un convertidor de codificación incorporado, que puede ser útil para decodificar encabezados codificados incorrectamente.</p>
+<p>Esta operación es costosa y está deshabilitada de forma predeterminada, pero se puede habilitar bajo la bandera <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
 
 </article>
 

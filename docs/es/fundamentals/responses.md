@@ -35,9 +35,9 @@ HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 ```
 
-El servidor siempre intentará calcular la longitud del contenido (`Content-Length`) a partir de lo que hayas definido en el contenido, si no lo has definido explícitamente en un encabezado. Si el servidor no puede obtener implícitamente el encabezado `Content-Length` del contenido de la respuesta, la respuesta se enviará con codificación en bloques.
+El servidor siempre intentará calcular la longitud del contenido (`Content-Length`) a partir de lo que hayas definido en el contenido, si no lo has definido explícitamente en un encabezado. Si el servidor no puede obtener implícitamente la longitud del contenido, la respuesta se enviará con codificación en bloques.
 
-También puedes transmitir la respuesta enviando un [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) o utilizando el método [GetResponseStream](#response-stream).
+También puedes transmitir la respuesta enviando un [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) o utilizando el método `GetResponseStream`.
 
 ## Encabezados de respuesta
 
@@ -56,7 +56,7 @@ new HttpResponse(301)
     .WithHeader("Location", "/login");
 ```
 
-Cuando utilizas el método [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) de HttpHeaderCollection, estás agregando un encabezado a la solicitud sin alterar los que ya se han enviado. El método [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) reemplaza los encabezados con el mismo nombre con el valor instruido. El indexador de HttpHeaderCollection llama internamente al método Set para reemplazar los encabezados.
+Cuando utilizas el método [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) de HttpHeaderCollection, estás agregando un encabezado a la solicitud sin alterar los que ya se han enviado. El método [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) reemplaza los encabezados con el mismo nombre con el valor indicado. El indexador de HttpHeaderCollection llama internamente al método Set para reemplazar los encabezados.
 
 ## Enviar cookies
 
@@ -74,7 +74,7 @@ new HttpResponse(301)
     .WithCookie("cookie-name", "cookie-value", expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 ```
 
-Hay versiones [más completas](/api/Sisk.Core.Http.CookieHelper.SetCookie) del mismo método.
+Hay versiones más completas del mismo método [aquí](/api/Sisk.Core.Http.CookieHelper.SetCookie).
 
 ## Respuestas en bloques
 
@@ -89,7 +89,7 @@ Al utilizar la codificación en bloques, el encabezado `Content-Length` se omite
 
 ## Flujo de respuesta
 
-Los flujos de respuesta son una forma administrada de enviar respuestas de manera segmentada. Es una operación de nivel inferior que la de utilizar objetos HttpResponse, ya que requieren que envíes los encabezados y el contenido manualmente, y luego cierres la conexión.
+Los flujos de respuesta son una forma administrada de enviar respuestas de manera segmentada. Es una operación de nivel inferior que la utilización de objetos HttpResponse, ya que requiere que envíes los encabezados y el contenido manualmente y luego cierres la conexión.
 
 Este ejemplo abre un flujo de lectura para el archivo, copia el flujo al flujo de salida de la respuesta y no carga el archivo completo en la memoria. Esto puede ser útil para servir archivos medianos o grandes.
 
@@ -99,7 +99,7 @@ using var fileStream = File.OpenRead("my-big-file.zip");
 var responseStream = request.GetResponseStream();
 
 // establece la codificación de la respuesta para utilizar la codificación en bloques
-// también no debes enviar el encabezado de longitud de contenido cuando se utiliza
+// también no debes enviar el encabezado de longitud del contenido cuando se utiliza
 // la codificación en bloques
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -114,7 +114,7 @@ return responseStream.Close();
 
 ## Compresión GZip, Deflate y Brotli
 
-Puedes enviar respuestas con contenido comprimido en Sisk comprimiendo los contenidos HTTP. Primero, encapsula tu objeto [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) dentro de uno de los compresores a continuación para enviar la respuesta comprimida al cliente.
+Puedes enviar respuestas con contenido comprimido en Sisk comprimiendo el contenido HTTP. Primero, encapsula tu objeto [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) dentro de uno de los compresores a continuación para enviar la respuesta comprimida al cliente.
 
 ```cs
 router.MapGet("/hello.html", request => {
@@ -151,7 +151,7 @@ Desde la versión 0.15, puedes utilizar otros tipos de retorno además de HttpRe
 
 El concepto es siempre devolver un tipo de referencia y convertirlo en un objeto HttpResponse válido. Las rutas que devuelven HttpResponse no se someten a ninguna conversión.
 
-Los tipos de valor (estructuras) no se pueden utilizar como tipo de retorno porque no son compatibles con [RouterCallback](/api/Sisk.Core.Routing.RouterCallback), por lo que deben envolverse en un ValueResult para poder utilizarse en controladores.
+Los tipos de valor (estructuras) no se pueden utilizar como tipo de retorno porque no son compatibles con el [RouterCallback](/api/Sisk.Core.Routing.RouterCallback), por lo que deben envolverse en un ValueResult para poder utilizarse en los controladores.
 
 Considera el siguiente ejemplo de un módulo de enrutador que no utiliza HttpResponse en el tipo de retorno:
 
@@ -170,7 +170,7 @@ public class UsersController : RouterModule
     [RouteGet("<id>")]
     public User View(HttpRequest request)
     {
-        int id = request.Query["id"].GetInteger();
+        int id = request.RouteParameters["id"].GetInteger();
         User dUser = Users.First(u => u.Id == id);
 
         return dUser;
@@ -181,7 +181,7 @@ public class UsersController : RouterModule
     {
         User fromBody = JsonSerializer.Deserialize<User>(request.Body)!;
         Users.Add(fromBody);
-
+        
         return true;
     }
 }
@@ -189,11 +189,11 @@ public class UsersController : RouterModule
 
 Con eso, ahora es necesario definir en el enrutador cómo manejar cada tipo de objeto. Los objetos siempre son el primer argumento del controlador y el tipo de salida debe ser un objeto HttpResponse válido. También, los objetos de salida de una ruta nunca deben ser nulos.
 
-Para los tipos ValueResult no es necesario indicar que el objeto de entrada es un ValueResult y solo T, ya que ValueResult es un objeto reflejado desde su componente original.
+Para los tipos ValueResult no es necesario indicar que el objeto de entrada es un ValueResult y solo T, ya que ValueResult es un objeto reflejado a partir de su componente original.
 
 La asociación de tipos no compara lo que se registró con el tipo del objeto devuelto desde el callback del enrutador. En su lugar, verifica si el tipo del resultado del enrutador es asignable al tipo registrado.
 
-Registrar un controlador de tipo Object hará que se ignoren todos los demás controladores de tipo específico. El orden de inserción de los controladores de valor también es importante, por lo que registrar un controlador de tipo Object debe ser el último controlador de valor que se utilizará como respaldo. Siempre registre controladores de valor específicos primero para asegurarse del orden.
+Registrar un controlador de tipo Object hará que se ignoren todos los demás controladores de tipo específico. El orden de inserción de los controladores de valor también es importante, por lo que registrar un controlador de objeto debe ser el último controlador de valor que se utilizará como respaldo.
 
 ```cs
 Router r = new Router();

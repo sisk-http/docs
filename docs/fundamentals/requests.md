@@ -68,9 +68,7 @@ The server has limits for reading the request content, which applies to both [Ht
 A response with status 413 Content Too Large is returned to the client if the content sent is larger than [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) defined in the user configuration. Additionally, if there is no configured limit or if it is too large, the server will throw an [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) when the content sent by the client exceeds [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 GB) and if the content is attempted to be accessed through one of the properties mentioned above. You can still deal with the content through streaming.
 
 > [!NOTE]
-> Sisk follows the RFC 9110 "HTTP Semantics", which doens't allow certain requests methods to have body. These requests will immediately drop an 400 (Bad Request) with the `ContentServedOnIllegalMethod` status. Requests with bodies are not allowed in methods GET, OPTIONS, HEAD and TRACE. You can read the [RFC 9910](https://httpwg.org/spec/rfc9110.html) here.
->
-> You can disable this feature by turning [ThrowContentOnNonSemanticMethods](/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods) to `false`.
+> Although Sisk allows it, it is always a good idea to follow HTTP Semantics to create your application and not obtain or serve content in methods that do not allow it. Read about [RFC 9110 "HTTP Semantics"](https://httpwg.org/spec/rfc9110.html).
 
 ## Getting the request context
 

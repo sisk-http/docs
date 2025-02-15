@@ -157,13 +157,13 @@ RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =
 mainRouter.SetRoute(indexRoute);
 ```
 
-You can also capture groups from the regex pattern into the [Request.Query](/api/Sisk.Core.Http.HttpRequest.Query) contents:
+You can also capture groups from the regex pattern into the [HttpRequest.RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) contents:
 
 ```cs
 [RegexRoute(RouteMethod.Get, @"/uploads/(?<filename>.*\.(jpeg|jpg|png))")]
 static HttpResponse RegexRoute(HttpRequest request)
 {
-    string filename = request.Query["filename"].GetString();
+    string filename = request.RouteParameters["filename"].GetString();
     return new HttpResponse().WithContent($"Acessing file {filename}");
 }
 ```

@@ -170,7 +170,7 @@ public class UsersController : RouterModule
     [RouteGet("<id>")]
     public User View(HttpRequest request)
     {
-        int id = request.Query["id"].GetInteger();
+        int id = request.RouteParameters["id"].GetInteger();
         User dUser = Users.First(u => u.Id == id);
 
         return dUser;
@@ -181,7 +181,7 @@ public class UsersController : RouterModule
     {
         User fromBody = JsonSerializer.Deserialize<User>(request.Body)!;
         Users.Add(fromBody);
-
+        
         return true;
     }
 }

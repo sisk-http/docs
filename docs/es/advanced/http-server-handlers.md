@@ -1,10 +1,10 @@
 # Controladores de servidor HTTP
 
-En Sisk versión 0.16, hemos introducido la clase `HttpServerHandler`, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar controladores de eventos adicionales a Sisk, como el manejo de solicitudes HTTP, enrutadores, bolsas de contexto y más.
+En la versión 0.16 de Sisk, se ha introducido la clase `HttpServerHandler`, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar controladores de eventos adicionales a Sisk, como el manejo de solicitudes HTTP, enrutadores, bolsas de contexto y más.
 
 La clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo HTTP no tiene sesiones, y por lo tanto no es posible conservar información de una solicitud a otra. Sisk proporciona por ahora una forma de implementar sesiones, contextos, conexiones de base de datos y otros proveedores útiles para ayudar en su trabajo.
 
-Por favor, consulte [esta página](/api/Sisk.Core.Http.Handlers.HttpServerHandler) para leer dónde se desencadena cada evento y cuál es su propósito. También puede ver el [ciclo de vida de una solicitud HTTP](/v1/advanced/request-lifecycle) para entender qué sucede con una solicitud y dónde se disparan los eventos. El servidor HTTP permite utilizar varios controladores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el subproceso actual para cada solicitud o contexto hasta que todos los controladores asociados con esa función se ejecuten y completen.
+Consulte [esta página](/api/Sisk.Core.Http.Handlers.HttpServerHandler) para leer dónde se desencadena cada evento y cuál es su propósito. También puede ver el [ciclo de vida de una solicitud HTTP](/v1/advanced/request-lifecycle) para entender qué sucede con una solicitud y dónde se disparan los eventos. El servidor HTTP permite utilizar varios controladores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el subproceso actual para cada solicitud o contexto hasta que todos los controladores asociados con esa función se ejecuten y completen.
 
 A diferencia de los controladores de solicitudes, no se pueden aplicar a grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puede aplicar condiciones dentro de su controlador de servidor HTTP. Además, se definen singletones de cada `HttpServerHandler` para cada aplicación Sisk, por lo que solo se define una instancia por `HttpServerHandler`.
 
@@ -135,4 +135,4 @@ public class ApiController : RouterModule
 
 Los desarrolladores pueden implementar sesiones, contextos y conexiones de base de datos utilizando esta clase. El código proporcionado muestra un ejemplo práctico con el `DatabaseConnectionHandler`, automatizando el descarte de la conexión de base de datos al final de cada solicitud.
 
-La integración es sencilla, con controladores registrados durante la configuración del servidor. La clase `HttpServerHandler` ofrece un conjunto de herramientas poderosas para gestionar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.
+La integración es sencilla, con controladores registrados durante la configuración del servidor. La clase `HttpServerHandler` ofrece un conjunto de herramientas poderosas para administrar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.

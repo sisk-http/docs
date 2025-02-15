@@ -15,8 +15,8 @@ function isDirectory(filePath) {
 function enumerateMdFiles(dir) {
     const files = fs.readdirSync(dir);
     let mdFiles = [];
-
-    const excludePattern = /[\\\/](ru|cn|pt-br)[\\\/]/i;
+    
+    const excludePattern = /[\\\/](ru|cn|pt-br|es)[\\\/]/i;
 
     for (const file of files) {
         const filePath = path.join(dir, file);
@@ -101,7 +101,9 @@ const dest = process.argv[3];
 
 function getPrompt(fileName) {
     const baseText = `
-        You're an translator AI helper. Your goal is to translate the given markdown code language into another language. You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#.
+        You're an translator AI helper. Your goal is to translate the given markdown code language into
+        another language. You're translating a piece of documentation of the Sisk Framework, an
+        .NET web-server written in C#.
         
         You must translate the user input to ${toLanguage} from English. The input file name is "${fileName}"".
         

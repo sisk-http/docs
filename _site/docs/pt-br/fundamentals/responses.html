@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> | Sisk </title>
+        <title>Respostas | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" | Sisk ">
+        <meta name="title" content="Respostas | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -144,65 +144,66 @@
                 </div>
 
                 <article data-uid="">
+<h1 id="respostas">Respostas</h1>
 
-<p>Respostas representam objetos que são respostas HTTP para solicitações HTTP. Elas são enviadas pelo servidor para o cliente como uma indicação da solicitação de um recurso, página, documento, arquivo ou outro objeto.</p>
-<p>Uma resposta HTTP é formada por status, cabeçalhos e conteúdo.</p>
-<p>Neste documento, ensinaremos como arquitetar respostas HTTP com o Sisk.</p>
+<p>Respostas representam objetos que são respostas HTTP para requisições HTTP. Elas são enviadas pelo servidor para o cliente como uma indicação da requisição de um recurso, página, documento, arquivo ou outro objeto.</p>
+<p>Uma resposta HTTP é formada por status, headers e conteúdo.</p>
+<p>Neste documento, vamos ensinar como arquitetar respostas HTTP com Sisk.</p>
 <h2 id="definindo-um-status-http">Definindo um status HTTP</h2>
-<p>A lista de status HTTP é a mesma desde HTTP/1.0, e o Sisk suporta todos eles.</p>
+<p>A lista de status HTTP é a mesma desde o HTTP/1.0, e Sisk suporta todos eles.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = System.Net.HttpStatusCode.Accepted; // 202
 </code></pre>
-<p>Ou com Sintaxe Fluente:</p>
+<p>Ou com sintaxe Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse()
     .WithStatus(200) // ou
     .WithStatus(HttpStatusCode.Ok) // ou
     .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
-<p>Você pode ver a lista completa de códigos de status HttpStatusCode disponíveis <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">aqui</a>. Você também pode fornecer seu próprio código de status usando a estrutura <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>.</p>
+<p>Você pode ver a lista completa de HttpStatusCode disponíveis <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">aqui</a>. Você também pode fornecer seu próprio código de status usando a estrutura <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>.</p>
 <h2 id="corpo-e-tipo-de-conteúdo">Corpo e tipo de conteúdo</h2>
-<p>O Sisk suporta objetos de conteúdo .NET nativos para enviar o corpo em respostas. Você pode usar a classe <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> para enviar uma resposta JSON, por exemplo:</p>
+<p>Sisk suporta objetos de conteúdo nativos do .NET para enviar corpo em respostas. Você pode usar a classe <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> para enviar uma resposta JSON, por exemplo:</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>O servidor sempre tentará calcular o <code>Content-Length</code> com base no que você definiu no conteúdo, se você não tiver definido explicitamente em um cabeçalho. Se o servidor não conseguir obter implicitamente o cabeçalho Content-Length do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
-<p>Você também pode transmitir a resposta enviando um <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> ou usando o método GetResponseStream.</p>
+<p>O servidor sempre tentará calcular o <code>Content-Length</code> a partir do que você definiu no conteúdo, se você não o definir explicitamente em um header. Se o servidor não puder obter implicitamente o header <code>Content-Length</code> do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
+<p>Você também pode transmitir a resposta enviando um <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> ou usando o método <code>GetResponseStream</code>.</p>
 <h2 id="cabeçalhos-de-resposta">Cabeçalhos de resposta</h2>
-<p>Você pode adicionar, editar ou remover cabeçalhos que está enviando na resposta. O exemplo abaixo mostra como enviar uma resposta de redirecionamento para o cliente.</p>
+<p>Você pode adicionar, editar ou remover cabeçalhos que estão sendo enviados na resposta. O exemplo abaixo mostra como enviar uma resposta de redirecionamento para o cliente.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = HttpStatusCode.Moved;
 res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 </code></pre>
-<p>Ou com Sintaxe Fluente:</p>
+<p>Ou com sintaxe Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
-<p>Quando você usa o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> de HttpHeaderCollection, você está adicionando um cabeçalho à solicitação sem alterar os que já foram enviados. O método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> substitui os cabeçalhos com o mesmo nome pelo valor instruído. O índice de HttpHeaderCollection chama internamente o método Set para substituir os cabeçalhos.</p>
-<h2 id="envio-de-cookies">Envio de cookies</h2>
-<p>O Sisk possui métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método já estão codificados em URL e atendem ao padrão RFC-6265.</p>
+<p>Quando você usa o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> da HttpHeaderCollection, você está adicionando um cabeçalho à requisição sem alterar os que já foram enviados. O método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> substitui os cabeçalhos com o mesmo nome pelo valor instruído. O indexador da HttpHeaderCollection internamente chama o método Set para substituir os cabeçalhos.</p>
+<h2 id="enviando-cookies">Enviando cookies</h2>
+<p>Sisk tem métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método já estão codificados em URL e atendem ao padrão RFC-6265.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 </code></pre>
-<p>Ou com Sintaxe Fluente:</p>
+<p>Ou com sintaxe Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>Existem outras <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">versões mais completas</a> do mesmo método.</p>
-<h2 id="respostas-chunked">Respostas chunked</h2>
-<p>Você pode definir a codificação de transferência como chunked para enviar respostas grandes.</p>
+<p>Há outras <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">versões mais completas</a> do mesmo método.</p>
+<h2 id="respostas-em-chunk">Respostas em chunk</h2>
+<p>Você pode definir o encoding de transferência como chunked para enviar respostas grandes.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 </code></pre>
-<p>Ao usar chunked-encoding, o cabeçalho Content-Length é omitido automaticamente.</p>
+<p>Ao usar chunked-encoding, o header <code>Content-Length</code> é automaticamente omitido.</p>
 <h2 id="stream-de-resposta">Stream de resposta</h2>
-<p>Os streams de resposta são uma maneira gerenciada que permite enviar respostas de forma segmentada. É uma operação de nível inferior do que usar objetos HttpResponse, pois exige que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.</p>
-<p>Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.</p>
-<pre><code class="lang-cs">// abre o stream de resposta para o arquivo
+<p>Streams de resposta são uma maneira gerenciada de enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.</p>
+<p>Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos de tamanho médio ou grande.</p>
+<pre><code class="lang-cs">// obtém o stream de saída da resposta
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
-// define a codificação de resposta para usar chunked-encoding
-// também você não deve enviar o cabeçalho Content-Length quando usar
+// define o encoding de resposta para usar chunked-encoding
+// também você não deve enviar o header content-length quando usar
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -214,8 +215,8 @@ fileStream.CopyTo(responseStream.ResponseStream);
 // fecha o stream
 return responseStream.Close();
 </code></pre>
-<h2 id="compressão-gzip-deflate-e-brotli">Compressão GZip, Deflate e Brotli</h2>
-<p>Você pode enviar respostas com conteúdo compactado no Sisk com compressão de conteúdo HTTP. Primeiro, encapsule seu objeto <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> dentro de um dos compactadores abaixo para enviar a resposta compactada ao cliente.</p>
+<h2 id="compactação-gzip-deflate-e-brotli">Compactação GZip, Deflate e Brotli</h2>
+<p>Você pode enviar respostas com conteúdo compactado em Sisk compactando os conteúdos HTTP. Primeiramente, encapsule seu objeto <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> dentro de um dos compactadores abaixo para enviar a resposta compactada para o cliente.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
     string myHtml = &quot;...&quot;;
     
@@ -238,12 +239,12 @@ return responseStream.Close();
     }
 });
 </code></pre>
-<p>Os cabeçalhos Content-Encoding são definidos automaticamente ao usar esses conteúdos.</p>
+<p>Os headers <code>Content-Encoding</code> são definidos automaticamente ao usar esses conteúdos.</p>
 <h2 id="tipos-de-resposta-implícitos">Tipos de resposta implícitos</h2>
-<p>Desde a versão 0.15, você pode usar outros tipos de retorno além de HttpResponse, mas é necessário configurar o roteador como ele irá lidar com cada tipo de objeto.</p>
-<p>O conceito é sempre retornar um tipo de referência e transformá-lo em um objeto HttpResponse válido. Rotas que retornam HttpResponse não passam por nenhuma conversão.</p>
-<p>Tipos de valor (estruturas) não podem ser usados como tipo de retorno porque não são compatíveis com o <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, portanto, devem ser envoltos em um ValueResult para poderem ser usados em manipuladores.</p>
-<p>Considere o seguinte exemplo de um módulo de roteador que não usa HttpResponse no tipo de retorno:</p>
+<p>Desde a versão 0.15, você pode usar outros tipos de retorno além de HttpResponse, mas é necessário configurar o roteador para lidar com cada tipo de objeto.</p>
+<p>O conceito é sempre retornar um tipo de referência e convertê-lo em um objeto HttpResponse válido. Rotas que retornam HttpResponse não passam por nenhuma conversão.</p>
+<p>Tipos de valor (estruturas) não podem ser usados como tipo de retorno porque não são compatíveis com o <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, então devem ser encapsulados em um ValueResult para serem usados em manipuladores.</p>
+<p>Considere o exemplo abaixo de um módulo de roteador que não usa HttpResponse no tipo de retorno:</p>
 <pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
 public class UsersController : RouterModule
 {
@@ -258,7 +259,7 @@ public class UsersController : RouterModule
     [RouteGet(&quot;&lt;id&gt;&quot;)]
     public User View(HttpRequest request)
     {
-        int id = request.Query[&quot;id&quot;].GetInteger();
+        int id = request.RouteParameters[&quot;id&quot;].GetInteger();
         User dUser = Users.First(u =&gt; u.Id == id);
 
         return dUser;
@@ -269,15 +270,15 @@ public class UsersController : RouterModule
     {
         User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
         Users.Add(fromBody);
-
+        
         return true;
     }
 }
 </code></pre>
-<p>Com isso, agora é necessário definir no roteador como ele irá lidar com cada tipo de objeto. Os objetos são sempre o primeiro argumento do manipulador e o tipo de saída deve ser um HttpResponse válido. Além disso, os objetos de saída de uma rota nunca devem ser nulos.</p>
-<p>Para tipos ValueResult não é necessário indicar que o objeto de entrada é um ValueResult e apenas T, pois ValueResult é um objeto refletido do seu componente original.</p>
-<p>A associação de tipos não compara o que foi registrado com o tipo do objeto retornado pelo callback do roteador. Em vez disso, verifica se o tipo do resultado do roteador é atribuível ao tipo registrado.</p>
-<p>Registrar um manipulador de tipo Object será usado como fallback para todos os tipos de objeto previamente não validados. A ordem de inserção dos manipuladores de valor também importa, então registrar um manipulador Object último garantirá que ele ignore todos os outros manipuladores específicos de tipo. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.</p>
+<p>Com isso, agora é necessário definir no roteador como ele lidará com cada tipo de objeto. Objetos são sempre o primeiro argumento do manipulador e o tipo de saída deve ser um HttpResponse válido. Além disso, os objetos de saída de uma rota nunca devem ser nulos.</p>
+<p>Para tipos ValueResult, não é necessário indicar que o objeto de entrada é um ValueResult e apenas T, pois ValueResult é um objeto refletido a partir de seu componente original.</p>
+<p>A associação de tipos não compara o que foi registrado com o tipo do objeto retornado do callback do roteador. Em vez disso, verifica se o tipo do resultado do roteador é atribuível ao tipo registrado.</p>
+<p>Registrar um manipulador de tipo Object fará com que todos os tipos anteriores sejam ignorados. A ordem de inserção dos manipuladores de valor também é importante, então registrar um manipulador de Object deve ser feito por último. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.</p>
 <pre><code class="lang-cs">Router r = new Router();
 r.SetObject(new UsersController());
 
@@ -294,7 +295,7 @@ r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
     // faça algo com enumerableValue aqui
 });
 
-// registrar um manipulador de valor de object deve ser o último
+// registrar um manipulador de valor de objeto deve ser o último
 // manipulador de valor que será usado como fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {

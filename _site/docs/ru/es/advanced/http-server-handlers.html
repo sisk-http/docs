@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Controladores de servidor HTTP | Sisk </title>
+        <title>Обработчики сервера HTTP | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Controladores de servidor HTTP | Sisk ">
+        <meta name="title" content="Обработчики сервера HTTP | Sisk ">
 
 
-        <link rel="icon" href="../../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../../public/main.css">
+        <link rel="icon" href="../../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-        <meta name="docfx:navrel" content="../../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
+        <meta name="docfx:navrel" content="../../../../toc.html">
+        <meta name="docfx:tocrel" content="../../toc.html">
 
-        <meta name="docfx:rel" content="../../../">
+        <meta name="docfx:rel" content="../../../../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/advanced/http-server-handlers.md/#L1">
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/es/advanced/http-server-handlers.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -35,7 +35,7 @@
         <meta name="loc:copy" content="Copy">
         <meta name="loc:downloadPdf" content="Download PDF">
         
-        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script type="module" src="./../../../../public/docfx.min.js"></script>
         <script>
             const theme = localStorage.getItem('theme') || 'auto';
             document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
@@ -64,8 +64,8 @@
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../../index.html">
-                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                    <a class="navbar-brand" href="../../../../index.html">
+                        <img id="logo" class="svg" src="../../../../assets/img/Icon.png" alt="Sisk">
                         Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,13 +144,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="controladores-de-servidor-http">Controladores de servidor HTTP</h1>
+<h1 id="обработчики-сервера-http">Обработчики сервера HTTP</h1>
 
-<p>En la versión 0.16 de Sisk, se ha introducido la clase <code>HttpServerHandler</code>, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar controladores de eventos adicionales a Sisk, como el manejo de solicitudes HTTP, enrutadores, bolsas de contexto y más.</p>
-<p>La clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo HTTP no tiene sesiones, y por lo tanto no es posible conservar información de una solicitud a otra. Sisk proporciona por ahora una forma de implementar sesiones, contextos, conexiones de base de datos y otros proveedores útiles para ayudar en su trabajo.</p>
-<p>Consulte <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">esta página</a> para leer dónde se desencadena cada evento y cuál es su propósito. También puede ver el <a href="/v1/advanced/request-lifecycle">ciclo de vida de una solicitud HTTP</a> para entender qué sucede con una solicitud y dónde se disparan los eventos. El servidor HTTP permite utilizar varios controladores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el subproceso actual para cada solicitud o contexto hasta que todos los controladores asociados con esa función se ejecuten y completen.</p>
-<p>A diferencia de los controladores de solicitudes, no se pueden aplicar a grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puede aplicar condiciones dentro de su controlador de servidor HTTP. Además, se definen singletones de cada <code>HttpServerHandler</code> para cada aplicación Sisk, por lo que solo se define una instancia por <code>HttpServerHandler</code>.</p>
-<p>Un ejemplo práctico de uso de <code>HttpServerHandler</code> es para desechar automáticamente una conexión de base de datos al final de la solicitud.</p>
+<p>В Sisk версии 0.16, мы ввели класс <code>HttpServerHandler</code>, целью которого является расширение общего поведения Sisk и предоставление дополнительных обработчиков событий для Sisk, таких как обработка HTTP-запросов, маршрутизация, контекстные сумки и многое другое.</p>
+<p>Этот класс концентрирует события, которые происходят во время жизненного цикла всего HTTP-сервера и отдельного запроса. Протокол HTTP не имеет сессий, и поэтому невозможно сохранять информацию от одного запроса к другому. Sisk предоставляет на данный момент способ реализации сессий, контекстов, подключений к базе данных и других полезных провайдеров, чтобы помочь в вашей работе.</p>
+<p>Пожалуйста, ознакомьтесь с <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">этой страницей</a>, чтобы узнать, где срабатывает каждое событие и какова его цель. Также вы можете ознакомиться с <a href="/v1/advanced/request-lifecycle">жизненным циклом HTTP-запроса</a>, чтобы понять, что происходит с запросом и где срабатывают события. HTTP-сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события является синхронным, то есть блокирует текущий поток для каждого запроса или контекста до тех пор, пока все связанные с ним обработчики не будут выполнены и завершены.</p>
+<p>В отличие от обработчиков запросов, их нельзя применять к группам маршрутов или конкретным маршрутам. Вместо этого они применяются ко всему HTTP-серверу. Вы можете применять условия внутри своего обработчика сервера HTTP. Кроме того, определяются синглтоны для каждого <code>HttpServerHandler</code> для каждой приложения Sisk, поэтому определяется только одна инстанция для <code>HttpServerHandler</code>.</p>
+<p>Практический пример использования <code>HttpServerHandler</code> — автоматическое удаление подключения к базе данных в конце запроса.</p>
 <pre><code class="lang-cs">// DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
@@ -159,8 +159,7 @@ public class DatabaseConnectionHandler : HttpServerHandler
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // comprueba si la solicitud ha definido un DbContext
-        // en su bolsa de contexto
+        // проверяет, определено ли в контексте запроса DbContext
         if (requestBag.IsSet&lt;DbContext&gt;())
         {
             var db = requestBag.Get&lt;DbContext&gt;();
@@ -171,8 +170,8 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // permite al usuario crear un contexto de base de datos a partir de una solicitud HTTP
-    // y almacenarlo en su bolsa de contexto
+    // позволяет пользователю создать контекст базы данных из HTTP-запроса
+    // и сохранить его в контекстной сумке
     public static DbContext GetDbContext(this HttpRequest request)
     {
         var db = new DbContext();
@@ -180,8 +179,8 @@ public static class DatabaseConnectionHandlerExtensions
     }
 }
 </code></pre>
-<p>Con el código anterior, la extensión <code>GetDbContext</code> permite crear un contexto de conexión directamente desde el objeto <code>HttpRequest</code>. Una conexión no desechar puede causar problemas al ejecutar con la base de datos, por lo que se termina en <code>OnHttpRequestClose</code>.</p>
-<p>Puede registrar un controlador en un servidor HTTP en su constructor o directamente con <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
+<p>С помощью приведенного выше кода, расширение <code>GetDbContext</code> позволяет создать контекст подключения直接 из объекта <code>HttpRequest</code>. Неразорванное подключение может вызвать проблемы при работе с базой данных, поэтому оно завершается в <code>OnHttpRequestClose</code>.</p>
+<p>Вы можете зарегистрировать обработчик в HTTP-сервере в его конструкторе или直接 с помощью <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
 <pre><code class="lang-cs">// Program.cs
 
 class Program
@@ -197,7 +196,7 @@ class Program
     }
 }
 </code></pre>
-<p>Con esto, la clase <code>UsersController</code> puede utilizar el contexto de base de datos como:</p>
+<p>С этим, класс <code>UsersController</code> может использовать контекст базы данных следующим образом:</p>
 <pre><code class="lang-cs">// UserController.cs
 
 [RoutePrefix(&quot;/users&quot;)]
@@ -234,11 +233,11 @@ public class UserController : ApiController
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage(&quot;Usuario agregado.&quot;);
+        return JsonMessage(&quot;Пользователь добавлен.&quot;);
     }
 }
 </code></pre>
-<p>El código anterior utiliza métodos como <code>JsonOk</code> y <code>JsonMessage</code> que están integrados en <code>ApiController</code>, que hereda de <code>RouterController</code>:</p>
+<p>Приведенный выше код использует методы, такие как <code>JsonOk</code> и <code>JsonMessage</code>, которые интегрированы в <code>ApiController</code>, который наследует от <code>RouterController</code>:</p>
 <pre><code class="lang-cs">// ApiController.cs
 
 public class ApiController : RouterModule
@@ -262,13 +261,13 @@ public class ApiController : RouterModule
     }
 }
 </code></pre>
-<p>Los desarrolladores pueden implementar sesiones, contextos y conexiones de base de datos utilizando esta clase. El código proporcionado muestra un ejemplo práctico con el <code>DatabaseConnectionHandler</code>, automatizando el descarte de la conexión de base de datos al final de cada solicitud.</p>
-<p>La integración es sencilla, con controladores registrados durante la configuración del servidor. La clase <code>HttpServerHandler</code> ofrece un conjunto de herramientas poderosas para administrar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.</p>
+<p>Разработчики могут реализовать сессии, контексты и подключения к базе данных, используя этот класс. Приведенный выше код демонстрирует практический пример с <code>DatabaseConnectionHandler</code>, автоматизирующий удаление подключения к базе данных в конце каждого запроса.</p>
+<p>Интеграция проста, с обработчиками, зарегистрированными во время настройки сервера. Класс <code>HttpServerHandler</code> предлагает набор мощных инструментов для управления ресурсами и расширения поведения Sisk в HTTP-приложениях.</p>
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/advanced/http-server-handlers.md/#L1" class="edit-link">Edit this page</a>
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/es/advanced/http-server-handlers.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
                 <div class="next-article d-print-none border-top" id="nextArticle"></div>

@@ -157,14 +157,14 @@
     ...
 }
 </code></pre>
-<p>此属性返回由 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> 对象表示的请求方法。</p>
+<p>该属性返回请求的方法，表示为 <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> 对象。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>与路由方法不同，此属性不支持 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> 项。相反，它返回实际的请求方法。</p>
+<p>与路由方法不同，该属性不提供 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> 项。相反，它返回实际的请求方法。</p>
 </div>
 <h2 id="获取请求-url-组件">获取请求 URL 组件</h2>
 <p>您可以通过请求的某些属性从 URL 中获取各种组件。对于此示例，让我们考虑以下 URL：</p>
-<pre><code class="lang-http">http://localhost:5000/user/login?email=foo@bar.com
+<pre><code>http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
 <thead>
@@ -229,18 +229,17 @@ byte[] bodyBytes = request.RawBody;
 // 或者，您可以将其作为流进行处理。
 Stream requestStream = request.GetRequestStream();
 </code></pre>
-<p>您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> 属性确定请求是否包含正文以及是否已加载。</p>
-<p>不可能多次读取请求内容通过 <code>GetRequestStream</code> 方法。如果您使用此方法读取，则 <code>RawBody</code> 和 <code>Body</code> 的值也将不可用。在请求的上下文中，不需要处理请求流，因为它将在创建的 HTTP 会话结束时被处理。您还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> 属性获取解码请求的最佳编码。</p>
-<p>服务器对读取请求内容有限制，这适用于 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>。这些属性将整个输入流复制到一个大小与 <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> 相同的本地缓冲区中。</p>
-<p>如果客户端发送的内容大于 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>。您仍然可以通过流处理内容。</p>
+<p>还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> 属性确定请求是否包含正文以及是否已加载。</p>
+<p>无法多次通过 <code>GetRequestStream</code> 方法读取请求内容。如果使用此方法读取，则 <code>RawBody</code> 和 <code>Body</code> 的值也将不可用。无需在请求上下文中释放请求流，因为它将在创建的 HTTP 会话结束时释放。还可以使用 <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> 属性获取解码请求的最佳编码。</p>
+<p>服务器对读取请求内容有限制，这适用于 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>。这些属性将整个输入流复制到一个与 <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> 相同大小的本地缓冲区中。</p>
+<p>如果客户端发送的内容大于 <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>。仍然可以通过流处理内容。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk 遵循 RFC 9110“HTTP 语义”，该语义不允许某些请求方法具有正文。这些请求将立即返回状态代码 400（错误请求）和 <code>ContentServedOnIllegalMethod</code> 状态。GET、OPTIONS、HEAD 和 TRACE 方法不允许包含正文。您可以在此处阅读 <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110</a>。</p>
-<p>您可以通过将 <a href="/api/Sisk.Core.Http.HttpServerFlags.ThrowContentOnNonSemanticMethods">ThrowContentOnNonSemanticMethods</a> 设置为 <code>false</code> 来禁用此功能。</p>
+<p>虽然 Sisk 允许这样做，但为了创建应用程序，始终遵循 HTTP 语义是一个好主意，不要在不允许的方法中获取或提供内容。请阅读有关 <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110“HTTP 语义”</a> 的信息。</p>
 </div>
 <h2 id="获取请求上下文">获取请求上下文</h2>
 <p>HTTP 上下文是 Sisk 的一个独特对象，存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织自己在这些对象难以组织的环境中。</p>
-<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> 对象包含从一个请求处理程序传递到另一个点的存储信息，并可以在最终目的地消费。该对象也可以由在路由回调之后运行的请求处理程序使用。</p>
+<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> 对象包含存储的信息，可以从一个请求处理程序传递到另一个点，并可以在最终目标中使用。此对象也可以由在路由回调之后运行的请求处理程序使用。</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>此属性也可以通过 <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> 属性访问。</p>
@@ -328,20 +327,20 @@ public static HttpResponse Test(HttpRequest request)
         // 多部分表单数据内容长度。
         Console.WriteLine(&quot;内容长度  : &quot; + uploadedObject.ContentLength);
 
-        // 根据每个已知内容类型的文件头确定图像格式。
-        // 如果内容不是已知的常见文件格式，则以下方法将返回 MultipartObjectCommonFormat.Unknown
+        // 根据文件头确定每个已知内容类型的图像格式。
+        // 如果内容不是已知的常见文件格式，则此方法将返回 MultipartObjectCommonFormat.Unknown
         Console.WriteLine(&quot;常见格式   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>您可以在 <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> 中阅读更多关于 Sisk 的信息及其方法、属性和功能。</p>
+<p>您可以阅读更多关于 Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">多部分表单对象</a>及其方法、属性和功能的信息。</p>
 <h2 id="服务器发送事件支持">服务器发送事件支持</h2>
 <p>Sisk 支持 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">服务器发送事件</a>，允许将块作为流发送并保持服务器和客户端之间的连接。</p>
-<p>调用 <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠由服务器发送的数据包。</p>
+<p>调用 <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠数据包。</p>
 <p>发送所有数据包后，回调必须返回 <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> 方法，该方法将发送最终响应给服务器并指示流媒体已结束。</p>
-<p>由于无法预测将要发送的所有数据包的总长度，因此无法使用 <code>Content-Length</code> 标头确定连接的末尾。</p>
-<p>大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的其他方法。因此，在使用需要特定请求标头的事件源请求的请求处理程序时要小心，因为它们可能没有这些标头。</p>
-<p>此外，大多数浏览器如果客户端在接收到所有数据包后没有调用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> 方法，则会重新启动流，从而导致服务器端无限增加的处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。</p>
+<p>无法预测将发送的所有数据包的总长度，因此无法使用 <code>Content-Length</code> 标头确定连接的末尾。</p>
+<p>大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的方法。因此，在使用需要特定请求标头的请求处理程序处理事件源请求时要小心，因为它们可能没有这些标头。</p>
+<p>此外，大多数浏览器如果客户端在接收到所有数据包后未调用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> 方法，则会重新启动流媒体，从而导致服务器端无限增加额外处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。</p>
 <p>以下示例显示浏览器如何与支持服务器发送事件的服务器进行通信。</p>
 <pre><code class="lang-html">&lt;html&gt;
     &lt;body&gt;
@@ -385,13 +384,13 @@ public static HttpResponse Test(HttpRequest request)
     }
 }
 </code></pre>
-<p>运行此代码时，我们预计会得到类似的结果：</p>
+<p>运行此代码时，我们期望得到类似以下的结果：</p>
 <img src="/assets/img/server side events demo.gif">
 <h2 id="解析代理-ip-和主机">解析代理 IP 和主机</h2>
 <p>Sisk 可以与代理一起使用，因此 IP 地址可以在客户端到代理的交易中被代理端点替换。</p>
 <p>您可以在 Sisk 中使用 <a href="/docs/advanced/forwarding-resolvers">转发解析器</a> 定义自己的解析器。</p>
 <h2 id="标头编码">标头编码</h2>
-<p>标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码错误编码的标头。</p>
+<p>标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码不正确编码的标头。</p>
 <p>此操作代价高昂，默认情况下禁用，但可以在 <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a> 标志下启用。</p>
 
 </article>

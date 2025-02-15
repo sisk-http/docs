@@ -1,6 +1,6 @@
 # Varios hosts de escucha por servidor
 
-El Framework Sisk siempre ha soportado el uso de más de un host por servidor, es decir, un solo servidor HTTP puede escuchar en múltiples puertos y cada puerto tiene su propio enrutador y su propio servicio en ejecución.
+El Framework Sisk siempre ha soportado el uso de más de un host por servidor, es decir, un solo servidor HTTP puede escuchar en varios puertos y cada puerto tiene su propio enrutador y su propio servicio ejecutándose en él.
 
 De esta manera, es fácil separar responsabilidades y gestionar servicios en un solo servidor HTTP con Sisk. El ejemplo a continuación muestra la creación de dos ListeningHosts, cada uno escuchando en un puerto diferente, con diferentes enrutadores y acciones.
 
@@ -23,7 +23,7 @@ static void Main(string[] args)
     hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Hola desde el host B!"));
 
     // crea una configuración de servidor y agrega ambos
-    // hosts de escucha
+    // hosts de escucha en ella
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);

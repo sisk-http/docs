@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Varios hosts de escucha por servidor | Sisk </title>
+        <title>Жизненный цикл запроса | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Varios hosts de escucha por servidor | Sisk ">
+        <meta name="title" content="Жизненный цикл запроса | Sisk ">
 
 
-        <link rel="icon" href="../../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../../public/main.css">
+        <link rel="icon" href="../../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-        <meta name="docfx:navrel" content="../../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
+        <meta name="docfx:navrel" content="../../../../toc.html">
+        <meta name="docfx:tocrel" content="../../toc.html">
 
-        <meta name="docfx:rel" content="../../../">
+        <meta name="docfx:rel" content="../../../../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/advanced/multi-host-setup.md/#L1">
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/ru/es/advanced/request-lifecycle.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -35,7 +35,7 @@
         <meta name="loc:copy" content="Copy">
         <meta name="loc:downloadPdf" content="Download PDF">
         
-        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script type="module" src="./../../../../public/docfx.min.js"></script>
         <script>
             const theme = localStorage.getItem('theme') || 'auto';
             document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
@@ -64,8 +64,8 @@
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../../index.html">
-                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                    <a class="navbar-brand" href="../../../../index.html">
+                        <img id="logo" class="svg" src="../../../../assets/img/Icon.png" alt="Sisk">
                         Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,52 +144,15 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="varios-hosts-de-escucha-por-servidor">Varios hosts de escucha por servidor</h1>
+<h1 id="жизненный-цикл-запроса">Жизненный цикл запроса</h1>
 
-<p>El Framework Sisk siempre ha soportado el uso de más de un host por servidor, es decir, un solo servidor HTTP puede escuchar en varios puertos y cada puerto tiene su propio enrutador y su propio servicio ejecutándose en él.</p>
-<p>De esta manera, es fácil separar responsabilidades y gestionar servicios en un solo servidor HTTP con Sisk. El ejemplo a continuación muestra la creación de dos ListeningHosts, cada uno escuchando en un puerto diferente, con diferentes enrutadores y acciones.</p>
-<p>Lea <a href="/v1/getting-started.md#manually-creating-your-app">creación manual de su aplicación</a> para entender los detalles sobre esta abstracción.</p>
-<pre><code class="lang-cs">static void Main(string[] args)
-{
-    // crea dos hosts de escucha, cada uno con su propio enrutador y
-    // escuchando en su propio puerto
-    //
-    ListeningHost hostA = new ListeningHost();
-    hostA.Ports = [new ListeningPort(12000)];
-    hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hola desde el host A!&quot;));
-
-    ListeningHost hostB = new ListeningHost();
-    hostB.Ports = [new ListeningPort(12001)];
-    hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hola desde el host B!&quot;));
-
-    // crea una configuración de servidor y agrega ambos
-    // hosts de escucha en ella
-    //
-    HttpServerConfiguration configuration = new HttpServerConfiguration();
-    configuration.ListeningHosts.Add(hostA);
-    configuration.ListeningHosts.Add(hostB);
-
-    // crea un servidor HTTP que utiliza la configuración
-    // especificada
-    //
-    HttpServer server = new HttpServer(configuration);
-
-    // inicia el servidor
-    server.Start();
-
-    Console.WriteLine(&quot;Intente llegar al host A en {0}&quot;, server.ListeningPrefixes[0]);
-    Console.WriteLine(&quot;Intente llegar al host B en {0}&quot;, server.ListeningPrefixes[1]);
-
-    Thread.Sleep(-1);
-}
-</code></pre>
+<p>Эта диаграмма объясняет процесс жизни запроса HTTP с момента его поступления на сервер до доставки клиенту.</p>
+<img src="/assets/img/sisk-lifespan.svg">
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/advanced/multi-host-setup.md/#L1" class="edit-link">Edit this page</a>
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/ru/es/advanced/request-lifecycle.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
                 <div class="next-article d-print-none border-top" id="nextArticle"></div>
