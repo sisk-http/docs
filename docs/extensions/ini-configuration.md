@@ -12,7 +12,13 @@ To install the package, you can start with:
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-and use it in your code as shown in the example below:
+You can also install the core package, which doens't includes the INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader), neither the Sisk dependency, just the INI serializers:
+
+```bash
+$ dotnet add package Sisk.IniConfiguration.Core
+```
+
+With the main package, you can use it in your code as shown in the example below:
 
 ```cs
 class Program
@@ -25,16 +31,16 @@ class Program
             .UsePortableConfiguration(config =>
             {
                 config.WithConfigFile("app.ini", createIfDontExists: true);
-
-                // adds the IniConfigurationPipeline to the configuration reader
-                config.WithConfigurationPipeline<IniConfigurationPipeline>();
+                
+                // uses the IniConfigurationReader configuration reader
+                config.WithConfigurationPipeline<IniConfigurationReader>();
             })
             .UseRouter(r =>
             {
                 r.MapGet("/", SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
@@ -70,12 +76,12 @@ Name = "Kanye West"
 Current implementation flavor:
 
 - Properties and section names are **case-insensitive**.
-- Properties names and values are **trimmed**.
+- Properties names and values are **trimmed**, unless values are quoted.
 - Values can be quoted with single or double quotes. Quotes can have line-breaks inside them.
 - Comments are supported with `#` and `;`. Also, **trailing comments are allowed**.
 - Properties can have multiple values.
 
-In detail, the documentation for the "flavor" of the INI parser used in Sisk is [available on GitHub](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
+In detail, the documentation for the "flavor" of the INI parser used in Sisk is [available in this document](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
 
 Using the following ini code as example:
 

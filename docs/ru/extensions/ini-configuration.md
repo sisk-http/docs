@@ -2,7 +2,7 @@
 
 Sisk имеет метод для получения конфигураций запуска, отличных от JSON. На самом деле, любой конвейер, реализующий [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader), может быть использован с [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder), читая конфигурацию сервера из любого типа файла.
 
-Пакет [Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) предоставляет потоковый читатель файлов INI, который не выбрасывает исключения для обычных синтаксических ошибок и имеет простой синтаксис конфигурации. Этот пакет можно использовать вне框ворка Sisk, предлагая гибкость для проектов, которые требуют эффективного читателя документов INI.
+Пакет [Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) предоставляет потоковый читатель файлов INI, который не выбрасывает исключения для обычных синтаксических ошибок и имеет простой синтаксис конфигурации. Этот пакет можно использовать вне рамок фреймворка Sisk, предлагая гибкость для проектов, требующих эффективного считывателя документов INI.
 
 ## Установка
 
@@ -12,7 +12,13 @@ Sisk имеет метод для получения конфигураций з
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-и использовать его в коде, как показано в примере ниже:
+Также можно установить основной пакет, который не включает в себя INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader), ни зависимость от Sisk, только сериализаторы INI:
+
+```bash
+$ dotnet add package Sisk.IniConfiguration.Core
+```
+
+С основным пакетом можно использовать его в коде, как показано в примере ниже:
 
 ```cs
 class Program
@@ -25,16 +31,16 @@ class Program
             .UsePortableConfiguration(config =>
             {
                 config.WithConfigFile("app.ini", createIfDontExists: true);
-
-                // добавляет IniConfigurationPipeline в читатель конфигурации
-                config.WithConfigurationPipeline<IniConfigurationPipeline>();
+                
+                // использует конфигурационный читатель IniConfigurationReader
+                config.WithConfigurationPipeline<IniConfigurationReader>();
             })
             .UseRouter(r =>
             {
                 r.MapGet("/", SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
@@ -70,12 +76,12 @@ Name = "Kanye West"
 Текущая реализация вкуса:
 
 - Имена свойств и секций **не чувствительны к регистру**.
-- Имена свойств и значения **обрезаются**.
+- Имена свойств и значения **обрезаются**, если значения не заключены в кавычки.
 - Значения можно заключать в одинарные или двойные кавычки. Кавычки могут содержать переносы строк внутри себя.
-- Комментарии поддерживаются с помощью `#` и `;`. Также **допускаются комментарии в конце строки**.
+- Комментарии поддерживаются с помощью `#` и `;`. Также **допускаются конечные комментарии**.
 - Свойства могут иметь несколько значений.
 
-Подробнее, документация для "вкуса" парсера INI, используемого в Sisk, доступна [на GitHub](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
+Подробнее, документация для "вкуса" парсера INI, используемого в Sisk, доступна [в этом документе](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
 
 Используя следующий код INI в качестве примера:
 
@@ -83,7 +89,8 @@ Name = "Kanye West"
 One = 1
 Value = это значение
 Another value = "это значение
-    имеет перенос строки"
+    имеет перенос строки на нем"
+
 ; код ниже имеет некоторые цвета
 [some section]
 Color = Red
@@ -91,7 +98,7 @@ Color = Blue
 Color = Yellow ; не используйте желтый
 ```
 
-Парсить его можно с помощью:
+Парсить его с помощью:
 
 ```csharp
 // парсить текст INI из строки
@@ -109,7 +116,7 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 
 | Секция и имя | Разрешить несколько значений | Описание |
 | ---------------- | --------------------- | ----------- |
-| `Server.Listen` | Да | Адреса/порты прослушивания сервера. |
+| `Server.Listen` | Да | Адреса и порты прослушивания сервера. |
 | `Server.Encoding` | Нет | Кодировка сервера по умолчанию. |
 | `Server.MaximumContentLength` | Нет | Максимальный размер содержимого в байтах. |
 | `Server.IncludeRequestIdHeader` | Нет | Указывает, должен ли HTTP-сервер отправлять заголовок X-Request-Id. |

@@ -12,7 +12,13 @@ Sisk 有一种方法可以获取启动配置，而不仅仅是 JSON。事实上�
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-并在代码中使用，如下面的示例所示：
+你也可以安装核心包，它不包括 INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader)，也不包括 Sisk 依赖项，只包括 INI 序列化器：
+
+```bash
+$ dotnet add package Sisk.IniConfiguration.Core
+```
+
+使用主包，你可以在代码中使用它，如下面的示例所示：
 
 ```cs
 class Program
@@ -25,16 +31,16 @@ class Program
             .UsePortableConfiguration(config =>
             {
                 config.WithConfigFile("app.ini", createIfDontExists: true);
-
-                // 添加 IniConfigurationPipeline 到配置读取器
-                config.WithConfigurationPipeline<IniConfigurationPipeline>();
+                
+                // 使用 IniConfigurationReader 配置读取器
+                config.WithConfigurationPipeline<IniConfigurationReader>();
             })
             .UseRouter(r =>
             {
                 r.MapGet("/", SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
@@ -70,12 +76,12 @@ Name = "Kanye West"
 当前实现风格：
 
 - 属性和节名是 **大小写不敏感** 的。
-- 属性名和值是 **修剪** 的。
-- 值可以用单引号或双引号引起来。引号内可以有换行符。
-- 支持使用 `#` 和 `;` 的注释。**尾部注释也是允许的**。
+- 属性名和值是 **修剪** 的，除非值被引号括起来。
+- 值可以用单引号或双引号括起来。引号内可以包含换行符。
+- 支持使用 `#` 和 `;` 的注释。**尾随注释也是允许的**。
 - 属性可以有多个值。
 
-详细的 INI 解析器语法文档可以在 [GitHub](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md) 上找到。
+详细信息，Sisk 中使用的 INI 解析器的“风格”文档可以在 [这里](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md) 找到。
 
 使用以下 INI 代码作为示例：
 
@@ -91,7 +97,7 @@ Color = Blue
 Color = Yellow ; 不要使用黄色
 ```
 
-可以使用以下代码解析：
+解析它：
 
 ```csharp
 // 从字符串解析 INI 文本

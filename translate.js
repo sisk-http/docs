@@ -1,8 +1,8 @@
+const { translations, exclusionRegex } = require('./translations.js');
 const fs = require('fs');
 const path = require('path');
 
 const targetDir = path.join(__dirname, 'docs');
-const skipPattern = /\b(ru|pt-br)\b/;
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -15,21 +15,16 @@ function isDirectory(filePath) {
 function enumerateMdFiles(dir) {
     const files = fs.readdirSync(dir);
     let mdFiles = [];
-    
-    const excludePattern = /[\\\/](ru|cn|pt-br|es)[\\\/]/i;
 
     for (const file of files) {
         const filePath = path.join(dir, file);
 
         if (isDirectory(filePath)) {
-            if (skipPattern.test(file)) {
-                continue;
-            }
 
             mdFiles = mdFiles.concat(enumerateMdFiles(filePath));
         } else if (file.endsWith('.md') || file.endsWith('.yml')) {
 
-            if (!excludePattern.test(filePath))
+            if (!exclusionRegex.test(filePath))
                 mdFiles.push(filePath);
         }
     }
@@ -90,16 +85,7 @@ async function translate(text, prompt) {
 
 const mdFiles = enumerateMdFiles(targetDir);
 
-if (process.argv.length < 4) {
-    console.error("Usage: node translate.js <language> <dest>");
-    console.error("Also, make sure to have your groq api key at your GROQ_API_KEY environment variable.");
-    process.exit(1);
-}
-
-const toLanguage = process.argv[2];
-const dest = process.argv[3];
-
-function getPrompt(fileName) {
+function getPrompt(toLanguage, fileName) {
     const baseText = `
         You're an translator AI helper. Your goal is to translate the given markdown code language into
         another language. You're translating a piece of documentation of the Sisk Framework, an
@@ -130,36 +116,41 @@ function getPrompt(fileName) {
         - The translated text must follow the original input structure.
         </output>
     `;
-    
+
     const baseTextLines = baseText.trim().split('\n');
     return baseTextLines.map(line => line.trim()).join('\n');
 }
 
 (async () => {
     var translatedCount = 0;
+    
     for (const mdFile of mdFiles) {
         const fileContents = fs.readFileSync(mdFile, 'utf8');
 
         const fileName = mdFile.replace(targetDir, '');
-        const prompt = getPrompt(fileName);
-        const translationPath = path.join(targetDir, dest, fileName);
-        const translationDir = path.dirname(translationPath);
+        
+        for (const [langName, langCode] of Object.entries(translations)) {
 
-        if (fs.existsSync(translationPath)) {
-            continue;
+            const prompt = getPrompt(langName, fileName);
+            const translationPath = path.join(targetDir, langCode, fileName);
+            const translationDir = path.dirname(translationPath);
+
+            if (fs.existsSync(translationPath)) {
+                continue;
+            }
+
+            const translated = await translate(fileContents, prompt);
+            fs.mkdirSync(translationDir, { recursive: true });
+            fs.writeFileSync(translationPath, translated);
+
+            console.log("- Translated: ", translationPath);
+            
+            // wait 10s (rate-limit)
+            await sleep(500);
+            translatedCount++;
         }
-        
-        const translated = await translate(fileContents, prompt);
-        fs.mkdirSync(translationDir, { recursive: true });
-        fs.writeFileSync(translationPath, translated);
-
-        console.log("- Translated: ", fileName);
-        
-        // wait 10s (rate-limit)
-        await sleep(500);
-        translatedCount++;
     }
-
+    
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {
