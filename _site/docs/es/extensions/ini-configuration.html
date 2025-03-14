@@ -152,7 +152,10 @@
 <p>Para instalar el paquete, puede comenzar con:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>y utilizarlo en su código como se muestra en el ejemplo a continuación:</p>
+<p>También puede instalar el paquete principal, que no incluye el lector de configuración INI <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, ni la dependencia de Sisk, solo los serializadores INI:</p>
+<pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration.Core
+</code></pre>
+<p>Con el paquete principal, puede utilizarlo en su código como se muestra en el ejemplo a continuación:</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
@@ -163,23 +166,23 @@
             .UsePortableConfiguration(config =&gt;
             {
                 config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
-
-                // agrega el IniConfigurationPipeline al lector de configuración
-                config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
+                
+                // utiliza el lector de configuración IniConfigurationReader
+                config.WithConfigurationPipeline&lt;IniConfigurationReader&gt;();
             })
             .UseRouter(r =&gt;
             {
                 r.MapGet(&quot;/&quot;, SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
     static HttpResponse SayHello(HttpRequest request)
     {
         string? name = Host.Parameters[&quot;name&quot;] ?? &quot;world&quot;;
-        return new HttpResponse($&quot;Hola, {name}!&quot;);
+        return new HttpResponse($&quot;Hello, {name}!&quot;);
     }
 }
 </code></pre>
@@ -203,23 +206,23 @@ Name = &quot;Kanye West&quot;
 <p>Implementación actual del sabor:</p>
 <ul>
 <li>Los nombres de propiedades y secciones son <strong>insensibles a mayúsculas y minúsculas</strong>.</li>
-<li>Los nombres de propiedades y valores son <strong>recortados</strong>.</li>
+<li>Los nombres de propiedades y valores son <strong>recortados</strong>, a menos que los valores estén entre comillas.</li>
 <li>Los valores pueden estar entre comillas simples o dobles. Las comillas pueden tener saltos de línea dentro de ellas.</li>
 <li>Se admiten comentarios con <code>#</code> y <code>;</code>. También se admiten <strong>comentarios al final</strong>.</li>
 <li>Las propiedades pueden tener varios valores.</li>
 </ul>
-<p>En detalle, la documentación para el &quot;sabor&quot; del analizador INI utilizado en Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponible en GitHub</a>.</p>
+<p>En detalle, la documentación para el &quot;sabor&quot; del analizador INI utilizado en Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponible en este documento</a>.</p>
 <p>Utilizando el siguiente código INI como ejemplo:</p>
 <pre><code class="lang-ini">One = 1
-Value = este es un valor
-Another value = &quot;este valor
-    tiene un salto de línea en él&quot;
+Value = this is an value
+Another value = &quot;this value
+    has an line break on it&quot;
 
 ; el código a continuación tiene algunos colores
 [some section]
-Color = Rojo
-Color = Azul
-Color = Amarillo ; no use amarillo
+Color = Red
+Color = Blue
+Color = Yellow ; no use yellow
 </code></pre>
 <p>Analícelo con:</p>
 <pre><code class="lang-csharp">// analice el texto INI desde la cadena
@@ -280,12 +283,12 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.AllowMethods</code></td>
 <td>No</td>
-<td>Especifica el valor del encabezado Allow-Methods de CORS.</td>
+<td>Especifica el valor del encabezado CORS Allow-Methods.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowHeaders</code></td>
 <td>No</td>
-<td>Especifica el valor del encabezado Allow-Headers de CORS.</td>
+<td>Especifica el valor del encabezado CORS Allow-Headers.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
@@ -300,17 +303,17 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.ExposeHeaders</code></td>
 <td>No</td>
-<td>Especifica el valor del encabezado Expose-Headers de CORS.</td>
+<td>Especifica el valor del encabezado CORS Expose-Headers.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowCredentials</code></td>
 <td>No</td>
-<td>Especifica el valor del encabezado Allow-Credentials de CORS.</td>
+<td>Especifica el valor del encabezado CORS Allow-Credentials.</td>
 </tr>
 <tr>
 <td><code>Cors.MaxAge</code></td>
 <td>No</td>
-<td>Especifica el valor del encabezado Max-Age de CORS.</td>
+<td>Especifica el valor del encabezado CORS Max-Age.</td>
 </tr>
 </tbody>
 </table>

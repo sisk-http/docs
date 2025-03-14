@@ -152,7 +152,10 @@
 <p>要安装包，可以从以下开始：</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>并在代码中使用，如下面的示例所示：</p>
+<p>你也可以安装核心包，它不包括 INI <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>，也不包括 Sisk 依赖项，只包括 INI 序列化器：</p>
+<pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration.Core
+</code></pre>
+<p>使用主包，你可以在代码中使用它，如下面的示例所示：</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
@@ -163,16 +166,16 @@
             .UsePortableConfiguration(config =&gt;
             {
                 config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
-
-                // 添加 IniConfigurationPipeline 到配置读取器
-                config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
+                
+                // 使用 IniConfigurationReader 配置读取器
+                config.WithConfigurationPipeline&lt;IniConfigurationReader&gt;();
             })
             .UseRouter(r =&gt;
             {
                 r.MapGet(&quot;/&quot;, SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
@@ -203,12 +206,12 @@ Name = &quot;Kanye West&quot;
 <p>当前实现风格：</p>
 <ul>
 <li>属性和节名是 <strong>大小写不敏感</strong> 的。</li>
-<li>属性名和值是 <strong>修剪</strong> 的。</li>
-<li>值可以用单引号或双引号引起来。引号内可以有换行符。</li>
-<li>支持使用 <code>#</code> 和 <code>;</code> 的注释。<strong>尾部注释也是允许的</strong>。</li>
+<li>属性名和值是 <strong>修剪</strong> 的，除非值被引号括起来。</li>
+<li>值可以用单引号或双引号括起来。引号内可以包含换行符。</li>
+<li>支持使用 <code>#</code> 和 <code>;</code> 的注释。<strong>尾随注释也是允许的</strong>。</li>
 <li>属性可以有多个值。</li>
 </ul>
-<p>详细的 INI 解析器语法文档可以在 <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">GitHub</a> 上找到。</p>
+<p>详细信息，Sisk 中使用的 INI 解析器的“风格”文档可以在 <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">这里</a> 找到。</p>
 <p>使用以下 INI 代码作为示例：</p>
 <pre><code class="lang-ini">One = 1
 Value = 这是一个值
@@ -220,7 +223,7 @@ Color = Red
 Color = Blue
 Color = Yellow ; 不要使用黄色
 </code></pre>
-<p>可以使用以下代码解析：</p>
+<p>解析它：</p>
 <pre><code class="lang-csharp">// 从字符串解析 INI 文本
 IniDocument doc = IniDocument.FromString(iniText);
 

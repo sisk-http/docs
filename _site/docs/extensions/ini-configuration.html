@@ -152,7 +152,10 @@
 <p>To install the package, you can start with:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>and use it in your code as shown in the example below:</p>
+<p>You can also install the core package, which doens't includes the INI <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, neither the Sisk dependency, just the INI serializers:</p>
+<pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration.Core
+</code></pre>
+<p>With the main package, you can use it in your code as shown in the example below:</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
@@ -163,16 +166,16 @@
             .UsePortableConfiguration(config =&gt;
             {
                 config.WithConfigFile(&quot;app.ini&quot;, createIfDontExists: true);
-
-                // adds the IniConfigurationPipeline to the configuration reader
-                config.WithConfigurationPipeline&lt;IniConfigurationPipeline&gt;();
+                
+                // uses the IniConfigurationReader configuration reader
+                config.WithConfigurationPipeline&lt;IniConfigurationReader&gt;();
             })
             .UseRouter(r =&gt;
             {
                 r.MapGet(&quot;/&quot;, SayHello);
             })
             .Build();
-
+        
         Host.Start();
     }
 
@@ -203,12 +206,12 @@ Name = &quot;Kanye West&quot;
 <p>Current implementation flavor:</p>
 <ul>
 <li>Properties and section names are <strong>case-insensitive</strong>.</li>
-<li>Properties names and values are <strong>trimmed</strong>.</li>
+<li>Properties names and values are <strong>trimmed</strong>, unless values are quoted.</li>
 <li>Values can be quoted with single or double quotes. Quotes can have line-breaks inside them.</li>
 <li>Comments are supported with <code>#</code> and <code>;</code>. Also, <strong>trailing comments are allowed</strong>.</li>
 <li>Properties can have multiple values.</li>
 </ul>
-<p>In detail, the documentation for the &quot;flavor&quot; of the INI parser used in Sisk is <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">available on GitHub</a>.</p>
+<p>In detail, the documentation for the &quot;flavor&quot; of the INI parser used in Sisk is <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">available in this document</a>.</p>
 <p>Using the following ini code as example:</p>
 <pre><code class="lang-ini">One = 1
 Value = this is an value

@@ -9922,6 +9922,33 @@ references:
   commentId: T:Sisk.Core.Routing.RegexRoute
   fullName: Sisk.Core.Routing.RegexRoute
   nameWithType: RegexRoute
+- uid: Sisk.Core.Routing.RegexRoute.#ctor(Sisk.Core.Routing.RouteMethod,System.String,Sisk.Core.Routing.RouteAction)
+  name: RegexRoute(RouteMethod, string, RouteAction)
+  href: api/Sisk.Core.Routing.RegexRoute.-ctor.html#Sisk_Core_Routing_RegexRoute__ctor_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_
+  commentId: M:Sisk.Core.Routing.RegexRoute.#ctor(Sisk.Core.Routing.RouteMethod,System.String,Sisk.Core.Routing.RouteAction)
+  name.vb: New(RouteMethod, String, RouteAction)
+  fullName: Sisk.Core.Routing.RegexRoute.RegexRoute(Sisk.Core.Routing.RouteMethod, string, Sisk.Core.Routing.RouteAction)
+  fullName.vb: Sisk.Core.Routing.RegexRoute.New(Sisk.Core.Routing.RouteMethod, String, Sisk.Core.Routing.RouteAction)
+  nameWithType: RegexRoute.RegexRoute(RouteMethod, string, RouteAction)
+  nameWithType.vb: RegexRoute.New(RouteMethod, String, RouteAction)
+- uid: Sisk.Core.Routing.RegexRoute.#ctor(Sisk.Core.Routing.RouteMethod,System.String,System.String,Sisk.Core.Routing.RouteAction,Sisk.Core.Routing.IRequestHandler[])
+  name: RegexRoute(RouteMethod, string, string?, RouteAction, IRequestHandler[]?)
+  href: api/Sisk.Core.Routing.RegexRoute.-ctor.html#Sisk_Core_Routing_RegexRoute__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_Sisk_Core_Routing_RouteAction_Sisk_Core_Routing_IRequestHandler___
+  commentId: M:Sisk.Core.Routing.RegexRoute.#ctor(Sisk.Core.Routing.RouteMethod,System.String,System.String,Sisk.Core.Routing.RouteAction,Sisk.Core.Routing.IRequestHandler[])
+  name.vb: New(RouteMethod, String, String, RouteAction, IRequestHandler())
+  fullName: Sisk.Core.Routing.RegexRoute.RegexRoute(Sisk.Core.Routing.RouteMethod, string, string?, Sisk.Core.Routing.RouteAction, Sisk.Core.Routing.IRequestHandler[]?)
+  fullName.vb: Sisk.Core.Routing.RegexRoute.New(Sisk.Core.Routing.RouteMethod, String, String, Sisk.Core.Routing.RouteAction, Sisk.Core.Routing.IRequestHandler())
+  nameWithType: RegexRoute.RegexRoute(RouteMethod, string, string?, RouteAction, IRequestHandler[]?)
+  nameWithType.vb: RegexRoute.New(RouteMethod, String, String, RouteAction, IRequestHandler())
+- uid: Sisk.Core.Routing.RegexRoute.#ctor*
+  name: RegexRoute
+  href: api/Sisk.Core.Routing.RegexRoute.-ctor.html
+  commentId: Overload:Sisk.Core.Routing.RegexRoute.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Routing.RegexRoute.RegexRoute
+  fullName.vb: Sisk.Core.Routing.RegexRoute.New
+  nameWithType: RegexRoute.RegexRoute
+  nameWithType.vb: RegexRoute.New
 - uid: Sisk.Core.Routing.RegexRouteAttribute
   name: RegexRouteAttribute
   href: api/Sisk.Core.Routing.RegexRouteAttribute.html
@@ -11552,6 +11579,837 @@ references:
   commentId: N:Sisk.IniConfiguration
   fullName: Sisk.IniConfiguration
   nameWithType: Sisk.IniConfiguration
+- uid: Sisk.IniConfiguration.Core
+  name: Sisk.IniConfiguration.Core
+  href: api/Sisk.IniConfiguration.Core.html
+  commentId: N:Sisk.IniConfiguration.Core
+  fullName: Sisk.IniConfiguration.Core
+  nameWithType: Sisk.IniConfiguration.Core
+- uid: Sisk.IniConfiguration.Core.IniDocument
+  name: IniDocument
+  href: api/Sisk.IniConfiguration.Core.IniDocument.html
+  commentId: T:Sisk.IniConfiguration.Core.IniDocument
+  fullName: Sisk.IniConfiguration.Core.IniDocument
+  nameWithType: IniDocument
+- uid: Sisk.IniConfiguration.Core.IniDocument.#ctor
+  name: IniDocument()
+  href: api/Sisk.IniConfiguration.Core.IniDocument.-ctor.html#Sisk_IniConfiguration_Core_IniDocument__ctor
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.#ctor
+  name.vb: New()
+  fullName: Sisk.IniConfiguration.Core.IniDocument.IniDocument()
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.New()
+  nameWithType: IniDocument.IniDocument()
+  nameWithType.vb: IniDocument.New()
+- uid: Sisk.IniConfiguration.Core.IniDocument.#ctor(System.Collections.Generic.IEnumerable{Sisk.IniConfiguration.Core.IniSection})
+  name: IniDocument(IEnumerable<IniSection>)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.-ctor.html#Sisk_IniConfiguration_Core_IniDocument__ctor_System_Collections_Generic_IEnumerable_Sisk_IniConfiguration_Core_IniSection__
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.#ctor(System.Collections.Generic.IEnumerable{Sisk.IniConfiguration.Core.IniSection})
+  name.vb: New(IEnumerable(Of IniSection))
+  fullName: Sisk.IniConfiguration.Core.IniDocument.IniDocument(System.Collections.Generic.IEnumerable<Sisk.IniConfiguration.Core.IniSection>)
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.New(System.Collections.Generic.IEnumerable(Of Sisk.IniConfiguration.Core.IniSection))
+  nameWithType: IniDocument.IniDocument(IEnumerable<IniSection>)
+  nameWithType.vb: IniDocument.New(IEnumerable(Of IniSection))
+- uid: Sisk.IniConfiguration.Core.IniDocument.#ctor*
+  name: IniDocument
+  href: api/Sisk.IniConfiguration.Core.IniDocument.-ctor.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.#ctor
+  name.vb: New
+  fullName: Sisk.IniConfiguration.Core.IniDocument.IniDocument
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.New
+  nameWithType: IniDocument.IniDocument
+  nameWithType.vb: IniDocument.New
+- uid: Sisk.IniConfiguration.Core.IniDocument.Empty
+  name: Empty
+  href: api/Sisk.IniConfiguration.Core.IniDocument.Empty.html
+  commentId: F:Sisk.IniConfiguration.Core.IniDocument.Empty
+  fullName: Sisk.IniConfiguration.Core.IniDocument.Empty
+  nameWithType: IniDocument.Empty
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromFile(System.String,System.Text.Encoding,System.Boolean)
+  name: FromFile(string, Encoding?, bool)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromFile.html#Sisk_IniConfiguration_Core_IniDocument_FromFile_System_String_System_Text_Encoding_System_Boolean_
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.FromFile(System.String,System.Text.Encoding,System.Boolean)
+  name.vb: FromFile(String, Encoding, Boolean)
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromFile(string, System.Text.Encoding?, bool)
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.FromFile(String, System.Text.Encoding, Boolean)
+  nameWithType: IniDocument.FromFile(string, Encoding?, bool)
+  nameWithType.vb: IniDocument.FromFile(String, Encoding, Boolean)
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromFile*
+  name: FromFile
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromFile.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.FromFile
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromFile
+  nameWithType: IniDocument.FromFile
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.Stream,System.Text.Encoding)
+  name: FromStream(Stream, Encoding?)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromStream.html#Sisk_IniConfiguration_Core_IniDocument_FromStream_System_IO_Stream_System_Text_Encoding_
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.Stream,System.Text.Encoding)
+  name.vb: FromStream(Stream, Encoding)
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.Stream, System.Text.Encoding?)
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.Stream, System.Text.Encoding)
+  nameWithType: IniDocument.FromStream(Stream, Encoding?)
+  nameWithType.vb: IniDocument.FromStream(Stream, Encoding)
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.TextReader)
+  name: FromStream(TextReader)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromStream.html#Sisk_IniConfiguration_Core_IniDocument_FromStream_System_IO_TextReader_
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.TextReader)
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromStream(System.IO.TextReader)
+  nameWithType: IniDocument.FromStream(TextReader)
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromStream*
+  name: FromStream
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromStream.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.FromStream
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromStream
+  nameWithType: IniDocument.FromStream
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromString(System.String)
+  name: FromString(string)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromString.html#Sisk_IniConfiguration_Core_IniDocument_FromString_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.FromString(System.String)
+  name.vb: FromString(String)
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromString(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.FromString(String)
+  nameWithType: IniDocument.FromString(string)
+  nameWithType.vb: IniDocument.FromString(String)
+- uid: Sisk.IniConfiguration.Core.IniDocument.FromString*
+  name: FromString
+  href: api/Sisk.IniConfiguration.Core.IniDocument.FromString.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.FromString
+  fullName: Sisk.IniConfiguration.Core.IniDocument.FromString
+  nameWithType: IniDocument.FromString
+- uid: Sisk.IniConfiguration.Core.IniDocument.GetSection(System.String)
+  name: GetSection(string)
+  href: api/Sisk.IniConfiguration.Core.IniDocument.GetSection.html#Sisk_IniConfiguration_Core_IniDocument_GetSection_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.GetSection(System.String)
+  name.vb: GetSection(String)
+  fullName: Sisk.IniConfiguration.Core.IniDocument.GetSection(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniDocument.GetSection(String)
+  nameWithType: IniDocument.GetSection(string)
+  nameWithType.vb: IniDocument.GetSection(String)
+- uid: Sisk.IniConfiguration.Core.IniDocument.GetSection*
+  name: GetSection
+  href: api/Sisk.IniConfiguration.Core.IniDocument.GetSection.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.GetSection
+  fullName: Sisk.IniConfiguration.Core.IniDocument.GetSection
+  nameWithType: IniDocument.GetSection
+- uid: Sisk.IniConfiguration.Core.IniDocument.Global
+  name: Global
+  href: api/Sisk.IniConfiguration.Core.IniDocument.Global.html#Sisk_IniConfiguration_Core_IniDocument_Global
+  commentId: P:Sisk.IniConfiguration.Core.IniDocument.Global
+  fullName: Sisk.IniConfiguration.Core.IniDocument.Global
+  nameWithType: IniDocument.Global
+- uid: Sisk.IniConfiguration.Core.IniDocument.Global*
+  name: Global
+  href: api/Sisk.IniConfiguration.Core.IniDocument.Global.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.Global
+  fullName: Sisk.IniConfiguration.Core.IniDocument.Global
+  nameWithType: IniDocument.Global
+- uid: Sisk.IniConfiguration.Core.IniDocument.Sections
+  name: Sections
+  href: api/Sisk.IniConfiguration.Core.IniDocument.Sections.html#Sisk_IniConfiguration_Core_IniDocument_Sections
+  commentId: P:Sisk.IniConfiguration.Core.IniDocument.Sections
+  fullName: Sisk.IniConfiguration.Core.IniDocument.Sections
+  nameWithType: IniDocument.Sections
+- uid: Sisk.IniConfiguration.Core.IniDocument.Sections*
+  name: Sections
+  href: api/Sisk.IniConfiguration.Core.IniDocument.Sections.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.Sections
+  fullName: Sisk.IniConfiguration.Core.IniDocument.Sections
+  nameWithType: IniDocument.Sections
+- uid: Sisk.IniConfiguration.Core.IniDocument.ToString
+  name: ToString()
+  href: api/Sisk.IniConfiguration.Core.IniDocument.ToString.html#Sisk_IniConfiguration_Core_IniDocument_ToString
+  commentId: M:Sisk.IniConfiguration.Core.IniDocument.ToString
+  fullName: Sisk.IniConfiguration.Core.IniDocument.ToString()
+  nameWithType: IniDocument.ToString()
+- uid: Sisk.IniConfiguration.Core.IniDocument.ToString*
+  name: ToString
+  href: api/Sisk.IniConfiguration.Core.IniDocument.ToString.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniDocument.ToString
+  fullName: Sisk.IniConfiguration.Core.IniDocument.ToString
+  nameWithType: IniDocument.ToString
+- uid: Sisk.IniConfiguration.Core.IniSection
+  name: IniSection
+  href: api/Sisk.IniConfiguration.Core.IniSection.html
+  commentId: T:Sisk.IniConfiguration.Core.IniSection
+  fullName: Sisk.IniConfiguration.Core.IniSection
+  nameWithType: IniSection
+- uid: Sisk.IniConfiguration.Core.IniSection.#ctor(System.String)
+  name: IniSection(string)
+  href: api/Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.IniSection(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.New(String)
+  nameWithType: IniSection.IniSection(string)
+  nameWithType.vb: IniSection.New(String)
+- uid: Sisk.IniConfiguration.Core.IniSection.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name: IniSection(string, IEnumerable<KeyValuePair<string, string>>)
+  href: api/Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})
+  name.vb: New(String, IEnumerable(Of KeyValuePair(Of String, String)))
+  fullName: Sisk.IniConfiguration.Core.IniSection.IniSection(string, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, string>>)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.New(String, System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of String, String)))
+  nameWithType: IniSection.IniSection(string, IEnumerable<KeyValuePair<string, string>>)
+  nameWithType.vb: IniSection.New(String, IEnumerable(Of KeyValuePair(Of String, String)))
+- uid: Sisk.IniConfiguration.Core.IniSection.#ctor*
+  name: IniSection
+  href: api/Sisk.IniConfiguration.Core.IniSection.-ctor.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.#ctor
+  name.vb: New
+  fullName: Sisk.IniConfiguration.Core.IniSection.IniSection
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.New
+  nameWithType: IniSection.IniSection
+  nameWithType.vb: IniSection.New
+- uid: Sisk.IniConfiguration.Core.IniSection.Add(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name: Add(KeyValuePair<string, string[]>)
+  href: api/Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Add(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name.vb: Add(KeyValuePair(Of String, String()))
+  fullName: Sisk.IniConfiguration.Core.IniSection.Add(System.Collections.Generic.KeyValuePair<string, string[]>)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Add(System.Collections.Generic.KeyValuePair(Of String, String()))
+  nameWithType: IniSection.Add(KeyValuePair<string, string[]>)
+  nameWithType.vb: IniSection.Add(KeyValuePair(Of String, String()))
+- uid: Sisk.IniConfiguration.Core.IniSection.Add(System.String,System.String)
+  name: Add(string, string?)
+  href: api/Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Add(System.String,System.String)
+  name.vb: Add(String, String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.Add(string, string?)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Add(String, String)
+  nameWithType: IniSection.Add(string, string?)
+  nameWithType.vb: IniSection.Add(String, String)
+- uid: Sisk.IniConfiguration.Core.IniSection.Add(System.String,System.String[])
+  name: Add(string, string[])
+  href: api/Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String___
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Add(System.String,System.String[])
+  name.vb: Add(String, String())
+  fullName: Sisk.IniConfiguration.Core.IniSection.Add(string, string[])
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Add(String, String())
+  nameWithType: IniSection.Add(string, string[])
+  nameWithType.vb: IniSection.Add(String, String())
+- uid: Sisk.IniConfiguration.Core.IniSection.Add*
+  name: Add
+  href: api/Sisk.IniConfiguration.Core.IniSection.Add.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Add
+  fullName: Sisk.IniConfiguration.Core.IniSection.Add
+  nameWithType: IniSection.Add
+- uid: Sisk.IniConfiguration.Core.IniSection.Clear
+  name: Clear()
+  href: api/Sisk.IniConfiguration.Core.IniSection.Clear.html#Sisk_IniConfiguration_Core_IniSection_Clear
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Clear
+  fullName: Sisk.IniConfiguration.Core.IniSection.Clear()
+  nameWithType: IniSection.Clear()
+- uid: Sisk.IniConfiguration.Core.IniSection.Clear*
+  name: Clear
+  href: api/Sisk.IniConfiguration.Core.IniSection.Clear.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Clear
+  fullName: Sisk.IniConfiguration.Core.IniSection.Clear
+  nameWithType: IniSection.Clear
+- uid: Sisk.IniConfiguration.Core.IniSection.Contains(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name: Contains(KeyValuePair<string, string[]>)
+  href: api/Sisk.IniConfiguration.Core.IniSection.Contains.html#Sisk_IniConfiguration_Core_IniSection_Contains_System_Collections_Generic_KeyValuePair_System_String_System_String____
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Contains(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name.vb: Contains(KeyValuePair(Of String, String()))
+  fullName: Sisk.IniConfiguration.Core.IniSection.Contains(System.Collections.Generic.KeyValuePair<string, string[]>)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Contains(System.Collections.Generic.KeyValuePair(Of String, String()))
+  nameWithType: IniSection.Contains(KeyValuePair<string, string[]>)
+  nameWithType.vb: IniSection.Contains(KeyValuePair(Of String, String()))
+- uid: Sisk.IniConfiguration.Core.IniSection.Contains*
+  name: Contains
+  href: api/Sisk.IniConfiguration.Core.IniSection.Contains.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Contains
+  fullName: Sisk.IniConfiguration.Core.IniSection.Contains
+  nameWithType: IniSection.Contains
+- uid: Sisk.IniConfiguration.Core.IniSection.ContainsKey(System.String)
+  name: ContainsKey(string)
+  href: api/Sisk.IniConfiguration.Core.IniSection.ContainsKey.html#Sisk_IniConfiguration_Core_IniSection_ContainsKey_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.ContainsKey(System.String)
+  name.vb: ContainsKey(String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.ContainsKey(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.ContainsKey(String)
+  nameWithType: IniSection.ContainsKey(string)
+  nameWithType.vb: IniSection.ContainsKey(String)
+- uid: Sisk.IniConfiguration.Core.IniSection.ContainsKey*
+  name: ContainsKey
+  href: api/Sisk.IniConfiguration.Core.IniSection.ContainsKey.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.ContainsKey
+  fullName: Sisk.IniConfiguration.Core.IniSection.ContainsKey
+  nameWithType: IniSection.ContainsKey
+- uid: Sisk.IniConfiguration.Core.IniSection.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],System.Int32)
+  name: CopyTo(KeyValuePair<string, string[]>[], int)
+  href: api/Sisk.IniConfiguration.Core.IniSection.CopyTo.html#Sisk_IniConfiguration_Core_IniSection_CopyTo_System_Collections_Generic_KeyValuePair_System_String_System_String______System_Int32_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],System.Int32)
+  name.vb: CopyTo(KeyValuePair(Of String, String())(), Integer)
+  fullName: Sisk.IniConfiguration.Core.IniSection.CopyTo(System.Collections.Generic.KeyValuePair<string, string[]>[], int)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.CopyTo(System.Collections.Generic.KeyValuePair(Of String, String())(), Integer)
+  nameWithType: IniSection.CopyTo(KeyValuePair<string, string[]>[], int)
+  nameWithType.vb: IniSection.CopyTo(KeyValuePair(Of String, String())(), Integer)
+- uid: Sisk.IniConfiguration.Core.IniSection.CopyTo*
+  name: CopyTo
+  href: api/Sisk.IniConfiguration.Core.IniSection.CopyTo.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.CopyTo
+  fullName: Sisk.IniConfiguration.Core.IniSection.CopyTo
+  nameWithType: IniSection.CopyTo
+- uid: Sisk.IniConfiguration.Core.IniSection.Count
+  name: Count
+  href: api/Sisk.IniConfiguration.Core.IniSection.Count.html#Sisk_IniConfiguration_Core_IniSection_Count
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.Count
+  fullName: Sisk.IniConfiguration.Core.IniSection.Count
+  nameWithType: IniSection.Count
+- uid: Sisk.IniConfiguration.Core.IniSection.Count*
+  name: Count
+  href: api/Sisk.IniConfiguration.Core.IniSection.Count.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Count
+  fullName: Sisk.IniConfiguration.Core.IniSection.Count
+  nameWithType: IniSection.Count
+- uid: Sisk.IniConfiguration.Core.IniSection.GetEnumerator
+  name: GetEnumerator()
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetEnumerator.html#Sisk_IniConfiguration_Core_IniSection_GetEnumerator
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.GetEnumerator
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetEnumerator()
+  nameWithType: IniSection.GetEnumerator()
+- uid: Sisk.IniConfiguration.Core.IniSection.GetEnumerator*
+  name: GetEnumerator
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetEnumerator.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.GetEnumerator
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetEnumerator
+  nameWithType: IniSection.GetEnumerator
+- uid: Sisk.IniConfiguration.Core.IniSection.GetMany(System.String)
+  name: GetMany(string)
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetMany.html#Sisk_IniConfiguration_Core_IniSection_GetMany_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.GetMany(System.String)
+  name.vb: GetMany(String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetMany(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.GetMany(String)
+  nameWithType: IniSection.GetMany(string)
+  nameWithType.vb: IniSection.GetMany(String)
+- uid: Sisk.IniConfiguration.Core.IniSection.GetMany*
+  name: GetMany
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetMany.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.GetMany
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetMany
+  nameWithType: IniSection.GetMany
+- uid: Sisk.IniConfiguration.Core.IniSection.GetOne(System.String)
+  name: GetOne(string)
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetOne.html#Sisk_IniConfiguration_Core_IniSection_GetOne_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.GetOne(System.String)
+  name.vb: GetOne(String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetOne(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.GetOne(String)
+  nameWithType: IniSection.GetOne(string)
+  nameWithType.vb: IniSection.GetOne(String)
+- uid: Sisk.IniConfiguration.Core.IniSection.GetOne*
+  name: GetOne
+  href: api/Sisk.IniConfiguration.Core.IniSection.GetOne.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.GetOne
+  fullName: Sisk.IniConfiguration.Core.IniSection.GetOne
+  nameWithType: IniSection.GetOne
+- uid: Sisk.IniConfiguration.Core.IniSection.IsReadOnly
+  name: IsReadOnly
+  href: api/Sisk.IniConfiguration.Core.IniSection.IsReadOnly.html#Sisk_IniConfiguration_Core_IniSection_IsReadOnly
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.IsReadOnly
+  fullName: Sisk.IniConfiguration.Core.IniSection.IsReadOnly
+  nameWithType: IniSection.IsReadOnly
+- uid: Sisk.IniConfiguration.Core.IniSection.IsReadOnly*
+  name: IsReadOnly
+  href: api/Sisk.IniConfiguration.Core.IniSection.IsReadOnly.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.IsReadOnly
+  fullName: Sisk.IniConfiguration.Core.IniSection.IsReadOnly
+  nameWithType: IniSection.IsReadOnly
+- uid: Sisk.IniConfiguration.Core.IniSection.Item(System.String)
+  name: this[string]
+  href: api/Sisk.IniConfiguration.Core.IniSection.Item.html#Sisk_IniConfiguration_Core_IniSection_Item_System_String_
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.Item(System.String)
+  name.vb: this[](String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.this[string]
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.this[](String)
+  nameWithType: IniSection.this[string]
+  nameWithType.vb: IniSection.this[](String)
+- uid: Sisk.IniConfiguration.Core.IniSection.Item*
+  name: this
+  href: api/Sisk.IniConfiguration.Core.IniSection.Item.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Item
+  name.vb: this[]
+  fullName: Sisk.IniConfiguration.Core.IniSection.this
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.this[]
+  nameWithType: IniSection.this
+  nameWithType.vb: IniSection.this[]
+- uid: Sisk.IniConfiguration.Core.IniSection.Keys
+  name: Keys
+  href: api/Sisk.IniConfiguration.Core.IniSection.Keys.html#Sisk_IniConfiguration_Core_IniSection_Keys
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.Keys
+  fullName: Sisk.IniConfiguration.Core.IniSection.Keys
+  nameWithType: IniSection.Keys
+- uid: Sisk.IniConfiguration.Core.IniSection.Keys*
+  name: Keys
+  href: api/Sisk.IniConfiguration.Core.IniSection.Keys.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Keys
+  fullName: Sisk.IniConfiguration.Core.IniSection.Keys
+  nameWithType: IniSection.Keys
+- uid: Sisk.IniConfiguration.Core.IniSection.Name
+  name: Name
+  href: api/Sisk.IniConfiguration.Core.IniSection.Name.html#Sisk_IniConfiguration_Core_IniSection_Name
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.Name
+  fullName: Sisk.IniConfiguration.Core.IniSection.Name
+  nameWithType: IniSection.Name
+- uid: Sisk.IniConfiguration.Core.IniSection.Name*
+  name: Name
+  href: api/Sisk.IniConfiguration.Core.IniSection.Name.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Name
+  fullName: Sisk.IniConfiguration.Core.IniSection.Name
+  nameWithType: IniSection.Name
+- uid: Sisk.IniConfiguration.Core.IniSection.Remove(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name: Remove(KeyValuePair<string, string[]>)
+  href: api/Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_Collections_Generic_KeyValuePair_System_String_System_String____
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Remove(System.Collections.Generic.KeyValuePair{System.String,System.String[]})
+  name.vb: Remove(KeyValuePair(Of String, String()))
+  fullName: Sisk.IniConfiguration.Core.IniSection.Remove(System.Collections.Generic.KeyValuePair<string, string[]>)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Remove(System.Collections.Generic.KeyValuePair(Of String, String()))
+  nameWithType: IniSection.Remove(KeyValuePair<string, string[]>)
+  nameWithType.vb: IniSection.Remove(KeyValuePair(Of String, String()))
+- uid: Sisk.IniConfiguration.Core.IniSection.Remove(System.String)
+  name: Remove(string)
+  href: api/Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.Remove(System.String)
+  name.vb: Remove(String)
+  fullName: Sisk.IniConfiguration.Core.IniSection.Remove(string)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.Remove(String)
+  nameWithType: IniSection.Remove(string)
+  nameWithType.vb: IniSection.Remove(String)
+- uid: Sisk.IniConfiguration.Core.IniSection.Remove*
+  name: Remove
+  href: api/Sisk.IniConfiguration.Core.IniSection.Remove.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Remove
+  fullName: Sisk.IniConfiguration.Core.IniSection.Remove
+  nameWithType: IniSection.Remove
+- uid: Sisk.IniConfiguration.Core.IniSection.TryGetValue(System.String,System.String[]@)
+  name: TryGetValue(string, out string[])
+  href: api/Sisk.IniConfiguration.Core.IniSection.TryGetValue.html#Sisk_IniConfiguration_Core_IniSection_TryGetValue_System_String_System_String____
+  commentId: M:Sisk.IniConfiguration.Core.IniSection.TryGetValue(System.String,System.String[]@)
+  name.vb: TryGetValue(String, String())
+  fullName: Sisk.IniConfiguration.Core.IniSection.TryGetValue(string, out string[])
+  fullName.vb: Sisk.IniConfiguration.Core.IniSection.TryGetValue(String, String())
+  nameWithType: IniSection.TryGetValue(string, out string[])
+  nameWithType.vb: IniSection.TryGetValue(String, String())
+- uid: Sisk.IniConfiguration.Core.IniSection.TryGetValue*
+  name: TryGetValue
+  href: api/Sisk.IniConfiguration.Core.IniSection.TryGetValue.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.TryGetValue
+  fullName: Sisk.IniConfiguration.Core.IniSection.TryGetValue
+  nameWithType: IniSection.TryGetValue
+- uid: Sisk.IniConfiguration.Core.IniSection.Values
+  name: Values
+  href: api/Sisk.IniConfiguration.Core.IniSection.Values.html#Sisk_IniConfiguration_Core_IniSection_Values
+  commentId: P:Sisk.IniConfiguration.Core.IniSection.Values
+  fullName: Sisk.IniConfiguration.Core.IniSection.Values
+  nameWithType: IniSection.Values
+- uid: Sisk.IniConfiguration.Core.IniSection.Values*
+  name: Values
+  href: api/Sisk.IniConfiguration.Core.IniSection.Values.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSection.Values
+  fullName: Sisk.IniConfiguration.Core.IniSection.Values
+  nameWithType: IniSection.Values
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection
+  name: IniSectionCollection
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.html
+  commentId: T:Sisk.IniConfiguration.Core.IniSectionCollection
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection
+  nameWithType: IniSectionCollection
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Add(Sisk.IniConfiguration.Core.IniSection)
+  name: Add(IniSection)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Add.html#Sisk_IniConfiguration_Core_IniSectionCollection_Add_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.Add(Sisk.IniConfiguration.Core.IniSection)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Add(Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniSectionCollection.Add(IniSection)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Add*
+  name: Add
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Add.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Add
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Add
+  nameWithType: IniSectionCollection.Add
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Clear
+  name: Clear()
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Clear.html#Sisk_IniConfiguration_Core_IniSectionCollection_Clear
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.Clear
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Clear()
+  nameWithType: IniSectionCollection.Clear()
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Clear*
+  name: Clear
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Clear.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Clear
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Clear
+  nameWithType: IniSectionCollection.Clear
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Contains(Sisk.IniConfiguration.Core.IniSection)
+  name: Contains(IniSection)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Contains.html#Sisk_IniConfiguration_Core_IniSectionCollection_Contains_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.Contains(Sisk.IniConfiguration.Core.IniSection)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Contains(Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniSectionCollection.Contains(IniSection)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Contains*
+  name: Contains
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Contains.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Contains
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Contains
+  nameWithType: IniSectionCollection.Contains
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo(Sisk.IniConfiguration.Core.IniSection[],System.Int32)
+  name: CopyTo(IniSection[], int)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo.html#Sisk_IniConfiguration_Core_IniSectionCollection_CopyTo_Sisk_IniConfiguration_Core_IniSection___System_Int32_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo(Sisk.IniConfiguration.Core.IniSection[],System.Int32)
+  name.vb: CopyTo(IniSection(), Integer)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo(Sisk.IniConfiguration.Core.IniSection[], int)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo(Sisk.IniConfiguration.Core.IniSection(), Integer)
+  nameWithType: IniSectionCollection.CopyTo(IniSection[], int)
+  nameWithType.vb: IniSectionCollection.CopyTo(IniSection(), Integer)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo*
+  name: CopyTo
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.CopyTo
+  nameWithType: IniSectionCollection.CopyTo
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Count
+  name: Count
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Count.html#Sisk_IniConfiguration_Core_IniSectionCollection_Count
+  commentId: P:Sisk.IniConfiguration.Core.IniSectionCollection.Count
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Count
+  nameWithType: IniSectionCollection.Count
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Count*
+  name: Count
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Count.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Count
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Count
+  nameWithType: IniSectionCollection.Count
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator
+  name: GetEnumerator()
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator.html#Sisk_IniConfiguration_Core_IniSectionCollection_GetEnumerator
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator()
+  nameWithType: IniSectionCollection.GetEnumerator()
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator*
+  name: GetEnumerator
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.GetEnumerator
+  nameWithType: IniSectionCollection.GetEnumerator
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal
+  name: GetGlobal()
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal.html#Sisk_IniConfiguration_Core_IniSectionCollection_GetGlobal
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal()
+  nameWithType: IniSectionCollection.GetGlobal()
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal*
+  name: GetGlobal
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.GetGlobal
+  nameWithType: IniSectionCollection.GetGlobal
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf(Sisk.IniConfiguration.Core.IniSection)
+  name: IndexOf(IniSection)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf.html#Sisk_IniConfiguration_Core_IniSectionCollection_IndexOf_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf(Sisk.IniConfiguration.Core.IniSection)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf(Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniSectionCollection.IndexOf(IniSection)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf*
+  name: IndexOf
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.IndexOf
+  nameWithType: IniSectionCollection.IndexOf
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Insert(System.Int32,Sisk.IniConfiguration.Core.IniSection)
+  name: Insert(int, IniSection)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Insert.html#Sisk_IniConfiguration_Core_IniSectionCollection_Insert_System_Int32_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.Insert(System.Int32,Sisk.IniConfiguration.Core.IniSection)
+  name.vb: Insert(Integer, IniSection)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Insert(int, Sisk.IniConfiguration.Core.IniSection)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSectionCollection.Insert(Integer, Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniSectionCollection.Insert(int, IniSection)
+  nameWithType.vb: IniSectionCollection.Insert(Integer, IniSection)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Insert*
+  name: Insert
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Insert.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Insert
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Insert
+  nameWithType: IniSectionCollection.Insert
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly
+  name: IsReadOnly
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly.html#Sisk_IniConfiguration_Core_IniSectionCollection_IsReadOnly
+  commentId: P:Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly
+  nameWithType: IniSectionCollection.IsReadOnly
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly*
+  name: IsReadOnly
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.IsReadOnly
+  nameWithType: IniSectionCollection.IsReadOnly
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Item(System.Int32)
+  name: this[int]
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Item.html#Sisk_IniConfiguration_Core_IniSectionCollection_Item_System_Int32_
+  commentId: P:Sisk.IniConfiguration.Core.IniSectionCollection.Item(System.Int32)
+  name.vb: this[](Integer)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.this[int]
+  fullName.vb: Sisk.IniConfiguration.Core.IniSectionCollection.this[](Integer)
+  nameWithType: IniSectionCollection.this[int]
+  nameWithType.vb: IniSectionCollection.this[](Integer)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Item*
+  name: this
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Item.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Item
+  name.vb: this[]
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.this
+  fullName.vb: Sisk.IniConfiguration.Core.IniSectionCollection.this[]
+  nameWithType: IniSectionCollection.this
+  nameWithType.vb: IniSectionCollection.this[]
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Remove(Sisk.IniConfiguration.Core.IniSection)
+  name: Remove(IniSection)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Remove.html#Sisk_IniConfiguration_Core_IniSectionCollection_Remove_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.Remove(Sisk.IniConfiguration.Core.IniSection)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Remove(Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniSectionCollection.Remove(IniSection)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.Remove*
+  name: Remove
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.Remove.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.Remove
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.Remove
+  nameWithType: IniSectionCollection.Remove
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt(System.Int32)
+  name: RemoveAt(int)
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt.html#Sisk_IniConfiguration_Core_IniSectionCollection_RemoveAt_System_Int32_
+  commentId: M:Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt(System.Int32)
+  name.vb: RemoveAt(Integer)
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt(int)
+  fullName.vb: Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt(Integer)
+  nameWithType: IniSectionCollection.RemoveAt(int)
+  nameWithType.vb: IniSectionCollection.RemoveAt(Integer)
+- uid: Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt*
+  name: RemoveAt
+  href: api/Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt.html
+  commentId: Overload:Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt
+  fullName: Sisk.IniConfiguration.Core.IniSectionCollection.RemoveAt
+  nameWithType: IniSectionCollection.RemoveAt
+- uid: Sisk.IniConfiguration.Core.Serialization
+  name: Sisk.IniConfiguration.Core.Serialization
+  href: api/Sisk.IniConfiguration.Core.Serialization.html
+  commentId: N:Sisk.IniConfiguration.Core.Serialization
+  fullName: Sisk.IniConfiguration.Core.Serialization
+  nameWithType: Sisk.IniConfiguration.Core.Serialization
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader
+  name: IniReader
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.html
+  commentId: T:Sisk.IniConfiguration.Core.Serialization.IniReader
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader
+  nameWithType: IniReader
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.#ctor(System.IO.TextReader)
+  name: IniReader(TextReader)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.-ctor.html#Sisk_IniConfiguration_Core_Serialization_IniReader__ctor_System_IO_TextReader_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniReader.#ctor(System.IO.TextReader)
+  name.vb: New(TextReader)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.IniReader(System.IO.TextReader)
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniReader.New(System.IO.TextReader)
+  nameWithType: IniReader.IniReader(TextReader)
+  nameWithType.vb: IniReader.New(TextReader)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.#ctor*
+  name: IniReader
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.-ctor.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniReader.#ctor
+  name.vb: New
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.IniReader
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniReader.New
+  nameWithType: IniReader.IniReader
+  nameWithType.vb: IniReader.New
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose
+  name: Dispose()
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose.html#Sisk_IniConfiguration_Core_Serialization_IniReader_Dispose
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose()
+  nameWithType: IniReader.Dispose()
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose*
+  name: Dispose
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Dispose
+  nameWithType: IniReader.Dispose
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer
+  name: IniNamingComparer
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer.html#Sisk_IniConfiguration_Core_Serialization_IniReader_IniNamingComparer
+  commentId: P:Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer
+  nameWithType: IniReader.IniNamingComparer
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer*
+  name: IniNamingComparer
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.IniNamingComparer
+  nameWithType: IniReader.IniNamingComparer
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Read
+  name: Read()
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Read.html#Sisk_IniConfiguration_Core_Serialization_IniReader_Read
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniReader.Read
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Read()
+  nameWithType: IniReader.Read()
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Read*
+  name: Read
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Read.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniReader.Read
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Read
+  nameWithType: IniReader.Read
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Reader
+  name: Reader
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Reader.html#Sisk_IniConfiguration_Core_Serialization_IniReader_Reader
+  commentId: P:Sisk.IniConfiguration.Core.Serialization.IniReader.Reader
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Reader
+  nameWithType: IniReader.Reader
+- uid: Sisk.IniConfiguration.Core.Serialization.IniReader.Reader*
+  name: Reader
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniReader.Reader.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniReader.Reader
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniReader.Reader
+  nameWithType: IniReader.Reader
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter
+  name: IniWriter
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.html
+  commentId: T:Sisk.IniConfiguration.Core.Serialization.IniWriter
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter
+  nameWithType: IniWriter
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.#ctor(System.IO.TextWriter)
+  name: IniWriter(TextWriter)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.-ctor.html#Sisk_IniConfiguration_Core_Serialization_IniWriter__ctor_System_IO_TextWriter_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.#ctor(System.IO.TextWriter)
+  name.vb: New(TextWriter)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.IniWriter(System.IO.TextWriter)
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniWriter.New(System.IO.TextWriter)
+  nameWithType: IniWriter.IniWriter(TextWriter)
+  nameWithType.vb: IniWriter.New(TextWriter)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.#ctor*
+  name: IniWriter
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.-ctor.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.#ctor
+  name.vb: New
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.IniWriter
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniWriter.New
+  nameWithType: IniWriter.IniWriter
+  nameWithType.vb: IniWriter.New
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar
+  name: CommentChar
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_CommentChar
+  commentId: P:Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar
+  nameWithType: IniWriter.CommentChar
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar*
+  name: CommentChar
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.CommentChar
+  nameWithType: IniWriter.CommentChar
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose
+  name: Dispose()
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Dispose
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose()
+  nameWithType: IniWriter.Dispose()
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose*
+  name: Dispose
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Dispose
+  nameWithType: IniWriter.Dispose
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior
+  name: NewLineBehavior
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_NewLineBehavior
+  commentId: P:Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior
+  nameWithType: IniWriter.NewLineBehavior
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior*
+  name: NewLineBehavior
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.NewLineBehavior
+  nameWithType: IniWriter.NewLineBehavior
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniDocument)
+  name: Write(IniDocument)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Write.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Write_Sisk_IniConfiguration_Core_IniDocument_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniDocument)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniDocument)
+  nameWithType: IniWriter.Write(IniDocument)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniSection)
+  name: Write(IniSection)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Write.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Write_Sisk_IniConfiguration_Core_IniSection_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniSection)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(Sisk.IniConfiguration.Core.IniSection)
+  nameWithType: IniWriter.Write(IniSection)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(System.Collections.Generic.KeyValuePair{System.String,System.String[]}@)
+  name: Write(in KeyValuePair<string, string[]>)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Write.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Write_System_Collections_Generic_KeyValuePair_System_String_System_String_____
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(System.Collections.Generic.KeyValuePair{System.String,System.String[]}@)
+  name.vb: Write(KeyValuePair(Of String, String()))
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(in System.Collections.Generic.KeyValuePair<string, string[]>)
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(System.Collections.Generic.KeyValuePair(Of String, String()))
+  nameWithType: IniWriter.Write(in KeyValuePair<string, string[]>)
+  nameWithType.vb: IniWriter.Write(KeyValuePair(Of String, String()))
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(System.String,System.String)
+  name: Write(string, string?)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Write.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Write_System_String_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(System.String,System.String)
+  name.vb: Write(String, String)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(string, string?)
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write(String, String)
+  nameWithType: IniWriter.Write(string, string?)
+  nameWithType.vb: IniWriter.Write(String, String)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write*
+  name: Write
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Write.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.Write
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Write
+  nameWithType: IniWriter.Write
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment(System.String)
+  name: WriteComment(string)
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_WriteComment_System_String_
+  commentId: M:Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment(System.String)
+  name.vb: WriteComment(String)
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment(string)
+  fullName.vb: Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment(String)
+  nameWithType: IniWriter.WriteComment(string)
+  nameWithType.vb: IniWriter.WriteComment(String)
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment*
+  name: WriteComment
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.WriteComment
+  nameWithType: IniWriter.WriteComment
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer
+  name: Writer
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer.html#Sisk_IniConfiguration_Core_Serialization_IniWriter_Writer
+  commentId: P:Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer
+  nameWithType: IniWriter.Writer
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer*
+  name: Writer
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer.html
+  commentId: Overload:Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWriter.Writer
+  nameWithType: IniWriter.Writer
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior
+  name: IniWritingNewLineBehavior
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.html
+  commentId: T:Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior
+  nameWithType: IniWritingNewLineBehavior
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Escape
+  name: Escape
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.html#Sisk_IniConfiguration_Core_Serialization_IniWritingNewLineBehavior_Escape
+  commentId: F:Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Escape
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Escape
+  nameWithType: IniWritingNewLineBehavior.Escape
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Quote
+  name: Quote
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.html#Sisk_IniConfiguration_Core_Serialization_IniWritingNewLineBehavior_Quote
+  commentId: F:Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Quote
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Quote
+  nameWithType: IniWritingNewLineBehavior.Quote
+- uid: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Split
+  name: Split
+  href: api/Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.html#Sisk_IniConfiguration_Core_Serialization_IniWritingNewLineBehavior_Split
+  commentId: F:Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Split
+  fullName: Sisk.IniConfiguration.Core.Serialization.IniWritingNewLineBehavior.Split
+  nameWithType: IniWritingNewLineBehavior.Split
 - uid: Sisk.IniConfiguration.IniConfigurationReader
   name: IniConfigurationReader
   href: api/Sisk.IniConfiguration.IniConfigurationReader.html
