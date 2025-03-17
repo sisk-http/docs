@@ -245,16 +245,16 @@ Property AcceptCharset
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -264,7 +264,9 @@ Property AcceptCharset
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -314,13 +316,37 @@ Property AcceptCharset
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>

@@ -153,10 +153,18 @@
 <p>Ambos controladores de solicitudes pueden anular la respuesta real de la función de devolución de llamada del enrutador. Además, los controladores de solicitudes pueden ser útiles para validar una solicitud, como la autenticación, el contenido o cualquier otra información, como almacenar información, registros o otros pasos que se pueden realizar antes o después de una respuesta.</p>
 <p><img src="/assets/img/requesthandlers1.png" alt=""></p>
 <p>De esta manera, un controlador de solicitudes puede interrumpir toda esta ejecución y devolver una respuesta antes de terminar el ciclo, descartando todo lo demás en el proceso.</p>
-<p>Ejemplo: supongamos que un controlador de solicitudes de autenticación de usuario no autentica al usuario. Evitará que el ciclo de vida de la solicitud continúe y se suspenderá. Si esto sucede en el controlador de solicitudes en la posición dos, el tercero y siguientes no se evaluarán.</p>
+<p>Ejemplo: supongamos que un controlador de solicitudes de autenticación de usuario no autentica al usuario. Evitará que el ciclo de solicitud continúe y se suspenderá. Si esto sucede en el controlador de solicitudes en la posición dos, el tercero y siguientes no se evaluarán.</p>
 <p><img src="/assets/img/requesthandlers2.png" alt=""></p>
-<h2 id="crear-un-controlador-de-solicitudes">Crear un controlador de solicitudes</h2>
+<h2 id="creación-de-un-controlador-de-solicitudes">Creación de un controlador de solicitudes</h2>
 <p>Para crear un controlador de solicitudes, podemos crear una clase que herede de la interfaz <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, en este formato:</p>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
@@ -165,7 +173,7 @@
     {
         if (request.Headers.Authorization != null)
         {
-            // Devolver null indica que el ciclo de la solicitud puede continuar
+            // Devolver null indica que el ciclo de solicitud puede continuar
             return null;
         }
         else
@@ -176,19 +184,35 @@
     }
 }
 </code></pre>
-<p>En el ejemplo anterior, indicamos que si el encabezado <code>Authorization</code> está presente en la solicitud, debe continuar y llamar al siguiente controlador de solicitudes o a la función de devolución de llamada del enrutador, lo que sea que venga a continuación. Si un controlador de solicitudes se ejecuta después de la respuesta por su propiedad <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> y devuelve un valor no nulo, sobrescribirá la respuesta del enrutador.</p>
+<p>En el ejemplo anterior, indicamos que si el encabezado <code>Authorization</code> está presente en la solicitud, debe continuar y la siguiente solicitud de controlador o la devolución de llamada del enrutador debe ser llamada, lo que sea que venga a continuación. Si es un controlador de solicitudes que se ejecuta después de la respuesta por su propiedad <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> y devuelve un valor no nulo, sobrescribirá la respuesta del enrutador.</p>
 <p>Siempre que un controlador de solicitudes devuelva <code>null</code>, indica que la solicitud debe continuar y el siguiente objeto debe ser llamado o el ciclo debe terminar con la respuesta del enrutador.</p>
-<h2 id="asociar-un-controlador-de-solicitudes-con-una-sola-ruta">Asociar un controlador de solicitudes con una sola ruta</h2>
+<h2 id="asociación-de-un-controlador-de-solicitudes-con-una-sola-ruta">Asociación de un controlador de solicitudes con una sola ruta</h2>
 <p>Puedes definir uno o más controladores de solicitudes para una ruta.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
 {
-    new AuthenticateUserRequestHandler(),     // controlador de solicitudes antes de la solicitud
-    new ValidateJsonContentRequestHandler(),  // controlador de solicitudes antes de la solicitud
+    new AuthenticateUserRequestHandler(),     // antes de la solicitud
+    new ValidateJsonContentRequestHandler(),  // antes de la solicitud
     //                                        -- el método IndexPage se ejecutará aquí
-    new WriteToLogRequestHandler()            // controlador de solicitudes después de la solicitud
+    new WriteToLogRequestHandler()            // después de la solicitud
 });
 </code></pre>
 <p>O creando un objeto <a href="/api/Sisk.Core.Routing.Route">Route</a>:</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
@@ -196,37 +220,70 @@ indexRoute.RequestHandlers = new IRequestHandler[]
 };
 mainRouter.SetRoute(indexRoute);
 </code></pre>
-<h2 id="asociar-un-controlador-de-solicitudes-con-un-enrutador">Asociar un controlador de solicitudes con un enrutador</h2>
+<h2 id="asociación-de-un-controlador-de-solicitudes-con-un-enrutador">Asociación de un controlador de solicitudes con un enrutador</h2>
 <p>Puedes definir un controlador de solicitudes global que se ejecutará en todas las rutas del enrutador.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
 </code></pre>
-<h2 id="asociar-un-controlador-de-solicitudes-con-un-atributo">Asociar un controlador de solicitudes con un atributo</h2>
-<p>Puedes definir un controlador de solicitudes en un atributo de método junto con un atributo de ruta.</p>
+<h2 id="asociación-de-un-controlador-de-solicitudes-con-un-atributo">Asociación de un controlador de solicitudes con un atributo</h2>
+<p>Puedes definir un controlador de solicitudes en un atributo junto con un atributo de ruta.</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
     [RouteGet(&quot;/&quot;)]
     [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
     static HttpResponse Index(HttpRequest request)
     {
-        return new HttpResponse()
-            .WithContent(new StringContent(&quot;Hello world!&quot;));
+        return new HttpResponse() {
+            Content = new StringContent(&quot;Hola mundo!&quot;)
+        };
     }
 }
 </code></pre>
-<p>Ten en cuenta que es necesario pasar el tipo de controlador de solicitudes deseado y no una instancia del objeto. De esta manera, el controlador de solicitudes se instanciará mediante el analizador del enrutador. Puedes pasar argumentos en el constructor de la clase con la propiedad <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a>.</p>
+<p>Ten en cuenta que es necesario pasar el tipo de controlador de solicitudes deseado y no una instancia del objeto. De esta manera, el controlador de solicitudes será instanciado por el analizador del enrutador. Puedes pasar argumentos en el constructor de la clase con la propiedad <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a>.</p>
 <p>Ejemplo:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
-static HttpResponse Index(HttpRequest request)
+public HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hola mundo!&quot;)
+    };
 }
 </code></pre>
 <p>También puedes crear tu propio atributo que implemente RequestHandler:</p>
+<div class="script-header">
+    <span>
+        Middleware/Attributes/AuthenticateAttribute.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateAttribute : RequestHandlerAttribute
 {
     public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })
@@ -235,24 +292,40 @@ static HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<p>Y utilizarlo de la siguiente manera:</p>
+<p>Y usarlo como:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">[Authenticate]
 static HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hola mundo!&quot;)
+    };
 }
 </code></pre>
-<h2 id="saltar-un-controlador-de-solicitudes-global">Saltar un controlador de solicitudes global</h2>
+<h2 id="omisión-de-un-controlador-de-solicitudes-global">Omisión de un controlador de solicitudes global</h2>
 <p>Después de definir un controlador de solicitudes global en una ruta, puedes ignorar este controlador de solicitudes en rutas específicas.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">var myRequestHandler = new AuthenticateUserRequestHandler();
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quot;, IndexPage, null)
+mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;Mi ruta&quot;, IndexPage, null)
 {
     BypassGlobalRequestHandlers = new IRequestHandler[]
     {
@@ -263,7 +336,7 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Si estás saltando un controlador de solicitudes, debes utilizar la misma referencia de lo que instanciaste antes para saltar. Crear otra instancia de controlador de solicitudes no saltará el controlador de solicitudes global, ya que su referencia cambiará. Recuerda utilizar la misma referencia del controlador de solicitudes utilizada en ambos GlobalRequestHandlers y BypassGlobalRequestHandlers.</p>
+<p>Si estás omitiendo un controlador de solicitudes, debes usar la misma referencia de lo que instanciaste antes para saltar. Crear otra instancia de controlador de solicitudes no saltará el controlador de solicitudes global, ya que su referencia cambiará. Recuerda usar la misma referencia de controlador de solicitudes utilizada en ambos GlobalRequestHandlers y BypassGlobalRequestHandlers.</p>
 </div>
 
 </article>
@@ -306,16 +379,16 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -325,7 +398,9 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -375,13 +450,37 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>

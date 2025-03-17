@@ -157,6 +157,14 @@
 <p><img src="/assets/img/requesthandlers2.png" alt=""></p>
 <h2 id="creating-an-request-handler">Creating an request handler</h2>
 <p>To create a request handler, we can create a class that inherits the <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> interface, in this format:</p>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
@@ -180,6 +188,14 @@
 <p>Whenever a request handler returns <code>null</code>, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.</p>
 <h2 id="associating-a-request-handler-with-a-single-route">Associating a request handler with a single route</h2>
 <p>You can define one or more request handlers for a route.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler(),     // before request handler
@@ -189,6 +205,14 @@
 });
 </code></pre>
 <p>Or creating an <a href="/api/Sisk.Core.Routing.Route">Route</a> object:</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
@@ -198,6 +222,14 @@ mainRouter.SetRoute(indexRoute);
 </code></pre>
 <h2 id="associating-a-request-handler-with-a-router">Associating a request handler with a router</h2>
 <p>You can define a global request handler that will runned on all routes on a router.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
@@ -205,28 +237,53 @@ mainRouter.SetRoute(indexRoute);
 </code></pre>
 <h2 id="associating-a-request-handler-with-an-attribute">Associating a request handler with an attribute</h2>
 <p>You can define a request handler on a method attribute along with a route attribute.</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
     [RouteGet(&quot;/&quot;)]
     [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
     static HttpResponse Index(HttpRequest request)
     {
-        return new HttpResponse()
-            .WithContent(new StringContent(&quot;Hello world!&quot;));
+        return new HttpResponse() {
+            Content = new StringContent(&quot;Hello world!&quot;)
+        };
     }
 }
 </code></pre>
 <p>Note that it is necessary to pass the desired request handler type and not an object instance. That way, the request handler will be instantiated by the router parser. You can pass arguments in the class constructor with the <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a> property.</p>
 <p>Example:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
-static HttpResponse Index(HttpRequest request)
+public HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hello world!&quot;)
+    };
 }
 </code></pre>
 <p>You can also create your own attribute that implements RequestHandler:</p>
+<div class="script-header">
+    <span>
+        Middleware/Attributes/AuthenticateAttribute.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateAttribute : RequestHandlerAttribute
 {
     public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })
@@ -236,16 +293,32 @@ static HttpResponse Index(HttpRequest request)
 }
 </code></pre>
 <p>And use it as:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">[Authenticate]
 static HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hello world!&quot;)
+    };
 }
 </code></pre>
 <h2 id="bypassing-an-global-request-handler">Bypassing an global request handler</h2>
 <p>After defining a global request handler on a route, you can ignore this request handler on specific routes.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">var myRequestHandler = new AuthenticateUserRequestHandler();
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
@@ -306,16 +379,16 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -325,7 +398,9 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -375,13 +450,37 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>

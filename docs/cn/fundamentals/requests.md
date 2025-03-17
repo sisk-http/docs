@@ -1,6 +1,6 @@
 # 请求
 
-请求是代表 HTTP 请求消息的结构。 [HttpRequest](/api/Sisk.Core.Http.HttpRequest) 对象包含处理 HTTP 消息的有用函数，适用于整个应用程序。
+请求是代表 HTTP 请求消息的结构。 [HttpRequest](/api/Sisk.Core.Http.HttpRequest) 对象包含处理 HTTP 消息的有用函数，遍布您的应用程序。
 
 一个 HTTP 请求由方法、路径、版本、头部和正文组成。
 
@@ -18,10 +18,10 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-该属性返回请求的方法，表示为 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象。
+此属性返回请求的方法，表示为 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象。
 
 > [!NOTE]
-> 与路由方法不同，该属性不提供 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回实际的请求方法。
+> 与路由方法不同，此属性不服务于 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回实际的请求方法。
 
 ## 获取请求 URL 组件
 
@@ -55,41 +55,50 @@ string body = request.Body;
 // 或以字节数组形式获取
 byte[] bodyBytes = request.RawBody;
 
-// 或者，您可以将其作为流进行处理。
+// 或者，您可以流式传输它。
 Stream requestStream = request.GetRequestStream();
 ```
 
 还可以使用 [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) 和 [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) 属性确定请求是否包含正文以及是否已加载。
 
-无法多次通过 `GetRequestStream` 方法读取请求内容。如果使用此方法读取，则 `RawBody` 和 `Body` 的值也将不可用。无需在请求上下文中释放请求流，因为它将在创建的 HTTP 会话结束时释放。还可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取解码请求的最佳编码。
+无法通过 `GetRequestStream` 多次读取请求内容。如果使用此方法读取，则 `RawBody` 和 `Body` 的值也将不可用。在请求的上下文中不需要处理请求流，因为它会在创建的 HTTP 会话结束时被处理。您还可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取解码请求的最佳编码。
 
-服务器对读取请求内容有限制，这适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性将整个输入流复制到一个与 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength) 相同大小的本地缓冲区中。
+服务器对读取请求内容有限制，这适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性将整个输入流复制到一个局部缓冲区，大小与 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength) 相同。
 
-如果客户端发送的内容大于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，则当客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（2 GB）时，服务器将在尝试通过上述属性之一访问内容时抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)。仍然可以通过流处理内容。
+如果客户端发送的内容大于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)（在用户配置中定义），则返回状态代码 413 的响应给客户端。如果没有配置限制或限制太大，服务器将在客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（2 GB）时抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)，并且尝试通过上述属性之一访问内容。您仍然可以通过流式处理来处理内容。
 
 > [!NOTE]
-> 虽然 Sisk 允许这样做，但为了创建应用程序，始终遵循 HTTP 语义是一个好主意，不要在不允许的方法中获取或提供内容。请阅读有关 [RFC 9110“HTTP 语义”](https://httpwg.org/spec/rfc9110.html) 的信息。
+> 虽然 Sisk 允许这样做，但为了创建应用程序，始终遵循 HTTP 语义并避免在不允许内容的方法中获取或提供内容是一个好主意。请阅读有关 [RFC 9110“HTTP 语义”](https://httpwg.org/spec/rfc9110.html) 的信息。
 
 ## 获取请求上下文
 
 HTTP 上下文是 Sisk 的一个独特对象，存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织自己在这些对象难以组织的环境中。
 
-[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象包含存储的信息，可以从一个请求处理程序传递到另一个点，并可以在最终目标中使用。此对象也可以由在路由回调之后运行的请求处理程序使用。
+[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象包含存储的信息，该信息从一个请求处理程序传递到另一个点，并可以在最终目标中使用。此对象也可以由在路由回调之后运行的请求处理程序使用。
 
 > [!TIP]
 > 此属性也可以通过 [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) 属性访问。
+
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public string Identifier { get; init; } = Guid.NewGuid().ToString();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers["Authorization"] != null)
+        if (request.Headers.Authorization != null)
         {
-            context.RequestBag.Add("AuthenticatedUser", "Bob");
+            context.RequestBag.Add("AuthenticatedUser", new User("Bob"));
             return null;
         }
         else
@@ -100,24 +109,43 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-上面的请求处理程序将在请求包中定义 `AuthenticatedUser`，并可以稍后在最终回调中使用：
+上面的请求处理程序将在请求包中定义 `AuthenticatedUser`，并可以在最终回调中使用：
+
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/")]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        string authUser = request.Context.RequestBag["AuthenticatedUser"];
-        res.Content = new StringContent($"Hello, {authUser}!");
-        return res;
+        User authUser = request.Context.RequestBag["AuthenticatedUser"];
+        
+        return new HttpResponse() {
+            Content = new StringContent($"Hello, {authUser.Name}!")
+        };
     }
 }
 ```
 
 您还可以使用 `Bag.Set()` 和 `Bag.Get()` 帮助器方法按类型单例获取或设置对象。
+
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class Authenticate : RequestHandler
@@ -127,12 +155,24 @@ public class Authenticate : RequestHandler
         request.Bag.Set<User>(authUser);
     }
 }
+```
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```csharp
 [RouteGet("/")]
 [RequestHandler<Authenticate>]
-public static HttpResponse Test(HttpRequest request)
+public static HttpResponse GetUser(HttpRequest request)
 {
     var user = request.Bag.Get<User>();
+    ...
 }
 ```
 
@@ -140,15 +180,25 @@ public static HttpResponse Test(HttpRequest request)
 
 您可以使用以下示例在 [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) 中获取表单数据的值：
 
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/auth")]
+public HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
 
     string? username = form["username"];
     string? password = form["password"];
 
-    if (AttempLogin(username, password) == true)
+    if (AttempLogin(username, password))
     {
         ...
     }
@@ -159,27 +209,37 @@ static HttpResponse Index(HttpRequest request)
 
 Sisk 的 HTTP 请求允许您获取上传的多部分内容，例如文件、表单字段或任何二进制内容。
 
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/upload-contents")]
+public HttpResponse Index(HttpRequest request)
 {
     // 以下方法将整个请求输入读入 MultipartObject 数组
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
+    
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
         // 多部分表单数据对象的文件名。
         // 如果对象不是文件，则返回 null。
-        Console.WriteLine("文件名       : " + uploadedObject.Filename);
+        Console.WriteLine("File name       : " + uploadedObject.Filename);
 
-        // 多部分表单数据对象的字段名。
-        Console.WriteLine("字段名      : " + uploadedObject.Name);
+        // 多部分表单数据字段名称。
+        Console.WriteLine("Field name      : " + uploadedObject.Name);
 
         // 多部分表单数据内容长度。
-        Console.WriteLine("内容长度  : " + uploadedObject.ContentLength);
+        Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
 
         // 根据文件头确定每个已知内容类型的图像格式。
-        // 如果内容不是已知的常见文件格式，则此方法将返回 MultipartObjectCommonFormat.Unknown
-        Console.WriteLine("常见格式   : " + uploadedObject.GetCommonFileFormat());
+        // 如果内容不是公认的常见文件格式，则以下方法将返回 MultipartObjectCommonFormat.Unknown
+        Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
@@ -190,28 +250,37 @@ static HttpResponse Index(HttpRequest request)
 
 Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)，允许将块作为流发送并保持服务器和客户端之间的连接。
 
-调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将重叠数据包。
+调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法将使 HttpRequest 进入其监听状态。从此，HTTP 请求的上下文不再期望 HttpResponse，因为它将与服务器发送的数据包重叠。
 
-发送所有数据包后，回调必须返回 [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) 方法，该方法将发送最终响应给服务器并指示流媒体已结束。
+发送所有数据包后，回调必须返回 [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) 方法，该方法将发送最终响应给服务器并指示流式处理已结束。
 
-无法预测将发送的所有数据包的总长度，因此无法使用 `Content-Length` 标头确定连接的末尾。
+由于无法预测将要发送的所有数据包的总长度，因此无法使用 `Content-Length` 标头确定连接的末尾。
 
-大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的方法。因此，在使用需要特定请求标头的请求处理程序处理事件源请求时要小心，因为它们可能没有这些标头。
+大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的方法。因此，在使用需要特定请求标头的请求处理程序的事件源请求时要小心，因为它们可能没有这些标头。
 
-此外，大多数浏览器如果客户端在接收到所有数据包后未调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close) 方法，则会重新启动流媒体，从而导致服务器端无限增加额外处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。
+此外，大多数浏览器在收到所有数据包后如果客户端没有调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close) 方法，则会重新启动流，这将导致服务器端进行无限的额外处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。
 
 以下示例显示浏览器如何与支持服务器发送事件的服务器进行通信。
+
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
 
 ```html
 <html>
     <body>
-        <b>水果:</b>
+        <b>Fruits:</b>
         <ul></ul>
     </body>
     <script>
-        const evtSource = new EventSource('/event-source');
+        const evtSource = new EventSource('http://localhost:5555/event-source');
         const eventList = document.querySelector('ul');
-
+        
         evtSource.onmessage = (e) => {
             const newElement = document.createElement("li");
 
@@ -228,20 +297,29 @@ Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/Web
 
 并逐渐将消息发送给客户端：
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/event-source")]
-    static HttpResponse ServerEventsResponse(HttpRequest request)
+    [RouteGet("/event-source")]
+    public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
     {
-        var serverEvents = request.GetEventSource();
-
+        var sse = await request.GetEventSourceAsync ();
+        
         string[] fruits = new[] { "Apple", "Banana", "Watermelon", "Tomato" };
-
+        
         foreach (string fruit in fruits)
         {
-            serverEvents.Send(fruit);
-            Thread.Sleep(1500);
+            await serverEvents.SendAsync(fruit);
+            await Task.Delay(1500);
         }
 
         return serverEvents.Close();

@@ -21,26 +21,26 @@ static HttpResponse Index(HttpRequest request)
 Esta propiedad devuelve el método de la solicitud representado por un objeto [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod).
 
 > [!NOTE]
-> A diferencia de los métodos de ruta, esta propiedad no sirve para el elemento [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod). En su lugar, devuelve el método de solicitud real.
+> A diferencia de los métodos de ruta, esta propiedad no sirve el elemento [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod). En su lugar, devuelve el método de solicitud real.
 
 ## Obtener componentes de la URL de la solicitud
 
 Puede obtener varios componentes de una URL a través de ciertas propiedades de una solicitud. Para este ejemplo, consideremos la URL:
 
-``` 
+```
 http://localhost:5000/user/login?email=foo@bar.com
 ```
 
 | Nombre del componente | Descripción | Valor del componente |
 | --- | --- | --- |
 | [Path](/api/Sisk.Core.Http.HttpRequest.Path) | Obtiene la ruta de la solicitud. | `/user/login` |
-| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | Obtiene la ruta y la cadena de consulta de la solicitud. | `/user/login?email=foo@bar.com` |
+| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | Obtiene la ruta de la solicitud y la cadena de consulta. | `/user/login?email=foo@bar.com` |
 | [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | Obtiene la cadena de solicitud de URL completa. | `http://localhost:5000/user/login?email=foo@bar.com` |
 | [Host](/api/Sisk.Core.Http.HttpRequest.Host) | Obtiene el host de la solicitud. | `localhost` |
 | [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | Obtiene el host y el puerto de la solicitud. | `localhost:5000` |
 | [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | Obtiene la consulta de la solicitud. | `?email=foo@bar.com` |
 | [Query](/api/Sisk.Core.Http.HttpRequest.Query) | Obtiene la consulta de la solicitud en una colección de valores con nombre. | `{StringValueCollection object}` |
-| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | Determina si la solicitud utiliza SSL (true) o no (false). | `false` |
+| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | Determina si la solicitud está utilizando SSL (true) o no (false). | `false` |
 
 También puede optar por utilizar la propiedad [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri), que incluye todo lo anterior en un solo objeto.
 
@@ -55,7 +55,7 @@ string body = request.Body;
 // o lo obtiene en un arreglo de bytes
 byte[] bodyBytes = request.RawBody;
 
-// o también puede transmitirlo.
+// o también, puede transmitirlo.
 Stream requestStream = request.GetRequestStream();
 ```
 
@@ -65,31 +65,40 @@ No es posible leer el contenido de la solicitud a través de `GetRequestStream` 
 
 El servidor tiene límites para leer el contenido de la solicitud, que se aplica tanto a [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) como a [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body). Estas propiedades copian el flujo de entrada completo en un búfer local del mismo tamaño que [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength).
 
-Una respuesta con estado 413 Contenido demasiado grande se devuelve al cliente si el contenido enviado es mayor que [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) definido en la configuración del usuario. Además, si no hay un límite configurado o si es demasiado grande, el servidor lanzará una [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) cuando el contenido enviado por el cliente exceda [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 GB) y si el contenido se intenta acceder a través de una de las propiedades mencionadas anteriormente. Todavía puede tratar con el contenido a través de transmisión.
+Una respuesta con estado 413 Contenido demasiado grande se devuelve al cliente si el contenido enviado es más grande que [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) definido en la configuración del usuario. Además, si no hay un límite configurado o si es demasiado grande, el servidor lanzará una [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) cuando el contenido enviado por el cliente exceda [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 GB) y si el contenido se intenta acceder a través de una de las propiedades mencionadas anteriormente. Todavía puede tratar con el contenido a través de transmisión.
 
 > [!NOTE]
-> Aunque Sisk lo permite, siempre es una buena idea seguir la semántica HTTP para crear su aplicación y no obtener o servir contenido en métodos que no lo permiten. Lea sobre [RFC 9110 "Semántica HTTP"](https://httpwg.org/spec/rfc9110.html).
+> Aunque Sisk lo permite, siempre es una buena idea seguir la semántica HTTP para crear su aplicación y no obtener o servir contenido en métodos que no lo permitan. Lea sobre [RFC 9110 "HTTP Semantics"](https://httpwg.org/spec/rfc9110.html).
 
 ## Obtener el contexto de la solicitud
 
-El contexto HTTP es un objeto exclusivo de Sisk que almacena información del servidor HTTP, ruta, enrutador y controlador de solicitud. Puede utilizarlo para organizarse en un entorno donde estos objetos son difíciles de organizar.
+El contexto HTTP es un objeto exclusivo de Sisk que almacena información del servidor HTTP, ruta, enrutador y controlador de solicitudes. Puede utilizarlo para organizarse en un entorno donde estos objetos son difíciles de organizar.
 
-El objeto [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) contiene información almacenada que se pasa de un controlador de solicitud a otro punto y se puede consumir en el destino final. Este objeto también se puede utilizar por controladores de solicitud que se ejecutan después de la devolución de llamada de la ruta.
+El objeto [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) contiene información almacenada que se pasa de un controlador de solicitudes a otro punto y se puede consumir en el destino final. Este objeto también se puede utilizar por controladores de solicitudes que se ejecutan después de la devolución de llamada de la ruta.
 
 > [!TIP]
 > Esta propiedad también es accesible a través de la propiedad [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag).
+
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public string Identifier { get; init; } = Guid.NewGuid().ToString();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers["Authorization"] != null)
+        if (request.Headers.Authorization != null)
         {
-            context.RequestBag.Add("AuthenticatedUser", "Bob");
+            context.RequestBag.Add("AuthenticatedUser", new User("Bob"));
             return null;
         }
         else
@@ -100,24 +109,43 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-El controlador de solicitud anterior definirá `AuthenticatedUser` en la bolsa de solicitud y se puede consumir más adelante en la devolución de llamada final:
+El controlador de solicitudes anterior definirá `AuthenticatedUser` en la bolsa de solicitudes y se puede consumir más adelante en la devolución de llamada final:
+
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/")]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        string authUser = request.Context.RequestBag["AuthenticatedUser"];
-        res.Content = new StringContent($"Hello, {authUser}!");
-        return res;
+        User authUser = request.Context.RequestBag["AuthenticatedUser"];
+        
+        return new HttpResponse() {
+            Content = new StringContent($"Hello, {authUser.Name}!")
+        };
     }
 }
 ```
 
 También puede utilizar los métodos auxiliares `Bag.Set()` y `Bag.Get()` para obtener o establecer objetos por sus singleton de tipo.
+
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class Authenticate : RequestHandler
@@ -127,12 +155,24 @@ public class Authenticate : RequestHandler
         request.Bag.Set<User>(authUser);
     }
 }
+```
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```csharp
 [RouteGet("/")]
 [RequestHandler<Authenticate>]
-public static HttpResponse Test(HttpRequest request)
+public static HttpResponse GetUser(HttpRequest request)
 {
     var user = request.Bag.Get<User>();
+    ...
 }
 ```
 
@@ -140,15 +180,25 @@ public static HttpResponse Test(HttpRequest request)
 
 Puede obtener los valores de los datos de formulario en una [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) con el ejemplo siguiente:
 
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/auth")]
+public HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
 
     string? username = form["username"];
     string? password = form["password"];
 
-    if (AttempLogin(username, password) == true)
+    if (AttempLogin(username, password))
     {
         ...
     }
@@ -157,15 +207,25 @@ static HttpResponse Index(HttpRequest request)
 
 ## Obtener datos de formulario multipart
 
-La solicitud HTTP de Sisk le permite obtener contenidos multipart, como archivos, campos de formulario o cualquier contenido binario.
+La solicitud HTTP de Sisk le permite obtener contenidos multipart, como archivos, campos de formulario o contenido binario.
+
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/upload-contents")]
+public HttpResponse Index(HttpRequest request)
 {
     // el siguiente método lee la entrada de solicitud completa en un
     // arreglo de objetos Multipart
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
+    
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
         // El nombre del archivo proporcionado por los datos de formulario multipart.
@@ -178,31 +238,40 @@ static HttpResponse Index(HttpRequest request)
         // La longitud del contenido de los datos de formulario multipart.
         Console.WriteLine("Longitud del contenido  : " + uploadedObject.ContentLength);
 
-        // Determina el formato de imagen en función del encabezado del archivo para cada
+        // Determina el formato de archivo común en función del encabezado del archivo para cada
         // tipo de contenido conocido. Si el contenido no es un formato de archivo común reconocido,
-        // el método siguiente devolverá MultipartObjectCommonFormat.Unknown
+        // el método a continuación devolverá MultipartObjectCommonFormat.Unknown
         Console.WriteLine("Formato común   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
 
-Puede leer más sobre los objetos de formulario multipart de Sisk y sus métodos, propiedades y funcionalidades.
+Puede leer más sobre los objetos [Multipart form](/api/Sisk.Core.Entity.MultipartObject) de Sisk y sus métodos, propiedades y funcionalidades.
 
 ## Soporte para eventos enviados por el servidor
 
 Sisk admite [eventos enviados por el servidor](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), que permite enviar fragmentos como un flujo y mantener la conexión entre el servidor y el cliente viva.
 
-Llamando al método [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) se pondrá la solicitud HTTP en su estado de escucha. A partir de esto, el contexto de esta solicitud HTTP no esperará una respuesta HTTP, ya que se superpondrá a los paquetes enviados por eventos del servidor.
+Llamando al método [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) se pondrá la solicitud HTTP en su estado de escucha. A partir de esto, el contexto de esta solicitud HTTP no esperará una respuesta HttpResponse, ya que se superpondrá a los paquetes enviados por eventos del servidor.
 
-Después de enviar todos los paquetes, la devolución de llamada debe devolver el método [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close), que enviará la respuesta final al servidor y indicará que la transmisión ha terminado.
+Después de enviar todos los paquetes, la devolución de llamada debe devolver el método [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close), que enviará la respuesta final al servidor e indicará que la transmisión ha terminado.
 
-No es posible predecir qué será la longitud total de todos los paquetes que se enviarán, por lo que no es posible determinar el final de la conexión con el encabezado `Content-Length`.
+No es posible predecir la longitud total de todos los paquetes que se enviarán, por lo que no es posible determinar el final de la conexión con el encabezado `Content-Length`.
 
-Por defecto, la mayoría de los navegadores no admiten el envío de encabezados HTTP o métodos diferentes al GET. Por lo tanto, tenga cuidado al utilizar controladores de solicitud con solicitudes de evento de origen que requieren encabezados específicos en la solicitud, ya que es probable que no los tengan.
+La mayoría de los navegadores no admiten la transmisión de encabezados HTTP o métodos diferentes al GET. Por lo tanto, tenga cuidado al utilizar controladores de solicitudes con solicitudes de evento de origen que requieren encabezados específicos en la solicitud, ya que es probable que no los tengan.
 
 Además, la mayoría de los navegadores reinician las transmisiones si el método [EventSource.close](https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close) no se llama en el lado del cliente después de recibir todos los paquetes, lo que causa un procesamiento adicional infinito en el lado del servidor. Para evitar este tipo de problema, es común enviar un paquete final que indique que el evento de origen ha terminado de enviar todos los paquetes.
 
 El ejemplo siguiente muestra cómo el navegador puede comunicarse con el servidor que admite eventos enviados por el servidor.
+
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
 
 ```html
 <html>
@@ -211,9 +280,9 @@ El ejemplo siguiente muestra cómo el navegador puede comunicarse con el servido
         <ul></ul>
     </body>
     <script>
-        const evtSource = new EventSource('/event-source');
+        const evtSource = new EventSource('http://localhost:5555/event-source');
         const eventList = document.querySelector('ul');
-
+        
         evtSource.onmessage = (e) => {
             const newElement = document.createElement("li");
 
@@ -228,22 +297,31 @@ El ejemplo siguiente muestra cómo el navegador puede comunicarse con el servido
 </html>
 ```
 
-Y envíe progresivamente los mensajes al cliente:
+Y envíe los mensajes al cliente de forma progresiva:
+
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/event-source")]
-    static HttpResponse ServerEventsResponse(HttpRequest request)
+    [RouteGet("/event-source")]
+    public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
     {
-        var serverEvents = request.GetEventSource();
-
+        var sse = await request.GetEventSourceAsync ();
+        
         string[] frutas = new[] { "Manzana", "Plátano", "Sandía", "Tomate" };
-
+        
         foreach (string fruta in frutas)
         {
-            serverEvents.Send(fruta);
-            Thread.Sleep(1500);
+            await serverEvents.SendAsync(fruta);
+            await Task.Delay(1500);
         }
 
         return serverEvents.Close();
@@ -255,7 +333,7 @@ Al ejecutar este código, esperamos un resultado similar a este:
 
 <img src="/assets/img/server side events demo.gif" />
 
-## Resolución de IPs y hosts proxy
+## Resolución de direcciones IP y hosts proxy
 
 Sisk se puede utilizar con proxies, y por lo tanto, las direcciones IP pueden reemplazarse por el punto final del proxy en la transacción desde un cliente hasta el proxy.
 

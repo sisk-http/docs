@@ -242,16 +242,24 @@ Stream requestStream = request.GetRequestStream();
 <h5>Tip</h5>
 <p>This property is also acessible by <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> property.</p>
 </div>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public string Identifier { get; init; } = Guid.NewGuid().ToString();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers[&quot;Authorization&quot;] != null)
+        if (request.Headers.Authorization != null)
         {
-            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, new User(&quot;Bob&quot;));
             return null;
         }
         else
@@ -262,20 +270,37 @@ Stream requestStream = request.GetRequestStream();
 }
 </code></pre>
 <p>The above request handler will define <code>AuthenticatedUser</code> in the request bag, and can be consumed later in the final callback:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
-    [Route(RouteMethod.Get, &quot;/&quot;)]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        string authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
-        res.Content = new StringContent($&quot;Hello, {authUser}!&quot;);
-        return res;
+        User authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        
+        return new HttpResponse() {
+            Content = new StringContent($&quot;Hello, {authUser.Name}!&quot;)
+        };
     }
 }
 </code></pre>
 <p>You can also use the <code>Bag.Set()</code> and <code>Bag.Get()</code> helper methods to get or set objects by their type singletons.</p>
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class Authenticate : RequestHandler
 {
     public override HttpResponse? Execute(HttpRequest request, HttpContext context)
@@ -283,24 +308,42 @@ Stream requestStream = request.GetRequestStream();
         request.Bag.Set&lt;User&gt;(authUser);
     }
 }
-
-[RouteGet(&quot;/&quot;)]
+</code></pre>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/&quot;)]
 [RequestHandler&lt;Authenticate&gt;]
-public static HttpResponse Test(HttpRequest request)
+public static HttpResponse GetUser(HttpRequest request)
 {
     var user = request.Bag.Get&lt;User&gt;();
+    ...
 }
 </code></pre>
 <h2 id="getting-form-data">Getting form data</h2>
 <p>You can get the values of a form data in an <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> with the example below:</p>
-<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/auth&quot;)]
+public HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
 
     string? username = form[&quot;username&quot;];
     string? password = form[&quot;password&quot;];
 
-    if (AttempLogin(username, password) == true)
+    if (AttempLogin(username, password))
     {
         ...
     }
@@ -308,12 +351,21 @@ public static HttpResponse Test(HttpRequest request)
 </code></pre>
 <h2 id="getting-multipart-form-data">Getting multipart form data</h2>
 <p>Sisk's HTTP request lets you get uploaded multipart contents, such as a files, form fields, or any binary content.</p>
-<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
+public HttpResponse Index(HttpRequest request)
 {
     // the following method reads the entire request input into an
     // array of MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
+    
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
         // The name of the file provided by Multipart form data.
@@ -342,15 +394,23 @@ public static HttpResponse Test(HttpRequest request)
 <p>By most browsers defaults, server-side events does not support sending HTTP headers or methods other than the GET method. Therefore, be careful when using request handlers with event-source requests that require specific headers in the request, as it probably they ins't going to have them.</p>
 <p>Also, most browsers restart streams if the <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> method ins't called on the client side after receiving all the packets, causing infinite additional processing on the server side. To avoid this kind of problem, it's common to send an final packet indicating that the event source has finished sending all packets.</p>
 <p>The example below shows how the browser can communicate with the server that supports Server-side events.</p>
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
 <pre><code class="lang-html">&lt;html&gt;
     &lt;body&gt;
         &lt;b&gt;Fruits:&lt;/b&gt;
         &lt;ul&gt;&lt;/ul&gt;
     &lt;/body&gt;
     &lt;script&gt;
-        const evtSource = new EventSource('/event-source');
+        const evtSource = new EventSource('http://localhost:5555/event-source');
         const eventList = document.querySelector('ul');
-
+        
         evtSource.onmessage = (e) =&gt; {
             const newElement = document.createElement(&quot;li&quot;);
 
@@ -365,19 +425,27 @@ public static HttpResponse Test(HttpRequest request)
 &lt;/html&gt;
 </code></pre>
 <p>And progressively send the messages to the client:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
-    [Route(RouteMethod.Get, &quot;/event-source&quot;)]
-    static HttpResponse ServerEventsResponse(HttpRequest request)
+    [RouteGet(&quot;/event-source&quot;)]
+    public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
     {
-        var serverEvents = request.GetEventSource();
-
+        var sse = await request.GetEventSourceAsync ();
+        
         string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
-
+        
         foreach (string fruit in fruits)
         {
-            serverEvents.Send(fruit);
-            Thread.Sleep(1500);
+            await serverEvents.SendAsync(fruit);
+            await Task.Delay(1500);
         }
 
         return serverEvents.Close();
@@ -433,16 +501,16 @@ public static HttpResponse Test(HttpRequest request)
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -452,7 +520,9 @@ public static HttpResponse Test(HttpRequest request)
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -502,13 +572,37 @@ public static HttpResponse Test(HttpRequest request)
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>

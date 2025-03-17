@@ -144,7 +144,7 @@
                 <article data-uid="">
 <h1 id="requisições">Requisições</h1>
 
-<p>Requisições são estruturas que representam uma mensagem de requisição HTTP. O objeto <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> contém funções úteis para manipular mensagens HTTP ao longo de sua aplicação.</p>
+<p>Requisições são estruturas que representam uma mensagem de requisição HTTP. O objeto <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> contém funções úteis para manipular mensagens HTTP em toda a sua aplicação.</p>
 <p>Uma requisição HTTP é formada pelo método, caminho, versão, cabeçalhos e corpo.</p>
 <p>Neste documento, vamos ensinar como obter cada um desses elementos.</p>
 <h2 id="obtendo-o-método-da-requisição">Obtendo o método da requisição</h2>
@@ -158,7 +158,7 @@
 <p>Essa propriedade retorna o método da requisição representado por um objeto <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Ao contrário dos métodos de rota, essa propriedade não atende ao item <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Em vez disso, ela retorna o método de requisição real.</p>
+<p>Ao contrário dos métodos de rota, essa propriedade não serve o item <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Em vez disso, ela retorna o método de requisição real.</p>
 </div>
 <h2 id="obtendo-componentes-da-url-da-requisição">Obtendo componentes da URL da requisição</h2>
 <p>Você pode obter vários componentes de uma URL por meio de propriedades de uma requisição. Para este exemplo, vamos considerar a URL:</p>
@@ -200,12 +200,12 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
-<td>Obtém a consulta da requisição.</td>
+<td>Obtém a string de consulta da requisição.</td>
 <td><code>?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
-<td>Obtém a consulta da requisição em uma coleção de valores nomeados.</td>
+<td>Obtém a string de consulta da requisição em uma coleção de valores nomeados.</td>
 <td><code>{StringValueCollection object}</code></td>
 </tr>
 <tr>
@@ -217,11 +217,11 @@
 </table>
 <p>Você também pode optar por usar a propriedade <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, que inclui tudo acima em um objeto.</p>
 <h2 id="obtendo-o-corpo-da-requisição">Obtendo o corpo da requisição</h2>
-<p>Algumas requisições incluem corpo, como formulários, arquivos ou transações de API. Você pode obter o corpo de uma requisição da propriedade:</p>
-<pre><code class="lang-cs">// obtém o corpo da requisição como uma string, usando o codificador de requisição
+<p>Algumas requisições incluem corpo, como formulários, arquivos ou transações de API. Você pode obter o corpo de uma requisição a partir da propriedade:</p>
+<pre><code class="lang-cs">// obtém o corpo da requisição como uma string, usando o codificador de requisição como codificador
 string body = request.Body;
 
-// ou obtém em um array de bytes
+// ou obtém como um array de bytes
 byte[] bodyBytes = request.RawBody;
 
 // ou ainda, você pode transmiti-lo.
@@ -230,7 +230,7 @@ Stream requestStream = request.GetRequestStream();
 <p>Também é possível determinar se há um corpo na requisição e se ele está carregado com as propriedades <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, que determina se a requisição tem conteúdo e <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> que indica que o servidor HTTP recebeu completamente o conteúdo do ponto remoto.</p>
 <p>Não é possível ler o conteúdo da requisição por meio de <code>GetRequestStream</code> mais de uma vez. Se você ler com este método, os valores em <code>RawBody</code> e <code>Body</code> também não estarão disponíveis. Não é necessário descartar o fluxo de requisição no contexto da requisição, pois ele é descartado no final da sessão HTTP em que é criado. Além disso, você pode usar a propriedade <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> para obter o melhor codificador para decodificar a requisição manualmente.</p>
 <p>O servidor tem limites para ler o conteúdo da requisição, o que se aplica a ambos <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> e <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>. Essas propriedades copiam o fluxo de entrada inteiro para um buffer local do mesmo tamanho de <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
-<p>Uma resposta com status 413 Conteúdo Muito Grande é retornada ao cliente se o conteúdo enviado for maior que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> definido na configuração do usuário. Além disso, se não houver limite configurado ou se ele for muito grande, o servidor lançará uma <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> quando o conteúdo enviado pelo cliente exceder <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) e se o conteúdo for tentado acessado por meio de uma das propriedades mencionadas acima. Você ainda pode lidar com o conteúdo por meio de transmissão.</p>
+<p>Uma resposta com status 413 Conteúdo Muito Grande é retornada ao cliente se o conteúdo enviado for maior que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> definido na configuração do usuário. Além disso, se não houver limite configurado ou se ele for muito grande, o servidor lançará uma <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> quando o conteúdo enviado pelo cliente exceder <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) e se o conteúdo for acessado por meio de uma das propriedades mencionadas acima. Você ainda pode lidar com o conteúdo por meio de transmissão.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Embora o Sisk permita, é sempre uma boa ideia seguir a Semântica HTTP para criar sua aplicação e não obter ou servir conteúdo em métodos que não o permitam. Leia sobre <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP Semantics&quot;</a>.</p>
@@ -242,16 +242,24 @@ Stream requestStream = request.GetRequestStream();
 <h5>Tip</h5>
 <p>Essa propriedade também é acessível pela propriedade <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a>.</p>
 </div>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public string Identifier { get; init; } = Guid.NewGuid().ToString();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers[&quot;Authorization&quot;] != null)
+        if (request.Headers.Authorization != null)
         {
-            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, &quot;Bob&quot;);
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, new User(&quot;Bob&quot;));
             return null;
         }
         else
@@ -262,20 +270,37 @@ Stream requestStream = request.GetRequestStream();
 }
 </code></pre>
 <p>O manipulador de requisição acima definirá <code>AuthenticatedUser</code> no saco de requisição e pode ser consumido posteriormente no callback final:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
-    [Route(RouteMethod.Get, &quot;/&quot;)]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        string authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
-        res.Content = new StringContent($&quot;Hello, {authUser}!&quot;);
-        return res;
+        User authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        
+        return new HttpResponse() {
+            Content = new StringContent($&quot;Hello, {authUser.Name}!&quot;)
+        };
     }
 }
 </code></pre>
 <p>Você também pode usar os métodos auxiliares <code>Bag.Set()</code> e <code>Bag.Get()</code> para obter ou definir objetos por seus tipos singleton.</p>
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class Authenticate : RequestHandler
 {
     public override HttpResponse? Execute(HttpRequest request, HttpContext context)
@@ -283,24 +308,42 @@ Stream requestStream = request.GetRequestStream();
         request.Bag.Set&lt;User&gt;(authUser);
     }
 }
-
-[RouteGet(&quot;/&quot;)]
+</code></pre>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/&quot;)]
 [RequestHandler&lt;Authenticate&gt;]
-public static HttpResponse Test(HttpRequest request)
+public static HttpResponse GetUser(HttpRequest request)
 {
     var user = request.Bag.Get&lt;User&gt;();
+    ...
 }
 </code></pre>
 <h2 id="obtendo-dados-de-formulário">Obtendo dados de formulário</h2>
-<p>Você pode obter os valores de um formulário em uma <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> com o exemplo abaixo:</p>
-<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+<p>Você pode obter os valores de dados de formulário em uma <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> com o exemplo abaixo:</p>
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/auth&quot;)]
+public HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
 
     string? username = form[&quot;username&quot;];
     string? password = form[&quot;password&quot;];
 
-    if (AttempLogin(username, password) == true)
+    if (AttempLogin(username, password))
     {
         ...
     }
@@ -308,49 +351,66 @@ public static HttpResponse Test(HttpRequest request)
 </code></pre>
 <h2 id="obtendo-dados-de-formulário-multipart">Obtendo dados de formulário multipart</h2>
 <p>A requisição HTTP do Sisk permite obter conteúdos multipart, como arquivos, campos de formulário ou qualquer conteúdo binário.</p>
-<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
+public HttpResponse Index(HttpRequest request)
 {
     // o método a seguir lê a entrada de requisição inteira em um
     // array de MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
+    
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // O nome do arquivo fornecido pelo formulário multipart.
+        // O nome do arquivo fornecido pelo Multipart form data.
         // Null é retornado se o objeto não for um arquivo.
         Console.WriteLine(&quot;Nome do arquivo       : &quot; + uploadedObject.Filename);
 
-        // O nome do campo do formulário multipart.
+        // O nome do campo do formulário Multipart form data.
         Console.WriteLine(&quot;Nome do campo      : &quot; + uploadedObject.Name);
 
-        // O comprimento do conteúdo do formulário multipart.
+        // O comprimento do conteúdo do Multipart form data.
         Console.WriteLine(&quot;Comprimento do conteúdo  : &quot; + uploadedObject.ContentLength);
 
-        // Determina o formato do arquivo com base no cabeçalho para cada
-        // tipo de conteúdo conhecido. Se o conteúdo não for um formato de arquivo
-        // comum reconhecido, o método abaixo retornará MultipartObjectCommonFormat.Unknown
+        // Determina o formato de arquivo com base no cabeçalho do arquivo para cada
+        // tipo de conteúdo conhecido. Se o conteúdo não for um formato de arquivo comum
+        // reconhecido, o método abaixo retornará MultipartObjectCommonFormat.Unknown
         Console.WriteLine(&quot;Formato comum   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>Você pode ler mais sobre os objetos de formulário multipart do Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> e seus métodos, propriedades e funcionalidades.</p>
+<p>Você pode ler mais sobre os objetos <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form</a> do Sisk e seus métodos, propriedades e funcionalidades.</p>
 <h2 id="suporte-a-eventos-enviados-pelo-servidor">Suporte a eventos enviados pelo servidor</h2>
 <p>O Sisk suporta <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">Eventos enviados pelo servidor</a>, que permitem enviar pedaços como um fluxo e manter a conexão entre o servidor e o cliente viva.</p>
-<p>Chamar o método <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> colocará a requisição HTTP em seu estado de ouvinte. A partir disso, o contexto dessa requisição HTTP não esperará uma resposta HTTP, pois ela sobreporá os pacotes enviados por eventos do servidor.</p>
+<p>Chamar o método <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> colocará a requisição HTTP em seu estado de ouvinte. A partir disso, o contexto dessa requisição HTTP não esperará uma resposta HttpResponse, pois ela sobreporá os pacotes enviados por eventos do servidor.</p>
 <p>Depois de enviar todos os pacotes, o callback deve retornar o método <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>, que enviará a resposta final ao servidor e indicará que o streaming terminou.</p>
 <p>Não é possível prever o comprimento total de todos os pacotes que serão enviados, portanto, não é possível determinar o fim da conexão com o cabeçalho <code>Content-Length</code>.</p>
-<p>Por padrão, a maioria dos navegadores não suporta o envio de cabeçalhos HTTP ou métodos diferentes do GET. Portanto, tenha cuidado ao usar manipuladores de requisição com solicitações de evento de origem que exigem cabeçalhos específicos na requisição, pois eles provavelmente não os terão.</p>
-<p>Além disso, a maioria dos navegadores reinicia os fluxos se o método <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> não for chamado no lado do cliente após receber todos os pacotes, causando processamento adicional infinito no lado do servidor. Para evitar esse tipo de problema, é comum enviar um pacote final indicando que a origem do evento terminou de enviar todos os pacotes.</p>
-<p>O exemplo abaixo mostra como o navegador pode se comunicar com o servidor que suporta Eventos enviados pelo servidor.</p>
+<p>A maioria dos navegadores não suporta envio de cabeçalhos HTTP ou métodos diferentes do GET com eventos do servidor. Portanto, tenha cuidado ao usar manipuladores de requisição com solicitações de evento-fonte que exigem cabeçalhos específicos na requisição, pois eles provavelmente não os terão.</p>
+<p>Além disso, a maioria dos navegadores reinicia os fluxos se o método <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> não for chamado no lado do cliente após receber todos os pacotes, causando processamento infinito adicional no lado do servidor. Para evitar esse tipo de problema, é comum enviar um pacote final indicando que a fonte de eventos terminou de enviar todos os pacotes.</p>
+<p>O exemplo abaixo mostra como o navegador pode se comunicar com o servidor que suporta Eventos do Servidor.</p>
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
 <pre><code class="lang-html">&lt;html&gt;
     &lt;body&gt;
         &lt;b&gt;Frutas:&lt;/b&gt;
         &lt;ul&gt;&lt;/ul&gt;
     &lt;/body&gt;
     &lt;script&gt;
-        const evtSource = new EventSource('/event-source');
+        const evtSource = new EventSource('http://localhost:5555/event-source');
         const eventList = document.querySelector('ul');
-
+        
         evtSource.onmessage = (e) =&gt; {
             const newElement = document.createElement(&quot;li&quot;);
 
@@ -365,32 +425,40 @@ public static HttpResponse Test(HttpRequest request)
 &lt;/html&gt;
 </code></pre>
 <p>E envie progressivamente as mensagens para o cliente:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
-    [Route(RouteMethod.Get, &quot;/event-source&quot;)]
-    static HttpResponse ServerEventsResponse(HttpRequest request)
+    [RouteGet(&quot;/event-source&quot;)]
+    public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
     {
-        var serverEvents = request.GetEventSource();
-
+        var sse = await request.GetEventSourceAsync ();
+        
         string[] frutas = new[] { &quot;Maçã&quot;, &quot;Banana&quot;, &quot;Melancia&quot;, &quot;Tomate&quot; };
-
+        
         foreach (string fruta in frutas)
         {
-            serverEvents.Send(fruta);
-            Thread.Sleep(1500);
+            await serverEvents.SendAsync(fruta);
+            await Task.Delay(1500);
         }
 
         return serverEvents.Close();
     }
 }
 </code></pre>
-<p>Quando executarmos esse código, esperamos um resultado semelhante a este:</p>
+<p>Quando executar esse código, esperamos um resultado semelhante a este:</p>
 <img src="/assets/img/server side events demo.gif">
 <h2 id="resolvendo-ips-e-hosts-proxy">Resolvendo IPs e hosts proxy</h2>
-<p>O Sisk pode ser usado com proxies, e portanto, os endereços IP podem ser substituídos pelo ponto de extremidade do proxy na transação de um cliente para o proxy.</p>
+<p>O Sisk pode ser usado com proxies, portanto, os endereços IP podem ser substituídos pelo endpoint do proxy na transação de um cliente para o proxy.</p>
 <p>Você pode definir seus próprios resolvidores no Sisk com <a href="/docs/advanced/forwarding-resolvers">resolvidores de encaminhamento</a>.</p>
 <h2 id="codificação-de-cabeçalhos">Codificação de cabeçalhos</h2>
-<p>A codificação de cabeçalhos pode ser um problema para algumas implementações. No Windows, cabeçalhos UTF-8 não são suportados, portanto, o ASCII é usado. O Sisk tem um conversor de codificação incorporado, que pode ser útil para decodificar cabeçalhos codificados incorretamente.</p>
+<p>A codificação de cabeçalhos pode ser um problema para algumas implementações. No Windows, cabeçalhos UTF-8 não são suportados, portanto, o ASCII é usado. O Sisk tem um conversor de codificação embutido, que pode ser útil para decodificar cabeçalhos codificados incorretamente.</p>
 <p>Essa operação é custosa e está desabilitada por padrão, mas pode ser habilitada sob a flag <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
 
 </article>
@@ -433,16 +501,16 @@ public static HttpResponse Test(HttpRequest request)
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -452,7 +520,9 @@ public static HttpResponse Test(HttpRequest request)
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -502,13 +572,37 @@ public static HttpResponse Test(HttpRequest request)
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>

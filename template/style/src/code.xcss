@@ -12,6 +12,21 @@ pre,
     padding: 2px 4px;
 }
 
+pre > code.hljs.has-line-numbers {
+    position: relative;
+    padding-left: 48px;
+    
+    .line-numbers {
+        position: absolute;
+        left: 1em;
+        top: 1em;
+        opacity: .5;
+        user-select: none;
+        pointer-events: none;
+        width: 25px;
+    }
+}
+
 html[data-bs-theme="light"] {
     .hljs {
         background-color: white;
@@ -21,11 +36,11 @@ html[data-bs-theme="light"] {
         .hljs-meta {
             color: #1190b5;
         }
-        
+
         .hljs-meta-value {
             color: #488132;
         }
-        
+
         .hljs-meta-interface {
             color: #7010a8;
         }
@@ -42,15 +57,15 @@ html[data-bs-theme="dark"] {
         background-color: #0c0e11;
         border-radius: 8px;
         border: 1px solid --code-block-border;
-        
+
         .hljs-meta {
             color: #4ec9b0;
         }
-        
+
         .hljs-meta-value {
             color: #9ac18a;
         }
-        
+
         .hljs-meta-interface {
             color: #b49ac4;
         }

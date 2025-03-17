@@ -79,17 +79,26 @@ The [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) object contains sto
 > [!TIP]
 > This property is also acessible by [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) property.
 
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public string Identifier { get; init; } = Guid.NewGuid().ToString();
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
-        if (request.Headers["Authorization"] != null)
+        if (request.Headers.Authorization != null)
         {
-            context.RequestBag.Add("AuthenticatedUser", "Bob");
+            context.RequestBag.Add("AuthenticatedUser", new User("Bob"));
             return null;
         }
         else
@@ -102,22 +111,41 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 
 The above request handler will define `AuthenticatedUser` in the request bag, and can be consumed later in the final callback:
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/")]
-    [RequestHandler(typeof(AuthenticateUserRequestHandler))]
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
     static HttpResponse Index(HttpRequest request)
     {
-        HttpResponse res = new HttpResponse();
-        string authUser = request.Context.RequestBag["AuthenticatedUser"];
-        res.Content = new StringContent($"Hello, {authUser}!");
-        return res;
+        User authUser = request.Context.RequestBag["AuthenticatedUser"];
+        
+        return new HttpResponse() {
+            Content = new StringContent($"Hello, {authUser.Name}!")
+        };
     }
 }
 ```
 
 You can also use the `Bag.Set()` and `Bag.Get()` helper methods to get or set objects by their type singletons.
+
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class Authenticate : RequestHandler
@@ -127,12 +155,24 @@ public class Authenticate : RequestHandler
         request.Bag.Set<User>(authUser);
     }
 }
+```
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```csharp
 [RouteGet("/")]
 [RequestHandler<Authenticate>]
-public static HttpResponse Test(HttpRequest request)
+public static HttpResponse GetUser(HttpRequest request)
 {
     var user = request.Bag.Get<User>();
+    ...
 }
 ```
 
@@ -140,15 +180,25 @@ public static HttpResponse Test(HttpRequest request)
 
 You can get the values of a form data in an [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) with the example below:
 
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/auth")]
+public HttpResponse Index(HttpRequest request)
 {
     var form = request.GetFormContent();
 
     string? username = form["username"];
     string? password = form["password"];
 
-    if (AttempLogin(username, password) == true)
+    if (AttempLogin(username, password))
     {
         ...
     }
@@ -159,13 +209,23 @@ static HttpResponse Index(HttpRequest request)
 
 Sisk's HTTP request lets you get uploaded multipart contents, such as a files, form fields, or any binary content.
 
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
-static HttpResponse Index(HttpRequest request)
+[RoutePost("/upload-contents")]
+public HttpResponse Index(HttpRequest request)
 {
     // the following method reads the entire request input into an
     // array of MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
-
+    
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
         // The name of the file provided by Multipart form data.
@@ -204,6 +264,15 @@ Also, most browsers restart streams if the [EventSource.close](https://developer
 
 The example below shows how the browser can communicate with the server that supports Server-side events.
 
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
+
 ```html
 <html>
     <body>
@@ -211,9 +280,9 @@ The example below shows how the browser can communicate with the server that sup
         <ul></ul>
     </body>
     <script>
-        const evtSource = new EventSource('/event-source');
+        const evtSource = new EventSource('http://localhost:5555/event-source');
         const eventList = document.querySelector('ul');
-
+        
         evtSource.onmessage = (e) => {
             const newElement = document.createElement("li");
 
@@ -230,20 +299,29 @@ The example below shows how the browser can communicate with the server that sup
 
 And progressively send the messages to the client:
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class MyController
 {
-    [Route(RouteMethod.Get, "/event-source")]
-    static HttpResponse ServerEventsResponse(HttpRequest request)
+    [RouteGet("/event-source")]
+    public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
     {
-        var serverEvents = request.GetEventSource();
-
+        var sse = await request.GetEventSourceAsync ();
+        
         string[] fruits = new[] { "Apple", "Banana", "Watermelon", "Tomato" };
-
+        
         foreach (string fruit in fruits)
         {
-            serverEvents.Send(fruit);
-            Thread.Sleep(1500);
+            await serverEvents.SendAsync(fruit);
+            await Task.Delay(1500);
         }
 
         return serverEvents.Close();

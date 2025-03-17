@@ -21,6 +21,15 @@ Example: let's assume that a user authentication request handler does not authen
 
 To create a request handler, we can create a class that inherits the [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) interface, in this format:
 
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
 {
@@ -50,6 +59,15 @@ Whenever a request handler returns `null`, it indicates that the request must co
 
 You can define one or more request handlers for a route.
 
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 {
@@ -61,6 +79,15 @@ mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 ```
 
 Or creating an [Route](/api/Sisk.Core.Routing.Route) object:
+
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
@@ -75,6 +102,15 @@ mainRouter.SetRoute(indexRoute);
 
 You can define a global request handler that will runned on all routes on a router.
 
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
@@ -86,6 +122,15 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 
 You can define a request handler on a method attribute along with a route attribute.
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 public class MyController
 {
@@ -93,8 +138,9 @@ public class MyController
     [RequestHandler<AuthenticateUserRequestHandler>]
     static HttpResponse Index(HttpRequest request)
     {
-        return new HttpResponse()
-            .WithContent(new StringContent("Hello world!"));
+        return new HttpResponse() {
+            Content = new StringContent("Hello world!")
+        };
     }
 }
 ```
@@ -103,17 +149,35 @@ Note that it is necessary to pass the desired request handler type and not an ob
 
 Example:
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 [RequestHandler<AuthenticateUserRequestHandler>("arg1", 123, ...)]
-static HttpResponse Index(HttpRequest request)
+public HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent("Hello world!");
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent("Hello world!")
+    };
 }
 ```
 
 You can also create your own attribute that implements RequestHandler:
+
+<div class="script-header">
+    <span>
+        Middleware/Attributes/AuthenticateAttribute.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 public class AuthenticateAttribute : RequestHandlerAttribute
@@ -127,19 +191,37 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 
 And use it as:
 
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
 ```cs
 [Authenticate]
 static HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent("Hello world!");
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent("Hello world!")
+    };
 }
 ```
 
 ## Bypassing an global request handler
 
 After defining a global request handler on a route, you can ignore this request handler on specific routes.
+
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 
 ```cs
 var myRequestHandler = new AuthenticateUserRequestHandler();

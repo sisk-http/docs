@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Processamento de Requisi&#231;&#245;es | Sisk </title>
+        <title>Tratamento de Requisi&#231;&#245;es | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Processamento de Requisi&#231;&#245;es | Sisk ">
+        <meta name="title" content="Tratamento de Requisi&#231;&#245;es | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -142,22 +142,30 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="processamento-de-requisições">Processamento de Requisições</h1>
+<h1 id="tratamento-de-requisições">Tratamento de Requisições</h1>
 
-<p>Os manipuladores de requisições, também conhecidos como &quot;middlewares&quot;, são funções que são executadas antes ou depois de uma requisição ser processada pelo roteador. Eles podem ser definidos por rota ou por roteador.</p>
-<p>Existem dois tipos de manipuladores de requisições:</p>
+<p>Os tratadores de requisições, também conhecidos como &quot;middlewares&quot;, são funções que são executadas antes ou após uma requisição ser executada no roteador. Eles podem ser definidos por rota ou por roteador.</p>
+<p>Existem dois tipos de tratadores de requisições:</p>
 <ul>
-<li><strong>BeforeResponse</strong>: define que o manipulador de requisição será executado antes de chamar a ação do roteador.</li>
-<li><strong>AfterResponse</strong>: define que o manipulador de requisição será executado após chamar a ação do roteador. O envio de uma resposta HTTP neste contexto sobrescreverá a resposta da ação do roteador.</li>
+<li><strong>BeforeResponse</strong>: define que o tratador de requisição será executado antes de chamar a ação do roteador.</li>
+<li><strong>AfterResponse</strong>: define que o tratador de requisição será executado após chamar a ação do roteador. Enviar uma resposta HTTP neste contexto substituirá a resposta da ação do roteador.</li>
 </ul>
-<p>Ambos os manipuladores de requisições podem sobrescrever a resposta da função de callback do roteador. Aliás, manipuladores de requisições podem ser úteis para validar uma requisição, como autenticação, conteúdo ou qualquer outra informação, como armazenar informações, logs ou outras etapas que podem ser realizadas antes ou depois de uma resposta.</p>
+<p>Ambos os tratadores de requisições podem substituir a resposta da função de callback real do roteador. Além disso, os tratadores de requisições podem ser úteis para validar uma requisição, como autenticação, conteúdo ou qualquer outra informação, como armazenar informações, logs ou outras etapas que podem ser realizadas antes ou após uma resposta.</p>
 <p><img src="/assets/img/requesthandlers1.png" alt=""></p>
-<p>Desta forma, um manipulador de requisição pode interromper toda essa execução e retornar uma resposta antes de terminar o ciclo, descartando tudo mais no processo.</p>
-<p>Exemplo: suponha que um manipulador de requisição de autenticação de usuário não o autentique. Ele impedirá que o ciclo de vida da requisição seja continuado e ficará pendente. Se isso acontecer no manipulador de requisição na posição dois, o terceiro e os seguintes não serão avaliados.</p>
+<p>Dessa forma, um tratador de requisição pode interromper toda a execução e retornar uma resposta antes de finalizar o ciclo, descartando tudo o mais no processo.</p>
+<p>Exemplo: suponha que um tratador de requisição de autenticação de usuário não autentique o usuário. Isso impedirá que o ciclo de requisição continue e ficará pendente. Se isso acontecer no tratador de requisição na posição dois, o terceiro e subsequentes não serão avaliados.</p>
 <p><img src="/assets/img/requesthandlers2.png" alt=""></p>
-<h2 id="criando-um-manipulador-de-requisição">Criando um manipulador de requisição</h2>
-<p>Para criar um manipulador de requisição, podemos criar uma classe que herda a interface <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, no seguinte formato:</p>
-<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+<h2 id="criando-um-tratador-de-requisição">Criando um Tratador de Requisição</h2>
+<p>Para criar um tratador de requisição, podemos criar uma classe que herda a interface <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, no seguinte formato:</p>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
 
@@ -165,69 +173,118 @@
     {
         if (request.Headers.Authorization != null)
         {
-            // Retornando null indica que o ciclo de requisição pode ser continuado
+            // Retornar null indica que o ciclo de requisição pode continuar
             return null;
         }
         else
         {
-            // Retornando um objeto HttpResponse indica que esta resposta sobrescreverá respostas adjacentes.
+            // Retornar um objeto HttpResponse indica que essa resposta substituirá as respostas adjacentes.
             return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
 </code></pre>
-<p>No exemplo acima, indicamos que se o cabeçalho <code>Authorization</code> estiver presente na requisição, ele deve continuar e o próximo manipulador de requisição ou a callback do roteador deve ser chamada, seja qual for a próxima. Se um manipulador de requisição é executado após a resposta por sua propriedade <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> e retornar um valor não nulo, ele sobrescreverá a resposta do roteador.</p>
-<p>Sempre que um manipulador de requisição retorna <code>null</code>, indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.</p>
-<h2 id="associando-um-manipulador-de-requisição-a-uma-única-rota">Associando um manipulador de requisição a uma única rota</h2>
-<p>Você pode definir um ou mais manipuladores de requisição para uma rota.</p>
-<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
+<p>No exemplo acima, indicamos que, se o cabeçalho <code>Authorization</code> estiver presente na requisição, deve continuar e a próxima requisição ou a ação do roteador deve ser chamada, dependendo do que vier a seguir. Se um tratador de requisição for executado após a resposta por meio de sua propriedade <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> e retornar um valor não nulo, ele substituirá a resposta do roteador.</p>
+<p>Sempre que um tratador de requisição retorna <code>null</code>, isso indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.</p>
+<h2 id="associando-um-tratador-de-requisição-a-uma-rota-única">Associando um Tratador de Requisição a uma Rota Única</h2>
+<p>Você pode definir um ou mais tratadores de requisição para uma rota.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
 {
-    new AuthenticateUserRequestHandler(),     // manipulador de requisição antes
-    new ValidateJsonContentRequestHandler(),  // manipulador de requisição antes
-    //                -- método IndexPage será executado aqui
-    new WriteToLogRequestHandler()            // manipulador de requisição depois
+    new AuthenticateUserRequestHandler(),     // antes do tratador de requisição
+    new ValidateJsonContentRequestHandler(),  // antes do tratador de requisição
+    //                                        -- método IndexPage será executado aqui
+    new WriteToLogRequestHandler()            // após o tratador de requisição
 });
 </code></pre>
 <p>Ou criando um objeto <a href="/api/Sisk.Core.Routing.Route">Route</a>:</p>
-<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
 mainRouter.SetRoute(indexRoute);
 </code></pre>
-<h2 id="associando-um-manipulador-de-requisição-a-um-roteador">Associando um manipulador de requisição a um roteador</h2>
-<p>Você pode definir um manipulador de requisição global que será executado em todas as rotas de um roteador.</p>
-<pre><code class="lang-cs">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+<h2 id="associando-um-tratador-de-requisição-a-um-roteador">Associando um Tratador de Requisição a um Roteador</h2>
+<p>Você pode definir um tratador de requisição global que será executado em todas as rotas de um roteador.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
 </code></pre>
-<h2 id="associando-um-manipulador-de-requisição-a-um-atributo">Associando um manipulador de requisição a um atributo</h2>
-<p>Você pode definir um manipulador de requisição em um atributo de método junto com um atributo de rota.</p>
-<pre><code class="lang-cs">public class MyController
+<h2 id="associando-um-tratador-de-requisição-a-um-atributo">Associando um Tratador de Requisição a um Atributo</h2>
+<p>Você pode definir um tratador de requisição em um atributo de método junto com um atributo de rota.</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">public class MyController
 {
     [RouteGet(&quot;/&quot;)]
     [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
     static HttpResponse Index(HttpRequest request)
     {
-        return new HttpResponse()
-            .WithContent(new StringContent(&quot;Hello world!&quot;));
+        return new HttpResponse() {
+            Content = new StringContent(&quot;Hello world!&quot;)
+        };
     }
 }
 </code></pre>
-<p>Observe que é necessário passar o tipo de manipulador de requisição desejado e não uma instância de objeto. Dessa forma, o manipulador de requisição será instanciado pelo parser do roteador. Você pode passar argumentos no construtor com a propriedade <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a>.</p>
+<p>Observe que é necessário passar o tipo de tratador de requisição desejado e não uma instância do objeto. Dessa forma, o tratador de requisição será instanciado pelo analisador do roteador. Você pode passar argumentos no construtor da classe com a propriedade <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a>.</p>
 <p>Exemplo:</p>
-<pre><code class="lang-cs">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
-static HttpResponse Index(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RequestHandler&lt;AuthenticateUserRequestHandler&gt;(&quot;arg1&quot;, 123, ...)]
+public HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hello world!&quot;)
+    };
 }
 </code></pre>
 <p>Você também pode criar seu próprio atributo que implementa RequestHandler:</p>
-<pre><code class="lang-cs">public class AuthenticateAttribute : RequestHandlerAttribute
+<div class="script-header">
+    <span>
+        Middleware/Attributes/AuthenticateAttribute.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">public class AuthenticateAttribute : RequestHandlerAttribute
 {
     public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { &quot;arg1&quot;, 123, ... })
     {
@@ -236,17 +293,33 @@ static HttpResponse Index(HttpRequest request)
 }
 </code></pre>
 <p>E usá-lo como:</p>
-<pre><code class="lang-cs">[Authenticate]
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[Authenticate]
 static HttpResponse Index(HttpRequest request)
 {
-    HttpResponse res = new HttpResponse();
-    res.Content = new StringContent(&quot;Hello world!&quot;);
-    return res;
+    return res = new HttpResponse() {
+        Content = new StringContent(&quot;Hello world!&quot;)
+    };
 }
 </code></pre>
-<h2 id="ignorando-um-manipulador-de-requisição-global">Ignorando um manipulador de requisição global</h2>
-<p>Depois de definir um manipulador de requisição global em uma rota, você pode ignorá-lo em rotas específicas.</p>
-<pre><code class="lang-cs">var myRequestHandler = new AuthenticateUserRequestHandler();
+<h2 id="ignorando-um-tratador-de-requisição-global">Ignorando um Tratador de Requisição Global</h2>
+<p>Depois de definir um tratador de requisição global em uma rota, você pode ignorá-lo em rotas específicas.</p>
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">var myRequestHandler = new AuthenticateUserRequestHandler();
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     myRequestHandler
@@ -256,14 +329,14 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
 {
     BypassGlobalRequestHandlers = new IRequestHandler[]
     {
-        myRequestHandler,                    // ok: a mesma instância do que está nos manipuladores de requisição globais
-        new AuthenticateUserRequestHandler() // errado: não ignorará o manipulador de requisição global
+        myRequestHandler,                    // ok: a mesma instância do que está nos tratadores de requisição globais
+        new AuthenticateUserRequestHandler() // errado: não ignorará o tratador de requisição global
     }
 });
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Se você estiver ignorando um manipulador de requisição, deve usar a mesma referência do que você instanciou antes para ignorá-lo. Criar outra instância de manipulador de requisição não ignorará o manipulador de requisição global, pois a referência será alterada. Lembre-se de usar a mesma referência de manipulador de requisição usada tanto em GlobalRequestHandlers quanto em BypassGlobalRequestHandlers.</p>
+<p>Se você estiver ignorando um tratador de requisição, é necessário usar a mesma referência do que foi instanciada anteriormente para ignorar. Criar outra instância do tratador de requisição não ignorará o tratador de requisição global, pois sua referência será alterada. Lembre-se de usar a mesma referência do tratador de requisição usada em ambos GlobalRequestHandlers e BypassGlobalRequestHandlers.</p>
 </div>
 
 </article>
@@ -306,16 +379,16 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                     return cleanedResult;
                 }
                 
-                function highlightMissingCodePieces() {
+                function runPostHljsFunctions() {
                     if (!document.querySelector("pre>code")) {
                         return;
                     }
                     if (!document.querySelector(".hljs")) {
-                        setTimeout(highlightMissingCodePieces, 100);
+                        setTimeout(runPostHljsFunctions, 100);
                         return;
                     }
                     
-                    document.querySelectorAll("pre").forEach(pre => {
+                    function highlightMissingCodeTokens(pre) {
                         const tokenClasses = [
                             "HttpResponse", "HttpRequest", "File", "Task",
                             "Router", "Route", "StringContent", "StreamContent",
@@ -325,7 +398,9 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                             "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
                             "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent"
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
@@ -375,13 +450,37 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
                         }
                         
                         const code = pre.querySelector("code");
-                        if (code) {
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
                             runStyles(code);
                         }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
                     });
                 }
                 
-                highlightMissingCodePieces();
+                runPostHljsFunctions();
             </script>
         </footer>
     </body>
