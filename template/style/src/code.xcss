@@ -1,23 +1,38 @@
 code,
+pre,
 .hljs {
     font-family: --bs-font-monospace;
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.7;
 }
 
 :not(pre) > code {
+    font-size: 14px;
     border-radius: 4px;
     padding: 2px 4px;
 }
 
 html[data-bs-theme="light"] {
     .hljs {
-        background-color: #f2f2f2;
+        background-color: white;
         border-radius: 8px;
         border: 1px solid --code-block-border;
+
+        .hljs-meta {
+            color: #1190b5;
+        }
+        
+        .hljs-meta-value {
+            color: #488132;
+        }
+        
+        .hljs-meta-interface {
+            color: #7010a8;
+        }
     }
-    
+
     :not(pre) > code {
-        background-color: #f0f0f0;
+        background-color: #fafafa;
         color: #000;
     }
 }
@@ -27,6 +42,18 @@ html[data-bs-theme="dark"] {
         background-color: #0c0e11;
         border-radius: 8px;
         border: 1px solid --code-block-border;
+        
+        .hljs-meta {
+            color: #4ec9b0;
+        }
+        
+        .hljs-meta-value {
+            color: #9ac18a;
+        }
+        
+        .hljs-meta-interface {
+            color: #b49ac4;
+        }
     }
 
     :not(pre) > code {

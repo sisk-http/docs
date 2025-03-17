@@ -1,7 +1,7 @@
 :root {
     --bs-font-sans-serif: "Inter", system-ui, -apple-system, Arial, sans-serif;
-    --bs-font-monospace: "Geist Mono", "Geist Mono Fallback", "Consolas", SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, "Courier New", ui-monospace,, monospace;
-    --bs-body-font-size: 16px;
+    --bs-font-monospace: "Geist Mono", "Geist Mono Fallback", Consolas, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, "Courier New", ui-monospace, monospace;
+    --bs-body-font-size: 15px;
     --bs-link-color: --primary;
     --bs-transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -16,7 +16,7 @@ html[data-bs-theme="dark"] {
     --bs-info-bg-subtle: #183338;
     --bs-body-bg: #010102;
     --bs-body-bg-alt: #0c0e0f;
-    
+
     --code-block-border: #2e3642;
 }
 
@@ -31,7 +31,7 @@ html[data-bs-theme="light"] {
     --bs-info-bg-subtle: #eafbff;
     --bs-body-bg: #ffffff;
     --bs-body-bg-alt: #f6f6f6;
-        
+
     --code-block-border: #d9d9d9;
 }
 

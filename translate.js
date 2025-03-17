@@ -18,7 +18,7 @@ function enumerateMdFiles(dir) {
 
     for (const file of files) {
         const filePath = path.join(dir, file);
-
+        
         if (isDirectory(filePath)) {
 
             mdFiles = mdFiles.concat(enumerateMdFiles(filePath));
@@ -39,7 +39,7 @@ async function translate(text, prompt) {
         console.error("GROQ_API_KEY environment variable is not set.");
         process.exit(1);
     }
-
+    
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
