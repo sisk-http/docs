@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Transmisi&#243;n de contenido | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Transmisi&#243;n de contenido | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/features/content-streaming.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="transmisión-de-contenido">Transmisión de contenido</h1>
+
+<p>El Sisk admite la lectura y el envío de flujos de contenido desde y hacia el cliente. Esta característica es útil para eliminar la sobrecarga de memoria para serializar y deserializar contenido durante la vida útil de una solicitud.</p>
+<h2 id="flujo-de-contenido-de-la-solicitud">Flujo de contenido de la solicitud</h2>
+<p>Los contenidos pequeños se cargan automáticamente en la memoria del búfer de la conexión HTTP, cargando rápidamente este contenido en <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> y <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>. Para contenidos más grandes, se puede utilizar el método <a href="/api/Sisk.Core.Http.HttpRequest.GetRequestStream">HttpRequest.GetRequestStream</a> para obtener el flujo de lectura del contenido de la solicitud.</p>
+<p>Es importante destacar que el método <a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent">HttpRequest.GetMultipartFormContent</a> lee todo el contenido de la solicitud en la memoria, por lo que puede no ser útil para leer contenidos grandes.</p>
+<p>Consideremos el siguiente ejemplo:</p>
+<div class="script-header">
+    <span>
+        Controller/UploadDocument.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RoutePost ( &quot;/api/upload-document/&lt;filename&gt;&quot; )]
+public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
+
+    var fileName = request.RouteParameters [ &quot;filename&quot; ].GetString ();
+
+    if (!request.HasContents) {
+        // la solicitud no tiene contenido
+        return new HttpResponse ( HttpStatusInformation.BadRequest );
+    }
+
+    var contentStream = request.GetRequestStream ();
+    var outputFileName = Path.Combine (
+        AppDomain.CurrentDomain.BaseDirectory,
+        &quot;uploads&quot;,
+        fileName );
+
+    using (var fs = File.Create ( outputFileName )) {
+        await contentStream.CopyToAsync ( fs );
+    }
+
+    return new HttpResponse () {
+        Content = JsonContent.Create ( new { message = &quot;Archivo enviado con éxito.&quot; } )
+    };
+}
+</code></pre>
+<p>En el ejemplo anterior, el método <code>UploadDocument</code> lee el contenido de la solicitud y lo guarda en un archivo. No se realiza ninguna asignación de memoria adicional, excepto por el búfer de lectura utilizado por <code>Stream.CopyToAsync</code>. El ejemplo anterior elimina la presión de asignación de memoria para un archivo muy grande, lo que puede optimizar el rendimiento de la aplicación.</p>
+<p>Es una buena práctica utilizar siempre un <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> en una operación que pueda ser larga, como enviar archivos, ya que depende de la velocidad de la red entre el cliente y el servidor.</p>
+<p>El ajuste con un CancellationToken se puede realizar de la siguiente manera:</p>
+<div class="script-header">
+    <span>
+        Controller/UploadDocument.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">// el token de cancelación a continuación lanzará una excepción si se alcanza el tiempo de espera de 30 segundos.
+CancellationTokenSource copyCancellation = new CancellationTokenSource ( delay: TimeSpan.FromSeconds ( 30 ) );
+
+try {
+    using (var fs = File.Create ( outputFileName )) {
+        await contentStream.CopyToAsync ( fs, copyCancellation.Token );
+    }
+}
+catch (OperationCanceledException) {
+    return new HttpResponse ( HttpStatusInformation.BadRequest ) {
+        Content = JsonContent.Create ( new { Error = &quot;La carga superó el tiempo de carga máximo (30 segundos).&quot; } )
+    };
+}
+</code></pre>
+<h2 id="flujo-de-contenido-de-la-respuesta">Flujo de contenido de la respuesta</h2>
+<p>Enviar contenido de respuesta también es posible. Actualmente, hay dos formas de hacerlo: a través del método <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> y utilizando un contenido de tipo <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a>.</p>
+<p>Consideremos un escenario en el que necesitamos servir un archivo de imagen. Para hacer esto, podemos utilizar el siguiente código:</p>
+<div class="script-header">
+    <span>
+        Controller/ImageController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet ( &quot;/api/profile-picture&quot; )]
+public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
+
+    // método de ejemplo para obtener una imagen de perfil
+    var profilePictureFilename = &quot;profile-picture.jpg&quot;;
+    byte[] profilePicture = await File.ReadAllBytesAsync ( profilePictureFilename );
+
+    return new HttpResponse () {
+        Content = new ByteArrayContent ( profilePicture ),
+        Headers = new () {
+            ContentType = &quot;image/jpeg&quot;,
+            ContentDisposition = $&quot;inline; filename={profilePictureFilename}&quot;
+        }
+    };
+}
+</code></pre>
+<p>El método anterior realiza una asignación de memoria cada vez que se lee el contenido de la imagen. Si la imagen es grande, esto puede causar un problema de rendimiento, y en situaciones de pico, incluso una sobrecarga de memoria y caída del servidor. En estas situaciones, la caché puede ser útil, pero no eliminará el problema, ya que la memoria seguirá reservada para ese archivo. La caché aliviará la presión de tener que asignar memoria para cada solicitud, pero para archivos grandes, no será suficiente.</p>
+<p>Enviar la imagen a través de un flujo puede ser una solución al problema. En lugar de leer todo el contenido de la imagen, se crea un flujo de lectura en el archivo y se copia al cliente utilizando un búfer pequeño.</p>
+<h4 id="enviar-a-través-del-método-getresponsestream">Enviar a través del método GetResponseStream</h4>
+<p>El método <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> crea un objeto que permite enviar fragmentos de la respuesta HTTP a medida que se prepara el flujo de contenido. Este método es más manual, requiriendo que se defina el estado, los encabezados y el tamaño del contenido antes de enviar el contenido.</p>
+<div class="script-header">
+    <span>
+        Controller/ImageController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet ( &quot;/api/profile-picture&quot; )]
+public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
+
+    var profilePictureFilename = &quot;profile-picture.jpg&quot;;
+
+    // en esta forma de envío, el estado y el encabezado deben definirse
+    // antes de enviar el contenido
+    var requestStreamManager = request.GetResponseStream ();
+
+    requestStreamManager.SetStatus ( System.Net.HttpStatusCode.OK );
+    requestStreamManager.SetHeader ( HttpKnownHeaderNames.ContentType, &quot;image/jpeg&quot; );
+    requestStreamManager.SetHeader ( HttpKnownHeaderNames.ContentDisposition, $&quot;inline; filename={profilePictureFilename}&quot; );
+
+    using (var fs = File.OpenRead ( profilePictureFilename )) {
+
+        // en esta forma de envío, también es necesario definir el tamaño del contenido
+        // antes de enviarlo.
+        requestStreamManager.SetContentLength ( fs.Length );
+
+        // si no se conoce el tamaño del contenido, se puede utilizar codificación por fragmentos
+        // para enviar el contenido
+        requestStreamManager.SendChunked = true;
+
+        // y luego, escribir en el flujo de salida
+        await fs.CopyToAsync ( requestStreamManager.ResponseStream );
+    }
+}
+</code></pre>
+<h4 id="enviar-contenido-a-través-de-un-streamcontent">Enviar contenido a través de un StreamContent</h4>
+<p>La clase <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> permite enviar contenido desde una fuente de datos como un flujo de bytes. Esta forma de envío es más fácil, eliminando los requisitos anteriores, y incluso permitiendo el uso de <a href="/docs/fundamentals/responses#gzip-deflate-and-brotli-compression">codificación de compresión</a> para reducir el tamaño del contenido.</p>
+<div class="script-header">
+    <span>
+        Controller/ImageController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet ( &quot;/api/profile-picture&quot; )]
+public HttpResponse UploadDocument ( HttpRequest request ) {
+
+    var profilePictureFilename = &quot;profile-picture.jpg&quot;;
+
+    return new HttpResponse () {
+        Content = new StreamContent ( File.OpenRead ( profilePictureFilename ) ),
+        Headers = new () {
+            ContentType = &quot;image/jpeg&quot;,
+            ContentDisposition = $&quot;inline; filename=\&quot;{profilePictureFilename}\&quot;&quot;
+        }
+    };
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>En este tipo de contenido, no encapsule el flujo en un bloque <code>using</code>. El contenido se descartará automáticamente por el servidor HTTP cuando se finalice el flujo de contenido, con o sin errores.</p>
+</div>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/features/content-streaming.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function highlightMissingCodePieces() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(highlightMissingCodePieces, 100);
+                        return;
+                    }
+                    
+                    document.querySelectorAll("pre").forEach(pre => {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code) {
+                            runStyles(code);
+                        }
+                    });
+                }
+                
+                highlightMissingCodePieces();
+            </script>
+        </footer>
+    </body>
+</html>

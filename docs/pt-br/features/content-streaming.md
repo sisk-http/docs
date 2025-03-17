@@ -2,9 +2,9 @@
 
 O Sisk suporta a leitura e o envio de fluxos de conteúdo para e do cliente. Essa funcionalidade é útil para remover a sobrecarga de memória para serializar e deserializar conteúdo durante a vida útil de uma solicitação.
 
-## Fluxo de Conteúdo de Solicitação
+## Fluxo de Conteúdo da Solicitação
 
-Pequenos conteúdos são carregados automaticamente na memória do buffer de conexão HTTP, carregando rapidamente esse conteúdo para [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) e [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para conteúdos maiores, o método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) pode ser usado para obter o fluxo de leitura do conteúdo da solicitação.
+Conteúdos pequenos são carregados automaticamente no buffer de memória da conexão HTTP, carregando rapidamente esse conteúdo para [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) e [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para conteúdos maiores, o método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) pode ser usado para obter o fluxo de leitura do conteúdo da solicitação.
 
 É importante notar que o método [HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) lê todo o conteúdo da solicitação na memória, portanto, pode não ser útil para ler conteúdos grandes.
 
@@ -77,7 +77,7 @@ catch (OperationCanceledException) {
 }
 ```
 
-## Fluxo de Conteúdo de Resposta
+## Fluxo de Conteúdo da Resposta
 Enviar conteúdo de resposta também é possível. Atualmente, existem duas maneiras de fazer isso: através do método [HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) e usando um conteúdo do tipo [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0).
 
 Considere um cenário em que precisamos servir um arquivo de imagem. Para fazer isso, podemos usar o seguinte código:
@@ -109,7 +109,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-O método acima faz uma alocação de memória a cada vez que lê o conteúdo da imagem. Se a imagem for grande, isso pode causar um problema de desempenho e, em situações de pico, até mesmo uma sobrecarga de memória e travar o servidor. Nesses casos, o cache pode ser útil, mas não eliminará o problema, pois a memória ainda será reservada para esse arquivo. O cache aliviará a pressão de ter que alocar memória para cada solicitação, mas para arquivos grandes, não será suficiente.
+O método acima faz uma alocação de memória a cada vez que lê o conteúdo da imagem. Se a imagem for grande, isso pode causar um problema de desempenho, e em situações de pico, até mesmo uma sobrecarga de memória e travar o servidor. Nesses casos, o cache pode ser útil, mas não eliminará o problema, pois a memória ainda será reservada para esse arquivo. O cache aliviará a pressão de ter que alocar memória para cada solicitação, mas para arquivos grandes, não será suficiente.
 
 Enviar a imagem por meio de um fluxo pode ser uma solução para o problema. Em vez de ler todo o conteúdo da imagem, um fluxo de leitura é criado no arquivo e copiado para o cliente usando um buffer pequeno.
 
@@ -146,7 +146,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
         // antes de enviá-lo.
         requestStreamManager.SetContentLength ( fs.Length );
 
-        // se você não souber o tamanho do conteúdo, pode usar o chunked-encoding
+        // se você não souber o tamanho do conteúdo, pode usar o codificação em chunk
         // para enviar o conteúdo
         requestStreamManager.SendChunked = true;
 
@@ -158,7 +158,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 #### Enviar conteúdo através de um StreamContent
 
-A classe [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar conteúdo de uma fonte de dados como um fluxo de bytes. Essa forma de envio é mais fácil, removendo os requisitos anteriores e até mesmo permitindo o uso de [codificação de compressão](/docs/fundamentos/respostas#gzip-deflate-and-brotli-compression) para reduzir o tamanho do conteúdo.
+A classe [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar conteúdo de uma fonte de dados como um fluxo de bytes. Essa forma de envio é mais fácil, removendo os requisitos anteriores, e até mesmo permitindo o uso de [codificação de compressão](/docs/fundamentos/respostas#gzip-deflate-and-brotli-compression) para reduzir o tamanho do conteúdo.
 
 <div class="script-header">
     <span>

@@ -4,7 +4,7 @@ El Sisk admite la lectura y el envío de flujos de contenido desde y hacia el cl
 
 ## Flujo de contenido de la solicitud
 
-Los contenidos pequeños se cargan automáticamente en la memoria del búfer de conexión HTTP, cargando rápidamente este contenido en [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) y [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para contenidos más grandes, el método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) se puede utilizar para obtener el flujo de lectura de contenido de la solicitud.
+Los contenidos pequeños se cargan automáticamente en la memoria del búfer de la conexión HTTP, cargando rápidamente este contenido en [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) y [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para contenidos más grandes, se puede utilizar el método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) para obtener el flujo de lectura del contenido de la solicitud.
 
 Es importante destacar que el método [HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) lee todo el contenido de la solicitud en la memoria, por lo que puede no ser útil para leer contenidos grandes.
 
@@ -72,7 +72,7 @@ try {
 }
 catch (OperationCanceledException) {
     return new HttpResponse ( HttpStatusInformation.BadRequest ) {
-        Content = JsonContent.Create ( new { Error = "La carga superó el tiempo máximo de carga (30 segundos)." } )
+        Content = JsonContent.Create ( new { Error = "La carga superó el tiempo de carga máximo (30 segundos)." } )
     };
 }
 ```
@@ -109,7 +109,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-El método anterior realiza una asignación de memoria cada vez que se lee el contenido de la imagen. Si la imagen es grande, esto puede causar un problema de rendimiento, y en situaciones de pico, incluso una sobrecarga de memoria y caída del servidor. En estas situaciones, la caché puede ser útil, pero no eliminará el problema, ya que la memoria todavía se reservará para ese archivo. La caché aliviará la presión de tener que asignar memoria para cada solicitud, pero para archivos grandes, no será suficiente.
+El método anterior realiza una asignación de memoria cada vez que se lee el contenido de la imagen. Si la imagen es grande, esto puede causar un problema de rendimiento, y en situaciones de pico, incluso una sobrecarga de memoria y caída del servidor. En estas situaciones, la caché puede ser útil, pero no eliminará el problema, ya que la memoria seguirá reservada para ese archivo. La caché aliviará la presión de tener que asignar memoria para cada solicitud, pero para archivos grandes, no será suficiente.
 
 Enviar la imagen a través de un flujo puede ser una solución al problema. En lugar de leer todo el contenido de la imagen, se crea un flujo de lectura en el archivo y se copia al cliente utilizando un búfer pequeño.
 
@@ -158,7 +158,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 #### Enviar contenido a través de un StreamContent
 
-La clase [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar contenido desde una fuente de datos como un flujo de bytes. Esta forma de envío es más fácil, eliminando los requisitos anteriores, e incluso permitiendo el uso de [codificación de compresión](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) para reducir el tamaño del contenido.
+La clase [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar contenido desde una fuente de datos como un flujo de bytes. Esta forma de envío es más fácil, eliminando los requisitos anteriores, y incluso permitiendo el uso de [codificación de compresión](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) para reducir el tamaño del contenido.
 
 <div class="script-header">
     <span>
@@ -187,4 +187,4 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
 
 > [!IMPORTANT]
 >
-> En este tipo de contenido, no se debe encapsular el flujo en un bloque `using`. El contenido se descartará automáticamente por el servidor HTTP cuando se finalice el flujo de contenido, con o sin errores.
+> En este tipo de contenido, no encapsule el flujo en un bloque `using`. El contenido se descartará automáticamente por el servidor HTTP cuando se finalice el flujo de contenido, con o sin errores.

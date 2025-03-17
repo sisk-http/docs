@@ -1,6 +1,6 @@
 # 流式内容
 
-Sisk 支持读取和发送流式内容到客户端和从客户端。这一功能对于减少序列化和反序列化内容在请求生命周期内的内存开销很有用。
+Sisk 支持读取和发送流式内容到和从客户端。这一功能对于在请求的生命周期中序列化和反序列化内容的内存开销非常有用。
 
 ## 请求内容流
 
@@ -78,7 +78,7 @@ catch (OperationCanceledException) {
 ```
 
 ## 响应内容流
-发送响应内容也是可能的。目前，有两种方式可以做到这一点：通过 [HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) 方法和使用 [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类型的内容。
+发送响应内容也是可能的。目前，有两种方法可以做到这一点：通过 [HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) 方法和使用 [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类型的内容。
 
 考虑一个需要提供图像文件的场景。可以使用以下代码：
 
@@ -111,11 +111,11 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 上面的方法每次读取图像内容时都会进行内存分配。如果图像很大，这可能会导致性能问题，并且在峰值情况下，甚至可能导致内存过载和服务器崩溃。在这些情况下，缓存可能很有用，但它不会消除问题，因为仍然需要为该文件保留内存。缓存可以缓解每次请求都需要分配内存的压力，但对于大文件来说，它是不够的。
 
-可以通过流式传输图像来解决这个问题。与其读取整个图像内容，不如创建一个文件的读取流，并使用一个小缓冲区将其复制到客户端。
+通过流式传输发送图像可以解决这个问题。与其读取整个图像内容，不如创建一个文件的读取流，并使用一个小缓冲区将其复制到客户端。
 
 #### 通过 GetResponseStream 方法发送
 
-[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) 方法创建一个对象，允许将 HTTP 响应的块发送到内容流准备好时。这一方法更为手动，需要在发送内容之前定义状态、头部和内容大小。
+[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) 方法创建一个对象，允许将 HTTP 响应的块作为内容流准备好时发送。这种方法更为手动，需要在发送内容之前定义状态、头部和内容大小。
 
 <div class="script-header">
     <span>
@@ -141,7 +141,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
     using (var fs = File.OpenRead ( profilePictureFilename )) {
 
-        // 在这种发送形式中，也需要在发送内容之前定义内容大小
+        // 在这种发送形式中，必须在发送内容之前定义内容大小
         requestStreamManager.SetContentLength ( fs.Length );
 
         // 如果不知道内容大小，可以使用分块编码来发送内容
@@ -155,7 +155,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 #### 通过 StreamContent 发送内容
 
-[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类允许将数据源作为字节流发送内容。这一形式更为简单，消除了之前的要求，甚至允许使用 [压缩编码](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) 来减少内容大小。
+[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类允许将数据源作为字节流发送内容。这种发送形式更为简单，消除了之前的要求，甚至允许使用 [压缩编码](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) 来减少内容大小。
 
 <div class="script-header">
     <span>
@@ -182,6 +182,6 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
 }
 ```
 
-> [!重要]
+> [!IMPORTANT]
 >
 > 在这种类型的内容中，不要将流封装在 `using` 块中。内容将在 HTTP 服务器完成内容流时自动丢弃，无论是否有错误。

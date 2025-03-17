@@ -60,7 +60,7 @@ async function translate(text, prompt) {
             max_tokens: 8192
         })
     });
-
+    
     if (!response.ok) {
 
         const resJson = await response.json();
