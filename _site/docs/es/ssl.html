@@ -150,8 +150,8 @@
 <li>Disponible en: Windows</li>
 <li>Esfuerzo: medio</li>
 </ul>
-<p>Si estás en Windows, puedes utilizar IIS para habilitar SSL en tu servidor HTTP. Para que esto funcione, es recomendable que sigas <a href="/docs/registering-namespace">este tutorial</a> con anticipación si deseas que tu aplicación escuche en un host diferente a &quot;localhost&quot;.</p>
-<p>Para que esto funcione, debes instalar IIS a través de las características de Windows. IIS está disponible de forma gratuita para usuarios de Windows y Windows Server. Para configurar SSL en tu aplicación, ten el certificado SSL listo, incluso si es auto-firmado. A continuación, puedes ver <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">cómo configurar SSL en IIS 7 o superior</a>.</p>
+<p>Si estás en Windows, puedes utilizar IIS para habilitar SSL en tu servidor HTTP. Para que esto funcione, es recomendable que sigas <a href="/docs/registering-namespace">este tutorial</a> con anticipación si deseas que tu aplicación esté escuchando en un host diferente a &quot;localhost&quot;.</p>
+<p>Para que esto funcione, debes instalar IIS a través de las características de Windows. IIS está disponible de forma gratuita para usuarios de Windows y Windows Server. Para configurar SSL en tu aplicación, debes tener el certificado SSL listo, incluso si es auto-firmado. A continuación, puedes ver <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">cómo configurar SSL en IIS 7 o superior</a>.</p>
 <h2 id="a-través-de-mitmproxy">A través de mitmproxy</h2>
 <ul>
 <li>Disponible en: Linux, macOS, Windows</li>
@@ -166,6 +166,7 @@
 <pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
 </code></pre>
 <p>Y listo! Ya puedes acceder a tu aplicación a través de <code>https://localhost:8001/</code>. Tu aplicación no necesita estar en ejecución para iniciar <code>mitmdump</code>.</p>
+<p>Alternativamente, puedes agregar una referencia a la <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">herramienta de ayuda de mitmproxy</a> en tu proyecto. Esto aún requiere que mitmproxy esté instalado en tu computadora.</p>
 <h2 id="a-través-del-paquete-sisksslproxy">A través del paquete Sisk.SslProxy</h2>
 <ul>
 <li>Disponible en: Linux, macOS, Windows</li>

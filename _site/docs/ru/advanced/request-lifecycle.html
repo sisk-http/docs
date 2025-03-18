@@ -144,8 +144,142 @@
                 <article data-uid="">
 <h1 id="жизненный-цикл-запроса">Жизненный цикл запроса</h1>
 
-<p>Эта диаграмма объясняет процесс жизни HTTP-запроса с момента его прибытия на сервер до доставки его клиенту.</p>
-<img src="/assets/img/sisk-lifespan.svg">
+<p>Ниже объясняется весь жизненный цикл запроса на примере HTTP-запроса.</p>
+<ul>
+<li><strong>Приём запроса:</strong> каждый запрос создаёт контекст HTTP между самим запросом и ответом, который будет доставлен клиенту. Этот контекст поступает от встроенного слушателя в Sisk, который может быть <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>, <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a> или <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a>.
+<ul>
+<li>Внешняя валидация запроса: выполняется валидация <a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">HttpServerConfiguration.RemoteRequestsAction</a> для запроса.
+<ul>
+<li>Если запрос внешний и свойство равно <code>Drop</code>, соединение закрывается без ответа клиенту с <code>HttpServerExecutionStatus = RemoteRequestDropped</code>.</li>
+</ul>
+</li>
+<li>Конфигурация разрешения пересылки: если настроен <a href="/docs/advanced/forwarding-resolvers">ForwardingResolver</a>, вызывается метод <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> для исходного хоста запроса.</li>
+<li>Сопоставление DNS: с разрешённым хостом и более чем одним настроенным <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>, сервер ищет соответствующий хост для запроса.
+<ul>
+<li>Если ни один ListeningHost не соответствует, клиенту возвращается ответ 400 Bad Request и статус <code>HttpServerExecutionStatus = DnsUnknownHost</code> возвращается контексту HTTP.</li>
+<li>Если ListeningHost соответствует, но его <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> ещё не инициализирован, клиенту возвращается ответ 503 Service Unavailable и статус <code>HttpServerExecutionStatus = ListeningHostNotReady</code> возвращается контексту HTTP.</li>
+</ul>
+</li>
+<li>Связывание маршрутизатора: маршрутизатор соответствующего ListeningHost связывается с полученным HTTP-сервером.
+<ul>
+<li>Если маршрутизатор уже связан с другим HTTP-сервером, что не допускается, поскольку маршрутизатор активно использует ресурсы конфигурации сервера, выбрасывается исключение <code>InvalidOperationException</code>. Это происходит только во время инициализации HTTP-сервера, а не во время создания контекста HTTP.</li>
+</ul>
+</li>
+<li>Предварительное определение заголовков:
+<ul>
+<li>Предварительно определяет заголовок <code>X-Request-Id</code> в ответе, если он настроен.</li>
+<li>Предварительно определяет заголовок <code>X-Powered-By</code> в ответе, если он настроен.</li>
+</ul>
+</li>
+<li>Валидация размера содержимого: проверяет, является ли содержимое запроса меньше <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, только если оно больше нуля.
+<ul>
+<li>Если запрос отправляет <code>Content-Length</code> больше настроенного, клиенту возвращается ответ 413 Payload Too Large и статус <code>HttpServerExecutionStatus = ContentTooLarge</code> возвращается контексту HTTP.</li>
+</ul>
+</li>
+<li>Событие <code>OnHttpRequestOpen</code> вызывается для всех настроенных обработчиков HTTP-сервера.</li>
+</ul>
+</li>
+<li><strong>Маршрутизация действия:</strong> сервер вызывает маршрутизатор для полученного запроса.
+<ul>
+<li>Если маршрутизатор не находит маршрут, соответствующий запросу:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> настроено, вызывается действие, и ответ действия пересылается HTTP-клиенту.</li>
+<li>Если предыдущее свойство равно null, клиенту возвращается ответ 404 Not Found по умолчанию.</li>
+</ul>
+</li>
+<li>Если маршрутизатор находит соответствующий маршрут, но метод маршрута не соответствует методу запроса:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> настроено, вызывается действие, и ответ действия пересылается HTTP-клиенту.</li>
+<li>Если предыдущее свойство равно null, клиенту возвращается ответ 405 Method Not Allowed по умолчанию.</li>
+</ul>
+</li>
+<li>Если запрос имеет метод <code>OPTIONS</code>:
+<ul>
+<li>Маршрутизатор возвращает ответ 200 Ok клиенту только в том случае, если ни один маршрут не соответствует методу запроса (метод маршрута не явно указан как <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a>).</li>
+</ul>
+</li>
+<li>Если свойство <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a> включено, соответствующий маршрут не является регулярным выражением, путь запроса не заканчивается на <code>/</code>, и метод запроса равен <code>GET</code>:
+<ul>
+<li>Клиенту возвращается ответ 307 Temporary Redirect с заголовком <code>Location</code>, содержащим путь и запрос к тому же месту с <code>/</code> в конце.</li>
+</ul>
+</li>
+<li>Событие <code>OnContextBagCreated</code> вызывается для всех настроенных обработчиков HTTP-сервера.</li>
+<li>Все глобальные экземпляры <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> с флагом <code>BeforeResponse</code> выполняются.
+<ul>
+<li>Если любой обработчик возвращает непустой ответ, этот ответ пересылается HTTP-клиенту, и контекст закрывается.</li>
+<li>Если во время этого шага возникает ошибка и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> отключено:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> включено, оно вызывается, и полученный ответ возвращается клиенту.</li>
+<li>Если предыдущее свойство не определено, серверу возвращается пустой ответ, который пересылает ответ в зависимости от типа возбуждённого исключения, обычно 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Все экземпляры <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, определённые в маршруте и имеющие флаг <code>BeforeResponse</code>, выполняются.
+<ul>
+<li>Если любой обработчик возвращает непустой ответ, этот ответ пересылается HTTP-клиенту, и контекст закрывается.</li>
+<li>Если во время этого шага возникает ошибка и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> отключено:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> включено, оно вызывается, и полученный ответ возвращается клиенту.</li>
+<li>Если предыдущее свойство не определено, серверу возвращается пустой ответ, который пересылает ответ в зависимости от типа возбуждённого исключения, обычно 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Действие маршрутизатора вызывается и преобразуется в HTTP-ответ.
+<ul>
+<li>Если во время этого шага возникает ошибка и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> отключено:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> включено, оно вызывается, и полученный ответ возвращается клиенту.</li>
+<li>Если предыдущее свойство не определено, серверу возвращается пустой ответ, который пересылает ответ в зависимости от типа возбуждённого исключения, обычно 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Все глобальные экземпляры <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> с флагом <code>AfterResponse</code> выполняются.
+<ul>
+<li>Если любой обработчик возвращает непустой ответ, ответ обработчика заменяет предыдущий ответ и сразу пересылается HTTP-клиенту.</li>
+<li>Если во время этого шага возникает ошибка и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> отключено:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> включено, оно вызывается, и полученный ответ возвращается клиенту.</li>
+<li>Если предыдущее свойство не определено, серверу возвращается пустой ответ, который пересылает ответ в зависимости от типа возбуждённого исключения, обычно 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Все экземпляры <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, определённые в маршруте и имеющие флаг <code>AfterResponse</code>, выполняются.
+<ul>
+<li>Если любой обработчик возвращает непустой ответ, ответ обработчика заменяет предыдущий ответ и сразу пересылается HTTP-клиенту.</li>
+<li>Если во время этого шага возникает ошибка и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> отключено:
+<ul>
+<li>Если свойство <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> включено, оно вызывается, и полученный ответ возвращается клиенту.</li>
+<li>Если предыдущее свойство не определено, серверу возвращается пустой ответ, который пересылает ответ в зависимости от типа возбуждённого исключения, обычно 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Обработка ответа:</strong> с готовым ответом сервер готовит его для отправки клиенту.
+<ul>
+<li>Заголовки Cross-Origin Resource Sharing Policy (CORS) определяются в ответе в соответствии с настройками текущего <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a>.</li>
+<li>Код состояния и заголовки ответа отправляются клиенту.</li>
+<li>Содержимое ответа отправляется клиенту:
+<ul>
+<li>Если содержимое ответа является потомком <a href="/en-us/dotnet/api/system.net.http.bytearraycontent">ByteArrayContent</a>, байты ответа直接 копируются в поток вывода ответа.</li>
+<li>Если предыдущее условие не выполнено, ответ сериализуется в поток и копируется в поток вывода ответа.</li>
+</ul>
+</li>
+<li>Потоки закрываются, и содержимое ответа удаляется.</li>
+<li>Если <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> включено, все объекты, определённые в контексте запроса и наследующие <a href="/en-us/dotnet/api/system.idisposable">IDisposable</a>, удаляются.</li>
+<li>Событие <code>OnHttpRequestClose</code> вызывается для всех настроенных обработчиков HTTP-сервера.</li>
+<li>Если на сервере возникло исключение, событие <code>OnException</code> вызывается для всех настроенных обработчиков HTTP-сервера.</li>
+<li>Если маршрут позволяет доступ-логирование и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> не равно null, строка лога записывается в выходной лог.</li>
+<li>Если маршрут позволяет ошибочно-логирование, есть исключение, и <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> не равно null, строка лога записывается в выходной лог ошибок.</li>
+<li>Если сервер ожидает запрос через <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a>, мьютекс освобождается, и контекст становится доступным пользователю.</li>
+</ul>
+</li>
+</ul>
 
 </article>
 

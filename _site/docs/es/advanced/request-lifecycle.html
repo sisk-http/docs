@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Ciclo de solicitud | Sisk </title>
+        <title>Ciclo de vida de la solicitud | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Ciclo de solicitud | Sisk ">
+        <meta name="title" content="Ciclo de vida de la solicitud | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -142,10 +142,144 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ciclo-de-solicitud">Ciclo de solicitud</h1>
+<h1 id="ciclo-de-vida-de-la-solicitud">Ciclo de vida de la solicitud</h1>
 
-<p>Este diagrama explica el proceso de vida de una solicitud HTTP desde el momento en que llega al servidor hasta que se entrega al cliente.</p>
-<img src="/assets/img/sisk-lifespan.svg">
+<p>A continuación se explica todo el ciclo de vida de una solicitud a través de un ejemplo de una solicitud HTTP.</p>
+<ul>
+<li><strong>Recepción de la solicitud:</strong> cada solicitud crea un contexto HTTP entre la solicitud en sí y la respuesta que se entregará al cliente. Este contexto proviene del listener integrado en Sisk, que puede ser el <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>, <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a>, o <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a>.
+<ul>
+<li>Validación de solicitud externa: se valida la <a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">HttpServerConfiguration.RemoteRequestsAction</a> para la solicitud.
+<ul>
+<li>Si la solicitud es externa y la propiedad es <code>Drop</code>, la conexión se cierra sin una respuesta al cliente con un <code>HttpServerExecutionStatus = RemoteRequestDropped</code>.</li>
+</ul>
+</li>
+<li>Configuración del resolutor de reenvío: si un <a href="/docs/advanced/forwarding-resolvers">ForwardingResolver</a> está configurado, se llama al método <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> en el host original de la solicitud.</li>
+<li>Coincidencia de DNS: con el host resuelto y con más de un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> configurado, el servidor busca el host correspondiente para la solicitud.
+<ul>
+<li>Si no hay un ListeningHost que coincida, se devuelve una respuesta 400 Bad Request al cliente y un estado <code>HttpServerExecutionStatus = DnsUnknownHost</code> se devuelve al contexto HTTP.</li>
+<li>Si un ListeningHost coincide, pero su <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> no está inicializado, se devuelve una respuesta 503 Service Unavailable al cliente y un estado <code>HttpServerExecutionStatus = ListeningHostNotReady</code> se devuelve al contexto HTTP.</li>
+</ul>
+</li>
+<li>Enlace del router: el router del ListeningHost correspondiente se asocia con el servidor HTTP recibido.
+<ul>
+<li>Si el router ya está asociado con otro servidor HTTP, lo que no está permitido porque el router utiliza activamente los recursos de configuración del servidor, se lanza una excepción <code>InvalidOperationException</code>. Esto solo ocurre durante la inicialización del servidor HTTP, no durante la creación del contexto HTTP.</li>
+</ul>
+</li>
+<li>Predefinición de encabezados:
+<ul>
+<li>Predefine el encabezado <code>X-Request-Id</code> en la respuesta si está configurado para hacerlo.</li>
+<li>Predefine el encabezado <code>X-Powered-By</code> en la respuesta si está configurado para hacerlo.</li>
+</ul>
+</li>
+<li>Validación del tamaño del contenido: valida si el contenido de la solicitud es menor que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> solo si es mayor que cero.
+<ul>
+<li>Si la solicitud envía un <code>Content-Length</code> mayor que el configurado, se devuelve una respuesta 413 Payload Too Large al cliente y un estado <code>HttpServerExecutionStatus = ContentTooLarge</code> se devuelve al contexto HTTP.</li>
+</ul>
+</li>
+<li>El evento <code>OnHttpRequestOpen</code> se invoca para todos los controladores de servidor HTTP configurados.</li>
+</ul>
+</li>
+<li><strong>Enrutamiento de la acción:</strong> el servidor invoca el router para la solicitud recibida.
+<ul>
+<li>Si el router no encuentra una ruta que coincida con la solicitud:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> está configurada, se invoca la acción y la respuesta de la acción se reenvía al cliente HTTP.</li>
+<li>Si la propiedad anterior es nula, se devuelve una respuesta 404 Not Found por defecto al cliente.</li>
+</ul>
+</li>
+<li>Si el router encuentra una ruta coincidente, pero el método de la ruta no coincide con el método de la solicitud:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> está configurada, se invoca la acción y la respuesta de la acción se reenvía al cliente HTTP.</li>
+<li>Si la propiedad anterior es nula, se devuelve una respuesta 405 Method Not Allowed por defecto al cliente.</li>
+</ul>
+</li>
+<li>Si la solicitud es del método <code>OPTIONS</code>:
+<ul>
+<li>El router devuelve una respuesta 200 Ok al cliente solo si no hay una ruta que coincida con el método de la solicitud (el método de la ruta no es explícitamente <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a>).</li>
+</ul>
+</li>
+<li>Si la propiedad <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a> está habilitada, la ruta coincidente no es una expresión regular, la ruta de la solicitud no termina con <code>/</code> y el método de la solicitud es <code>GET</code>:
+<ul>
+<li>Se devuelve una respuesta HTTP 307 Temporary Redirect con el encabezado <code>Location</code> con la ruta y la consulta a la misma ubicación con un <code>/</code> al final al cliente.</li>
+</ul>
+</li>
+<li>El evento <code>OnContextBagCreated</code> se invoca para todos los controladores de servidor HTTP configurados.</li>
+<li>Se ejecutan todas las instancias globales de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> con la bandera <code>BeforeResponse</code>.
+<ul>
+<li>Si algún controlador devuelve una respuesta no nula, esa respuesta se reenvía al cliente HTTP y el contexto se cierra.</li>
+<li>Si se lanza un error en este paso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> está deshabilitado:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> está habilitada, se invoca y la respuesta resultante se devuelve al cliente.</li>
+<li>Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Se ejecutan todas las instancias de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> definidas en la ruta y con la bandera <code>BeforeResponse</code>.
+<ul>
+<li>Si algún controlador devuelve una respuesta no nula, esa respuesta se reenvía al cliente HTTP y el contexto se cierra.</li>
+<li>Si se lanza un error en este paso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> está deshabilitado:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> está habilitada, se invoca y la respuesta resultante se devuelve al cliente.</li>
+<li>Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Se invoca la acción del router y se convierte en una respuesta HTTP.
+<ul>
+<li>Si se lanza un error en este paso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> está deshabilitado:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> está habilitada, se invoca y la respuesta resultante se devuelve al cliente.</li>
+<li>Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Se ejecutan todas las instancias globales de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> con la bandera <code>AfterResponse</code>.
+<ul>
+<li>Si algún controlador devuelve una respuesta no nula, la respuesta del controlador reemplaza la respuesta anterior y se reenvía inmediatamente al cliente HTTP.</li>
+<li>Si se lanza un error en este paso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> está deshabilitado:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> está habilitada, se invoca y la respuesta resultante se devuelve al cliente.</li>
+<li>Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Se ejecutan todas las instancias de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> definidas en la ruta y con la bandera <code>AfterResponse</code>.
+<ul>
+<li>Si algún controlador devuelve una respuesta no nula, la respuesta del controlador reemplaza la respuesta anterior y se reenvía inmediatamente al cliente HTTP.</li>
+<li>Si se lanza un error en este paso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> está deshabilitado:
+<ul>
+<li>Si la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> está habilitada, se invoca y la respuesta resultante se devuelve al cliente.</li>
+<li>Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Procesamiento de la respuesta:</strong> con la respuesta lista, el servidor la prepara para enviarla al cliente.
+<ul>
+<li>Se definen los encabezados de la política de recursos compartidos de origen cruzado (CORS) en la respuesta según lo configurado en el <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a> actual.</li>
+<li>Se envían el código de estado y los encabezados de la respuesta al cliente.</li>
+<li>Se envía el contenido de la respuesta al cliente:
+<ul>
+<li>Si el contenido de la respuesta es un descendiente de <a href="/en-us/dotnet/api/system.net.http.bytearraycontent">ByteArrayContent</a>, los bytes de la respuesta se copian directamente en el flujo de salida de la respuesta.</li>
+<li>Si la condición anterior no se cumple, la respuesta se serializa en un flujo y se copia en el flujo de salida de la respuesta.</li>
+</ul>
+</li>
+<li>Se cierran los flujos y se descarta el contenido de la respuesta.</li>
+<li>Si <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> está habilitado, se descartan todos los objetos definidos en el contexto de la solicitud que heredan de <a href="/en-us/dotnet/api/system.idisposable">IDisposable</a>.</li>
+<li>El evento <code>OnHttpRequestClose</code> se invoca para todos los controladores de servidor HTTP configurados.</li>
+<li>Si se lanzó una excepción en el servidor, el evento <code>OnException</code> se invoca para todos los controladores de servidor HTTP configurados.</li>
+<li>Si la ruta permite el registro de acceso y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> no es nulo, se escribe una línea de registro en el flujo de registro.</li>
+<li>Si la ruta permite el registro de errores, hay una excepción y <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> no es nulo, se escribe una línea de registro en el flujo de registro de errores.</li>
+<li>Si el servidor está esperando una solicitud a través de <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a>, se libera el mutex y el contexto se vuelve disponible para el usuario.</li>
+</ul>
+</li>
+</ul>
 
 </article>
 

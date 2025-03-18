@@ -7,9 +7,9 @@ Trabajar con SSL para desarrollo puede ser necesario cuando se trabaja en contex
 - Disponible en: Windows
 - Esfuerzo: medio
 
-Si estás en Windows, puedes utilizar IIS para habilitar SSL en tu servidor HTTP. Para que esto funcione, es recomendable que sigas [este tutorial](/docs/registering-namespace) con anticipación si deseas que tu aplicación escuche en un host diferente a "localhost".
+Si estás en Windows, puedes utilizar IIS para habilitar SSL en tu servidor HTTP. Para que esto funcione, es recomendable que sigas [este tutorial](/docs/registering-namespace) con anticipación si deseas que tu aplicación esté escuchando en un host diferente a "localhost".
 
-Para que esto funcione, debes instalar IIS a través de las características de Windows. IIS está disponible de forma gratuita para usuarios de Windows y Windows Server. Para configurar SSL en tu aplicación, ten el certificado SSL listo, incluso si es auto-firmado. A continuación, puedes ver [cómo configurar SSL en IIS 7 o superior](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis).
+Para que esto funcione, debes instalar IIS a través de las características de Windows. IIS está disponible de forma gratuita para usuarios de Windows y Windows Server. Para configurar SSL en tu aplicación, debes tener el certificado SSL listo, incluso si es auto-firmado. A continuación, puedes ver [cómo configurar SSL en IIS 7 o superior](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis).
 
 ## A través de mitmproxy
 
@@ -27,6 +27,8 @@ mitmdump --mode reverse:http://localhost:8000/ -p 8001
 ```
 
 Y listo! Ya puedes acceder a tu aplicación a través de `https://localhost:8001/`. Tu aplicación no necesita estar en ejecución para iniciar `mitmdump`.
+
+Alternativamente, puedes agregar una referencia a la [herramienta de ayuda de mitmproxy](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy) en tu proyecto. Esto aún requiere que mitmproxy esté instalado en tu computadora.
 
 ## A través del paquete Sisk.SslProxy
 

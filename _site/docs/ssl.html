@@ -166,6 +166,7 @@
 <pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
 </code></pre>
 <p>And you're ready to go! You can already your application through <code>https://localhost:8001/</code>. Your application does not need to be running for you to start <code>mitmdump</code>.</p>
+<p>Alternatively, you can add a reference to the <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy helper</a> in your project. This still requires that mitmproxy is installed on your computer.</p>
 <h2 id="through-sisksslproxy-package">Through Sisk.SslProxy package</h2>
 <ul>
 <li>Available on: Linux, macOS, Windows</li>
