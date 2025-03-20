@@ -159,7 +159,7 @@ Class HttpEventSourceCollection
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpEventSourceCollection</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpEventSourceCollection : IReadOnlyCollection&lt;HttpRequestEventSource&gt;, IEnumerable&lt;HttpRequestEventSource&gt;, IEnumerable</code></pre>
   </div>
 
 
@@ -173,6 +173,14 @@ Class HttpEventSourceCollection
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.HttpRequestEventSource.html">HttpRequestEventSource</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.HttpRequestEventSource.html">HttpRequestEventSource</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -210,6 +218,10 @@ Class HttpEventSourceCollection
     <dd><p>Gets an number indicating the amount of active event source connections.</p>
 </dd>
   </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpEventSourceCollection.Count.html#Sisk_Core_Http_Streams_HttpEventSourceCollection_Count">Count</a></dt>
+    <dd></dd>
+  </dl>
 
   <h2 class="section" id="methods">Methods
 </h2>
@@ -233,6 +245,10 @@ Class HttpEventSourceCollection
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpEventSourceCollection.GetByIdentifier.html#Sisk_Core_Http_Streams_HttpEventSourceCollection_GetByIdentifier_System_String_">GetByIdentifier(string)</a></dt>
     <dd><p>Gets the event source connection for the specified identifier.</p>
 </dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpEventSourceCollection.GetEnumerator.html#Sisk_Core_Http_Streams_HttpEventSourceCollection_GetEnumerator">GetEnumerator()</a></dt>
+    <dd></dd>
   </dl>
 
   <h2 class="section" id="events">Events

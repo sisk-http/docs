@@ -159,7 +159,7 @@ Class HttpRequest
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpRequest</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpRequest : IDisposable</code></pre>
   </div>
 
 
@@ -173,6 +173,12 @@ Class HttpRequest
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -229,7 +235,7 @@ Class HttpRequest
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Cookies.html#Sisk_Core_Http_HttpRequest_Cookies">Cookies</a></dt>
-    <dd><p>Gets an <a class="xref" href="Sisk.Core.Entity.StringKeyStore.html">StringKeyStore</a> object with all cookies set in this request.</p>
+    <dd><p>Gets an <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.html">StringKeyStoreCollection</a> object with all cookies set in this request.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -341,13 +347,29 @@ event source listening state.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetEventSourceAsync.html#Sisk_Core_Http_HttpRequest_GetEventSourceAsync_System_String_">GetEventSourceAsync(string?)</a></dt>
+    <dd><p>Asynchronously gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in its
+event source listening state.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContent.html#Sisk_Core_Http_HttpRequest_GetFormContent">GetFormContent()</a></dt>
     <dd><p>Reads the request body and extracts form data parameters from it.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetFormContentAsync">GetFormContentAsync()</a></dt>
+    <dd><p>Asynchronously reads the request body and extracts form data parameters from it.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetMultipartFormContent.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContent">GetMultipartFormContent()</a></dt>
     <dd><p>Reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContentAsync">GetMultipartFormContentAsync()</a></dt>
+    <dd><p>Asynchronously reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -370,6 +392,12 @@ cached in this object.</p>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetWebSocket.html#Sisk_Core_Http_HttpRequest_GetWebSocket_System_String_System_String_">GetWebSocket(string?, string?)</a></dt>
     <dd><p>Accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
+streaming state.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetWebSocketAsync.html#Sisk_Core_Http_HttpRequest_GetWebSocketAsync_System_String_System_String_">GetWebSocketAsync(string?, string?)</a></dt>
+    <dd><p>Asynchronously accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
 streaming state.</p>
 </dd>
   </dl>

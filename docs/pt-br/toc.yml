@@ -1,7 +1,5 @@
 items:
-
 - name: Bem-vindo
-
 - name: Introdução
   href: getting-started.md
 - name: Instalando
@@ -16,9 +14,7 @@ items:
   href: registering-namespace.md
 - name: Registros de Alterações
   href: changelogs.md
-
 - name: Fundamentos
-
 - name: Roteamento
   href: fundamentals/routing.md
 - name: Manipuladores de Requisição
@@ -27,9 +23,7 @@ items:
   href: fundamentals/requests.md
 - name: Respostas
   href: fundamentals/responses.md
-
 - name: Recursos
-
 - name: Registro de Logs
   href: features/logging.md
 - name: Eventos Enviados pelo Servidor
@@ -42,9 +36,9 @@ items:
   href: features/instancing.md
 - name: Transmissão de Conteúdo
   href: features/content-streaming.md
-
+- name: Compartilhamento de Recursos de Origem Cruzada
+  href: features/cors.md
 - name: Extensões
-
 - name: JSON-RPC
   href: extensions/json-rpc.md
 - name: Proxy SSL
@@ -55,9 +49,7 @@ items:
   href: extensions/service-providers.md
 - name: Configuração INI
   href: extensions/ini-configuration.md
-
 - name: Avançado
-
 - name: Configuração Manual
   href: advanced/manual-setup.md
 - name: Ciclo de Vida da Requisição
@@ -66,5 +58,5 @@ items:
   href: advanced/forwarding-resolvers.md
 - name: Manipuladores de Servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuração de Multi-Hospedagem
+- name: Configuração de Múltiplos Hosts
   href: advanced/multi-host-setup.md

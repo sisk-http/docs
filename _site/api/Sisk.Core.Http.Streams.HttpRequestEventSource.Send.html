@@ -176,68 +176,34 @@ Method Send
 
 <a id="Sisk_Core_Http_Streams_HttpRequestEventSource_Send_" data-uid="Sisk.Core.Http.Streams.HttpRequestEventSource.Send*"></a>
 
-<h3 id="Sisk_Core_Http_Streams_HttpRequestEventSource_Send_System_String_" data-uid="Sisk.Core.Http.Streams.HttpRequestEventSource.Send(System.String)">
-  Send(string)
+<h3 id="Sisk_Core_Http_Streams_HttpRequestEventSource_Send_System_String_System_String_" data-uid="Sisk.Core.Http.Streams.HttpRequestEventSource.Send(System.String,System.String)">
+  Send(string?, string)
   
 </h3>
 
-<div class="markdown level1 summary"><p>Writes a event message with their data to the event listener and returns an boolean indicating if the message was delivered to the client.</p>
+<div class="markdown level1 summary"><p>Sends an event to the client over the HTTP connection.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public bool Send(string data)</code></pre>
+  <pre><code class="lang-csharp hljs">public bool Send(string? data, string fieldName = &quot;data&quot;)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-  <dd><p>The message text.</p>
+  <dd><p>The data to be sent as part of the event.</p>
+</dd>
+  <dt><code>fieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The field name for the event data. Defaults to &quot;data&quot;.</p>
 </dd>
 </dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-<a id="Sisk_Core_Http_Streams_HttpRequestEventSource_Send_" data-uid="Sisk.Core.Http.Streams.HttpRequestEventSource.Send*"></a>
-
-<h3 id="Sisk_Core_Http_Streams_HttpRequestEventSource_Send_System_Object_" data-uid="Sisk.Core.Http.Streams.HttpRequestEventSource.Send(System.Object)">
-  Send(object?)
-  
-</h3>
-
-<div class="markdown level1 summary"><p>Writes a event message with their data to the event listener and returns an boolean indicating if the message was delivered to the client.</p>
-</div>
-<div class="markdown level1 conceptual"></div>
-
-<div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public bool Send(object? data)</code></pre>
-</div>
-
-<h4 class="section">Parameters</h4>
-<dl class="parameters">
-  <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-  <dd><p>The message object.</p>
+  <dd><p>True if the event was sent successfully, false otherwise.</p>
 </dd>
-</dl>
-
-<h4 class="section">Returns</h4>
-<dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
 </dl>
 
 

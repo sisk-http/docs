@@ -33,7 +33,7 @@ items:
   href: features/logging.md
 - name: События, отправляемые сервером
   href: features/server-sent-events.md
-- name: Веб-сокеты
+- name: Вебсокеты
   href: features/websockets.md
 - name: Синтаксис отбрасывания
   href: features/discard-syntax.md
@@ -41,6 +41,8 @@ items:
   href: features/instancing.md
 - name: Потоковая передача контента
   href: features/content-streaming.md
+- name: Обмен ресурсами между источниками
+  href: features/cors.md
 
 - name: Расширения
 
@@ -61,7 +63,7 @@ items:
   href: advanced/manual-setup.md
 - name: Жизненный цикл запроса
   href: advanced/request-lifecycle.md
-- name: Резолверы пересылки
+- name: Прокси-резолверы
   href: advanced/forwarding-resolvers.md
 - name: Обработчики HTTP-сервера
   href: advanced/http-server-handlers.md

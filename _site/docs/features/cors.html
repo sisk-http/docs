@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Enabling CORS (Cross-Origin Resource Sharing) in Sisk | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Enabling CORS (Cross-Origin Resource Sharing) in Sisk | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/features/cors.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="enabling-cors-cross-origin-resource-sharing-in-sisk">Enabling CORS (Cross-Origin Resource Sharing) in Sisk</h1>
+
+<p>Sisk has a tool that can be useful for handling <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">Cross-Origin Resource Sharing (CORS)</a> when exposing your service publicly. This feature is not part of the HTTP protocol but a specific feature of web browsers defined by the W3C. This security mechanism prevents a web page from making requests to a different domain than the one that provided the web page. A service provider can allow certain domains to access its resources, or just one.</p>
+<h2 id="same-origin">Same Origin</h2>
+<p>For a resource to be identified as &quot;same origin&quot;, a request must identify the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin">Origin</a> header in its request:</p>
+<pre><code class="lang-http">GET /api/users HTTP/1.1
+Host: example.com
+Origin: http://example.com
+...
+</code></pre>
+<p>And the remote server must respond with an <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a> header with the same value as the requested origin:</p>
+<pre><code class="lang-http">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+...
+</code></pre>
+<p>This verification is <strong>explicit</strong>: the host, port, and protocol must be the same as requested. Check the example:</p>
+<ul>
+<li>A server responds that its <code>Access-Control-Allow-Origin</code> is <code>https://example.com</code>:
+<ul>
+<li><code>https://example.net</code> - the domain is different.</li>
+<li><code>http://example.com</code> - the scheme is different.</li>
+<li><code>http://example.com:5555</code> - the port is different.</li>
+<li><code>https://www.example.com</code> - the host is different.</li>
+</ul>
+</li>
+</ul>
+<p>In the specification, only the syntax is allowed for both headers, whether for requests and responses. The URL path is ignored. The port is also omitted if it is a default port (80 for HTTP and 443 for HTTPS).</p>
+<pre><code class="lang-http">Origin: null
+Origin: &lt;scheme&gt;://&lt;hostname&gt;
+Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
+</code></pre>
+<h2 id="enabling-cors">Enabling CORS</h2>
+<p>Natively, you have the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> object within your <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>.</p>
+<p>You can configure CORS when initializing the server:</p>
+<pre><code class="lang-csharp">static async Task Main(string[] args)
+{
+    using var app = HttpServer.CreateBuilder()
+        .UseCors(new CrossOriginResourceSharingHeaders(
+            allowOrigin: &quot;http://example.com&quot;,
+            allowHeaders: [&quot;Authorization&quot;],
+            exposeHeaders: [&quot;Content-Type&quot;]))
+        .Build();
+
+    await app.StartAsync();
+}
+</code></pre>
+<p>The code above will send the following headers for <strong>all responses</strong>:</p>
+<pre><code class="lang-http">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+Access-Control-Allow-Headers: Authorization
+Access-Control-Expose-Headers: Content-Type
+</code></pre>
+<p>These headers need to be sent for all responses to a web client, including errors and redirects.</p>
+<p>You may notice that the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> class has two similar properties: <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> and <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>. Note that one is plural, while the other is singular.</p>
+<ul>
+<li>The <strong>AllowOrigin</strong> property is static: only the origin you specify will be sent for all responses.</li>
+<li>The <strong>AllowOrigins</strong> property is dynamic: the server checks if the request's origin is contained in this list. If it is found, it is sent for the response of that origin.</li>
+</ul>
+<h3 id="wildcard-in-origin">Wildcard in Origin</h3>
+<p>Alternatively, you can use a wildcard (<code>*</code>) in the response's origin to specify that any origin is allowed to access the resource. However, this value is not allowed for requests that have credentials (authorization headers) and this operation <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">will result in an error</a>.</p>
+<p>You can work around this problem by explicitly listing which origins will be allowed through the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> property or also use the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> constant in the value of <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>. This magic property will define the <code>Access-Control-Allow-Origin</code> header for the same value as the <code>Origin</code> header of the request.</p>
+<h2 id="other-ways-to-apply-cors">Other Ways to Apply CORS</h2>
+<p>If you are dealing with <a href="/docs/extensions/service-providers">service providers</a>, you can override values defined in the configuration file:</p>
+<pre><code class="lang-csharp">static async Task Main(string[] args)
+{
+    using var app = HttpServer.CreateBuilder()
+        .UsePortableConfiguration(...)
+        .UseCors(cors =&gt; {
+            // Will override the origin defined in the configuration
+            // file.
+            cors.AllowOrigin = &quot;http://example.com&quot;;
+        })
+        .Build();
+
+    await app.StartAsync();
+}
+</code></pre>
+<h2 id="disabling-cors-on-specific-routes">Disabling CORS on Specific Routes</h2>
+<p>The <code>UseCors</code> property is available for both routes and all route attributes and can be disabled with the following example:</p>
+<pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
+public class WidgetController : Controller {
+
+    // GET /api/widgets/colors
+    [RouteGet(&quot;/colors&quot;, UseCors = false)]
+    public IEnumerable&lt;string&gt; GetWidgets() {
+        return new[] { &quot;Green widget&quot;, &quot;Red widget&quot; };
+    }
+}
+</code></pre>
+<h2 id="replacing-values-in-the-response">Replacing Values in the Response</h2>
+<p>You can replace or remove values explicitly in a router action:</p>
+<pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
+public class WidgetController : Controller {
+
+    public IEnumerable&lt;string&gt; GetWidgets(HttpRequest request) {
+
+        // Removes the Access-Control-Allow-Credentials header
+        request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
+
+        // Replaces the Access-Control-Allow-Origin
+        request.Context.OverrideHeaders.AccessControlAllowOrigin = &quot;https://contorso.com&quot;;
+
+        return new[] { &quot;Green widget&quot;, &quot;Red widget&quot; };
+    }
+}
+</code></pre>
+<h2 id="preflight-requests">Preflight Requests</h2>
+<p>A preflight request is an <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a> method request that the client sends before the actual request.</p>
+<p>The Sisk server will always respond to the request with a <code>200 OK</code> and the applicable CORS headers, and then the client can proceed with the actual request. This condition is only not applied when a route exists for the request with the <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> explicitly configured for <code>Options</code>.</p>
+<h2 id="disabling-cors-globally">Disabling CORS Globally</h2>
+<p>It is not possible to do this. To not use CORS, do not configure it.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/features/cors.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

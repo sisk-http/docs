@@ -159,7 +159,7 @@ Class HttpWebSocket
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpWebSocket</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpWebSocket : IDisposable</code></pre>
   </div>
 
 
@@ -173,6 +173,12 @@ Class HttpWebSocket
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -252,6 +258,10 @@ This method will not throw an exception if the connection is already closed.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Dispose.html#Sisk_Core_Http_Streams_HttpWebSocket_Dispose">Dispose()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___">Send(byte[])</a></dt>
     <dd><p>Sends an binary message to the remote point.</p>
 </dd>
@@ -259,11 +269,6 @@ This method will not throw an exception if the connection is already closed.</p>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___System_Int32_System_Int32_">Send(byte[], int, int)</a></dt>
     <dd><p>Sends an binary message to the remote point.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Object_">Send(object)</a></dt>
-    <dd><p>Sends an text message to the remote point.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -277,13 +282,8 @@ This method will not throw an exception if the connection is already closed.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Byte___">SendAsync(byte[])</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__">SendAsync(ReadOnlyMemory&lt;byte&gt;)</a></dt>
     <dd><p>Asynchronously sends an binary message to the remote point.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Object_">SendAsync(object)</a></dt>
-    <dd><p>Asynchronously sends an message to the remote point.</p>
 </dd>
   </dl>
   <dl class="jumplist">

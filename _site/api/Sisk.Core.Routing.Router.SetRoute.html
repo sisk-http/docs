@@ -296,8 +296,8 @@ Method SetRoute
 
 <a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
 
-<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_Sisk_Core_Routing_IRequestHandler___" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,Sisk.Core.Routing.RouteAction,System.String,Sisk.Core.Routing.IRequestHandler[])">
-  SetRoute(RouteMethod, string, RouteAction, string?, IRequestHandler[])
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_Sisk_Core_Routing_IRequestHandler___" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate,System.String,Sisk.Core.Routing.IRequestHandler[])">
+  SetRoute(RouteMethod, string, Delegate, string?, IRequestHandler[])
   
 </h3>
 
@@ -306,7 +306,7 @@ Method SetRoute
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, RouteAction action, string? name, IRequestHandler[] middlewares)</code></pre>
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action, string? name, IRequestHandler[] middlewares)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -317,7 +317,7 @@ Method SetRoute
   <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd><p>The route path.</p>
 </dd>
-  <dt><code>action</code> <a class="xref" href="Sisk.Core.Routing.RouteAction.html">RouteAction</a></dt>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
   <dd><p>The route function to be called after matched.</p>
 </dd>
   <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>

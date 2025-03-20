@@ -286,6 +286,11 @@ for each type must be present.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.Combine.html#Sisk_Core_Routing_Router_Combine_System_String___">Combine(params string[])</a></dt>
+    <dd><p>Combines an array of string parts into a single path.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.GetDefinedRoutes.html#Sisk_Core_Routing_Router_GetDefinedRoutes">GetDefinedRoutes()</a></dt>
     <dd><p>Gets all routes defined on this router instance.</p>
 </dd>
@@ -311,7 +316,22 @@ for each type must be present.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.IsRouteExpressionsOverlap.html#Sisk_Core_Routing_Router_IsRouteExpressionsOverlap_System_ReadOnlySpan_System_Char___System_ReadOnlySpan_System_Char___System_StringComparison_">IsRouteExpressionsOverlap(in ReadOnlySpan&lt;char&gt;, in ReadOnlySpan&lt;char&gt;, StringComparison)</a></dt>
+    <dd><p>Determines whether two route expressions overlap.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.IsRouteExpressionsOverlap.html#Sisk_Core_Routing_Router_IsRouteExpressionsOverlap_System_String_System_String_System_StringComparison_">IsRouteExpressionsOverlap(string, string, StringComparison)</a></dt>
+    <dd><p>Determines whether two route expressions overlap.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.MapAny.html#Sisk_Core_Routing_Router_MapAny_System_String_Sisk_Core_Routing_RouteAction_">MapAny(string, RouteAction)</a></dt>
+    <dd><p>Maps an route which matches any HTTP method, using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapAny.html#Sisk_Core_Routing_Router_MapAny_System_String_System_Delegate_">MapAny(string, Delegate)</a></dt>
     <dd><p>Maps an route which matches any HTTP method, using the specified path and action function.</p>
 </dd>
   </dl>
@@ -321,12 +341,47 @@ for each type must be present.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapDelete.html#Sisk_Core_Routing_Router_MapDelete_System_String_System_Delegate_">MapDelete(string, Delegate)</a></dt>
+    <dd><p>Maps an DELETE route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.MapGet.html#Sisk_Core_Routing_Router_MapGet_System_String_Sisk_Core_Routing_RouteAction_">MapGet(string, RouteAction)</a></dt>
     <dd><p>Maps an GET route using the specified path and action function.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapGet.html#Sisk_Core_Routing_Router_MapGet_System_String_System_Delegate_">MapGet(string, Delegate)</a></dt>
+    <dd><p>Maps an GET route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapHead.html#Sisk_Core_Routing_Router_MapHead_System_String_Sisk_Core_Routing_RouteAction_">MapHead(string, RouteAction)</a></dt>
+    <dd><p>Maps an HEAD route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapHead.html#Sisk_Core_Routing_Router_MapHead_System_String_System_Delegate_">MapHead(string, Delegate)</a></dt>
+    <dd><p>Maps an HEAD route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapOptions.html#Sisk_Core_Routing_Router_MapOptions_System_String_Sisk_Core_Routing_RouteAction_">MapOptions(string, RouteAction)</a></dt>
+    <dd><p>Maps an OPTIONS route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapOptions.html#Sisk_Core_Routing_Router_MapOptions_System_String_System_Delegate_">MapOptions(string, Delegate)</a></dt>
+    <dd><p>Maps an OPTIONS route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.MapPatch.html#Sisk_Core_Routing_Router_MapPatch_System_String_Sisk_Core_Routing_RouteAction_">MapPatch(string, RouteAction)</a></dt>
+    <dd><p>Maps an PATCH route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapPatch.html#Sisk_Core_Routing_Router_MapPatch_System_String_System_Delegate_">MapPatch(string, Delegate)</a></dt>
     <dd><p>Maps an PATCH route using the specified path and action function.</p>
 </dd>
   </dl>
@@ -336,8 +391,28 @@ for each type must be present.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapPost.html#Sisk_Core_Routing_Router_MapPost_System_String_System_Delegate_">MapPost(string, Delegate)</a></dt>
+    <dd><p>Maps an POST route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.MapPut.html#Sisk_Core_Routing_Router_MapPut_System_String_Sisk_Core_Routing_RouteAction_">MapPut(string, RouteAction)</a></dt>
     <dd><p>Maps an PUT route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MapPut.html#Sisk_Core_Routing_Router_MapPut_System_String_System_Delegate_">MapPut(string, Delegate)</a></dt>
+    <dd><p>Maps an PUT route using the specified path and action function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MatchRouteExpression.html#Sisk_Core_Routing_Router_MatchRouteExpression_System_ReadOnlySpan_System_Char___System_ReadOnlySpan_System_Char___System_StringComparison_">MatchRouteExpression(in ReadOnlySpan&lt;char&gt;, in ReadOnlySpan&lt;char&gt;, StringComparison)</a></dt>
+    <dd><p>Attempts to match the specified route expression against the given path.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.MatchRouteExpression.html#Sisk_Core_Routing_Router_MatchRouteExpression_System_String_System_String_System_StringComparison_">MatchRouteExpression(string, string, StringComparison)</a></dt>
+    <dd><p>Attempts to match the specified route expression against the given path.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -403,11 +478,6 @@ for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_System_String_Sisk_Core_Routing_IRequestHandler___">SetRoute(RouteMethod, string, RouteAction, string?, IRequestHandler[])</a></dt>
-    <dd><p>Defines an route with their method, path, action function, name and request handlers.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_">SetRoute(RouteMethod, string, Delegate)</a></dt>
     <dd><p>Defines an route with their method, path and action function.</p>
 </dd>
@@ -418,18 +488,14 @@ for these methods.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_Sisk_Core_Routing_IRequestHandler___">SetRoute(RouteMethod, string, Delegate, string?, IRequestHandler[])</a></dt>
+    <dd><p>Defines an route with their method, path, action function, name and request handlers.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.TryResolveActionResult.html#Sisk_Core_Routing_Router_TryResolveActionResult_System_Object_Sisk_Core_Http_HttpResponse__">TryResolveActionResult(object?, out HttpResponse?)</a></dt>
     <dd><p>Tries to resolve the specified object into an valid <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> using the defined
 value handlers.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="operators">Operators
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Router.op_Addition.html#Sisk_Core_Routing_Router_op_Addition_Sisk_Core_Routing_Router_Sisk_Core_Routing_Route_">operator +(Router, Route)</a></dt>
-    <dd><p>Defines an route to an router.</p>
 </dd>
   </dl>
 

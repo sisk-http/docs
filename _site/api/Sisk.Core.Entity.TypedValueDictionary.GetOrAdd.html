@@ -220,6 +220,46 @@ If it does not exist, it adds the object to the context bag using the provided <
 
 
 
+<a id="Sisk_Core_Entity_TypedValueDictionary_GetOrAdd_" data-uid="Sisk.Core.Entity.TypedValueDictionary.GetOrAdd*"></a>
+
+<h3 id="Sisk_Core_Entity_TypedValueDictionary_GetOrAdd__1" data-uid="Sisk.Core.Entity.TypedValueDictionary.GetOrAdd``1">
+  GetOrAdd&lt;T&gt;()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Gets a singleton previously defined in this context bag via its type <code class="typeparamref">T</code>.
+If it does not exist, it adds the object to the context bag by creating a new instance of <code class="typeparamref">T</code>.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public T GetOrAdd&lt;T&gt;() where T : notnull, new()</code></pre>
+</div>
+
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><span class="xref">T</span></dt>
+  <dd><p>The object of type <code class="typeparamref">T</code> from the context bag.</p>
+</dd>
+</dl>
+
+<h4 class="section">Type Parameters</h4>
+<dl class="parameters">
+  <dt><code>T</code></dt>
+  <dd><p>The type of the object defined in this context bag. It must have a public parameterless constructor.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 </article>
 
                 <div class="contribution d-print-none">

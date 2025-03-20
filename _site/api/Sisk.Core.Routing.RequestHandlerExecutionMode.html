@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Enum RequestHandlerExecutionMode | Sisk ">
 
-        <meta name="description" content="Defines when the  object should be executed.">
+        <meta name="description" content="Defines when the  should be executed.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -155,12 +155,13 @@ Enum RequestHandlerExecutionMode
   <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Defines when the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> object should be executed.</p>
+  <div class="markdown summary"><p>Defines when the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should be executed.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum RequestHandlerExecutionMode</code></pre>
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum RequestHandlerExecutionMode</code></pre>
   </div>
 
 
@@ -174,11 +175,14 @@ Enum RequestHandlerExecutionMode
   <h2 id="fields">Fields
 </h2>
   <dl class="parameters">
-    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_AfterResponse"><code>AfterResponse = 1</code></dt>
-    <dd><p>Indicates that the handler must be executed after the route action execution.</p>
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_AfterResponse"><code>AfterResponse = 4</code></dt>
+    <dd><p>Indicates that the request handler should be executed after the route action.</p>
 </dd>
-    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_BeforeResponse"><code>BeforeResponse = 0</code></dt>
-    <dd><p>Indicates that the handler must be executed before the router calls the route action and after request contents is loaded.</p>
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_BeforeResponse"><code>BeforeResponse = 2</code></dt>
+    <dd><p>Indicates that the request handler should be executed before the route action.</p>
+</dd>
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_Both"><code>Both = BeforeResponse | AfterResponse</code></dt>
+    <dd><p>Indicates that the request handler should be executed before and after the route action.</p>
 </dd>
   </dl>
 

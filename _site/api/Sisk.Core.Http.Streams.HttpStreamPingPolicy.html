@@ -159,7 +159,7 @@ Class HttpStreamPingPolicy
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpStreamPingPolicy</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class HttpStreamPingPolicy : IDisposable</code></pre>
   </div>
 
 
@@ -173,6 +173,12 @@ Class HttpStreamPingPolicy
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -219,6 +225,10 @@ Class HttpStreamPingPolicy
   <h2 class="section" id="methods">Methods
 </h2>
 
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Dispose.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Dispose">Dispose()</a></dt>
+    <dd></dd>
+  </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start">Start()</a></dt>
     <dd><p>Starts sending periodic pings to the client.</p>

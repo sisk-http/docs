@@ -176,44 +176,6 @@ Method SendAsync
 
 <a id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync*"></a>
 
-<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Object_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Object)">
-  SendAsync(object)
-  
-</h3>
-
-<div class="markdown level1 summary"><p>Asynchronously sends an message to the remote point.</p>
-</div>
-<div class="markdown level1 conceptual"></div>
-
-<div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SendAsync(object message)</code></pre>
-</div>
-
-<h4 class="section">Parameters</h4>
-<dl class="parameters">
-  <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-  <dd><p>The target message which will be as an encoded UTF-8 string.</p>
-</dd>
-</dl>
-
-<h4 class="section">Returns</h4>
-<dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
-  <dd></dd>
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-<a id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync*"></a>
-
 <h3 id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String)">
   SendAsync(string)
   
@@ -224,7 +186,7 @@ Method SendAsync
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SendAsync(string message)</code></pre>
+  <pre><code class="lang-csharp hljs">public ValueTask&lt;bool&gt; SendAsync(string message)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -236,7 +198,7 @@ Method SendAsync
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
   <dd></dd>
 </dl>
 
@@ -252,8 +214,8 @@ Method SendAsync
 
 <a id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync*"></a>
 
-<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_Byte___" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.Byte[])">
-  SendAsync(byte[])
+<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte})">
+  SendAsync(ReadOnlyMemory&lt;byte&gt;)
   
 </h3>
 
@@ -262,19 +224,19 @@ Method SendAsync
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SendAsync(byte[] buffer)</code></pre>
+  <pre><code class="lang-csharp hljs">public ValueTask&lt;bool&gt; SendAsync(ReadOnlyMemory&lt;byte&gt; buffer)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
-  <dt><code>buffer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+  <dt><code>buffer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlymemory-1">ReadOnlyMemory</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</dt>
   <dd><p>The target message which will be as an encoded UTF-8 string.</p>
 </dd>
 </dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
   <dd></dd>
 </dl>
 

@@ -161,13 +161,13 @@ remote origin.</p>
 <div class="markdown conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public event WebSocketMessageReceivedEventHandler? OnReceive</code></pre>
+  <pre><code class="lang-csharp hljs">public event EventHandler&lt;WebSocketMessage&gt;? OnReceive</code></pre>
 </div>
 
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessageReceivedEventHandler.html">WebSocketMessageReceivedEventHandler</a></dt>
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>&gt;</dt>
   <dd>Represents the event which is called when this web socket receives an message from remote origin.</dd>
 </dl>
 

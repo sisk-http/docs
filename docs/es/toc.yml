@@ -1,6 +1,7 @@
 items:
+ 
 - name: Bienvenido
-
+ 
 - name: Introducción
   href: getting-started.md
 - name: Instalación
@@ -15,9 +16,9 @@ items:
   href: registering-namespace.md
 - name: Registros de cambios
   href: changelogs.md
-
+ 
 - name: Fundamentos
-
+ 
 - name: Enrutamiento
   href: fundamentals/routing.md
 - name: Controladores de solicitudes
@@ -26,14 +27,14 @@ items:
   href: fundamentals/requests.md
 - name: Respuestas
   href: fundamentals/responses.md
-
+ 
 - name: Características
-
+ 
 - name: Registro de eventos
   href: features/logging.md
 - name: Eventos enviados por el servidor
   href: features/server-sent-events.md
-- name: Websockets
+- name: Web Sockets
   href: features/websockets.md
 - name: Sintaxis de descarte
   href: features/discard-syntax.md
@@ -41,9 +42,11 @@ items:
   href: features/instancing.md
 - name: Transmisión de contenido
   href: features/content-streaming.md
-
+- name: Compartir recursos de origen cruzado
+  href: features/cors.md
+ 
 - name: Extensiones
-
+ 
 - name: JSON-RPC
   href: extensions/json-rpc.md
 - name: Proxy SSL
@@ -54,9 +57,9 @@ items:
   href: extensions/service-providers.md
 - name: Configuración INI
   href: extensions/ini-configuration.md
-
+ 
 - name: Avanzado
-
+ 
 - name: Configuración manual
   href: advanced/manual-setup.md
 - name: Ciclo de vida de la solicitud
@@ -65,5 +68,5 @@ items:
   href: advanced/forwarding-resolvers.md
 - name: Controladores de servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuración de multi-host
+- name: Configuración de multihost
   href: advanced/multi-host-setup.md
