@@ -37,7 +37,7 @@ res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 
 The server will always attempt to calculate the `Content-Length` from what you have defined in the content if you haven't explicitly defined it in a header. If the server cannot implicitly obtain the Content-Length header from the response content, the response will be sent with Chunked-Encoding.
 
-You can also stream the response by sending a [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) or using the method [GetResponseStream](#response-stream).
+You can also stream the response by sending a [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) or using the method [GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream).
 
 ## Response headers
 

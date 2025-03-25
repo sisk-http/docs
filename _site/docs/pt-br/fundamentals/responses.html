@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -137,6 +137,12 @@
                                     Spanish
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -164,8 +170,8 @@ res.Status = System.Net.HttpStatusCode.Accepted; // 202
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>O servidor sempre tentará calcular o <code>Content-Length</code> a partir do que você definiu no conteúdo, se você não o definir explicitamente em um header. Se o servidor não puder obter implicitamente o header <code>Content-Length</code> do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
-<p>Você também pode transmitir a resposta enviando um <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> ou usando o método <code>GetResponseStream</code>.</p>
+<p>O servidor sempre tentará calcular o <code>Content-Length</code> a partir do que você definiu no conteúdo, se você não tiver definido explicitamente em um header. Se o servidor não puder obter implicitamente o header <code>Content-Length</code> do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
+<p>Você também pode transmitir a resposta enviando um <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> ou usando o método <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a>.</p>
 <h2 id="cabeçalhos-de-resposta">Cabeçalhos de resposta</h2>
 <p>Você pode adicionar, editar ou remover cabeçalhos que estão sendo enviados na resposta. O exemplo abaixo mostra como enviar uma resposta de redirecionamento para o cliente.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
@@ -194,14 +200,14 @@ res.SendChunked = true;
 </code></pre>
 <p>Ao usar chunked-encoding, o header <code>Content-Length</code> é automaticamente omitido.</p>
 <h2 id="stream-de-resposta">Stream de resposta</h2>
-<p>Streams de resposta são uma maneira gerenciada de enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.</p>
-<p>Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos de tamanho médio ou grande.</p>
+<p>Streams de resposta são uma maneira gerenciada que permite enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e conteúdo manualmente e, em seguida, feche a conexão.</p>
+<p>Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.</p>
 <pre><code class="lang-cs">// obtém o stream de saída da resposta
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
 // define o encoding de resposta para usar chunked-encoding
-// também você não deve enviar o header content-length quando usar
+// também você não deve enviar o header content-length quando usando
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -213,8 +219,8 @@ fileStream.CopyTo(responseStream.ResponseStream);
 // fecha o stream
 return responseStream.Close();
 </code></pre>
-<h2 id="compactação-gzip-deflate-e-brotli">Compactação GZip, Deflate e Brotli</h2>
-<p>Você pode enviar respostas com conteúdo compactado em Sisk compactando os conteúdos HTTP. Primeiramente, encapsule seu objeto <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> dentro de um dos compactadores abaixo para enviar a resposta compactada para o cliente.</p>
+<h2 id="compressão-gzip-deflate-e-brotli">Compressão GZip, Deflate e Brotli</h2>
+<p>Você pode enviar respostas com conteúdo comprimido em Sisk com compressão de conteúdo HTTP. Primeiramente, encapsule seu objeto <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpcontent">HttpContent</a> dentro de um dos compressores abaixo para enviar a resposta comprimida para o cliente.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
     string myHtml = &quot;...&quot;;
     
@@ -225,7 +231,7 @@ return responseStream.Close();
     };
 });
 </code></pre>
-<p>Você também pode usar esses conteúdos compactados com streams.</p>
+<p>Você também pode usar esses conteúdos comprimidos com streams.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
     
     // não aplique &quot;using&quot; aqui. o HttpServer descartará seu conteúdo

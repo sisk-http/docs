@@ -35,9 +35,9 @@ HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
 ```
 
-O servidor sempre tentará calcular o `Content-Length` a partir do que você definiu no conteúdo, se você não o definir explicitamente em um header. Se o servidor não puder obter implicitamente o header `Content-Length` do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.
+O servidor sempre tentará calcular o `Content-Length` a partir do que você definiu no conteúdo, se você não tiver definido explicitamente em um header. Se o servidor não puder obter implicitamente o header `Content-Length` do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.
 
-Você também pode transmitir a resposta enviando um [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) ou usando o método `GetResponseStream`.
+Você também pode transmitir a resposta enviando um [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) ou usando o método [GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream).
 
 ## Cabeçalhos de resposta
 
@@ -89,9 +89,9 @@ Ao usar chunked-encoding, o header `Content-Length` é automaticamente omitido.
 
 ## Stream de resposta
 
-Streams de resposta são uma maneira gerenciada de enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.
+Streams de resposta são uma maneira gerenciada que permite enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e conteúdo manualmente e, em seguida, feche a conexão.
 
-Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos de tamanho médio ou grande.
+Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.
 
 ```cs
 // obtém o stream de saída da resposta
@@ -99,7 +99,7 @@ using var fileStream = File.OpenRead("my-big-file.zip");
 var responseStream = request.GetResponseStream();
 
 // define o encoding de resposta para usar chunked-encoding
-// também você não deve enviar o header content-length quando usar
+// também você não deve enviar o header content-length quando usando
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -112,9 +112,9 @@ fileStream.CopyTo(responseStream.ResponseStream);
 return responseStream.Close();
 ```
 
-## Compactação GZip, Deflate e Brotli
+## Compressão GZip, Deflate e Brotli
 
-Você pode enviar respostas com conteúdo compactado em Sisk compactando os conteúdos HTTP. Primeiramente, encapsule seu objeto [HttpContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) dentro de um dos compactadores abaixo para enviar a resposta compactada para o cliente.
+Você pode enviar respostas com conteúdo comprimido em Sisk com compressão de conteúdo HTTP. Primeiramente, encapsule seu objeto [HttpContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpcontent) dentro de um dos compressores abaixo para enviar a resposta comprimida para o cliente.
 
 ```cs
 router.MapGet("/hello.html", request => {
@@ -128,7 +128,7 @@ router.MapGet("/hello.html", request => {
 });
 ```
 
-Você também pode usar esses conteúdos compactados com streams.
+Você também pode usar esses conteúdos comprimidos com streams.
 
 ```cs
 router.MapGet("/archive.zip", request => {

@@ -1,0 +1,615 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Anfragen | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Anfragen | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/fundamentals/requests.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="anfragen">Anfragen</h1>
+
+<p>Anfragen sind Strukturen, die eine HTTP-Anfrage-Nachricht darstellen. Das <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>-Objekt enthält nützliche Funktionen für die Verarbeitung von HTTP-Nachrichten in Ihrer Anwendung.</p>
+<p>Eine HTTP-Anfrage besteht aus der Methode, dem Pfad, der Version, den Headern und dem Body.</p>
+<p>In diesem Dokument werden wir Ihnen zeigen, wie Sie jedes dieser Elemente erhalten.</p>
+<h2 id="abrufen-der-anfragemethode">Abrufen der Anfragemethode</h2>
+<p>Um die Methode der empfangenen Anfrage zu erhalten, können Sie die Methode-Eigenschaft verwenden:</p>
+<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
+{
+    HttpMethod requestMethod = request.Method;
+    ...
+}
+</code></pre>
+<p>Diese Eigenschaft gibt die Anfragemethode als <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>-Objekt zurück.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Im Gegensatz zu Routenmethoden dient diese Eigenschaft nicht dem <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>-Element. Stattdessen gibt sie die tatsächliche Anfragemethode zurück.</p>
+</div>
+<h2 id="abrufen-von-url-komponenten">Abrufen von URL-Komponenten</h2>
+<p>Sie können verschiedene Komponenten aus einer URL über bestimmte Eigenschaften einer Anfrage abrufen. Für dieses Beispiel betrachten wir die URL:</p>
+<pre><code>http://localhost:5000/user/login?email=foo@bar.com
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Komponentenname</th>
+<th>Beschreibung</th>
+<th>Komponentenwert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
+<td>Ruft den Anfragepfad ab.</td>
+<td><code>/user/login</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
+<td>Ruft den Anfragepfad und die Abfragezeichenfolge ab.</td>
+<td><code>/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
+<td>Ruft die gesamte URL-Anfragezeichenfolge ab.</td>
+<td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
+<td>Ruft den Anfragehost ab.</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
+<td>Ruft den Anfragehost und den Port ab.</td>
+<td><code>localhost:5000</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
+<td>Ruft die Anfrageabfrage ab.</td>
+<td><code>?email=foo@bar.com</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
+<td>Ruft die Anfrageabfrage als benannte Wertesammlung ab.</td>
+<td><code>{StringValueCollection-Objekt}</code></td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
+<td>Bestimmt, ob die Anfrage SSL verwendet (true) oder nicht (false).</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>Sie können auch die <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>-Eigenschaft verwenden, die alles oben Genannte in einem Objekt enthält.</p>
+<h2 id="abrufen-des-anfragebodies">Abrufen des Anfragebodies</h2>
+<p>Einige Anfragen enthalten einen Body, wie z. B. Formulare, Dateien oder API-Transaktionen. Sie können den Body einer Anfrage aus der Eigenschaft abrufen:</p>
+<pre><code class="lang-cs">// Ruft den Anfragebody als Zeichenfolge ab, wobei die Anfragecodierung als Codierer verwendet wird
+string body = request.Body;
+
+// oder ruft ihn als Byte-Array ab
+byte[] bodyBytes = request.RawBody;
+
+// oder Sie können ihn streamen
+Stream requestStream = request.GetRequestStream();
+</code></pre>
+<p>Es ist auch möglich, zu bestimmen, ob ein Body in der Anfrage vorhanden ist und ob er geladen ist, mit den Eigenschaften <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, die bestimmt, ob die Anfrage Inhalte enthält, und <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, die angibt, dass der HTTP-Server den Inhalt vom Remote-Punkt vollständig empfangen hat.</p>
+<p>Es ist nicht möglich, den Anfrageinhalt über <code>GetRequestStream</code> mehr als einmal zu lesen. Wenn Sie mit dieser Methode lesen, sind die Werte in <code>RawBody</code> und <code>Body</code> nicht mehr verfügbar. Es ist nicht notwendig, den Anfragestream im Kontext der Anfrage zu entsorgen, da er am Ende der HTTP-Sitzung, in der er erstellt wird, entsorgt wird. Sie können auch die <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>-Eigenschaft verwenden, um die beste Codierung zu erhalten, um die Anfrage manuell zu decodieren.</p>
+<p>Der Server hat Grenzen für das Lesen des Anfrageinhalts, die sowohl für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> als auch für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a> gelten. Diese Eigenschaften kopieren den gesamten Eingabestream in einen lokalen Puffer der gleichen Größe wie <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
+<p>Eine Antwort mit dem Status 413 Inhalt zu groß wird an den Client zurückgegeben, wenn der gesendete Inhalt größer ist als <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, wie in der Benutzerkonfiguration definiert. Zusätzlich wird, wenn es keine konfigurierte Grenze gibt oder wenn sie zu groß ist, der Server eine <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> auslösen, wenn der vom Client gesendete Inhalt <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) überschreitet und wenn der Inhalt über eine der oben genannten Eigenschaften abgerufen wird. Sie können den Inhalt immer noch über Streaming verarbeiten.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Obwohl Sisk dies zulässt, ist es immer eine gute Idee, HTTP-Semantik zu befolgen, um Ihre Anwendung zu erstellen und nicht Inhalte in Methoden zu erhalten oder bereitzustellen, die dies nicht zulassen. Lesen Sie über <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP-Semantik&quot;</a>.</p>
+</div>
+<h2 id="abrufen-des-anfragekontexts">Abrufen des Anfragekontexts</h2>
+<p>Der HTTP-Kontext ist ein exklusives Sisk-Objekt, das Informationen über den HTTP-Server, die Route, den Router und den Anfragehandler enthält. Sie können es verwenden, um sich in einer Umgebung zu organisieren, in der diese Objekte schwer zu organisieren sind.</p>
+<p>Das <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a>-Objekt enthält gespeicherte Informationen, die von einem Anfragehandler an einen anderen Punkt übergeben werden und am Endziel verbraucht werden können. Dieses Objekt kann auch von Anfragehandlern verwendet werden, die nach dem Routenrückruf ausgeführt werden.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Diese Eigenschaft ist auch über die <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a>-Eigenschaft zugänglich.</p>
+</div>
+<div class="script-header">
+    <span>
+        Middleware/AuthenticateUserRequestHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public string Identifier { get; init; } = Guid.NewGuid().ToString();
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+    
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization != null)
+        {
+            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, new User(&quot;Bob&quot;));
+            return null;
+        }
+        else
+        {
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+</code></pre>
+<p>Der obige Anfragehandler wird <code>AuthenticatedUser</code> im Anfragebeutel definieren und kann später im Endrückruf verbraucht werden:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class MyController
+{
+    [RouteGet(&quot;/&quot;)]
+    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
+    static HttpResponse Index(HttpRequest request)
+    {
+        User authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
+        
+        return new HttpResponse() {
+            Content = new StringContent($&quot;Hallo, {authUser.Name}!&quot;)
+        };
+    }
+}
+</code></pre>
+<p>Sie können auch die <code>Bag.Set()</code>- und <code>Bag.Get()</code>-Hilfsmethoden verwenden, um Objekte nach ihrem Typ zu erhalten oder zu setzen.</p>
+<div class="script-header">
+    <span>
+        Middleware/Authenticate.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class Authenticate : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        request.Bag.Set&lt;User&gt;(authUser);
+    }
+}
+</code></pre>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/&quot;)]
+[RequestHandler&lt;Authenticate&gt;]
+public static HttpResponse GetUser(HttpRequest request)
+{
+    var user = request.Bag.Get&lt;User&gt;();
+    ...
+}
+</code></pre>
+<h2 id="abrufen-von-formulardaten">Abrufen von Formulardaten</h2>
+<p>Sie können die Werte von Formulardaten in einer <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> mit dem folgenden Beispiel abrufen:</p>
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/auth&quot;)]
+public HttpResponse Index(HttpRequest request)
+{
+    var form = request.GetFormContent();
+
+    string? username = form[&quot;username&quot;];
+    string? password = form[&quot;password&quot;];
+
+    if (AttempLogin(username, password))
+    {
+        ...
+    }
+}
+</code></pre>
+<h2 id="abrufen-von-multipart-formulardaten">Abrufen von Multipart-Formulardaten</h2>
+<p>Sisks HTTP-Anfrage ermöglicht es Ihnen, hochgeladene Multipart-Inhalte wie Dateien, Formularfelder oder beliebige Binärinhalte abzurufen.</p>
+<div class="script-header">
+    <span>
+        Controller/Auth.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
+public HttpResponse Index(HttpRequest request)
+{
+    // Die folgende Methode liest die gesamte Anfrageeingabe in ein
+    // Array von MultipartObjecten
+    var multipartFormDataObjects = request.GetMultipartFormContent();
+    
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
+    {
+        // Der Name der Datei, die durch die Multipart-Formulardaten bereitgestellt wird.
+        // Null wird zurückgegeben, wenn das Objekt keine Datei ist.
+        Console.WriteLine(&quot;Dateiname       : &quot; + uploadedObject.Filename);
+
+        // Der Name des Multipart-Formulardatenfelds.
+        Console.WriteLine(&quot;Feldname      : &quot; + uploadedObject.Name);
+
+        // Die Länge des Multipart-Formulardateninhalts.
+        Console.WriteLine(&quot;Inhaltslänge  : &quot; + uploadedObject.ContentLength);
+
+        // Bestimmt das Dateiformat basierend auf dem Dateikopf für jeden
+        // bekannten Inhaltstyp. Wenn der Inhalt kein erkanntes gängiges Dateiformat ist,
+        // gibt diese Methode MultipartObjectCommonFormat.Unknown zurück
+        Console.WriteLine(&quot;Gängiges Format   : &quot; + uploadedObject.GetCommonFileFormat());
+    }
+}
+</code></pre>
+<p>Sie können mehr über Sisks <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart-Formulardatenobjekte</a> und ihre Methoden, Eigenschaften und Funktionen erfahren.</p>
+<h2 id="server-sent-events-unterstützung">Server-sent-Events-Unterstützung</h2>
+<p>Sisk unterstützt <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">Server-sent-Events</a>, die es ermöglichen, Chunks als Stream zu senden und die Verbindung zwischen Server und Client aufrechtzuerhalten.</p>
+<p>Durch den Aufruf der <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a>-Methode wird die HttpRequest in ihren Zuhörerzustand versetzt. Von diesem Zeitpunkt an erwartet der Kontext dieser HTTP-Anfrage keine HttpResponse, da sie die von der Server-Seite gesendeten Pakete überlagert.</p>
+<p>Nach dem Senden aller Pakete muss die Rückrufmethode die <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>-Methode zurückgeben, die die endgültige Antwort an den Server sendet und anzeigt, dass der Streamingvorgang beendet wurde.</p>
+<p>Es ist nicht möglich, die Gesamtlänge aller Pakete vorherzusagen, die gesendet werden, daher ist es nicht möglich, das Ende der Verbindung mit dem <code>Content-Length</code>-Header zu bestimmen.</p>
+<p>Die meisten Browser unterstützen standardmäßig keine Server-sent-Events, die HTTP-Header oder Methoden anderen als der GET-Methode senden. Daher sollten Sie vorsichtig sein, wenn Sie Anfragehandler mit Event-Quellen-Anfragen verwenden, die bestimmte Header in der Anfrage erfordern, da sie wahrscheinlich nicht vorhanden sind.</p>
+<p>Außerdem starten die meisten Browser Streams erneut, wenn die <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a>-Methode auf der Client-Seite nach dem Empfang aller Pakete nicht aufgerufen wird, was zu endlosem zusätzlichem Verarbeitung auf der Server-Seite führt. Um dieses Problem zu vermeiden, ist es üblich, ein letztes Paket zu senden, das anzeigt, dass die Event-Quelle alle Pakete gesendet hat.</p>
+<p>Das folgende Beispiel zeigt, wie der Browser mit einem Server kommunizieren kann, der Server-sent-Events unterstützt.</p>
+<div class="script-header">
+    <span>
+        sse-example.html
+    </span>
+    <span>
+        HTML
+    </span>
+</div>
+<pre><code class="lang-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;b&gt;Früchte:&lt;/b&gt;
+        &lt;ul&gt;&lt;/ul&gt;
+    &lt;/body&gt;
+    &lt;script&gt;
+        const evtSource = new EventSource('http://localhost:5555/event-source');
+        const eventList = document.querySelector('ul');
+        
+        evtSource.onmessage = (e) =&gt; {
+            const newElement = document.createElement(&quot;li&quot;);
+
+            newElement.textContent = `Nachricht: ${e.data}`;
+            eventList.appendChild(newElement);
+
+            if (e.data == &quot;Tomate&quot;) {
+                evtSource.close();
+            }
+        }
+    &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Und sendet die Nachrichten schrittweise an den Client:</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class MyController
+{
+    [RouteGet(&quot;/event-source&quot;)]
+    public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
+    {
+        var sse = await request.GetEventSourceAsync ();
+        
+        string[] fruechte = new[] { &quot;Apfel&quot;, &quot;Banane&quot;, &quot;Wassermelone&quot;, &quot;Tomate&quot; };
+        
+        foreach (string frucht in fruechte)
+        {
+            await serverEvents.SendAsync(frucht);
+            await Task.Delay(1500);
+        }
+
+        return serverEvents.Close();
+    }
+}
+</code></pre>
+<p>Wenn wir diesen Code ausführen, erwarten wir ein Ergebnis, das diesem ähnelt:</p>
+<img src="/assets/img/server side events demo.gif">
+<h2 id="auflösen-von-proxied-ips-und-hosts">Auflösen von proxied IPs und Hosts</h2>
+<p>Sisk kann mit Proxys verwendet werden, und daher können IP-Adressen durch den Proxy-Endpunkt im Transaktionsverlauf von einem Client zum Proxy ersetzt werden.</p>
+<p>Sie können Ihre eigenen Auflöser in Sisk mit <a href="/docs/advanced/forwarding-resolvers">Forwarding-Resolvery</a> definieren.</p>
+<h2 id="header-codierung">Header-Codierung</h2>
+<p>Header-Codierung kann ein Problem für einige Implementierungen darstellen. Unter Windows werden UTF-8-Header nicht unterstützt, daher wird ASCII verwendet. Sisk verfügt über einen integrierten Codierungskonverter, der für die Decodierung von falsch codierten Headern nützlich sein kann.</p>
+<p>Dieser Vorgang ist kostspielig und standardmäßig deaktiviert, kann aber unter der <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>-Flag aktiviert werden.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/fundamentals/requests.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

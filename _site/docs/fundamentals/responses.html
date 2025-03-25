@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -137,6 +137,12 @@
                                     Spanish
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -165,7 +171,7 @@ res.Status = System.Net.HttpStatusCode.Accepted; // 202
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
 <p>The server will always attempt to calculate the <code>Content-Length</code> from what you have defined in the content if you haven't explicitly defined it in a header. If the server cannot implicitly obtain the Content-Length header from the response content, the response will be sent with Chunked-Encoding.</p>
-<p>You can also stream the response by sending a <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> or using the method <a href="#response-stream">GetResponseStream</a>.</p>
+<p>You can also stream the response by sending a <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> or using the method <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a>.</p>
 <h2 id="response-headers">Response headers</h2>
 <p>You can add, edit or remove headers you're sending in the response. The example below shows how to send an redirect response to the client.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();

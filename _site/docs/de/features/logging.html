@@ -1,0 +1,660 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Protokollierung | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Protokollierung | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/features/logging.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="protokollierung">Protokollierung</h1>
+
+<p>Sie können Sisk so konfigurieren, dass es Zugriffs- und Fehlerprotokolle automatisch schreibt. Es ist möglich, Protokollrotation, Erweiterungen und Häufigkeit zu definieren.</p>
+<p>Die <a href="/api/Sisk.Core.Http.LogStream">LogStream</a>-Klasse bietet eine asynchrone Möglichkeit, Protokolle zu schreiben und sie in einer wartbaren Warteschlange zu halten.</p>
+<p>In diesem Artikel zeigen wir Ihnen, wie Sie die Protokollierung für Ihre Anwendung konfigurieren.</p>
+<h2 id="dateibasierte-zugriffsprotokolle">Dateibasierte Zugriffsprotokolle</h2>
+<p>Protokolle in Dateien öffnen die Datei, schreiben den Text und schließen die Datei für jede Zeile, die geschrieben wird. Dieses Verfahren wurde zur Aufrechterhaltung der Schreibreaktion in den Protokollen übernommen.</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseConfiguration(config =&gt; {
+                config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+            })
+            .Build();
+        
+        ...
+        
+        await app.StartAsync();
+    }
+}
+</code></pre>
+<p>Der obige Code schreibt alle eingehenden Anfragen in die Datei <code>logs/access.log</code>. Beachten Sie, dass die Datei automatisch erstellt wird, wenn sie nicht existiert, jedoch nicht das Verzeichnis davor. Es ist nicht notwendig, das Verzeichnis <code>logs/</code> zu erstellen, da die <code>LogStream</code>-Klasse es automatisch erstellt.</p>
+<h2 id="stream-basierte-protokollierung">Stream-basierte Protokollierung</h2>
+<p>Sie können Protokolldateien an <code>TextWriter</code>-Objekte wie <code>Console.Out</code> schreiben, indem Sie ein <code>TextWriter</code>-Objekt im Konstruktor übergeben:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">using var app = HttpServer.CreateBuilder()
+    .UseConfiguration(config =&gt; {
+        config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+    })
+    .Build();
+</code></pre>
+<p>Für jede in der stream-basierten Protokollierung geschriebene Nachricht wird die <code>TextWriter.Flush()</code>-Methode aufgerufen.</p>
+<h2 id="zugriffsprotokoll-formatierung">Zugriffsprotokoll-Formatierung</h2>
+<p>Sie können das Zugriffsprotokoll-Format durch vordefinierte Variablen anpassen. Betrachten Sie die folgende Zeile:</p>
+<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
+</code></pre>
+<p>Sie schreibt eine Nachricht wie:</p>
+<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+</code></pre>
+<p>Sie können Ihre Protokolldatei durch das Format beschreiben, das in der folgenden Tabelle angegeben ist:</p>
+<table>
+<thead>
+<tr>
+<th>Wert</th>
+<th>Was es darstellt</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%dd</td>
+<td>Tag des Monats (als zwei Ziffern formatiert)</td>
+<td>05</td>
+</tr>
+<tr>
+<td>%dmmm</td>
+<td>Vollständiger Name des Monats</td>
+<td>Juli</td>
+</tr>
+<tr>
+<td>%dmm</td>
+<td>Abgekürzter Name des Monats (drei Buchstaben)</td>
+<td>Jul</td>
+</tr>
+<tr>
+<td>%dm</td>
+<td>Monatsnummer (als zwei Ziffern formatiert)</td>
+<td>07</td>
+</tr>
+<tr>
+<td>%dy</td>
+<td>Jahr (als vier Ziffern formatiert)</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>%th</td>
+<td>Stunde im 12-Stunden-Format</td>
+<td>03</td>
+</tr>
+<tr>
+<td>%tH</td>
+<td>Stunde im 24-Stunden-Format (HH)</td>
+<td>15</td>
+</tr>
+<tr>
+<td>%ti</td>
+<td>Minuten (als zwei Ziffern formatiert)</td>
+<td>30</td>
+</tr>
+<tr>
+<td>%ts</td>
+<td>Sekunden (als zwei Ziffern formatiert)</td>
+<td>45</td>
+</tr>
+<tr>
+<td>%tm</td>
+<td>Millisekunden (als drei Ziffern formatiert)</td>
+<td>123</td>
+</tr>
+<tr>
+<td>%tz</td>
+<td>Zeitzone (gesamte Stunden in UTC)</td>
+<td>+03:00</td>
+</tr>
+<tr>
+<td>%ri</td>
+<td>Client-IP-Adresse des Remote-Computers</td>
+<td>192.168.1.100</td>
+</tr>
+<tr>
+<td>%rm</td>
+<td>HTTP-Methode (in Großbuchstaben)</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>%rs</td>
+<td>URI-Schema (http/https)</td>
+<td>https</td>
+</tr>
+<tr>
+<td>%ra</td>
+<td>URI-Autorität (Domain)</td>
+<td>example.com</td>
+</tr>
+<tr>
+<td>%rh</td>
+<td>Host der Anfrage</td>
+<td><a href="http://www.example.com">www.example.com</a></td>
+</tr>
+<tr>
+<td>%rp</td>
+<td>Port der Anfrage</td>
+<td>443</td>
+</tr>
+<tr>
+<td>%rz</td>
+<td>Pfad der Anfrage</td>
+<td>/path/to/resource</td>
+</tr>
+<tr>
+<td>%rq</td>
+<td>Abfragezeichenfolge6355</td>
+<td>?key=value&amp;another=123</td>
+</tr>
+<tr>
+<td>%sc</td>
+<td>HTTP-Antwort-Statuscode</td>
+<td>200</td>
+</tr>
+<tr>
+<td>%sd</td>
+<td>HTTP-Antwort-Statusbeschreibung</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>%lin</td>
+<td>Menschlich lesbare Größe der Anfrage</td>
+<td>1.2 KB</td>
+</tr>
+<tr>
+<td>%linr</td>
+<td>Rohgröße der Anfrage (Bytes)</td>
+<td>1234</td>
+</tr>
+<tr>
+<td>%lou</td>
+<td>Menschlich lesbare Größe der Antwort</td>
+<td>2.5 KB</td>
+</tr>
+<tr>
+<td>%lour</td>
+<td>Rohgröße der Antwort (Bytes)</td>
+<td>2560</td>
+</tr>
+<tr>
+<td>%lms</td>
+<td>Verstrichene Zeit in Millisekunden</td>
+<td>120</td>
+</tr>
+<tr>
+<td>%ls</td>
+<td>Ausführungsstatus</td>
+<td>Executed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rotierende-protokolle">Rotierende Protokolle</h2>
+<div class="TIP">
+<h5>Tip</h5>
+<p>In Sisk 0.15 und älter ist diese Funktion nur mit dem Sisk.ServiceProvider-Paket verfügbar. In Sisk 0.16 und höher ist diese Funktion im Core-Paket implementiert.</p>
+</div>
+<p>Sie können den HTTP-Server so konfigurieren, dass er die Protokolldateien in eine komprimierte .gz-Datei umwandelt, wenn sie eine bestimmte Größe erreichen. Die Größe wird periodisch durch den von Ihnen definierten Schwellenwert überprüft.</p>
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
+
+var rotater = new RotatingLogPolicy(config.AccessLogsStream);
+rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+</code></pre>
+<p>Der obige Code überprüft alle sechs Stunden, ob die Datei des LogStreams die 1-MB-Grenze erreicht hat. Wenn ja, wird die Datei in eine .gz-Datei komprimiert und die <code>access.log</code>-Datei wird gelöscht.</p>
+<p>Während dieses Prozesses wird das Schreiben in die Datei gesperrt, bis die Datei komprimiert und gelöscht ist. Alle Zeilen, die in diesem Zeitraum geschrieben werden sollen, werden in einer Warteschlange gespeichert, bis die Komprimierung abgeschlossen ist.</p>
+<p>Diese Funktion funktioniert nur mit dateibasierten LogStreams.</p>
+<h2 id="fehlerprotokollierung">Fehlerprotokollierung</h2>
+<p>Wenn ein Server keine Fehler an den Debugger weiterleitet, leitet er Fehler an die Protokollierung weiter, wenn Fehler auftreten. Sie können die Fehlerprotokollierung mit:</p>
+<pre><code class="lang-cs">config.ThrowExceptions = false;
+config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
+</code></pre>
+<p>Diese Eigenschaft schreibt nur dann etwas in das Protokoll, wenn der Fehler nicht von der Rückruf-Funktion oder der <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft abgefangen wird.</p>
+<p>Der Fehler, der vom Server geschrieben wird, schreibt immer das Datum und die Uhrzeit, die Anfrage-Header (nicht den Text), die Fehlerverfolgung und die innere Ausnahme-Verfolgung, wenn vorhanden.</p>
+<h2 id="andere-protokollierungsinstanzen">Andere Protokollierungsinstanzen</h2>
+<p>Ihre Anwendung kann null oder mehrere LogStreams haben, es gibt keine Grenze für die Anzahl der Protokollkanäle, die sie haben kann. Es ist daher möglich, die Protokollierung Ihrer Anwendung in eine Datei umzuleiten, die sich von der Standard-Zugriffsprotokollierung oder Fehlerprotokollierung unterscheidet.</p>
+<pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
+appMessages.WriteLine(&quot;Anwendung gestartet am {0}&quot;, DateTime.Now);
+</code></pre>
+<h2 id="erweiterung-von-logstream">Erweiterung von LogStream</h2>
+<p>Sie können die <code>LogStream</code>-Klasse erweitern, um benutzerdefinierte Formate zu schreiben, die mit dem aktuellen Sisk-Protokollmotor kompatibel sind. Das folgende Beispiel ermöglicht es, farbige Nachrichten über die Spectre.Console-Bibliothek in die Konsole zu schreiben:</p>
+<div class="script-header">
+    <span>
+        CustomLogStream.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class CustomLogStream : LogStream
+{
+    protected override void WriteLineInternal(string line)
+    {
+        base.WriteLineInternal($&quot;[{DateTime.Now:g}] {line}&quot;);
+    }
+}
+</code></pre>
+<p>Eine weitere Möglichkeit, automatisch benutzerdefinierte Protokolle für jede Anfrage/Antwort zu schreiben, besteht darin, einen <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a> zu erstellen. Das folgende Beispiel ist ein wenig umfassender. Es schreibt den Text der Anfrage und Antwort im JSON-Format in die Konsole. Es kann nützlich sein, Anfragen im Allgemeinen zu debuggen. Dieses Beispiel verwendet ContextBag und HttpServerHandler.</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class Program
+{
+    static async Task Main(string[] args)
+    {
+        var app = HttpServer.CreateBuilder(host =&gt;
+        {
+            host.UseListeningPort(5555);
+            host.UseHandler&lt;JsonMessageHandler&gt;();
+        });
+
+        app.Router += new Route(RouteMethod.Any, &quot;/json&quot;, request =&gt;
+        {
+            return new HttpResponse()
+                .WithContent(JsonContent.Create(new
+                {
+                    method = request.Method.Method,
+                    path = request.Path,
+                    specialMessage = &quot;Hello, world!!&quot;
+                }));
+        });
+
+        await app.StartAsync();
+    }
+}
+</code></pre>
+<div class="script-header">
+    <span>
+        JsonMessageHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">class JsonMessageHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestOpen(HttpRequest request)
+    {
+        if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+        {
+            // Zu diesem Zeitpunkt ist die Verbindung geöffnet und der Client hat den Header gesendet, der angibt,
+            // dass der Inhalt JSON ist. Die folgende Zeile liest den Inhalt und speichert ihn im Anfrage-Objekt.
+            //
+            // Wenn der Inhalt nicht im Anfrage-Objekt gelesen wird, ist es wahrscheinlich, dass der GC den Inhalt
+            // nach dem Senden der Antwort an den Client sammelt, sodass der Inhalt möglicherweise nicht nach dem Schließen
+            // der Antwort verfügbar ist.
+            //
+            _ = request.RawBody;
+
+            // Fügen Sie einen Hinweis im Kontext hinzu, um anzugeben, dass diese Anfrage einen JSON-Textkörper enthält
+            request.Bag.Add(&quot;IsJsonRequest&quot;, true);
+        }
+    }
+
+    protected override async void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        string? requestJson = null,
+                responseJson = null,
+                responseMessage;
+
+        if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
+        {
+            // Reformuliert den JSON mithilfe der CypherPotato.LightJson-Bibliothek
+            var content = result.Request.Body;
+            requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
+        }
+        
+        if (result.Response is { } response)
+        {
+            var content = response.Content;
+            responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
+            
+            if (content is HttpContent httpContent &amp;&amp;
+                // Überprüfen, ob die Antwort JSON ist
+                httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                string json = await httpContent.ReadAsStringAsync();
+                responseJson = JsonValue.Deserialize(json, new JsonOptions() { WriteIndented = true }).ToString();
+            }
+        }
+        else
+        {
+            // Ruft den internen Server-Verarbeitungsstatus ab
+            responseMessage = result.Status.ToString();
+        }
+        
+        StringBuilder outputMessage = new StringBuilder();
+
+        if (requestJson != null)
+        {
+            outputMessage.AppendLine(&quot;-----&quot;);
+            outputMessage.AppendLine($&quot;&gt;&gt;&gt; {result.Request.Method} {result.Request.Path}&quot;);
+
+            if (requestJson is not null)
+                outputMessage.AppendLine(requestJson);
+        }
+
+        outputMessage.AppendLine($&quot;&lt;&lt;&lt; {responseMessage}&quot;);
+
+        if (responseJson is not null)
+            outputMessage.AppendLine(responseJson);
+
+        outputMessage.AppendLine(&quot;-----&quot;);
+
+        await Console.Out.WriteLineAsync(outputMessage.ToString());
+    }
+}
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/features/logging.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

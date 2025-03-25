@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Anfragelebenszyklus | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Anfragelebenszyklus | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/request-lifecycle.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="anfragelebenszyklus">Anfragelebenszyklus</h1>
+
+<p>Im Folgenden wird der gesamte Lebenszyklus einer Anfrage anhand eines Beispiels einer HTTP-Anfrage erläutert.</p>
+<ul>
+<li><strong>Empfangen der Anfrage:</strong> Jede Anfrage erstellt einen HTTP-Kontext zwischen der Anfrage selbst und der Antwort, die an den Client geliefert wird. Dieser Kontext stammt vom integrierten Listener in Sisk, der entweder <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>, <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a> oder <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a> sein kann.
+<ul>
+<li>Externe Anfragevalidierung: Die Validierung von <a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">HttpServerConfiguration.RemoteRequestsAction</a> wird für die Anfrage überprüft.
+<ul>
+<li>Wenn die Anfrage extern ist und die Eigenschaft <code>Drop</code> ist, wird die Verbindung ohne Antwort an den Client geschlossen und ein <code>HttpServerExecutionStatus = RemoteRequestDropped</code> zurückgegeben.</li>
+</ul>
+</li>
+<li>Weiterleitungs-Resolver-Konfiguration: Wenn ein <a href="/docs/advanced/forwarding-resolvers">ForwardingResolver</a> konfiguriert ist, wird die Methode <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> auf dem ursprünglichen Host der Anfrage aufgerufen.</li>
+<li>DNS-Matching: Mit dem aufgelösten Host und mehr als einem konfigurierten <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> sucht der Server nach dem entsprechenden Host für die Anfrage.
+<ul>
+<li>Wenn kein ListeningHost übereinstimmt, wird eine 400 Bad Request-Antwort an den Client zurückgegeben und ein <code>HttpServerExecutionStatus = DnsUnknownHost</code>-Status an den HTTP-Kontext zurückgegeben.</li>
+<li>Wenn ein ListeningHost übereinstimmt, aber sein <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> noch nicht initialisiert ist, wird eine 503 Service Unavailable-Antwort an den Client zurückgegeben und ein <code>HttpServerExecutionStatus = ListeningHostNotReady</code>-Status an den HTTP-Kontext zurückgegeben.</li>
+</ul>
+</li>
+<li>Router-Bindung: Der Router des entsprechenden ListeningHost wird mit dem empfangenen HTTP-Server verknüpft.
+<ul>
+<li>Wenn der Router bereits mit einem anderen HTTP-Server verknüpft ist, was nicht zulässig ist, da der Router die Konfigurationsressourcen des Servers aktiv verwendet, wird eine <code>InvalidOperationException</code> ausgelöst. Dies tritt nur während der Initialisierung des HTTP-Servers auf, nicht während der Erstellung des HTTP-Kontexts.</li>
+</ul>
+</li>
+<li>Vordefinition von Headern:
+<ul>
+<li>Definiert den <code>X-Request-Id</code>-Header in der Antwort, wenn dies konfiguriert ist.</li>
+<li>Definiert den <code>X-Powered-By</code>-Header in der Antwort, wenn dies konfiguriert ist.</li>
+</ul>
+</li>
+<li>Inhaltsgrößenvalidierung: Überprüft, ob der Anfrageinhalt kleiner als <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> ist, nur wenn dieser größer als Null ist.
+<ul>
+<li>Wenn die Anfrage eine <code>Content-Length</code> größer als die konfigurierte sendet, wird eine 413 Payload Too Large-Antwort an den Client zurückgegeben und ein <code>HttpServerExecutionStatus = ContentTooLarge</code>-Status an den HTTP-Kontext zurückgegeben.</li>
+</ul>
+</li>
+<li>Das <code>OnHttpRequestOpen</code>-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.</li>
+</ul>
+</li>
+<li><strong>Weiterleiten der Aktion:</strong> Der Server ruft den Router für die empfangene Anfrage auf.
+<ul>
+<li>Wenn der Router keine Route findet, die der Anfrage entspricht:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a>-Eigenschaft konfiguriert ist, wird die Aktion aufgerufen und die Antwort der Aktion an den HTTP-Client weitergeleitet.</li>
+<li>Wenn die vorherige Eigenschaft Null ist, wird eine Standard-404 Not Found-Antwort an den Client zurückgegeben.</li>
+</ul>
+</li>
+<li>Wenn der Router eine passende Route findet, aber die Methode der Route nicht der Anfragemethode entspricht:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a>-Eigenschaft konfiguriert ist, wird die Aktion aufgerufen und die Antwort der Aktion an den HTTP-Client weitergeleitet.</li>
+<li>Wenn die vorherige Eigenschaft Null ist, wird eine Standard-405 Method Not Allowed-Antwort an den Client zurückgegeben.</li>
+</ul>
+</li>
+<li>Wenn die Anfrage die <code>OPTIONS</code>-Methode ist:
+<ul>
+<li>Der Router gibt eine 200 Ok-Antwort an den Client zurück, nur wenn keine Route der Anfrage entspricht (die Route ist nicht explizit <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a>).</li>
+</ul>
+</li>
+<li>Wenn die <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a>-Eigenschaft aktiviert ist, die passende Route keine Regex ist, der Anfragepfad nicht mit <code>/</code> endet und die Anfragemethode <code>GET</code> ist:
+<ul>
+<li>Eine 307 Temporary Redirect-HTTP-Antwort mit dem <code>Location</code>-Header mit dem Pfad und der Abfrage an dieselbe Position mit einem <code>/</code> am Ende wird an den Client zurückgegeben.</li>
+</ul>
+</li>
+<li>Das <code>OnContextBagCreated</code>-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.</li>
+<li>Alle globalen <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>-Instanzen mit der <code>BeforeResponse</code>-Flag werden ausgeführt.
+<ul>
+<li>Wenn ein Handler eine nicht-Null-Antwort zurückgibt, wird diese Antwort an den HTTP-Client weitergeleitet und der Kontext geschlossen.</li>
+<li>Wenn ein Fehler in diesem Schritt auftritt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> deaktiviert ist:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.</li>
+<li>Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Alle <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>-Instanzen, die in der Route definiert sind und die <code>BeforeResponse</code>-Flag haben, werden ausgeführt.
+<ul>
+<li>Wenn ein Handler eine nicht-Null-Antwort zurückgibt, wird diese Antwort an den HTTP-Client weitergeleitet und der Kontext geschlossen.</li>
+<li>Wenn ein Fehler in diesem Schritt auftritt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> deaktiviert ist:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.</li>
+<li>Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Die Aktion des Routers wird aufgerufen und in eine HTTP-Antwort umgewandelt.
+<ul>
+<li>Wenn ein Fehler in diesem Schritt auftritt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> deaktiviert ist:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.</li>
+<li>Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Alle globalen <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>-Instanzen mit der <code>AfterResponse</code>-Flag werden ausgeführt.
+<ul>
+<li>Wenn ein Handler eine nicht-Null-Antwort zurückgibt, ersetzt die Antwort des Handlers die vorherige Antwort und wird sofort an den HTTP-Client weitergeleitet.</li>
+<li>Wenn ein Fehler in diesem Schritt auftritt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> deaktiviert ist:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.</li>
+<li>Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Alle <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>-Instanzen, die in der Route definiert sind und die <code>AfterResponse</code>-Flag haben, werden ausgeführt.
+<ul>
+<li>Wenn ein Handler eine nicht-Null-Antwort zurückgibt, ersetzt die Antwort des Handlers die vorherige Antwort und wird sofort an den HTTP-Client weitergeleitet.</li>
+<li>Wenn ein Fehler in diesem Schritt auftritt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> deaktiviert ist:
+<ul>
+<li>Wenn die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.</li>
+<li>Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Verarbeiten der Antwort:</strong> Mit der Antwort bereit, bereitet der Server sie für den Versand an den Client vor.
+<ul>
+<li>Die Cross-Origin Resource Sharing Policy (CORS)-Header werden in der Antwort definiert, entsprechend der Konfiguration in der aktuellen <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a>.</li>
+<li>Der Statuscode und die Header der Antwort werden an den Client gesendet.</li>
+<li>Der Inhalt der Antwort wird an den Client gesendet:
+<ul>
+<li>Wenn der Inhalt der Antwort ein Nachfahre von <a href="/en-us/dotnet/api/system.net.http.bytearraycontent">ByteArrayContent</a> ist, werden die Antwortbytes direkt in den Ausgabestream der Antwort kopiert.</li>
+<li>Wenn die vorherige Bedingung nicht erfüllt ist, wird die Antwort in einen Stream serialisiert und in den Ausgabestream der Antwort kopiert.</li>
+</ul>
+</li>
+<li>Die Streams werden geschlossen und der Inhalt der Antwort wird verworfen.</li>
+<li>Wenn <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> aktiviert ist, werden alle Objekte, die im Anfragekontext definiert sind und von <a href="/en-us/dotnet/api/system.idisposable">IDisposable</a> erben, verworfen.</li>
+<li>Das <code>OnHttpRequestClose</code>-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.</li>
+<li>Wenn auf dem Server eine Ausnahme ausgelöst wurde, wird das <code>OnException</code>-Ereignis für alle konfigurierten HTTP-Server-Handler aufgerufen.</li>
+<li>Wenn die Route Zugriffsprotokollierung zulässt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> nicht Null ist, wird eine Protokollzeile in die Protokollausgabe geschrieben.</li>
+<li>Wenn die Route Fehlerprotokollierung zulässt, eine Ausnahme vorliegt und <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> nicht Null ist, wird eine Protokollzeile in die Fehlerprotokollausgabe geschrieben.</li>
+<li>Wenn der Server auf eine Anfrage durch <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a> wartet, wird die Sperre freigegeben und der Kontext wird dem Benutzer zur Verfügung gestellt.</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/request-lifecycle.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

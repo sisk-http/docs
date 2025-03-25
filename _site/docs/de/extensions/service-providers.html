@@ -1,0 +1,474 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Diensteanbieter | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Diensteanbieter | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/extensions/service-providers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="diensteanbieter">Diensteanbieter</h1>
+
+<p>Diensteanbieter sind eine Möglichkeit, Ihre Sisk-Anwendung auf verschiedene Umgebungen mit einer portablen Konfigurationsdatei zu übertragen. Diese Funktion ermöglicht es Ihnen, den Serverport, Parameter und andere Optionen ohne Änderung des Anwendungscode für jede Umgebung zu ändern. Dieses Modul hängt von der Sisk-Konstruktionsyntax ab und kann über die Methode <code>UsePortableConfiguration</code> konfiguriert werden.</p>
+<p>Ein Konfigurationsanbieter wird mit <code>IConfigurationProvider</code> implementiert, der einen Konfigurationsleser bereitstellt und jede Implementierung erhalten kann. Standardmäßig bietet Sisk einen JSON-Konfigurationsleser, aber es gibt auch ein Paket für INI-Dateien. Sie können auch Ihren eigenen Konfigurationsanbieter erstellen und ihn mit:</p>
+<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =&gt;
+    {
+        config.WithConfigReader&lt;MyConfigurationReader&gt;();
+    })
+    .Build();
+</code></pre>
+<p>Wie bereits erwähnt, ist der Standardanbieter eine JSON-Datei. Standardmäßig wird nach einer Datei mit dem Namen <code>service-config.json</code> gesucht, und diese wird im aktuellen Verzeichnis des laufenden Prozesses und nicht im Verzeichnis der ausführbaren Datei gesucht.</p>
+<p>Sie können den Dateinamen sowie das Verzeichnis, in dem Sisk nach der Konfigurationsdatei suchen soll, mit:</p>
+<pre><code class="lang-csharp">using Sisk.Core.Http;
+using Sisk.Core.Http.Hosting;
+
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =&gt;
+    {
+        config.WithConfigFile(&quot;config.toml&quot;,
+            createIfDontExists: true,
+            lookupDirectories:
+                ConfigurationFileLookupDirectory.CurrentDirectory |
+                ConfigurationFileLookupDirectory.AppDirectory);
+    })
+    .Build();
+</code></pre>
+<p>Der obige Code sucht nach der Datei <code>config.toml</code> im aktuellen Verzeichnis des laufenden Prozesses. Wenn sie nicht gefunden wird, sucht er dann im Verzeichnis, in dem die ausführbare Datei liegt. Wenn die Datei nicht existiert, wird der Parameter <code>createIfDontExists</code> beachtet, und die Datei wird ohne Inhalt im letzten getesteten Pfad (basierend auf <code>lookupDirectories</code>) erstellt, und ein Fehler wird in der Konsole ausgegeben, was die Anwendung verhindert, sich zu initialisieren.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Sie können den Quellcode des INI-Konfigurationslesers und des JSON-Konfigurationslesers betrachten, um zu verstehen, wie ein <code>IConfigurationProvider</code> implementiert wird.</p>
+</div>
+<h2 id="lesen-von-konfigurationen-aus-einer-json-datei">Lesen von Konfigurationen aus einer JSON-Datei</h2>
+<p>Standardmäßig bietet Sisk einen Konfigurationsanbieter, der Konfigurationen aus einer JSON-Datei liest. Diese Datei folgt einer festen Struktur und besteht aus den folgenden Parametern:</p>
+<pre><code class="lang-json">{
+    &quot;Server&quot;: {
+        &quot;DefaultEncoding&quot;: &quot;UTF-8&quot;,
+        &quot;ThrowExceptions&quot;: true,
+        &quot;IncludeRequestIdHeader&quot;: true
+    },
+    &quot;ListeningHost&quot;: {
+        &quot;Label&quot;: &quot;Meine Sisk-Anwendung&quot;,
+        &quot;Ports&quot;: [
+            &quot;http://localhost:80/&quot;,
+            &quot;https://localhost:443/&quot;,  // Konfigurationsdateien unterstützen auch Kommentare
+        ],
+        &quot;CrossOriginResourceSharingPolicy&quot;: {
+            &quot;AllowOrigin&quot;: &quot;*&quot;,
+            &quot;AllowOrigins&quot;: [ &quot;*&quot; ],   // neu in 0.14
+            &quot;AllowMethods&quot;: [ &quot;*&quot; ],
+            &quot;AllowHeaders&quot;: [ &quot;*&quot; ],
+            &quot;MaxAge&quot;: 3600
+        },
+        &quot;Parameters&quot;: {
+            &quot;MySqlConnection&quot;: &quot;server=localhost;user=root;&quot;
+        }
+    }
+}
+</code></pre>
+<p>Die aus einer Konfigurationsdatei erstellten Parameter können im Serverkonstruktor abgerufen werden:</p>
+<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =&gt;
+    {
+        config.WithParameters(paramCollection =&gt;
+        {
+            string databaseConnection = paramCollection.GetValueOrThrow(&quot;MySqlConnection&quot;);
+        });
+    })
+    .Build();
+</code></pre>
+<p>Jeder Konfigurationsleser bietet eine Möglichkeit, die Serverinitialisierungsparameter zu lesen. Einige Eigenschaften sind so konzipiert, dass sie in der Prozessumgebung anstelle der Konfigurationsdatei definiert werden, wie z. B. sensible API-Daten, API-Schlüssel usw.</p>
+<h2 id="konfigurationsdateistruktur">Konfigurationsdateistruktur</h2>
+<p>Die JSON-Konfigurationsdatei besteht aus den folgenden Eigenschaften:</p>
+<table>
+    <thead>
+        <tr>
+            <th>Eigenschaft</th>
+            <th>Pflichtfeld</th>
+            <th>Beschreibung</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Server</td>
+            <td>Erforderlich</td>
+            <td>Stellt den Server selbst mit seinen Einstellungen dar.</td>
+        </tr>
+        <tr>
+            <td>Server.AccessLogsStream</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>console</code>. Gibt den Ausgabestream für die Zugriffsprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+        </tr>
+        <tr>
+            <td>Server.ErrorsLogsStream</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Gibt den Ausgabestream für die Fehlerprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+        </tr>
+        <tr>
+            <td>Server.MaximumContentLength</td>
+            <td>Optional</td>
+            </tr><tr>
+            <td>Server.MaximumContentLength</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>0</code>. Gibt die maximale Inhaltslänge in Bytes an. Null bedeutet unendlich.</td>
+        </tr>
+        <tr>
+            <td>Server.IncludeRequestIdHeader</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>false</code>. Gibt an, ob der HTTP-Server den <code>X-Request-Id</code>-Header senden soll.</td>
+        </tr>
+        <tr>
+            <td>Server.ThrowExceptions</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>true</code>. Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. Auf <code>false</code> setzen, wenn die Anwendung in Produktion ist, und auf <code>true</code>, wenn die Anwendung debuggt wird.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost</td>
+            <td>Erforderlich</td>
+            <td>Stellt den Server-Host dar, der zugehört.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Label</td>
+            <td>Optional</td>
+            <td>Stellt die Anwendungsbezeichnung dar.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Ports</td>
+            <td>Erforderlich</td>
+            <td>Stellt ein Array von Zeichenfolgen dar, die der Syntax von <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> entsprechen.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy</td>
+            <td>Optional</td>
+            <td>Konfiguriert die CORS-Header für die Anwendung.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>false</code>. Gibt den <code>Allow-Credentials</code>-Header an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet ein Array von Zeichenfolgen. Gibt den <code>Expose-Headers</code>-Header an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet eine Zeichenfolge. Gibt den <code>Allow-Origin</code>-Header an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet ein Array von Zeichenfolgen. Gibt mehrere <code>Allow-Origin</code>-Header an. Siehe <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> für weitere Informationen.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet ein Array von Zeichenfolgen. Gibt den <code>Allow-Methods</code>-Header an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet ein Array von Zeichenfolgen. Gibt den <code>Allow-Headers</code>-Header an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
+            <td>Optional</td>
+            <td>Standardmäßig <code>null</code>. Erwartet eine Ganzzahl. Gibt den <code>Max-Age</code>-Header in Sekunden an.</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Parameters</td>
+            <td>Optional</td>
+            <td>Gibt die Eigenschaften an, die der Anwendungskonfigurationsmethode bereitgestellt werden.</td>
+        </tr>
+    </tbody>
+</table>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/extensions/service-providers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

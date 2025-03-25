@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Http-Server-Handler | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Http-Server-Handler | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/http-server-handlers.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="http-server-handler">Http-Server-Handler</h1>
+
+<p>In Sisk-Version 0.16 haben wir die <code>HttpServerHandler</code>-Klasse eingeführt, die darauf abzielt, das Gesamtverhalten von Sisk zu erweitern und zusätzliche Ereignishandler für Sisk bereitzustellen, wie z. B. das Handling von Http-Anfragen, Routern, Kontextbeuteln und mehr.</p>
+<p>Die Klasse konzentriert sich auf Ereignisse, die während der Lebensdauer des gesamten HTTP-Servers und auch einer Anfrage auftreten. Das Http-Protokoll hat keine Sitzungen, und daher ist es nicht möglich, Informationen von einer Anfrage zur nächsten zu erhalten. Sisk bietet derzeit eine Möglichkeit, Sitzungen, Kontexte, Datenbankverbindungen und andere nützliche Anbieter zu implementieren, um Ihre Arbeit zu unterstützen.</p>
+<p>Bitte besuchen Sie <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">diese Seite</a>, um zu lesen, wo jedes Ereignis ausgelöst wird und welchen Zweck es hat. Sie können auch den <a href="/v1/advanced/request-lifecycle">Lebenszyklus einer HTTP-Anfrage</a> anzeigen, um zu verstehen, was mit einer Anfrage passiert und wo Ereignisse ausgelöst werden. Der HTTP-Server ermöglicht es Ihnen, mehrere Handler gleichzeitig zu verwenden. Jeder Ereignisanruf ist synchron, d. h. er blockiert den aktuellen Thread für jede Anfrage oder jeden Kontext, bis alle zugehörigen Handler ausgeführt und abgeschlossen sind.</p>
+<p>Im Gegensatz zu RequestHandlern können sie nicht auf bestimmte Routengruppen oder spezifische Routen angewendet werden. Stattdessen werden sie auf den gesamten HTTP-Server angewendet. Sie können Bedingungen innerhalb Ihres Http-Server-Handlers anwenden. Darüber hinaus werden Singleton-Instanzen jedes HttpServerHandlers für jede Sisk-Anwendung definiert, so dass nur eine Instanz pro <code>HttpServerHandler</code> definiert ist.</p>
+<p>Ein praktisches Beispiel für die Verwendung von HttpServerHandler ist die automatische Entsorgung einer Datenbankverbindung am Ende der Anfrage.</p>
+<pre><code class="lang-cs">// DatabaseConnectionHandler.cs
+
+public class DatabaseConnectionHandler : HttpServerHandler
+{
+    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        var requestBag = result.Request.Context.RequestBag;
+
+        // prüft, ob die Anfrage einen DbContext definiert hat
+        // in ihrem Kontextbeutel
+        if (requestBag.IsSet&lt;DbContext&gt;())
+        {
+            var db = requestBag.Get&lt;DbContext&gt;();
+            db.Dispose();
+        }
+    }
+}
+
+public static class DatabaseConnectionHandlerExtensions
+{
+    // ermöglicht es dem Benutzer, einen DbContext aus einer Http-Anfrage zu erstellen
+    // und ihn in seinem Kontextbeutel zu speichern
+    public static DbContext GetDbContext(this HttpRequest request)
+    {
+        var db = new DbContext();
+        return request.SetContextBag&lt;DbContext&gt;(db);
+    }
+}
+</code></pre>
+<p>Mit dem obigen Code ermöglicht die <code>GetDbContext</code>-Erweiterung die Erstellung eines Verbindungskontexts direkt aus dem HttpRequest-Objekt. Eine nicht entsorgte Verbindung kann Probleme beim Ausführen mit der Datenbank verursachen, daher wird sie in <code>OnHttpRequestClose</code> beendet.</p>
+<p>Sie können einen Handler auf einem Http-Server in Ihrem Builder oder direkt mit <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a> registrieren.</p>
+<pre><code class="lang-cs">// Program.cs
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseHandler&lt;DatabaseConnectionHandler&gt;()
+            .Build();
+
+        app.Router.SetObject(new UserController());
+        app.Start();
+    }
+}
+</code></pre>
+<p>Mit diesem Code kann die <code>UsersController</code>-Klasse den Datenbankkontext wie folgt verwenden:</p>
+<pre><code class="lang-cs">// UserController.cs
+
+[RoutePrefix(&quot;/users&quot;)]
+public class UserController : ApiController
+{
+    [RouteGet()]
+    public async Task&lt;HttpResponse&gt; List(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var users = db.Users.ToArray();
+
+        return JsonOk(users);
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; View(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+
+        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
+
+        return JsonOk(user);
+    }
+
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+
+        ArgumentNullException.ThrowIfNull(user);
+
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+
+        return JsonMessage(&quot;Benutzer hinzugefügt.&quot;);
+    }
+}
+</code></pre>
+<p>Der obige Code verwendet Methoden wie <code>JsonOk</code> und <code>JsonMessage</code>, die in <code>ApiController</code> integriert sind, die von <code>RouterController</code> abgeleitet ist:</p>
+<pre><code class="lang-cs">// ApiController.cs
+
+public class ApiController : RouterModule
+{
+    public HttpResponse JsonOk(object value)
+    {
+        return new HttpResponse(200)
+            .WithContent(JsonContent.Create(value, null, new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            }));
+    }
+
+    public HttpResponse JsonMessage(string message, int statusCode = 200)
+    {
+        return new HttpResponse(statusCode)
+            .WithContent(JsonContent.Create(new
+            {
+                Message = message
+            }));
+    }
+}
+</code></pre>
+<p>Entwickler können Sitzungen, Kontexte und Datenbankverbindungen mithilfe dieser Klasse implementieren. Der bereitgestellte Code zeigt ein praktisches Beispiel mit dem DatabaseConnectionHandler, der die automatische Entsorgung einer Datenbankverbindung am Ende jeder Anfrage ermöglicht.</p>
+<p>Die Integration ist einfach, mit Handlern, die während der Servereinrichtung registriert werden. Die HttpServerHandler-Klasse bietet ein leistungsfähiges Werkzeugset für die Verwaltung von Ressourcen und die Erweiterung des Sisk-Verhaltens in HTTP-Anwendungen.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/http-server-handlers.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

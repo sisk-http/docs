@@ -1,0 +1,67 @@
+# Anfragelebenszyklus
+Im Folgenden wird der gesamte Lebenszyklus einer Anfrage anhand eines Beispiels einer HTTP-Anfrage erläutert.
+
+- **Empfangen der Anfrage:** Jede Anfrage erstellt einen HTTP-Kontext zwischen der Anfrage selbst und der Antwort, die an den Client geliefert wird. Dieser Kontext stammt vom integrierten Listener in Sisk, der entweder [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0), [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0) oder [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/) sein kann.
+    - Externe Anfragevalidierung: Die Validierung von [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction) wird für die Anfrage überprüft.
+        - Wenn die Anfrage extern ist und die Eigenschaft `Drop` ist, wird die Verbindung ohne Antwort an den Client geschlossen und ein `HttpServerExecutionStatus = RemoteRequestDropped` zurückgegeben.
+    - Weiterleitungs-Resolver-Konfiguration: Wenn ein [ForwardingResolver](/docs/advanced/forwarding-resolvers) konfiguriert ist, wird die Methode [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) auf dem ursprünglichen Host der Anfrage aufgerufen.
+    - DNS-Matching: Mit dem aufgelösten Host und mehr als einem konfigurierten [ListeningHost](/api/Sisk.Core.Http.ListeningHost) sucht der Server nach dem entsprechenden Host für die Anfrage.
+        - Wenn kein ListeningHost übereinstimmt, wird eine 400 Bad Request-Antwort an den Client zurückgegeben und ein `HttpServerExecutionStatus = DnsUnknownHost`-Status an den HTTP-Kontext zurückgegeben.
+        - Wenn ein ListeningHost übereinstimmt, aber sein [Router](/api/Sisk.Core.Http.ListeningHost.Router) noch nicht initialisiert ist, wird eine 503 Service Unavailable-Antwort an den Client zurückgegeben und ein `HttpServerExecutionStatus = ListeningHostNotReady`-Status an den HTTP-Kontext zurückgegeben.
+    - Router-Bindung: Der Router des entsprechenden ListeningHost wird mit dem empfangenen HTTP-Server verknüpft.
+        - Wenn der Router bereits mit einem anderen HTTP-Server verknüpft ist, was nicht zulässig ist, da der Router die Konfigurationsressourcen des Servers aktiv verwendet, wird eine `InvalidOperationException` ausgelöst. Dies tritt nur während der Initialisierung des HTTP-Servers auf, nicht während der Erstellung des HTTP-Kontexts.
+    - Vordefinition von Headern:
+        - Definiert den `X-Request-Id`-Header in der Antwort, wenn dies konfiguriert ist.
+        - Definiert den `X-Powered-By`-Header in der Antwort, wenn dies konfiguriert ist.
+    - Inhaltsgrößenvalidierung: Überprüft, ob der Anfrageinhalt kleiner als [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) ist, nur wenn dieser größer als Null ist.
+        - Wenn die Anfrage eine `Content-Length` größer als die konfigurierte sendet, wird eine 413 Payload Too Large-Antwort an den Client zurückgegeben und ein `HttpServerExecutionStatus = ContentTooLarge`-Status an den HTTP-Kontext zurückgegeben.
+    - Das `OnHttpRequestOpen`-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.
+- **Weiterleiten der Aktion:** Der Server ruft den Router für die empfangene Anfrage auf.
+    - Wenn der Router keine Route findet, die der Anfrage entspricht:
+        - Wenn die [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler)-Eigenschaft konfiguriert ist, wird die Aktion aufgerufen und die Antwort der Aktion an den HTTP-Client weitergeleitet.
+        - Wenn die vorherige Eigenschaft Null ist, wird eine Standard-404 Not Found-Antwort an den Client zurückgegeben.
+    - Wenn der Router eine passende Route findet, aber die Methode der Route nicht der Anfragemethode entspricht:
+        - Wenn die [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler)-Eigenschaft konfiguriert ist, wird die Aktion aufgerufen und die Antwort der Aktion an den HTTP-Client weitergeleitet.
+        - Wenn die vorherige Eigenschaft Null ist, wird eine Standard-405 Method Not Allowed-Antwort an den Client zurückgegeben.
+    - Wenn die Anfrage die `OPTIONS`-Methode ist:
+        - Der Router gibt eine 200 Ok-Antwort an den Client zurück, nur wenn keine Route der Anfrage entspricht (die Route ist nicht explizit [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)).
+    - Wenn die [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash)-Eigenschaft aktiviert ist, die passende Route keine Regex ist, der Anfragepfad nicht mit `/` endet und die Anfragemethode `GET` ist:
+        - Eine 307 Temporary Redirect-HTTP-Antwort mit dem `Location`-Header mit dem Pfad und der Abfrage an dieselbe Position mit einem `/` am Ende wird an den Client zurückgegeben.
+    - Das `OnContextBagCreated`-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.
+    - Alle globalen [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Instanzen mit der `BeforeResponse`-Flag werden ausgeführt.
+        - Wenn ein Handler eine nicht-Null-Antwort zurückgibt, wird diese Antwort an den HTTP-Client weitergeleitet und der Kontext geschlossen.
+        - Wenn ein Fehler in diesem Schritt auftritt und [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) deaktiviert ist:
+            - Wenn die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.
+            - Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.
+    - Alle [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Instanzen, die in der Route definiert sind und die `BeforeResponse`-Flag haben, werden ausgeführt.
+        - Wenn ein Handler eine nicht-Null-Antwort zurückgibt, wird diese Antwort an den HTTP-Client weitergeleitet und der Kontext geschlossen.
+        - Wenn ein Fehler in diesem Schritt auftritt und [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) deaktiviert ist:
+            - Wenn die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.
+            - Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.
+    - Die Aktion des Routers wird aufgerufen und in eine HTTP-Antwort umgewandelt.
+        - Wenn ein Fehler in diesem Schritt auftritt und [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) deaktiviert ist:
+            - Wenn die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.
+            - Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.
+    - Alle globalen [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Instanzen mit der `AfterResponse`-Flag werden ausgeführt.
+        - Wenn ein Handler eine nicht-Null-Antwort zurückgibt, ersetzt die Antwort des Handlers die vorherige Antwort und wird sofort an den HTTP-Client weitergeleitet.
+        - Wenn ein Fehler in diesem Schritt auftritt und [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) deaktiviert ist:
+            - Wenn die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.
+            - Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.
+    - Alle [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Instanzen, die in der Route definiert sind und die `AfterResponse`-Flag haben, werden ausgeführt.
+        - Wenn ein Handler eine nicht-Null-Antwort zurückgibt, ersetzt die Antwort des Handlers die vorherige Antwort und wird sofort an den HTTP-Client weitergeleitet.
+        - Wenn ein Fehler in diesem Schritt auftritt und [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) deaktiviert ist:
+            - Wenn die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft aktiviert ist, wird sie aufgerufen und die resultierende Antwort an den Client zurückgegeben.
+            - Wenn die vorherige Eigenschaft nicht definiert ist, wird eine leere Antwort an den Server zurückgegeben, der eine Antwort entsprechend dem Typ des ausgelösten Fehlers zurückgibt, der normalerweise 500 Internal Server Error ist.
+- **Verarbeiten der Antwort:** Mit der Antwort bereit, bereitet der Server sie für den Versand an den Client vor.
+    - Die Cross-Origin Resource Sharing Policy (CORS)-Header werden in der Antwort definiert, entsprechend der Konfiguration in der aktuellen [ListeningHost.CrossOriginResourceSharingPolicy](/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy).
+    - Der Statuscode und die Header der Antwort werden an den Client gesendet.
+    - Der Inhalt der Antwort wird an den Client gesendet:
+        - Wenn der Inhalt der Antwort ein Nachfahre von [ByteArrayContent](/en-us/dotnet/api/system.net.http.bytearraycontent) ist, werden die Antwortbytes direkt in den Ausgabestream der Antwort kopiert.
+        - Wenn die vorherige Bedingung nicht erfüllt ist, wird die Antwort in einen Stream serialisiert und in den Ausgabestream der Antwort kopiert.
+    - Die Streams werden geschlossen und der Inhalt der Antwort wird verworfen.
+    - Wenn [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) aktiviert ist, werden alle Objekte, die im Anfragekontext definiert sind und von [IDisposable](/en-us/dotnet/api/system.idisposable) erben, verworfen.
+    - Das `OnHttpRequestClose`-Ereignis wird für alle konfigurierten HTTP-Server-Handler aufgerufen.
+    - Wenn auf dem Server eine Ausnahme ausgelöst wurde, wird das `OnException`-Ereignis für alle konfigurierten HTTP-Server-Handler aufgerufen.
+    - Wenn die Route Zugriffsprotokollierung zulässt und [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) nicht Null ist, wird eine Protokollzeile in die Protokollausgabe geschrieben.
+    - Wenn die Route Fehlerprotokollierung zulässt, eine Ausnahme vorliegt und [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) nicht Null ist, wird eine Protokollzeile in die Fehlerprotokollausgabe geschrieben.
+    - Wenn der Server auf eine Anfrage durch [HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext) wartet, wird die Sperre freigegeben und der Kontext wird dem Benutzer zur Verfügung gestellt.

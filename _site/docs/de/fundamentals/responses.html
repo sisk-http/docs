@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Antworten | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Antworten | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/fundamentals/responses.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    汉语
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português Brasileiro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Spanish
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="antworten">Antworten</h1>
+
+<p>Antworten stellen Objekte dar, die HTTP-Antworten auf HTTP-Anfragen sind. Sie werden vom Server an den Client gesendet, um die Anfrage für eine Ressource, Seite, Dokument, Datei oder ein anderes Objekt zu bestätigen.</p>
+<p>Eine HTTP-Antwort besteht aus Status, Headern und Inhalt.</p>
+<p>In diesem Dokument werden wir Ihnen zeigen, wie Sie HTTP-Antworten mit Sisk erstellen können.</p>
+<h2 id="festlegung-eines-http-status">Festlegung eines HTTP-Status</h2>
+<p>Die Liste der HTTP-Status ist seit HTTP/1.0 gleich geblieben, und Sisk unterstützt alle davon.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Accepted; // 202
+</code></pre>
+<p>Oder mit Fluent-Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse()
+    .WithStatus(200) // oder
+    .WithStatus(HttpStatusCode.Ok) // oder
+    .WithStatus(HttpStatusInformation.Ok);
+</code></pre>
+<p>Sie können die vollständige Liste der verfügbaren HttpStatusCode <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">hier</a> einsehen. Sie können auch Ihren eigenen Statuscode verwenden, indem Sie die <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>-Struktur verwenden.</p>
+<h2 id="inhalt-und-content-type">Inhalt und Content-Type</h2>
+<p>Sisk unterstützt native .NET-Inhaltsobjekte, um den Inhalt von Antworten zu senden. Sie können die <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a>-Klasse verwenden, um beispielsweise eine JSON-Antwort zu senden:</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
+</code></pre>
+<p>Der Server versucht immer, die <code>Content-Length</code> aus dem von Ihnen definierten Inhalt zu berechnen, wenn Sie sie nicht explizit in einem Header definiert haben. Wenn der Server die <code>Content-Length</code>-Header nicht implizit aus dem Antwortinhalt erhalten kann, wird die Antwort mit Chunked-Encoding gesendet.</p>
+<p>Sie können auch die Antwort streamen, indem Sie einen <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> senden oder die Methode <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a> verwenden.</p>
+<h2 id="antwort-header">Antwort-Header</h2>
+<p>Sie können Header hinzufügen, bearbeiten oder entfernen, die Sie in der Antwort senden. Das folgende Beispiel zeigt, wie Sie eine Umleitungsantwort an den Client senden können.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
+</code></pre>
+<p>Oder mit Fluent-Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
+</code></pre>
+<p>Wenn Sie die <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a>-Methode von HttpHeaderCollection verwenden, fügen Sie einen Header zur Anfrage hinzu, ohne die bereits gesendeten Header zu ändern. Die <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a>-Methode ersetzt die Header mit dem gleichen Namen durch den angegebenen Wert. Der Indexer von HttpHeaderCollection ruft intern die Set-Methode auf, um die Header zu ersetzen.</p>
+<h2 id="senden-von-cookies">Senden von Cookies</h2>
+<p>Sisk hat Methoden, die die Definition von Cookies auf dem Client erleichtern. Cookies, die mit dieser Methode gesetzt werden, sind bereits URL-codiert und entsprechen dem RFC-6265-Standard.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
+</code></pre>
+<p>Oder mit Fluent-Syntax:</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
+</code></pre>
+<p>Es gibt auch <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">umfassendere Versionen</a> der gleichen Methode.</p>
+<h2 id="chunked-antworten">Chunked-Antworten</h2>
+<p>Sie können die Übertragungskodierung auf chunked setzen, um große Antworten zu senden.</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SendChunked = true;
+</code></pre>
+<p>Wenn Sie chunked-encoding verwenden, wird der Content-Length-Header automatisch weggelassen.</p>
+<h2 id="antwort-stream">Antwort-Stream</h2>
+<p>Antwort-Streams sind eine verwaltete Möglichkeit, Antworten in einer segmentierten Weise zu senden. Es handelt sich um eine niedrigere Ebene als die Verwendung von HttpResponse-Objekten, da sie erfordern, dass Sie die Header und den Inhalt manuell senden und dann die Verbindung schließen.</p>
+<p>Dieses Beispiel öffnet einen schreibgeschützten Stream für die Datei, kopiert den Stream in den Antwort-Ausgabestream und lädt die gesamte Datei nicht in den Speicher. Dies kann nützlich sein, um mittelgroße oder große Dateien zu serven.</p>
+<pre><code class="lang-cs">// erhält den Antwort-Ausgabestream
+using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
+var responseStream = request.GetResponseStream();
+
+// setzt die Antwort-Kodierung auf chunked-encoding
+// außerdem sollten Sie keinen Content-Length-Header senden, wenn Sie chunked-encoding verwenden
+responseStream.SendChunked = true;
+responseStream.SetStatus(200);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
+
+// kopiert den Dateistream in den Antwort-Ausgabestream
+fileStream.CopyTo(responseStream.ResponseStream);
+
+// schließt den Stream
+return responseStream.Close();
+</code></pre>
+<h2 id="gzip-deflate-und-brotli-komprimierung">GZip, Deflate und Brotli-Komprimierung</h2>
+<p>Sie können Antworten mit komprimiertem Inhalt in Sisk senden, indem Sie HTTP-Inhalte komprimieren. Zuerst kapseln Sie Ihr <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a>-Objekt in einen der folgenden Kompressoren, um die komprimierte Antwort an den Client zu senden.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
+    string myHtml = &quot;...&quot;;
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // oder Content = new BrotliContent(new HtmlContent(myHtml)),
+        // oder Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+</code></pre>
+<p>Sie können auch diese komprimierten Inhalte mit Streams verwenden.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
+    
+    // verwenden Sie hier kein &quot;using&quot;. Der HttpServer wird Ihren Inhalt nach dem Senden der Antwort verwerten
+    var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+</code></pre>
+<p>Die Content-Encoding-Header werden automatisch gesetzt, wenn Sie diese Inhalte verwenden.</p>
+<h2 id="implizite-antworttypen">Implizite Antworttypen</h2>
+<p>Seit Version 0.15 können Sie andere Rückgabetypen als HttpResponse verwenden, aber es ist notwendig, den Router so zu konfigurieren, dass er mit jedem Typ von Objekt umgehen kann.</p>
+<p>Das Konzept besteht darin, immer einen Referenztyp zurückzugeben und ihn in ein gültiges HttpResponse-Objekt umzuwandeln. Routen, die HttpResponse zurückgeben, unterliegen keiner Umwandlung.</p>
+<p>Werttypen (Strukturen) können nicht als Rückgabetyp verwendet werden, da sie nicht mit dem <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a> kompatibel sind, daher müssen sie in ein ValueResult eingewickelt werden, um in Handlern verwendet werden zu können.</p>
+<p>Betrachten Sie das folgende Beispiel aus einem Router-Modul, das nicht HttpResponse als Rückgabetyp verwendet:</p>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
+public class UsersController : RouterModule
+{
+    public List&lt;User&gt; Users = new List&lt;User&gt;();
+
+    [RouteGet]
+    public IEnumerable&lt;User&gt; Index(HttpRequest request)
+    {
+        return Users.ToArray();
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public User View(HttpRequest request)
+    {
+        int id = request.RouteParameters[&quot;id&quot;].GetInteger();
+        User dUser = Users.First(u =&gt; u.Id == id);
+
+        return dUser;
+    }
+
+    [RoutePost]
+    public ValueResult&lt;bool&gt; Create(HttpRequest request)
+    {
+        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        Users.Add(fromBody);
+        
+        return true;
+    }
+}
+</code></pre>
+<p>Daher ist es notwendig, im Router zu definieren, wie er mit jedem Typ von Objekt umgehen soll. Objekte sind immer das erste Argument des Handlers, und der Ausgabetyp muss ein gültiges HttpResponse-Objekt sein. Außerdem sollten die Ausgabeobjekte einer Route niemals null sein.</p>
+<p>Für ValueResult-Typen ist es nicht notwendig, anzugeben, dass das Eingabeobjekt ein ValueResult ist, und nur T, da ValueResult ein Objekt ist, das von seinem ursprünglichen Komponenten reflektiert wird.</p>
+<p>Die Assoziation von Typen vergleicht nicht, was registriert wurde, mit dem Typ des Objekts, das von der Router-Rückrufmethode zurückgegeben wird. Stattdessen wird überprüft, ob der Typ des Router-Ergebnisses dem registrierten Typ zugeordnet werden kann.</p>
+<p>Das Registrieren eines Handlers des Typs Object wird auf alle vorher nicht validierten Typen zurückgreifen. Die Reihenfolge, in der die Wert-Handler eingefügt werden, ist auch wichtig, sodass das Registrieren eines Object-Handlers alle anderen typspezifischen Handler ignoriert. Registrieren Sie immer zuerst spezifische Wert-Handler, um die Reihenfolge sicherzustellen.</p>
+<pre><code class="lang-cs">Router r = new Router();
+r.SetObject(new UsersController());
+
+r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+    return res;
+});
+
+r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
+{
+    return new HttpResponse();
+    // tun Sie etwas mit enumerableValue hier
+});
+
+// das Registrieren eines Wert-Handlers des Typs Object muss der letzte
+// Wert-Handler sein, der als Fallback verwendet wird
+r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = HttpStatusCode.OK;
+    res.Content = JsonContent.Create(fallback);
+    return res;
+});
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/fundamentals/responses.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

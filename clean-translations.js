@@ -13,6 +13,7 @@ function getModifiedFiles() {
                     .trim()
                     .split('\n')
                     .filter(line => !exclusionRegex.test(line))
+                    .filter(line => line.startsWith('docs/'))
                     .filter(line => line.endsWith('.md') || line.endsWith('.yml'));
 
                 resolve(modifiedFiles);

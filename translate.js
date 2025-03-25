@@ -18,7 +18,7 @@ function enumerateMdFiles(dir) {
 
     for (const file of files) {
         const filePath = path.join(dir, file);
-        
+
         if (isDirectory(filePath)) {
 
             mdFiles = mdFiles.concat(enumerateMdFiles(filePath));
@@ -39,7 +39,7 @@ async function translate(text, prompt) {
         console.error("GROQ_API_KEY environment variable is not set.");
         process.exit(1);
     }
-    
+
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -60,12 +60,12 @@ async function translate(text, prompt) {
             max_tokens: 8192
         })
     });
-    
+
     if (!response.ok) {
 
         const resJson = await response.json();
         if (resJson.error?.code == "rate_limit_exceeded") {
-            const retryAfter = response.headers.get("Retry-After");
+            const retryAfter = response.headers.get("Retry-After") * 3;
             console.error("Rate limit exceeded! Retrying in " + retryAfter + " seconds.");
             await sleep(retryAfter * 1000);
 
@@ -123,12 +123,12 @@ function getPrompt(toLanguage, fileName) {
 
 (async () => {
     var translatedCount = 0;
-    
+
     for (const mdFile of mdFiles) {
         const fileContents = fs.readFileSync(mdFile, 'utf8');
 
         const fileName = mdFile.replace(targetDir, '');
-        
+
         for (const [langName, langCode] of Object.entries(translations)) {
 
             const prompt = getPrompt(langName, fileName);
@@ -144,13 +144,13 @@ function getPrompt(toLanguage, fileName) {
             fs.writeFileSync(translationPath, translated);
 
             console.log("- Translated: ", translationPath);
-            
+
             // wait 10s (rate-limit)
             await sleep(500);
             translatedCount++;
         }
     }
-    
+
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {

@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -123,6 +123,12 @@
                                     Spanish
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -148,6 +154,7 @@
 <p>Then you're ready to go and you'll have the static website files at <code>/_site</code>.</p>
 <h2 id="contributing">Contributing</h2>
 <p>Contributions are always welcome. Contribute with spelling corrections, fixing broken links and more.</p>
+<p>Please, only edit <strong>english</strong> documentation files. Documentation files for another languages are AI-generated from english files through.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Please do not edit API specification files (XML). These files are generated. If you want to edit any API documentation, edit it in the repository where the code is hosted.</p>
