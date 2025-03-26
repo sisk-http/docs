@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>サーバー送信イベント | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="サーバー送信イベント | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/features/server-sent-events.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="サーバー送信イベント">サーバー送信イベント</h1>
+
+<p>Sisk では、サーバー送信イベントを使用してメッセージを送信することができます。使い捨ての接続と永続的な接続を作成し、実行時に接続を取得して使用することができます。</p>
+<p>この機能には、ブラウザによって課せられた制限があります。たとえば、テキスト メッセージのみを送信でき、接続を永久に閉じることができません。サーバー側で接続を閉じると、クライアントは 5 秒ごと (一部のブラウザでは 3 秒ごと) に再接続を試みます。</p>
+<p>これらの接続は、クライアントが毎回情報を要求することなく、サーバーからクライアントにイベントを送信するのに役立ちます。</p>
+<h2 id="sse-接続の作成">SSE 接続の作成</h2>
+<p>SSE 接続は、通常の HTTP リクエストと同様に機能しますが、レスポンスを送信してすぐに接続を閉じるのではなく、メッセージを送信するために接続を保持します。</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a> メソッドを呼び出すと、リクエストは待機状態になり、SSE インスタンスが作成されます。</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource();
+
+    sse.Send(&quot;Hello, world!&quot;);
+
+    return sse.Close();
+});
+</code></pre>
+<p>上記のコードでは、SSE 接続を作成し、&quot;Hello, world&quot; メッセージを送信し、次に SSE 接続をサーバー側で閉じます。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>サーバー側で接続を閉じると、クライアントはデフォルトで再接続を試み、接続が再開され、メソッドが再実行されます。</p>
+<p>サーバー側で接続を閉じたときに、終了メッセージをクライアントに送信することが一般的です。そうすることで、クライアントが再接続を試みるのを防ぐことができます。</p>
+</div>
+<h2 id="ヘッダーの追加">ヘッダーの追加</h2>
+<p>ヘッダーを送信する必要がある場合は、<a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a> メソッドを使用できます。</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource();
+    sse.AppendHeader(&quot;Header-Key&quot;, &quot;Header-value&quot;);
+
+    sse.Send(&quot;Hello!&quot;);
+
+    return sse.Close();
+});
+</code></pre>
+<p>ヘッダーを送信する前に、ヘッダーを追加する必要があります。</p>
+<h2 id="wait-for-fail-接続">Wait-For-Fail 接続</h2>
+<p>接続は通常、サーバーがメッセージを送信できなくなったときに終了されます。そうすると、接続は自動的に終了され、クラスのインスタンスは破棄されます。</p>
+<p>再接続しても、クラスのインスタンスは機能しません。なぜなら、インスタンスは以前の接続にリンクされているからです。場合によっては、ルートのコールバック メソッドを介して接続を管理する必要があります。</p>
+<p>そのためには、SSE 接続に識別子を割り当てて、後でそれを使用して接続を取得することができます。さらに、<a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a> を使用して、ルートを終了し、接続を自動的に終了するのを防ぐことができます。</p>
+<p>SSE 接続は、KeepAlive で待機し、送信エラー (切断によって発生) が発生するまでメソッドの実行を再開します。タイムアウトを設定することもできます。タイムアウト後、メッセージが送信されていない場合、接続は終了され、実行が再開されます。</p>
+<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+{
+    var sse = req.GetEventSource(&quot;my-index-connection&quot;);
+
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // 15 秒間メッセージが送信されない場合、接続を終了する
+
+    return sse.Close();
+});
+</code></pre>
+<p>上記のメソッドでは、接続を作成し、接続を処理し、切断またはエラーを待機します。</p>
+<pre><code class="lang-cs">HttpRequestEventSource? evs = server.EventSources.GetByIdentifier(&quot;my-index-connection&quot;);
+if (evs != null)
+{
+    // 接続はまだ生きている
+    evs.Send(&quot;Hello again!&quot;);
+}
+</code></pre>
+<p>上記のコードでは、作成した接続を検索し、存在する場合はメッセージを送信します。</p>
+<p>すべてのアクティブなサーバー接続は、<a href="/api/Sisk.Core.Http.HttpServer.EventSources">HttpServer.EventSources</a> コレクションに格納されます。このコレクションには、有効で識別可能な接続のみが格納されます。終了した接続はコレクションから削除されます。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>KeepAlive には、Sisk に接続されている可能性のあるコンポーネント (Web プロキシ、HTTP カーネル、ネットワーク ドライバーなど) によって制限が課せられることがあります。これらのコンポーネントは、一定期間後にアイドル接続を閉じます。</p>
+<p>したがって、接続を維持するために、周期的な ping メッセージを送信するか、接続が閉じられるまでの最大時間を延長することが重要です。周期的な ping メッセージの送信については、次のセクションを参照してください。</p>
+</div>
+<h2 id="接続の-ping-ポリシーの設定">接続の ping ポリシーの設定</h2>
+<p>ping ポリシーは、クライアントに周期的なメッセージを送信する自動化された方法です。この機能により、サーバーは接続を維持することなく、クライアントが切断されたときに通知を受けることができます。</p>
+<pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
+public HttpResponse Events(HttpRequest request)
+{
+    var sse = request.GetEventSource();
+    sse.WithPing(ping =&gt;
+    {
+        ping.DataMessage = &quot;ping-message&quot;;
+        ping.Interval = TimeSpan.FromSeconds(5);
+        ping.Start();
+    });
+
+    sse.KeepAlive();
+    return sse.Close();
+}
+</code></pre>
+<p>上記のコードでは、5 秒ごとに ping メッセージがクライアントに送信され、TCP 接続が維持され、アイドル接続によって閉じられるのを防ぎます。さらに、メッセージの送信に失敗すると、接続は自動的に閉じられ、接続で使用されるリソースが解放されます。</p>
+<h2 id="接続の検索">接続の検索</h2>
+<p>接続識別子に基づいて、有効な接続を検索できます。たとえば、ブロードキャストを行う場合に役立ちます。</p>
+<pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;my-connection-&quot;));
+foreach (HttpRequestEventSource e in evs)
+{
+    e.Send(&quot;すべてのイベント ソースにブロードキャストします&quot;);
+}
+</code></pre>
+<p>また、<a href="/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All">All</a> メソッドを使用して、すべての有効な SSE 接続を取得することもできます。</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/features/server-sent-events.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

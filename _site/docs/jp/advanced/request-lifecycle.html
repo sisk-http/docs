@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>リクエストライフサイクル | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="リクエストライフサイクル | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/advanced/request-lifecycle.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="リクエストライフサイクル">リクエストライフサイクル</h1>
+
+<p>以下は、HTTP リクエストの例を通じて、リクエストの全ライフサイクルを説明します。</p>
+<ul>
+<li><strong>リクエストの受信:</strong> 各リクエストは、リクエスト自体とクライアントに配信されるレスポンスの間で HTTP コンテキストを作成します。このコンテキストは、Sisk に組み込まれたリスナーから来ます。これは、<a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>、<a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a>、または <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a> になります。
+<ul>
+<li>外部リクエストの検証: <a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">HttpServerConfiguration.RemoteRequestsAction</a> の検証がリクエストに対して行われます。
+<ul>
+<li>リクエストが外部の場合で、このプロパティが <code>Drop</code> の場合、クライアントにレスポンスを返さずに接続が閉じられ、<code>HttpServerExecutionStatus = RemoteRequestDropped</code> になります。</li>
+</ul>
+</li>
+<li>フォワーディング リゾルバーの構成: フォワーディング リゾルバーが構成されている場合、リクエストの元のホストに対して <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> メソッドが呼び出されます。</li>
+<li>DNS の一致: ホストが解決され、複数の <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> が構成されている場合、サーバーはリクエストに対応するホストを探します。
+<ul>
+<li>一致する ListeningHost がない場合、クライアントに 400 Bad Request レスポンスが返され、HTTP コンテキストに <code>HttpServerExecutionStatus = DnsUnknownHost</code> ステータスが返されます。</li>
+<li>一致する ListeningHost がありますが、その <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> がまだ初期化されていない場合、クライアントに 503 Service Unavailable レスポンスが返され、HTTP コンテキストに <code>HttpServerExecutionStatus = ListeningHostNotReady</code> ステータスが返されます。</li>
+</ul>
+</li>
+<li>ルーターのバインディング: 対応する ListeningHost のルーターが受信した HTTP サーバーに結び付けられます。
+<ul>
+<li>ルーターがすでに別の HTTP サーバーに結び付けられている場合、サーバーの構成リソースをアクティブに使用しているため、<code>InvalidOperationException</code> がスローされます。これは、HTTP サーバーの初期化中にのみ発生し、HTTP コンテキストの作成中には発生しません。</li>
+</ul>
+</li>
+<li>ヘッダーの事前定義:
+<ul>
+<li><code>X-Request-Id</code> ヘッダーがレスポンスに事前定義されます (構成されている場合)。</li>
+<li><code>X-Powered-By</code> ヘッダーがレスポンスに事前定義されます (構成されている場合)。</li>
+</ul>
+</li>
+<li>コンテンツ サイズの検証: リクエスト コンテンツが <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> 未満であることを検証します (これが 0 より大きい場合)。
+<ul>
+<li>リクエストが構成されたものよりも大きい <code>Content-Length</code> を送信した場合、クライアントに 413 Payload Too Large レスポンスが返され、HTTP コンテキストに <code>HttpServerExecutionStatus = ContentTooLarge</code> ステータスが返されます。</li>
+</ul>
+</li>
+<li>すべての構成された HTTP サーバー ハンドラーに対して <code>OnHttpRequestOpen</code> イベントが呼び出されます。</li>
+</ul>
+</li>
+<li><strong>アクションのルーティング:</strong> サーバーは受信したリクエストに対してルーターを呼び出します。
+<ul>
+<li>ルーターがリクエストに一致するルートを見つけることができない場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。</li>
+<li>前述のプロパティが null の場合、デフォルトの 404 Not Found レスポンスがクライアントに返されます。</li>
+</ul>
+</li>
+<li>ルーターが一致するルートを見つけることができますが、ルートのメソッドがリクエストのメソッドと一致しない場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。</li>
+<li>前述のプロパティが null の場合、デフォルトの 405 Method Not Allowed レスポンスがクライアントに返されます。</li>
+</ul>
+</li>
+<li>リクエストが <code>OPTIONS</code> メソッドの場合:
+<ul>
+<li>ルーターは、リクエスト メソッドに一致するルートがない場合 (ルートのメソッドが明示的に <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a> ではない場合) に、クライアントに 200 Ok レスポンスを返します。</li>
+</ul>
+</li>
+<li><a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a> プロパティが有効化され、ルートが正規表現ではなく、リクエスト パスが <code>/</code> で終わっていない場合、リクエスト メソッドが <code>GET</code> の場合:
+<ul>
+<li>クライアントに一時的なリダイレクト (307 Temporary Redirect) HTTP レスポンスが返され、<code>Location</code> ヘッダーに同じ場所へのパスとクエリが含まれます。</li>
+</ul>
+</li>
+<li>すべての構成された HTTP サーバー ハンドラーに対して <code>OnContextBagCreated</code> イベントが呼び出されます。</li>
+<li><code>BeforeResponse</code> フラグを持つすべてのグローバル <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> インスタンスが実行されます。
+<ul>
+<li>どのハンドラーも null 以外のレスポンスを返した場合、そのレスポンスがクライアントに転送され、コンテキストが閉じられます。</li>
+<li>このステップでエラーがスローされ、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> が無効化されている場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティが有効化されている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。</li>
+<li>前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ルートで定義された <code>BeforeResponse</code> フラグを持つすべての <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> インスタンスが実行されます。
+<ul>
+<li>どのハンドラーも null 以外のレスポンスを返した場合、そのレスポンスがクライアントに転送され、コンテキストが閉じられます。</li>
+<li>このステップでエラーがスローされ、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> が無効化されている場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティが有効化されている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。</li>
+<li>前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ルーターのアクションが呼び出され、HTTP レスポンスに変換されます。
+<ul>
+<li>このステップでエラーがスローされ、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> が無効化されている場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティが有効化されている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。</li>
+<li>前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>AfterResponse</code> フラグを持つすべてのグローバル <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> インスタンスが実行されます。
+<ul>
+<li>どのハンドラーも null 以外のレスポンスを返した場合、そのハンドラーのレスポンスが以前のレスポンスに置き換わり、すぐにクライアントに転送されます。</li>
+<li>このステップでエラーがスローされ、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> が無効化されている場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティが有効化されている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。</li>
+<li>前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ルートで定義された <code>AfterResponse</code> フラグを持つすべての <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> インスタンスが実行されます。
+<ul>
+<li>どのハンドラーも null 以外のレスポンスを返した場合、そのハンドラーのレスポンスが以前のレスポンスに置き換わり、すぐにクライアントに転送されます。</li>
+<li>このステップでエラーがスローされ、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> が無効化されている場合:
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティが有効化されている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。</li>
+<li>前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>レスポンスの処理:</strong> レスポンスが準備できたら、サーバーはそれをクライアントに送信するために準備します。
+<ul>
+<li>Cross-Origin Resource Sharing Policy (CORS) ヘッダーが、現在の <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a> に基づいてレスポンスに定義されます。</li>
+<li>レスポンスのステータス コードとヘッダーがクライアントに送信されます。</li>
+<li>レスポンス コンテンツがクライアントに送信されます:
+<ul>
+<li>レスポンス コンテンツが <a href="/en-us/dotnet/api/system.net.http.bytearraycontent">ByteArrayContent</a> の派生クラスの場合、レスポンス バイトが直接レスポンス出力ストリームにコピーされます。</li>
+<li>前述の条件が満たされない場合、レスポンスはストリームにシリアル化され、レスポンス出力ストリームにコピーされます。</li>
+</ul>
+</li>
+<li>ストリームが閉じられ、レスポンス コンテンツが破棄されます。</li>
+<li><a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> が有効化されている場合、リクエスト コンテキストで定義されたすべての <a href="/en-us/dotnet/api/system.idisposable">IDisposable</a> を継承するオブジェクトが破棄されます。</li>
+<li>すべての構成された HTTP サーバー ハンドラーに対して <code>OnHttpRequestClose</code> イベントが呼び出されます。</li>
+<li>サーバーで例外がスローされた場合、すべての構成された HTTP サーバー ハンドラーに対して <code>OnException</code> イベントが呼び出されます。</li>
+<li>ルートがアクセス ロギングを許可し、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> が null でない場合、ログ出力にログ行が書き込まれます。</li>
+<li>ルートがエラーロギングを許可し、例外が発生し、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> が null でない場合、エラー ログ出力にログ行が書き込まれます。</li>
+<li>サーバーが <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a> を通じてリクエストを待っている場合、ミューテックスが解放され、コンテキストがユーザーに利用可能になります。</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/advanced/request-lifecycle.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

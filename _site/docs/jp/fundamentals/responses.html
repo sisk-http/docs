@@ -1,0 +1,462 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>応答 | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="応答 | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/fundamentals/responses.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="応答">応答</h1>
+
+<p>応答は、HTTP リクエストに対する HTTP 応答を表すオブジェクトです。サーバーは、リソース、ページ、ドキュメント、ファイル、その他のオブジェクトの要求に対する応答として、クライアントにこれらの応答を送信します。</p>
+<p>HTTP 応答は、ステータス、ヘッダー、コンテンツで構成されます。</p>
+<p>このドキュメントでは、Sisk を使用して HTTP 応答を設計する方法について説明します。</p>
+<h2 id="http-ステータスの設定">HTTP ステータスの設定</h2>
+<p>HTTP ステータスの一覧は、HTTP/1.0 以来変更されていません。Sisk では、これらすべてをサポートしています。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Accepted; // 202
+</code></pre>
+<p>または、Fluent 構文を使用することもできます。</p>
+<pre><code class="lang-cs">new HttpResponse()
+    .WithStatus(200) // or
+    .WithStatus(HttpStatusCode.Ok) // or
+    .WithStatus(HttpStatusInformation.Ok);
+</code></pre>
+<p>利用可能な HttpStatusCode の完全な一覧は、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">ここ</a>で確認できます。また、<a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 構造体を使用して、独自のステータス コードを指定することもできます。</p>
+<h2 id="ボディとコンテンツ-タイプ">ボディとコンテンツ タイプ</h2>
+<p>Sisk では、.NET のネイティブ コンテンツ オブジェクトを使用して、応答のボディを送信できます。たとえば、JSON 応答を送信するには、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> クラスを使用できます。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
+</code></pre>
+<p>サーバーは、ヘッダーに明示的に定義されていない場合、コンテンツから <code>Content-Length</code> を自動的に計算します。サーバーがコンテンツから <code>Content-Length</code> ヘッダーを暗黙的に取得できない場合、応答はチャンク化されたエンコードで送信されます。</p>
+<p>また、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> を送信するか、<a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a> メソッドを使用して、応答をストリーミングできます。</p>
+<h2 id="応答ヘッダー">応答ヘッダー</h2>
+<p>応答で送信するヘッダーを追加、編集、または削除できます。以下の例では、クライアントにリダイレクト応答を送信する方法を示します。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
+</code></pre>
+<p>または、Fluent 構文を使用することもできます。</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
+</code></pre>
+<p><a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> メソッドを使用すると、既存のヘッダーを変更せずにヘッダーを追加できます。<a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> メソッドを使用すると、同じ名前のヘッダーを置き換えることができます。HttpHeaderCollection のインデクサーは内部的に Set メソッドを呼び出してヘッダーを置き換えます。</p>
+<h2 id="クッキーの送信">クッキーの送信</h2>
+<p>Sisk には、クライアントにクッキーを定義する方法を簡素化するメソッドが用意されています。クッキーは、RFC-6265 標準に準拠した URL エンコード形式で送信されます。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
+</code></pre>
+<p>または、Fluent 構文を使用することもできます。</p>
+<pre><code class="lang-cs">new HttpResponse(301)
+    .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
+</code></pre>
+<p>このメソッドのより包括的なバージョンについては、<a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">ここ</a>を参照してください。</p>
+<h2 id="チャンク化された応答">チャンク化された応答</h2>
+<p>大きな応答を送信するために、転送エンコードをチャンク化された形式に設定できます。</p>
+<pre><code class="lang-cs">HttpResponse res = new HttpResponse();
+res.SendChunked = true;
+</code></pre>
+<p>チャンク化されたエンコードを使用すると、<code>Content-Length</code> ヘッダーが自動的に省略されます。</p>
+<h2 id="応答ストリーム">応答ストリーム</h2>
+<p>応答ストリームは、応答をセグメント化された形式で送信できる管理された方法です。HttpResponse オブジェクトを使用するよりも低レベルの操作であり、ヘッダーとコンテンツを手動で送信し、接続を閉じる必要があります。</p>
+<p>以下の例では、ファイルの読み取り専用ストリームを開き、ストリームを応答の出力ストリームにコピーし、ファイル全体をメモリに読み込まずに送信します。これは、中規模または大規模なファイルを提供する場合に役立ちます。</p>
+<pre><code class="lang-cs">// 応答の出力ストリームを取得
+using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
+var responseStream = request.GetResponseStream();
+
+// 応答のエンコードをチャンク化されたエンコードに設定
+// チャンク化されたエンコードを使用する場合は、コンテンツの長さヘッダーを送信しないでください
+responseStream.SendChunked = true;
+responseStream.SetStatus(200);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
+
+// ファイル ストリームを応答の出力ストリームにコピー
+fileStream.CopyTo(responseStream.ResponseStream);
+
+// ストリームを閉じる
+return responseStream.Close();
+</code></pre>
+<h2 id="gzipdeflatebrotli圧縮">GZip、Deflate、Brotli圧縮</h2>
+<p>Sisk では、HTTP コンテンツを圧縮して、圧縮されたコンテンツで応答を送信できます。まず、<a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> オブジェクトを、以下の圧縮器のいずれかにラップして、圧縮された応答をクライアントに送信します。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
+    string myHtml = &quot;...&quot;;
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // or Content = new BrotliContent(new HtmlContent(myHtml)),
+        // or Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+</code></pre>
+<p>これらの圧縮されたコンテンツをストリーミングでも使用できます。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
+    
+    // ここでは「using」ステートメントを使用しないでください。HttpServer は、応答を送信した後、コンテンツを破棄します。
+    var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+</code></pre>
+<p>これらのコンテンツを使用すると、Content-Encoding ヘッダーが自動的に設定されます。</p>
+<h2 id="暗黙的な応答タイプ">暗黙的な応答タイプ</h2>
+<p>バージョン 0.15 以降、HttpResponse 以外の戻り値タイプを使用できますが、ルーターが各タイプのオブジェクトをどのように処理するかを構成する必要があります。</p>
+<p>概念は、常に参照型を返し、それを有効な HttpResponse オブジェクトに変換することです。HttpResponse を返すルートは、変換を経験しません。</p>
+<p>構造体 (値型) は、<a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a> と互換性がないため、戻り値タイプとして使用できません。そこで、ValueResult にラップしてハンドラーで使用できるようにする必要があります。</p>
+<p>以下の例は、RouterModule で HttpResponse 以外の戻り値タイプを使用するものです。</p>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
+public class UsersController : RouterModule
+{
+    public List&lt;User&gt; Users = new List&lt;User&gt;();
+
+    [RouteGet]
+    public IEnumerable&lt;User&gt; Index(HttpRequest request)
+    {
+        return Users.ToArray();
+    }
+
+    [RouteGet(&quot;&lt;id&gt;&quot;)]
+    public User View(HttpRequest request)
+    {
+        int id = request.RouteParameters[&quot;id&quot;].GetInteger();
+        User dUser = Users.First(u =&gt; u.Id == id);
+
+        return dUser;
+    }
+
+    [RoutePost]
+    public ValueResult&lt;bool&gt; Create(HttpRequest request)
+    {
+        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        Users.Add(fromBody);
+        
+        return true;
+    }
+}
+</code></pre>
+<p>ここで、ルーターが各タイプのオブジェクトをどのように処理するかを定義する必要があります。オブジェクトは常にハンドラーの最初の引数であり、出力タイプは有効な HttpResponse でなければなりません。また、ルートの出力オブジェクトは、決して null にしてはいけません。</p>
+<p>ValueResult タイプの場合、入力オブジェクトは ValueResult ではありません。代わりに、元のコンポーネントから反映されたオブジェクトを使用します。</p>
+<p>タイプの関連付けでは、登録されたタイプとルーターの結果のタイプを比較しません。代わりに、ルーターの結果のタイプが登録されたタイプに割り当て可能かどうかを確認します。</p>
+<p>オブジェクトのハンドラーを登録すると、以前に検証されていないすべてのタイプに対してフォールバックされます。値ハンドラーの挿入順序も重要です。オブジェクト ハンドラーを登録すると、以前に登録されたすべてのタイプ固有のハンドラーが無視されます。順序を確保するために、常に特定の値ハンドラーを最初に登録します。</p>
+<pre><code class="lang-cs">Router r = new Router();
+r.SetObject(new UsersController());
+
+r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+    return res;
+});
+
+r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
+{
+    return new HttpResponse();
+    // enumerableValue を使用して何かを行う
+});
+
+// 値ハンドラーの登録は、最後にオブジェクト ハンドラーを登録する必要があります。
+// これは、以前に検証されていないすべてのタイプに対するフォールバックとして使用されます。
+r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
+{
+    HttpResponse res = new HttpResponse();
+    res.Status = HttpStatusCode.OK;
+    res.Content = JsonContent.Create(fallback);
+    return res;
+});
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/fundamentals/responses.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

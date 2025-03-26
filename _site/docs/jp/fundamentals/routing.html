@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ルーティング | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="ルーティング | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/fundamentals/routing.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="ルーティング">ルーティング</h1>
+
+<p><a href="/api/Sisk.Core.Routing.Router">Router</a>は、サーバーを構築するための第一歩です。ルーターは、URLとそのメソッドをサーバーが実行するアクションにマッピングするエンドポイントである<a href="/api/Sisk.Core.Routing.Route">Route</a>オブジェクトを保持する責任があります。各アクションは、リクエストを受信し、クライアントにレスポンスを配信する責任があります。</p>
+<p>ルートは、パス式(&quot;パスパターン&quot;)とそれがリッスンできるHTTPメソッドのペアです。サーバーにリクエストが行われたとき、ルーターは受信したリクエストにマッチするルートを探し、そのルートのアクションを呼び出し、結果のレスポンスをクライアントに配信します。</p>
+<p>Siskでは、ルートを定義する方法は複数あります。静的、動的、または自動スキャンによって定義できます。属性によって定義されることもあり、直接ルーター オブジェクト内で定義することもできます。</p>
+<pre><code class="lang-cs">Router mainRouter = new Router();
+
+// GET / ルートを次のアクションにマップ
+mainRouter.MapGet(&quot;/&quot;, request =&gt; {
+    return new HttpResponse(&quot;Hello, world!&quot;);
+});
+</code></pre>
+<p>ルートが何を行うかを理解するには、リクエストが何を行うかを理解する必要があります。<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>には、必要なすべての情報が含まれています。Siskには、開発を高速化するための追加機能も含まれています。</p>
+<p>サーバーが受信するすべてのアクションに対して、<a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>タイプのデリゲートが呼び出されます。このデリゲートには、サーバーが受信したリクエストに関するすべての必要な情報を含む<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>を保持するパラメーターが含まれています。このデリゲートの結果のオブジェクトは、<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>または<a href="/docs/fundamentals/responses#implicit-response-types">implicit response types</a>を介してそれにマッピングされるオブジェクトでなければなりません。</p>
+<h2 id="ルートのマッチング">ルートのマッチング</h2>
+<p>HTTPサーバーがリクエストを受信すると、Siskは受信したパスに一致するルートを探します。式は、ルートとリクエストパスの間で常にテストされ、クエリ文字列は考慮されません。</p>
+<p>このテストには優先順位はありません。単一のルートに排他的に適用されます。ルートがリクエストと一致しない場合、<a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a>レスポンスがクライアントに返されます。パスパターンが一致するものの、HTTPメソッドが一致しない場合、<a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a>レスポンスがクライアントに送信されます。</p>
+<p>Siskは、ルートの衝突の可能性をチェックしてこれらの問題を避けます。ルートを定義するとき、Siskは定義されているルートと衝突する可能性のあるルートを探します。このテストには、ルートのパスと受け入れるメソッドのチェックが含まれます。</p>
+<h3 id="パスパターンを使用したルートの作成">パスパターンを使用したルートの作成</h3>
+<p>さまざまな<code>SetRoute</code>メソッドを使用してルートを定義できます。</p>
+<pre><code class="lang-cs">// SetRoute方式
+mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
+{
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
+    return new HttpResponse($&quot;Hello, {name}&quot;);
+});
+
+// Map*方式
+mainRouter.MapGet(&quot;/form&quot;, (request) =&gt;
+{
+    var formData = request.GetFormData();
+    return new HttpResponse(); // 空の200 OK
+});
+
+// Route.*ヘルパーメソッド
+mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
+{
+    var imageStream = File.OpenRead(&quot;image.png&quot;);
+    
+    return new HttpResponse()
+    {
+        // StreamContent内のストリームは、レスポンスの送信後に破棄されます。
+        Content = new StreamContent(imageStream)
+    };
+});
+
+// 複数のパラメーター
+mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (request) =&gt;
+{
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
+    string surname = request.RouteParameters[&quot;surname&quot;].GetString();
+
+    return new HttpResponse($&quot;Hello, {name} {surname}!&quot;);
+});
+</code></pre>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>プロパティの<a href="/api/Sisk.Core.Http.HttpRequest">HttpResponse</a>には、受信したリクエストのパス変数に関するすべての情報が含まれています。</p>
+<p>サーバーが受信するすべてのパスは、パスパターンのテストが実行される前に、次のルールに従って正規化されます。</p>
+<ul>
+<li>パスからすべての空のセグメントが削除されます。たとえば、<code>////foo//bar</code>は<code>/foo/bar</code>になります。</li>
+<li>パスの一致は<strong>大文字/小文字を区別</strong>します。ただし、<a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a>が<code>true</code>に設定されている場合を除きます。</li>
+</ul>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a>と<a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>プロパティの<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>は、<a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a>オブジェクトを返します。ここで、各インデックス付きプロパティは、nullでない<a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>を返します。これは、オプション/モナドとして使用して、生の値を管理されたオブジェクトに変換できます。</p>
+<p>以下の例では、ルートパラメーター「id」を読み取り、それからGuidを取得します。パラメーターが有効なGuidでない場合、例外がスローされ、サーバーが<a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>を処理していない場合、クライアントに500エラーが返されます。</p>
+<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
+{
+    Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
+});
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>リクエストパスとルートパスの両方の末尾のスラッシュは無視されます。つまり、<code>/index/page</code>として定義されたルートにアクセスする場合、<code>/index/page/</code>でもアクセスできます。</p>
+<p><a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a>フラグを有効にすると、URLをスラッシュで終わらせることができます。</p>
+</div>
+<h3 id="クラスインスタンスを使用したルートの作成">クラスインスタンスを使用したルートの作成</h3>
+<p>属性<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>を使用して、クラスのインスタンスを使用してルートを動的に定義することもできます。この方法では、ターゲット ルーターにそのクラスのインスタンスのルートが定義されます。</p>
+<p>メソッドがルートとして定義されるには、<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>または<a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>などの属性でマークする必要があります。メソッドは静的、インスタンス、公開、または非公開にすることができます。<code>SetObject(type)</code>または<code>SetObject&lt;TType&gt;()</code>メソッドを使用する場合、インスタンス メソッドは無視されます。</p>
+<pre><code class="lang-cs">public class MyController
+{
+    // GET / にマッチ
+    [RouteGet]
+    HttpResponse Index(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent(&quot;Index!&quot;);
+        return res;
+    }
+
+    // 静的メソッドも機能します
+    [RouteGet(&quot;/hello&quot;)]
+    static HttpResponse Hello(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent(&quot;Hello world!&quot;);
+        return res;
+    }
+}
+</code></pre>
+<p>以下の行は、<code>MyController</code>の<code>Index</code>メソッドと<code>Hello</code>メソッドの両方をルートとして定義します。両方のメソッドがルートとしてマークされており、クラスのインスタンスが提供されているためです。クラスの型がインスタンスの代わりに提供された場合、静的メソッドのみが定義されます。</p>
+<pre><code class="lang-cs">var myController = new MyController();
+mainRouter.SetObject(myController);
+</code></pre>
+<p>Siskバージョン0.16以降、AutoScanを有効にすることができます。これにより、<code>RouterModule</code>を実装するユーザー定義のクラスを検索し、自動的にルーターに関連付けます。これは、AOTコンパイルではサポートされません。</p>
+<pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
+</code></pre>
+<p>上記の命令は、<code>ApiController</code>を実装するすべての型を検索しますが、型自体は検索しません。2つのオプションパラメーターは、メソッドがこれらの型を検索する方法を示します。最初の引数は、型を検索するアセンブリを示し、2番目の引数は、型が定義される方法を示します。</p>
+<h2 id="正規表現ルート">正規表現ルート</h2>
+<p>デフォルトのHTTPパス一致メソッドを使用する代わりに、ルートを正規表現で解釈するようにマークすることができます。</p>
+<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;My route&quot;, IndexPage, null);
+indexRoute.UseRegex = true;
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<p>または、<a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a>クラスを使用することもできます。</p>
+<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
+{
+    return new HttpResponse(&quot;hello, world&quot;);
+});
+mainRouter.SetRoute(indexRoute);
+</code></pre>
+<p>正規表現パターンからグループを<a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">HttpRequest.RouteParameters</a>コンテンツにキャプチャすることもできます。</p>
+<pre><code class="lang-cs">[RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
+static HttpResponse RegexRoute(HttpRequest request)
+{
+    string filename = request.RouteParameters[&quot;filename&quot;].GetString();
+    return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
+}
+</code></pre>
+<h2 id="どのメソッドでもルート">どのメソッドでもルート</h2>
+<p>ルートを定義して、パスのみに基づいて一致させ、HTTPメソッドをスキップすることができます。これは、ルートコールバック内でメソッドの検証を行う場合に便利です。</p>
+<pre><code class="lang-cs">// ルートは/にマッチし、どのHTTPメソッドでも機能します
+mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
+</code></pre>
+<h2 id="どのパスでもルート">どのパスでもルート</h2>
+<p>どのパスでもルートは、ルートメソッドがテストされることを条件として、HTTPサーバーが受信するすべてのパスをテストします。ルートメソッドが<code>RouteMethod.Any</code>で、ルートが<a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>をパス式に使用する場合、このルートはHTTPサーバーからのすべてのリクエストをリッスンし、他のルートは定義できません。</p>
+<pre><code class="lang-cs">// 次のルートはすべてのPOSTリクエストにマッチします
+mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
+</code></pre>
+<h2 id="ルートの一致をケースを無視して行う">ルートの一致をケースを無視して行う</h2>
+<p>ルートの解釈は、デフォルトで大文字/小文字を区別します。ケースを無視するようにするには、次のオプションを有効にします。</p>
+<pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
+</code></pre>
+<p>これにより、正規表現マッチングを使用するルートの<code>RegexOptions.IgnoreCase</code>オプションも有効になります。</p>
+<h2 id="見つからない-404-コールバック-ハンドラー">見つからない (404) コールバック ハンドラー</h2>
+<p>ルートと一致しないリクエストに対して、カスタム コールバックを作成できます。</p>
+<pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
+{
+    return new HttpResponse(404)
+    {
+        // バージョン0.14以降
+        Content = new HtmlContent(&quot;&lt;h1&gt;見つかりませんでした&lt;/h1&gt;&quot;)
+        // 以前のバージョン
+        Content = new StringContent(&quot;&lt;h1&gt;見つかりませんでした&lt;/h1&gt;&quot;, Encoding.UTF8, &quot;text/html&quot;)
+    };
+};
+</code></pre>
+<h2 id="メソッドが許可されていない-405-コールバック-ハンドラー">メソッドが許可されていない (405) コールバック ハンドラー</h2>
+<p>パスは一致するもののメソッドが一致しないリクエストに対して、カスタム コールバックを作成することもできます。</p>
+<pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
+{
+    return new HttpResponse(405)
+    {
+        Content = new StringContent($&quot;このルートではメソッドが許可されていません。&quot;)
+    };
+};
+</code></pre>
+<h2 id="内部エラー-ハンドラー">内部エラー ハンドラー</h2>
+<p>ルート コールバックは、サーバーの実行中にエラーをスローする可能性があります。適切に処理されない場合、HTTPサーバーの全体的な動作が中断される可能性があります。ルーターには、ルート コールバックが失敗したときに呼び出されるコールバックがあり、サービスの中断を防ぎます。</p>
+<p>このメソッドは、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a>が<code>false</code>に設定されている場合にのみ到達されます。</p>
+<pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
+{
+    return new HttpResponse(500)
+    {
+        Content = new StringContent($&quot;エラー: {ex.Message}&quot;)
+    };
+};
+</code></pre>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/fundamentals/routing.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

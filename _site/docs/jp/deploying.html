@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Siskアプリケーションのデプロイ | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Siskアプリケーションのデプロイ | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/deploying.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="siskアプリケーションのデプロイ">Siskアプリケーションのデプロイ</h1>
+
+<p>Siskアプリケーションのデプロイプロセスは、プロジェクトを本番環境に公開することを含みます。プロセスは比較的簡単ですが、デプロイのインフラストラクチャのセキュリティと安定性に致命的な影響を与える可能性のある詳細に注意する価値があります。</p>
+<p>理想的には、アプリケーションをテストして準備し、クラウドにデプロイする準備ができているはずです。</p>
+<h2 id="アプリの公開">アプリの公開</h2>
+<p>Siskアプリケーションまたはサービスを公開するには、生成されたバイナリを本番環境で実行するように最適化する必要があります。この例では、.NET Runtimeがインストールされたマシンで実行するために、バイナリを本番環境用にコンパイルします。</p>
+<p>アプリをビルドするには、.NET SDKがマシンにインストールされ、ターゲットサーバーに.NET Runtimeがインストールされている必要があります。Linuxサーバー、Windows、Mac OSに.NET Runtimeをインストールする方法については、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/linux">ここ</a>、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/windows?tabs=net70">ここ</a>、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/macos">ここ</a>を参照してください。</p>
+<p>プロジェクトが配置されているフォルダーで、ターミナルを開き、.NET公開コマンドを使用します。</p>
+<pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
+</code></pre>
+<p>これにより、<code>bin/Release/publish/linux-x64</code>内にバイナリが生成されます。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Sisk.ServiceProviderパッケージを使用している場合は、<code>service-config.json</code>ファイルをホストサーバーにコピーし、<code>dotnet publish</code>によって生成されたすべてのバイナリとともに配置する必要があります。
+ファイルを事前に構成しておくことができます。環境変数、リスニングポート、ホスト、および追加のサーバー構成が含まれます。</p>
+</div>
+<p>次のステップは、これらのファイルをアプリケーションをホストするサーバーに転送することです。</p>
+<p>その後、バイナリファイルに実行権限を付与します。この場合、プロジェクト名は「my-app」とします。</p>
+<pre><code class="lang-shell">$ cd /home/htdocs
+$ chmod +x my-app
+$ ./my-app
+</code></pre>
+<p>アプリケーションを実行した後、エラーメッセージが表示されないことを確認します。エラーメッセージが表示されない場合、アプリケーションは実行中です。</p>
+<p>この時点では、ファイアウォールなどのアクセス規則が構成されていないため、サーバーの外部ネットワークからアプリケーションにアクセスすることはできないでしょう。次のステップでこれを考慮します。</p>
+<p>アプリケーションがリスニングしている仮想ホストのアドレスを持っている必要があります。これは、アプリケーション内で手動で設定され、Siskサービスをインスタンス化する方法に依存します。</p>
+<p>Sisk.ServiceProviderパッケージを使用していない場合は、HttpServerインスタンスを定義した場所でこれを見つける必要があります。</p>
+<pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
+// siskはhttp://localhost:5000/でリスニングする必要があります
+</code></pre>
+<p>リスニングホストを手動で関連付ける:</p>
+<pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
+</code></pre>
+<p>または、Sisk.ServiceProviderパッケージを使用している場合は、<code>service-config.json</code>ファイルで:</p>
+<pre><code class="lang-json">{
+  &quot;Server&quot;: { },
+  &quot;ListeningHost&quot;: {
+    &quot;Ports&quot;: [
+      &quot;http://localhost:5000/&quot;
+    ]
+  }
+}
+</code></pre>
+<p>これから、サービスをリスニングし、トラフィックをオープンネットワークで利用できるようにするためのリバースプロキシを作成できます。</p>
+<h2 id="アプリケーションのプロキシ">アプリケーションのプロキシ</h2>
+<p>サービスをプロキシすることは、Siskサービスを直接外部ネットワークに公開しないことを意味します。この方法は、サーバーのデプロイでは非常に一般的です。</p>
+<ul>
+<li>アプリケーションにSSL証明書を関連付けることができます。</li>
+<li>サービスにアクセスする前にアクセス規則を作成し、過負荷を回避できます。</li>
+<li>帯域幅とリクエストの制限を制御できます。</li>
+<li>アプリケーションの負荷分散装置を分離できます。</li>
+<li>インフラストラクチャのセキュリティを損なうのを防ぐことができます。</li>
+</ul>
+<p>アプリケーションを<a href="https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a>や<a href="https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>などのリバースプロキシを介して提供できます。または、<a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>などのhttp-over-dnsトンネルを使用できます。</p>
+<p>また、クライアントの情報 (IPアドレスやホストなど) を取得するために、プロキシの転送ヘッダーを正しく解決することを忘れないでください。<a href="/docs/advanced/forwarding-resolvers">転送解決器</a>を参照してください。</p>
+<p>トンネルを作成し、ファイアウォールの構成を行い、アプリケーションを実行した後、サービスを作成する必要があります。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>非Windowsシステムでは、Siskサービスで直接SSL証明書を使用することはできません。これは、SiskのHTTPキュー管理を実行するために使用されるHttpListenerの実装によるものであり、オペレーティングシステムによって異なります。IISで仮想ホストに証明書を関連付けることで、SiskサービスでSSLを使用できます。<a href="https://learn.microsoft.com/ja-jp/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ここ</a>を参照してください。其他のシステムでは、リバースプロキシを使用することを強くお勧めします。</p>
+</div>
+<h2 id="サービスの作成">サービスの作成</h2>
+<p>サービスを作成すると、アプリケーションはサーバーインスタンスの再起動やクラッシュ後も常に利用可能になります。</p>
+<p>この簡単なチュートリアルでは、前のチュートリアルからのコンテンツを使用して、サービスを常にアクティブに保つ方法を示します。</p>
+<ol>
+<li><p>サービス構成ファイルが配置されているフォルダーにアクセスします。</p>
+<pre><code class="lang-sh">cd /etc/systemd/system
+</code></pre>
+</li>
+<li><p><code>my-app.service</code>ファイルを作成し、次の内容を含めます。</p>
+ <div class="script-header">
+     <span>
+         my-app.service
+     </span>
+     <span>
+         INI
+     </span>
+ </div>
+<pre><code class="lang-ini">[Unit]
+Description=&lt;アプリケーションについての説明&gt;
+
+[Service]
+# サービスを起動するユーザーを設定します
+User=&lt;サービスを起動するユーザー&gt;
+
+# ExecStartパスはWorkingDirectoryに相対的ではありません。
+# 実行可能ファイルへのフルパスを設定します
+WorkingDirectory=/home/htdocs
+ExecStart=/home/htdocs/my-app
+
+# サービスをクラッシュ時に常に再起動するように設定します
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</li>
+<li><p>サービスマネージャーモジュールを再起動します。</p>
+<pre><code class="lang-sh">$ sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li><p>サービスファイルの名前でサービスを起動し、実行中であることを確認します。</p>
+<pre><code class="lang-sh">$ sudo systemctl start my-app
+$ sudo systemctl status my-app
+</code></pre>
+</li>
+<li><p>アプリケーションが実行中 (&quot;Active: active&quot;) である場合、サービスをシステムの再起動後に実行するように有効にします。</p>
+<pre><code class="lang-sh">$ sudo systemctl enable my-app
+</code></pre>
+</li>
+</ol>
+<p>これで、Siskアプリケーションを公開する準備ができました。</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/deploying.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines == 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>
