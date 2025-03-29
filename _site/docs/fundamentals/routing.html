@@ -13,7 +13,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../../toc.html">
         <meta name="docfx:tocrel" content="../toc.html">
@@ -232,6 +232,14 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
 <h3 id="creating-routes-using-class-instances">Creating routes using class instances</h3>
 <p>You can also define routes dynamically using reflection with the attribute <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>. This way, the instance of a class in which its methods implement this attribute will have their routes defined in the target router.</p>
 <p>For a method to be defined as a route, it must be marked with a <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>, such as the attribute itself or a <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. The method can be static, instance, public, or private. When the method <code>SetObject(type)</code> or <code>SetObject&lt;TType&gt;()</code> is used, instance methods are ignored.</p>
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-cs">public class MyController
 {
     // will match GET /
@@ -242,7 +250,7 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
         res.Content = new StringContent(&quot;Index!&quot;);
         return res;
     }
-
+    
     // static methods works too
     [RouteGet(&quot;/hello&quot;)]
     static HttpResponse Hello(HttpRequest request)
@@ -268,20 +276,126 @@ indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 </code></pre>
 <p>Or with <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a> class:</p>
-<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
+<pre><code class="lang-cs">mainRouter.SetRoute(new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
 {
     return new HttpResponse(&quot;hello, world&quot;);
-});
-mainRouter.SetRoute(indexRoute);
+}));
 </code></pre>
 <p>You can also capture groups from the regex pattern into the <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">HttpRequest.RouteParameters</a> contents:</p>
-<pre><code class="lang-cs">[RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
-static HttpResponse RegexRoute(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class MyController
 {
-    string filename = request.RouteParameters[&quot;filename&quot;].GetString();
-    return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
+    [RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
+    static HttpResponse RegexRoute(HttpRequest request)
+    {
+        string filename = request.RouteParameters[&quot;filename&quot;].GetString();
+        return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
+    }
 }
 </code></pre>
+<h2 id="prefixing-routes">Prefixing routes</h2>
+<p>You can prefix all routes in a class or module with the <a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a> attribute and set the prefix as a string.</p>
+<p>See the example below using the BREAD architecture (Browse, Read, Edit, Add and Delete):</p>
+<div class="script-header">
+    <span>
+        Controller/Api/UsersController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
+public class UsersController
+{
+    // GET /api/users/&lt;id&gt;
+    [RouteGet]
+    public async Task&lt;HttpResponse&gt; Browse()
+    {
+        ...
+    }
+    
+    // GET /api/users
+    [RouteGet(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Read()
+    {
+        ...
+    }
+    
+    // PATCH /api/users/&lt;id&gt;
+    [RoutePatch(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Edit()
+    {
+        ...
+    }
+    
+    // POST /api/users
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Add()
+    {
+        ...
+    }
+    
+    // DELETE /api/users/&lt;id&gt;
+    [RouteDelete(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Delete()
+    {
+        ...
+    }
+}
+</code></pre>
+<p>In the above example, the HttpResponse parameter is omitted in favor of being used through the global context <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>. Read more in the section that follows.</p>
+<h2 id="routes-without-request-parameter">Routes without request parameter</h2>
+<p>Routes can be defined without the <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> parameter and still be possible to obtain the request and its components in the request context. Let's consider an abstraction <code>ControllerBase</code> that serves as a foundation for all controllers of an API, and that abstraction provides the <code>Request</code> property to obtain the <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> currently.</p>
+<div class="script-header">
+    <span>
+        Controller/ControllerBase.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public abstract class ControllerBase
+{
+    // gets the request from the current thread
+    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+    
+    // the line below, when called, gets the database from the current HTTP session,
+    // or creates a new one if it doesn't exist
+    public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
+}
+</code></pre>
+<p>And for all it's descendants to be able to use the route syntax without the request parameter:</p>
+<div class="script-header">
+    <span>
+        Controller/UsersController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
+public class UsersController : ControllerBase
+{    
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Create()
+    {
+        // reads the JSON data from the current request
+        UserCreationDto? user = JsonSerializer.DeserializeAsync&lt;UserCreationDto&gt;(Request.Body);
+        ...
+        Database.Users.Add(user);
+        
+        return new HttpResponse(201);
+    }
+}
+</code></pre>
+<p>More details about the current context and dependency injection can be found in the <a href="/docs/features/instancing">dependency injection</a> tutorial.</p>
 <h2 id="any-method-routes">Any method routes</h2>
 <p>You can define a route to be matched only by its path and skip the HTTP method. This can be useful for you to do method validation inside the route callback.</p>
 <pre><code class="lang-cs">// will match / on any HTTP method

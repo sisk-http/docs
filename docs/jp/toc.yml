@@ -1,0 +1,71 @@
+items:
+- name: ようこそ
+
+- name: はじめに
+  href: getting-started.md
+- name: インストール
+  href: installing.md
+- name: ネイティブAOTサポート
+  href: native-aot.md
+- name: デプロイ
+  href: deploying.md
+- name: SSLの使用
+  href: ssl.md
+- name: Windowsのセットアップ
+  href: registering-namespace.md
+- name: 変更履歴
+  href: changelogs.md
+
+- name: 基礎
+
+- name: ルーティング
+  href: fundamentals/routing.md
+- name: リクエストハンドラー
+  href: fundamentals/request-handlers.md
+- name: リクエスト
+  href: fundamentals/requests.md
+- name: レスポンス
+  href: fundamentals/responses.md
+
+- name: 機能
+
+- name: ロギング
+  href: features/logging.md
+- name: サーバー送信イベント
+  href: features/server-sent-events.md
+- name: Webソケット
+  href: features/websockets.md
+- name: 捨て字句
+  href: features/discard-syntax.md
+- name: 依存性注入
+  href: features/instancing.md
+- name: コンテンツストリーミング
+  href: features/content-streaming.md
+- name: クロスオリジンリソース共有
+  href: features/cors.md
+
+- name: 拡張
+
+- name: JSON-RPC
+  href: extensions/json-rpc.md
+- name: SSLプロキシ
+  href: extensions/ssl-proxy.md
+- name: ベーシック認証
+  href: extensions/basic-auth.md
+- name: サービスプロバイダー
+  href: extensions/service-providers.md
+- name: INI設定
+  href: extensions/ini-configuration.md
+
+- name: 高度な機能
+
+- name: 手動セットアップ
+  href: advanced/manual-setup.md
+- name: リクエストライフサイクル
+  href: advanced/request-lifecycle.md
+- name: フォワーディングリゾルバー
+  href: advanced/forwarding-resolvers.md
+- name: HTTPサーバーハンドラー
+  href: advanced/http-server-handlers.md
+- name: マルチホストセットアップ
+  href: advanced/multi-host-setup.md

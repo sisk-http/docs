@@ -13,7 +13,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../../../toc.html">
         <meta name="docfx:tocrel" content="../toc.html">
@@ -161,31 +161,31 @@
 <p>Existem várias maneiras de definir rotas no Sisk: elas podem ser estáticas, dinâmicas ou auto-escaneadas, definidas por atributos ou diretamente no objeto Router.</p>
 <pre><code class="lang-cs">Router mainRouter = new Router();
 
-// mapeia a rota GET / para a ação a seguir
+// mapeia o GET / para a ação a seguir
 mainRouter.MapGet(&quot;/&quot;, request =&gt; {
     return new HttpResponse(&quot;Olá, mundo!&quot;);
 });
 </code></pre>
 <p>Para entender o que uma rota é capaz de fazer, precisamos entender o que uma solicitação é capaz de fazer. Um <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> conterá tudo o que você precisa. O Sisk também inclui alguns recursos extras que aceleram o desenvolvimento geral.</p>
-<p>Para cada ação recebida pelo servidor, um delegado do tipo <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> será chamado. Esse delegado contém um parâmetro que segura um <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> com todas as informações necessárias sobre a solicitação recebida pelo servidor. O objeto resultante desse delegado deve ser um <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> ou um objeto que mapeia para ele por meio de <a href="/docs/fundamentos/respostas#tipos-de-resposta-impl%C3%ADcitos">tipos de resposta implícitos</a>.</p>
+<p>Para cada ação recebida pelo servidor, um delegado do tipo <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> será chamado. Este delegado contém um parâmetro que segura um <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> com todas as informações necessárias sobre a solicitação recebida pelo servidor. O objeto resultante deste delegado deve ser um <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> ou um objeto que mapeia para ele por meio de <a href="/docs/pt-br/fundamentals/responses#implicit-response-types">tipos de resposta implícitos</a>.</p>
 <h2 id="correspondência-de-rotas">Correspondência de rotas</h2>
 <p>Quando uma solicitação é recebida pelo servidor HTTP, o Sisk procura uma rota que satisfaça a expressão do caminho recebido pela solicitação. A expressão é sempre testada entre a rota e o caminho da solicitação, sem considerar a string de consulta.</p>
-<p>Esse teste não tem prioridade e é exclusivo para uma única rota. Quando nenhuma rota é correspondida com aquela solicitação, a resposta <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> é retornada ao cliente. Quando o padrão de caminho é correspondido, mas o método HTTP é incorreto, a resposta <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> é enviada de volta ao cliente.</p>
-<p>O Sisk verifica a possibilidade de colisões de rotas para evitar esses problemas. Quando as rotas são definidas, o Sisk procurará por rotas possíveis que possam colidir com a rota sendo definida. Esse teste inclui a verificação do caminho e do método que a rota está configurada para aceitar.</p>
+<p>Este teste não tem prioridade e é exclusivo para uma única rota. Quando nenhuma rota é correspondida com aquela solicitação, a resposta <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> é retornada ao cliente. Quando o padrão de caminho é correspondido, mas o método HTTP é incorreto, a resposta <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> é enviada de volta ao cliente.</p>
+<p>O Sisk verifica a possibilidade de colisões de rotas para evitar esses problemas. Quando as rotas são definidas, o Sisk procurará por rotas possíveis que possam colidir com a rota sendo definida. Este teste inclui a verificação do caminho e do método que a rota está configurada para aceitar.</p>
 <h3 id="criando-rotas-usando-padrões-de-caminho">Criando rotas usando padrões de caminho</h3>
 <p>Você pode definir rotas usando vários métodos <code>SetRoute</code>.</p>
 <pre><code class="lang-cs">// maneira SetRoute
-mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;nome&gt;&quot;, (request) =&gt;
+mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
 {
-    string nome = request.RouteParameters[&quot;nome&quot;].GetString();
-    return new HttpResponse($&quot;Olá, {nome}&quot;);
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
+    return new HttpResponse($&quot;Olá, {name}&quot;);
 });
 
 // maneira Map*
 mainRouter.MapGet(&quot;/form&quot;, (request) =&gt;
 {
     var formData = request.GetFormData();
-    return new HttpResponse(); // vazio 200 ok
+    return new HttpResponse(); // 200 ok vazio
 });
 
 // métodos de ajuda Route.*
@@ -203,16 +203,16 @@ mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
 });
 
 // vários parâmetros
-mainRouter.MapGet(&quot;/hey/&lt;nome&gt;/sobrenome/&lt;sobrenome&gt;&quot;, (request) =&gt;
+mainRouter.MapGet(&quot;/hey/&lt;name&gt;/sobrenome/&lt;sobrenome&gt;&quot;, (request) =&gt;
 {
-    string nome = request.RouteParameters[&quot;nome&quot;].GetString();
+    string name = request.RouteParameters[&quot;name&quot;].GetString();
     string sobrenome = request.RouteParameters[&quot;sobrenome&quot;].GetString();
 
-    return new HttpResponse($&quot;Olá, {nome} {sobrenome}!&quot;);
+    return new HttpResponse($&quot;Olá, {name} {sobrenome}!&quot;);
 });
 </code></pre>
 <p>A propriedade <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> do HttpResponse contém todas as informações sobre as variáveis de caminho da solicitação recebida.</p>
-<p>Todo caminho recebido pelo servidor é normalizado antes do teste do padrão de caminho ser executado, seguindo essas regras:</p>
+<p>Cada caminho recebido pelo servidor é normalizado antes que o teste do padrão de caminho seja executado, seguindo essas regras:</p>
 <ul>
 <li>Todos os segmentos vazios são removidos do caminho, por exemplo: <code>////foo//bar</code> se torna <code>/foo/bar</code>.</li>
 <li>A correspondência de caminho é <strong>sensível a maiúsculas e minúsculas</strong>, a menos que <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> seja definido como <code>true</code>.</li>
@@ -232,9 +232,17 @@ Os caminhos têm sua barra final <code>/</code> ignorada em ambos os caminhos da
 <h3 id="criando-rotas-usando-instâncias-de-classe">Criando rotas usando instâncias de classe</h3>
 <p>Você também pode definir rotas dinamicamente usando reflexão com o atributo <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>. Dessa forma, a instância de uma classe na qual seus métodos implementam esse atributo terá suas rotas definidas no roteador de destino.</p>
 <p>Para que um método seja definido como uma rota, ele deve ser marcado com um <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>, como o próprio atributo ou um <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. O método pode ser estático, de instância, público ou privado. Quando o método <code>SetObject(type)</code> ou <code>SetObject&lt;TType&gt;()</code> é usado, os métodos de instância são ignorados.</p>
-<pre><code class="lang-cs">public class MeuControlador
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class MyController
 {
-    // corresponderá a GET /
+    // corresponderá ao GET /
     [RouteGet]
     HttpResponse Index(HttpRequest request)
     {
@@ -242,7 +250,7 @@ Os caminhos têm sua barra final <code>/</code> ignorada em ambos os caminhos da
         res.Content = new StringContent(&quot;Index!&quot;);
         return res;
     }
-
+    
     // métodos estáticos também funcionam
     [RouteGet(&quot;/hello&quot;)]
     static HttpResponse Hello(HttpRequest request)
@@ -253,9 +261,9 @@ Os caminhos têm sua barra final <code>/</code> ignorada em ambos os caminhos da
     }
 }
 </code></pre>
-<p>A linha abaixo definirá tanto o método <code>Index</code> quanto o método <code>Hello</code> da classe <code>MeuControlador</code> como rotas, pois ambos são marcados como rotas e uma instância da classe foi fornecida, não seu tipo. Se seu tipo tivesse sido fornecido em vez de uma instância, apenas os métodos estáticos seriam definidos.</p>
-<pre><code class="lang-cs">var meuControlador = new MeuControlador();
-mainRouter.SetObject(meuControlador);
+<p>A linha abaixo definirá tanto o método <code>Index</code> quanto o método <code>Hello</code> de <code>MyController</code> como rotas, pois ambos são marcados como rotas e uma instância da classe foi fornecida, não seu tipo. Se seu tipo tivesse sido fornecido em vez de uma instância, apenas os métodos estáticos seriam definidos.</p>
+<pre><code class="lang-cs">var myController = new MyController();
+mainRouter.SetObject(myController);
 </code></pre>
 <p>Desde a versão 0.16 do Sisk, é possível habilitar o AutoScan, que procurará por classes definidas pelo usuário que implementam <code>RouterModule</code> e as associará automaticamente ao roteador. Isso não é suportado com compilação AOT.</p>
 <pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
@@ -268,36 +276,142 @@ indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 </code></pre>
 <p>Ou com a classe <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a>:</p>
-<pre><code class="lang-cs">RegexRoute indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
+<pre><code class="lang-cs">mainRouter.SetRoute(new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
 {
     return new HttpResponse(&quot;olá, mundo&quot;);
-});
-mainRouter.SetRoute(indexRoute);
+}));
 </code></pre>
 <p>Você também pode capturar grupos da expressão regular no padrão para o conteúdo de <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">HttpRequest.RouteParameters</a>:</p>
-<pre><code class="lang-cs">[RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
-static HttpResponse RegexRoute(HttpRequest request)
+<div class="script-header">
+    <span>
+        Controller/MyController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public class MyController
 {
-    string filename = request.RouteParameters[&quot;filename&quot;].GetString();
-    return new HttpResponse().WithContent($&quot;Acessando arquivo {filename}&quot;);
+    [RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
+    static HttpResponse RegexRoute(HttpRequest request)
+    {
+        string filename = request.RouteParameters[&quot;filename&quot;].GetString();
+        return new HttpResponse().WithContent($&quot;Acessando arquivo {filename}&quot;);
+    }
 }
 </code></pre>
+<h2 id="prefixo-de-rotas">Prefixo de rotas</h2>
+<p>Você pode prefixar todas as rotas em uma classe ou módulo com o atributo <a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a> e definir o prefixo como uma string.</p>
+<p>Veja o exemplo abaixo usando a arquitetura BREAD (Browse, Read, Edit, Add e Delete):</p>
+<div class="script-header">
+    <span>
+        Controller/Api/UsersController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
+public class UsersController
+{
+    // corresponderá ao GET /api/users/&lt;id&gt;
+    [RouteGet]
+    public async Task&lt;HttpResponse&gt; Browse()
+    {
+        ...
+    }
+    
+    // corresponderá ao GET /api/users
+    [RouteGet(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Read()
+    {
+        ...
+    }
+    
+    // corresponderá ao PATCH /api/users/&lt;id&gt;
+    [RoutePatch(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Edit()
+    {
+        ...
+    }
+    
+    // corresponderá ao POST /api/users
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Add()
+    {
+        ...
+    }
+    
+    // corresponderá ao DELETE /api/users/&lt;id&gt;
+    [RouteDelete(&quot;/&lt;id&gt;&quot;)]
+    public async Task&lt;HttpResponse&gt; Delete()
+    {
+        ...
+    }
+}
+</code></pre>
+<p>No exemplo acima, o parâmetro HttpResponse é omitido em favor de ser usado por meio do contexto global <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>. Leia mais na seção a seguir.</p>
+<h2 id="rotas-sem-parâmetro-de-solicitação">Rotas sem parâmetro de solicitação</h2>
+<p>As rotas podem ser definidas sem o parâmetro <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> e ainda é possível obter a solicitação e seus componentes no contexto da solicitação. Vamos considerar uma abstração <code>ControllerBase</code> que serve como base para todos os controladores de uma API e que fornece a propriedade <code>Request</code> para obter a <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> atualmente.</p>
+<div class="script-header">
+    <span>
+        Controller/ControllerBase.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">public abstract class ControllerBase
+{
+    // obtém a solicitação do thread atual
+    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+    
+    // a linha abaixo, quando chamada, obtém o banco de dados da sessão HTTP atual,
+    // ou cria um novo se ele não existir
+    public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
+}
+</code></pre>
+<p>E para que todos os seus descendentes possam usar a sintaxe de rota sem o parâmetro de solicitação:</p>
+<div class="script-header">
+    <span>
+        Controller/UsersController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
+public class UsersController : ControllerBase
+{    
+    [RoutePost]
+    public async Task&lt;HttpResponse&gt; Create()
+    {
+        // lê os dados JSON do corpo da solicitação atual
+        UserCreationDto? user = JsonSerializer.DeserializeAsync&lt;UserCreationDto&gt;(Request.Body);
+        ...
+        Database.Users.Add(user);
+        
+        return new HttpResponse(201);
+    }
+}
+</code></pre>
+<p>Mais detalhes sobre o contexto atual e injeção de dependência podem ser encontrados no tutorial de <a href="/docs/pt-br/features/instancing">injeção de dependência</a>.</p>
 <h2 id="rotas-de-qualquer-método">Rotas de qualquer método</h2>
-<p>Você pode definir uma rota para ser correspondida apenas pelo seu caminho e ignorar o método HTTP. Isso pode ser útil para você fazer a validação do método dentro da callback da rota.</p>
-<pre><code class="lang-cs">// corresponderá a / em qualquer método HTTP
+<p>Você pode definir uma rota para ser correspondida apenas por seu caminho e ignorar o método HTTP. Isso pode ser útil para você fazer a validação do método dentro da callback da rota.</p>
+<pre><code class="lang-cs">// corresponderá ao / em qualquer método HTTP
 mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 </code></pre>
 <h2 id="rotas-de-qualquer-caminho">Rotas de qualquer caminho</h2>
-<p>As rotas de qualquer caminho testam qualquer caminho recebido pelo servidor HTTP, sujeito ao método da rota sendo testado. Se o método da rota for RouteMethod.Any e a rota usar <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a> em sua expressão de caminho, essa rota ouvirá todas as solicitações do servidor HTTP e nenhuma outra rota poderá ser definida.</p>
-<pre><code class="lang-cs">// a seguinte rota corresponderá a todas as solicitações POST
+<p>As rotas de qualquer caminho testam para qualquer caminho recebido pelo servidor HTTP, sujeito ao método da rota sendo testado. Se o método da rota for RouteMethod.Any e a rota usar <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a> em sua expressão de caminho, essa rota ouvirá todas as solicitações do servidor HTTP e nenhuma outra rota pode ser definida.</p>
+<pre><code class="lang-cs">// a rota a seguir corresponderá a todas as solicitações POST
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 </code></pre>
-<h2 id="ignorar-caso-na-correspondência-de-rotas">Ignorar caso na correspondência de rotas</h2>
+<h2 id="correspondência-de-rota-ignorando-caso">Correspondência de rota ignorando caso</h2>
 <p>Por padrão, a interpretação de rotas com solicitações é sensível a maiúsculas e minúsculas. Para fazer com que ela ignore o caso, habilite essa opção:</p>
 <pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
 </code></pre>
-<p>Isso também habilitará a opção <code>RegexOptions.IgnoreCase</code> para rotas onde é feita a correspondência com regex.</p>
-<h2 id="manipulador-de-callback-não-encontrado-404">Manipulador de callback não encontrado (404)</h2>
+<p>Isso também habilitará a opção <code>RegexOptions.IgnoreCase</code> para rotas que usam correspondência de regex.</p>
+<h2 id="tratador-de-callback-de-não-encontrado-404">Tratador de callback de não encontrado (404)</h2>
 <p>Você pode criar um callback personalizado para quando uma solicitação não corresponde a nenhuma rota conhecida.</p>
 <pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
 {
@@ -310,17 +424,17 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
     };
 };
 </code></pre>
-<h2 id="manipulador-de-callback-de-método-não-permitido-405">Manipulador de callback de método não permitido (405)</h2>
+<h2 id="tratador-de-callback-de-método-não-permitido-405">Tratador de callback de método não permitido (405)</h2>
 <p>Você também pode criar um callback personalizado para quando uma solicitação corresponde ao seu caminho, mas não corresponde ao método.</p>
 <pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
 {
     return new HttpResponse(405)
     {
-        Content = new StringContent($&quot;Método não permitido para essa rota.&quot;)
+        Content = new StringContent($&quot;Método não permitido para esta rota.&quot;)
     };
 };
 </code></pre>
-<h2 id="manipulador-de-erro-interno">Manipulador de erro interno</h2>
+<h2 id="tratador-de-erro-interno">Tratador de erro interno</h2>
 <p>Os callbacks de rota podem lançar erros durante a execução do servidor. Se não forem tratados corretamente, o funcionamento geral do servidor HTTP pode ser interrompido. O roteador tem um callback para quando um callback de rota falha e impede a interrupção do serviço.</p>
 <p>Esse método só é alcançável quando <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> é definido como <code>false</code>.</p>
 <pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;

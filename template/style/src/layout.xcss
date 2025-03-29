@@ -1,16 +1,27 @@
-main.container-xxl {
+.container-xxl {
     justify-content: center;
+    max-width: unset !important;
+
+    & :is(main) {
+        padding: 0;
+    }
 
     // nav wrapper
-    > .toc-offcanvas {
-        max-width: 260px !important;
+    > .toc-offcanvas,
+    > .affix {
+        max-width: 300px !important;
+        top: calc(60px) !important;
+        max-height: calc(100svh - 60px) !important;
     }
     
-    @media (min-width: 1100px) {
+    > .content {
+        padding-block: 50px;
+        max-width: unset !important;
 
-        // content wrapper
-        > .content {
+        > * {
+            margin: 0 auto;
             max-width: 720px;
+            width: 100%;
         }
     }
 }

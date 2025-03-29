@@ -10,13 +10,10 @@ nav {
         > div {
             padding-bottom: 50px; // comfortable scroll
         }
-
-        ul {
-            padding-left: 15px;
-        }
-
+        
         li {
-            padding-left: 0;
+            position: relative;
+            padding-left: 15px;
             margin: 0;
 
             > .expand-stub::before {
@@ -41,17 +38,32 @@ nav {
                 }
             }
 
-            & .active > a {
-                position: relative;
-                color: --primary;
-                font-weight: 600;
-                opacity: 1;
+            & :not(.expander).active {
+
+                & ::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 3px;
+                    height: 100%;
+                    background-color: --bs-body-color;
+                }
+
+                > a {
+                    position: relative;
+                    color: --bs-body-color;
+                    opacity: 1;
+                }
             }
 
             // header separator
             > span.text-body-tertiary {
                 margin-left: 8px;
-                color: --bs-nav-link-color;
+                opacity: .7;
+                font-size: .7rem;
+                font-weight: 600;
+                text-transform: uppercase;
                 margin-block: 1.3rem 0.2rem !important;
             }
         }

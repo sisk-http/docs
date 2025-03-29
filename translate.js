@@ -130,7 +130,7 @@ function getPrompt(toLanguage, fileName) {
         const fileName = mdFile.replace(targetDir, '');
 
         for (const [langName, langCode] of Object.entries(translations)) {
-
+            
             const prompt = getPrompt(langName, fileName);
             const translationPath = path.join(targetDir, langCode, fileName);
             const translationDir = path.dirname(translationPath);
@@ -138,11 +138,13 @@ function getPrompt(toLanguage, fileName) {
             if (fs.existsSync(translationPath)) {
                 continue;
             }
-
-            const translated = await translate(fileContents, prompt);
+            
+            const translated = (await translate(fileContents, prompt))
+                .replaceAll("/docs/", `/docs/${langCode}/`);
+                
             fs.mkdirSync(translationDir, { recursive: true });
             fs.writeFileSync(translationPath, translated);
-
+            
             console.log("- Translated: ", translationPath);
 
             // wait 10s (rate-limit)

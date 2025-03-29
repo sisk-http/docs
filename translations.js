@@ -3,7 +3,8 @@ export const translations = {
     "Русский": "ru",
     "Español": "es",
     "中文": "cn",
-    "Deutsch": "de"
+    "Deutsch": "de",
+    "日本語": "jp"
 };
 
 export const exclusionRegex = new RegExp(`[\\\\/](${Object.values(translations).join('|')})[\\\\/]`, 'i');
