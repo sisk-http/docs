@@ -2671,12 +2671,15 @@ references:
   commentId: Overload:Sisk.Core.Entity.StringValue.GetBoolean
   fullName: Sisk.Core.Entity.StringValue.GetBoolean
   nameWithType: StringValue.GetBoolean
-- uid: Sisk.Core.Entity.StringValue.GetByte
-  name: GetByte()
-  href: api/Sisk.Core.Entity.StringValue.GetByte.html#Sisk_Core_Entity_StringValue_GetByte
-  commentId: M:Sisk.Core.Entity.StringValue.GetByte
-  fullName: Sisk.Core.Entity.StringValue.GetByte()
-  nameWithType: StringValue.GetByte()
+- uid: Sisk.Core.Entity.StringValue.GetByte(System.IFormatProvider)
+  name: GetByte(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.GetByte.html#Sisk_Core_Entity_StringValue_GetByte_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.GetByte(System.IFormatProvider)
+  name.vb: GetByte(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.GetByte(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.GetByte(System.IFormatProvider)
+  nameWithType: StringValue.GetByte(IFormatProvider?)
+  nameWithType.vb: StringValue.GetByte(IFormatProvider)
 - uid: Sisk.Core.Entity.StringValue.GetByte*
   name: GetByte
   href: api/Sisk.Core.Entity.StringValue.GetByte.html
@@ -2710,6 +2713,21 @@ references:
   commentId: Overload:Sisk.Core.Entity.StringValue.GetDateTime
   fullName: Sisk.Core.Entity.StringValue.GetDateTime
   nameWithType: StringValue.GetDateTime
+- uid: Sisk.Core.Entity.StringValue.GetDecimal(System.IFormatProvider)
+  name: GetDecimal(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.GetDecimal.html#Sisk_Core_Entity_StringValue_GetDecimal_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.GetDecimal(System.IFormatProvider)
+  name.vb: GetDecimal(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.GetDecimal(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.GetDecimal(System.IFormatProvider)
+  nameWithType: StringValue.GetDecimal(IFormatProvider?)
+  nameWithType.vb: StringValue.GetDecimal(IFormatProvider)
+- uid: Sisk.Core.Entity.StringValue.GetDecimal*
+  name: GetDecimal
+  href: api/Sisk.Core.Entity.StringValue.GetDecimal.html
+  commentId: Overload:Sisk.Core.Entity.StringValue.GetDecimal
+  fullName: Sisk.Core.Entity.StringValue.GetDecimal
+  nameWithType: StringValue.GetDecimal
 - uid: Sisk.Core.Entity.StringValue.GetDouble(System.IFormatProvider)
   name: GetDouble(IFormatProvider?)
   href: api/Sisk.Core.Entity.StringValue.GetDouble.html#Sisk_Core_Entity_StringValue_GetDouble_System_IFormatProvider_
@@ -2740,36 +2758,45 @@ references:
   fullName.vb: Sisk.Core.Entity.StringValue.GetEnum(Of TEnum)()
   nameWithType: StringValue.GetEnum<TEnum>()
   nameWithType.vb: StringValue.GetEnum(Of TEnum)()
-- uid: Sisk.Core.Entity.StringValue.GetGuid
-  name: GetGuid()
-  href: api/Sisk.Core.Entity.StringValue.GetGuid.html#Sisk_Core_Entity_StringValue_GetGuid
-  commentId: M:Sisk.Core.Entity.StringValue.GetGuid
-  fullName: Sisk.Core.Entity.StringValue.GetGuid()
-  nameWithType: StringValue.GetGuid()
+- uid: Sisk.Core.Entity.StringValue.GetGuid(System.IFormatProvider)
+  name: GetGuid(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.GetGuid.html#Sisk_Core_Entity_StringValue_GetGuid_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.GetGuid(System.IFormatProvider)
+  name.vb: GetGuid(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.GetGuid(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.GetGuid(System.IFormatProvider)
+  nameWithType: StringValue.GetGuid(IFormatProvider?)
+  nameWithType.vb: StringValue.GetGuid(IFormatProvider)
 - uid: Sisk.Core.Entity.StringValue.GetGuid*
   name: GetGuid
   href: api/Sisk.Core.Entity.StringValue.GetGuid.html
   commentId: Overload:Sisk.Core.Entity.StringValue.GetGuid
   fullName: Sisk.Core.Entity.StringValue.GetGuid
   nameWithType: StringValue.GetGuid
-- uid: Sisk.Core.Entity.StringValue.GetInteger
-  name: GetInteger()
-  href: api/Sisk.Core.Entity.StringValue.GetInteger.html#Sisk_Core_Entity_StringValue_GetInteger
-  commentId: M:Sisk.Core.Entity.StringValue.GetInteger
-  fullName: Sisk.Core.Entity.StringValue.GetInteger()
-  nameWithType: StringValue.GetInteger()
+- uid: Sisk.Core.Entity.StringValue.GetInteger(System.IFormatProvider)
+  name: GetInteger(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.GetInteger.html#Sisk_Core_Entity_StringValue_GetInteger_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.GetInteger(System.IFormatProvider)
+  name.vb: GetInteger(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.GetInteger(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.GetInteger(System.IFormatProvider)
+  nameWithType: StringValue.GetInteger(IFormatProvider?)
+  nameWithType.vb: StringValue.GetInteger(IFormatProvider)
 - uid: Sisk.Core.Entity.StringValue.GetInteger*
   name: GetInteger
   href: api/Sisk.Core.Entity.StringValue.GetInteger.html
   commentId: Overload:Sisk.Core.Entity.StringValue.GetInteger
   fullName: Sisk.Core.Entity.StringValue.GetInteger
   nameWithType: StringValue.GetInteger
-- uid: Sisk.Core.Entity.StringValue.GetLong
-  name: GetLong()
-  href: api/Sisk.Core.Entity.StringValue.GetLong.html#Sisk_Core_Entity_StringValue_GetLong
-  commentId: M:Sisk.Core.Entity.StringValue.GetLong
-  fullName: Sisk.Core.Entity.StringValue.GetLong()
-  nameWithType: StringValue.GetLong()
+- uid: Sisk.Core.Entity.StringValue.GetLong(System.IFormatProvider)
+  name: GetLong(IFormatProvider?)
+  href: api/Sisk.Core.Entity.StringValue.GetLong.html#Sisk_Core_Entity_StringValue_GetLong_System_IFormatProvider_
+  commentId: M:Sisk.Core.Entity.StringValue.GetLong(System.IFormatProvider)
+  name.vb: GetLong(IFormatProvider)
+  fullName: Sisk.Core.Entity.StringValue.GetLong(System.IFormatProvider?)
+  fullName.vb: Sisk.Core.Entity.StringValue.GetLong(System.IFormatProvider)
+  nameWithType: StringValue.GetLong(IFormatProvider?)
+  nameWithType.vb: StringValue.GetLong(IFormatProvider)
 - uid: Sisk.Core.Entity.StringValue.GetLong*
   name: GetLong
   href: api/Sisk.Core.Entity.StringValue.GetLong.html
@@ -5890,6 +5917,72 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.GetFormContentAsync
   fullName: Sisk.Core.Http.HttpRequest.GetFormContentAsync
   nameWithType: HttpRequest.GetFormContentAsync
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContent*
+  name: GetJsonContent
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContent.html
+  commentId: Overload:Sisk.Core.Http.HttpRequest.GetJsonContent
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContent
+  nameWithType: HttpRequest.GetJsonContent
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContentAsync*
+  name: GetJsonContentAsync
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html
+  commentId: Overload:Sisk.Core.Http.HttpRequest.GetJsonContentAsync
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContentAsync
+  nameWithType: HttpRequest.GetJsonContentAsync
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)
+  name: GetJsonContentAsync<T>(JsonSerializerOptions, CancellationToken)
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_JsonSerializerOptions_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)
+  name.vb: GetJsonContentAsync(Of T)(JsonSerializerOptions, CancellationToken)
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContentAsync<T>(System.Text.Json.JsonSerializerOptions, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContentAsync(Of T)(System.Text.Json.JsonSerializerOptions, System.Threading.CancellationToken)
+  nameWithType: HttpRequest.GetJsonContentAsync<T>(JsonSerializerOptions, CancellationToken)
+  nameWithType.vb: HttpRequest.GetJsonContentAsync(Of T)(JsonSerializerOptions, CancellationToken)
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0},System.Threading.CancellationToken)
+  name: GetJsonContentAsync<T>(JsonTypeInfo<T>, CancellationToken)
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0},System.Threading.CancellationToken)
+  name.vb: GetJsonContentAsync(Of T)(JsonTypeInfo(Of T), CancellationToken)
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContentAsync<T>(System.Text.Json.Serialization.Metadata.JsonTypeInfo<T>, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContentAsync(Of T)(System.Text.Json.Serialization.Metadata.JsonTypeInfo(Of T), System.Threading.CancellationToken)
+  nameWithType: HttpRequest.GetJsonContentAsync<T>(JsonTypeInfo<T>, CancellationToken)
+  nameWithType.vb: HttpRequest.GetJsonContentAsync(Of T)(JsonTypeInfo(Of T), CancellationToken)
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Threading.CancellationToken)
+  name: GetJsonContentAsync<T>(CancellationToken)
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContentAsync``1(System.Threading.CancellationToken)
+  name.vb: GetJsonContentAsync(Of T)(CancellationToken)
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContentAsync<T>(System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContentAsync(Of T)(System.Threading.CancellationToken)
+  nameWithType: HttpRequest.GetJsonContentAsync<T>(CancellationToken)
+  nameWithType.vb: HttpRequest.GetJsonContentAsync(Of T)(CancellationToken)
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContent``1
+  name: GetJsonContent<T>()
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContent``1
+  name.vb: GetJsonContent(Of T)()
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContent<T>()
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContent(Of T)()
+  nameWithType: HttpRequest.GetJsonContent<T>()
+  nameWithType.vb: HttpRequest.GetJsonContent(Of T)()
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContent``1(System.Text.Json.JsonSerializerOptions)
+  name: GetJsonContent<T>(JsonSerializerOptions)
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContent``1(System.Text.Json.JsonSerializerOptions)
+  name.vb: GetJsonContent(Of T)(JsonSerializerOptions)
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContent<T>(System.Text.Json.JsonSerializerOptions)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContent(Of T)(System.Text.Json.JsonSerializerOptions)
+  nameWithType: HttpRequest.GetJsonContent<T>(JsonSerializerOptions)
+  nameWithType.vb: HttpRequest.GetJsonContent(Of T)(JsonSerializerOptions)
+- uid: Sisk.Core.Http.HttpRequest.GetJsonContent``1(System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0})
+  name: GetJsonContent<T>(JsonTypeInfo<T>)
+  href: api/Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__
+  commentId: M:Sisk.Core.Http.HttpRequest.GetJsonContent``1(System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0})
+  name.vb: GetJsonContent(Of T)(JsonTypeInfo(Of T))
+  fullName: Sisk.Core.Http.HttpRequest.GetJsonContent<T>(System.Text.Json.Serialization.Metadata.JsonTypeInfo<T>)
+  fullName.vb: Sisk.Core.Http.HttpRequest.GetJsonContent(Of T)(System.Text.Json.Serialization.Metadata.JsonTypeInfo(Of T))
+  nameWithType: HttpRequest.GetJsonContent<T>(JsonTypeInfo<T>)
+  nameWithType.vb: HttpRequest.GetJsonContent(Of T)(JsonTypeInfo(Of T))
 - uid: Sisk.Core.Http.HttpRequest.GetMultipartFormContent
   name: GetMultipartFormContent()
   href: api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContent
@@ -5902,12 +5995,12 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.GetMultipartFormContent
   fullName: Sisk.Core.Http.HttpRequest.GetMultipartFormContent
   nameWithType: HttpRequest.GetMultipartFormContent
-- uid: Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync
-  name: GetMultipartFormContentAsync()
-  href: api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContentAsync
-  commentId: M:Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync
-  fullName: Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync()
-  nameWithType: HttpRequest.GetMultipartFormContentAsync()
+- uid: Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync(System.Threading.CancellationToken)
+  name: GetMultipartFormContentAsync(CancellationToken)
+  href: api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContentAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync(System.Threading.CancellationToken)
+  nameWithType: HttpRequest.GetMultipartFormContentAsync(CancellationToken)
 - uid: Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync*
   name: GetMultipartFormContentAsync
   href: api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html
@@ -6571,6 +6664,15 @@ references:
   commentId: T:Sisk.Core.Http.HttpServer
   fullName: Sisk.Core.Http.HttpServer
   nameWithType: HttpServer
+- uid: Sisk.Core.Http.HttpServer.#ctor
+  name: HttpServer()
+  href: api/Sisk.Core.Http.HttpServer.-ctor.html#Sisk_Core_Http_HttpServer__ctor
+  commentId: M:Sisk.Core.Http.HttpServer.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.HttpServer.HttpServer()
+  fullName.vb: Sisk.Core.Http.HttpServer.New()
+  nameWithType: HttpServer.HttpServer()
+  nameWithType.vb: HttpServer.New()
 - uid: Sisk.Core.Http.HttpServer.#ctor(Sisk.Core.Http.HttpServerConfiguration)
   name: HttpServer(HttpServerConfiguration)
   href: api/Sisk.Core.Http.HttpServer.-ctor.html#Sisk_Core_Http_HttpServer__ctor_Sisk_Core_Http_HttpServerConfiguration_

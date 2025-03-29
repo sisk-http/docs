@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Siskアプリケーションのデプロイ | Sisk </title>
+        <title>アプリケーションのデプロイ | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Siskアプリケーションのデプロイ | Sisk ">
+        <meta name="title" content="アプリケーションのデプロイ | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,39 +154,39 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="siskアプリケーションのデプロイ">Siskアプリケーションのデプロイ</h1>
+<h1 id="アプリケーションのデプロイ">アプリケーションのデプロイ</h1>
 
-<p>Siskアプリケーションのデプロイプロセスは、プロジェクトを本番環境に公開することを含みます。プロセスは比較的簡単ですが、デプロイのインフラストラクチャのセキュリティと安定性に致命的な影響を与える可能性のある詳細に注意する価値があります。</p>
+<p>Sisk アプリケーションのデプロイ プロセスは、プロジェクトを本番環境に公開することです。プロセスは比較的単純ですが、デプロイのインフラストラクチャのセキュリティと安定性に致命的な影響を与える可能性のある詳細に注意する価値があります。</p>
 <p>理想的には、アプリケーションをテストして準備し、クラウドにデプロイする準備ができているはずです。</p>
 <h2 id="アプリの公開">アプリの公開</h2>
-<p>Siskアプリケーションまたはサービスを公開するには、生成されたバイナリを本番環境で実行するように最適化する必要があります。この例では、.NET Runtimeがインストールされたマシンで実行するために、バイナリを本番環境用にコンパイルします。</p>
-<p>アプリをビルドするには、.NET SDKがマシンにインストールされ、ターゲットサーバーに.NET Runtimeがインストールされている必要があります。Linuxサーバー、Windows、Mac OSに.NET Runtimeをインストールする方法については、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/linux">ここ</a>、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/windows?tabs=net70">ここ</a>、<a href="https://learn.microsoft.com/ja-jp/dotnet/core/install/macos">ここ</a>を参照してください。</p>
-<p>プロジェクトが配置されているフォルダーで、ターミナルを開き、.NET公開コマンドを使用します。</p>
+<p>Sisk アプリケーションまたはサービスを公開するには、生成されたバイナリを本番環境で実行できるように最適化する必要があります。この例では、.NET Runtime がインストールされたマシンで実行するために、バイナリを本番環境用にコンパイルします。</p>
+<p>アプリをビルドするには、.NET SDK をインストールし、ターゲット サーバーに .NET Runtime をインストールする必要があります。Linux サーバー、Windows、Mac OS に .NET Runtime をインストールする方法については、<a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">ここ</a>、<a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">ここ</a>、<a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">ここ</a>を参照してください。</p>
+<p>プロジェクトが配置されているフォルダーで、ターミナルを開き、.NET 公開コマンドを使用します。</p>
 <pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
 </code></pre>
-<p>これにより、<code>bin/Release/publish/linux-x64</code>内にバイナリが生成されます。</p>
+<p>これにより、<code>bin/Release/publish/linux-x64</code> 内にバイナリが生成されます。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk.ServiceProviderパッケージを使用している場合は、<code>service-config.json</code>ファイルをホストサーバーにコピーし、<code>dotnet publish</code>によって生成されたすべてのバイナリとともに配置する必要があります。
-ファイルを事前に構成しておくことができます。環境変数、リスニングポート、ホスト、および追加のサーバー構成が含まれます。</p>
+<p>Sisk.ServiceProvider パッケージを使用してアプリを実行している場合、<code>service-config.json</code> ファイルをホスト サーバーにコピーし、<code>dotnet publish</code> で生成されたすべてのバイナリとともに配置する必要があります。
+ファイルを事前に構成しておくことができます。環境変数、リスニング ポート、ホスト、および追加のサーバー構成が含まれます。</p>
 </div>
-<p>次のステップは、これらのファイルをアプリケーションをホストするサーバーに転送することです。</p>
-<p>その後、バイナリファイルに実行権限を付与します。この場合、プロジェクト名は「my-app」とします。</p>
+<p>次のステップは、これらのファイルをアプリケーションをホストするサーバーに移動することです。</p>
+<p>次に、バイナリ ファイルに実行権限を付与します。この場合、プロジェクト名は &quot;my-app&quot; です。</p>
 <pre><code class="lang-shell">$ cd /home/htdocs
 $ chmod +x my-app
 $ ./my-app
 </code></pre>
-<p>アプリケーションを実行した後、エラーメッセージが表示されないことを確認します。エラーメッセージが表示されない場合、アプリケーションは実行中です。</p>
-<p>この時点では、ファイアウォールなどのアクセス規則が構成されていないため、サーバーの外部ネットワークからアプリケーションにアクセスすることはできないでしょう。次のステップでこれを考慮します。</p>
-<p>アプリケーションがリスニングしている仮想ホストのアドレスを持っている必要があります。これは、アプリケーション内で手動で設定され、Siskサービスをインスタンス化する方法に依存します。</p>
-<p>Sisk.ServiceProviderパッケージを使用していない場合は、HttpServerインスタンスを定義した場所でこれを見つける必要があります。</p>
+<p>アプリケーションを実行すると、エラー メッセージが表示されない場合は、アプリケーションが実行中であることを意味します。</p>
+<p>この時点では、ファイアウォールなどのアクセス ルールが構成されていないため、アプリケーションに外部ネットワークからアクセスすることはできない可能性があります。次のステップでこれを考慮します。</p>
+<p>アプリケーションがリスニングしている仮想ホストのアドレスを持っている必要があります。これは、アプリケーション内で手動で設定され、Sisk サービスをインスタンス化する方法によって異なります。</p>
+<p>Sisk.ServiceProvider パッケージを使用していない場合、HttpServer インスタンスを定義した場所でこれを見つける必要があります。</p>
 <pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
-// siskはhttp://localhost:5000/でリスニングする必要があります
+// sisk は http://localhost:5000/ でリスニングする必要があります
 </code></pre>
-<p>リスニングホストを手動で関連付ける:</p>
+<p>リスニング ホストを手動で関連付ける:</p>
 <pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
 </code></pre>
-<p>または、Sisk.ServiceProviderパッケージを使用している場合は、<code>service-config.json</code>ファイルで:</p>
+<p>または、Sisk.ServiceProvider パッケージを使用している場合、<code>service-config.json</code> 内で:</p>
 <pre><code class="lang-json">{
   &quot;Server&quot;: { },
   &quot;ListeningHost&quot;: {
@@ -196,32 +196,32 @@ $ ./my-app
   }
 }
 </code></pre>
-<p>これから、サービスをリスニングし、トラフィックをオープンネットワークで利用できるようにするためのリバースプロキシを作成できます。</p>
+<p>これから、サービスをリスニングし、トラフィックをオープン ネットワークで利用できるようにするために、リバース プロキシを作成できます。</p>
 <h2 id="アプリケーションのプロキシ">アプリケーションのプロキシ</h2>
-<p>サービスをプロキシすることは、Siskサービスを直接外部ネットワークに公開しないことを意味します。この方法は、サーバーのデプロイでは非常に一般的です。</p>
+<p>サービスをプロキシすることは、Sisk サービスを直接外部ネットワークに公開しないことを意味します。この方法は、サーバー デプロイで非常に一般的です。</p>
 <ul>
-<li>アプリケーションにSSL証明書を関連付けることができます。</li>
-<li>サービスにアクセスする前にアクセス規則を作成し、過負荷を回避できます。</li>
-<li>帯域幅とリクエストの制限を制御できます。</li>
-<li>アプリケーションの負荷分散装置を分離できます。</li>
+<li>アプリケーションに SSL 証明書を関連付けることができます。</li>
+<li>サービスにアクセスする前にアクセス ルールを作成し、過負荷を回避できます。</li>
+<li>バンド幅とリクエストの制限を制御できます。</li>
+<li>アプリケーションの負荷分散を分離できます。</li>
 <li>インフラストラクチャのセキュリティを損なうのを防ぐことができます。</li>
 </ul>
-<p>アプリケーションを<a href="https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a>や<a href="https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>などのリバースプロキシを介して提供できます。または、<a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>などのhttp-over-dnsトンネルを使用できます。</p>
-<p>また、クライアントの情報 (IPアドレスやホストなど) を取得するために、プロキシの転送ヘッダーを正しく解決することを忘れないでください。<a href="/docs/advanced/forwarding-resolvers">転送解決器</a>を参照してください。</p>
-<p>トンネルを作成し、ファイアウォールの構成を行い、アプリケーションを実行した後、サービスを作成する必要があります。</p>
+<p><a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> または <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a> のようなリバース プロキシを使用してアプリケーションを提供するか、<a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a> のような HTTP-over-DNS トンネルを使用することができます。</p>
+<p>また、クライアントの情報 (IP アドレスやホストなど) を取得するために、プロキシの転送ヘッダーを正しく解決することを忘れないでください。<a href="/docs/jp/advanced/forwarding-resolvers">転送ヘッダー解決</a>を参照してください。</p>
+<p>トンネルを作成し、ファイアウォールを構成し、アプリケーションを実行した後、サービスを作成する必要があります。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>非Windowsシステムでは、Siskサービスで直接SSL証明書を使用することはできません。これは、SiskのHTTPキュー管理を実行するために使用されるHttpListenerの実装によるものであり、オペレーティングシステムによって異なります。IISで仮想ホストに証明書を関連付けることで、SiskサービスでSSLを使用できます。<a href="https://learn.microsoft.com/ja-jp/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ここ</a>を参照してください。其他のシステムでは、リバースプロキシを使用することを強くお勧めします。</p>
+<p>非 Windows システムでは、Sisk サービスで直接 SSL 証明書を使用することはできません。これは、Sisk の HTTP キュー管理の中心となるモジュールである HttpListener の実装によるものであり、オペレーティング システムによって異なります。IIS で仮想ホストに証明書を関連付けることで、Sisk サービスで SSL を使用できます。<a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ここ</a>を参照してください。その他のシステムでは、リバース プロキシを使用することを強くお勧めします。</p>
 </div>
 <h2 id="サービスの作成">サービスの作成</h2>
-<p>サービスを作成すると、アプリケーションはサーバーインスタンスの再起動やクラッシュ後も常に利用可能になります。</p>
+<p>サービスを作成すると、アプリケーションはサーバー インスタンスの再起動やクラッシュ後も常に利用可能になります。</p>
 <p>この簡単なチュートリアルでは、前のチュートリアルからのコンテンツを使用して、サービスを常にアクティブに保つ方法を示します。</p>
 <ol>
 <li><p>サービス構成ファイルが配置されているフォルダーにアクセスします。</p>
 <pre><code class="lang-sh">cd /etc/systemd/system
 </code></pre>
 </li>
-<li><p><code>my-app.service</code>ファイルを作成し、次の内容を含めます。</p>
+<li><p><code>my-app.service</code> ファイルを作成し、次の内容を含めます。</p>
  <div class="script-header">
      <span>
          my-app.service
@@ -231,18 +231,18 @@ $ ./my-app
      </span>
  </div>
 <pre><code class="lang-ini">[Unit]
-Description=&lt;アプリケーションについての説明&gt;
+Description=&lt;アプリの説明&gt;
 
 [Service]
-# サービスを起動するユーザーを設定します
+# サービスを起動するユーザーを設定
 User=&lt;サービスを起動するユーザー&gt;
 
-# ExecStartパスはWorkingDirectoryに相対的ではありません。
-# 実行可能ファイルへのフルパスを設定します
+# ExecStart パスは WorkingDirectory に相対的ではありません。
+# 実行可能ファイルへの完全パスとして設定します
 WorkingDirectory=/home/htdocs
 ExecStart=/home/htdocs/my-app
 
-# サービスをクラッシュ時に常に再起動するように設定します
+# サービスを常に再起動するように設定
 Restart=always
 RestartSec=3
 
@@ -250,21 +250,21 @@ RestartSec=3
 WantedBy=multi-user.target
 </code></pre>
 </li>
-<li><p>サービスマネージャーモジュールを再起動します。</p>
+<li><p>サービス マネージャー モジュールを再起動します。</p>
 <pre><code class="lang-sh">$ sudo systemctl daemon-reload
 </code></pre>
 </li>
-<li><p>サービスファイルの名前でサービスを起動し、実行中であることを確認します。</p>
+<li><p>ファイル名に基づいて新しく作成したサービスを開始し、実行中であることを確認します。</p>
 <pre><code class="lang-sh">$ sudo systemctl start my-app
 $ sudo systemctl status my-app
 </code></pre>
 </li>
-<li><p>アプリケーションが実行中 (&quot;Active: active&quot;) である場合、サービスをシステムの再起動後に実行するように有効にします。</p>
+<li><p>アプリが実行中 (&quot;Active: active&quot;) である場合、サービスをシステムの再起動後に実行するように有効にします。</p>
 <pre><code class="lang-sh">$ sudo systemctl enable my-app
 </code></pre>
 </li>
 </ol>
-<p>これで、Siskアプリケーションを公開する準備ができました。</p>
+<p>これで、Sisk アプリケーションを公開する準備ができました。</p>
 
 </article>
 

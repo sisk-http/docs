@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="windowsでの名前空間予約の設定">Windowsでの名前空間予約の設定</h1>
 
-<p>Siskは、HttpListenerネットワークインターフェイスを使用して、仮想ホストをシステムにバインドし、リクエストを待ち受けます。</p>
-<p>Windowsでは、このバインドは少し制限的で、localhostのみが有効なホストとしてバインドされます。他のホストを待ち受けようとすると、サーバーでアクセス拒否エラーが発生します。このチュートリアルでは、システムで任意のホストを待ち受けられるようにするための認可を付与する方法について説明します。</p>
+<p>SiskはHttpListenerネットワークインターフェイスを使用しており、仮想ホストをシステムにバインドしてリクエストを待ち受けます。</p>
+<p>Windowsでは、このバインドは少し制限があり、localhostのみが有効なホストとしてバインドされます。他のホストをリッスンしようとすると、サーバーでアクセスが拒否されたエラーが発生します。このチュートリアルでは、システムで任意のホストをリッスンするための認証を付与する方法について説明します。</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -176,7 +176,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>ここで、<code>PREFIX</code>は、サーバーが待ち受けするプレフィックス (&quot;リスニングホスト-&gt;ポート&quot;) です。URLスキーム、ホスト、ポート、末尾のスラッシュで構成される必要があります。例:</p>
+<p>ここで、<code>PREFIX</code>は、サーバーがリッスンするプレフィックス(&quot;リスニングホスト-&gt;ポート&quot;)です。URLスキーム、ホスト、ポート、末尾のスラッシュで構成する必要があります。例:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -187,7 +187,7 @@ pause
 </div>
 <pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>これにより、アプリケーションを介して待ち受けできるようになります:</p>
+<p>これにより、アプリケーションを介してリッスンできるようになります:</p>
 <div class="script-header">
     <span>
         Program.cs

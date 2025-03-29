@@ -1,8 +1,8 @@
-# マニュアル（高度）セットアップ
+# Manual (advanced) setup
 
 このセクションでは、事前に定義された標準なしで、完全に抽象的な方法でHTTPサーバーを作成します。ここでは、HTTPサーバーがどのように機能するかを手動で構築できます。各ListeningHostにはルーターがあり、HTTPサーバーには複数のListeningHostsを持ち、それぞれが異なるホストと異なるポートを指すことができます。
 
-まず、リクエスト/レスポンスの概念を理解する必要があります。非常にシンプルです。各リクエストに対して、レスポンスが必要です。Siskもこの原則に従います。"Hello, World!"メッセージをHTMLで返すメソッドを作成しましょう。ステータスコードとヘッダーも指定します。
+まず、リクエスト/レスポンスの概念を理解する必要があります。非常にシンプルです。各リクエストに対して、レスポンスが必要です。Siskもこの原則に従います。"Hello, World!"メッセージをHTMLで返すメソッドを作成しましょう。ステータスコードとヘッダーを指定します。
 
 ```csharp
 // Program.cs
@@ -29,7 +29,7 @@ static HttpResponse IndexPage(HttpRequest request)
 
 次のステップは、このメソッドをHTTPルートに関連付けることです。
 
-## ルーター
+## Routers
 
 ルーターは、リクエストルートの抽象化であり、サービスに対するリクエストとレスポンスの橋渡しとなります。ルーターはサービスルート、関数、エラーを管理します。
 
@@ -44,13 +44,13 @@ Router mainRouter = new Router();
 mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage);
 ```
 
-今のところ、ルーターはリクエストを受け取り、レスポンスを送信できます。しかし、`mainRouter`はホストやサーバーに結び付けられていないため、単独では機能しません。次のステップは、ListeningHostを作成することです。
+今、ルーターはリクエストを受け取り、レスポンスを送信できます。ただし、`mainRouter`はホストまたはサーバーに結び付けられていないため、単独では機能しません。次のステップは、ListeningHostを作成することです。
 
-## リスニングホストとポート
+## Listening HostsとPorts
 
-リスニングホストはルーターをホストし、同じルーターの複数のリスニングポートを持ちます。リスニングポートは、HTTPサーバーがリッスンするプレフィックスです。
+[ListeningHost](/api/Sisk.Core.Http.ListeningHost)はルーターをホストし、同じルーターの複数のリスニングポートを持ちます。[ListeningPort](/api/Sisk.Core.Http.ListeningPort)は、HTTPサーバーがリスニングするプレフィックスです。
 
-ここで、ルーターを2つのエンドポイントに接続するリスニングホストを作成できます。
+ここで、ルーターを指す2つのエンドポイントを持つ`ListeningHost`を作成できます。
 
 ```csharp
 ListeningHost myHost = new ListeningHost
@@ -63,31 +63,31 @@ ListeningHost myHost = new ListeningHost
 };
 ```
 
-今のところ、HTTPサーバーは指定されたエンドポイントでリッスンし、リクエストをルーターに転送します。
+今、HTTPサーバーは指定されたエンドポイントをリスニングし、リクエストをルーターに転送します。
 
-## サーバー構成
+## サーバー設定
 
-サーバー構成は、HTTPサーバー自身の動作のほとんどを担当します。この構成では、リスニングホストをサーバーに関連付けることができます。
+サーバー設定は、HTTPサーバー自身の動作のほとんどを担当します。この設定では、`ListeningHosts`をサーバーに関連付けることができます。
 
 ```csharp
 HttpServerConfiguration config = new HttpServerConfiguration();
-config.ListeningHosts.Add(myHost); // リスニングホストをサーバー構成に追加
+config.ListeningHosts.Add(myHost); // ListeningHostをサーバー設定に追加
 ```
 
 次に、HTTPサーバーを作成できます。
 
 ```csharp
 HttpServer server = new HttpServer(config);
-server.Start();    // サーバーを開始
+server.Start();    // サーバーを起動
 Console.ReadKey(); // アプリケーションが終了しないようにする
 ```
 
-今のところ、実行可能ファイルをコンパイルし、コマンドでHTTPサーバーを実行できます。
+今、実行可能ファイルをコンパイルし、次のコマンドでHTTPサーバーを実行できます。
 
 ```bash
 dotnet watch
 ```
 
-実行時に、ブラウザを開き、サーバーパスに移動すると、以下の画像が表示されます。
+実行時に、ブラウザを開き、サーバーパスに移動すると、次のようになります。
 
 <img src="/assets/img/localhost.png" >

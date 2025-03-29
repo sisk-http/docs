@@ -1,12 +1,14 @@
 items:
+ 
 - name: Bem-vindo
+ 
 - name: Introdução
   href: getting-started.md
 - name: Instalando
   href: installing.md
 - name: Suporte Nativo AOT
   href: native-aot.md
-- name: Implantando
+- name: Implantação
   href: deploying.md
 - name: Trabalhando com SSL
   href: ssl.md
@@ -14,7 +16,11 @@ items:
   href: registering-namespace.md
 - name: Registros de Alterações
   href: changelogs.md
+- name: Perguntas Frequentes
+  href: faq.md
+  
 - name: Fundamentos
+
 - name: Roteamento
   href: fundamentals/routing.md
 - name: Manipuladores de Requisição
@@ -23,12 +29,14 @@ items:
   href: fundamentals/requests.md
 - name: Respostas
   href: fundamentals/responses.md
+
 - name: Recursos
+
 - name: Registro de Logs
   href: features/logging.md
 - name: Eventos Enviados pelo Servidor
   href: features/server-sent-events.md
-- name: Websockets
+- name: Web Sockets
   href: features/websockets.md
 - name: Sintaxe Descartável
   href: features/discard-syntax.md
@@ -38,7 +46,9 @@ items:
   href: features/content-streaming.md
 - name: Compartilhamento de Recursos de Origem Cruzada
   href: features/cors.md
+
 - name: Extensões
+
 - name: JSON-RPC
   href: extensions/json-rpc.md
 - name: Proxy SSL
@@ -49,14 +59,16 @@ items:
   href: extensions/service-providers.md
 - name: Configuração INI
   href: extensions/ini-configuration.md
+
 - name: Avançado
+
 - name: Configuração Manual
   href: advanced/manual-setup.md
 - name: Ciclo de Vida da Requisição
   href: advanced/request-lifecycle.md
-- name: Resolvidores de Encaminhamento
+- name: Resolutores de Encaminhamento
   href: advanced/forwarding-resolvers.md
 - name: Manipuladores de Servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuração de Múltiplos Hosts
+- name: Configuração de Multi-Hospedagem
   href: advanced/multi-host-setup.md

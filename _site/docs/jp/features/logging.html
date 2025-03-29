@@ -156,11 +156,11 @@
                 <article data-uid="">
 <h1 id="ロギング">ロギング</h1>
 
-<p>Siskを設定して、アクセスログとエラーログを自動的に書き込むことができます。ログのローテーション、拡張子、頻度を定義することも可能です。</p>
-<p><a href="/api/Sisk.Core.Http.LogStream">LogStream</a> クラスは、ログを書き込むための非同期的な方法を提供し、待機可能な書き込みキューを保持します。</p>
-<p>この記事では、アプリケーションのロギングを設定する方法を示します。</p>
+<p>Sisk を設定して、アクセスログとエラーログを自動的に書き込むことができます。ログのローテーション、拡張子、頻度を定義することもできます。</p>
+<p><a href="/api/Sisk.Core.Http.LogStream">LogStream</a> クラスは、ログを書き込むための非同期的な方法と、待機可能な書き込みキューを提供します。</p>
+<p>この記事では、アプリケーションのロギングを設定する方法について説明します。</p>
 <h2 id="ファイルベースのアクセスログ">ファイルベースのアクセスログ</h2>
-<p>ログをファイルに書き込むと、ファイルを開き、テキストを書き込み、そしてファイルを閉じます。毎回この手順を実行することで、ログの書き込みを迅速に行うことができます。</p>
+<p>ファイルにログを書き込むと、ファイルを開き、テキストを書き込み、そしてファイルを閉じます。ログの書き込みレスポンスを維持するために、この手順が採用されています。</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -169,7 +169,7 @@
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">class Program
+<pre><code class="lang-cs">class Program
 {
     static async Task Main(string[] args)
     {
@@ -187,7 +187,7 @@
 </code></pre>
 <p>上記のコードは、すべての受信リクエストを <code>logs/access.log</code> ファイルに書き込みます。ファイルが存在しない場合は自動的に作成されますが、フォルダは自動的に作成されません。<code>logs/</code> ディレクトリを作成する必要はありません。LogStream クラスが自動的に作成します。</p>
 <h2 id="ストリームベースのロギング">ストリームベースのロギング</h2>
-<p>ログファイルを TextWriter オブジェクトのインスタンス、たとえば <code>Console.Out</code> に書き込むことができます。コンストラクタに TextWriter オブジェクトを渡すことで実現できます。</p>
+<p>TextWriter オブジェクトのインスタンス (例: <code>Console.Out</code>) をコンストラクタに渡すことで、ログファイルを TextWriter オブジェクトに書き込むことができます。</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -196,21 +196,21 @@
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
+<pre><code class="lang-cs">using var app = HttpServer.CreateBuilder()
     .UseConfiguration(config =&gt; {
         config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
     })
     .Build();
 </code></pre>
-<p>ストリームベースのログでは、<code>TextWriter.Flush()</code> メソッドが毎回呼び出されます。</p>
+<p>ストリームベースのログの各メッセージの書き込みで、<code>TextWriter.Flush()</code> メソッドが呼び出されます。</p>
 <h2 id="アクセスログのフォーマット">アクセスログのフォーマット</h2>
-<p>アクセスログのフォーマットを、事前に定義された変数を使用してカスタマイズすることができます。以下の行を考えてみましょう。</p>
-<pre><code class="lang-csharp">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
+<p>定義済みの変数を使用して、アクセスログのフォーマットをカスタマイズできます。次の行を考えてみましょう。</p>
+<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
 </code></pre>
-<p>これにより、以下のようなメッセージが書き込まれます。</p>
-<pre><code>29/3/2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+<p>次のようなメッセージが書き込まれます。</p>
+<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 </code></pre>
-<p>ログファイルをフォーマットするには、以下の表に従ってください。</p>
+<p>次の表に従って、ログファイルをフォーマットできます。</p>
 <table>
 <thead>
 <tr>
@@ -222,57 +222,57 @@
 <tbody>
 <tr>
 <td>%dd</td>
-<td>月の日 (2 桁で表記)</td>
+<td>月の日 (2 桁でフォーマット)</td>
 <td>05</td>
 </tr>
 <tr>
 <td>%dmmm</td>
 <td>月の完全な名前</td>
-<td>7月</td>
+<td>July</td>
 </tr>
 <tr>
 <td>%dmm</td>
 <td>月の略称 (3 文字)</td>
-<td>7月</td>
+<td>Jul</td>
 </tr>
 <tr>
 <td>%dm</td>
-<td>月 (2 桁で表記)</td>
+<td>月の番号 (2 桁でフォーマット)</td>
 <td>07</td>
 </tr>
 <tr>
 <td>%dy</td>
-<td>年 (4 桁で表記)</td>
+<td>年 (4 桁でフォーマット)</td>
 <td>2023</td>
 </tr>
 <tr>
 <td>%th</td>
-<td>時間 (12 時間制)</td>
+<td>12 時間形式の時間</td>
 <td>03</td>
 </tr>
 <tr>
 <td>%tH</td>
-<td>時間 (24 時間制)</td>
+<td>24 時間形式の時間 (HH)</td>
 <td>15</td>
 </tr>
 <tr>
 <td>%ti</td>
-<td>分 (2 桁で表記)</td>
+<td>分 (2 桁でフォーマット)</td>
 <td>30</td>
 </tr>
 <tr>
 <td>%ts</td>
-<td>秒 (2 桁で表記)</td>
+<td>秒 (2 桁でフォーマット)</td>
 <td>45</td>
 </tr>
 <tr>
 <td>%tm</td>
-<td>ミリ秒 (3 桁で表記)</td>
+<td>ミリ秒 (3 桁でフォーマット)</td>
 <td>123</td>
 </tr>
 <tr>
 <td>%tz</td>
-<td>時間帯のオフセット (UTC での合計時間)</td>
+<td>タイムゾーンのオフセット (UTC での合計時間)</td>
 <td>+03:00</td>
 </tr>
 <tr>
@@ -332,7 +332,7 @@
 </tr>
 <tr>
 <td>%linr</td>
-<td>リクエストサイズ (バイト)</td>
+<td>リクエストの生サイズ (バイト)</td>
 <td>1234</td>
 </tr>
 <tr>
@@ -342,7 +342,7 @@
 </tr>
 <tr>
 <td>%lour</td>
-<td>応答サイズ (バイト)</td>
+<td>応答の生サイズ (バイト)</td>
 <td>2560</td>
 </tr>
 <tr>
@@ -360,31 +360,31 @@
 <h2 id="ログのローテーション">ログのローテーション</h2>
 <div class="TIP">
 <h5>Tip</h5>
-<p>Sisk 0.15 以前では、この機能は Sisk.ServiceProvider パッケージでのみ使用できます。Sisk 0.16 以降では、コアパッケージに実装されています。</p>
+<p>Sisk 0.15 以前では、この機能は Sisk.ServiceProvider パッケージでのみ使用できます。Sisk 0.16 以降では、この機能はコアパッケージに実装されています。</p>
 </div>
 <p>ログファイルを特定のサイズに達したときに、圧縮された .gz ファイルにローテーションするように HTTP サーバーを設定できます。サイズは、定義したしきい値で周期的にチェックされます。</p>
-<pre><code class="lang-csharp">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
+<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
 
 var rotater = new RotatingLogPolicy(config.AccessLogsStream);
 rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
 </code></pre>
 <p>上記のコードは、6 時間ごとに LogStream のファイルが 1MB の制限に達したかどうかをチェックします。達した場合は、ファイルを圧縮して .gz ファイルに保存し、<code>access.log</code> ファイルをクリーンアップします。</p>
-<p>このプロセス中、ファイルへの書き込みはロックされます。書き込みキューに追加されたすべての行は、圧縮とクリーンアップが完了するまで待機します。</p>
-<p>この機能は、ファイルベースの LogStreams でのみ機能します。</p>
+<p>このプロセス中、ファイルへの書き込みはロックされ、圧縮とクリーンアップが完了するまで待機します。書き込みキューに蓄積されたすべての行は、圧縮とクリーンアップが完了するまで待機します。</p>
+<p>この機能は、ファイルベースの LogStreams のみで動作します。</p>
 <h2 id="エラーロギング">エラーロギング</h2>
-<p>サーバーがデバッガーにエラーを投げない場合、エラーはログに書き込まれます。エラーロギングを設定するには、以下のコードを使用します。</p>
-<pre><code class="lang-csharp">config.ThrowExceptions = false;
+<p>サーバーがデバッガーにエラーをスローしない場合、エラーはログに書き込まれます。エラーロギングを設定するには、次のコードを使用します。</p>
+<pre><code class="lang-cs">config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
 </code></pre>
-<p>このプロパティは、エラーがコールバックまたは <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティによってキャプチャされていない場合にのみ、ログに書き込みます。</p>
-<p>サーバーによって書き込まれたエラーには、常に日付と時刻、リクエストヘッダー (ボディは除く)、エラートレース、および内部例外トレース (存在する場合) が含まれます。</p>
+<p>このプロパティは、エラーがコールバックまたは <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> プロパティによってキャッチされていない場合にのみ、ログに何かを書き込みます。</p>
+<p>サーバーによって書き込まれるエラーには、常に日付と時刻、リクエストヘッダー (ボディは除く)、エラートレース、および内部例外トレース (存在する場合) が含まれます。</p>
 <h2 id="その他のロギングインスタンス">その他のロギングインスタンス</h2>
-<p>アプリケーションには、0 個以上の LogStreams が存在する可能性があります。LogStreams の数に制限はありません。したがって、デフォルトの AccessLog または ErrorLog 以外のファイルにアプリケーションのログを書き込むことができます。</p>
-<pre><code class="lang-csharp">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
-appMessages.WriteLine(&quot;アプリケーションが {0} に開始されました&quot;, DateTime.Now);
+<p>アプリケーションには、0 個以上の LogStreams が存在できます。LogStreams の数に制限はありません。したがって、デフォルトのアクセスログまたはエラーログ以外のファイルにアプリケーションのログを送信することができます。</p>
+<pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
+appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
 </code></pre>
 <h2 id="logstream-の拡張">LogStream の拡張</h2>
-<p>LogStream クラスを拡張して、カスタムフォーマットを書き込むことができます。以下の例では、Spectre.Console ライブラリを使用して、コンソールにカラフルなメッセージを書き込みます。</p>
+<p>LogStream クラスを拡張して、カスタムフォーマットを書き込むことができます。Sisk の現在のログエンジンと互換性があります。以下の例では、Spectre.Console ライブラリを使用して、コンソールにカラフルなメッセージを書き込みます。</p>
 <div class="script-header">
     <span>
         CustomLogStream.cs
@@ -393,7 +393,7 @@ appMessages.WriteLine(&quot;アプリケーションが {0} に開始されま�
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">public class CustomLogStream : LogStream
+<pre><code class="lang-cs">public class CustomLogStream : LogStream
 {
     protected override void WriteLineInternal(string line)
     {
@@ -401,7 +401,7 @@ appMessages.WriteLine(&quot;アプリケーションが {0} に開始されま�
     }
 }
 </code></pre>
-<p>また、<a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a> を作成して、リクエスト/レスポンスごとにカスタムログを自動的に書き込むこともできます。以下の例は、リクエストとレスポンスのボディを JSON でコンソールに出力します。</p>
+<p>リクエスト/レスポンスごとにカスタムログを自動的に書き込む別の方法は、<a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a> を作成することです。以下の例は、ContextBag と HttpServerHandler を使用して、リクエストとレスポンスのボディを JSON でコンソールに書き込む方法を示しています。</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -410,7 +410,7 @@ appMessages.WriteLine(&quot;アプリケーションが {0} に開始されま�
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">class Program
+<pre><code class="lang-cs">class Program
 {
     static async Task Main(string[] args)
     {
@@ -443,16 +443,17 @@ appMessages.WriteLine(&quot;アプリケーションが {0} に開始されま�
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">class JsonMessageHandler : HttpServerHandler
+<pre><code class="lang-cs">class JsonMessageHandler : HttpServerHandler
 {
     protected override void OnHttpRequestOpen(HttpRequest request)
     {
         if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // この時点で、接続は開かれており、クライアントはヘッダーを送信してコンテンツが JSON であることを示しています。
+            // この時点で、接続は開かれており、クライアントはヘッダーを送信してコンテンツが JSON であることを指定しています。
             // 次の行では、コンテンツを読み取り、リクエストに保存します。
             //
-            // リクエストアクションでコンテンツを読み取らない場合、コンテンツはクライアントにレスポンスを送信した後、GC によって収集される可能性があります。
+            // リクエストアクションでコンテンツを読み取らない場合、クライアントにレスポンスを送信した後、コンテンツは GC によって収集される可能性があります。
+            // したがって、レスポンスを閉じた後、コンテンツは使用できなくなる可能性があります。
             //
             _ = request.RawBody;
 

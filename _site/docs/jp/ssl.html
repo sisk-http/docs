@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SSLの使用 | Sisk </title>
+        <title>SSL を使用する | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="SSLの使用 | Sisk ">
+        <meta name="title" content="SSL を使用する | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,45 +154,45 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="sslの使用">SSLの使用</h1>
+<h1 id="ssl-を使用する">SSL を使用する</h1>
 
-<p>開発の際にSSLを使用する必要がある場合があります。たとえば、ほとんどのWeb開発シナリオではセキュリティが必要です。SiskはHttpListener上で動作しますが、HttpListenerはネイティブではHTTPSをサポートしていません。ただし、SiskでSSLを使用できるようにするための回避策があります。以下にそれらを示します。</p>
-<h2 id="windowsのiisを使用する">WindowsのIISを使用する</h2>
+<p>開発の際に SSL を使用する必要がある場合があります。たとえば、ほとんどの Web 開発シナリオではセキュリティが必要です。Sisk は HttpListener 上で動作しますが、HttpListener ではネイティブの HTTPS はサポートされず、HTTP のみがサポートされます。ただし、Sisk で SSL を使用できるようにするための回避策があります。以下にそれらを示します。</p>
+<h2 id="windows-で-iis-を使用する">Windows で IIS を使用する</h2>
 <ul>
-<li>使用可能なプラットフォーム: Windows</li>
+<li>使用可能: Windows</li>
 <li>努力: 中</li>
 </ul>
-<p>Windowsを使用している場合、IISを使用してHTTPサーバーでSSLを有効にすることができます。この方法を使用するには、<a href="/docs/registering-namespace">このチュートリアル</a>を事前に参照しておくことをお勧めします。そうすることで、アプリケーションを「localhost」以外のホストでリッスンさせることができます。</p>
-<p>この方法を使用するには、Windowsの機能を介してIISをインストールする必要があります。IISは、WindowsおよびWindows Serverのユーザーが無料で使用できます。アプリケーションでSSLを構成するには、SSL証明書を用意しておく必要があります。自署証明書でもかまいません。次に、<a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">IIS 7以上でSSLを設定する方法</a>を参照できます。</p>
-<h2 id="mitmproxyを使用する">mitmproxyを使用する</h2>
+<p>Windows を使用している場合、IIS を使用して HTTP サーバーで SSL を有効にすることができます。この方法を使用するには、&quot;localhost&quot; 以外のホストでアプリケーションをリッスンさせたい場合は、事前に <a href="/docs/jp/registering-namespace">このチュートリアル</a> を参照することをお勧めします。</p>
+<p>この方法を使用するには、Windows 機能を介して IIS をインストールする必要があります。IIS は、Windows と Windows Server ユーザー向けに無料で提供されています。アプリケーションで SSL を構成するには、セルフサイン証明書であっても SSL 証明書を用意する必要があります。次に、<a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">IIS 7 またはそれ以降で SSL を設定する方法</a> を参照できます。</p>
+<h2 id="mitmproxy-を使用する">mitmproxy を使用する</h2>
 <ul>
-<li>使用可能なプラットフォーム: Linux, macOS, Windows</li>
+<li>使用可能: Linux, macOS, Windows</li>
 <li>努力: 簡単</li>
 </ul>
-<p><strong>mitmproxy</strong>は、開発者とセキュリティーテスターがクライアント（たとえばWebブラウザ）とサーバーの間のHTTPおよびHTTPSトラフィックを検査、変更、記録できるインターセプトプロキシツールです。<strong>mitmdump</strong>ユーティリティを使用して、クライアントとSiskアプリケーションの間でリバースSSLプロキシを開始できます。</p>
+<p><strong>mitmproxy</strong> は、開発者とセキュリティ テスターがクライアント (たとえば Web ブラウザ) とサーバー之间の HTTP および HTTPS トラフィックを検査、変更、および記録できるようにするためのインターセプション プロキシ ツールです。<strong>mitmdump</strong> ユーティリティを使用して、クライアントと Sisk アプリケーションの間にリバース SSL プロキシを開始できます。</p>
 <ol>
-<li>まず、<a href="https://mitmproxy.org/">mitmproxy</a>をマシンにインストールします。</li>
-<li>Siskアプリケーションを起動します。この例では、8000ポートを非安全なHTTPポートとして使用します。</li>
-<li>mitmproxyサーバーを起動して、8001ポートでセキュアなポートをリッスンします。</li>
+<li>まず、<a href="https://mitmproxy.org/">mitmproxy</a> をマシンにインストールします。</li>
+<li>Sisk アプリケーションを開始します。この例では、8000 ポートを非安全な HTTP ポートとして使用します。</li>
+<li>mitmproxy サーバーを開始して、8001 ポートでセキュア ポートをリッスンします。</li>
 </ol>
 <pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
 </code></pre>
-<p>これで完了です!すでにアプリケーションを<code>https://localhost:8001/</code>経由で使用できます。<code>mitmdump</code>を開始するために、アプリケーションを実行する必要はありません。</p>
-<p>代わりに、プロジェクトに<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxyヘルパー</a>への参照を追加できます。ただし、mitmproxyがコンピューターにインストールされている必要があります。</p>
-<h2 id="sisksslproxyパッケージを使用する">Sisk.SslProxyパッケージを使用する</h2>
+<p>これで完了です! すでに <code>https://localhost:8001/</code> でアプリケーションを使用できます。<code>mitmdump</code> を開始するには、アプリケーションが実行中である必要はありません。</p>
+<p>代わりに、プロジェクトに <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy ヘルパー</a> の参照を追加できます。ただし、mitmproxy がコンピューターにインストールされている必要があります。</p>
+<h2 id="sisksslproxy-パッケージを使用する">Sisk.SslProxy パッケージを使用する</h2>
 <ul>
-<li>使用可能なプラットフォーム: Linux, macOS, Windows</li>
+<li>使用可能: Linux, macOS, Windows</li>
 <li>努力: 簡単</li>
 </ul>
-<p>Sisk.SslProxyパッケージは、SiskアプリケーションでSSLを有効にするための簡単な方法です。ただし、このパッケージは<strong>非常に実験的</strong>です。このパッケージを使用することは不安定になる可能性がありますが、安定したパッケージにするために貢献する少数の人々の一人になることができます。開始するには、Sisk.SslProxyパッケージを次のようにインストールできます。</p>
+<p>Sisk.SslProxy パッケージは、Sisk アプリケーションで SSL を有効にするための簡単な方法です。ただし、このパッケージは <strong>非常に実験的</strong> です。このパッケージで作業することは不安定になる可能性がありますが、このパッケージを実用的なものにするために貢献する少数の人々の一人になることができます。開始するには、次のように Sisk.SslProxy パッケージをインストールできます。</p>
 <pre><code class="lang-sh">dotnet add package Sisk.SslProxy
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Visual Studioパッケージマネージャーで「プレビュー版パッケージの有効化」を有効にする必要があります。</p>
+<p>Visual Studio パッケージ マネージャーで &quot;プレビュー パッケージの有効化&quot; を有効にする必要があります。</p>
 </div>
-<p>再び言いますが、このプロジェクトは実験的であるため、生产環境で使用することを考えるべきではありません。</p>
-<p>現在、Sisk.SslProxyは、HTTP Continue、チャンク化、WebSockets、SSEを含むほとんどのHTTP/1.1機能を処理できます。SslProxyについては<a href="/docs/extensions/ssl-proxy">こちら</a>でさらに詳しく知ることができます。</p>
+<p>再び言いますが、このプロジェクトは実験的ですので、生产環境で使用することを考えるべきではありません。</p>
+<p>現在、Sisk.SslProxy は、HTTP Continue、チャンク化、WebSockets、SSE を含むほとんどの HTTP/1.1 機能を処理できます。SslProxy についてさらに詳しくは <a href="/docs/jp/extensions/ssl-proxy">こちら</a> を参照してください。</p>
 
 </article>
 

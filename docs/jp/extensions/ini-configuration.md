@@ -1,8 +1,8 @@
 # INI 構成プロバイダー
 
-Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、[IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) を実装する任意のパイプラインを使用して、[PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder) でサーバーの構成を任意のファイル タイプから読み取ることができます。
+Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、[IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) を実装する任意のパイプラインを使用して、[PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder) でサーバー構成を任意のファイル タイプから読み取ることができます。
 
-[Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) パッケージでは、一般的な構文エラーに対して例外をスローしないストリーム ベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。
+[Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) パッケージでは、共通の構文エラーに対して例外をスローしないストリームベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。
 
 ## インストール
 
@@ -52,11 +52,11 @@ class Program
 }
 ```
 
-上記のコードは、プロセスの現在のディレクトリ (CurrentDirectory) にある app.ini ファイルを探します。INI ファイルの内容は次のとおりです。
+上記のコードは、プロセスの現在のディレクトリ (CurrentDirectory) にある app.ini ファイルを探します。INI ファイルの内容は次のようになります。
 
 ```ini
 [Server]
-# 複数のリスニング アドレスがサポートされています
+# 複数のリスニング アドレスがサポートされます
 Listen = http://localhost:5552/
 Listen = http://localhost:5553/
 ThrowExceptions = false
@@ -98,10 +98,10 @@ Color = Blue
 Color = Yellow ; 黄色は使用しないでください
 ```
 
-これを次のように解析します。
+これを解析するには:
 
 ```csharp
-// INI テキストを文字列から解析
+// 文字列から INI テキストを解析
 IniDocument doc = IniDocument.FromString(iniText);
 
 // 1 つの値を取得
@@ -120,13 +120,13 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 | `Server.Encoding` | いいえ | サーバーの既定のエンコード。 |
 | `Server.MaximumContentLength` | いいえ | サーバーの最大コンテンツ長 (バイト単位)。 |
 | `Server.IncludeRequestIdHeader` | いいえ | HTTP サーバーが X-Request-Id ヘッダーを送信するかどうかを指定します。 |
-| `Server.ThrowExceptions` | いいえ | 処理されていない例外をスローするかどうかを指定します。 |
-| `Server.AccessLogsStream` | いいえ | アクセス ログの出力ストリームを指定します。 |
-| `Server.ErrorsLogsStream` | いいえ | エラー ログの出力ストリームを指定します。 |
-| `Cors.AllowMethods` | いいえ | CORS Allow-Methods ヘッダー値を指定します。 |
-| `Cors.AllowHeaders` | いいえ | CORS Allow-Headers ヘッダー値を指定します。 |
-| `Cors.AllowOrigins` | いいえ | 複数の Allow-Origin ヘッダーを指定します (カンマで区切られます)。[AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) に関する詳細情報。 |
-| `Cors.AllowOrigin` | いいえ | 1 つの Allow-Origin ヘッダーを指定します。 |
-| `Cors.ExposeHeaders` | いいえ | CORS Expose-Headers ヘッダー値を指定します。 |
-| `Cors.AllowCredentials` | いいえ | CORS Allow-Credentials ヘッダー値を指定します。 |
-| `Cors.MaxAge` | いいえ | CORS Max-Age ヘッダー値を指定します。 |
+| `Server.ThrowExceptions` | いいえ | 処理されていない例外をスローするかどうかを指定します。  |
+| `Server.AccessLogsStream` | いいえ |  アクセス ログの出力ストリームを指定します。 |
+| `Server.ErrorsLogsStream` | いいえ |  エラー ログの出力ストリームを指定します。 |
+| `Cors.AllowMethods` | いいえ |  CORS Allow-Methods ヘッダー値を指定します。 |
+| `Cors.AllowHeaders` | いいえ |  CORS Allow-Headers ヘッダー値を指定します。 |
+| `Cors.AllowOrigins` | いいえ |  複数の Allow-Origin ヘッダー、コンマで区切られた値を指定します。 [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) に関する詳細情報。 |
+| `Cors.AllowOrigin` | いいえ |  1 つの Allow-Origin ヘッダーを指定します。 |
+| `Cors.ExposeHeaders` | いいえ |  CORS Expose-Headers ヘッダー値を指定します。 |
+| `Cors.AllowCredentials` | いいえ |  CORS Allow-Credentials ヘッダー値を指定します。 |
+| `Cors.MaxAge` | いいえ |  CORS Max-Age ヘッダー値を指定します。

@@ -1,7 +1,7 @@
 :root {
     --bs-font-sans-serif: "Geist", system-ui, -apple-system, Arial, sans-serif;
     --bs-font-monospace: "Geist Mono", "Geist Mono Fallback", Consolas, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, "Courier New", ui-monospace, monospace;
-    --bs-body-font-size: 15px;
+    --bs-body-font-size: 14px;
     --bs-link-color: --primary;
     --bs-transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -33,13 +33,13 @@ html[data-bs-theme="light"] {
     --bs-danger-bg-subtle: #ffe8ea;
     --bs-warning-bg-subtle: #fff9e5;
     --bs-info-bg-subtle: #eafbff;
-    --bs-body-bg: #ffffff;
-    --bs-body-bg-alt: #f6f6f6;
+    --bs-body-bg: #fcfcfc;
+    --bs-body-bg-alt: #f0f0f0;
     --scrollbar-color-track: #d9d9d9;
     --scrollbar-color-thumb: #bbb;
     --article-color: #343f41;
     
-    --code-block-border: #d9d9d9;
+    --code-block-border: #e6e6e6;
 }
 
 .bg-body {

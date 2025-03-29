@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="サービス-プロバイダー">サービス プロバイダー</h1>
 
-<p>サービス プロバイダーは、Sisk アプリケーションをさまざまな環境に移植するための方法です。ポータブルな構成ファイルを使用して、サーバーのポート、パラメーター、他のオプションを変更できます。アプリケーション コードを変更することなく、環境ごとに異なる設定を使用できます。このモジュールは、Sisk の構築構文に依存しており、<code>UsePortableConfiguration</code> メソッドを使用して構成できます。</p>
-<p>構成プロバイダーは、<code>IConfigurationProvider</code> を実装することで実現され、構成リーダーを提供し、任意の実装を受け取ることができます。デフォルトでは、Sisk では JSON 構成リーダーが提供されていますが、INI ファイル用のパッケージもあります。独自の構成プロバイダーを作成し、次のように登録することもできます。</p>
+<p>サービス プロバイダーは、Sisk アプリケーションをさまざまな環境に移植するための方法です。ポータブルな構成ファイルを使用して、サーバーのポート、パラメーター、他のオプションを変更できます。各環境ごとにアプリケーション コードを変更する必要はありません。このモジュールは、Sisk の構築構文に依存し、UsePortableConfiguration メソッドを使用して構成できます。</p>
+<p>構成プロバイダーは、IConfigurationProvider を実装して構成リーダーを提供し、任意の実装を受け取ることができます。デフォルトでは、Sisk では JSON 構成リーダーが提供されますが、INI ファイル用のパッケージもあります。独自の構成プロバイダーを作成し、次のように登録することもできます。</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
     .UsePortableConfiguration(config =&gt;
     {
@@ -165,8 +165,8 @@
     })
     .Build();
 </code></pre>
-<p>前述のように、デフォルトのプロバイダーは JSON ファイルです。デフォルトでは、<code>service-config.json</code> という名前のファイルが検索され、実行中のプロセスのカレント ディレクトリで検索されます。</p>
-<p>ファイル名と構成ファイルの検索場所を変更するには、次のようにします。</p>
+<p>前述のように、デフォルトのプロバイダーは JSON ファイルです。デフォルトでは、service-config.json という名前のファイルが検索され、実行中のプロセスのカレント ディレクトリで検索されますが、実行可能ファイルのディレクトリではありません。</p>
+<p>ファイル名を変更したり、Sisk が構成ファイルを検索する場所を指定したりすることもできます。</p>
 <pre><code class="lang-csharp">using Sisk.Core.Http;
 using Sisk.Core.Http.Hosting;
 
@@ -181,13 +181,13 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>上記のコードは、実行中のプロセスのカレント ディレクトリで <code>config.toml</code> ファイルを検索します。如果見つからない場合は、実行可能ファイルのディレクトリで検索します。如果ファイルが存在しない場合は、<code>createIfDontExists</code> パラメーターが尊重され、最後にテストされたパス（<code>lookupDirectories</code> に基づく）にファイルが作成され、エラーがコンソールに出力され、アプリケーションの初期化が阻止されます。</p>
+<p>上記のコードは、実行中のプロセスのカレント ディレクトリで config.toml ファイルを検索します。如果見つからない場合は、実行可能ファイルのディレクトリで検索します。如果ファイルが存在しない場合、createIfDontExists パラメーターが尊重され、最後にテストされたパス（lookupDirectories に基づく）にファイルが作成され、エラーがコンソールに出力され、アプリケーションの初期化が阻止されます。</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>INI 構成リーダーと JSON 構成リーダーのソース コードを参照して、<code>IConfigurationProvider</code> がどのように実装されているかを理解することができます。</p>
+<p>INI 構成リーダーと JSON 構成リーダーのソース コードを参照して、IConfigurationProvider がどのように実装されるかを理解することができます。</p>
 </div>
 <h2 id="json-ファイルからの構成の読み取り">JSON ファイルからの構成の読み取り</h2>
-<p>デフォルトでは、Sisk では JSON ファイルからの構成の読み取りを提供します。このファイルは固定構造を持ち、次のパラメーターで構成されます:</p>
+<p>デフォルトでは、Sisk では JSON ファイルから構成を読み取る構成プロバイダーが提供されます。このファイルは固定構造を持ち、次のパラメーターで構成されます。</p>
 <pre><code class="lang-json">{
     &quot;Server&quot;: {
         &quot;DefaultEncoding&quot;: &quot;UTF-8&quot;,
@@ -198,7 +198,7 @@ using var app = HttpServer.CreateBuilder()
         &quot;Label&quot;: &quot;My sisk application&quot;,
         &quot;Ports&quot;: [
             &quot;http://localhost:80/&quot;,
-            &quot;https://localhost:443/&quot;,  // 構成ファイルでもコメントがサポートされています
+            &quot;https://localhost:443/&quot;,  // 構成ファイルもコメントをサポートします
         ],
         &quot;CrossOriginResourceSharingPolicy&quot;: {
             &quot;AllowOrigin&quot;: &quot;*&quot;,
@@ -213,7 +213,7 @@ using var app = HttpServer.CreateBuilder()
     }
 }
 </code></pre>
-<p>構成ファイルから作成されたパラメーターは、サーバーのコンストラクターでアクセスできます:</p>
+<p>構成ファイルから作成されたパラメーターは、サーバーのコンストラクターでアクセスできます。</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
     .UsePortableConfiguration(config =&gt;
     {
@@ -224,9 +224,9 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>各構成リーダーは、サーバーの初期化パラメーターを読み取る方法を提供します。プロセス環境で定義されるべきプロパティ (機密性の高い API データ、API キーなど) がある一方で、構成ファイルで定義されるプロパティもあります。</p>
+<p>各構成リーダーは、サーバーの初期化パラメーターを読み取る方法を提供します。プロセス環境で定義する必要がある一部のプロパティ (機密性の高い API データ、API キーなど) は、構成ファイルに定義するのではなく、プロセス環境で定義する必要があります。</p>
 <h2 id="構成ファイルの構造">構成ファイルの構造</h2>
-<p>JSON 構成ファイルは、次のプロパティで構成されます:</p>
+<p>JSON 構成ファイルは、次のプロパティで構成されます。</p>
 <table>
     <thead>
         <tr>

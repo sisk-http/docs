@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>フォワーディング・リゾルバー | Sisk </title>
+        <title>フォワーディング リゾルバー | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="フォワーディング・リゾルバー | Sisk ">
+        <meta name="title" content="フォワーディング リゾルバー | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,22 +154,22 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="フォワーディングリゾルバー">フォワーディング・リゾルバー</h1>
+<h1 id="フォワーディング-リゾルバー">フォワーディング リゾルバー</h1>
 
-<p>フォワーディング・リゾルバーは、クライアントを識別する情報をリクエスト、プロキシ、CDN、またはロードバランサーを介してデコードするヘルパーです。Sisk サービスがリバースまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前にこの情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。</p>
-<p>現在、<a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a> クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サービスごとに異なるセキュリティ上の理由により、標準的なヘッダーをデコードする実装はサーバーにありません。</p>
-<p>例えば、<code>X-Forwarded-For</code> ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって使用され、最終的なサービスに情報のチェーンを運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP アドレスが含まれます。問題は、クライアントのリモート IP を識別するのが難しいことがあり、ヘッダーを識別するための特定のルールがないことです。以下のヘッダーを実装する前に、ドキュメントを読むことを強くお勧めします。</p>
+<p>フォワーディング リゾルバーは、クライアントを識別する情報をデコードするヘルパーです。リクエスト、プロキシ、CDN、またはロード バランサーを介して。Sisk サービスがリバース プロキシまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前にこの情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。</p>
+<p>現在、<a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a> クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サーバーにはこれらのヘッダーをデコードするための標準実装がなくなりました。これは、サービスごとに異なるセキュリティ上の理由があるためです。</p>
+<p>たとえば、<code>X-Forwarded-For</code> ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって使用され、最終的なサービスに情報のチェーンを運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP アドレスが含まれます。問題は、クライアントのリモート IP を識別するのが難しい場合があり、ヘッダーを識別するための特定のルールがないことです。以下のヘッダーを実装する前に、ドキュメントを読むことを強くお勧めします。</p>
 <ul>
-<li><code>X-Forwarded-For</code> ヘッダーについては、<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns">こちら</a>を参照してください。</li>
-<li><code>X-Forwarded-Host</code> ヘッダーについては、<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host">こちら</a>を参照してください。</li>
-<li><code>X-Forwarded-Proto</code> ヘッダーについては、<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto">こちら</a>を参照してください。</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns"><code>X-Forwarded-For</code> ヘッダー</a> について読む。</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host"><code>X-Forwarded-Host</code> ヘッダー</a> について読む。</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto"><code>X-Forwarded-Proto</code> ヘッダー</a> について読む。</li>
 </ul>
 <h2 id="forwardingresolver-クラス">ForwardingResolver クラス</h2>
 <p>このクラスには、各サービスに最も適した実装を可能にする 3 つの仮想メソッドがあります。各メソッドは、プロキシを介したリクエストから情報を解決する責任があります。クライアントの IP アドレス、リクエストのホスト、および使用されるセキュリティ プロトコルです。デフォルトでは、Sisk は常に元のリクエストの情報を使用し、ヘッダーを解決しません。</p>
 <p>以下の例は、この実装を使用する方法を示しています。この例では、<code>X-Forwarded-For</code> ヘッダーを介してクライアントの IP を解決し、リクエストで複数の IP がフォワードされた場合にエラーをスローします。</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>この例は、プロダクション コードで使用しないでください。実装が使用するために適切であることを常に確認してください。ヘッダーを実装する前に、ドキュメントを読んでください。</p>
+<p>この例を生産コードで使用しないでください。実装が使用するために適切であることを常に確認してください。ヘッダーを実装する前にドキュメントを読んでください。</p>
 </div>
 <pre><code class="lang-csharp">class Program
 {
@@ -193,12 +193,12 @@
             string? forwardedFor = request.Headers.XForwardedFor;
             if (forwardedFor is null)
             {
-                throw new Exception(&quot;X-Forwarded-For ヘッダーが見つかりません。&quot;);
+                throw new Exception(&quot;The X-Forwarded-For header is missing.&quot;);
             }
             string[] ipAddresses = forwardedFor.Split(',');
             if (ipAddresses.Length != 1)
             {
-                throw new Exception(&quot;X-Forwarded-For ヘッダーに複数のアドレスがあります。&quot;);
+                throw new Exception(&quot;Too many addresses in the X-Forwarded-For header.&quot;);
             }
 
             return IPAddress.Parse(ipAddresses[0]);

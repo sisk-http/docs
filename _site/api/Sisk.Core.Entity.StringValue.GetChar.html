@@ -193,8 +193,8 @@ Method GetChar
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a> from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>. This method will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullreferenceexception">NullReferenceException</a> if
-the value stored in this instance is null.</p>
+<div class="markdown level1 summary"><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>. Throws an exception
+if the value couldn't be parsed to the target type.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -206,7 +206,7 @@ the value stored in this instance is null.</p>
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
-  <dd><p>An non-null char value.</p>
+  <dd><p>The converted <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>.</p>
 </dd>
 </dl>
 

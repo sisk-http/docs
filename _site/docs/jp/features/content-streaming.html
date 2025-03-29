@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ストリーミングコンテンツ | Sisk </title>
+        <title>コンテンツのストリーミング | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="ストリーミングコンテンツ | Sisk ">
+        <meta name="title" content="コンテンツのストリーミング | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,12 +154,12 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ストリーミングコンテンツ">ストリーミングコンテンツ</h1>
+<h1 id="コンテンツのストリーミング">コンテンツのストリーミング</h1>
 
-<p>Sisk では、クライアントとの間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中のコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するのに役立ちます。</p>
+<p>Sisk では、クライアントとサーバー間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中にコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するために役立ちます。</p>
 <h2 id="リクエストコンテンツストリーム">リクエストコンテンツストリーム</h2>
 <p>小さなコンテンツは自動的に HTTP 接続バッファメモリに読み込まれ、<a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> と <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a> に迅速に読み込まれます。より大きなコンテンツの場合は、<a href="/api/Sisk.Core.Http.HttpRequest.GetRequestStream">HttpRequest.GetRequestStream</a> メソッドを使用してリクエストコンテンツ読み取りストリームを取得できます。</p>
-<p><a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent">HttpRequest.GetMultipartFormContent</a> メソッドは、リクエスト全体のコンテンツをメモリに読み込むため、大きなコンテンツを読み取るには適していません。</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent">HttpRequest.GetMultipartFormContent</a> メソッドは、リクエスト全体のコンテンツをメモリに読み込むため、大きなコンテンツを読み取るには適していないことに注意してください。</p>
 <p>以下の例を考えてみましょう:</p>
 <div class="script-header">
     <span>
@@ -194,9 +194,9 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
     };
 }
 </code></pre>
-<p>上記の例では、<code>UploadDocument</code> メソッドはリクエストコンテンツを読み取り、コンテンツをファイルに保存します。<code>Stream.CopyToAsync</code> で使用される読み取りバッファ以外に、追加のメモリ割り当ては行われません。上記の例は、非常に大きなファイルの場合に発生する可能性のあるメモリ割り当ての負担を軽減し、アプリケーションのパフォーマンスを最適化するのに役立ちます。</p>
-<p>時間のかかる操作 (たとえば、ファイルの送信) では、常に <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> を使用することが良い習慣です。クライアントとサーバーの間のネットワーク速度に依存するためです。</p>
-<p><code>CancellationToken</code> での調整は、以下のように行うことができます:</p>
+<p>上記の例では、<code>UploadDocument</code> メソッドはリクエストコンテンツを読み取り、コンテンツをファイルに保存します。<code>Stream.CopyToAsync</code> で使用される読み取りバッファ以外に、追加のメモリ割り当ては行われません。上記の例は、非常に大きなファイルの場合にメモリ割り当ての負担を削減し、アプリケーションのパフォーマンスを最適化するのに役立ちます。</p>
+<p>良い実践は、ファイルの送信などの時間のかかる操作では、常に <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> を使用することです。これは、クライアントとサーバーの間のネットワーク速度に依存するためです。</p>
+<p>CancellationToken での調整は、以下のように行うことができます:</p>
 <div class="script-header">
     <span>
         Controller/UploadDocument.cs
@@ -220,7 +220,7 @@ catch (OperationCanceledException) {
 }
 </code></pre>
 <h2 id="レスポンスコンテンツストリーム">レスポンスコンテンツストリーム</h2>
-<p>レスポンスコンテンツを送信することも可能です。現在、<a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> メソッドと <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> タイプのコンテンツを使用する、2 つの方法があります。</p>
+<p>レスポンスコンテンツを送信することも可能です。現在、<a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> メソッドと <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> タイプのコンテンツを使用するという 2 つの方法があります。</p>
 <p>画像ファイルを提供するシナリオを考えてみましょう。以下のコードを使用できます:</p>
 <div class="script-header">
     <span>
@@ -233,7 +233,7 @@ catch (OperationCanceledException) {
 <pre><code class="lang-csharp">[RouteGet ( &quot;/api/profile-picture&quot; )]
 public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
 
-    // プロフィール画像を取得するための例メソッド
+    // プロファイル画像を取得するための例メソッド
     var profilePictureFilename = &quot;profile-picture.jpg&quot;;
     byte[] profilePicture = await File.ReadAllBytesAsync ( profilePictureFilename );
 
@@ -246,8 +246,8 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
     };
 }
 </code></pre>
-<p>上記のメソッドは、画像コンテンツを読み取るたびにメモリ割り当てを行います。画像が大きい場合、パフォーマンスの問題が発生する可能性があり、ピーク時にはメモリオーバーロードによりサーバーがクラッシュする可能性もあります。このような状況では、キャッシングは役立ちますが、ファイルのためにメモリが予約されるため、問題を完全に解決することはできません。キャッシングは、毎回メモリを割り当てる必要性を軽減するのに役立ちますが、大きなファイルの場合は十分ではありません。</p>
-<p>画像をストリームで送信することが解決策となります。画像の全コンテンツを読み取るのではなく、ファイル上で読み取りストリームを作成し、クライアントに小さなバッファを使用してコピーします。</p>
+<p>上記のメソッドは、画像コンテンツを読み取るたびにメモリ割り当てを行います。画像が大きい場合、これによりパフォーマンスの問題が発生し、ピーク時にはメモリオーバーロードによりサーバーがクラッシュする可能性があります。このような状況では、キャッシングは役立ちますが、ファイルのためにメモリが依然として予約されるため、問題を完全に解決することはできません。キャッシングは、毎回メモリを割り当てる必要性の圧力を軽減するのに役立ちますが、大きなファイルの場合は十分ではありません。</p>
+<p>画像をストリームで送信することが問題の解決策となります。画像コンテンツ全体を読み取るのではなく、ファイル上で読み取りストリームを作成し、クライアントに小さなバッファを使用してコピーします。</p>
 <h4 id="getresponsestream-メソッドを使用した送信">GetResponseStream メソッドを使用した送信</h4>
 <p><a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> メソッドは、HTTP 応答のコンテンツフローが準備されるにつれて、HTTP 応答のチャンクを送信できるオブジェクトを作成します。このメソッドはより手動で、コンテンツを送信する前にステータス、ヘッダー、コンテンツサイズを定義する必要があります。</p>
 <div class="script-header">
@@ -263,8 +263,7 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
 
     var profilePictureFilename = &quot;profile-picture.jpg&quot;;
 
-    // この形式の送信では、ステータスとヘッダーを事前に定義する必要があります
-    // コンテンツを送信する前に
+    // この形式の送信では、ステータスとヘッダーを事前に定義する必要があります。
     var requestStreamManager = request.GetResponseStream ();
 
     requestStreamManager.SetStatus ( System.Net.HttpStatusCode.OK );
@@ -273,21 +272,19 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
 
     using (var fs = File.OpenRead ( profilePictureFilename )) {
 
-        // この形式の送信では、コンテンツサイズも事前に定義する必要があります
-        // 送信する前に
+        // この形式の送信では、コンテンツサイズも事前に定義する必要があります。
         requestStreamManager.SetContentLength ( fs.Length );
 
-        // コンテンツサイズがわからない場合は、チャンク化されたエンコードを使用して
-        // コンテンツを送信できます
+        // コンテンツサイズがわからない場合は、チャンク化されたエンコードを使用してコンテンツを送信できます。
         requestStreamManager.SendChunked = true;
 
-        // その後、出力ストリームに書き込みます
+        // その後、出力ストリームに書き込みます。
         await fs.CopyToAsync ( requestStreamManager.ResponseStream );
     }
 }
 </code></pre>
 <h4 id="streamcontent-を使用したコンテンツの送信">StreamContent を使用したコンテンツの送信</h4>
-<p><a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> クラスを使用すると、データソースからバイトストリームとしてコンテンツを送信できます。この形式の送信は、以前の要件を削除し、<a href="/docs/fundamentals/responses#gzip-deflate-and-brotli-compression">圧縮エンコード</a> を使用してコンテンツサイズを削減することもできます。</p>
+<p><a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> クラスを使用すると、データソースからバイトストリームとしてコンテンツを送信できます。この形式の送信は、以前の要件を削除し、<a href="/docs/jp/fundamentals/responses#gzip-deflate-and-brotli-compression">圧縮エンコード</a> を使用してコンテンツサイズを削減することもできます。</p>
 <div class="script-header">
     <span>
         Controller/ImageController.cs
@@ -312,7 +309,7 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
 </code></pre>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>このタイプのコンテンツでは、ストリームを <code>using</code> ブロックで囲むことは避けてください。コンテンツフローが終了すると、HTTP サーバーによってコンテンツが自動的に破棄されます。エラーが発生した場合でも同様です。</p>
+<p>このタイプのコンテンツでは、ストリームを <code>using</code> ブロックで囲むことは避けてください。コンテンツフローが終了すると、HTTP サーバーによってコンテンツが自動的に破棄されます。</p>
 </div>
 
 </article>

@@ -1,14 +1,14 @@
-# HTTPサーバーハンドラー
+# Http サーバー ハンドラー
 
-Siskバージョン0.16では、`HttpServerHandler`クラスが導入され、Siskの全体的な動作を拡張し、HTTPリクエストのハンドリング、ルーター、コンテキストバッグなど、追加のイベントハンドラーを提供します。
+Sisk バージョン 0.16 では、`HttpServerHandler` クラスが導入され、Sisk の全体的な動作を拡張し、Http リクエスト、ルーター、コンテキスト バッグなどへの追加のイベント ハンドラーを提供します。
 
-このクラスは、HTTPサーバーのライフタイムとリクエストのイベントを集中管理します。HTTPプロトコルにはセッションがないため、1つのリクエストから別のリクエストへの情報を保持することはできません。Siskは、セッション、コンテキスト、データベース接続など、作業を支援するためのプロバイダーを実装する方法を提供します。
+このクラスは、HTTP サーバーのライフタイムとリクエストのイベントを集中管理します。Http プロトコルにはセッションがないため、1 つのリクエストから別のリクエストへの情報を保持することはできません。Sisk では、セッション、コンテキスト、データベース接続などの有用なプロバイダーを実装する方法を提供します。
 
-各イベントが発生するタイミングと目的については、[このページ](/api/Sisk.Core.Http.Handlers.HttpServerHandler)を参照してください。また、[HTTPリクエストのライフサイクル](/v1/advanced/request-lifecycle)を確認して、リクエストがどのように処理されるかとイベントがどこで発生するかを理解することができます。HTTPサーバーは、同時に複数のハンドラーを使用することができます。各イベント呼び出しは同期的であり、関連付けられたすべてのハンドラーが実行され完了するまで、現在のスレッドがブロックされます。
+各イベントが発生するタイミングと目的については、[このページ](/api/Sisk.Core.Http.Handlers.HttpServerHandler) を参照してください。また、[HTTP リクエストのライフサイクル](/v1/advanced/request-lifecycle) を確認して、リクエストに対して何が起こるかと、イベントがどこで発生するかを理解することもできます。HTTP サーバーでは、同時に複数のハンドラーを使用できます。各イベント呼び出しは同期的であり、関連付けられたすべてのハンドラーが実行され完了するまで、現在のスレッドがブロックされます。
 
-RequestHandlersとは異なり、特定のルートグループまたはルートに適用することはできません。代わりに、全体のHTTPサーバーに適用されます。Http Server Handler内で条件を適用することができます。また、各SiskアプリケーションごとにHttpServerHandlerのシングルトンが定義されるため、各`HttpServerHandler`インスタンスは1つだけです。
+RequestHandlers と異なり、特定のルート グループまたはルートに適用することはできません。代わりに、全体の HTTP サーバーに適用されます。Http サーバー ハンドラー内で条件を適用することもできます。さらに、各 Sisk アプリケーションに対して、各 HttpServerHandler のシングルトンが定義されます。つまり、各 `HttpServerHandler` には 1 つのインスタンスのみが定義されます。
 
-HttpServerHandlerを使用する実用的な例は、リクエストの終了時に自動的にデータベース接続を破棄することです。
+HttpServerHandler を使用する実用的な例は、リクエストの終了時に自動的にデータベース接続を破棄することです。
 
 ```cs
 // DatabaseConnectionHandler.cs
@@ -19,7 +19,7 @@ public class DatabaseConnectionHandler : HttpServerHandler
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // リクエストがコンテキストバッグにDbContextを定義しているかどうかを確認します
+        // リクエストがコンテキスト バッグに DbContext を定義しているかどうかを確認します
         if (requestBag.IsSet<DbContext>())
         {
             var db = requestBag.Get<DbContext>();
@@ -30,7 +30,7 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // ユーザーがHTTPリクエストからDbContextを作成し、リクエストバッグに保存することを許可します
+    // ユーザーが HttpRequest から DbContext を作成し、それをリクエスト バッグに保存できるようにします
     public static DbContext GetDbContext(this HttpRequest request)
     {
         var db = new DbContext();
@@ -39,9 +39,9 @@ public static class DatabaseConnectionHandlerExtensions
 }
 ```
 
-上記のコードでは、`GetDbContext`拡張メソッドにより、HTTPリクエストオブジェクトから直接コンテキストを作成し、リクエストバッグに保存することができます。破棄されていない接続はデータベースで問題を引き起こす可能性があるため、`OnHttpRequestClose`で終了されます。
+上記のコードでは、`GetDbContext` 拡張メソッドにより、HttpRequest オブジェクトから直接接続コンテキストを作成し、それをリクエスト バッグに保存できます。破棄されていない接続はデータベースを実行する際に問題を引き起こす可能性があるため、`OnHttpRequestClose` で終了されます。
 
-ハンドラーをHTTPサーバーに登録するには、ビルダーまたは[HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler)を使用します。
+ハンドラーを Http サーバーに登録するには、ビルダーまたは [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler) を使用できます。
 
 ```cs
 // Program.cs
@@ -60,7 +60,7 @@ class Program
 }
 ```
 
-これにより、`UsersController`クラスはデータベースコンテキストを使用することができます。
+これにより、`UsersController` クラスはデータベース コンテキストを使用できます。
 
 ```cs
 // UserController.cs
@@ -104,7 +104,7 @@ public class UserController : ApiController
 }
 ```
 
-上記のコードでは、`JsonOk`と`JsonMessage`などのメソッドを使用しています。これらは、`ApiController`に組み込まれており、`RouterController`から継承されています。
+上記のコードでは、`JsonOk` と `JsonMessage` などのメソッドを使用しています。これらは `ApiController` に組み込まれており、`RouterController` から継承されています。
 
 ```cs
 // ApiController.cs
@@ -131,6 +131,6 @@ public class ApiController : RouterModule
 }
 ```
 
-開発者は、このクラスを使用してセッション、コンテキスト、データベース接続を実装することができます。提供されたコードは、DatabaseConnectionHandlerを使用した実用的な例を示しており、各リクエストの終了時に自動的にデータベース接続を破棄します。
+開発者は、このクラスを使用してセッション、コンテキスト、データベース接続を実装できます。提供されたコードは、DatabaseConnectionHandler を使用した実用的な例を示しており、各リクエストの終了時に自動的にデータベース接続を破棄します。
 
-統合は簡単であり、ハンドラーはサーバー設定中に登録されます。HttpServerHandlerクラスは、HTTPアプリケーションでリソースを管理し、Siskの動作を拡張するための強力なツールセットを提供します。
+統合は簡単であり、ハンドラーはサーバー設定中に登録されます。HttpServerHandler クラスは、HTTP アプリケーションでリソースを管理し、Sisk の動作を拡張するための強力なツールセットを提供します。

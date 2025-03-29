@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SSL プロキシ | Sisk </title>
+        <title>SSL Proxy | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="SSL プロキシ | Sisk ">
+        <meta name="title" content="SSL Proxy | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,16 +154,16 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ssl-プロキシ">SSL プロキシ</h1>
+<h1 id="ssl-proxy">SSL Proxy</h1>
 
 <div class="WARNING">
 <h5>Warning</h5>
-<p>この機能は実験的であり、運用環境では使用しないでください。Sisk を SSL で動作させる方法については、<a href="/docs/deploying.html#proxying-your-application">このドキュメント</a> を参照してください。</p>
+<p>この機能は実験的であり、運用環境では使用しないでください。Sisk を SSL で動作させる方法については、<a href="/docs/jp/deploying.html#proxying-your-application">このドキュメント</a> を参照してください。</p>
 </div>
-<p>Sisk SSL プロキシは、Sisk の <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> に HTTPS 接続を提供し、HTTPS メッセージを非安全な HTTP コンテキストにルーティングするモジュールです。このモジュールは、SSL 接続を提供するために、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> を使用して実行されるサービスをサポートするために構築されましたが、SSL はサポートされていません。</p>
+<p>Sisk SSL Proxy は、Sisk の <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> に HTTPS 接続を提供し、HTTPS メッセージを非安全な HTTP コンテキストにルーティングするモジュールです。このモジュールは、SSL をサポートしない <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> を使用して実行されるサービスに SSL 接続を提供するために構築されました。</p>
 <p>プロキシは同じアプリケーション内で実行され、HTTP/1.1 メッセージをリッスンし、同じプロトコルで Sisk に転送します。現在、この機能は非常に実験的であり、運用環境で使用するには不安定すぎる可能性があります。</p>
 <p>現在、SslProxy は、キープアライブ、チャンク化されたエンコード、WebSockets など、ほとんどの HTTP/1.1 機能をサポートしています。SSL プロキシへのオープン接続の場合、ターゲット サーバーに TCP 接続が作成され、プロキシは確立された接続に転送されます。</p>
-<p>SslProxy は、次のように HttpServer.CreateBuilder とともに使用できます：</p>
+<p>SslProxy は、次のように HttpServer.CreateBuilder と共に使用できます。</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
     .UseRouter(r =&gt;
     {
@@ -181,7 +181,7 @@
 
 app.Start();
 </code></pre>
-<p>プロキシでは、有効な SSL 証明書を提供する必要があります。ブラウザによって証明書が受け入れられるようにするには、オペレーティング システムに証明書をインポートして、正しく機能するようにします。</p>
+<p>プロキシに有効な SSL 証明書を提供する必要があります。ブラウザによって証明書が受け入れられるようにするには、オペレーティング システムに証明書をインポートして、正しく機能するようにします。</p>
 
 </article>
 

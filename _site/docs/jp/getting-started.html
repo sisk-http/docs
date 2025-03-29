@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="sisk-の開始方法">Sisk の開始方法</h1>
 
-<p>Sisk は、任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を説明します。まだインストールしていない場合は、SDK を <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">こちら</a> からダウンロードしてください。</p>
-<p>このチュートリアルでは、プロジェクト構造の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信について説明します。このガイドでは、C# を使用してシンプルなサーバーを構築することに焦点を当てています。他のプログラミング言語も使用できます。</p>
+<p>Sisk は、任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を教えます。まだインストールしていない場合は、<a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">こちら</a> から SDK をダウンロードしてください。</p>
+<p>このチュートリアルでは、プロジェクト構造の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信について説明します。このガイドでは、C# を使用してシンプルなサーバーを構築することに焦点を当てています。他の好きなプログラミング言語も使用できます。</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>クイックスタート プロジェクトに興味がある場合は、<a href="https://github.com/sisk-http/quickstart">このリポジトリ</a> を参照してください。</p>
@@ -166,14 +166,14 @@
 <p>プロジェクト名を &quot;My Sisk Application&quot; とします。.NET を設定したら、次のコマンドを使用してプロジェクトを作成できます。</p>
 <pre><code class="lang-bash">dotnet new console -n my-sisk-application
 </code></pre>
-<p>次に、プロジェクト ディレクトリに移動して、.NET ユーティリティ ツールを使用して Sisk をインストールします。</p>
+<p>次に、プロジェクト ディレクトリに移動し、.NET ユーティリティ ツールを使用して Sisk をインストールします。</p>
 <pre><code class="lang-bash">cd my-sisk-application
 dotnet add package Sisk.HttpServer
 </code></pre>
-<p>Sisk をプロジェクトにインストールするその他の方法については、<a href="https://www.nuget.org/packages/Sisk.HttpServer/">こちら</a> を参照してください。</p>
+<p>Sisk をプロジェクトにインストールする方法については、<a href="https://www.nuget.org/packages/Sisk.HttpServer/">こちら</a> を参照してください。</p>
 <p>さて、HTTP サーバーのインスタンスを作成しましょう。この例では、ポート 5000 でリッスンするように構成します。</p>
 <h2 id="http-サーバーの構築">HTTP サーバーの構築</h2>
-<p>Sisk では、アプリケーションを手動で段階的に構築できます。ただし、これは大多数のプロジェクトにとって便利ではありません。したがって、ビルダー メソッドを使用して、アプリケーションを簡単に起動できます。</p>
+<p>Sisk では、アプリケーションを手動で段階的に構築できます。ただし、HttpServer オブジェクトにルーティングするため、多くのプロジェクトではあまり便利ではありません。したがって、ビルダー メソッドを使用できます。これにより、アプリケーションを起動するのが容易になります。</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -205,7 +205,7 @@ dotnet add package Sisk.HttpServer
 </code></pre>
 <p>Sisk の各重要なコンポーネントを理解することが重要です。このドキュメントの後半では、Sisk のしくみについてさらに学習します。</p>
 <h2 id="手動-高度な-設定">手動 (高度な) 設定</h2>
-<p>Sisk のメカニズムの詳細については、<a href="/docs/advanced/manual-setup">このセクション</a> のドキュメントを参照してください。ここでは、HttpServer、Router、ListeningPort、他のコンポーネントの動作と関係について説明します。</p>
+<p>Sisk のメカニズムの動作と、HttpServer、Router、ListeningPort、その他のコンポーネント間の関係については、<a href="/docs/jp/advanced/manual-setup">このセクション</a> のドキュメントで説明しています。</p>
 
 </article>
 

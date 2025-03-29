@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="ini-構成プロバイダー">INI 構成プロバイダー</h1>
 
-<p>Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、<a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> を実装する任意のパイプラインを使用して、<a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> でサーバーの構成を任意のファイル タイプから読み取ることができます。</p>
-<p><a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> パッケージでは、一般的な構文エラーに対して例外をスローしないストリーム ベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。</p>
+<p>Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、<a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> を実装する任意のパイプラインを使用して、<a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> でサーバー構成を任意のファイル タイプから読み取ることができます。</p>
+<p><a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> パッケージでは、共通の構文エラーに対して例外をスローしないストリームベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。</p>
 <h2 id="インストール">インストール</h2>
 <p>パッケージをインストールするには、次のコマンドから始めることができます。</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
@@ -196,9 +196,9 @@
     }
 }
 </code></pre>
-<p>上記のコードは、プロセスの現在のディレクトリ (CurrentDirectory) にある app.ini ファイルを探します。INI ファイルの内容は次のとおりです。</p>
+<p>上記のコードは、プロセスの現在のディレクトリ (CurrentDirectory) にある app.ini ファイルを探します。INI ファイルの内容は次のようになります。</p>
 <pre><code class="lang-ini">[Server]
-# 複数のリスニング アドレスがサポートされています
+# 複数のリスニング アドレスがサポートされます
 Listen = http://localhost:5552/
 Listen = http://localhost:5553/
 ThrowExceptions = false
@@ -234,8 +234,8 @@ Color = Red
 Color = Blue
 Color = Yellow ; 黄色は使用しないでください
 </code></pre>
-<p>これを次のように解析します。</p>
-<pre><code class="lang-csharp">// INI テキストを文字列から解析
+<p>これを解析するには:</p>
+<pre><code class="lang-csharp">// 文字列から INI テキストを解析
 IniDocument doc = IniDocument.FromString(iniText);
 
 // 1 つの値を取得
@@ -303,7 +303,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
 <td>いいえ</td>
-<td>複数の Allow-Origin ヘッダーを指定します (カンマで区切られます)。<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> に関する詳細情報。</td>
+<td>複数の Allow-Origin ヘッダー、コンマで区切られた値を指定します。 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> に関する詳細情報。</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigin</code></td>

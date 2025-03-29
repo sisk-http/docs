@@ -2,20 +2,21 @@ code,
 pre,
 .hljs {
     font-family: --bs-font-monospace;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.7;
 }
 
 :not(pre) > code {
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 4px;
     padding: 2px 4px;
+    color: --article-color;
 }
 
 pre > code.hljs.has-line-numbers {
     position: relative;
     padding-left: 48px;
-    
+
     .line-numbers {
         position: absolute;
         left: 1em;
@@ -47,8 +48,7 @@ html[data-bs-theme="light"] {
     }
 
     :not(pre) > code {
-        background-color: #fafafa;
-        color: #000;
+        background-color: #f1f1f1;
     }
 }
 

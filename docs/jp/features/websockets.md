@@ -1,16 +1,16 @@
 # Web ソケット
 
-Sisk では、Web ソケットもサポートされており、クライアントとの間でメッセージの送受信を行うことができます。
+Sisk では、クライアントへのメッセージの送受信もサポートしています。
 
-この機能は、ほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、GitHub で報告してください。
+この機能は、ほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github で報告してください。
 
 ## 非同期でメッセージを受信する
 
-以下の例は、WebSocket の実践的な使用方法を示しており、接続の確立、メッセージの受信、コンソールへの表示を行っています。
+以下の例は、実践的な Web ソケットの使用方法を示しており、接続の確立、メッセージの受信、コンソールへの表示を示しています。
 
-WebSocket で受信されるすべてのメッセージは、バイト列として受信されるため、受信時にデコードする必要があります。
+Web ソケットで受信されるすべてのメッセージは、バイト列として受信されるため、受信時にデコードする必要があります。
 
-デフォルトでは、メッセージはチャンクに分割され、最後のチャンクはメッセージの最終パケットとして送信されます。パケットサイズは、[WebSocketBufferSize](/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize) フラグで設定できます。このバッファリングは、送信と受信の両方で同じです。
+デフォルトでは、メッセージはチャンクに分割され、最後のチャンクはメッセージの最終パケットとして送信されます。パケットのサイズは、[WebSocketBufferSize](/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize) フラグで設定できます。このバッファリングは、送信と受信の両方のメッセージに同じです。
 
 ```cs
 static ListeningHost BuildLhA()
@@ -24,11 +24,11 @@ static ListeningHost BuildLhA()
         ws.OnReceive += (sender, msg) =>
         {
             string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
-            Console.WriteLine("受信メッセージ: " + msgText);
+            Console.WriteLine("Received message: " + msgText);
 
-            // 受信メッセージを送信した HttpWebSocket コンテキストを取得
+            // gets the HttpWebSocket context which received the message
             HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
-            senderWebSocket.Send("応答!");
+            senderWebSocket.Send("Response!");
         };
 
         ws.WaitForClose();
@@ -42,7 +42,7 @@ static ListeningHost BuildLhA()
 
 ## 同期でメッセージを受信する
 
-以下の例は、同期的な WebSocket の使用方法を示しており、非同期的なコンテキストなしでメッセージを受信し、処理し、ソケットの使用を終了します。
+以下の例は、同期的な Web ソケットの使用方法を示しており、メッセージを受信し、処理し、ソケットの使用を終了します。
 
 ```cs
 static ListeningHost BuildLhA()
@@ -55,28 +55,28 @@ static ListeningHost BuildLhA()
         WebSocketMessage? msg;
 
     askName:
-        ws.Send("あなたの名前は何ですか?");
+        ws.Send("What is your name?");
         msg = ws.WaitNext();
 
         string? name = msg?.GetString();
 
         if (string.IsNullOrEmpty(name))
         {
-            ws.Send("名前を入力してください!");
+            ws.Send("Please, insert your name!");
             goto askName;
         }
 
     askAge:
-        ws.Send("あなたの年齢は?");
+        ws.Send("And your age?");
         msg = ws.WaitNext();
 
         if (!Int32.TryParse(msg?.GetString(), out int age))
         {
-            ws.Send("有効な数字を入力してください");
+            ws.Send("Please, insert an valid number");
             goto askAge;
         }
 
-        ws.Send($"あなたは {name} です、および {age} 歳です.");
+        ws.Send($"You're {name}, and you are {age} old.");
 
         return ws.Close();
     });
@@ -100,7 +100,7 @@ static ListeningHost BuildLhA()
 
         byte[] myByteArrayContent = ...;
 
-        ws.Send("ハロー、ワールド");     // UTF-8 バイト配列としてエンコードされます
+        ws.Send("Hello, world");     // will be encoded as an UTF-8 byte array
         ws.Send(myByteArrayContent);
 
         return ws.Close();
@@ -110,11 +110,11 @@ static ListeningHost BuildLhA()
 }
 ```
 
-## WebSocket のクローズを待つ
+## Web ソケットのクローズを待つ
 
-[WaitForClose()](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose) メソッドは、クライアントまたはサーバーによって接続が終了されるまで、現在の呼び出しスタックをブロックします。
+[WaitForClose()](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose) メソッドは、クライアントまたはサーバーが接続を終了するまで、現在の呼び出しスタックをブロックします。
 
-これにより、リクエストのコールバックの実行がブロックされ、クライアントまたはサーバーが切断するまで待機します。
+これにより、リクエストのコールバックの実行が、クライアントまたはサーバーが切断するまでブロックされます。
 
 また、[Close()](/api/Sisk.Core.Http.Streams.HttpWebSocket.Close) メソッドを使用して、接続を手動でクローズすることもできます。このメソッドは、空の [HttpResponse](/api/Sisk.Core.Http.HttpResponse) オブジェクトを返しますが、クライアントには送信されず、HTTP リクエストを受信した関数からの戻り値として機能します。
 
@@ -127,10 +127,10 @@ static ListeningHost BuildLhA()
     {
         var ws = req.GetWebSocket();
 
-        // クライアントが接続をクローズするまで待機
+        // クライアントが接続をクローズするまで待つ
         ws.WaitForClose();
 
-        // 60 秒間メッセージのやり取りがない場合、またはどちらかが接続をクローズした場合に待機
+        // 60 秒間メッセージのやり取りがない場合、またはどちらかが接続をクローズするまで待つ
         ws.WaitForClose(TimeSpan.FromSeconds(60));
 
         return ws.Close();
@@ -142,12 +142,12 @@ static ListeningHost BuildLhA()
 
 ## ピング ポリシー
 
-サーバー側イベントのピング ポリシーと同様に、TCP 接続を維持するためにピング ポリシーを設定できます。
+サーバー側イベントのピング ポリシーと同様に、TCP 接続を維持するために、ピング ポリシーを設定できます。
 
 ```cs
 ws.WithPing(ping =>
 {
-    ping.DataMessage = "ピング メッセージ";
+    ping.DataMessage = "ping-message";
     ping.Interval = TimeSpan.FromSeconds(5);
     ping.Start();
 });

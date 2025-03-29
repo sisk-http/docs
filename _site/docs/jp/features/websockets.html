@@ -156,12 +156,12 @@
                 <article data-uid="">
 <h1 id="web-ソケット">Web ソケット</h1>
 
-<p>Sisk では、Web ソケットもサポートされており、クライアントとの間でメッセージの送受信を行うことができます。</p>
-<p>この機能は、ほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、GitHub で報告してください。</p>
+<p>Sisk では、クライアントへのメッセージの送受信もサポートしています。</p>
+<p>この機能は、ほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github で報告してください。</p>
 <h2 id="非同期でメッセージを受信する">非同期でメッセージを受信する</h2>
-<p>以下の例は、WebSocket の実践的な使用方法を示しており、接続の確立、メッセージの受信、コンソールへの表示を行っています。</p>
-<p>WebSocket で受信されるすべてのメッセージは、バイト列として受信されるため、受信時にデコードする必要があります。</p>
-<p>デフォルトでは、メッセージはチャンクに分割され、最後のチャンクはメッセージの最終パケットとして送信されます。パケットサイズは、<a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> フラグで設定できます。このバッファリングは、送信と受信の両方で同じです。</p>
+<p>以下の例は、実践的な Web ソケットの使用方法を示しており、接続の確立、メッセージの受信、コンソールへの表示を示しています。</p>
+<p>Web ソケットで受信されるすべてのメッセージは、バイト列として受信されるため、受信時にデコードする必要があります。</p>
+<p>デフォルトでは、メッセージはチャンクに分割され、最後のチャンクはメッセージの最終パケットとして送信されます。パケットのサイズは、<a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> フラグで設定できます。このバッファリングは、送信と受信の両方のメッセージに同じです。</p>
 <pre><code class="lang-cs">static ListeningHost BuildLhA()
 {
     Router r = new Router();
@@ -173,11 +173,11 @@
         ws.OnReceive += (sender, msg) =&gt;
         {
             string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
-            Console.WriteLine(&quot;受信メッセージ: &quot; + msgText);
+            Console.WriteLine(&quot;Received message: &quot; + msgText);
 
-            // 受信メッセージを送信した HttpWebSocket コンテキストを取得
+            // gets the HttpWebSocket context which received the message
             HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
-            senderWebSocket.Send(&quot;応答!&quot;);
+            senderWebSocket.Send(&quot;Response!&quot;);
         };
 
         ws.WaitForClose();
@@ -189,7 +189,7 @@
 }
 </code></pre>
 <h2 id="同期でメッセージを受信する">同期でメッセージを受信する</h2>
-<p>以下の例は、同期的な WebSocket の使用方法を示しており、非同期的なコンテキストなしでメッセージを受信し、処理し、ソケットの使用を終了します。</p>
+<p>以下の例は、同期的な Web ソケットの使用方法を示しており、メッセージを受信し、処理し、ソケットの使用を終了します。</p>
 <pre><code class="lang-cs">static ListeningHost BuildLhA()
 {
     Router r = new Router();
@@ -200,28 +200,28 @@
         WebSocketMessage? msg;
 
     askName:
-        ws.Send(&quot;あなたの名前は何ですか?&quot;);
+        ws.Send(&quot;What is your name?&quot;);
         msg = ws.WaitNext();
 
         string? name = msg?.GetString();
 
         if (string.IsNullOrEmpty(name))
         {
-            ws.Send(&quot;名前を入力してください!&quot;);
+            ws.Send(&quot;Please, insert your name!&quot;);
             goto askName;
         }
 
     askAge:
-        ws.Send(&quot;あなたの年齢は?&quot;);
+        ws.Send(&quot;And your age?&quot;);
         msg = ws.WaitNext();
 
         if (!Int32.TryParse(msg?.GetString(), out int age))
         {
-            ws.Send(&quot;有効な数字を入力してください&quot;);
+            ws.Send(&quot;Please, insert an valid number&quot;);
             goto askAge;
         }
 
-        ws.Send($&quot;あなたは {name} です、および {age} 歳です.&quot;);
+        ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
 
         return ws.Close();
     });
@@ -241,7 +241,7 @@
 
         byte[] myByteArrayContent = ...;
 
-        ws.Send(&quot;ハロー、ワールド&quot;);     // UTF-8 バイト配列としてエンコードされます
+        ws.Send(&quot;Hello, world&quot;);     // will be encoded as an UTF-8 byte array
         ws.Send(myByteArrayContent);
 
         return ws.Close();
@@ -250,9 +250,9 @@
     return new ListeningHost(&quot;localhost&quot;, 5551, r);
 }
 </code></pre>
-<h2 id="websocket-のクローズを待つ">WebSocket のクローズを待つ</h2>
-<p><a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> メソッドは、クライアントまたはサーバーによって接続が終了されるまで、現在の呼び出しスタックをブロックします。</p>
-<p>これにより、リクエストのコールバックの実行がブロックされ、クライアントまたはサーバーが切断するまで待機します。</p>
+<h2 id="web-ソケットのクローズを待つ">Web ソケットのクローズを待つ</h2>
+<p><a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> メソッドは、クライアントまたはサーバーが接続を終了するまで、現在の呼び出しスタックをブロックします。</p>
+<p>これにより、リクエストのコールバックの実行が、クライアントまたはサーバーが切断するまでブロックされます。</p>
 <p>また、<a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a> メソッドを使用して、接続を手動でクローズすることもできます。このメソッドは、空の <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> オブジェクトを返しますが、クライアントには送信されず、HTTP リクエストを受信した関数からの戻り値として機能します。</p>
 <pre><code class="lang-cs">static ListeningHost BuildLhA()
 {
@@ -262,10 +262,10 @@
     {
         var ws = req.GetWebSocket();
 
-        // クライアントが接続をクローズするまで待機
+        // クライアントが接続をクローズするまで待つ
         ws.WaitForClose();
 
-        // 60 秒間メッセージのやり取りがない場合、またはどちらかが接続をクローズした場合に待機
+        // 60 秒間メッセージのやり取りがない場合、またはどちらかが接続をクローズするまで待つ
         ws.WaitForClose(TimeSpan.FromSeconds(60));
 
         return ws.Close();
@@ -275,10 +275,10 @@
 }
 </code></pre>
 <h2 id="ピング-ポリシー">ピング ポリシー</h2>
-<p>サーバー側イベントのピング ポリシーと同様に、TCP 接続を維持するためにピング ポリシーを設定できます。</p>
+<p>サーバー側イベントのピング ポリシーと同様に、TCP 接続を維持するために、ピング ポリシーを設定できます。</p>
 <pre><code class="lang-cs">ws.WithPing(ping =&gt;
 {
-    ping.DataMessage = &quot;ピング メッセージ&quot;;
+    ping.DataMessage = &quot;ping-message&quot;;
     ping.Interval = TimeSpan.FromSeconds(5);
     ping.Start();
 });

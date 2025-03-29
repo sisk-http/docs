@@ -1,4 +1,5 @@
 items:
+
 - name: Добро пожаловать
 
 - name: Начало работы
@@ -15,7 +16,9 @@ items:
   href: registering-namespace.md
 - name: Журнал изменений
   href: changelogs.md
-
+- name: Часто задаваемые вопросы
+  href: faq.md
+  
 - name: Основы
 
 - name: Маршрутизация
@@ -33,7 +36,7 @@ items:
   href: features/logging.md
 - name: События, отправляемые сервером
   href: features/server-sent-events.md
-- name: Вебсокеты
+- name: Веб-сокеты
   href: features/websockets.md
 - name: Синтаксис отбрасывания
   href: features/discard-syntax.md
@@ -57,13 +60,13 @@ items:
 - name: Конфигурация INI
   href: extensions/ini-configuration.md
 
-- name: Продвинутые темы
+- name: Продвинутые
 
 - name: Ручная настройка
   href: advanced/manual-setup.md
 - name: Жизненный цикл запроса
   href: advanced/request-lifecycle.md
-- name: Прокси-резолверы
+- name: Резолверы перенаправления
   href: advanced/forwarding-resolvers.md
 - name: Обработчики HTTP-сервера
   href: advanced/http-server-handlers.md

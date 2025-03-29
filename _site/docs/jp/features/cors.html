@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SiskでのCORS (Cross-Origin Resource Sharing) の有効化 | Sisk </title>
+        <title>CORS（クロスオリジンリソース共有）をSiskで有効にする | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="SiskでのCORS (Cross-Origin Resource Sharing) の有効化 | Sisk ">
+        <meta name="title" content="CORS（クロスオリジンリソース共有）をSiskで有効にする | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,24 +154,24 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="siskでのcors-cross-origin-resource-sharing-の有効化">SiskでのCORS (Cross-Origin Resource Sharing) の有効化</h1>
+<h1 id="corsクロスオリジンリソース共有をsiskで有効にする">CORS（クロスオリジンリソース共有）をSiskで有効にする</h1>
 
-<p>Siskには、公開サービスでCORS (Cross-Origin Resource Sharing) を処理するためのツールがあります。この機能は、HTTPプロトコルの一部ではなく、W3Cによって定義されたWebブラウザーの特定の機能です。このセキュリティメカニズムにより、Webページは提供されたWebページと異なるドメインへのリクエストを送信できなくなります。サービスプロバイダーは、特定のドメインまたはすべてのドメインがリソースにアクセスできるように許可できます。</p>
+<p>Siskには、サービスを公開する際に<a href="https://developer.mozilla.org/ja/docs/jp/Web/HTTP/CORS">CORS（クロスオリジンリソース共有）</a>を処理するためのツールがあります。この機能はHTTPプロトコルの一部ではなく、W3Cによって定義されたWebブラウザーの特定の機能です。このセキュリティメカニズムにより、Webページは提供されたWebページと異なるドメインへのリクエストを送信することができません。サービスプロバイダーは、特定のドメインまたは1つのドメインにリソースへのアクセスを許可できます。</p>
 <h2 id="同一オリジン">同一オリジン</h2>
-<p>リソースが「同一オリジン」とみなされるためには、リクエストに<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin">Origin</a>ヘッダーが含まれている必要があります。</p>
+<p>リソースが「同一オリジン」として識別されるためには、リクエストには<a href="https://developer.mozilla.org/ja/docs/jp/Web/HTTP/Headers/Origin">オリジン</a>ヘッダーが含まれている必要があります。</p>
 <pre><code class="lang-http">GET /api/users HTTP/1.1
 Host: example.com
 Origin: http://example.com
 ...
 </code></pre>
-<p>そして、リモートサーバーは、リクエストされたオリジンと同じ値を持つ<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>ヘッダーで応答する必要があります。</p>
+<p>そして、リモートサーバーは、リクエストされたオリジンと同じ値を持つ<a href="https://developer.mozilla.org/ja/docs/jp/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>ヘッダーで応答する必要があります。</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 ...
 </code></pre>
-<p>この検証は<strong>明示的</strong>です。ホスト、ポート、プロトコルはすべてリクエストされたものと同じでなければなりません。次の例を確認してください。</p>
+<p>この検証は<strong>明示的</strong>です。ホスト、ポート、プロトコルは、リクエストされたものと同じでなければなりません。次の例を確認してください。</p>
 <ul>
-<li>サーバーは<code>Access-Control-Allow-Origin</code>が<code>https://example.com</code>であることを応答します。
+<li>サーバーは、<code>Access-Control-Allow-Origin</code>が<code>https://example.com</code>であることを応答します。
 <ul>
 <li><code>https://example.net</code> - ドメインが異なります。</li>
 <li><code>http://example.com</code> - スキームが異なります。</li>
@@ -180,14 +180,14 @@ Access-Control-Allow-Origin: http://example.com
 </ul>
 </li>
 </ul>
-<p>仕様では、ヘッダーの構文は、リクエストとレスポンスの両方に許可されます。URLパスは無視されます。デフォルトポート (HTTPの80、HTTPSの443) の場合、ポートは省略されます。</p>
+<p>仕様では、ヘッダーの構文は、リクエストとレスポンスの両方に許可されます。URLパスは無視されます。デフォルトのポート（HTTPの80、HTTPSの443）である場合は、ポートは省略されます。</p>
 <pre><code class="lang-http">Origin: null
 Origin: &lt;scheme&gt;://&lt;hostname&gt;
 Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
 </code></pre>
-<h2 id="corsの有効化">CORSの有効化</h2>
+<h2 id="corsを有効にする">CORSを有効にする</h2>
 <p>ネイティブに、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a>オブジェクトが<a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>内にあります。</p>
-<p>サーバーの初期化時にCORSを構成できます。</p>
+<p>サーバーを初期化するときにCORSを構成できます。</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
@@ -200,23 +200,23 @@ Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
     await app.StartAsync();
 }
 </code></pre>
-<p>上記のコードは、<strong>すべてのレスポンス</strong>に次のヘッダーを送信します。</p>
+<p>上記のコードは、<strong>すべてのレスポンス</strong>に対して次のヘッダーを送信します。</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 Access-Control-Allow-Headers: Authorization
 Access-Control-Expose-Headers: Content-Type
 </code></pre>
-<p>これらのヘッダーは、エラーとリダイレクトを含むすべてのレスポンスにWebクライアントに送信される必要があります。</p>
-<p><a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a>クラスには、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>と<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>という2つの似たプロパティがあります。1つは単数形、もう1つは複数形です。</p>
+<p>これらのヘッダーは、エラーとリダイレクトを含むすべてのWebクライアントへのレスポンスに送信される必要があります。</p>
+<p><a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a>クラスには、2つの似たプロパティがあります。<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>と<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>です。1つは単数形、もう1つは複数形です。</p>
 <ul>
 <li><strong>AllowOrigin</strong>プロパティは静的です。指定したオリジンだけがすべてのレスポンスに送信されます。</li>
-<li><strong>AllowOrigins</strong>プロパティは動的です。サーバーは、リクエストのオリジンがこのリストに含まれているかどうかを確認します。如果見つかれば、そのオリジンのレスポンスに送信されます。</li>
+<li><strong>AllowOrigins</strong>プロパティは動的です。サーバーは、リクエストのオリジンがこのリストに含まれているかどうかを確認します。如果見つかった場合、そのオリジンのレスポンスに送信されます。</li>
 </ul>
 <h3 id="オリジンでのワイルドカード">オリジンでのワイルドカード</h3>
-<p>代わりに、レスポンスのオリジンでワイルドカード(<code>*</code>)を使用して、任意のオリジンがリソースにアクセスできるように指定できます。ただし、この値は、資格情報 (認証ヘッダー) を含むリクエストには許可されず、この操作は<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">エラー</a>になります。</p>
-<p>この問題を回避するには、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>プロパティで許可されるオリジンを明示的にリストするか、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>プロパティの値に<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a>定数を使用できます。このマジックプロパティは、<code>Access-Control-Allow-Origin</code>ヘッダーをリクエストの<code>Origin</code>ヘッダーの値と同じ値に定義します。</p>
+<p>代わりに、レスポンスのオリジンでワイルドカード(<code>*</code>)を使用して、任意のオリジンがリソースにアクセスできるように指定できます。ただし、この値は、資格情報（認証ヘッダー）を持つリクエストには許可されず、この操作は<a href="https://developer.mozilla.org/ja/docs/jp/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">エラー</a>になります。</p>
+<p>この問題を回避するには、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>プロパティを使用して、許可されるオリジンを明示的にリストするか、または<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>プロパティの値に<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a>定数を使用できます。このマジックプロパティは、<code>Access-Control-Allow-Origin</code>ヘッダーをリクエストの<code>Origin</code>ヘッダーの値と同じ値に定義します。</p>
 <h2 id="corsを適用する他の方法">CORSを適用する他の方法</h2>
-<p>サービスプロバイダーを扱っている場合は、構成ファイルで定義された値をオーバーライドできます。</p>
+<p><a href="/docs/jp/extensions/service-providers">サービスプロバイダー</a>を扱っている場合は、構成ファイルで定義された値をオーバーライドできます。</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
@@ -242,8 +242,8 @@ public class WidgetController : Controller {
     }
 }
 </code></pre>
-<h2 id="レスポンスでの値の置き換え">レスポンスでの値の置き換え</h2>
-<p>ルーター アクションで値を明示的に置き換えるまたは削除できます。</p>
+<h2 id="レスポンスの値の置き換え">レスポンスの値の置き換え</h2>
+<p>ルーター アクションで値を明示的に置き換えるまたは削除することができます。</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
@@ -259,9 +259,9 @@ public class WidgetController : Controller {
     }
 }
 </code></pre>
-<h2 id="プリフライト-リクエスト">プリフライト リクエスト</h2>
-<p>プリフライト リクエストは、クライアントが実際のリクエストを送信する前に送信する<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>メソッド リクエストです。</p>
-<p>Siskサーバーは、適用可能なCORSヘッダーとともに<code>200 OK</code>で常にリクエストに応答し、クライアントは実際のリクエストを続行できます。この条件は、<code>Options</code>に明示的に構成されたルートが存在する場合を除き、適用されません。</p>
+<h2 id="プリフライトリクエスト">プリフライトリクエスト</h2>
+<p>プリフライトリクエストは、クライアントが実際のリクエストを送信する前に送信する<a href="https://developer.mozilla.org/ja/docs/jp/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>メソッドのリクエストです。</p>
+<p>Siskサーバーは、適用可能なCORSヘッダーとともに<code>200 OK</code>でリクエストに応答し、クライアントは実際のリクエストを続行できます。この条件は、ルートが<a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a>を<code>Options</code>に明示的に構成した場合を除き、適用されません。</p>
 <h2 id="corsのグローバルな無効化">CORSのグローバルな無効化</h2>
 <p>これは不可能です。CORSを使用しない場合は、構成しないでください。</p>
 

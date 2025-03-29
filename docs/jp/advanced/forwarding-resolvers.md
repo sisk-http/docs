@@ -1,14 +1,14 @@
-# フォワーディング・リゾルバー
+# フォワーディング リゾルバー
 
-フォワーディング・リゾルバーは、クライアントを識別する情報をリクエスト、プロキシ、CDN、またはロードバランサーを介してデコードするヘルパーです。Sisk サービスがリバースまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前にこの情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。
+フォワーディング リゾルバーは、クライアントを識別する情報をデコードするヘルパーです。リクエスト、プロキシ、CDN、またはロード バランサーを介して。Sisk サービスがリバース プロキシまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前にこの情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。
 
-現在、[ForwardingResolver](/api/Sisk.Core.Http.ForwardingResolver) クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サービスごとに異なるセキュリティ上の理由により、標準的なヘッダーをデコードする実装はサーバーにありません。
+現在、[ForwardingResolver](/api/Sisk.Core.Http.ForwardingResolver) クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サーバーにはこれらのヘッダーをデコードするための標準実装がなくなりました。これは、サービスごとに異なるセキュリティ上の理由があるためです。
 
-例えば、`X-Forwarded-For` ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって使用され、最終的なサービスに情報のチェーンを運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP アドレスが含まれます。問題は、クライアントのリモート IP を識別するのが難しいことがあり、ヘッダーを識別するための特定のルールがないことです。以下のヘッダーを実装する前に、ドキュメントを読むことを強くお勧めします。
+たとえば、`X-Forwarded-For` ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって使用され、最終的なサービスに情報のチェーンを運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP アドレスが含まれます。問題は、クライアントのリモート IP を識別するのが難しい場合があり、ヘッダーを識別するための特定のルールがないことです。以下のヘッダーを実装する前に、ドキュメントを読むことを強くお勧めします。
 
-- `X-Forwarded-For` ヘッダーについては、[こちら](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns)を参照してください。
-- `X-Forwarded-Host` ヘッダーについては、[こちら](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host)を参照してください。
-- `X-Forwarded-Proto` ヘッダーについては、[こちら](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto)を参照してください。
+- [`X-Forwarded-For` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns) について読む。
+- [`X-Forwarded-Host` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host) について読む。
+- [`X-Forwarded-Proto` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto) について読む。
 
 ## ForwardingResolver クラス
 
@@ -17,7 +17,7 @@
 以下の例は、この実装を使用する方法を示しています。この例では、`X-Forwarded-For` ヘッダーを介してクライアントの IP を解決し、リクエストで複数の IP がフォワードされた場合にエラーをスローします。
 
 > [!IMPORTANT]
-> この例は、プロダクション コードで使用しないでください。実装が使用するために適切であることを常に確認してください。ヘッダーを実装する前に、ドキュメントを読んでください。
+> この例を生産コードで使用しないでください。実装が使用するために適切であることを常に確認してください。ヘッダーを実装する前にドキュメントを読んでください。
 
 ```csharp
 class Program
@@ -42,12 +42,12 @@ class Program
             string? forwardedFor = request.Headers.XForwardedFor;
             if (forwardedFor is null)
             {
-                throw new Exception("X-Forwarded-For ヘッダーが見つかりません。");
+                throw new Exception("The X-Forwarded-For header is missing.");
             }
             string[] ipAddresses = forwardedFor.Split(',');
             if (ipAddresses.Length != 1)
             {
-                throw new Exception("X-Forwarded-For ヘッダーに複数のアドレスがあります。");
+                throw new Exception("Too many addresses in the X-Forwarded-For header.");
             }
 
             return IPAddress.Parse(ipAddresses[0]);

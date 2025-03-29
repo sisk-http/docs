@@ -157,23 +157,23 @@
 <h1 id="ルーティング">ルーティング</h1>
 
 <p><a href="/api/Sisk.Core.Routing.Router">Router</a>は、サーバーを構築するための最初のステップです。ルーティングは、URLとそのメソッドをサーバーが実行するアクションにマッピングするエンドポイントである<a href="/api/Sisk.Core.Routing.Route">Route</a>オブジェクトを保持する責任があります。各アクションは、リクエストを受信し、クライアントにレスポンスを配信する責任があります。</p>
-<p>ルートは、パス式 (&quot;パスパターン&quot;) とそれらがリッスンできるHTTPメソッドのペアです。サーバーにリクエストが行われると、ルートは受信したリクエストにマッチするルートを見つけ、そのルートのアクションを呼び出し、結果のレスポンスをクライアントに配信します。</p>
-<p>Siskでは、ルートを定義する方法は複数あります。静的、動的、または自動スキャンによって定義できます。属性によって定義されることもあり、直接Routerオブジェクトに定義することもできます。</p>
+<p>ルーティングは、パス式(&quot;パスパターン&quot;)とそれがリッスンできるHTTPメソッドのペアです。リクエストがサーバーに送信されると、ルーティングは受信したリクエストに一致するルーティングを検索し、そのルーティングのアクションを呼び出し、結果のレスポンスをクライアントに配信します。</p>
+<p>Siskでは、ルーティングを定義する方法は複数あります。静的、動的、または自動スキャンで定義できます。属性によって定義されることもあり、直接Routerオブジェクトで定義することもできます。</p>
 <pre><code class="lang-cs">Router mainRouter = new Router();
 
-// GET / ルートを次のアクションにマップ
+// GET / ルーティングを次のアクションにマップ
 mainRouter.MapGet(&quot;/&quot;, request =&gt; {
     return new HttpResponse(&quot;Hello, world!&quot;);
 });
 </code></pre>
-<p>ルートが何を行うかを理解するには、リクエストが何を行うかを理解する必要があります。<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>には、必要なすべての情報が含まれています。Siskには、開発を高速化するための追加の機能も含まれています。</p>
-<p>サーバーが受信するすべてのアクションに対して、<a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>タイプのデリゲートが呼び出されます。このデリゲートには、サーバーが受信したリクエストに関するすべての必要な情報を含む<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>を保持するパラメーターが含まれています。このデリゲートの戻り値は、<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>または<a href="/docs/jp/fundamentals/responses#implicit-response-types">暗黙的なレスポンスタイプ</a>を介してそれにマップされるオブジェクトでなければなりません。</p>
-<h2 id="ルートのマッチング">ルートのマッチング</h2>
-<p>HTTPサーバーがリクエストを受信すると、Siskはリクエストのパスを受信した式を満たすルートを検索します。式は、常にルートとリクエストパスの間でテストされ、クエリ文字列は考慮されません。</p>
-<p>このテストには優先順位はありません。単一のルートに排他的です。ルートがリクエストとマッチしない場合、<a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a>レスポンスがクライアントに返されます。パスパターンがマッチするが、HTTPメソッドが一致しない場合、<a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a>レスポンスがクライアントに返されます。</p>
-<p>Siskは、ルートの衝突を避けるために、ルートの定義時に可能なルートの衝突をチェックします。このテストには、ルートのパスと受け入れるメソッドのチェックが含まれます。</p>
-<h3 id="パスパターンを使用したルートの作成">パスパターンを使用したルートの作成</h3>
-<p>ルートを定義するには、さまざまな<code>SetRoute</code>メソッドを使用できます。</p>
+<p>ルーティングが何をできるかを理解するには、リクエストが何をできるかを理解する必要があります。<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>には、必要なすべての情報が含まれています。Siskには、開発全体を高速化するいくつかの追加機能も含まれています。</p>
+<p>サーバーが受信するすべてのアクションに対して、<a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>タイプのデリゲートが呼び出されます。このデリゲートには、サーバーが受信したリクエストに関するすべての必要な情報を含む<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>を保持するパラメーターが含まれています。このデリゲートの結果のオブジェクトは、<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>または<a href="/docs/jp/fundamentals/responses#implicit-response-types">暗黙的なレスポンスタイプ</a>を介してそれにマップされるオブジェクトでなければなりません。</p>
+<h2 id="ルーティングのマッチング">ルーティングのマッチング</h2>
+<p>HTTPサーバーがリクエストを受信すると、Siskはリクエストを受信したパスの式を満たすルーティングを検索します。式は、常にルーティングとリクエストパスの間でテストされ、クエリ文字列は考慮されません。</p>
+<p>このテストには優先順位はありません。単一のルーティングに排他的です。ルーティングがリクエストと一致しない場合、<a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a>レスポンスがクライアントに返されます。パスパターンが一致するが、HTTPメソッドが一致しない場合、<a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a>レスポンスがクライアントに返されます。</p>
+<p>Siskは、ルーティングの衝突の可能性をチェックしてこれらの問題を避けます。ルーティングを定義するとき、Siskは定義されているルーティングと衝突する可能性のあるルーティングを検索します。このテストには、ルーティングのパスと受信するメソッドのチェックが含まれます.</p>
+<h3 id="パスパターンを使用したルーティングの作成">パスパターンを使用したルーティングの作成</h3>
+<p>ルーティングを定義するには、さまざまな<code>SetRoute</code>メソッドを使用できます。</p>
 <pre><code class="lang-cs">// SetRoute方式
 mainRouter.SetRoute(RouteMethod.Get, &quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
 {
@@ -195,7 +195,8 @@ mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
     
     return new HttpResponse()
     {
-        // StreamContentの中のストリームは、レスポンスを送信した後、破棄されます。
+        // StreamContent内の
+        // ストリームは、レスポンスを送信した後、破棄されます。
         Content = new StreamContent(imageStream)
     };
 });
@@ -209,14 +210,14 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
     return new HttpResponse($&quot;Hello, {name} {surname}!&quot;);
 });
 </code></pre>
-<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>プロパティの<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>には、受信したリクエストのパス変数に関するすべての情報が含まれています。</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>プロパティの<a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>には、受信したリクエストのパス変数に関するすべての情報が含まれています.</p>
 <p>サーバーが受信するすべてのパスは、パスパターンのテストが実行される前に、次のルールに従って正規化されます。</p>
 <ul>
 <li>パスからすべての空のセグメントが削除されます。たとえば、<code>////foo//bar</code>は<code>/foo/bar</code>になります。</li>
-<li>パスのマッチングは<strong>大文字/小文字を区別</strong>します。ただし、<a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a>が<code>true</code>に設定されている場合を除きます。</li>
+<li>パスのマッチングは<strong>大文字/小文字を区別します</strong>。ただし、<a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a>が<code>true</code>に設定されている場合は、区別しません。</li>
 </ul>
 <p><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a>と<a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>プロパティの<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>は、<a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a>オブジェクトを返します。ここで、各インデックス付きプロパティは、nullでない<a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>を返します。これは、オプション/モナドとして使用して、生の値を管理されたオブジェクトに変換できます。</p>
-<p>以下の例では、ルートパラメーター &quot;id&quot; を読み取り、それからGuidを取得します。パラメーターが有効なGuidでない場合、例外がスローされ、サーバーが<a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>を処理していない場合、クライアントに500エラーが返されます。</p>
+<p>以下の例では、ルーティングパラメーター「id」を読み取り、それからGuidを取得します。パラメーターが有効なGuidでない場合、例外がスローされ、サーバーが<a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>を処理していない場合は、クライアントに500エラーが返されます。</p>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
 {
     Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
@@ -224,12 +225,12 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>パスには、リクエストパスとルートパスの両方で、末尾の<code>/</code>が無視されます。つまり、<code>/index/page</code>として定義されたルートにアクセスする場合、<code>/index/page/</code>でもアクセスできます。</p>
-<p><a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a>フラグを有効にすると、URLを<code>/</code>で終わらせることができます。</p>
+<p>パスの末尾の<code>/</code>は、リクエストパスとルーティングパスの両方で無視されます。つまり、ルーティングが<code>/index/page</code>として定義されている場合、<code>/index/page/</code>を使用してアクセスすることもできます。</p>
+<p><a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a>フラグを有効にすると、URLを<code>/</code>で終わらせることもできます。</p>
 </div>
-<h3 id="クラスインスタンスを使用したルートの作成">クラスインスタンスを使用したルートの作成</h3>
-<p>ルートを動的に定義するには、<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>属性を使用して、クラスのインスタンスを使用できます。この方法では、ターゲットルーターにルートが定義されます。</p>
-<p>メソッドがルートとして定義されるには、<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>または<a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>などの属性でマークする必要があります。メソッドは静的、インスタンス、公開、または非公開にすることができます。<code>SetObject(type)</code>または<code>SetObject&lt;TType&gt;()</code>メソッドを使用する場合、インスタンスメソッドは無視されます。</p>
+<h3 id="クラスインスタンスを使用したルーティングの作成">クラスインスタンスを使用したルーティングの作成</h3>
+<p>ルーティングを動的に定義するには、<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>属性を使用して、クラスのインスタンスを使用できます。この方法では、ターゲットルーターにルーティングが定義されます。</p>
+<p>メソッドがルーティングとして定義されるには、<a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>または<a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>などの属性でマークする必要があります。メソッドは静的、インスタンス、パブリック、またはプライベートにすることができます。<code>SetObject(type)</code>または<code>SetObject&lt;TType&gt;()</code>メソッドを使用する場合、インスタンスメソッドは無視されます。</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -249,7 +250,7 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
         return res;
     }
     
-    // 静的メソッドも動作します
+    // 静的メソッドも機能します
     [RouteGet(&quot;/hello&quot;)]
     static HttpResponse Hello(HttpRequest request)
     {
@@ -259,16 +260,16 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
     }
 }
 </code></pre>
-<p>以下の行は、<code>MyController</code>の<code>Index</code>と<code>Hello</code>メソッドの両方をルートとして定義します。両方のメソッドはルートとしてマークされており、クラスのインスタンスが提供されています。クラスの型がインスタンスの代わりに提供された場合、静的メソッドのみが定義されます。</p>
+<p>以下の行は、<code>MyController</code>の<code>Index</code>と<code>Hello</code>メソッドの両方をルーティングとして定義します。両方のメソッドがルーティングとしてマークされており、クラスのインスタンスが提供されているためです。クラスの型がインスタンスの代わりに提供された場合、静的メソッドのみが定義されます。</p>
 <pre><code class="lang-cs">var myController = new MyController();
 mainRouter.SetObject(myController);
 </code></pre>
-<p>Siskバージョン0.16以降、AutoScanを有効にすることができます。これにより、<code>RouterModule</code>を実装するユーザー定義のクラスを検索し、自動的にルーターに関連付けます。AOTコンパイルではサポートされません。</p>
+<p>Siskバージョン0.16以降、AutoScanを有効にすることができます。これにより、<code>RouterModule</code>を実装するユーザー定義のクラスを検索し、ルーターに自動的に関連付けられます。これは、AOTコンパイルではサポートされません。</p>
 <pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
 </code></pre>
-<p>上記の命令は、<code>ApiController</code>を実装するすべてのタイプを検索しますが、タイプ自体は検索しません。2つのオプションパラメーターは、タイプを検索する方法を示します。最初の引数は、タイプを検索するアセンブリを示し、2番目の引数は、タイプを定義する方法を示します。</p>
-<h2 id="正規表現ルート">正規表現ルート</h2>
-<p>デフォルトのHTTPパスマッチングメソッドを使用する代わりに、ルートを正規表現で解釈するようにマークできます。</p>
+<p>上記の命令は、<code>ApiController</code>を実装するすべての型を検索しますが、型自体は検索しません。2つのオプションパラメーターは、メソッドがこれらの型を検索する方法を示します。最初の引数は、型を検索するアセンブリを示し、2番目の引数は、型が定義される方法を示します。</p>
+<h2 id="正規表現ルーティング">正規表現ルーティング</h2>
+<p>デフォルトのHTTPパスマッチング方法を使用する代わりに、ルーティングを正規表現で解釈するようにマークできます。</p>
 <pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;My route&quot;, IndexPage, null);
 indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
@@ -298,9 +299,9 @@ mainRouter.SetRoute(indexRoute);
     }
 }
 </code></pre>
-<h2 id="ルートのプレフィックス">ルートのプレフィックス</h2>
-<p>クラスまたはモジュールのすべてのルートにプレフィックスを付けるには、<a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a>属性を使用できます。</p>
-<p>BREADアーキテクチャ (Browse、Read、Edit、Add、Delete) を使用する例を以下に示します。</p>
+<h2 id="ルーティングのプレフィックス">ルーティングのプレフィックス</h2>
+<p>クラスまたはモジュールのすべてのルーティングにプレフィックスを付けるには、<a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a>属性を使用できます。</p>
+<p>以下の例は、BREADアーキテクチャー（Browse、Read、Edit、Add、Delete）を使用しています。</p>
 <div class="script-header">
     <span>
         Controller/Api/UsersController.cs
@@ -349,9 +350,8 @@ public class UsersController
 }
 </code></pre>
 <p>上記の例では、<code>HttpResponse</code>パラメーターは省略され、代わりにグローバルコンテキスト<a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>を介して使用されます。詳細については、次のセクションを参照してください。</p>
-<h2 id="リクエストパラメーターなしのルート">リクエストパラメーターなしのルート</h2>
-<p>ルートは、<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>パラメーターなしで定義できます。ただし、リクエストとそのコンポーネントは、リクエストコンテキストで取得できます。</p>
-<p>すべてのコントローラーを基盤とする抽象化<code>ControllerBase</code>を考えてみましょう。この抽象化は、現在のスレッドからリクエストを取得する<code>Request</code>プロパティを提供します。</p>
+<h2 id="リクエストパラメーターなしのルーティング">リクエストパラメーターなしのルーティング</h2>
+<p>ルーティングは、<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>パラメーターなしで定義でき、依然としてリクエストとそのコンポーネントをリクエストコンテキストで取得できます。すべてのコントローラーの基礎となる<code>ControllerBase</code>抽象化を考えてみましょう。この抽象化は、<code>Request</code>プロパティを提供して、現在の<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>を取得します。</p>
 <div class="script-header">
     <span>
         Controller/ControllerBase.cs
@@ -369,7 +369,7 @@ public class UsersController
     public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
 }
 </code></pre>
-<p>すべての派生クラスでルート構文をリクエストパラメーターなしで使用できるようにします。</p>
+<p>そして、すべての派生クラスがリクエストパラメーターなしでルーティング構文を使用できるようにします。</p>
 <div class="script-header">
     <span>
         Controller/UsersController.cs
@@ -393,37 +393,37 @@ public class UsersController : ControllerBase
     }
 }
 </code></pre>
-<p>現在のコンテキストと依存性の注入についての詳細は、<a href="/docs/jp/features/instancing">依存性の注入</a>チュートリアルを参照してください。</p>
-<h2 id="どのメソッドでもマッチするルート">どのメソッドでもマッチするルート</h2>
-<p>ルートを定義して、パスのみでマッチさせ、HTTPメソッドをスキップすることができます。これは、ルートコールバック内でメソッドの検証を行う場合に便利です。</p>
+<p>現在のコンテキストと依存性の注入の詳細については、<a href="/docs/jp/features/instancing">依存性の注入</a>チュートリアルを参照してください。</p>
+<h2 id="どのメソッドでもマッチするルーティング">どのメソッドでもマッチするルーティング</h2>
+<p>ルーティングを定義して、パスのみに基づいてマッチさせ、HTTPメソッドをスキップすることができます。これは、ルーティングのコールバック内でメソッドの検証を行う場合に便利です。</p>
 <pre><code class="lang-cs">// どのHTTPメソッドでも / にマッチ
 mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 </code></pre>
-<h2 id="どのパスでもマッチするルート">どのパスでもマッチするルート</h2>
-<p>どのパスでもマッチするルートは、ルートメソッドがテストされるすべてのパスを受信するHTTPサーバーにマッチします。ルートメソッドが<code>RouteMethod.Any</code>で、ルートのパス式が<a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>を使用する場合、このルートはすべてのリクエストをリッスンし、他のルートは定義できません。</p>
+<h2 id="どのパスでもマッチするルーティング">どのパスでもマッチするルーティング</h2>
+<p>どのパスでもマッチするルーティングは、ルーティングメソッドをテストするサーバーからのすべてのリクエストにマッチします。ルーティングメソッドが<code>RouteMethod.Any</code>で、ルーティングが<a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>をパス式として使用している場合、このルーティングはサーバーからのすべてのリクエストをリッスンし、他のルーティングは定義できません。</p>
 <pre><code class="lang-cs">// すべてのPOSTリクエストにマッチ
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 </code></pre>
-<h2 id="大文字小文字を無視したルートマッチング">大文字/小文字を無視したルートマッチング</h2>
-<p>デフォルトでは、ルートの解釈は大文字/小文字を区別します。無視するには、次のオプションを有効にします。</p>
+<h2 id="大文字小文字を無視するルーティングのマッチング">大文字/小文字を無視するルーティングのマッチング</h2>
+<p>デフォルトでは、ルーティングの解釈は大文字/小文字を区別します。無視するには、次のオプションを有効にします。</p>
 <pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
 </code></pre>
-<p>これにより、正規表現マッチングを使用するルートでは、<code>RegexOptions.IgnoreCase</code>オプションも有効になります。</p>
-<h2 id="not-found-404-コールバックハンドラー">Not Found (404) コールバックハンドラー</h2>
-<p>ルートが見つからない場合のカスタムコールバックを作成できます。</p>
+<p>これにより、正規表現マッチングを使用するルーティングの<code>RegexOptions.IgnoreCase</code>オプションも有効になります。</p>
+<h2 id="見つからない-404-コールバック-ハンドラー">見つからない (404) コールバック ハンドラー</h2>
+<p>ルーティングが見つからない場合のカスタムコールバックを作成できます。</p>
 <pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
 {
     return new HttpResponse(404)
     {
-        // バージョン0.14以降
+        // v0.14以降
         Content = new HtmlContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;)
         // 以前のバージョン
         Content = new StringContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;, Encoding.UTF8, &quot;text/html&quot;)
     };
 };
 </code></pre>
-<h2 id="method-not-allowed-405-コールバックハンドラー">Method Not Allowed (405) コールバックハンドラー</h2>
-<p>パスがマッチするがメソッドがマッチしない場合のカスタムコールバックを作成できます。</p>
+<h2 id="メソッドが許可されていない-405-コールバック-ハンドラー">メソッドが許可されていない (405) コールバック ハンドラー</h2>
+<p>パスが一致するがメソッドが一致しない場合のカスタムコールバックを作成することもできます。</p>
 <pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
 {
     return new HttpResponse(405)
@@ -433,7 +433,7 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 };
 </code></pre>
 <h2 id="内部エラーハンドラー">内部エラーハンドラー</h2>
-<p>ルートコールバックは、サーバーの実行中にエラーをスローする可能性があります。適切に処理しないと、HTTPサーバーの全体的な機能が中断される可能性があります。ルーターには、ルートコールバックが失敗したときに呼び出されるコールバックがあり、サービスの中断を防ぎます。</p>
+<p>ルーティングのコールバックは、サーバーの実行中にエラーをスローする可能性があります。適切に処理されない場合、HTTPサーバーの全体的な機能が中断される可能性があります。ルーターには、ルーティングのコールバックが失敗したときに呼び出されるコールバックがあります。</p>
 <p>このメソッドは、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a>が<code>false</code>に設定されている場合にのみ到達されます。</p>
 <pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
 {

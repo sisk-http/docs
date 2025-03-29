@@ -193,7 +193,8 @@ Method GetBoolean
   
 </h3>
 
-<div class="markdown level1 summary"><p>Gets a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>.</p>
+<div class="markdown level1 summary"><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>. Throws an exception
+if the value couldn't be parsed to the target type.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -205,7 +206,7 @@ Method GetBoolean
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd><p>An non-null boolean value.</p>
+  <dd><p>The converted <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>.</p>
 </dd>
 </dl>
 
@@ -218,11 +219,8 @@ Method GetBoolean
 
 <h4 class="section">Exceptions</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullreferenceexception">NullReferenceException</a></dt>
-  <dd><p>Thrown when the value stored in this instance is null.</p>
-</dd>
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.formatexception">FormatException</a></dt>
-  <dd><p>Thrown when the value stored in this instance is not parseable to the desired type.</p>
+  <dd><p>Thrown when the value cannot be parsed to a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>.</p>
 </dd>
 </dl>
 

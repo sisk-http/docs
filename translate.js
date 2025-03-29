@@ -32,7 +32,7 @@ function enumerateMdFiles(dir) {
     return mdFiles;
 }
 
-async function translate(text, prompt) {
+async function runInference(text) {
     const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
@@ -49,9 +49,6 @@ async function translate(text, prompt) {
         body: JSON.stringify({
             model: 'llama-3.3-70b-specdec',
             messages: [{
-                role: 'system',
-                content: prompt.trim()
-            }, {
                 role: 'user',
                 content: text
             }],
@@ -69,7 +66,7 @@ async function translate(text, prompt) {
             console.error("Rate limit exceeded! Retrying in " + retryAfter + " seconds.");
             await sleep(retryAfter * 1000);
 
-            return await translate(text, prompt);
+            return await runInference(text, prompt);
 
         } else {
             console.error("Failed to translate the markdown file.");
@@ -85,40 +82,31 @@ async function translate(text, prompt) {
 
 const mdFiles = enumerateMdFiles(targetDir);
 
-function getPrompt(toLanguage, fileName) {
+function getPrompt(toLanguage, fileName, text) {
     const baseText = `
-        You're an translator AI helper. Your goal is to translate the given markdown code language into
-        another language. You're translating a piece of documentation of the Sisk Framework, an
-        .NET web-server written in C#.
+You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#. Translate the translation input text to ${toLanguage}.
+
+Rules:
+- You SHOULD translate texts, code comments, but not code symbols, variables or constants names.
+- You MUST NOT translate script-header file names or language names.
+- You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
+- You SHOULD NOT translate HTML tag names inside Markdown.
+- You SHOULD NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
+- You MUST keep absolute link targets (eg. links which points to "/spec" or starts with "https://...").
+- You SHOULD ONLY translate YAML values, NOT the keys.
+- You MUST NOT translate YAML keys.
+- You MUST NOT alter the YAML file structure.
+- You MUST reply ONLY with the translated text, no greetings, advices or comments.
+- The translated text must follow the original input structure.
+
+File name: ${fileName}
         
-        You must translate the user input to ${toLanguage} from English. The input file name is "${fileName}"".
-        
-        <translate_code>
-        - You SHOULD translate texts, code comments, but not code symbols, variables or constants names.
-        - You MUST NOT translate script-header file names or language names.
-        </translate_code>
-        
-        <translate_markdown>
-        - You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
-        - You SHOULD NOT translate HTML tag names inside Markdown.
-        - You SHOULD NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
-        - You MUST keep absolute link targets (eg. links which points to "/spec" or starts with "https://...").
-        </translate_markdown>
-        
-        <translate_yml>
-        - You SHOULD ONLY translate YAML values, NOT the keys.
-        - You MUST NOT translate YAML keys.
-        - You MUST NOT alter the YAML file structure.
-        </translate_yml>
-        
-        <output>
-        - You MUST reply ONLY with the translated text, no greetings, advices or comments.
-        - The translated text must follow the original input structure.
-        </output>
+<translation-input>
+${text}
+</translation-input>
     `;
 
-    const baseTextLines = baseText.trim().split('\n');
-    return baseTextLines.map(line => line.trim()).join('\n');
+    return baseText;
 }
 
 (async () => {
@@ -131,7 +119,7 @@ function getPrompt(toLanguage, fileName) {
 
         for (const [langName, langCode] of Object.entries(translations)) {
             
-            const prompt = getPrompt(langName, fileName);
+            const prompt = getPrompt(langName, fileName, fileContents);
             const translationPath = path.join(targetDir, langCode, fileName);
             const translationDir = path.dirname(translationPath);
 
@@ -139,12 +127,12 @@ function getPrompt(toLanguage, fileName) {
                 continue;
             }
             
-            const translated = (await translate(fileContents, prompt))
+            const translated = (await runInference(prompt))
                 .replaceAll("/docs/", `/docs/${langCode}/`);
-                
+
             fs.mkdirSync(translationDir, { recursive: true });
             fs.writeFileSync(translationPath, translated);
-            
+
             console.log("- Translated: ", translationPath);
 
             // wait 10s (rate-limit)
