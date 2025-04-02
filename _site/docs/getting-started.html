@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Getting Started with Sisk | Sisk </title>
+        <title>Getting started | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Getting Started with Sisk | Sisk ">
+        <meta name="title" content="Getting started | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -154,8 +154,55 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="getting-started-with-sisk">Getting Started with Sisk</h1>
+<h1 id="getting-started">Getting started</h1>
 
+<p>Welcome to the Sisk documentation!</p>
+<p>Finally, what is the Sisk Framework? It is an open-source lightweight library built with .NET, designed to be minimalist, flexible, and abstract. It allows developers to create internet services quickly, with little or no necessary configuration. Sisk makes it possible for your existing application to have a managed HTTP module, complete and disposable or complete.</p>
+<p>Sisk's values include code transparency, modularity, performance, and scalability, and can handle various types of applications, such as Restful, JSON-RPC, Web-sockets, and more.</p>
+<p>Its main resources include:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/docs/fundamentals/routing">Routing</a></td>
+<td>A path router that supports prefixes, custom methods, path variables, response conversions, and more.</td>
+</tr>
+<tr>
+<td><a href="/docs/fundamentals/request-handlers">Request Handlers</a></td>
+<td>Also known as <em>middlewares</em>, provides an interface to build your own request-handlers that work before or after a request.</td>
+</tr>
+<tr>
+<td><a href="/docs/fundamentals/responses#gzip-deflate-and-brotli-compression">Compression</a></td>
+<td>Compress your responses easily with Sisk.</td>
+</tr>
+<tr>
+<td><a href="/docs/features/websockets">Web sockets</a></td>
+<td>Provides routes that accept complete web-sockets, for reading and writing to the client.</td>
+</tr>
+<tr>
+<td><a href="/docs/features/server-sent-events">Server-sent events</a></td>
+<td>Provides the sending of server events to clients that support the SSE protocol.</td>
+</tr>
+<tr>
+<td><a href="/docs/features/logging">Logging</a></td>
+<td>Simplified logging. Log errors, access, define rotating logs by size, multiple output streams for the same log, and more.</td>
+</tr>
+<tr>
+<td><a href="/docs/advanced/multi-host-setup">Multi-host</a></td>
+<td>Have an HTTP server for multiple ports, and each port with its own router, and each router with its own application.</td>
+</tr>
+<tr>
+<td><a href="/docs/advanced/http-server-handlers">Server handlers</a></td>
+<td>Extend your own implementation of the HTTP server. Customize with extensions, improvements, and new features.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="first-steps">First steps</h2>
 <p>Sisk can run in any .NET environment. In this guide, we will teach you how to create a Sisk application using .NET. If you haven't installed it yet, please download the SDK from <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">here</a>.</p>
 <p>In this tutorial, we will cover how to create a project structure, receive a request, obtain a URL parameter, and send a response. This guide will focus on building a simple server using C#. You can also use your favorite programming language.</p>
 <div class="NOTE">

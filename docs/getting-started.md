@@ -1,4 +1,25 @@
-# Getting Started with Sisk
+# Getting started
+
+Welcome to the Sisk documentation!
+
+Finally, what is the Sisk Framework? It is an open-source lightweight library built with .NET, designed to be minimalist, flexible, and abstract. It allows developers to create internet services quickly, with little or no necessary configuration. Sisk makes it possible for your existing application to have a managed HTTP module, complete and disposable or complete.
+
+Sisk's values include code transparency, modularity, performance, and scalability, and can handle various types of applications, such as Restful, JSON-RPC, Web-sockets, and more.
+
+Its main resources include:
+
+| Resource | Description |
+| ------- | --------- |
+| [Routing](/docs/fundamentals/routing) | A path router that supports prefixes, custom methods, path variables, response conversions, and more. |
+| [Request Handlers](/docs/fundamentals/request-handlers) | Also known as *middlewares*, provides an interface to build your own request-handlers that work before or after a request. |
+| [Compression](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) | Compress your responses easily with Sisk. |
+| [Web sockets](/docs/features/websockets) | Provides routes that accept complete web-sockets, for reading and writing to the client. |
+| [Server-sent events](/docs/features/server-sent-events) | Provides the sending of server events to clients that support the SSE protocol. |
+| [Logging](/docs/features/logging) | Simplified logging. Log errors, access, define rotating logs by size, multiple output streams for the same log, and more. |
+| [Multi-host](/docs/advanced/multi-host-setup) | Have an HTTP server for multiple ports, and each port with its own router, and each router with its own application. |
+| [Server handlers](/docs/advanced/http-server-handlers) | Extend your own implementation of the HTTP server. Customize with extensions, improvements, and new features.
+
+## First steps
 
 Sisk can run in any .NET environment. In this guide, we will teach you how to create a Sisk application using .NET. If you haven't installed it yet, please download the SDK from [here](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 

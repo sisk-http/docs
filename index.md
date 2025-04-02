@@ -14,7 +14,7 @@ Sisk has a strict policy of transparency in its code. All technologies used to b
 
 ### What is Sisk for?
 
-With Sisk, you can create RESTful applications, gRPC services, WebSockets, file servers, GraphQL APIs, Entity Framework integrations, and more—essentially, whatever you need. Sisk is an extremely modular and sustainable framework. Its current development is intense, with much more to be added, but the focus remains on keeping it simple, easy to maintain, and enjoyable for developers working on projects of any size.
+With Sisk, you can create RESTful applications, Web sockets, file servers, GraphQL APIs, Entity Framework integrations, and more—essentially, whatever you need. Sisk is an extremely modular and sustainable framework. Its current development is intense, with much more to be added, but the focus remains on keeping it simple, easy to maintain, and enjoyable for developers working on projects of any size.
 
 Sisk has also been tested in low-performance environments, such as machines with less than 1GB of RAM, handling over 20,000 requests per second. The code, from the moment it arrives on the server to the response sent back, is extremely concise, with very few steps before reaching the client.
 
