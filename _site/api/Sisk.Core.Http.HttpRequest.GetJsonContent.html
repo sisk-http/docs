@@ -234,7 +234,7 @@ Method GetJsonContent
 <a id="Sisk_Core_Http_HttpRequest_GetJsonContent_" data-uid="Sisk.Core.Http.HttpRequest.GetJsonContent*"></a>
 
 <h3 id="Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_" data-uid="Sisk.Core.Http.HttpRequest.GetJsonContent``1(System.Text.Json.JsonSerializerOptions)">
-  GetJsonContent&lt;T&gt;(JsonSerializerOptions)
+  GetJsonContent&lt;T&gt;(JsonSerializerOptions?)
   
 </h3>
 
@@ -243,7 +243,7 @@ Method GetJsonContent
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public T? GetJsonContent&lt;T&gt;(JsonSerializerOptions jsonOptions)</code></pre>
+  <pre><code class="lang-csharp hljs">public T? GetJsonContent&lt;T&gt;(JsonSerializerOptions? jsonOptions = null)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -283,7 +283,8 @@ Method GetJsonContent
   
 </h3>
 
-<div class="markdown level1 summary"><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
+<div class="markdown level1 summary"><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> from <a class="xref" href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a>.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 

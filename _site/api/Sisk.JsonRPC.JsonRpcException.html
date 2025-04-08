@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class JsonRpcException | Sisk ">
 
-
+        <meta name="description" content="Represents an error that occur during the JSON-RPC application execution.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -154,7 +166,9 @@ Class JsonRpcException
   <dl><dt>Assembly</dt><dd>Sisk.JsonRPC.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Represents an error that occur during the JSON-RPC application
+execution.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -243,11 +257,15 @@ Class JsonRpcException
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.-ctor.html#Sisk_JsonRPC_JsonRpcException__ctor_System_String_">JsonRpcException(string)</a></dt>
-    <dd></dd>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.JsonRPC.JsonRpcException.html">JsonRpcException</a> class
+with a specified error message.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.-ctor.html#Sisk_JsonRPC_JsonRpcException__ctor_System_String_System_Int32_System_Object_">JsonRpcException(string, int, object?)</a></dt>
-    <dd></dd>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.JsonRPC.JsonRpcException.html">JsonRpcException</a> class
+with a specified error message, error code, and additional data.</p>
+</dd>
   </dl>
 
   <h2 class="section" id="properties">Properties
@@ -255,11 +273,13 @@ Class JsonRpcException
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.Code.html#Sisk_JsonRPC_JsonRpcException_Code">Code</a></dt>
-    <dd></dd>
+    <dd><p>Gets the error code associated with the JSON-RPC error.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.Data.html#Sisk_JsonRPC_JsonRpcException_Data">Data</a></dt>
-    <dd></dd>
+    <dd><p>Gets additional data associated with the error, if any.</p>
+</dd>
   </dl>
 
   <h2 class="section" id="methods">Methods
@@ -267,7 +287,8 @@ Class JsonRpcException
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.AsRpcError.html#Sisk_JsonRPC_JsonRpcException_AsRpcError">AsRpcError()</a></dt>
-    <dd></dd>
+    <dd><p>Converts the current <a class="xref" href="Sisk.JsonRPC.JsonRpcException.html">JsonRpcException</a> into a <a class="xref" href="Sisk.JsonRPC.JsonRpcError.html">JsonRpcError</a>.</p>
+</dd>
   </dl>
 
 

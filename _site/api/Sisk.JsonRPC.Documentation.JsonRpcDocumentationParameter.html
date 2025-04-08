@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class JsonRpcDocumentationParameter | Sisk ">
 
-
+        <meta name="description" content="Represents the documentation for a parameter of a JSON-RPC method.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -154,7 +166,8 @@ Class JsonRpcDocumentationParameter
   <dl><dt>Assembly</dt><dd>Sisk.JsonRPC.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Represents the documentation for a parameter of a JSON-RPC method.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -206,19 +219,23 @@ Class JsonRpcDocumentationParameter
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcDocumentationParameter.Description.html#Sisk_JsonRPC_Documentation_JsonRpcDocumentationParameter_Description">Description</a></dt>
-    <dd></dd>
+    <dd><p>Gets the description of the parameter.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcDocumentationParameter.IsOptional.html#Sisk_JsonRPC_Documentation_JsonRpcDocumentationParameter_IsOptional">IsOptional</a></dt>
-    <dd></dd>
+    <dd><p>Gets a value indicating whether the parameter is optional.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcDocumentationParameter.ParameterName.html#Sisk_JsonRPC_Documentation_JsonRpcDocumentationParameter_ParameterName">ParameterName</a></dt>
-    <dd></dd>
+    <dd><p>Gets the name of the parameter.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcDocumentationParameter.ParameterType.html#Sisk_JsonRPC_Documentation_JsonRpcDocumentationParameter_ParameterType">ParameterType</a></dt>
-    <dd></dd>
+    <dd><p>Gets the type of the parameter.</p>
+</dd>
   </dl>
 
 

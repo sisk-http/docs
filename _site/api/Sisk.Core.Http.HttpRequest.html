@@ -251,6 +251,11 @@ Class HttpRequest
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a></dt>
+    <dd><p>Gets or sets the default options used for JSON serialization.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.FullPath.html#Sisk_Core_Http_HttpRequest_FullPath">FullPath</a></dt>
     <dd><p>Gets the raw, full HTTP request path with the query string.</p>
 </dd>
@@ -353,6 +358,16 @@ route parameters.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetBodyContents.html#Sisk_Core_Http_HttpRequest_GetBodyContents">GetBodyContents()</a></dt>
+    <dd><p>Gets the request contents of the body as a byte array.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetBodyContentsAsync.html#Sisk_Core_Http_HttpRequest_GetBodyContentsAsync_System_Threading_CancellationToken_">GetBodyContentsAsync(CancellationToken)</a></dt>
+    <dd><p>Asynchronously reads the request contents as a memory byte array.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetEventSource.html#Sisk_Core_Http_HttpRequest_GetEventSource_System_String_">GetEventSource(string?)</a></dt>
     <dd><p>Gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in it's
 event source listening state.</p>
@@ -370,12 +385,12 @@ event source listening state.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetFormContentAsync">GetFormContentAsync()</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetFormContentAsync_System_Threading_CancellationToken_">GetFormContentAsync(CancellationToken)</a></dt>
     <dd><p>Asynchronously reads the request body and extracts form data parameters from it.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_JsonSerializerOptions_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonSerializerOptions, CancellationToken)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_JsonSerializerOptions_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonSerializerOptions?, CancellationToken)</a></dt>
     <dd><p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
 </dd>
   </dl>
@@ -391,11 +406,12 @@ event source listening state.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1">GetJsonContent&lt;T&gt;()</a></dt>
-    <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
+    <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> from <a class="xref" href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a>.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_">GetJsonContent&lt;T&gt;(JsonSerializerOptions)</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_">GetJsonContent&lt;T&gt;(JsonSerializerOptions?)</a></dt>
     <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
 </dd>
   </dl>

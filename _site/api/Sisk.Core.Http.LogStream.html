@@ -192,6 +192,12 @@ Class LogStream
     </dd>
   </dl>
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -340,7 +346,7 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.StopBuffering.html#Sisk_Core_Http_LogStream_StopBuffering">StopBuffering()</a></dt>
-    <dd><p>Stops buffering output to the alternative stream.</p>
+    <dd><p>Stops buffering output.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -350,6 +356,16 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_System_String_">WriteException(Exception, string?)</a></dt>
+    <dd><p>Writes an exception description in the log.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_">WriteExceptionAsync(Exception)</a></dt>
+    <dd><p>Writes an exception description in the log.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_System_String_">WriteExceptionAsync(Exception, string?)</a></dt>
     <dd><p>Writes an exception description in the log.</p>
 </dd>
   </dl>
@@ -379,8 +395,38 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync">WriteLineAsync()</a></dt>
+    <dd><p>Writes an line-break at the end of the output.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_IFormatProvider_System_String_System_Object___">WriteLineAsync(IFormatProvider?, string, params object?[])</a></dt>
+    <dd><p>Writes the text format and arguments and appends a line-break at the end into the output, using the specified format provider.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_Object_">WriteLineAsync(object?)</a></dt>
+    <dd><p>Writes the text and concats an line-break at the end into the output.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_">WriteLineAsync(string)</a></dt>
+    <dd><p>Writes the text and concats an line-break at the end into the output.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Object___">WriteLineAsync(string, params object?[])</a></dt>
+    <dd><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineInternal.html#Sisk_Core_Http_LogStream_WriteLineInternal_System_String_">WriteLineInternal(string)</a></dt>
     <dd><p>Represents the method that intercepts the line that will be written to an output log before being queued for writing.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineInternalAsync.html#Sisk_Core_Http_LogStream_WriteLineInternalAsync_System_String_">WriteLineInternalAsync(string)</a></dt>
+    <dd><p>Represents the asynchronous method that intercepts the line that will be written to an output log before being queued for writing.</p>
 </dd>
   </dl>
 

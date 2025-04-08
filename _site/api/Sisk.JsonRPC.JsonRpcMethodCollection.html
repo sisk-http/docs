@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class JsonRpcMethodCollection | Sisk ">
 
-
+        <meta name="description" content="Represents a collection of JSON-RPC methods, allowing for dynamic addition and removal of methods.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -154,7 +166,8 @@ Class JsonRpcMethodCollection
   <dl><dt>Assembly</dt><dd>Sisk.JsonRPC.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Represents a collection of JSON-RPC methods, allowing for dynamic addition and removal of methods.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -214,27 +227,33 @@ Class JsonRpcMethodCollection
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.AddMethod.html#Sisk_JsonRPC_JsonRpcMethodCollection_AddMethod_System_String_System_Delegate_">AddMethod(string, Delegate)</a></dt>
-    <dd></dd>
+    <dd><p>Adds a method to the collection with the specified name.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.AddMethodsFromType.html#Sisk_JsonRPC_JsonRpcMethodCollection_AddMethodsFromType_System_Type_">AddMethodsFromType(Type)</a></dt>
-    <dd></dd>
+    <dd><p>Adds methods from the specified type to the collection without prefixing method names.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.AddMethodsFromType.html#Sisk_JsonRPC_JsonRpcMethodCollection_AddMethodsFromType_System_Type_System_Object_">AddMethodsFromType(Type, object?)</a></dt>
-    <dd></dd>
+    <dd><p>Adds methods from the specified type to the collection without prefixing method names.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.AddMethodsFromType.html#Sisk_JsonRPC_JsonRpcMethodCollection_AddMethodsFromType_System_Type_System_Object_System_Boolean_">AddMethodsFromType(Type, object?, bool)</a></dt>
-    <dd></dd>
+    <dd><p>Adds methods from the specified type to the collection, optionally prefixing method names with the type name.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.AddMethodsFromType.html#Sisk_JsonRPC_JsonRpcMethodCollection_AddMethodsFromType__1___0_System_Boolean_">AddMethodsFromType&lt;T&gt;(T, bool)</a></dt>
-    <dd></dd>
+    <dd><p>Adds methods from the specified type to the collection, optionally prefixing method names with the type name.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.RemoveMethod.html#Sisk_JsonRPC_JsonRpcMethodCollection_RemoveMethod_System_String_">RemoveMethod(string)</a></dt>
-    <dd></dd>
+    <dd><p>Removes a method from the collection by its name.</p>
+</dd>
   </dl>
 
 

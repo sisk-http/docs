@@ -6,14 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="Class JsonRpcHtmlExport | Sisk ">
 
-
+        <meta name="description" content="Provides an HTML-based .">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -154,7 +166,8 @@ Class JsonRpcHtmlExport
   <dl><dt>Assembly</dt><dd>Sisk.JsonRPC.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Provides an HTML-based <a class="xref" href="Sisk.JsonRPC.Documentation.IJsonRpcDocumentationExporter.html">IJsonRpcDocumentationExporter</a>.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -223,19 +236,25 @@ Class JsonRpcHtmlExport
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.ExportMetadata.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_ExportMetadata">ExportMetadata</a></dt>
-    <dd></dd>
+    <dd><p>Gets or sets an boolean indicating if the documentation metadata should be exported in the
+HTML.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.ExportSummary.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_ExportSummary">ExportSummary</a></dt>
-    <dd></dd>
+    <dd><p>Gets or sets an boolean indicating if an summary should be exported in the HTML.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.Header.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_Header">Header</a></dt>
-    <dd></dd>
+    <dd><p>Gets or sets an optional object to append to the header of the
+exported HTML.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.Style.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_Style">Style</a></dt>
-    <dd></dd>
+    <dd><p>Gets or sets the CSS styles used in the HTML export.</p>
+</dd>
   </dl>
 
   <h2 class="section" id="methods">Methods
@@ -243,11 +262,13 @@ Class JsonRpcHtmlExport
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.EncodeDocumentationHtml.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_EncodeDocumentationHtml_Sisk_JsonRPC_Documentation_JsonRpcDocumentation_">EncodeDocumentationHtml(JsonRpcDocumentation)</a></dt>
-    <dd></dd>
+    <dd><p>Encodes the specified <a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcDocumentation.html">JsonRpcDocumentation</a> into a HTML string.</p>
+</dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.JsonRPC.Documentation.JsonRpcHtmlExport.ExportDocumentBytes.html#Sisk_JsonRPC_Documentation_JsonRpcHtmlExport_ExportDocumentBytes_Sisk_JsonRPC_Documentation_JsonRpcDocumentation_">ExportDocumentBytes(JsonRpcDocumentation)</a></dt>
-    <dd></dd>
+    <dd><p>Exports the JSON-RPC documentation to a byte array.</p>
+</dd>
   </dl>
 
 

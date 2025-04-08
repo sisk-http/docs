@@ -13,7 +13,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -181,7 +193,8 @@ Method AddMethodsFromType
   
 </h3>
 
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Adds methods from the specified type to the collection, optionally prefixing method names with the type name.</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
@@ -191,16 +204,19 @@ Method AddMethodsFromType
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>target</code> <span class="xref">T</span></dt>
-  <dd></dd>
+  <dd><p>The target object instance containing the methods.</p>
+</dd>
   <dt><code>prefixTypes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
+  <dd><p>Indicates whether to prefix method names with the type name.</p>
+</dd>
 </dl>
 
 
 <h4 class="section">Type Parameters</h4>
 <dl class="parameters">
   <dt><code>T</code></dt>
-  <dd></dd>
+  <dd><p>The type from which to scan and add methods.</p>
+</dd>
 </dl>
 
 
@@ -219,7 +235,8 @@ Method AddMethodsFromType
   
 </h3>
 
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Adds methods from the specified type to the collection, optionally prefixing method names with the type name.</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
@@ -229,11 +246,14 @@ Method AddMethodsFromType
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-  <dd></dd>
+  <dd><p>The type from which to scan and add methods.</p>
+</dd>
   <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-  <dd></dd>
+  <dd><p>The target object instance containing the methods.</p>
+</dd>
   <dt><code>prefixTypes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-  <dd></dd>
+  <dd><p>Indicates whether to prefix method names with the type name.</p>
+</dd>
 </dl>
 
 
@@ -254,7 +274,8 @@ Method AddMethodsFromType
   
 </h3>
 
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Adds methods from the specified type to the collection without prefixing method names.</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
@@ -264,9 +285,11 @@ Method AddMethodsFromType
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-  <dd></dd>
+  <dd><p>The type from which to scan and add methods.</p>
+</dd>
   <dt><code>target</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-  <dd></dd>
+  <dd><p>The target object instance containing the methods.</p>
+</dd>
 </dl>
 
 
@@ -287,7 +310,8 @@ Method AddMethodsFromType
   
 </h3>
 
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Adds methods from the specified type to the collection without prefixing method names.</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
@@ -297,7 +321,8 @@ Method AddMethodsFromType
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-  <dd></dd>
+  <dd><p>The type from which to scan and add methods.</p>
+</dd>
 </dl>
 
 

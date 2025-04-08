@@ -13,7 +13,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
         <meta name="docfx:tocrel" content="toc.html">
@@ -49,7 +49,7 @@
         
         <script>            
             function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es)\/)?(.*)/)[3];
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
                 const newPath = lang + docPart;
                 window.location.href = window.location.origin + newPath;
             }        
@@ -120,21 +120,33 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    汉语
-                                </a>
-                            </li>
-                            <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
                                     <img src="/assets/flag/brazil.png">
-                                    Português Brasileiro
+                                    Português
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
                                     <img src="/assets/flag/spain.png">
-                                    Spanish
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
                                 </a>
                             </li>
                         </ul>
@@ -164,46 +176,58 @@ Classes
 </h3>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcException.html">JsonRpcException</a></dt>
-      <dd></dd>
+      <dd><p>Represents an error that occur during the JSON-RPC application
+execution.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcHandler.html">JsonRpcHandler</a></dt>
-      <dd></dd>
+      <dd><p>Represents a handler for JSON-RPC requests.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcMethodCollection.html">JsonRpcMethodCollection</a></dt>
-      <dd></dd>
+      <dd><p>Represents a collection of JSON-RPC methods, allowing for dynamic addition and removal of methods.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcRequest.html">JsonRpcRequest</a></dt>
-      <dd></dd>
+      <dd><p>Represents an JSON-RPC request message.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcResponse.html">JsonRpcResponse</a></dt>
-      <dd></dd>
+      <dd><p>Represents an JSON-RPC response message.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcServerConfigurationEventArgs.html">JsonRpcServerConfigurationEventArgs</a></dt>
-      <dd></dd>
+      <dd><p>Represents the class which contains event data for the JSON-RPC configuration event.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcServerHandler.html">JsonRpcServerHandler</a></dt>
-      <dd></dd>
+      <dd><p>Provides an <a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.html">HttpServerHandler</a> for configuring the JSON-RPC handler
+for the HTTP server.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcServerHandlerExtensions.html">JsonRpcServerHandlerExtensions</a></dt>
-      <dd></dd>
+      <dd><p>Provides extensions methods for the HTTP server and JSON-RPC handler.</p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcTransportLayer.html">JsonRpcTransportLayer</a></dt>
-      <dd></dd>
+      <dd><p>Provides transport layers for handling JSON-RPC communications.</p>
+</dd>
     </dl>
     <h3 id="structs">
 Structs
 </h3>
     <dl class="jumplist">
       <dt><a class="xref" href="Sisk.JsonRPC.JsonRpcError.html">JsonRpcError</a></dt>
-      <dd></dd>
+      <dd><p>Represents an JSON-RPC error.</p>
+</dd>
     </dl>
 
 
