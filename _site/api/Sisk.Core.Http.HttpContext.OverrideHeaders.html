@@ -343,7 +343,7 @@ add headers without replacing existing ones.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

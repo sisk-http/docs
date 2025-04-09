@@ -473,7 +473,7 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;Mi ruta&quot
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

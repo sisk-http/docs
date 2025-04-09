@@ -552,7 +552,7 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

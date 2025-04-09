@@ -290,7 +290,7 @@ Classes
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

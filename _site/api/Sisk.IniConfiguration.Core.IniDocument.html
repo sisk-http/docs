@@ -411,7 +411,7 @@ string, reading it as an UTF-8 string.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

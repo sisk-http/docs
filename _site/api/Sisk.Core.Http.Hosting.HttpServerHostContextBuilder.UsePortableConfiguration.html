@@ -349,7 +349,7 @@ call this method at the beginning of your builder, as the first immediate method
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

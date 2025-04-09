@@ -339,7 +339,7 @@ line endings normalized before being written to the output stream.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

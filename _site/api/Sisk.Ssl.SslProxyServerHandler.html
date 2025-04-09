@@ -356,7 +356,7 @@ specified <a class="xref" href="Sisk.Ssl.SslProxy.html">SslProxy</a> instance.</
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

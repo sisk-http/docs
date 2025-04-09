@@ -22,9 +22,9 @@ nav {
                 margin-top: 0.7em;
             }
 
-            & :not(:has(span.text-body-tertiary)):hover {
+            & :not(:has(span.text-body-tertiary)):not(.expander):hover {
                 background-color: --bs-body-bg-alt;
-                
+
                 a {
                     opacity: 1;
                     text-decoration: none;
@@ -60,6 +60,24 @@ nav {
                     position: relative;
                     color: --bs-body-color;
                     opacity: 1;
+                }
+            }
+
+            & .expander {
+
+                & .active {
+                    font-weight: 500;
+
+                    > a {
+                        color: --bs-body-color;
+                        opacity: 1;
+                    }
+                }
+
+                & :hover {
+                    > a {
+                        opacity: 1;
+                    }
                 }
             }
 

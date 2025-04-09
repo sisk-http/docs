@@ -339,7 +339,7 @@ server didn't sent any response to the client.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

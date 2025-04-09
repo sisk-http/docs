@@ -364,7 +364,7 @@ pois eles podem não se adaptar às necessidades do seu projeto e acabar expondo
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

@@ -352,7 +352,7 @@ If it does not exist, it adds the object to the context bag using the provided a
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

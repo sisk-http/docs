@@ -339,7 +339,7 @@ their path with <code>/</code>. This is applyable only to non-Regex routes.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

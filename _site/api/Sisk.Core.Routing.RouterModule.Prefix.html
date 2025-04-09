@@ -339,7 +339,7 @@ value defined by <a class="xref" href="Sisk.Core.Routing.RoutePrefixAttribute.ht
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

@@ -339,7 +339,7 @@ property, the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> wil
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

@@ -341,7 +341,7 @@ Console.ReadKey(); // 防止应用程序退出
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

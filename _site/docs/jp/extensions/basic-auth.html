@@ -354,7 +354,7 @@ Basic HTTP 認証は、ユーザー ID とパスワードでリクエストを�
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

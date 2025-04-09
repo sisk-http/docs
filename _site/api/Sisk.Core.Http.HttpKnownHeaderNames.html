@@ -860,7 +860,7 @@ user consents to a website or service selling or sharing their personal informat
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

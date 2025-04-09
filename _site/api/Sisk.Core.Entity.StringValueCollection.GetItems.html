@@ -344,7 +344,7 @@ not found by their name, an empty array of <a class="xref" href="Sisk.Core.Entit
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

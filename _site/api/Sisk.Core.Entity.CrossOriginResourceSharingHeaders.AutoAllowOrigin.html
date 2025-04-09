@@ -311,7 +311,7 @@ the incoming request Origin header value to the Access-Control-Allow-Origin head
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

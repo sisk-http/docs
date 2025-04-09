@@ -334,7 +334,7 @@ is released when either the client or the server reaches an sending failure.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

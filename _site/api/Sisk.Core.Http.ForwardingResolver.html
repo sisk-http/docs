@@ -367,7 +367,7 @@ address, host and protocol of a proxy, load balancer or CDN, through the HTTP re
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

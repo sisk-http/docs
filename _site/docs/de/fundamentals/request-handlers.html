@@ -473,7 +473,7 @@ Wenn Sie einen Anfragebehandler umgehen, müssen Sie dieselbe Referenz verwenden
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

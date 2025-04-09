@@ -355,7 +355,7 @@ Basic-HTTP-Authentifizierung ist eine minimale Eingabeform der Authentifizierung
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

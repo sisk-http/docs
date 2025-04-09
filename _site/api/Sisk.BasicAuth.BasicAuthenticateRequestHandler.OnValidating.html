@@ -349,7 +349,7 @@ is interpretable that the authentication was successful and the execution should
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

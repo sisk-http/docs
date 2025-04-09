@@ -345,7 +345,7 @@ it. This method manages to prevent possible stack overflows.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

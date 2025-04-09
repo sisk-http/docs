@@ -339,7 +339,7 @@ The name is used to reference elements in JavaScript, or to reference form data 
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

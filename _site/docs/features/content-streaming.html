@@ -437,7 +437,7 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

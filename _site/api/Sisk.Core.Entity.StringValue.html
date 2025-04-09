@@ -488,7 +488,7 @@ Throws an exception if the value couldn't be parsed to the target type.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

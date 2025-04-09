@@ -342,7 +342,7 @@ both with the request and its response. This method does not interrupt the async
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

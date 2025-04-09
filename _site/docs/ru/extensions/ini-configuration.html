@@ -450,7 +450,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

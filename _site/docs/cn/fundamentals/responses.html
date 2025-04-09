@@ -436,7 +436,7 @@ r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

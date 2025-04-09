@@ -342,7 +342,7 @@ with a reverse proxy or in environments where the service is not directly expose
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

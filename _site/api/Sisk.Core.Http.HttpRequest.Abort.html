@@ -342,7 +342,7 @@ context. However, when calling this method, the connection is interrupted instan
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

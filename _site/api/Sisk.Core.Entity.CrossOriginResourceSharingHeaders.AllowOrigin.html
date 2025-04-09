@@ -339,7 +339,7 @@ without credentials — the &quot;*&quot; wildcard tells browsers to allow any o
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         

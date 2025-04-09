@@ -339,7 +339,7 @@ This method will not throw an exception if the connection is already closed.</p>
                         
                         var lines = (code.textContent.match(/\n/g) || []).length;
                         
-                        if (lines == 1) {
+                        if (lines <= 1) {
                             return;
                         }
                         
