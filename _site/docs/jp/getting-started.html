@@ -157,9 +157,9 @@
 <h1 id="はじめに">はじめに</h1>
 
 <p>Sisk ドキュメントへようこそ！</p>
-<p>最後に、Sisk フレームワークとは何か？それは、.NET で構築されたオープンソースの軽量ライブラリで、最小限、柔軟性、抽象性を目指して設計されています。開発者は、わずかな設定、あるいは設定不要で、インターネットサービスを迅速に作成できます。Sisk により、既存のアプリケーションに管理された HTTP モジュールを追加することが可能で、完全に使い捨て可能です。</p>
-<p>Sisk の価値観には、コードの透明性、モジュラー性、パフォーマンス、スケーラビリティがあり、Restful、JSON-RPC、Web-sockets など、さまざまな種類のアプリケーションを処理できます。</p>
-<p>その主なリソースには：</p>
+<p>最後に、Sisk フレームワークとは何か？Sisk フレームワークは、.NET で構築されたオープンソースの軽量ライブラリで、最小限、柔軟、抽象的であることを目指して設計されています。開発者が、迅速に、必要な設定が少ない、またはまったくないで、インターネットサービスを作成できるようにします。Sisk により、既存のアプリケーションに、管理された HTTP モジュール、完全に破棄可能または完全なものを実現できます。</p>
+<p>Sisk の価値観には、コードの透明性、モジュラー性、パフォーマンス、スケーラビリティがあり、Restful、JSON-RPC、Web-sockets などのさまざまなタイプのアプリケーションを処理できます。</p>
+<p>主な機能には以下のものがあります：</p>
 <table>
 <thead>
 <tr>
@@ -170,19 +170,19 @@
 <tbody>
 <tr>
 <td><a href="/docs/jp/fundamentals/routing">ルーティング</a></td>
-<td>プレフィックス、カスタム メソッド、パス変数、レスポンス変換などをサポートするパス ルーター。</td>
+<td>プレフィックス、カスタム メソッド、パス変数、値コンバーターなどをサポートするパス ルーター。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/fundamentals/request-handlers">リクエスト ハンドラー</a></td>
-<td>ミドルウェアとしても知られており、リクエストの前後に動作する独自のリクエスト ハンドラーを構築するためのインターフェイスを提供します。</td>
+<td>ミドルウェアとしても知られており、リクエストの前または後に動作する独自のリクエスト ハンドラーを構築するためのインターフェイスを提供します。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/fundamentals/responses#gzip-deflate-and-brotli-compression">圧縮</a></td>
-<td>Sisk を使用してレスポンスを簡単に圧縮します。</td>
+<td>Sisk を使用して、レスポンス コンテンツを簡単に圧縮します。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/features/websockets">Web ソケット</a></td>
-<td>完全な Web ソケットを受け付けるルートを提供し、クライアントへの読み取りと書き込みが可能です。</td>
+<td>完全な Web ソケットを受け入れるルートを提供し、クライアントへの読み取りと書き込みを行います。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/features/server-sent-events">サーバー送信イベント</a></td>
@@ -190,35 +190,35 @@
 </tr>
 <tr>
 <td><a href="/docs/jp/features/logging">ログ</a></td>
-<td>ログの簡素化。エラー、ログ、サイズによるローテーション ログ、同じログの複数の出力ストリームなどを定義します。</td>
+<td>ログの簡素化。エラー、ログ、サイズによるローテーション ログ、同じログの複数の出力ストリームなどをログに記録します。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/advanced/multi-host-setup">マルチ ホスト</a></td>
-<td>HTTP サーバーを複数のポートで実行し、各ポートに独自のルーターを持ち、各ルーターに独自のアプリケーションを設定します。</td>
+<td>HTTP サーバーを複数のポートで実行し、各ポートに独自のルーターを持ち、各ルーターに独自のアプリケーションを実行します。</td>
 </tr>
 <tr>
 <td><a href="/docs/jp/advanced/http-server-handlers">サーバー ハンドラー</a></td>
-<td>HTTP サーバーの独自の実装を拡張します。拡張機能、改善、ニューフィーチャーを追加します。</td>
+<td>HTTP サーバーの独自の実装を拡張します。拡張機能、改善、ニューフィーチャーでカスタマイズします。</td>
 </tr>
 </tbody>
 </table>
 <h2 id="最初のステップ">最初のステップ</h2>
-<p>Sisk は、任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を教えます。まだインストールしていない場合は、<a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">こちら</a> から SDK をダウンロードしてください。</p>
+<p>Sisk は、任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を説明します。まだインストールしていない場合は、<a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">こちら</a>から SDK をダウンロードしてください。</p>
 <p>このチュートリアルでは、プロジェクト構造の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信について説明します。このガイドでは、C# を使用してシンプルなサーバーを構築することに焦点を当てています。好みのプログラミング言語を使用することもできます。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>クイックスタート プロジェクトに興味がある場合は、<a href="https://github.com/sisk-http/quickstart">このリポジトリ</a> を参照してください。</p>
+<p>クイックスタート プロジェクトに興味がある場合は、<a href="https://github.com/sisk-http/quickstart">このリポジトリ</a>を参照してください。</p>
 </div>
 <h2 id="プロジェクトの作成">プロジェクトの作成</h2>
-<p>プロジェクト名を &quot;My Sisk Application&quot; とします。.NET を設定したら、次のコマンドでプロジェクトを作成できます。</p>
+<p>プロジェクト名を &quot;My Sisk Application&quot; とします。.NET を設定したら、次のコマンドを使用してプロジェクトを作成できます。</p>
 <pre><code class="lang-bash">dotnet new console -n my-sisk-application
 </code></pre>
 <p>次に、プロジェクト ディレクトリに移動し、.NET ユーティリティ ツールを使用して Sisk をインストールします。</p>
 <pre><code class="lang-bash">cd my-sisk-application
 dotnet add package Sisk.HttpServer
 </code></pre>
-<p>Sisk をプロジェクトにインストールするその他の方法については、<a href="https://www.nuget.org/packages/Sisk.HttpServer/">こちら</a> を参照してください。</p>
-<p>さて、HTTP サーバーのインスタンスを作成しましょう。この例では、ポート 5000 でリッスンするように構成します。</p>
+<p>Sisk をプロジェクトにインストールする方法については、<a href="https://www.nuget.org/packages/Sisk.HttpServer/">こちら</a>を参照してください。</p>
+<p>ここで、HTTP サーバーのインスタンスを作成します。この例では、ポート 5000 でリッスンするように構成します。</p>
 <h2 id="http-サーバーの構築">HTTP サーバーの構築</h2>
 <p>Sisk では、HttpServer オブジェクトにルーティングすることで、アプリケーションを手動で段階的に構築できます。ただし、ほとんどのプロジェクトではこれは便利ではありません。したがって、ビルダー メソッドを使用して、アプリケーションを簡単に起動できます。</p>
 <div class="script-header">
@@ -250,9 +250,9 @@ dotnet add package Sisk.HttpServer
     }
 }
 </code></pre>
-<p>Sisk の各重要なコンポーネントを理解することは重要です。このドキュメントの後半では、Sisk のしくみについてさらに詳しく説明します。</p>
+<p>Sisk の各重要なコンポーネントを理解することが重要です。このドキュメントの後半では、Sisk のしくみについてさらに詳しく説明します。</p>
 <h2 id="手動-高度な-設定">手動 (高度な) 設定</h2>
-<p>Sisk の各メカニズムの動作と、HttpServer、Router、ListeningPort、他のコンポーネント間の関係については、<a href="/docs/jp/advanced/manual-setup">このセクション</a> を参照してください。</p>
+<p>Sisk の各メカニズムの動作と、HttpServer、Router、ListeningPort、他のコンポーネント間の関係については、<a href="/docs/jp/advanced/manual-setup">このセクション</a>のドキュメントを参照してください。</p>
 
 </article>
 

@@ -159,7 +159,7 @@
 <p>欢迎来到 Sisk 文档！</p>
 <p>最后，什么是 Sisk Framework？它是一个开源的轻量级库，使用 .NET 构建，旨在成为最小化、灵活和抽象的。它允许开发人员快速创建互联网服务，几乎不需要任何配置。Sisk 使您的现有应用程序能够拥有一个托管的 HTTP 模块，完整且可丢弃。</p>
 <p>Sisk 的价值观包括代码透明度、模块化、性能和可扩展性，并且可以处理各种类型的应用程序，例如 Restful、JSON-RPC、Web-sockets 等。</p>
-<p>其主要资源包括：</p>
+<p>其主要功能包括：</p>
 <table>
 <thead>
 <tr>
@@ -170,15 +170,15 @@
 <tbody>
 <tr>
 <td><a href="/docs/cn/fundamentals/routing">路由</a></td>
-<td>支持前缀、自定义方法、路径变量、响应转换等的路径路由器。</td>
+<td>支持前缀、自定义方法、路径变量、值转换器等的路径路由器。</td>
 </tr>
 <tr>
 <td><a href="/docs/cn/fundamentals/request-handlers">请求处理器</a></td>
-<td>也称为中间件，提供一个接口来构建您自己的请求处理器，可以在请求之前或之后工作。</td>
+<td>也称为中间件，提供一个接口来构建自己的请求处理器，与请求之前或之后的操作一起工作。</td>
 </tr>
 <tr>
 <td><a href="/docs/cn/fundamentals/responses#gzip-deflate-and-brotli-compression">压缩</a></td>
-<td>使用 Sisk轻松压缩响应。</td>
+<td>使用 Sisk轻松压缩响应内容。</td>
 </tr>
 <tr>
 <td><a href="/docs/cn/features/websockets">Web sockets</a></td>
@@ -186,7 +186,7 @@
 </tr>
 <tr>
 <td><a href="/docs/cn/features/server-sent-events">服务器发送事件</a></td>
-<td>提供将服务器事件发送到支持 SSE 协议的客户端的功能。</td>
+<td>提供向支持 SSE 协议的客户端发送服务器事件的功能。</td>
 </tr>
 <tr>
 <td><a href="/docs/cn/features/logging">日志记录</a></td>
@@ -203,14 +203,14 @@
 </tbody>
 </table>
 <h2 id="第一步">第一步</h2>
-<p>Sisk 可以在任何 .NET 环境中运行。在本指南中，我们将教您如何使用 .NET 创建 Sisk 应用程序。如果您尚未安装，请从 <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">这里</a> 下载 SDK。</p>
+<p>Sisk 可以在任何 .NET 环境中运行。在本指南中，我们将教您如何使用 .NET 创建 Sisk 应用程序。如果您尚未安装它，请从 <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">这里</a> 下载 SDK。</p>
 <p>在本教程中，我们将介绍如何创建项目结构、接收请求、获取 URL 参数和发送响应。本指南将重点介绍使用 C# 构建一个简单的服务器。您也可以使用您喜欢的编程语言。</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>您可能对快速入门项目感兴趣。请查看 <a href="https://github.com/sisk-http/quickstart">此存储库</a> 以获取更多信息。</p>
 </div>
 <h2 id="创建项目">创建项目</h2>
-<p>让我们将我们的项目命名为&quot;My Sisk Application&quot;。一旦您设置了 .NET，您可以使用以下命令创建项目：</p>
+<p>让我们将项目命名为&quot;My Sisk Application&quot;。一旦您设置了 .NET，您可以使用以下命令创建项目：</p>
 <pre><code class="lang-bash">dotnet new console -n my-sisk-application
 </code></pre>
 <p>接下来，导航到您的项目目录，并使用 .NET 实用工具安装 Sisk：</p>
@@ -220,7 +220,7 @@ dotnet add package Sisk.HttpServer
 <p>您可以在 <a href="https://www.nuget.org/packages/Sisk.HttpServer/">这里</a> 找到在项目中安装 Sisk 的其他方法。</p>
 <p>现在，让我们创建一个 HTTP 服务器实例。对于这个示例，我们将配置它以监听端口 5000。</p>
 <h2 id="构建-http-服务器">构建 HTTP 服务器</h2>
-<p>Sisk 允许您一步一步地手动构建应用程序，因为它路由到 HttpServer 对象。然而，这可能对于大多数项目来说并不方便。因此，我们可以使用构建器方法，它使得让我们的应用程序启动变得更容易。</p>
+<p>Sisk 允许您一步一步地手动构建应用程序，因为它路由到 HttpServer 对象。然而，这可能对于大多数项目来说并不方便。因此，我们可以使用构建器方法，它使得让应用程序启动变得更容易。</p>
 <div class="script-header">
     <span>
         Program.cs

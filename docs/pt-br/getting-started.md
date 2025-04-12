@@ -10,20 +10,20 @@ Seus principais recursos incluem:
 
 | Recurso | Descrição |
 | ------- | --------- |
-| [Routing](/docs/pt-br/fundamentals/routing) | Um roteador de caminhos que suporta prefixos, métodos personalizados, variáveis de caminho, conversões de resposta e mais. |
-| [Request Handlers](/docs/pt-br/fundamentals/request-handlers) | Também conhecido como *middlewares*, fornece uma interface para construir seus próprios manipuladores de solicitação que funcionam antes ou após uma solicitação. |
-| [Compression](/docs/pt-br/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima suas respostas facilmente com o Sisk. |
+| [Routing](/docs/pt-br/fundamentals/routing) | Um roteador de caminhos que suporta prefixos, métodos personalizados, variáveis de caminho, conversores de valor e mais. |
+| [Request Handlers](/docs/pt-br/fundamentals/request-handlers) | Também conhecidos como *middlewares*, fornecem uma interface para criar seus próprios manipuladores de solicitações que funcionam com a solicitação antes ou após uma ação. |
+| [Compression](/docs/pt-br/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima o conteúdo de suas respostas facilmente com o Sisk. |
 | [Web sockets](/docs/pt-br/features/websockets) | Fornece rotas que aceitam web-sockets completos, para leitura e escrita no cliente. |
 | [Server-sent events](/docs/pt-br/features/server-sent-events) | Fornece o envio de eventos do servidor para clientes que suportam o protocolo SSE. |
 | [Logging](/docs/pt-br/features/logging) | Registro de logs simplificado. Registre erros, acesso, defina logs rotativos por tamanho, múltiplos fluxos de saída para o mesmo log e mais. |
-| [Multi-host](/docs/pt-br/advanced/multi-host-setup) | Tenha um servidor HTTP para múltiplos ports, e cada port com seu próprio roteador, e cada roteador com seu próprio aplicativo. |
+| [Multi-host](/docs/pt-br/advanced/multi-host-setup) | Tenha um servidor HTTP para várias portas, e cada porta com seu próprio roteador, e cada roteador com seu próprio aplicativo. |
 | [Server handlers](/docs/pt-br/advanced/http-server-handlers) | Estenda sua própria implementação do servidor HTTP. Personalize com extensões, melhorias e novos recursos.
 
 ## Primeiros passos
 
 O Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK [aqui](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 
-Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
+Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma solicitação, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em criar um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
 
 > [!NOTE]
 > Você pode estar interessado em um projeto de início rápido. Verifique [este repositório](https://github.com/sisk-http/quickstart) para obter mais informações.

@@ -6,16 +6,16 @@ Schließlich, was ist das Sisk-Framework? Es ist eine Open-Source-Bibliothek, di
 
 Die Werte von Sisk umfassen Code-Transparenz, Modularität, Leistung und Skalierbarkeit und können verschiedene Arten von Anwendungen verarbeiten, wie z.B. Restful, JSON-RPC, Web-Sockets und mehr.
 
-Seine wichtigsten Ressourcen sind:
+Die wichtigsten Funktionen umfassen:
 
 | Ressource | Beschreibung |
 | ------- | --------- |
-| [Routing](/docs/de/fundamentals/routing) | Ein Pfad-Router, der Präfixe, benutzerdefinierte Methoden, Pfadvariablen, Antwortumwandlungen und mehr unterstützt. |
-| [Request-Handler](/docs/de/fundamentals/request-handlers) | Auch bekannt als *Middleware*, bietet eine Schnittstelle, um eigene Request-Handler zu erstellen, die vor oder nach einer Anfrage arbeiten. |
-| [Komprimierung](/docs/de/fundamentals/responses#gzip-deflate-and-brotli-compression) | Komprimieren Sie Ihre Antworten einfach mit Sisk. |
+| [Routing](/docs/de/fundamentals/routing) | Ein Pfad-Router, der Präfixe, benutzerdefinierte Methoden, Pfadvariablen, Wertkonverter und mehr unterstützt. |
+| [Request-Handler](/docs/de/fundamentals/request-handlers) | Auch bekannt als *Middleware*, bietet eine Schnittstelle, um eigene Request-Handler zu erstellen, die mit der Anfrage vor oder nach einer Aktion arbeiten. |
+| [Komprimierung](/docs/de/fundamentals/responses#gzip-deflate-and-brotli-compression) | Komprimieren Sie den Inhalt Ihrer Antwort einfach mit Sisk. |
 | [Web-Sockets](/docs/de/features/websockets) | Bietet Routen, die vollständige Web-Sockets akzeptieren, für das Lesen und Schreiben an den Client. |
 | [Server-sent Events](/docs/de/features/server-sent-events) | Bietet das Senden von Server-Ereignissen an Clients, die das SSE-Protokoll unterstützen. |
-| [Protokollierung](/docs/de/features/logging) | Vereinfachte Protokollierung. Protokollieren Sie Fehler, Zugriffe, definieren Sie rotierende Protokolle nach Größe, mehrere Ausgabeströme für dasselbe Protokoll und mehr. |
+| [Protokollierung](/docs/de/features/logging) | Vereinfachte Protokollierung. Protokollieren Sie Fehler, Zugriffe, definieren Sie rotierende Protokolle nach Größe, mehrere Ausgabeströme für das gleiche Protokoll und mehr. |
 | [Multi-Host](/docs/de/advanced/multi-host-setup) | Haben Sie einen HTTP-Server für mehrere Ports, und jeden Port mit seinem eigenen Router, und jeden Router mit seiner eigenen Anwendung. |
 | [Server-Handler](/docs/de/advanced/http-server-handlers) | Erweitern Sie Ihre eigene Implementierung des HTTP-Servers. Anpassen Sie mit Erweiterungen, Verbesserungen und neuen Funktionen.
 
@@ -45,11 +45,11 @@ dotnet add package Sisk.HttpServer
 
 Sie können weitere Möglichkeiten finden, Sisk in Ihrem Projekt zu installieren, [hier](https://www.nuget.org/packages/Sisk.HttpServer/).
 
-Jetzt erstellen wir eine Instanz unseres HTTP-Servers. Für dieses Beispiel konfigurieren wir ihn, um auf Port 5000 zu hören.
+Lassen Sie uns nun eine Instanz unseres HTTP-Servers erstellen. Für dieses Beispiel werden wir es so konfigurieren, dass es auf Port 5000 hört.
 
 ## HTTP-Server erstellen
 
-Sisk ermöglicht es Ihnen, Ihre Anwendung Schritt für Schritt manuell aufzubauen, da sie auf das HttpServer-Objekt routet. Dies kann jedoch für die meisten Projekte nicht sehr bequem sein. Daher können wir die Builder-Methode verwenden, die es einfacher macht, unsere Anwendung in Betrieb zu nehmen.
+Sisk ermöglicht es Ihnen, Ihre Anwendung Schritt für Schritt manuell aufzubauen, da es Routen zum HttpServer-Objekt ermöglicht. Dies kann jedoch für die meisten Projekte nicht sehr praktisch sein. Daher können wir die Builder-Methode verwenden, die es einfacher macht, unsere Anwendung in Betrieb zu nehmen.
 
 <div class="script-header">
     <span>
@@ -85,6 +85,6 @@ class Program
 
 Es ist wichtig, jedes wichtige Komponente von Sisk zu verstehen. Später in diesem Dokument werden Sie mehr über die Funktionsweise von Sisk erfahren.
 
-## Manuelle (erweiterte) Einrichtung
+## Manuelles (erweitertes) Setup
 
 Sie können erfahren, wie jedes Sisk-Mechanismus funktioniert, in [diesem Abschnitt](/docs/de/advanced/manual-setup) der Dokumentation, der das Verhalten und die Beziehungen zwischen dem HttpServer, Router, ListeningPort und anderen Komponenten erklärt.

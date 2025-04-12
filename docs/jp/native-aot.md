@@ -1,35 +1,17 @@
-# ネイティブAOTのサポート
+# ネイティブAOTサポート
 
-.NET 7では、[ネイティブAOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)が導入されました。これは、.NETランタイムをターゲットマシンにインストールする必要なく、任意のサポートプラットフォームで実行可能なバイナリをエクスポートできる、.NETのコンパイルモードです。
+[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)を使用すると、.NETランタイムがターゲットホストにインストールされていない場合でも、自己完結型のネイティブ.NETアプリケーションを公開できます。さらに、ネイティブAOTでは以下のような利点があります：
 
-ネイティブAOTでは、コードはネイティブコードにコンパイルされ、実行するために必要なすべてを含みます。Siskはバージョン0.9.1からこの機能を実験しており、ダイナミックルートをアプリケーションで定義する機能を追加し、警告メッセージでコンパイルを影響しないようにしています。
+- アプリケーションのサイズが大幅に小さくなる
+- 初期化が大幅に高速化する
+- メモリ消費量が低くなる
 
-Siskは、タイプとオブジェクトから定義されるメソッドを取得するためにリフレクションを使用します。さらに、Siskは、タイプから初期化される`RequestHandlerAttribute`などの属性に対してリフレクションを使用します。適切に機能するために、AOTコンパイルではトリミングを使用し、ダイナミックタイプは最終的なアセンブリで使用されるものを指定する必要があります。
+Sisk Frameworkは、明示的な性質により、ほとんどの機能でネイティブAOTを使用できます。ソースコードをネイティブAOTに適応させるためのリワークは不要です。
 
-以下の例を考えてみましょう。これは、RequestHandlerを呼び出すルートです。
+## サポートされていない機能
 
-```cs
-[Route(RouteMethod.Get, "/", LogMode = LogOutput.None)]
-[RequestHandler(typeof(MyRequestHandler))]
-static HttpResponse IndexPage(HttpRequest request)
-{
-    HttpResponse htmlResponse = new HttpResponse();
-    htmlResponse.Content = new StringContent("Hello, world!", System.Text.Encoding.UTF8, "text/plain");
-    return htmlResponse;
-}
-```
+ただし、Siskは一部の機能で反射を使用しています。以下に記載されている機能は、ネイティブコード実行中に部分的に利用可能または完全に利用不可になる可能性があります：
 
-このRequestHandlerは、ランタイム中に動的に呼び出されます。この呼び出しは、明示的にセグメント化する必要があります。
+- [モジュールの自動スキャン](/api/Sisk.Core.Routing.Router.AutoScanModules) of the router: このリソースは、実行中のアセンブリに埋め込まれた型をスキャンし、[ルーターモジュール](/docs/jp/fundamentals/routing)である型を登録します。このリソースでは、アセンブリトリミング中に除外される可能性のある型が必要です。
 
-コンパイラーが`MyRequestHandler`から最終的なコンパイルに保持するものをよりよく理解するには、以下の点を考慮する必要があります。
-
-- パブリックプロパティ;
-- パブリックおよびプライベートフィールド;
-- パブリックおよびプライベートコンストラクター;
-- パブリックおよびプライベートメソッド;
-
-上記に記載されていないRequestHandler内のすべてのものは、コンパイラーによって削除されます。
-
-その他のコンポーネント、クラス、およびパッケージは、AOTトリミングと互換性がある必要があります。そうでない場合、コードは予想どおりに機能しません。ただし、Siskは、パフォーマンスが優先されるものを構築したい場合でも、ユーザーを置き去りにしません。
-
-ネイティブAOTとその動作については、公式の[Microsoftドキュメント](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)を参照してください。
+Siskの他のすべての機能はAOTと互換性があります。AOT警告を出すメソッドが見つかることがありますが、ここに記載されていない場合は、型、パラメーター、または型情報を渡すオーバーロードがあり、AOTコンパイラがオブジェクトをコンパイルするのを支援します。

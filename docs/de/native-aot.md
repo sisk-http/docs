@@ -1,35 +1,17 @@
 # Native AOT-Unterstützung
 
-In .NET 7 wurde [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) eingeführt, ein .NET-Kompiliermodus, der es Ihnen ermöglicht, bereite Binärdateien auf jeder unterstützten Plattform zu exportieren, ohne dass die .NET-Laufzeit auf dem Zielcomputer installiert werden muss.
+[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) ermöglicht die Veröffentlichung von nativen .NET-Anwendungen, die selbstständig sind und nicht die .NET-Laufzeit auf dem Zielhost benötigen. Zusätzlich bietet Native AOT Vorteile wie:
 
-Mit Native AOT wird Ihr Code für nativen Code kompiliert und enthält bereits alles, was benötigt wird, um ihn auszuführen. Sisk hat seit Version 0.9.1 mit dem Feature experimentiert, das die Unterstützung für Native AOT mit Funktionen zur Definition dynamischer Routen durch die Anwendung verbessert, ohne die Kompilierung mit Warnmeldungen zu beeinträchtigen.
+- Erheblich kleinere Anwendungen
+- Wesentlich schnellere Initialisierung
+- Geringeren Speicherbedarf
 
-Sisk verwendet Reflexion, um die Methoden zu erhalten, die von Typen und Objekten definiert werden. Darüber hinaus verwendet Sisk Reflexion für Attribute wie `RequestHandlerAttribute`, die von einem Typ initialisiert werden. Um ordnungsgemäß zu funktionieren, verwendet die AOT-Kompilierung Trimmen, bei dem dynamische Typen angegeben werden müssen, was in der endgültigen Assembly verwendet wird.
+Das Sisk Framework ermöglicht aufgrund seiner expliziten Natur die Verwendung von Native AOT für fast alle seine Funktionen, ohne dass eine Überarbeitung des Quellcodes erforderlich ist, um es an Native AOT anzupassen.
 
-Betrachten Sie das folgende Beispiel, das eine Route aufruft, die einen RequestHandler verwendet.
+## Nicht unterstützte Funktionen
 
-```cs
-[Route(RouteMethod.Get, "/", LogMode = LogOutput.None)]
-[RequestHandler(typeof(MyRequestHandler))]
-static HttpResponse IndexPage(HttpRequest request)
-{
-    HttpResponse htmlResponse = new HttpResponse();
-    htmlResponse.Content = new StringContent("Hallo, Welt!", System.Text.Encoding.UTF8, "text/plain");
-    return htmlResponse;
-}
-```
+Allerdings verwendet Sisk Reflexion, wenn auch minimal, für einige Funktionen. Die nachfolgend genannten Funktionen sind möglicherweise teilweise verfügbar oder während der nativen Codeausführung ganz nicht verfügbar:
 
-Dieser RequestHandler wird dynamisch während der Laufzeit aufgerufen, und dieser Aufruf muss segmentiert werden, und diese Segmentierung muss explizit sein.
+- [Automatisches Scannen von Modulen](/api/Sisk.Core.Routing.Router.AutoScanModules) des Routers: Diese Ressource scannet die im ausführenden Assembly eingebetteten Typen und registriert die Typen, die [Router-Module](/docs/de/fundamentals/routing) sind. Diese Ressource benötigt Typen, die während des Assembly-Trimming ausgeschlossen werden können.
 
-Um besser zu verstehen, was der Compiler von `MyRequestHandler` berücksichtigen wird, sollten folgende Elemente in der endgültigen Kompilierung beibehalten werden:
-
-- Öffentliche Eigenschaften;
-- Öffentliche und private Felder;
-- Öffentliche und private Konstruktoren;
-- Öffentliche und private Methoden;
-
-Alles, was Sie in einem RequestHandler haben, das nicht oben erwähnt wird, wird vom Compiler entfernt.
-
-Denken Sie daran, dass alle anderen Komponenten, Klassen und Pakete, die Sie in Ihrer Anwendung verwenden, mit AOT-Trimmen kompatibel sein sollten, oder Ihr Code wird nicht wie erwartet funktionieren. Sisk wird Sie nicht im Stich lassen, wenn Sie etwas bauen möchten, bei dem die Leistung im Vordergrund steht.
-
-Sie können mehr über Native AOT und wie es funktioniert in der offiziellen [Microsoft-Dokumentation](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) lesen.
+Alle anderen Funktionen sind mit AOT in Sisk kompatibel. Es ist üblich, eine oder andere Methode zu finden, die eine AOT-Warnung ausgibt, aber dieselbe, wenn sie nicht hier erwähnt wird, hat eine Überladung, die das Übergeben eines Typs, Parameters oder Typinformationen anzeigt, die dem AOT-Compiler helfen, das Objekt zu kompilieren.

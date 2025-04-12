@@ -1,35 +1,17 @@
-# Suporte com AOT
+# Suporte Nativo AOT
 
-Na .NET 7, foi introduzido o [Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/), um modo de compilação .NET que permite exportar binários prontos para qualquer plataforma suportada, sem exigir que o runtime .NET seja instalado na máquina de destino.
+[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) permite a publicação de aplicativos .NET nativos que são autossuficientes e não requerem o tempo de execução .NET instalado no host de destino. Além disso, o Native AOT fornece benefícios como:
 
-Com o Native AOT, seu código é compilado para código nativo e já contém tudo o que precisa para ser executado. O Sisk tem experimentado o recurso desde a versão 0.9.1, que melhora o suporte para Native AOT com recursos para definir rotas dinâmicas por aplicativo sem afetar a compilação com mensagens de aviso.
+- Aplicativos muito menores
+- Inicialização significativamente mais rápida
+- Consumo de memória mais baixo
 
-O Sisk usa reflexão para obter os métodos que serão definidos a partir de tipos e objetos. Além disso, o Sisk usa reflexão para atributos como `RequestHandlerAttribute`, que são inicializados a partir de um tipo. Para funcionar corretamente, a compilação AOT usa o trimming, onde os tipos dinâmicos devem especificar o que será usado na montagem final.
+O Sisk Framework, por sua natureza explícita, permite o uso de Native AOT para quase todos os seus recursos sem exigir rework no código-fonte para adaptá-lo ao Native AOT.
 
-Considerando o exemplo abaixo, é uma rota que chama um RequestHandler.
+## Recursos não suportados
 
-```cs
-[Route(RouteMethod.Get, "/", LogMode = LogOutput.None)]
-[RequestHandler(typeof(MyRequestHandler))]
-static HttpResponse IndexPage(HttpRequest request)
-{
-    HttpResponse htmlResponse = new HttpResponse();
-    htmlResponse.Content = new StringContent("Hello, world!", System.Text.Encoding.UTF8, "text/plain");
-    return htmlResponse;
-}
-```
+No entanto, o Sisk usa reflexão, embora mínima, para alguns recursos. Os recursos mencionados abaixo podem estar parcialmente disponíveis ou completamente indisponíveis durante a execução de código nativo:
 
-Este RequestHandler é invocado dinamicamente durante a execução, e essa invocação deve ser segmentada e essa segmentação deve ser explícita.
+- [Auto-escaneamento de módulos](/api/Sisk.Core.Routing.Router.AutoScanModules) do roteador: este recurso escaneia os tipos incorporados na Assembly em execução e registra os tipos que são [módulos do roteador](/docs/pt-br/fundamentals/routing). Este recurso requer tipos que possam ser excluídos durante a redução da Assembly.
 
-Para entender melhor o que o compilador considerará de `MyRequestHandler` deve ser mantido na compilação final é:
-
-- Propriedades públicas;
-- Campos públicos e privados;
-- Construtor público e privado;
-- Métodos públicos e privados;
-
-Tudo o que você tiver em um RequestHandler que não seja mencionado acima será removido pelo compilador.
-
-Lembre-se de que todos os outros componentes, classes e pacotes que você usar em seu aplicativo devem ser compatíveis com o AOT Trimming, ou seu código não funcionará como esperado. A propósito, o Sisk não vai te deixar na mão se você quiser construir algo onde o desempenho é uma prioridade.
-
-Você pode ler mais sobre o Native AOT e como ele funciona na documentação oficial da [Microsoft](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
+Todos os outros recursos são compatíveis com o AOT no Sisk. É comum encontrar um ou outro método que dá um aviso de AOT, mas o mesmo, se não for mencionado aqui, tem uma sobrecarga que indica a passagem de um tipo, parâmetro ou informação de tipo que ajuda o compilador AOT a compilar o objeto.

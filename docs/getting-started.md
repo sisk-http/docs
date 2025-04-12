@@ -6,13 +6,13 @@ Finally, what is the Sisk Framework? It is an open-source lightweight library bu
 
 Sisk's values include code transparency, modularity, performance, and scalability, and can handle various types of applications, such as Restful, JSON-RPC, Web-sockets, and more.
 
-Its main resources include:
+It's main features includes:
 
 | Resource | Description |
 | ------- | --------- |
-| [Routing](/docs/fundamentals/routing) | A path router that supports prefixes, custom methods, path variables, response conversions, and more. |
-| [Request Handlers](/docs/fundamentals/request-handlers) | Also known as *middlewares*, provides an interface to build your own request-handlers that work before or after a request. |
-| [Compression](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) | Compress your responses easily with Sisk. |
+| [Routing](/docs/fundamentals/routing) | A path router that supports prefixes, custom methods, path variables, value converters and more. |
+| [Request Handlers](/docs/fundamentals/request-handlers) | Also known as *middlewares*, provides an interface to build your own request-handlers that work with the request before or after an action. |
+| [Compression](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) | Compress your response contents easily with Sisk. |
 | [Web sockets](/docs/features/websockets) | Provides routes that accept complete web-sockets, for reading and writing to the client. |
 | [Server-sent events](/docs/features/server-sent-events) | Provides the sending of server events to clients that support the SSE protocol. |
 | [Logging](/docs/features/logging) | Simplified logging. Log errors, access, define rotating logs by size, multiple output streams for the same log, and more. |

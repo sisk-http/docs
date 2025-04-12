@@ -2,21 +2,21 @@
 
 Bienvenido a la documentación de Sisk.
 
-Finalmente, ¿qué es el Framework Sisk? Es una biblioteca de código abierto y ligera construida con .NET, diseñada para ser minimalista, flexible y abstracta. Permite a los desarrolladores crear servicios de internet rápidamente, con poca o ninguna configuración necesaria. Sisk hace posible que su aplicación existente tenga un módulo HTTP administrado, completo y desechable o completo.
+Finalmente, ¿qué es el Marco de Sisk? Es una biblioteca de código abierto y ligera construida con .NET, diseñada para ser minimalista, flexible y abstracta. Permite a los desarrolladores crear servicios de Internet rápidamente, con poca o ninguna configuración necesaria. Sisk permite que su aplicación existente tenga un módulo HTTP administrado, completo y desechable o completo.
 
-Los valores de Sisk incluyen la transparencia del código, la modularidad, el rendimiento y la escalabilidad, y puede manejar varios tipos de aplicaciones, como Restful, JSON-RPC, Web-sockets y más.
+Los valores de Sisk incluyen la transparencia del código, la modularidad, el rendimiento y la escalabilidad, y pueden manejar varios tipos de aplicaciones, como Restful, JSON-RPC, Web-sockets y más.
 
-Sus recursos principales incluyen:
+Sus características principales incluyen:
 
 | Recurso | Descripción |
 | ------- | --------- |
-| [Enrutamiento](/docs/es/fundamentals/routing) | Un enrutador de rutas que admite prefijos, métodos personalizados, variables de ruta, conversiones de respuesta y más. |
-| [Controladores de solicitudes](/docs/es/fundamentals/request-handlers) | También conocidos como *middlewares*, proporciona una interfaz para crear sus propios controladores de solicitudes que funcionan antes o después de una solicitud. |
-| [Compresión](/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima sus respuestas fácilmente con Sisk. |
-| [Web sockets](/docs/es/features/websockets) | Proporciona rutas que aceptan websockets completos, para leer y escribir en el cliente. |
-| [Eventos enviados por el servidor](/docs/es/features/server-sent-events) | Proporciona el envío de eventos del servidor a clientes que admiten el protocolo SSE. |
-| [Registro](/docs/es/features/logging) | Registro simplificado. Registre errores, acceso, defina registros rotativos por tamaño, múltiples flujos de salida para el mismo registro y más. |
-| [Multi-host](/docs/es/advanced/multi-host-setup) | Tenga un servidor HTTP para varios puertos, y cada puerto con su propio enrutador, y cada enrutador con su propia aplicación. |
+| [Enrutamiento](/docs/es/fundamentals/routing) | Un enrutador de rutas que admite prefijos, métodos personalizados, variables de ruta, convertidores de valores y más. |
+| [Controladores de solicitudes](/docs/es/fundamentals/request-handlers) | También conocidos como *middlewares*, proporcionan una interfaz para crear sus propios controladores de solicitudes que funcionan con la solicitud antes o después de una acción. |
+| [Compresión](/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima el contenido de sus respuestas fácilmente con Sisk. |
+| [Web sockets](/docs/es/features/websockets) | Proporciona rutas que aceptan web sockets completos, para leer y escribir en el cliente. |
+| [Eventos enviados por el servidor](/docs/es/features/server-sent-events) | Proporciona el envío de eventos del servidor a los clientes que admiten el protocolo SSE. |
+| [Registro](/docs/es/features/logging) | Registro simplificado. Registre errores, acceso, defina registros rotativos por tamaño, varias secuencias de salida para el mismo registro y más. |
+| [Multi-host](/docs/es/advanced/multi-host-setup) | Tener un servidor HTTP para varios puertos, y cada puerto con su propio enrutador, y cada enrutador con su propia aplicación. |
 | [Controladores de servidor](/docs/es/advanced/http-server-handlers) | Amplíe su propia implementación del servidor HTTP. Personalice con extensiones, mejoras y nuevas características.
 
 ## Primeros pasos

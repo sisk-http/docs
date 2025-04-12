@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ネイティブAOTのサポート | Sisk </title>
+        <title>ネイティブAOTサポート | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="ネイティブAOTのサポート | Sisk ">
+        <meta name="title" content="ネイティブAOTサポート | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,32 +154,21 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ネイティブaotのサポート">ネイティブAOTのサポート</h1>
+<h1 id="ネイティブaotサポート">ネイティブAOTサポート</h1>
 
-<p>.NET 7では、<a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">ネイティブAOT</a>が導入されました。これは、.NETランタイムをターゲットマシンにインストールする必要なく、任意のサポートプラットフォームで実行可能なバイナリをエクスポートできる、.NETのコンパイルモードです。</p>
-<p>ネイティブAOTでは、コードはネイティブコードにコンパイルされ、実行するために必要なすべてを含みます。Siskはバージョン0.9.1からこの機能を実験しており、ダイナミックルートをアプリケーションで定義する機能を追加し、警告メッセージでコンパイルを影響しないようにしています。</p>
-<p>Siskは、タイプとオブジェクトから定義されるメソッドを取得するためにリフレクションを使用します。さらに、Siskは、タイプから初期化される<code>RequestHandlerAttribute</code>などの属性に対してリフレクションを使用します。適切に機能するために、AOTコンパイルではトリミングを使用し、ダイナミックタイプは最終的なアセンブリで使用されるものを指定する必要があります。</p>
-<p>以下の例を考えてみましょう。これは、RequestHandlerを呼び出すルートです。</p>
-<pre><code class="lang-cs">[Route(RouteMethod.Get, &quot;/&quot;, LogMode = LogOutput.None)]
-[RequestHandler(typeof(MyRequestHandler))]
-static HttpResponse IndexPage(HttpRequest request)
-{
-    HttpResponse htmlResponse = new HttpResponse();
-    htmlResponse.Content = new StringContent(&quot;Hello, world!&quot;, System.Text.Encoding.UTF8, &quot;text/plain&quot;);
-    return htmlResponse;
-}
-</code></pre>
-<p>このRequestHandlerは、ランタイム中に動的に呼び出されます。この呼び出しは、明示的にセグメント化する必要があります。</p>
-<p>コンパイラーが<code>MyRequestHandler</code>から最終的なコンパイルに保持するものをよりよく理解するには、以下の点を考慮する必要があります。</p>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">.NET Native AOT</a>を使用すると、.NETランタイムがターゲットホストにインストールされていない場合でも、自己完結型のネイティブ.NETアプリケーションを公開できます。さらに、ネイティブAOTでは以下のような利点があります：</p>
 <ul>
-<li>パブリックプロパティ;</li>
-<li>パブリックおよびプライベートフィールド;</li>
-<li>パブリックおよびプライベートコンストラクター;</li>
-<li>パブリックおよびプライベートメソッド;</li>
+<li>アプリケーションのサイズが大幅に小さくなる</li>
+<li>初期化が大幅に高速化する</li>
+<li>メモリ消費量が低くなる</li>
 </ul>
-<p>上記に記載されていないRequestHandler内のすべてのものは、コンパイラーによって削除されます。</p>
-<p>その他のコンポーネント、クラス、およびパッケージは、AOTトリミングと互換性がある必要があります。そうでない場合、コードは予想どおりに機能しません。ただし、Siskは、パフォーマンスが優先されるものを構築したい場合でも、ユーザーを置き去りにしません。</p>
-<p>ネイティブAOTとその動作については、公式の<a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">Microsoftドキュメント</a>を参照してください。</p>
+<p>Sisk Frameworkは、明示的な性質により、ほとんどの機能でネイティブAOTを使用できます。ソースコードをネイティブAOTに適応させるためのリワークは不要です。</p>
+<h2 id="サポートされていない機能">サポートされていない機能</h2>
+<p>ただし、Siskは一部の機能で反射を使用しています。以下に記載されている機能は、ネイティブコード実行中に部分的に利用可能または完全に利用不可になる可能性があります：</p>
+<ul>
+<li><a href="/api/Sisk.Core.Routing.Router.AutoScanModules">モジュールの自動スキャン</a> of the router: このリソースは、実行中のアセンブリに埋め込まれた型をスキャンし、<a href="/docs/jp/fundamentals/routing">ルーターモジュール</a>である型を登録します。このリソースでは、アセンブリトリミング中に除外される可能性のある型が必要です。</li>
+</ul>
+<p>Siskの他のすべての機能はAOTと互換性があります。AOT警告を出すメソッドが見つかることがありますが、ここに記載されていない場合は、型、パラメーター、または型情報を渡すオーバーロードがあり、AOTコンパイラがオブジェクトをコンパイルするのを支援します。</p>
 
 </article>
 
