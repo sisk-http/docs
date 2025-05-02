@@ -255,15 +255,15 @@ an blocking <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo.html#Sisk_Core_Http_HttpServerConfiguration_DefaultCultureInfo">DefaultCultureInfo</a></dt>
-    <dd><p>Gets or sets the default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a> object which the HTTP server will apply to the request
-handlers and callbacks thread.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.html#Sisk_Core_Http_HttpServerConfiguration_DisposeDisposableContextValues">DisposeDisposableContextValues</a></dt>
     <dd><p>Gets or sets whether the HTTP server should dispose all <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a> values in the <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a> bag
 when an HTTP session is closed.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression.html#Sisk_Core_Http_HttpServerConfiguration_EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a></dt>
+    <dd><p>Gets or sets whether the HTTP server should automatically compress response content bodies using request-allowed
+encoding algorithms when possible.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -322,7 +322,7 @@ with the HTTP server.</p>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.html#Sisk_Core_Http_HttpServerConfiguration_RemoteRequestsAction">RemoteRequestsAction</a></dt>
-    <dd><p>Gets or sets the server's action when it receives an HTTP request outside the localhost.</p>
+    <dd><p>Gets or sets the server's action when it receives an HTTP request outside the local host.</p>
 </dd>
   </dl>
   <dl class="jumplist">

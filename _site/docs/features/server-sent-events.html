@@ -164,7 +164,7 @@
 <p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a> method, the request is put in a waiting state while the SSE instance is created.</p>
 <pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
 {
-    var sse = req.GetEventSource();
+    using var sse = req.GetEventSource();
 
     sse.Send(&quot;Hello, world!&quot;);
 
@@ -181,7 +181,7 @@
 <p>If you need to send headers, you can use the <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a> method before sending any messages.</p>
 <pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
 {
-    var sse = req.GetEventSource();
+    using var sse = req.GetEventSource();
     sse.AppendHeader(&quot;Header-Key&quot;, &quot;Header-value&quot;);
 
     sse.Send(&quot;Hello!&quot;);
@@ -197,7 +197,7 @@
 <p>An SSE connection in KeepAlive will wait for a send error (caused by disconnection) to resume method execution. It is also possible to set a Timeout for this. After the time, if no message has been sent, the connection is terminated and execution resumes.</p>
 <pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
 {
-    var sse = req.GetEventSource(&quot;my-index-connection&quot;);
+    using var sse = req.GetEventSource(&quot;my-index-connection&quot;);
 
     sse.WaitForFail(TimeSpan.FromSeconds(15)); // wait for 15 seconds without any message before terminating the connection
 
@@ -224,14 +224,14 @@ if (evs != null)
 <pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
 public HttpResponse Events(HttpRequest request)
 {
-    var sse = request.GetEventSource();
+    using var sse = request.GetEventSource();
     sse.WithPing(ping =&gt;
     {
         ping.DataMessage = &quot;ping-message&quot;;
         ping.Interval = TimeSpan.FromSeconds(5);
         ping.Start();
     });
-
+    
     sse.KeepAlive();
     return sse.Close();
 }

@@ -250,8 +250,17 @@ return responseStream.Close();
 });
 </code></pre>
 <p>The Content-Encoding headers are automatically set when using these contents.</p>
+<h2 id="automatic-compression">Automatic compression</h2>
+<p>It is possible to automatically compress HTTP responses with the <a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a> property. This property automatically encapsulates the response content from the router in a compressible content that is accepted by the request, provided the response is not inherited from a <a href="/api/Sisk.Core.Http.CompressedContent">CompressedContent</a>.</p>
+<p>Only one compressible content is chosen for a request, chosen according to the Accept-Encoding header, which follows the order:</p>
+<ul>
+<li><a href="/api/Sisk.Core.Http.BrotliContent">BrotliContent</a> (br)</li>
+<li><a href="/api/Sisk.Core.Http.GZipContent">GZipContent</a> (gzip)</li>
+<li><a href="/api/Sisk.Core.Http.DeflateContent">DeflateContent</a> (deflate)</li>
+</ul>
+<p>If the request specifies that it accepts any of these compression methods, the response will be automatically compressed.</p>
 <h2 id="implicit-response-types">Implicit response types</h2>
-<p>Since version 0.15, you can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.</p>
+<p>You can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.</p>
 <p>The concept is to always return a reference type and turn it into a valid HttpResponse object. Routes that return HttpResponse do not undergo any conversion.</p>
 <p>Value types (structures) cannot be used as a return type because they are not compatible with the <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, so they must be wrapped in a ValueResult to be able to be used in handlers.</p>
 <p>Consider the following example from a router module not using HttpResponse in the return type:</p>
@@ -292,29 +301,59 @@ public class UsersController : RouterModule
 <pre><code class="lang-cs">Router r = new Router();
 r.SetObject(new UsersController());
 
-r.RegisterValueHandler&lt;bool&gt;(bolVal =&gt;
+r.RegisterValueHandler&lt;ApiResult&gt;(apiResult =&gt;
 {
-    HttpResponse res = new HttpResponse();
-    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
-    return res;
+    return new HttpResponse() {
+        Status = apiResult.Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest,
+        Content = apiResult.GetHttpContent(),
+        Headers = apiResult.GetHeaders()
+    };
 });
-
-r.RegisterValueHandler&lt;IEnumerable&gt;(enumerableValue =&gt;
+r.RegisterValueHandler&lt;bool&gt;(bvalue =&gt;
 {
-    return new HttpResponse();
-    // do something with enumerableValue here
+    return new HttpResponse() {
+        Status = bvalue ? HttpStatusCode.OK : HttpStatusCode.BadRequest
+    };
+});
+r.RegisterValueHandler&lt;IEnumerable&lt;object&gt;&gt;(enumerableValue =&gt;
+{
+    return new HttpResponse(string.Join(&quot;\n&quot;, enumerableValue));
 });
 
 // registering an value handler of object must be the last
 // value handler which will be used as an fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {
-    HttpResponse res = new HttpResponse();
-    res.Status = HttpStatusCode.OK;
-    res.Content = JsonContent.Create(fallback);
-    return res;
+    return new HttpResponse() {
+        Status = HttpStatusCode.OK,
+        Content = JsonContent.Create(fallback)
+    };
 });
 </code></pre>
+<h2 id="note-on-enumerable-objects-and-arrays">Note on enumerable objects and arrays</h2>
+<p>Implicit response objects that implement <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0">IEnumerable</a> are read into memory through the <code>ToArray()</code> method before being converted through a defined value handler. For this to occur, the <code>IEnumerable</code> object is converted to an array of objects, and the response converter will always receive an <code>Object[]</code> instead of the original type.</p>
+<p>Consider the following scenario:</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder(12300)
+    .UseRouter(r =&gt;
+    {
+        r.RegisterValueHandler&lt;IEnumerable&lt;string&gt;&gt;(stringEnumerable =&gt;
+        {
+            return new HttpResponse(&quot;String array:\n&quot; + string.Join(&quot;\n&quot;, stringEnumerable));
+        });
+        r.RegisterValueHandler&lt;IEnumerable&lt;object&gt;&gt;(stringEnumerable =&gt;
+        {
+            return new HttpResponse(&quot;Object array:\n&quot; + string.Join(&quot;\n&quot;, stringEnumerable));
+        });
+        r.MapGet(&quot;/&quot;, request =&gt;
+        {
+            return (IEnumerable&lt;string&gt;)[&quot;hello&quot;, &quot;world&quot;];
+        });
+    })
+    .Build();
+</code></pre>
+<p>In the above example, the <code>IEnumerable&lt;string&gt;</code> converter <strong>will never be called</strong>, because the input object will always be an <code>Object[]</code> and it is not convertible to an <code>IEnumerable&lt;string&gt;</code>. However, the converter below that receives an <code>IEnumerable&lt;object&gt;</code> will receive its input, since its value is compatible.</p>
+<p>If you need to actually handle the type of the object that will be enumerated, you will need to use reflection to get the type of the collection element. All enumerable objects (lists, arrays, and collections) are converted to an array of objects by the HTTP response converter.</p>
+<p>Values that implements <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> are handled automatically by the server if the <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> property is enabled, similar to what happens with <code>IEnumerable</code>. An asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects.</p>
 
 </article>
 

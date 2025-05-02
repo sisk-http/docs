@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Web 套接字 | Sisk </title>
+        <title>Web Sockets | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Web 套接字 | Sisk ">
+        <meta name="title" content="Web Sockets | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,83 +154,90 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="web-套接字">Web 套接字</h1>
+<h1 id="web-sockets">Web Sockets</h1>
 
-<p>Sisk 同时支持 Web 套接字，例如接收和发送消息到客户端。</p>
-<p>此功能在大多数浏览器中工作正常，但在 Sisk 中仍然是实验性的。如果您发现任何错误，请在 GitHub 上报告。</p>
+<p>Sisk 也支持 Web Sockets，可以接收和发送消息到客户端。</p>
+<p>此功能在大多数浏览器中运行良好，但在 Sisk 中仍处于实验阶段。如果您发现任何错误，请在 GitHub 上报告。</p>
 <h2 id="异步接受和接收消息">异步接受和接收消息</h2>
-<p>下面的示例展示了 Web 套接字在实践中的工作方式，包括打开连接、接收消息和在控制台中显示消息的示例。</p>
-<p>所有通过 Web 套接字接收的消息都是以字节形式接收的，因此您需要在接收时对其进行解码。</p>
-<p>默认情况下，消息被分成块，并且最后一块被发送为消息的最后一个数据包。您可以使用 <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> 标志配置数据包大小。此缓冲对于发送和接收消息是相同的。</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
+<p>下面的示例展示了 WebSocket 在实践中的工作原理，包括建立连接、接收消息并在控制台中显示。</p>
+<p>WebSocket 接收到的所有消息都是以字节形式接收的，因此您需要在收到消息时解码它们。</p>
+<p>默认情况下，消息被分成块，最后一个块作为消息的最后一个数据包发送。您可以使用 <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> 标志配置数据包大小。此缓冲适用于发送和接收消息。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
 {
-    Router r = new Router();
-
-    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    using var ws = req.GetWebSocket();
+    
+    ws.OnReceive += (sender, msg) =&gt;
     {
-        var ws = req.GetWebSocket();
+        string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
+        Console.WriteLine(&quot;Received message: &quot; + msgText);
 
-        ws.OnReceive += (sender, msg) =&gt;
-        {
-            string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
-            Console.WriteLine(&quot;Received message: &quot; + msgText);
+        // 获取接收消息的 HttpWebSocket 上下文
+        HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
+        senderWebSocket.Send(&quot;Response!&quot;);
+    };
 
-            // 获取接收消息的 HttpWebSocket 上下文
-            HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
-            senderWebSocket.Send(&quot;Response!&quot;);
-        };
+    ws.WaitForClose();
+    
+    return ws.Close();
+});
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>不要以这种方式使用异步事件。您可能会在 HTTP 服务器域之外抛出异常，这可能会使您的应用程序崩溃。</p>
+</div>
+<p>如果您需要处理异步代码并同时处理多个消息，可以使用消息循环：</p>
+<pre><code class="lang-csharp">router.MapGet(&quot;/&quot;, async delegate (HttpRequest request)
+{
+    using var ws = await request.GetWebSocketAsync();
+    
+    WebSocketMessage? message;
+    while ((message = ws.WaitNext(timeout: TimeSpan.FromSeconds(30))) != null)
+    {
+        var messageText = message.GetString();
+        Console.WriteLine($&quot;Received message: {messageText}&quot;);
 
-        ws.WaitForClose();
+        await ws.SendAsync(&quot;Hello from server!&quot;);
+    }
 
-        return ws.Close();
-    });
-
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
-}
+    return ws.Close();
+});
 </code></pre>
 <h2 id="同步接受和接收消息">同步接受和接收消息</h2>
-<p>下面的示例包含了一种使用同步 Web 套接字的方法，无需异步上下文，您可以接收消息、处理它们并完成使用套接字。</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
+<p>下面的示例包含一种使用同步 WebSocket 的方法，在这种方法中，您接收消息，处理它们，然后完成使用套接字。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
 {
-    Router r = new Router();
+    using var ws = req.GetWebSocket();
+    WebSocketMessage? msg;
+    
+askName:
+    ws.Send(&quot;What is your name?&quot;);
+    msg = ws.WaitNext();
+        
+    string? name = msg?.GetString();
 
-    r += new Route(RouteMethod.Get, &quot;/connect&quot;, (req) =&gt;
+    if (string.IsNullOrEmpty(name))
     {
-        var ws = req.GetWebSocket();
-        WebSocketMessage? msg;
-
-    askName:
-        ws.Send(&quot;What is your name?&quot;);
-        msg = ws.WaitNext();
-
-        string? name = msg?.GetString();
-
-        if (string.IsNullOrEmpty(name))
-        {
-            ws.Send(&quot;Please, insert your name!&quot;);
-            goto askName;
-        }
-
-    askAge:
-        ws.Send(&quot;And your age?&quot;);
-        msg = ws.WaitNext();
-
-        if (!Int32.TryParse(msg?.GetString(), out int age))
-        {
-            ws.Send(&quot;Please, insert an valid number&quot;);
-            goto askAge;
-        }
-
-        ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
-
-        return ws.Close();
-    });
-
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
-}
+        ws.Send(&quot;Please, insert your name!&quot;);
+        goto askName;
+    }
+    
+askAge:
+    ws.Send(&quot;And your age?&quot;);
+    msg = ws.WaitNext();
+        
+    if (!Int32.TryParse(msg?.GetString(), out int age))
+    {
+        ws.Send(&quot;Please, insert an valid number&quot;);
+        goto askAge;
+    }
+        
+    ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
+        
+    return ws.Close();
+});
 </code></pre>
 <h2 id="发送消息">发送消息</h2>
-<p>Send 方法有三个重载，允许您发送文本、字节数组或字节跨度。如果服务器的 <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> 标志大于总有效负载大小，则所有这些方法都会将消息分块。</p>
+<p>Send 方法有三个重载，允许您发送文本、字节数组或字节跨度。如果服务器的 <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> 标志大于总有效负载大小，则所有这些方法都会被分块。</p>
 <pre><code class="lang-cs">static ListeningHost BuildLhA()
 {
     Router r = new Router();
@@ -241,19 +248,19 @@
 
         byte[] myByteArrayContent = ...;
 
-        ws.Send(&quot;Hello, world&quot;);     // 将被编码为 UTF-8 字节数组
+        ws.Send(&quot;Hello, world&quot;); // 将被编码为 UTF-8 字节数组
         ws.Send(myByteArrayContent);
 
         return ws.Close();
     });
 
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+    return new ListeningHost(&quot;localhost&quot;,5551, r);
 }
 </code></pre>
-<h2 id="等待-web-套接字关闭">等待 Web 套接字关闭</h2>
-<p><a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> 方法会阻塞当前调用堆栈，直到连接由客户端或服务器终止。</p>
-<p>通过此方法，请求的回调执行将被阻塞，直到客户端或服务器断开连接。</p>
-<p>您也可以使用 <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a> 方法手动关闭连接。此方法返回一个空 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 对象，该对象不会发送到客户端，但作为从接收 HTTP 请求的函数返回。</p>
+<h2 id="等待-websocket-关闭">等待 WebSocket 关闭</h2>
+<p><a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> 方法阻塞当前调用栈，直到连接被客户端或服务器终止。</p>
+<p>这样，请求回调的执行将被阻塞，直到客户端或服务器断开连接。</p>
+<p>您也可以使用 <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a> 方法手动关闭连接。此方法返回一个空的 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 对象，该对象不会发送到客户端，但作为接收 HTTP 请求的函数的返回值。</p>
 <pre><code class="lang-cs">static ListeningHost BuildLhA()
 {
     Router r = new Router();
@@ -265,17 +272,18 @@
         // 等待客户端关闭连接
         ws.WaitForClose();
 
-        // 等待 60 秒内没有消息交换或任一方关闭连接
+        // 等待 60 秒内没有消息交换
+        // 或直到某一方关闭连接
         ws.WaitForClose(TimeSpan.FromSeconds(60));
 
         return ws.Close();
     });
 
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
+    return new ListeningHost(&quot;localhost&quot;,5551, r);
 }
 </code></pre>
 <h2 id="ping-策略">Ping 策略</h2>
-<p>与服务器端事件中的 Ping 策略类似，您也可以配置 Ping 策略以保持 TCP 连接在空闲时保持打开。</p>
+<p>与服务器端事件中的 ping 策略类似，您也可以配置 ping 策略，以在 TCP 连接中保持活动状态。</p>
 <pre><code class="lang-cs">ws.WithPing(ping =&gt;
 {
     ping.DataMessage = &quot;ping-message&quot;;

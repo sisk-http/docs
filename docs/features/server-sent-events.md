@@ -15,7 +15,7 @@ Calling the [HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEv
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
 {
-    var sse = req.GetEventSource();
+    using var sse = req.GetEventSource();
 
     sse.Send("Hello, world!");
 
@@ -37,7 +37,7 @@ If you need to send headers, you can use the [HttpRequestEventSource.AppendHeade
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
 {
-    var sse = req.GetEventSource();
+    using var sse = req.GetEventSource();
     sse.AppendHeader("Header-Key", "Header-value");
 
     sse.Send("Hello!");
@@ -61,7 +61,7 @@ An SSE connection in KeepAlive will wait for a send error (caused by disconnecti
 ```cs
 r += new Route(RouteMethod.Get, "/", (req) =>
 {
-    var sse = req.GetEventSource("my-index-connection");
+    using var sse = req.GetEventSource("my-index-connection");
 
     sse.WaitForFail(TimeSpan.FromSeconds(15)); // wait for 15 seconds without any message before terminating the connection
 
@@ -97,14 +97,14 @@ Ping Policy is an automated way of sending periodic messages to your client. Thi
 [RouteGet("/sse")]
 public HttpResponse Events(HttpRequest request)
 {
-    var sse = request.GetEventSource();
+    using var sse = request.GetEventSource();
     sse.WithPing(ping =>
     {
         ping.DataMessage = "ping-message";
         ping.Interval = TimeSpan.FromSeconds(5);
         ping.Start();
     });
-
+    
     sse.KeepAlive();
     return sse.Close();
 }

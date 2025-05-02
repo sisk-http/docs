@@ -7168,18 +7168,6 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
   fullName: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
   nameWithType: HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
-- uid: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
-  name: DefaultCultureInfo
-  href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo.html#Sisk_Core_Http_HttpServerConfiguration_DefaultCultureInfo
-  commentId: P:Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
-  fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
-  nameWithType: HttpServerConfiguration.DefaultCultureInfo
-- uid: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo*
-  name: DefaultCultureInfo
-  href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo.html
-  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
-  fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultCultureInfo
-  nameWithType: HttpServerConfiguration.DefaultCultureInfo
 - uid: Sisk.Core.Http.HttpServerConfiguration.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.HttpServerConfiguration.Dispose.html#Sisk_Core_Http_HttpServerConfiguration_Dispose
@@ -7204,6 +7192,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
   fullName: Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues
   nameWithType: HttpServerConfiguration.DisposeDisposableContextValues
+- uid: Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
+  name: EnableAutomaticResponseCompression
+  href: api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression.html#Sisk_Core_Http_HttpServerConfiguration_EnableAutomaticResponseCompression
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
+  fullName: Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
+  nameWithType: HttpServerConfiguration.EnableAutomaticResponseCompression
+- uid: Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression*
+  name: EnableAutomaticResponseCompression
+  href: api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
+  fullName: Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
+  nameWithType: HttpServerConfiguration.EnableAutomaticResponseCompression
 - uid: Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream
   name: ErrorsLogsStream
   href: api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream
@@ -9931,21 +9931,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpRequestEventSource.Dispose
   fullName: Sisk.Core.Http.Streams.HttpRequestEventSource.Dispose
   nameWithType: HttpRequestEventSource.Dispose
-- uid: Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource(System.Threading.CancellationToken[])
-  name: GetLinkedCancellationSource(params CancellationToken[])
-  href: api/Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource.html#Sisk_Core_Http_Streams_HttpRequestEventSource_GetLinkedCancellationSource_System_Threading_CancellationToken___
-  commentId: M:Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource(System.Threading.CancellationToken[])
-  name.vb: GetLinkedCancellationSource(ParamArray CancellationToken())
-  fullName: Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource(params System.Threading.CancellationToken[])
-  fullName.vb: Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource(ParamArray System.Threading.CancellationToken())
-  nameWithType: HttpRequestEventSource.GetLinkedCancellationSource(params CancellationToken[])
-  nameWithType.vb: HttpRequestEventSource.GetLinkedCancellationSource(ParamArray CancellationToken())
-- uid: Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource*
-  name: GetLinkedCancellationSource
-  href: api/Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource
-  fullName: Sisk.Core.Http.Streams.HttpRequestEventSource.GetLinkedCancellationSource
-  nameWithType: HttpRequestEventSource.GetLinkedCancellationSource
 - uid: Sisk.Core.Http.Streams.HttpRequestEventSource.HttpRequest
   name: HttpRequest
   href: api/Sisk.Core.Http.Streams.HttpRequestEventSource.HttpRequest.html#Sisk_Core_Http_Streams_HttpRequestEventSource_HttpRequest
@@ -10321,21 +10306,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.Dispose
   fullName: Sisk.Core.Http.Streams.HttpWebSocket.Dispose
   nameWithType: HttpWebSocket.Dispose
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource(System.Threading.CancellationToken[])
-  name: GetLinkedCancellationSource(params CancellationToken[])
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource.html#Sisk_Core_Http_Streams_HttpWebSocket_GetLinkedCancellationSource_System_Threading_CancellationToken___
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource(System.Threading.CancellationToken[])
-  name.vb: GetLinkedCancellationSource(ParamArray CancellationToken())
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource(params System.Threading.CancellationToken[])
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource(ParamArray System.Threading.CancellationToken())
-  nameWithType: HttpWebSocket.GetLinkedCancellationSource(params CancellationToken[])
-  nameWithType.vb: HttpWebSocket.GetLinkedCancellationSource(ParamArray CancellationToken())
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource*
-  name: GetLinkedCancellationSource
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.GetLinkedCancellationSource
-  nameWithType: HttpWebSocket.GetLinkedCancellationSource
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.HttpRequest
   name: HttpRequest
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.HttpRequest.html#Sisk_Core_Http_Streams_HttpWebSocket_HttpRequest

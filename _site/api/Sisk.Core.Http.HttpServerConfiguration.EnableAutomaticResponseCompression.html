@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Server Sent Events | Sisk </title>
+        <title>Property EnableAutomaticResponseCompression | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Server Sent Events | Sisk ">
+        <meta name="title" content="Property EnableAutomaticResponseCompression | Sisk ">
 
 
-        <link rel="icon" href="../../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../../public/main.css">
+        <link rel="icon" href="../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../public/docfx.min.css">
+        <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-        <meta name="docfx:navrel" content="../../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
+        <meta name="docfx:navrel" content="../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
 
-        <meta name="docfx:rel" content="../../../">
+        <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/features/server-sent-events.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -35,7 +35,7 @@
         <meta name="loc:copy" content="Copy">
         <meta name="loc:downloadPdf" content="Download PDF">
         
-        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script type="module" src="./../public/docfx.min.js"></script>
         <script>
             const theme = localStorage.getItem('theme') || 'auto';
             document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
@@ -58,12 +58,12 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../../index.html">
-                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                    <a class="navbar-brand" href="../index.html">
+                        <img id="logo" class="svg" src="../assets/img/Icon.png" alt="Sisk">
                         Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,107 +153,77 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="server-sent-events">Server Sent Events</h1>
+                <article data-uid="Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression*">
 
-<p>Sisk unterstützt das Senden von Nachrichten über Server Sent Events out of the box. Sie können disposible und persistente Verbindungen erstellen, die Verbindungen während der Laufzeit abrufen und verwenden.</p>
-<p>Diese Funktion hat einige Einschränkungen, die von Browsern auferlegt werden, wie z.B. das Senden von nur Textnachrichten und das Nicht-Schließen einer Verbindung dauerhaft. Eine serverseitig geschlossene Verbindung wird von einem Client alle 5 Sekunden (3 für einige Browser) versuchen, erneut zu verbinden.</p>
-<p>Diese Verbindungen sind nützlich, um Ereignisse vom Server an den Client zu senden, ohne dass der Client die Informationen jedes Mal anfordern muss.</p>
-<h2 id="erstellen-einer-sse-verbindung">Erstellen einer SSE-Verbindung</h2>
-<p>Eine SSE-Verbindung funktioniert wie eine reguläre HTTP-Anfrage, aber anstatt eine Antwort zu senden und die Verbindung sofort zu schließen, wird die Verbindung offen gehalten, um Nachrichten zu senden.</p>
-<p>Durch Aufrufen der <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a>-Methode wird die Anfrage in einen Wartezustand versetzt, während die SSE-Instanz erstellt wird.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
-{
- using var sse = req.GetEventSource();
 
- sse.Send(&quot;Hallo, Welt!&quot;);
 
- return sse.Close();
-});
-</code></pre>
-<p>Im obigen Code erstellen wir eine SSE-Verbindung und senden eine &quot;Hallo, Welt!&quot;-Nachricht, dann schließen wir die SSE-Verbindung von der Serverseite.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Wenn eine serverseitige Verbindung geschlossen wird, versucht der Client standardmäßig, die Verbindung erneut herzustellen, und die Verbindung wird neu gestartet, die Methode wird erneut ausgeführt, für immer.</p>
-<p>Es ist üblich, eine Terminationsnachricht vom Server zu senden, wenn die Verbindung vom Server geschlossen wird, um zu verhindern, dass der Client versucht, erneut zu verbinden.</p>
+
+
+<h1 id="Sisk_Core_Http_HttpServerConfiguration_EnableAutomaticResponseCompression_" data-uid="Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression*" class="text-break">
+Property EnableAutomaticResponseCompression  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
 </div>
-<h2 id="anhängen-von-headern">Anhängen von Headern</h2>
-<p>Wenn Sie Header senden müssen, können Sie die <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a>-Methode verwenden, bevor Sie Nachrichten senden.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
-{
- using var sse = req.GetEventSource();
- sse.AppendHeader(&quot;Header-Schlüssel&quot;, &quot;Header-Wert&quot;);
 
- sse.Send(&quot;Hallo!&quot;);
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
 
- return sse.Close();
-});
-</code></pre>
-<p>Beachten Sie, dass es notwendig ist, die Header zu senden, bevor Sie Nachrichten senden.</p>
-<h2 id="wait-for-fail-verbindungen">Wait-For-Fail-Verbindungen</h2>
-<p>Verbindungen werden normalerweise beendet, wenn der Server nicht mehr in der Lage ist, Nachrichten zu senden, aufgrund einer möglichen clientseitigen Trennung. Damit wird die Verbindung automatisch beendet und die Instanz der Klasse verworfen.</p>
-<p>Selbst bei einer erneuten Verbindung funktioniert die Instanz der Klasse nicht, da sie an die vorherige Verbindung gekoppelt ist. In einigen Situationen benötigen Sie diese Verbindung später und möchten sie nicht über die Callback-Methode der Route verwalten.</p>
-<p>Dafür können wir die SSE-Verbindungen mit einer Kennung identifizieren und sie später mithilfe dieser Kennung abrufen, auch außerhalb des Callbacks der Route. Darüber hinaus markieren wir die Verbindung mit <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a>, um die Route nicht zu beenden und die Verbindung automatisch zu beenden.</p>
-<p>Eine SSE-Verbindung in KeepAlive wartet auf einen Sendefehler (verursacht durch Trennung), um die Methoden Ausführung fortzusetzen. Es ist auch möglich, ein Timeout für dies festzulegen. Nach Ablauf der Zeit wird die Verbindung beendet, wenn keine Nachricht gesendet wurde, und die Ausführung wird fortgesetzt.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
-{
- using var sse = req.GetEventSource(&quot;meine-index-verbindung&quot;);
 
- sse.WaitForFail(TimeSpan.FromSeconds(15)); // warten Sie 15 Sekunden ohne Nachrichten, bevor Sie die Verbindung beenden
 
- return sse.Close();
-});
-</code></pre>
-<p>Die obige Methode erstellt die Verbindung, behandelt sie und wartet auf eine Trennung oder einen Fehler.</p>
-<pre><code class="lang-cs">HttpRequestEventSource? evs = server.EventSources.GetByIdentifier(&quot;meine-index-verbindung&quot;);
-if (evs != null)
-{
- // die Verbindung ist noch aktiv
- evs.Send(&quot;Hallo wieder!&quot;);
-}
-</code></pre>
-<p>Und das obige Code-Snippet versucht, die neu erstellte Verbindung zu suchen, und wenn sie existiert, sendet es eine Nachricht an sie.</p>
-<p>Alle aktiven Serververbindungen, die identifiziert werden, stehen in der Sammlung <a href="/api/Sisk.Core.Http.HttpServer.EventSources">HttpServer.EventSources</a> zur Verfügung. Diese Sammlung speichert nur aktive und identifizierte Verbindungen. Geschlossene Verbindungen werden aus der Sammlung entfernt.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Es ist wichtig zu beachten, dass Keep-Alive eine Grenze hat, die von Komponenten festgelegt wird, die möglicherweise auf unkontrollierbare Weise mit Sisk verbunden sind, wie z.B. ein Web-Proxy, ein HTTP-Kernel oder ein Netzwerktreiber, und diese schließen inaktive Verbindungen nach einer bestimmten Zeit.</p>
-<p>Daher ist es wichtig, die Verbindung offen zu halten, indem Sie periodische Pings senden oder die maximale Zeit verlängern, bevor die Verbindung geschlossen wird. Lesen Sie den nächsten Abschnitt, um besser zu verstehen, wie periodische Pings gesendet werden.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServerConfiguration_EnableAutomaticResponseCompression_" data-uid="Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServerConfiguration_EnableAutomaticResponseCompression" data-uid="Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">
+  EnableAutomaticResponseCompression
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Gets or sets whether the HTTP server should automatically compress response content bodies using request-allowed
+encoding algorithms when possible.</p>
 </div>
-<h2 id="einrichtung-von-ping-richtlinien-für-verbindungen">Einrichtung von Ping-Richtlinien für Verbindungen</h2>
-<p>Ping-Richtlinien sind eine automatisierte Möglichkeit, periodische Nachrichten an Ihren Client zu senden. Diese Funktion ermöglicht es dem Server, zu verstehen, wann der Client die Verbindung getrennt hat, ohne die Verbindung auf unbestimmte Zeit offen halten zu müssen.</p>
-<pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
-public HttpResponse Events(HttpRequest request)
-{
- using var sse = request.GetEventSource();
- sse.WithPing(ping =&gt;
- {
- ping.DataMessage = &quot;Ping-Nachricht&quot;;
- ping.Interval = TimeSpan.FromSeconds(5);
- ping.Start();
- });
-    
- sse.KeepAlive();
- return sse.Close();
-}
-</code></pre>
-<p>Im obigen Code wird alle 5 Sekunden eine neue Ping-Nachricht an den Client gesendet. Dies hält die TCP-Verbindung aktiv und verhindert, dass sie aufgrund von Inaktivität geschlossen wird. Wenn eine Nachricht nicht gesendet werden kann, wird die Verbindung automatisch geschlossen, wodurch die von der Verbindung verwendeten Ressourcen freigegeben werden.</p>
-<h2 id="abfragen-von-verbindungen">Abfragen von Verbindungen</h2>
-<p>Sie können aktive Verbindungen mithilfe eines Prädikats für die Verbindungs-ID suchen, um beispielsweise zu broadcasten.</p>
-<pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;meine-verbindung-&quot;));
-foreach (HttpRequestEventSource e in evs)
-{
- e.Send(&quot;Broadcast an alle Ereignisquellen, die mit 'meine-verbindung-' beginnen&quot;);
-}
-</code></pre>
-<p>Sie können auch die <a href="/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All">All</a>-Methode verwenden, um alle aktiven SSE-Verbindungen zu erhalten.</p>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public bool EnableAutomaticResponseCompression { get; set; }</code></pre>
+</div>
+
+
+
+
+
+<h4 class="section">Property Value</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/features/server-sent-events.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

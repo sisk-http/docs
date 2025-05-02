@@ -145,9 +145,21 @@ router.MapGet("/archive.zip", request => {
 
 The Content-Encoding headers are automatically set when using these contents.
 
+## Automatic compression
+
+It is possible to automatically compress HTTP responses with the [EnableAutomaticResponseCompression](/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression) property. This property automatically encapsulates the response content from the router in a compressible content that is accepted by the request, provided the response is not inherited from a [CompressedContent](/api/Sisk.Core.Http.CompressedContent).
+
+Only one compressible content is chosen for a request, chosen according to the Accept-Encoding header, which follows the order:
+
+- [BrotliContent](/api/Sisk.Core.Http.BrotliContent) (br)
+- [GZipContent](/api/Sisk.Core.Http.GZipContent) (gzip)
+- [DeflateContent](/api/Sisk.Core.Http.DeflateContent) (deflate)
+
+If the request specifies that it accepts any of these compression methods, the response will be automatically compressed.
+
 ## Implicit response types
 
-Since version 0.15, you can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.
+You can use other return types besides HttpResponse, but it is necessary to configure the router how it will handle each type of object.
 
 The concept is to always return a reference type and turn it into a valid HttpResponse object. Routes that return HttpResponse do not undergo any conversion.
 
@@ -199,26 +211,64 @@ Registering a handler of type Object will fallback to all previously unvalidated
 Router r = new Router();
 r.SetObject(new UsersController());
 
-r.RegisterValueHandler<bool>(bolVal =>
+r.RegisterValueHandler<ApiResult>(apiResult =>
 {
-    HttpResponse res = new HttpResponse();
-    res.Status = (bool)bolVal ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
-    return res;
+    return new HttpResponse() {
+        Status = apiResult.Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest,
+        Content = apiResult.GetHttpContent(),
+        Headers = apiResult.GetHeaders()
+    };
 });
-
-r.RegisterValueHandler<IEnumerable>(enumerableValue =>
+r.RegisterValueHandler<bool>(bvalue =>
 {
-    return new HttpResponse();
-    // do something with enumerableValue here
+    return new HttpResponse() {
+        Status = bvalue ? HttpStatusCode.OK : HttpStatusCode.BadRequest
+    };
+});
+r.RegisterValueHandler<IEnumerable<object>>(enumerableValue =>
+{
+    return new HttpResponse(string.Join("\n", enumerableValue));
 });
 
 // registering an value handler of object must be the last
 // value handler which will be used as an fallback
 r.RegisterValueHandler<object>(fallback =>
 {
-    HttpResponse res = new HttpResponse();
-    res.Status = HttpStatusCode.OK;
-    res.Content = JsonContent.Create(fallback);
-    return res;
+    return new HttpResponse() {
+        Status = HttpStatusCode.OK,
+        Content = JsonContent.Create(fallback)
+    };
 });
 ```
+
+## Note on enumerable objects and arrays
+
+Implicit response objects that implement [IEnumerable](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0) are read into memory through the `ToArray()` method before being converted through a defined value handler. For this to occur, the `IEnumerable` object is converted to an array of objects, and the response converter will always receive an `Object[]` instead of the original type.
+
+Consider the following scenario:
+
+```csharp
+using var host = HttpServer.CreateBuilder(12300)
+    .UseRouter(r =>
+    {
+        r.RegisterValueHandler<IEnumerable<string>>(stringEnumerable =>
+        {
+            return new HttpResponse("String array:\n" + string.Join("\n", stringEnumerable));
+        });
+        r.RegisterValueHandler<IEnumerable<object>>(stringEnumerable =>
+        {
+            return new HttpResponse("Object array:\n" + string.Join("\n", stringEnumerable));
+        });
+        r.MapGet("/", request =>
+        {
+            return (IEnumerable<string>)["hello", "world"];
+        });
+    })
+    .Build();
+```
+
+In the above example, the `IEnumerable<string>` converter **will never be called**, because the input object will always be an `Object[]` and it is not convertible to an `IEnumerable<string>`. However, the converter below that receives an `IEnumerable<object>` will receive its input, since its value is compatible.
+
+If you need to actually handle the type of the object that will be enumerated, you will need to use reflection to get the type of the collection element. All enumerable objects (lists, arrays, and collections) are converted to an array of objects by the HTTP response converter.
+
+Values that implements [IAsyncEnumerable](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0) are handled automatically by the server if the [ConvertIAsyncEnumerableIntoEnumerable](/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable) property is enabled, similar to what happens with `IEnumerable`. An asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects.

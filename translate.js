@@ -15,7 +15,7 @@ function isDirectory(filePath) {
 function enumerateMdFiles(dir) {
     const files = fs.readdirSync(dir);
     let mdFiles = [];
-
+    
     for (const file of files) {
         const filePath = path.join(dir, file);
 
@@ -39,7 +39,7 @@ async function runInference(text) {
         console.error("GROQ_API_KEY environment variable is not set.");
         process.exit(1);
     }
-
+    
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -47,7 +47,7 @@ async function runInference(text) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: 'llama-3.3-70b-specdec',
+            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
             messages: [{
                 role: 'user',
                 content: text
@@ -105,7 +105,7 @@ File name: ${fileName}
 ${text}
 </translation-input>
     `;
-
+    
     return baseText;
 }
 
@@ -140,7 +140,7 @@ ${text}
             translatedCount++;
         }
     }
-
+    
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {
