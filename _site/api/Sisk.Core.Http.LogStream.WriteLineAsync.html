@@ -296,8 +296,8 @@ Method WriteLineAsync
 
 <a id="Sisk_Core_Http_LogStream_WriteLineAsync_" data-uid="Sisk.Core.Http.LogStream.WriteLineAsync*"></a>
 
-<h3 id="Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Object___" data-uid="Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Object[])">
-  WriteLineAsync(string, params object?[])
+<h3 id="Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Collections_Generic_IEnumerable_System_Object__" data-uid="Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+  WriteLineAsync(string, IEnumerable&lt;object?&gt;)
   
 </h3>
 
@@ -306,7 +306,7 @@ Method WriteLineAsync
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string format, params object?[] args)</code></pre>
+  <pre><code class="lang-csharp hljs">public Task WriteLineAsync(string format, IEnumerable&lt;object?&gt; args)</code></pre>
 </div>
 
 <h4 class="section">Parameters</h4>
@@ -314,7 +314,7 @@ Method WriteLineAsync
   <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
   <dd><p>The string format that represents the arguments positions.</p>
 </dd>
-  <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+  <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
   <dd><p>An array of objects that represents the string format slots values.</p>
 </dd>
 </dl>

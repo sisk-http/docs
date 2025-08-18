@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>启用 Sisk 中的 CORS（跨源资源共享） | Sisk </title>
+        <title>在 Sisk 中启用 CORS（跨域资源共享） | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="启用 Sisk 中的 CORS（跨源资源共享） | Sisk ">
+        <meta name="title" content="在 Sisk 中启用 CORS（跨域资源共享） | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,40 +154,40 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="启用-sisk-中的-cors跨源资源共享">启用 Sisk 中的 CORS（跨源资源共享）</h1>
+<h1 id="在-sisk-中启用-cors跨域资源共享">在 Sisk 中启用 CORS（跨域资源共享）</h1>
 
-<p>Sisk 有一个工具，可以用于处理公开服务时的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/CORS">跨源资源共享 (CORS)</a>。此功能不是 HTTP 协议的一部分，而是由 W3C 定义的 Web 浏览器的特定功能。这种安全机制可以防止 Web 页面向与提供 Web 页面的域不同的域发送请求。服务提供者可以允许某些域访问其资源，或者只允许一个域。</p>
+<p>Sisk 有一个工具，在公开服务时处理 <a href="https://developer.mozilla.org/en-US/docs/cn/Web/HTTP/Guides/CORS">跨域资源共享（CORS）</a> 非常有用。此功能不是 HTTP 协议的一部分，而是由 W3C 定义的 Web 浏览器的特定功能。此安全机制阻止网页向与提供网页的域不同的域发起请求。服务提供者可以允许某些域访问其资源，或者仅允许一个域。</p>
 <h2 id="同源">同源</h2>
-<p>要将资源识别为“同源”，请求必须在其请求中标识 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Headers/Origin">Origin</a> 标头：</p>
+<p>要将资源识别为“同源”，请求必须在其请求中标识 <a href="https://developer.mozilla.org/en-US/docs/cn/Web/HTTP/Reference/Headers/Origin">Origin</a> 头：</p>
 <pre><code class="lang-http">GET /api/users HTTP/1.1
 Host: example.com
 Origin: http://example.com
 ...
 </code></pre>
-<p>并且远程服务器必须用具有与请求的源相同值的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a> 标头响应：</p>
+<p>远程服务器必须以与请求的 origin 相同的值返回一个 <a href="https://developer.mozilla.org/en-US/docs/cn/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a> 头：</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 ...
 </code></pre>
-<p>此验证是 <strong>显式</strong> 的：主机、端口和协议必须与请求的相同。检查以下示例：</p>
+<p>此验证是 <strong>显式</strong> 的：主机、端口和协议必须与请求的完全相同。查看示例：</p>
 <ul>
 <li>服务器响应其 <code>Access-Control-Allow-Origin</code> 为 <code>https://example.com</code>：
 <ul>
 <li><code>https://example.net</code> - 域不同。</li>
-<li><code>http://example.com</code> - 方案不同。</li>
+<li><code>http://example.com</code> - 协议不同。</li>
 <li><code>http://example.com:5555</code> - 端口不同。</li>
 <li><code>https://www.example.com</code> - 主机不同。</li>
 </ul>
 </li>
 </ul>
-<p>在规范中，仅允许请求和响应的标头的语法。URL 路径被忽略。默认端口（HTTP 的 80 和 HTTPS 的 443）被省略。</p>
+<p>在规范中，只有语法被允许用于请求和响应的两个头。URL 路径被忽略。如果是默认端口（HTTP 为 80，HTTPS 为 443），则端口也会被省略。</p>
 <pre><code class="lang-http">Origin: null
 Origin: &lt;scheme&gt;://&lt;hostname&gt;
 Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
 </code></pre>
 <h2 id="启用-cors">启用 CORS</h2>
-<p>您可以在 <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> 中使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> 对象。</p>
-<p>您可以在初始化服务器时配置 CORS：</p>
+<p>本机上，你可以在 <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> 中使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> 对象。</p>
+<p>你可以在初始化服务器时配置 CORS：</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
@@ -200,29 +200,42 @@ Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
     await app.StartAsync();
 }
 </code></pre>
-<p>上面的代码将为 <strong>所有响应</strong> 发送以下标头：</p>
+<p>上述代码将为 <strong>所有响应</strong> 发送以下头：</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 Access-Control-Allow-Headers: Authorization
 Access-Control-Expose-Headers: Content-Type
 </code></pre>
-<p>这些标头需要发送给 Web 客户端，包括错误和重定向。</p>
-<p>您可能会注意到 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> 类有两个类似的属性：<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> 和 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>。注意，一个是复数，另一个是单数。</p>
+<p>这些头需要为所有响应发送给 Web 客户端，包括错误和重定向。</p>
+<p>你可能会注意到 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> 类有两个类似的属性： <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> 和 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>。请注意，一个是复数，另一个是单数。</p>
 <ul>
-<li><strong>AllowOrigin</strong> 属性是静态的：仅指定的源将被发送给所有响应。</li>
-<li><strong>AllowOrigins</strong> 属性是动态的：服务器检查请求的源是否包含在此列表中。如果找到，则它将被发送给该源的响应。</li>
+<li><strong>AllowOrigin</strong> 属性是静态的：仅你指定的 origin 将被发送给所有响应。</li>
+<li><strong>AllowOrigins</strong> 属性是动态的：服务器检查请求的 origin 是否包含在此列表中。如果找到，则将其发送给该 origin 的响应。</li>
 </ul>
-<h3 id="源中的通配符">源中的通配符</h3>
-<p>或者，您可以在响应的源中使用通配符 (<code>*</code>) 来指定任何源都可以访问资源。然而，此值不允许用于具有凭据（授权标头）的请求，并且此操作 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">将导致错误</a>。</p>
-<p>您可以通过显式列出将被允许的源来解决这个问题，或者使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> 属性，也可以使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> 常量作为 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> 的值。此魔术属性将为请求的 <code>Origin</code> 标头的相同值定义 <code>Access-Control-Allow-Origin</code> 标头。</p>
-<h2 id="应用-cors-的其他方式">应用 CORS 的其他方式</h2>
-<p>如果您处理 <a href="/docs/extensions/service-providers">服务提供者</a>，您可以覆盖配置文件中定义的值：</p>
+<h3 id="通配符和自动头">通配符和自动头</h3>
+<p>或者，你可以在响应的 origin 中使用通配符（<code>*</code>）来指定允许任何 origin 访问资源。然而，此值不允许用于具有凭据（授权头）的请求，并且此操作将导致错误（<a href="https://developer.mozilla.org/en-US/docs/cn/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">CORSNotSupportingCredentials</a>）。</p>
+<p>你可以通过在 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> 属性中显式列出允许的 origin，或在 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> 的值中使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> 常量来解决此问题。此魔法属性将为 <code>Origin</code> 头的相同值定义 <code>Access-Control-Allow-Origin</code> 头。</p>
+<p>你还可以使用 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod">AutoFromRequestMethod</a> 和 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders">AutoFromRequestHeaders</a> 来实现类似 <code>AllowOrigin</code> 的行为，自动根据发送的头进行响应。</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
+    .UseCors(new CrossOriginResourceSharingHeaders(
+        
+        // 根据请求的 Origin 头进行响应
+        allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
+        
+        // 根据 Access-Control-Request-Method 头或请求方法进行响应
+        allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
+
+        // 根据 Access-Control-Request-Headers 头或发送的头进行响应
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+</code></pre>
+<h2 id="其他应用-cors-的方式">其他应用 CORS 的方式</h2>
+<p>如果你正在处理 <a href="/docs/cn/extensions/service-providers">service providers</a>，可以覆盖配置文件中定义的值：</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
         .UsePortableConfiguration(...)
         .UseCors(cors =&gt; {
-            // 将覆盖配置文件中定义的源。
+            // 将覆盖配置文件中定义的 origin
             cors.AllowOrigin = &quot;http://example.com&quot;;
         })
         .Build();
@@ -231,7 +244,7 @@ Access-Control-Expose-Headers: Content-Type
 }
 </code></pre>
 <h2 id="在特定路由上禁用-cors">在特定路由上禁用 CORS</h2>
-<p><code>UseCors</code> 属性可用于路由和所有路由属性，并且可以使用以下示例禁用：</p>
+<p><code>UseCors</code> 属性可用于所有路由和所有路由属性，并可通过以下示例禁用：</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
@@ -242,16 +255,16 @@ public class WidgetController : Controller {
     }
 }
 </code></pre>
-<h2 id="替换响应中的值">替换响应中的值</h2>
-<p>您可以在路由器操作中显式替换或删除值：</p>
+<h2 id="在响应中替换值">在响应中替换值</h2>
+<p>你可以在路由器操作中显式替换或删除值：</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
     public IEnumerable&lt;string&gt; GetWidgets(HttpRequest request) {
 
-        // 删除 Access-Control-Allow-Credentials 标头
+        // 删除 Access-Control-Allow-Credentials 头
         request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
-
+        
         // 替换 Access-Control-Allow-Origin
         request.Context.OverrideHeaders.AccessControlAllowOrigin = &quot;https://contorso.com&quot;;
 
@@ -260,10 +273,10 @@ public class WidgetController : Controller {
 }
 </code></pre>
 <h2 id="预检请求">预检请求</h2>
-<p>预检请求是客户端在实际请求之前发送的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a> 方法请求。</p>
-<p>Sisk 服务器将始终用 <code>200 OK</code> 和适用的 CORS 标头响应请求，然后客户端可以继续实际请求。这种情况仅在为 <code>Options</code> 显式配置路由方法时不适用。</p>
+<p>预检请求是客户端在实际请求之前发送的 <a href="https://developer.mozilla.org/en-US/docs/cn/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a> 方法请求。</p>
+<p>Sisk 服务器将始终以 <code>200 OK</code> 和适用的 CORS 头响应请求，然后客户端可以继续实际请求。此条件仅在请求存在路由且 <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> 明确配置为 <code>Options</code> 时不适用。</p>
 <h2 id="全局禁用-cors">全局禁用 CORS</h2>
-<p>不可能这样做。要不使用 CORS，请不要配置它。</p>
+<p>无法做到这一点。若不使用 CORS，请不要配置它。</p>
 
 </article>
 

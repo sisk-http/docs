@@ -156,140 +156,71 @@
                 <article data-uid="">
 <h1 id="web-sockets">Web Sockets</h1>
 
-<p>O Sisk também suporta web sockets, permitindo receber e enviar mensagens para os clientes.</p>
-<p>Esta funcionalidade funciona bem na maioria dos navegadores, mas no Sisk ainda é experimental. Por favor, se encontrar algum bug, reporte no github.</p>
-<h2 id="aceitando-e-recebendo-mensagens-assincronamente">Aceitando e recebendo mensagens assincronamente</h2>
-<p>O exemplo abaixo mostra como funciona o websocket na prática, com um exemplo de abrir uma conexão, receber uma mensagem e exibir no console.</p>
-<p>Todas as mensagens recebidas pelo WebSocket são recebidas em bytes, então você terá que decodificá-las ao recebê-las.</p>
-<p>Por padrão, as mensagens são fragmentadas em pedaços e o último pedaço é enviado como o pacote final da mensagem. Você pode configurar o tamanho do pacote com a flag <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a>. Este buffer é o mesmo para enviar e receber mensagens.</p>
-<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
+<p>Sisk suporta web sockets também, como receber e enviar mensagens para o seu cliente.</p>
+<p>Este recurso funciona bem na maioria dos navegadores, mas no Sisk ainda está experimental. Por favor, se encontrar algum bug, reporte no GitHub.</p>
+<h2 id="aceitando-mensagens-assincronamente">Aceitando mensagens assincronamente</h2>
+<p>Mensagens WebSocket são recebidas em ordem, enfileiradas até serem processadas por <code>ReceiveMessageAsync</code>. Este método não retorna mensagem quando o timeout é atingido, quando a operação é cancelada ou quando o cliente se desconecta.</p>
+<p>Só pode ocorrer uma operação de leitura e escrita simultaneamente, portanto, enquanto você espera por uma mensagem com <code>ReceiveMessageAsync</code>, não é possível escrever para o cliente conectado.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
- using var ws = req.GetWebSocket();
-        
- ws.OnReceive += (sender, msg) =&gt;
- {
- string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
- Console.WriteLine(&quot;Mensagem recebida: &quot; + msgText);
+    using var ws = await req.GetWebSocketAsync();
+    
+    while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
+    {
+        string msgText = receivedMessage.GetString();
+        Console.WriteLine(&quot;Received message: &quot; + msgText);
 
- // obtém o contexto do HttpWebSocket que recebeu a mensagem
- HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
- senderWebSocket.Send(&quot;Resposta!&quot;);
- };
+        await ws.SendAsync(&quot;Hello!&quot;);
+    }
 
- ws.WaitForClose();
-        
- return ws.Close();
+    return await ws.CloseAsync();
 });
 </code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Não use eventos assíncronos desta forma. Você pode ter exceções lançadas fora do domínio do servidor HTTP e elas podem travar sua aplicação.</p>
-</div>
-<p>Se você precisar lidar com código assíncrono e lidar com várias mensagens ao mesmo tempo, você pode usar o loop de mensagens:</p>
-<pre><code class="lang-csharp">router.MapGet(&quot;/&quot;, async delegate (HttpRequest request)
+<h2 id="aceitando-mensagens-sincronamente">Aceitando mensagens sincronamente</h2>
+<p>O exemplo abaixo contém uma forma de usar um websocket síncrono, sem contexto assíncrono, onde você recebe as mensagens, trata-as e termina usando o socket.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
- using var ws = await request.GetWebSocketAsync();
-    
- WebSocketMessage? message;
- while ((message = ws.WaitNext(timeout: TimeSpan.FromSeconds(30))) != null)
- {
- var messageText = message.GetString();
- Console.WriteLine($&quot;Mensagem recebida: {messageText}&quot;);
+    using var ws = await req.GetWebSocketAsync();
+    WebSocketMessage? msg;
 
- await ws.SendAsync(&quot;Olá do servidor!&quot;);
- }
+askName:
+    await ws.SendAsync(&quot;What is your name?&quot;);
+    msg = await ws.ReceiveMessageAsync();
 
- return ws.Close();
+    if (msg is null)
+        return await ws.CloseAsync();
+
+    string name = msg.GetString();
+
+    if (string.IsNullOrEmpty(name))
+    {
+        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        goto askName;
+    }
+
+askAge:
+    await ws.SendAsync(&quot;And your age?&quot;);
+    msg = await ws.ReceiveMessageAsync();
+
+    if (msg is null)
+        return await ws.CloseAsync();
+
+    if (!Int32.TryParse(msg?.GetString(), out int age))
+    {
+        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        goto askAge;
+    }
+
+    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
+
+    return await ws.CloseAsync();
 });
-</code></pre>
-<h2 id="aceitando-e-recebendo-mensagens-sincronicamente">Aceitando e recebendo mensagens sincronicamente</h2>
-<p>O exemplo abaixo contém uma maneira de usar um websocket síncrono, sem um contexto assíncrono, onde você recebe as mensagens, lida com elas e termina de usar o socket.</p>
-<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
-{
- using var ws = req.GetWebSocket();
- WebSocketMessage? msg;
-    
- askName:
- ws.Send(&quot;Qual é o seu nome?&quot;);
- msg = ws.WaitNext();
-        
- string? name = msg?.GetString();
-
- if (string.IsNullOrEmpty(name))
- {
- ws.Send(&quot;Por favor, insira seu nome!&quot;);
- goto askName;
- }
-    
- askAge:
- ws.Send(&quot;E sua idade?&quot;);
- msg = ws.WaitNext();
-        
- if (!Int32.TryParse(msg?.GetString(), out int age))
- {
- ws.Send(&quot;Por favor, insira um número válido&quot;);
- goto askAge;
- }
-        
- ws.Send($&quot;Você é {name} e tem {age} anos.&quot;);
-
- return ws.Close();
-});
-</code></pre>
-<h2 id="enviando-mensagens">Enviando mensagens</h2>
-<p>O método Send tem três sobrecargas, que permitem enviar texto, um array de bytes ou um span de bytes. Todas elas são fragmentadas se o tamanho do pacote do servidor <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> for maior que o tamanho total da carga.</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
-{
- Router r = new Router();
-
- r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
- {
- var ws = req.GetWebSocket();
-
- byte[] myByteArrayContent = ...;
-
- ws.Send(&quot;Olá, mundo&quot;); // será codificado como um array de bytes UTF-8
- ws.Send(myByteArrayContent);
-
- return ws.Close();
- });
-
- return new ListeningHost(&quot;localhost&quot;,5551, r);
-}
-</code></pre>
-<h2 id="esperando-o-fechamento-do-websocket">Esperando o fechamento do websocket</h2>
-<p>O método <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> bloqueia a pilha de chamadas atual até que a conexão seja terminada pelo cliente ou pelo servidor.</p>
-<p>Com isso, a execução do callback da solicitação será bloqueada até que o cliente ou o servidor desconecte.</p>
-<p>Você também pode fechar a conexão manualmente com o método <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a>. Este método retorna um objeto <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> vazio, que não é enviado ao cliente, mas funciona como um retorno da função onde a solicitação HTTP foi recebida.</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
-{
- Router r = new Router();
-
- r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
- {
- var ws = req.GetWebSocket();
-
- // espera o cliente fechar a conexão
- ws.WaitForClose();
-
- // espera até que não haja mensagens trocadas em 60 segundos
- // ou até que alguma parte feche a conexão
- ws.WaitForClose(TimeSpan.FromSeconds(60));
-
- return ws.Close();
- });
-
- return new ListeningHost(&quot;localhost&quot;,5551, r);
-}
 </code></pre>
 <h2 id="política-de-ping">Política de Ping</h2>
-<p>Semelhante a como a política de ping em Server Side Events funciona, você também pode configurar uma política de ping para manter a conexão TCP aberta se houver inatividade nela.</p>
-<pre><code class="lang-cs">ws.WithPing(ping =&gt;
-{
- ping.DataMessage = &quot;mensagem-ping&quot;;
- ping.Interval = TimeSpan.FromSeconds(5);
- ping.Start();
-});
+<p>Semelhante à política de ping em Server Side Events, você também pode configurar uma política de ping para manter a conexão TCP aberta caso haja inatividade nela.</p>
+<pre><code class="lang-cs">ws.PingPolicy.Start(
+    dataMessage: &quot;ping-message&quot;,
+    interval: TimeSpan.FromSeconds(10));
 </code></pre>
 
 </article>

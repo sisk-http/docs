@@ -156,11 +156,11 @@
                 <article data-uid="">
 <h1 id="registro">Registro</h1>
 
-<p>Puedes configurar Sisk para que escriba automáticamente los registros de acceso y error. Es posible definir la rotación de registros, extensiones y frecuencia.</p>
-<p>La clase <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> proporciona una forma asíncrona de escribir registros y mantenerlos en una cola de escritura esperable.</p>
-<p>En este artículo te mostraremos cómo configurar el registro para tu aplicación.</p>
+<p>Puedes configurar Sisk para escribir automáticamente registros de acceso y errores. Es posible definir la rotación de logs, extensiones y frecuencia.</p>
+<p>La clase <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> proporciona una forma asíncrona de escribir logs y mantenerlos en una cola de escritura esperable.</p>
+<p>En este artículo mostraremos cómo configurar el registro para tu aplicación.</p>
 <h2 id="registros-de-acceso-basados-en-archivos">Registros de acceso basados en archivos</h2>
-<p>Los registros en archivos abren el archivo, escriben el texto de la línea y luego cierran el archivo para cada línea escrita. Este procedimiento se adoptó para mantener la respuesta de escritura en los registros.</p>
+<p>Los logs a archivos abren el archivo, escriben el texto de la línea y luego cierran el archivo por cada línea escrita. Este procedimiento se adoptó para mantener la respuesta de escritura en los logs.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -185,9 +185,9 @@
     }
 }
 </code></pre>
-<p>El código anterior escribirá todas las solicitudes entrantes en el archivo <code>logs/access.log</code>. Ten en cuenta que, si el archivo no existe, se crea automáticamente, sin embargo, la carpeta anterior no. No es necesario crear el directorio <code>logs/</code> ya que la clase LogStream lo crea automáticamente.</p>
+<p>El código anterior escribirá todas las solicitudes entrantes en el archivo <code>logs/access.log</code>. Ten en cuenta que, el archivo se crea automáticamente si no existe, sin embargo la carpeta antes de él no. No es necesario crear el directorio <code>logs/</code> ya que la clase LogStream lo crea automáticamente.</p>
 <h2 id="registro-basado-en-flujo">Registro basado en flujo</h2>
-<p>Puedes escribir archivos de registro en objetos TextWriter, como <code>Console.Out</code>, pasando un objeto TextWriter en el constructor:</p>
+<p>Puedes escribir archivos de registro en instancias de objetos TextWriter, como <code>Console.Out</code>, pasando un objeto TextWriter en el constructor:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -198,24 +198,24 @@
 </div>
 <pre><code class="lang-cs">using var app = HttpServer.CreateBuilder()
     .UseConfiguration(config =&gt; {
-        config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+        config.AccessLogsStream = new LogStream(Console.Out);
     })
     .Build();
 </code></pre>
 <p>Para cada mensaje escrito en el registro basado en flujo, se llama al método <code>TextWriter.Flush()</code>.</p>
-<h2 id="formato-de-registro-de-acceso">Formato de registro de acceso</h2>
-<p>Puedes personalizar el formato de registro de acceso mediante variables predefinidas. Considera la siguiente línea:</p>
-<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou en %lmsms [%{user-agent}]&quot;;
+<h2 id="formateo-del-registro-de-acceso">Formateo del registro de acceso</h2>
+<p>Puedes personalizar el formato del registro de acceso mediante variables predefinidas. Considera la siguiente línea:</p>
+<pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
 </code></pre>
 <p>Escribirá un mensaje como:</p>
-<pre><code>29/mar./2023 15:21:47 -0300 Ejecutado ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B en 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 </code></pre>
-<p>Puedes formatear tu archivo de registro según el formato descrito en la tabla:</p>
+<p>Puedes formatear tu archivo de registro con el formato descrito en la tabla:</p>
 <table>
 <thead>
 <tr>
 <th>Valor</th>
-<th>Lo que representa</th>
+<th>Qué representa</th>
 <th>Ejemplo</th>
 </tr>
 </thead>
@@ -228,7 +228,7 @@
 <tr>
 <td>%dmmm</td>
 <td>Nombre completo del mes</td>
-<td>Julio</td>
+<td>July</td>
 </tr>
 <tr>
 <td>%dmm</td>
@@ -237,7 +237,7 @@
 </tr>
 <tr>
 <td>%dm</td>
-<td>Número de mes (formateado como dos dígitos)</td>
+<td>Número del mes (formateado como dos dígitos)</td>
 <td>07</td>
 </tr>
 <tr>
@@ -272,7 +272,7 @@
 </tr>
 <tr>
 <td>%tz</td>
-<td>Desplazamiento de zona horaria (total de horas en UTC)</td>
+<td>Desplazamiento de zona horaria (horas totales en UTC)</td>
 <td>+03:00</td>
 </tr>
 <tr>
@@ -282,17 +282,17 @@
 </tr>
 <tr>
 <td>%rm</td>
-<td>Método HTTP (en mayúsculas)</td>
+<td>Método HTTP (mayúsculas)</td>
 <td>GET</td>
 </tr>
 <tr>
 <td>%rs</td>
-<td>Esquema de URI (http/https)</td>
+<td>Esquema URI (http/https)</td>
 <td>https</td>
 </tr>
 <tr>
 <td>%ra</td>
-<td>Autoridad de URI (dominio)</td>
+<td>Autoridad URI (dominio)</td>
 <td>example.com</td>
 </tr>
 <tr>
@@ -322,17 +322,17 @@
 </tr>
 <tr>
 <td>%sd</td>
-<td>Descripción de estado de respuesta HTTP</td>
+<td>Descripción del estado de respuesta HTTP</td>
 <td>OK</td>
 </tr>
 <tr>
 <td>%lin</td>
-<td>Tamaño legible de la solicitud</td>
+<td>Tamaño legible del pedido</td>
 <td>1.2 KB</td>
 </tr>
 <tr>
 <td>%linr</td>
-<td>Tamaño bruto de la solicitud (bytes)</td>
+<td>Tamaño bruto del pedido (bytes)</td>
 <td>1234</td>
 </tr>
 <tr>
@@ -353,38 +353,44 @@
 <tr>
 <td>%ls</td>
 <td>Estado de ejecución</td>
-<td>Ejecutado</td>
+<td>Executed</td>
+</tr>
+<tr>
+<td>%{header-name}</td>
+<td>Representa el encabezado <code>header-name</code> de la solicitud.</td>
+<td><code>Mozilla/5.0 (platform; rv:gecko [...]</code></td>
+</tr>
+<tr>
+<td>%{:res-name}</td>
+<td>Representa el encabezado <code>res-name</code> de la respuesta.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="registros-rotativos">Registros rotativos</h2>
-<div class="TIP">
-<h5>Tip</h5>
-<p>En Sisk 0.15 y versiones anteriores, esta función solo está disponible con el paquete Sisk.ServiceProvider. En Sisk 0.16 y superior, esta función se implementa en el paquete principal.</p>
-</div>
-<p>Puedes configurar el servidor HTTP para que gire los archivos de registro a un archivo comprimido .gz cuando alcancen un tamaño determinado. El tamaño se comprueba periódicamente por el límite que defines.</p>
-<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
-
-var rotater = new RotatingLogPolicy(config.AccessLogsStream);
-rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+<h2 id="rotación-de-logs">Rotación de logs</h2>
+<p>Puedes configurar el servidor HTTP para rotar los archivos de registro a un archivo comprimido .gz cuando alcancen un cierto tamaño. El tamaño se verifica periódicamente según el límite que definas.</p>
+<pre><code class="lang-cs">LogStream errorLog = new LogStream(&quot;logs/error.log&quot;)
+    .ConfigureRotatingPolicy(
+        maximumSize: 64 * SizeHelper.UnitMb,
+        dueTime: TimeSpan.FromHours(6));
 </code></pre>
-<p>El código anterior comprueba cada seis horas si el archivo de LogStream ha alcanzado su límite de 1MB. Si es así, el archivo se comprime a un archivo .gz y luego se limpia el archivo <code>access.log</code>.</p>
-<p>Durante este proceso, la escritura en el archivo está bloqueada hasta que el archivo se comprima y limpie. Todas las líneas que entren para ser escritas en este período esperarán hasta el final de la compresión.</p>
+<p>El código anterior verificará cada seis horas si el archivo de LogStream ha alcanzado su límite de 64 MB. Si es así, el archivo se comprime a un archivo .gz y luego se limpia <code>access.log</code>.</p>
+<p>Durante este proceso, la escritura en el archivo está bloqueada hasta que el archivo se comprime y limpia. Todas las líneas que se ingresen para escribir en este período estarán en una cola esperando el final de la compresión.</p>
 <p>Esta función solo funciona con LogStreams basados en archivos.</p>
 <h2 id="registro-de-errores">Registro de errores</h2>
-<p>Cuando un servidor no está lanzando errores al depurador, los reenvía a la escritura de registros cuando hay alguno. Puedes configurar la escritura de errores con:</p>
+<p>Cuando un servidor no lanza errores al depurador, reenvía los errores a la escritura de logs cuando hay alguno. Puedes configurar la escritura de errores con:</p>
 <pre><code class="lang-cs">config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
 </code></pre>
 <p>Esta propiedad solo escribirá algo en el registro si el error no es capturado por la devolución de llamada o la propiedad <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>.</p>
-<p>El error escrito por el servidor siempre escribe la fecha y hora, los encabezados de la solicitud (no el cuerpo), la traza del error y la traza de la excepción interna, si la hay.</p>
+<p>El error escrito por el servidor siempre escribe la fecha y hora, los encabezados de la solicitud (no el cuerpo), la traza del error y la traza de la excepción interna, si hay alguna.</p>
 <h2 id="otras-instancias-de-registro">Otras instancias de registro</h2>
-<p>Tu aplicación puede tener cero o varias instancias de LogStream, no hay límite en la cantidad de canales de registro que puede tener. Por lo tanto, es posible dirigir el registro de tu aplicación a un archivo diferente al registro de acceso o error predeterminado.</p>
+<p>Tu aplicación puede tener cero o múltiples LogStreams, no hay límite en cuántos canales de registro puede tener. Por lo tanto, es posible dirigir el registro de tu aplicación a un archivo distinto del AccessLog o ErrorLog predeterminado.</p>
 <pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
-appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
+appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
 </code></pre>
-<h2 id="extensión-de-logstream">Extensión de LogStream</h2>
-<p>Puedes extender la clase <code>LogStream</code> para escribir formatos personalizados, compatibles con el motor de registro actual de Sisk. El ejemplo siguiente permite escribir mensajes con colores en la consola a través de la biblioteca Spectre.Console:</p>
+<h2 id="extender-logstream">Extender LogStream</h2>
+<p>Puedes extender la clase <code>LogStream</code> para escribir formatos personalizados, compatibles con el motor de registro actual de Sisk. El ejemplo siguiente permite escribir mensajes coloridos en la Consola mediante la biblioteca Spectre.Console:</p>
 <div class="script-header">
     <span>
         CustomLogStream.cs
@@ -401,7 +407,7 @@ appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
     }
 }
 </code></pre>
-<p>Otra forma de escribir automáticamente registros personalizados para cada solicitud/respuesta es crear un <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>. El ejemplo siguiente es un poco más completo. Escribe el cuerpo de la solicitud y la respuesta en JSON en la consola. Puede ser útil para depurar solicitudes en general. Este ejemplo utiliza ContextBag y HttpServerHandler.</p>
+<p>Otra forma de escribir automáticamente logs personalizados para cada solicitud/respuesta es crear un <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a>. El ejemplo siguiente es un poco más completo. Escribe el cuerpo de la solicitud y respuesta en JSON a la Consola. Puede ser útil para depurar solicitudes en general. Este ejemplo hace uso de ContextBag y HttpServerHandler.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -449,15 +455,15 @@ appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
     {
         if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // En este punto, la conexión está abierta y el cliente ha enviado el encabezado que especifica
+            // En este punto, la conexión está abierta y el cliente ha enviado el encabezado especificando
             // que el contenido es JSON. La línea siguiente lee el contenido y lo deja almacenado en la solicitud.
             //
-            // Si el contenido no se lee en la acción de la solicitud, es probable que el GC lo recolecte
+            // Si el contenido no se lee en la acción de solicitud, es probable que el GC lo recoja
             // después de enviar la respuesta al cliente, por lo que el contenido puede no estar disponible después de cerrar la respuesta.
             //
             _ = request.RawBody;
 
-            // agregar una pista en el contexto para indicar que esta solicitud tiene un cuerpo JSON
+            // agrega una pista en el contexto para indicar que esta solicitud tiene un cuerpo JSON
             request.Bag.Add(&quot;IsJsonRequest&quot;, true);
         }
     }
@@ -470,7 +476,7 @@ appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
 
         if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
         {
-            // reformatea el JSON utilizando la biblioteca CypherPotato.LightJson
+            // reformatea el JSON usando la biblioteca CypherPotato.LightJson
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
@@ -481,7 +487,7 @@ appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
             responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
             
             if (content is HttpContent httpContent &amp;&amp;
-                // verificar si la respuesta es JSON
+                // verifica si la respuesta es JSON
                 httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -490,7 +496,7 @@ appMessages.WriteLine(&quot;Aplicación iniciada en {0}&quot;, DateTime.Now);
         }
         else
         {
-            // obtener el estado de manejo interno del servidor
+            // obtiene el estado interno de manejo del servidor
             responseMessage = result.Status.ToString();
         }
         

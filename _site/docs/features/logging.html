@@ -198,7 +198,7 @@
 </div>
 <pre><code class="lang-cs">using var app = HttpServer.CreateBuilder()
     .UseConfiguration(config =&gt; {
-        config.AccessLogsStream = new LogStream(&quot;logs/access.log&quot;);
+        config.AccessLogsStream = new LogStream(Console.Out);
     })
     .Build();
 </code></pre>
@@ -355,20 +355,26 @@
 <td>Execution status</td>
 <td>Executed</td>
 </tr>
+<tr>
+<td>%{header-name}</td>
+<td>Represents the <code>header-name</code> header of the request.</td>
+<td><code>Mozilla/5.0 (platform; rv:gecko [...]</code></td>
+</tr>
+<tr>
+<td>%{:res-name}</td>
+<td>Represents the <code>res-name</code> header of the response.</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h2 id="rotating-logs">Rotating logs</h2>
-<div class="TIP">
-<h5>Tip</h5>
-<p>In Sisk 0.15 and older, this function is only available with the Sisk.ServiceProvider package. In Sisk 0.16 and above, this function is implemented on it's core package.</p>
-</div>
 <p>You can configure the HTTP server to rotate the log files to a compressed .gz file when they reach a certain size. The size is checked periodically by the limiar you define.</p>
-<pre><code class="lang-cs">config.AccessLogsStream = new LogStream(&quot;access.log&quot;);
-
-var rotater = new RotatingLogPolicy(config.AccessLogsStream);
-rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+<pre><code class="lang-cs">LogStream errorLog = new LogStream(&quot;logs/error.log&quot;)
+    .ConfigureRotatingPolicy(
+        maximumSize: 64 * SizeHelper.UnitMb,
+        dueTime: TimeSpan.FromHours(6));
 </code></pre>
-<p>The above code will check every six hours if the LogStream's file has reached it's 1MB limit. If so, the file is compressed to an .gz file and it then <code>access.log</code> is cleaned.</p>
+<p>The above code will check every six hours if the LogStream's file has reached it's 64MB limit. If so, the file is compressed to an .gz file and it then <code>access.log</code> is cleaned.</p>
 <p>During this process, writing to the file is locked until the file is compressed and cleaned. All lines that enter to be written in this period will be in a queue waiting for the end of compression.</p>
 <p>This function only works with file-based LogStreams.</p>
 <h2 id="error-logging">Error logging</h2>

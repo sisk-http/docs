@@ -171,7 +171,7 @@ Class Router
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class Router</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class Router : IReadOnlyCollection&lt;Route&gt;, IEnumerable&lt;Route&gt;, IEnumerable</code></pre>
   </div>
 
 
@@ -185,6 +185,14 @@ Class Router
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Sisk.Core.Routing.Route.html">Route</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Sisk.Core.Routing.Route.html">Route</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -243,6 +251,10 @@ is only called when <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration
     <dd><p>Gets or sets whether this <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> should check for possible routing
 collisions before starting the HTTP server.</p>
 </dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.Count.html#Sisk_Core_Routing_Router_Count">Count</a></dt>
+    <dd></dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.GlobalRequestHandlers.html#Sisk_Core_Routing_Router_GlobalRequestHandlers">GlobalRequestHandlers</a></dt>
@@ -306,6 +318,10 @@ for each type must be present.</p>
     <dt><a class="xref" href="Sisk.Core.Routing.Router.GetDefinedRoutes.html#Sisk_Core_Routing_Router_GetDefinedRoutes">GetDefinedRoutes()</a></dt>
     <dd><p>Gets all routes defined on this router instance.</p>
 </dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.GetEnumerator.html#Sisk_Core_Routing_Router_GetEnumerator">GetEnumerator()</a></dt>
+    <dd></dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.GetRouteFromName.html#Sisk_Core_Routing_Router_GetRouteFromName_System_String_">GetRouteFromName(string)</a></dt>
@@ -502,6 +518,11 @@ for these methods.</p>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoute.html#Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_Sisk_Core_Routing_IRequestHandler___">SetRoute(RouteMethod, string, Delegate, string?, IRequestHandler[])</a></dt>
     <dd><p>Defines an route with their method, path, action function, name and request handlers.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.Router.SetRoutes.html#Sisk_Core_Routing_Router_SetRoutes_System_Collections_Generic_IEnumerable_Sisk_Core_Routing_Route__">SetRoutes(IEnumerable&lt;Route&gt;)</a></dt>
+    <dd><p>Defines the specified collection of routes.</p>
 </dd>
   </dl>
   <dl class="jumplist">

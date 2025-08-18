@@ -248,6 +248,24 @@ public HttpResponse Index(HttpRequest request)
 
 You can read more about Sisk [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) and it's methods, properties and functionalities.
 
+## Detecting client disconnection
+
+Since version v1.15 of Sisk, the framework provides a CancellationToken that is thrown when the connection between the client and the server is prematurely closed before receiving the response. This token can be useful for detecting when the client no longer wants the response and canceling long-running operations.
+
+```csharp
+router.MapGet("/connect", async (HttpRequest req) =>
+{
+    // gets the disconnection token from the request
+    var dc = req.DisconnectToken;
+
+    await LongOperationAsync(dc);
+
+    return new HttpResponse();
+});
+```
+
+This token is not compatible with all HTTP engines, and each requires an implementation.
+
 ## Server-sent events support
 
 Sisk supports [Server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), which allows sending chunks as an stream and keeping the connection between the server and the client alive.

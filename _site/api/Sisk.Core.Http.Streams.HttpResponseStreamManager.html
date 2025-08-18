@@ -238,6 +238,11 @@ finish the HTTP server context.</p>
 </dd>
   </dl>
   <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_System_String_System_Text_Encoding_System_String_">GetStreamWriter(string?, Encoding?, string?)</a></dt>
+    <dd><p>Returns a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a> for writing to the response stream, setting the content type and encoding.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStreamManager.SetContentLength.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_SetContentLength_System_Int64_">SetContentLength(long)</a></dt>
     <dd><p>Sets the Content-Length header of this response stream. If this response stream is using chunked transfer encoding, this method
 will do nothing.</p>
@@ -281,6 +286,11 @@ will do nothing.</p>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStreamManager.Write.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_Write_System_Byte___">Write(byte[])</a></dt>
     <dd><p>Writes an sequence of bytes to the HTTP response stream.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpResponseStreamManager.Write.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_Write_System_Byte___System_Int32_System_Int32_">Write(byte[], int, int)</a></dt>
+    <dd><p>Writes a range of bytes from a byte array to the HTTP response stream.</p>
 </dd>
   </dl>
   <dl class="jumplist">

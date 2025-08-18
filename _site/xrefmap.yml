@@ -334,6 +334,33 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHost.Dispose
   fullName: Sisk.Cadente.HttpHost.Dispose
   nameWithType: HttpHost.Dispose
+- uid: Sisk.Cadente.HttpHost.Endpoint
+  name: Endpoint
+  href: api/Sisk.Cadente.HttpHost.Endpoint.html#Sisk_Cadente_HttpHost_Endpoint
+  commentId: P:Sisk.Cadente.HttpHost.Endpoint
+  fullName: Sisk.Cadente.HttpHost.Endpoint
+  nameWithType: HttpHost.Endpoint
+- uid: Sisk.Cadente.HttpHost.Endpoint*
+  name: Endpoint
+  href: api/Sisk.Cadente.HttpHost.Endpoint.html
+  commentId: Overload:Sisk.Cadente.HttpHost.Endpoint
+  fullName: Sisk.Cadente.HttpHost.Endpoint
+  nameWithType: HttpHost.Endpoint
+- uid: Sisk.Cadente.HttpHost.Finalize
+  name: ~HttpHost()
+  href: api/Sisk.Cadente.HttpHost.Finalize.html#Sisk_Cadente_HttpHost_Finalize
+  commentId: M:Sisk.Cadente.HttpHost.Finalize
+  name.vb: ''
+  fullName: Sisk.Cadente.HttpHost.~HttpHost()
+  fullName.vb: ''
+  nameWithType: HttpHost.~HttpHost()
+  nameWithType.vb: ''
+- uid: Sisk.Cadente.HttpHost.Finalize*
+  name: ~HttpHost
+  href: api/Sisk.Cadente.HttpHost.Finalize.html
+  commentId: Overload:Sisk.Cadente.HttpHost.Finalize
+  fullName: Sisk.Cadente.HttpHost.~HttpHost
+  nameWithType: HttpHost.~HttpHost
 - uid: Sisk.Cadente.HttpHost.Handler
   name: Handler
   href: api/Sisk.Cadente.HttpHost.Handler.html#Sisk_Cadente_HttpHost_Handler
@@ -406,6 +433,18 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHost.Start
   fullName: Sisk.Cadente.HttpHost.Start
   nameWithType: HttpHost.Start
+- uid: Sisk.Cadente.HttpHost.Stop
+  name: Stop()
+  href: api/Sisk.Cadente.HttpHost.Stop.html#Sisk_Cadente_HttpHost_Stop
+  commentId: M:Sisk.Cadente.HttpHost.Stop
+  fullName: Sisk.Cadente.HttpHost.Stop()
+  nameWithType: HttpHost.Stop()
+- uid: Sisk.Cadente.HttpHost.Stop*
+  name: Stop
+  href: api/Sisk.Cadente.HttpHost.Stop.html
+  commentId: Overload:Sisk.Cadente.HttpHost.Stop
+  fullName: Sisk.Cadente.HttpHost.Stop
+  nameWithType: HttpHost.Stop
 - uid: Sisk.Cadente.HttpHost.TimeoutManager
   name: TimeoutManager
   href: api/Sisk.Cadente.HttpHost.TimeoutManager.html#Sisk_Cadente_HttpHost_TimeoutManager
@@ -448,6 +487,18 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHostClient.ClientEndpoint
   fullName: Sisk.Cadente.HttpHostClient.ClientEndpoint
   nameWithType: HttpHostClient.ClientEndpoint
+- uid: Sisk.Cadente.HttpHostClient.DisconnectToken
+  name: DisconnectToken
+  href: api/Sisk.Cadente.HttpHostClient.DisconnectToken.html#Sisk_Cadente_HttpHostClient_DisconnectToken
+  commentId: P:Sisk.Cadente.HttpHostClient.DisconnectToken
+  fullName: Sisk.Cadente.HttpHostClient.DisconnectToken
+  nameWithType: HttpHostClient.DisconnectToken
+- uid: Sisk.Cadente.HttpHostClient.DisconnectToken*
+  name: DisconnectToken
+  href: api/Sisk.Cadente.HttpHostClient.DisconnectToken.html
+  commentId: Overload:Sisk.Cadente.HttpHostClient.DisconnectToken
+  fullName: Sisk.Cadente.HttpHostClient.DisconnectToken
+  nameWithType: HttpHostClient.DisconnectToken
 - uid: Sisk.Cadente.HttpHostClient.State
   name: State
   href: api/Sisk.Cadente.HttpHostClient.State.html#Sisk_Cadente_HttpHostClient_State
@@ -478,6 +529,18 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHostContext.Client
   fullName: Sisk.Cadente.HttpHostContext.Client
   nameWithType: HttpHostContext.Client
+- uid: Sisk.Cadente.HttpHostContext.Host
+  name: Host
+  href: api/Sisk.Cadente.HttpHostContext.Host.html#Sisk_Cadente_HttpHostContext_Host
+  commentId: P:Sisk.Cadente.HttpHostContext.Host
+  fullName: Sisk.Cadente.HttpHostContext.Host
+  nameWithType: HttpHostContext.Host
+- uid: Sisk.Cadente.HttpHostContext.Host*
+  name: Host
+  href: api/Sisk.Cadente.HttpHostContext.Host.html
+  commentId: Overload:Sisk.Cadente.HttpHostContext.Host
+  fullName: Sisk.Cadente.HttpHostContext.Host
+  nameWithType: HttpHostContext.Host
 - uid: Sisk.Cadente.HttpHostContext.HttpRequest
   name: HttpHostContext.HttpRequest
   href: api/Sisk.Cadente.HttpHostContext.HttpRequest.html
@@ -886,15 +949,15 @@ references:
   fullName.vb: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.New()
   nameWithType: CrossOriginResourceSharingHeaders.CrossOriginResourceSharingHeaders()
   nameWithType.vb: CrossOriginResourceSharingHeaders.New()
-- uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.#ctor(System.String,System.String[],System.String[],System.String[],System.String[],System.Nullable{System.TimeSpan})
-  name: CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, TimeSpan?)
-  href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.-ctor.html#Sisk_Core_Entity_CrossOriginResourceSharingHeaders__ctor_System_String_System_String___System_String___System_String___System_String___System_Nullable_System_TimeSpan__
-  commentId: M:Sisk.Core.Entity.CrossOriginResourceSharingHeaders.#ctor(System.String,System.String[],System.String[],System.String[],System.String[],System.Nullable{System.TimeSpan})
-  name.vb: New(String, String(), String(), String(), String(), TimeSpan?)
-  fullName: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, System.TimeSpan?)
-  fullName.vb: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.New(String, String(), String(), String(), String(), System.TimeSpan?)
-  nameWithType: CrossOriginResourceSharingHeaders.CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, TimeSpan?)
-  nameWithType.vb: CrossOriginResourceSharingHeaders.New(String, String(), String(), String(), String(), TimeSpan?)
+- uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.#ctor(System.String,System.String[],System.String[],System.String[],System.String[],System.Nullable{System.TimeSpan},System.Boolean)
+  name: CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, TimeSpan?, bool)
+  href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.-ctor.html#Sisk_Core_Entity_CrossOriginResourceSharingHeaders__ctor_System_String_System_String___System_String___System_String___System_String___System_Nullable_System_TimeSpan__System_Boolean_
+  commentId: M:Sisk.Core.Entity.CrossOriginResourceSharingHeaders.#ctor(System.String,System.String[],System.String[],System.String[],System.String[],System.Nullable{System.TimeSpan},System.Boolean)
+  name.vb: New(String, String(), String(), String(), String(), TimeSpan?, Boolean)
+  fullName: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, System.TimeSpan?, bool)
+  fullName.vb: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.New(String, String(), String(), String(), String(), System.TimeSpan?, Boolean)
+  nameWithType: CrossOriginResourceSharingHeaders.CrossOriginResourceSharingHeaders(string?, string[]?, string[]?, string[]?, string[]?, TimeSpan?, bool)
+  nameWithType.vb: CrossOriginResourceSharingHeaders.New(String, String(), String(), String(), String(), TimeSpan?, Boolean)
 - uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.#ctor*
   name: CrossOriginResourceSharingHeaders
   href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.-ctor.html
@@ -970,6 +1033,18 @@ references:
   commentId: F:Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin
   fullName: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin
   nameWithType: CrossOriginResourceSharingHeaders.AutoAllowOrigin
+- uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders
+  name: AutoFromRequestHeaders
+  href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders.html
+  commentId: F:Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders
+  fullName: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders
+  nameWithType: CrossOriginResourceSharingHeaders.AutoFromRequestHeaders
+- uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod
+  name: AutoFromRequestMethod
+  href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod.html
+  commentId: F:Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod
+  fullName: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod
+  nameWithType: CrossOriginResourceSharingHeaders.AutoFromRequestMethod
 - uid: Sisk.Core.Entity.CrossOriginResourceSharingHeaders.CreatePublicContext
   name: CreatePublicContext()
   href: api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.CreatePublicContext.html#Sisk_Core_Entity_CrossOriginResourceSharingHeaders_CreatePublicContext
@@ -1963,6 +2038,18 @@ references:
   commentId: Overload:Sisk.Core.Entity.MultipartObject.ContentLength
   fullName: Sisk.Core.Entity.MultipartObject.ContentLength
   nameWithType: MultipartObject.ContentLength
+- uid: Sisk.Core.Entity.MultipartObject.ContentType
+  name: ContentType
+  href: api/Sisk.Core.Entity.MultipartObject.ContentType.html#Sisk_Core_Entity_MultipartObject_ContentType
+  commentId: P:Sisk.Core.Entity.MultipartObject.ContentType
+  fullName: Sisk.Core.Entity.MultipartObject.ContentType
+  nameWithType: MultipartObject.ContentType
+- uid: Sisk.Core.Entity.MultipartObject.ContentType*
+  name: ContentType
+  href: api/Sisk.Core.Entity.MultipartObject.ContentType.html
+  commentId: Overload:Sisk.Core.Entity.MultipartObject.ContentType
+  fullName: Sisk.Core.Entity.MultipartObject.ContentType
+  nameWithType: MultipartObject.ContentType
 - uid: Sisk.Core.Entity.MultipartObject.Equals(Sisk.Core.Entity.MultipartObject)
   name: Equals(MultipartObject?)
   href: api/Sisk.Core.Entity.MultipartObject.Equals.html#Sisk_Core_Entity_MultipartObject_Equals_Sisk_Core_Entity_MultipartObject_
@@ -3187,6 +3274,30 @@ references:
   commentId: Overload:Sisk.Core.Entity.TypedValueDictionary.GetTypeKeyName
   fullName: Sisk.Core.Entity.TypedValueDictionary.GetTypeKeyName
   nameWithType: TypedValueDictionary.GetTypeKeyName
+- uid: Sisk.Core.Entity.TypedValueDictionary.GetValue(System.String)
+  name: GetValue(string)
+  href: api/Sisk.Core.Entity.TypedValueDictionary.GetValue.html#Sisk_Core_Entity_TypedValueDictionary_GetValue_System_String_
+  commentId: M:Sisk.Core.Entity.TypedValueDictionary.GetValue(System.String)
+  name.vb: GetValue(String)
+  fullName: Sisk.Core.Entity.TypedValueDictionary.GetValue(string)
+  fullName.vb: Sisk.Core.Entity.TypedValueDictionary.GetValue(String)
+  nameWithType: TypedValueDictionary.GetValue(string)
+  nameWithType.vb: TypedValueDictionary.GetValue(String)
+- uid: Sisk.Core.Entity.TypedValueDictionary.GetValue*
+  name: GetValue
+  href: api/Sisk.Core.Entity.TypedValueDictionary.GetValue.html
+  commentId: Overload:Sisk.Core.Entity.TypedValueDictionary.GetValue
+  fullName: Sisk.Core.Entity.TypedValueDictionary.GetValue
+  nameWithType: TypedValueDictionary.GetValue
+- uid: Sisk.Core.Entity.TypedValueDictionary.GetValue``1(System.String)
+  name: GetValue<T>(string)
+  href: api/Sisk.Core.Entity.TypedValueDictionary.GetValue.html#Sisk_Core_Entity_TypedValueDictionary_GetValue__1_System_String_
+  commentId: M:Sisk.Core.Entity.TypedValueDictionary.GetValue``1(System.String)
+  name.vb: GetValue(Of T)(String)
+  fullName: Sisk.Core.Entity.TypedValueDictionary.GetValue<T>(string)
+  fullName.vb: Sisk.Core.Entity.TypedValueDictionary.GetValue(Of T)(String)
+  nameWithType: TypedValueDictionary.GetValue<T>(string)
+  nameWithType.vb: TypedValueDictionary.GetValue(Of T)(String)
 - uid: Sisk.Core.Entity.TypedValueDictionary.Get``1
   name: Get<T>()
   href: api/Sisk.Core.Entity.TypedValueDictionary.Get.html#Sisk_Core_Entity_TypedValueDictionary_Get__1
@@ -3226,6 +3337,21 @@ references:
   commentId: Overload:Sisk.Core.Entity.TypedValueDictionary.Set
   fullName: Sisk.Core.Entity.TypedValueDictionary.Set
   nameWithType: TypedValueDictionary.Set
+- uid: Sisk.Core.Entity.TypedValueDictionary.SetValue(System.String,System.Object)
+  name: SetValue(string, object?)
+  href: api/Sisk.Core.Entity.TypedValueDictionary.SetValue.html#Sisk_Core_Entity_TypedValueDictionary_SetValue_System_String_System_Object_
+  commentId: M:Sisk.Core.Entity.TypedValueDictionary.SetValue(System.String,System.Object)
+  name.vb: SetValue(String, Object)
+  fullName: Sisk.Core.Entity.TypedValueDictionary.SetValue(string, object?)
+  fullName.vb: Sisk.Core.Entity.TypedValueDictionary.SetValue(String, Object)
+  nameWithType: TypedValueDictionary.SetValue(string, object?)
+  nameWithType.vb: TypedValueDictionary.SetValue(String, Object)
+- uid: Sisk.Core.Entity.TypedValueDictionary.SetValue*
+  name: SetValue
+  href: api/Sisk.Core.Entity.TypedValueDictionary.SetValue.html
+  commentId: Overload:Sisk.Core.Entity.TypedValueDictionary.SetValue
+  fullName: Sisk.Core.Entity.TypedValueDictionary.SetValue
+  nameWithType: TypedValueDictionary.SetValue
 - uid: Sisk.Core.Entity.TypedValueDictionary.Set``1
   name: Set<T>()
   href: api/Sisk.Core.Entity.TypedValueDictionary.Set.html#Sisk_Core_Entity_TypedValueDictionary_Set__1
@@ -3377,13 +3503,13 @@ references:
   fullName: Sisk.Core.Helpers.MimeHelper.IsBrowserKnownInlineMimeType
   nameWithType: MimeHelper.IsBrowserKnownInlineMimeType
 - uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(System.String)
-  name: IsPlainTextFile(string)
+  name: IsPlainTextFile(string?)
   href: api/Sisk.Core.Helpers.MimeHelper.IsPlainTextFile.html#Sisk_Core_Helpers_MimeHelper_IsPlainTextFile_System_String_
   commentId: M:Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(System.String)
   name.vb: IsPlainTextFile(String)
-  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(string)
+  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(string?)
   fullName.vb: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile(String)
-  nameWithType: MimeHelper.IsPlainTextFile(string)
+  nameWithType: MimeHelper.IsPlainTextFile(string?)
   nameWithType.vb: MimeHelper.IsPlainTextFile(String)
 - uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile*
   name: IsPlainTextFile
@@ -3391,6 +3517,21 @@ references:
   commentId: Overload:Sisk.Core.Helpers.MimeHelper.IsPlainTextFile
   fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextFile
   nameWithType: MimeHelper.IsPlainTextFile
+- uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType(System.String)
+  name: IsPlainTextMimeType(string?)
+  href: api/Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType.html#Sisk_Core_Helpers_MimeHelper_IsPlainTextMimeType_System_String_
+  commentId: M:Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType(System.String)
+  name.vb: IsPlainTextMimeType(String)
+  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType(string?)
+  fullName.vb: Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType(String)
+  nameWithType: MimeHelper.IsPlainTextMimeType(string?)
+  nameWithType.vb: MimeHelper.IsPlainTextMimeType(String)
+- uid: Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType*
+  name: IsPlainTextMimeType
+  href: api/Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType.html
+  commentId: Overload:Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType
+  fullName: Sisk.Core.Helpers.MimeHelper.IsPlainTextMimeType
+  nameWithType: MimeHelper.IsPlainTextMimeType
 - uid: Sisk.Core.Helpers.PathHelper
   name: PathHelper
   href: api/Sisk.Core.Helpers.PathHelper.html
@@ -3526,6 +3667,21 @@ references:
   commentId: Overload:Sisk.Core.Helpers.SizeHelper.HumanReadableSize
   fullName: Sisk.Core.Helpers.SizeHelper.HumanReadableSize
   nameWithType: SizeHelper.HumanReadableSize
+- uid: Sisk.Core.Helpers.SizeHelper.Parse(System.String)
+  name: Parse(string)
+  href: api/Sisk.Core.Helpers.SizeHelper.Parse.html#Sisk_Core_Helpers_SizeHelper_Parse_System_String_
+  commentId: M:Sisk.Core.Helpers.SizeHelper.Parse(System.String)
+  name.vb: Parse(String)
+  fullName: Sisk.Core.Helpers.SizeHelper.Parse(string)
+  fullName.vb: Sisk.Core.Helpers.SizeHelper.Parse(String)
+  nameWithType: SizeHelper.Parse(string)
+  nameWithType.vb: SizeHelper.Parse(String)
+- uid: Sisk.Core.Helpers.SizeHelper.Parse*
+  name: Parse
+  href: api/Sisk.Core.Helpers.SizeHelper.Parse.html
+  commentId: Overload:Sisk.Core.Helpers.SizeHelper.Parse
+  fullName: Sisk.Core.Helpers.SizeHelper.Parse
+  nameWithType: SizeHelper.Parse
 - uid: Sisk.Core.Helpers.SizeHelper.UnitEb
   name: UnitEb
   href: api/Sisk.Core.Helpers.SizeHelper.UnitEb.html
@@ -3895,6 +4051,855 @@ references:
   commentId: Overload:Sisk.Core.Http.DeflateContent.Setup
   fullName: Sisk.Core.Http.DeflateContent.Setup
   nameWithType: DeflateContent.Setup
+- uid: Sisk.Core.Http.Engine
+  name: Sisk.Core.Http.Engine
+  href: api/Sisk.Core.Http.Engine.html
+  commentId: N:Sisk.Core.Http.Engine
+  fullName: Sisk.Core.Http.Engine
+  nameWithType: Sisk.Core.Http.Engine
+- uid: Sisk.Core.Http.Engine.HttpEngineException
+  name: HttpEngineException
+  href: api/Sisk.Core.Http.Engine.HttpEngineException.html
+  commentId: T:Sisk.Core.Http.Engine.HttpEngineException
+  fullName: Sisk.Core.Http.Engine.HttpEngineException
+  nameWithType: HttpEngineException
+- uid: Sisk.Core.Http.Engine.HttpEngineException.#ctor(System.Exception)
+  name: HttpEngineException(Exception)
+  href: api/Sisk.Core.Http.Engine.HttpEngineException.-ctor.html#Sisk_Core_Http_Engine_HttpEngineException__ctor_System_Exception_
+  commentId: M:Sisk.Core.Http.Engine.HttpEngineException.#ctor(System.Exception)
+  name.vb: New(Exception)
+  fullName: Sisk.Core.Http.Engine.HttpEngineException.HttpEngineException(System.Exception)
+  fullName.vb: Sisk.Core.Http.Engine.HttpEngineException.New(System.Exception)
+  nameWithType: HttpEngineException.HttpEngineException(Exception)
+  nameWithType.vb: HttpEngineException.New(Exception)
+- uid: Sisk.Core.Http.Engine.HttpEngineException.#ctor(System.String)
+  name: HttpEngineException(string)
+  href: api/Sisk.Core.Http.Engine.HttpEngineException.-ctor.html#Sisk_Core_Http_Engine_HttpEngineException__ctor_System_String_
+  commentId: M:Sisk.Core.Http.Engine.HttpEngineException.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Sisk.Core.Http.Engine.HttpEngineException.HttpEngineException(string)
+  fullName.vb: Sisk.Core.Http.Engine.HttpEngineException.New(String)
+  nameWithType: HttpEngineException.HttpEngineException(string)
+  nameWithType.vb: HttpEngineException.New(String)
+- uid: Sisk.Core.Http.Engine.HttpEngineException.#ctor*
+  name: HttpEngineException
+  href: api/Sisk.Core.Http.Engine.HttpEngineException.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpEngineException.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpEngineException.HttpEngineException
+  fullName.vb: Sisk.Core.Http.Engine.HttpEngineException.New
+  nameWithType: HttpEngineException.HttpEngineException
+  nameWithType.vb: HttpEngineException.New
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine
+  name: HttpListenerAbstractEngine
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html
+  commentId: T:Sisk.Core.Http.Engine.HttpListenerAbstractEngine
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine
+  nameWithType: HttpListenerAbstractEngine
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.#ctor
+  name: HttpListenerAbstractEngine()
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.-ctor.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.HttpListenerAbstractEngine()
+  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.New()
+  nameWithType: HttpListenerAbstractEngine.HttpListenerAbstractEngine()
+  nameWithType.vb: HttpListenerAbstractEngine.New()
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.#ctor*
+  name: HttpListenerAbstractEngine
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.HttpListenerAbstractEngine
+  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.New
+  nameWithType: HttpListenerAbstractEngine.HttpListenerAbstractEngine
+  nameWithType.vb: HttpListenerAbstractEngine.New
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(System.String)
+  name: AddListeningPrefix(string)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_AddListeningPrefix_System_String_
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(System.String)
+  name.vb: AddListeningPrefix(String)
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(string)
+  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(String)
+  nameWithType: HttpListenerAbstractEngine.AddListeningPrefix(string)
+  nameWithType.vb: HttpListenerAbstractEngine.AddListeningPrefix(String)
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix*
+  name: AddListeningPrefix
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix
+  nameWithType: HttpListenerAbstractEngine.AddListeningPrefix
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext(System.AsyncCallback,System.Object)
+  name: BeginGetContext(AsyncCallback?, object?)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_BeginGetContext_System_AsyncCallback_System_Object_
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext(System.AsyncCallback,System.Object)
+  name.vb: BeginGetContext(AsyncCallback, Object)
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext(System.AsyncCallback?, object?)
+  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext(System.AsyncCallback, Object)
+  nameWithType: HttpListenerAbstractEngine.BeginGetContext(AsyncCallback?, object?)
+  nameWithType.vb: HttpListenerAbstractEngine.BeginGetContext(AsyncCallback, Object)
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext*
+  name: BeginGetContext
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext
+  nameWithType: HttpListenerAbstractEngine.BeginGetContext
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
+  name: ClearPrefixes()
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_ClearPrefixes
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes()
+  nameWithType: HttpListenerAbstractEngine.ClearPrefixes()
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes*
+  name: ClearPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
+  nameWithType: HttpListenerAbstractEngine.ClearPrefixes
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose
+  name: Dispose()
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Dispose
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose()
+  nameWithType: HttpListenerAbstractEngine.Dispose()
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose*
+  name: Dispose
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose
+  nameWithType: HttpListenerAbstractEngine.Dispose
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext(System.IAsyncResult)
+  name: EndGetContext(IAsyncResult)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_EndGetContext_System_IAsyncResult_
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext(System.IAsyncResult)
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext(System.IAsyncResult)
+  nameWithType: HttpListenerAbstractEngine.EndGetContext(IAsyncResult)
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext*
+  name: EndGetContext
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext
+  nameWithType: HttpListenerAbstractEngine.EndGetContext
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_IdleConnectionTimeout
+  commentId: P:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
+  nameWithType: HttpListenerAbstractEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout*
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
+  nameWithType: HttpListenerAbstractEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
+  name: Shared
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Shared
+  commentId: P:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
+  nameWithType: HttpListenerAbstractEngine.Shared
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared*
+  name: Shared
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
+  nameWithType: HttpListenerAbstractEngine.Shared
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer
+  name: StartServer()
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StartServer
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer()
+  nameWithType: HttpListenerAbstractEngine.StartServer()
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer*
+  name: StartServer
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer
+  nameWithType: HttpListenerAbstractEngine.StartServer
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer
+  name: StopServer()
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StopServer
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer()
+  nameWithType: HttpListenerAbstractEngine.StopServer()
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer*
+  name: StopServer
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer
+  nameWithType: HttpListenerAbstractEngine.StopServer
+- uid: Sisk.Core.Http.Engine.HttpServerEngine
+  name: HttpServerEngine
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngine
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine
+  nameWithType: HttpServerEngine
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.#ctor
+  name: HttpServerEngine()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.-ctor.html#Sisk_Core_Http_Engine_HttpServerEngine__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.HttpServerEngine()
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.New()
+  nameWithType: HttpServerEngine.HttpServerEngine()
+  nameWithType.vb: HttpServerEngine.New()
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.#ctor*
+  name: HttpServerEngine
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.HttpServerEngine
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.New
+  nameWithType: HttpServerEngine.HttpServerEngine
+  nameWithType.vb: HttpServerEngine.New
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(System.String)
+  name: AddListeningPrefix(string)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpServerEngine_AddListeningPrefix_System_String_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(System.String)
+  name.vb: AddListeningPrefix(String)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(string)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(String)
+  nameWithType: HttpServerEngine.AddListeningPrefix(string)
+  nameWithType.vb: HttpServerEngine.AddListeningPrefix(String)
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix*
+  name: AddListeningPrefix
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix
+  nameWithType: HttpServerEngine.AddListeningPrefix
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext(System.AsyncCallback,System.Object)
+  name: BeginGetContext(AsyncCallback?, object?)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext(System.AsyncCallback,System.Object)
+  name.vb: BeginGetContext(AsyncCallback, Object)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext(System.AsyncCallback?, object?)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext(System.AsyncCallback, Object)
+  nameWithType: HttpServerEngine.BeginGetContext(AsyncCallback?, object?)
+  nameWithType.vb: HttpServerEngine.BeginGetContext(AsyncCallback, Object)
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext*
+  name: BeginGetContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext
+  nameWithType: HttpServerEngine.BeginGetContext
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
+  name: ClearPrefixes()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpServerEngine_ClearPrefixes
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes()
+  nameWithType: HttpServerEngine.ClearPrefixes()
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes*
+  name: ClearPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
+  nameWithType: HttpServerEngine.ClearPrefixes
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.Dispose
+  name: Dispose()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.Dispose.html#Sisk_Core_Http_Engine_HttpServerEngine_Dispose
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.Dispose()
+  nameWithType: HttpServerEngine.Dispose()
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.Dispose*
+  name: Dispose
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.Dispose.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.Dispose
+  nameWithType: HttpServerEngine.Dispose
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext(System.IAsyncResult)
+  name: EndGetContext(IAsyncResult)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext.html#Sisk_Core_Http_Engine_HttpServerEngine_EndGetContext_System_IAsyncResult_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext(System.IAsyncResult)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext(System.IAsyncResult)
+  nameWithType: HttpServerEngine.EndGetContext(IAsyncResult)
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext*
+  name: EndGetContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext
+  nameWithType: HttpServerEngine.EndGetContext
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpServerEngine_IdleConnectionTimeout
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
+  nameWithType: HttpServerEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout*
+  name: IdleConnectionTimeout
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
+  nameWithType: HttpServerEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.StartServer
+  name: StartServer()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.StartServer.html#Sisk_Core_Http_Engine_HttpServerEngine_StartServer
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.StartServer
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.StartServer()
+  nameWithType: HttpServerEngine.StartServer()
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.StartServer*
+  name: StartServer
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.StartServer.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.StartServer
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.StartServer
+  nameWithType: HttpServerEngine.StartServer
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.StopServer
+  name: StopServer()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.StopServer.html#Sisk_Core_Http_Engine_HttpServerEngine_StopServer
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.StopServer
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.StopServer()
+  nameWithType: HttpServerEngine.StopServer()
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.StopServer*
+  name: StopServer
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.StopServer.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.StopServer
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.StopServer
+  nameWithType: HttpServerEngine.StopServer
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext
+  name: HttpServerEngineContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngineContext
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext
+  nameWithType: HttpServerEngineContext
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.#ctor
+  name: HttpServerEngineContext()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.-ctor.html#Sisk_Core_Http_Engine_HttpServerEngineContext__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContext.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.HttpServerEngineContext()
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContext.New()
+  nameWithType: HttpServerEngineContext.HttpServerEngineContext()
+  nameWithType.vb: HttpServerEngineContext.New()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.#ctor*
+  name: HttpServerEngineContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.HttpServerEngineContext
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContext.New
+  nameWithType: HttpServerEngineContext.HttpServerEngineContext
+  nameWithType.vb: HttpServerEngineContext.New
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync(System.String)
+  name: AcceptWebSocketAsync(string?)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync.html#Sisk_Core_Http_Engine_HttpServerEngineContext_AcceptWebSocketAsync_System_String_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync(System.String)
+  name.vb: AcceptWebSocketAsync(String)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync(string?)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync(String)
+  nameWithType: HttpServerEngineContext.AcceptWebSocketAsync(string?)
+  nameWithType.vb: HttpServerEngineContext.AcceptWebSocketAsync(String)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync*
+  name: AcceptWebSocketAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.AcceptWebSocketAsync
+  nameWithType: HttpServerEngineContext.AcceptWebSocketAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken
+  name: ContextAbortedToken
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken.html#Sisk_Core_Http_Engine_HttpServerEngineContext_ContextAbortedToken
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken
+  nameWithType: HttpServerEngineContext.ContextAbortedToken
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken*
+  name: ContextAbortedToken
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.ContextAbortedToken
+  nameWithType: HttpServerEngineContext.ContextAbortedToken
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.Request
+  name: Request
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.Request.html#Sisk_Core_Http_Engine_HttpServerEngineContext_Request
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContext.Request
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.Request
+  nameWithType: HttpServerEngineContext.Request
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.Request*
+  name: Request
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.Request.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.Request
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.Request
+  nameWithType: HttpServerEngineContext.Request
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.Response
+  name: Response
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.Response.html#Sisk_Core_Http_Engine_HttpServerEngineContext_Response
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContext.Response
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.Response
+  nameWithType: HttpServerEngineContext.Response
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContext.Response*
+  name: Response
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContext.Response.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.Response
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.Response
+  nameWithType: HttpServerEngineContext.Response
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest
+  name: HttpServerEngineContextRequest
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngineContextRequest
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest
+  nameWithType: HttpServerEngineContextRequest
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.#ctor
+  name: HttpServerEngineContextRequest()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.-ctor.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpServerEngineContextRequest()
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.New()
+  nameWithType: HttpServerEngineContextRequest.HttpServerEngineContextRequest()
+  nameWithType.vb: HttpServerEngineContextRequest.New()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.#ctor*
+  name: HttpServerEngineContextRequest
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpServerEngineContextRequest
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.New
+  nameWithType: HttpServerEngineContextRequest.HttpServerEngineContextRequest
+  nameWithType.vb: HttpServerEngineContextRequest.New
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding
+  name: ContentEncoding
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_ContentEncoding
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding
+  nameWithType: HttpServerEngineContextRequest.ContentEncoding
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding*
+  name: ContentEncoding
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentEncoding
+  nameWithType: HttpServerEngineContextRequest.ContentEncoding
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64
+  name: ContentLength64
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_ContentLength64
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64
+  nameWithType: HttpServerEngineContextRequest.ContentLength64
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64*
+  name: ContentLength64
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ContentLength64
+  nameWithType: HttpServerEngineContextRequest.ContentLength64
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers
+  name: Headers
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_Headers
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers
+  nameWithType: HttpServerEngineContextRequest.Headers
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers*
+  name: Headers
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Headers
+  nameWithType: HttpServerEngineContextRequest.Headers
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod
+  name: HttpMethod
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_HttpMethod
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod
+  nameWithType: HttpServerEngineContextRequest.HttpMethod
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod*
+  name: HttpMethod
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.HttpMethod
+  nameWithType: HttpServerEngineContextRequest.HttpMethod
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream
+  name: InputStream
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_InputStream
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream
+  nameWithType: HttpServerEngineContextRequest.InputStream
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream*
+  name: InputStream
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.InputStream
+  nameWithType: HttpServerEngineContextRequest.InputStream
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal
+  name: IsLocal
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_IsLocal
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal
+  nameWithType: HttpServerEngineContextRequest.IsLocal
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal*
+  name: IsLocal
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsLocal
+  nameWithType: HttpServerEngineContextRequest.IsLocal
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection
+  name: IsSecureConnection
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_IsSecureConnection
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection
+  nameWithType: HttpServerEngineContextRequest.IsSecureConnection
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection*
+  name: IsSecureConnection
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.IsSecureConnection
+  nameWithType: HttpServerEngineContextRequest.IsSecureConnection
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint
+  name: LocalEndPoint
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_LocalEndPoint
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint
+  nameWithType: HttpServerEngineContextRequest.LocalEndPoint
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint*
+  name: LocalEndPoint
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.LocalEndPoint
+  nameWithType: HttpServerEngineContextRequest.LocalEndPoint
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion
+  name: ProtocolVersion
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_ProtocolVersion
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion
+  nameWithType: HttpServerEngineContextRequest.ProtocolVersion
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion*
+  name: ProtocolVersion
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.ProtocolVersion
+  nameWithType: HttpServerEngineContextRequest.ProtocolVersion
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString
+  name: QueryString
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_QueryString
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString
+  nameWithType: HttpServerEngineContextRequest.QueryString
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString*
+  name: QueryString
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.QueryString
+  nameWithType: HttpServerEngineContextRequest.QueryString
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl
+  name: RawUrl
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_RawUrl
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl
+  nameWithType: HttpServerEngineContextRequest.RawUrl
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl*
+  name: RawUrl
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RawUrl
+  nameWithType: HttpServerEngineContextRequest.RawUrl
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint
+  name: RemoteEndPoint
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_RemoteEndPoint
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint
+  nameWithType: HttpServerEngineContextRequest.RemoteEndPoint
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint*
+  name: RemoteEndPoint
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RemoteEndPoint
+  nameWithType: HttpServerEngineContextRequest.RemoteEndPoint
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier
+  name: RequestTraceIdentifier
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_RequestTraceIdentifier
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier
+  nameWithType: HttpServerEngineContextRequest.RequestTraceIdentifier
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier*
+  name: RequestTraceIdentifier
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.RequestTraceIdentifier
+  nameWithType: HttpServerEngineContextRequest.RequestTraceIdentifier
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url
+  name: Url
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_Url
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url
+  nameWithType: HttpServerEngineContextRequest.Url
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url*
+  name: Url
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.Url
+  nameWithType: HttpServerEngineContextRequest.Url
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName
+  name: UserHostName
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName.html#Sisk_Core_Http_Engine_HttpServerEngineContextRequest_UserHostName
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName
+  nameWithType: HttpServerEngineContextRequest.UserHostName
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName*
+  name: UserHostName
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextRequest.UserHostName
+  nameWithType: HttpServerEngineContextRequest.UserHostName
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse
+  name: HttpServerEngineContextResponse
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngineContextResponse
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse
+  nameWithType: HttpServerEngineContextResponse
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.#ctor
+  name: HttpServerEngineContextResponse()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.-ctor.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.HttpServerEngineContextResponse()
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.New()
+  nameWithType: HttpServerEngineContextResponse.HttpServerEngineContextResponse()
+  nameWithType.vb: HttpServerEngineContextResponse.New()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.#ctor*
+  name: HttpServerEngineContextResponse
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.HttpServerEngineContextResponse
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.New
+  nameWithType: HttpServerEngineContextResponse.HttpServerEngineContextResponse
+  nameWithType.vb: HttpServerEngineContextResponse.New
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort
+  name: Abort()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_Abort
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort()
+  nameWithType: HttpServerEngineContextResponse.Abort()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort*
+  name: Abort
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Abort
+  nameWithType: HttpServerEngineContextResponse.Abort
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader(System.String,System.String)
+  name: AppendHeader(string, string)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_AppendHeader_System_String_System_String_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader(System.String,System.String)
+  name.vb: AppendHeader(String, String)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader(string, string)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader(String, String)
+  nameWithType: HttpServerEngineContextResponse.AppendHeader(string, string)
+  nameWithType.vb: HttpServerEngineContextResponse.AppendHeader(String, String)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader*
+  name: AppendHeader
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.AppendHeader
+  nameWithType: HttpServerEngineContextResponse.AppendHeader
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close
+  name: Close()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_Close
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close()
+  nameWithType: HttpServerEngineContextResponse.Close()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close*
+  name: Close
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Close
+  nameWithType: HttpServerEngineContextResponse.Close
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64
+  name: ContentLength64
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_ContentLength64
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64
+  nameWithType: HttpServerEngineContextResponse.ContentLength64
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64*
+  name: ContentLength64
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentLength64
+  nameWithType: HttpServerEngineContextResponse.ContentLength64
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType
+  name: ContentType
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_ContentType
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType
+  nameWithType: HttpServerEngineContextResponse.ContentType
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType*
+  name: ContentType
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.ContentType
+  nameWithType: HttpServerEngineContextResponse.ContentType
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose
+  name: Dispose()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_Dispose
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose()
+  nameWithType: HttpServerEngineContextResponse.Dispose()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose*
+  name: Dispose
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Dispose
+  nameWithType: HttpServerEngineContextResponse.Dispose
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers
+  name: Headers
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_Headers
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers
+  nameWithType: HttpServerEngineContextResponse.Headers
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers*
+  name: Headers
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.Headers
+  nameWithType: HttpServerEngineContextResponse.Headers
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive
+  name: KeepAlive
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_KeepAlive
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive
+  nameWithType: HttpServerEngineContextResponse.KeepAlive
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive*
+  name: KeepAlive
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.KeepAlive
+  nameWithType: HttpServerEngineContextResponse.KeepAlive
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream
+  name: OutputStream
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_OutputStream
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream
+  nameWithType: HttpServerEngineContextResponse.OutputStream
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream*
+  name: OutputStream
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.OutputStream
+  nameWithType: HttpServerEngineContextResponse.OutputStream
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked
+  name: SendChunked
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_SendChunked
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked
+  nameWithType: HttpServerEngineContextResponse.SendChunked
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked*
+  name: SendChunked
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.SendChunked
+  nameWithType: HttpServerEngineContextResponse.SendChunked
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode
+  name: StatusCode
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_StatusCode
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode
+  nameWithType: HttpServerEngineContextResponse.StatusCode
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode*
+  name: StatusCode
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusCode
+  nameWithType: HttpServerEngineContextResponse.StatusCode
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription
+  name: StatusDescription
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription.html#Sisk_Core_Http_Engine_HttpServerEngineContextResponse_StatusDescription
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription
+  nameWithType: HttpServerEngineContextResponse.StatusDescription
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription*
+  name: StatusDescription
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextResponse.StatusDescription
+  nameWithType: HttpServerEngineContextResponse.StatusDescription
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket
+  name: HttpServerEngineWebSocket
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngineWebSocket
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket
+  nameWithType: HttpServerEngineWebSocket
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.#ctor
+  name: HttpServerEngineWebSocket()
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.-ctor.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket__ctor
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.#ctor
+  name.vb: New()
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.HttpServerEngineWebSocket()
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.New()
+  nameWithType: HttpServerEngineWebSocket.HttpServerEngineWebSocket()
+  nameWithType.vb: HttpServerEngineWebSocket.New()
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.#ctor*
+  name: HttpServerEngineWebSocket
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.-ctor.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.HttpServerEngineWebSocket
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.New
+  nameWithType: HttpServerEngineWebSocket.HttpServerEngineWebSocket
+  nameWithType.vb: HttpServerEngineWebSocket.New
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)
+  name: CloseAsync(WebSocketCloseStatus, string?, CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_CloseAsync_System_Net_WebSockets_WebSocketCloseStatus_System_String_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)
+  name.vb: CloseAsync(WebSocketCloseStatus, String, CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus, string?, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus, String, System.Threading.CancellationToken)
+  nameWithType: HttpServerEngineWebSocket.CloseAsync(WebSocketCloseStatus, string?, CancellationToken)
+  nameWithType.vb: HttpServerEngineWebSocket.CloseAsync(WebSocketCloseStatus, String, CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync*
+  name: CloseAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseAsync
+  nameWithType: HttpServerEngineWebSocket.CloseAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)
+  name: CloseOutputAsync(WebSocketCloseStatus, string?, CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_CloseOutputAsync_System_Net_WebSockets_WebSocketCloseStatus_System_String_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus,System.String,System.Threading.CancellationToken)
+  name.vb: CloseOutputAsync(WebSocketCloseStatus, String, CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus, string?, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync(System.Net.WebSockets.WebSocketCloseStatus, String, System.Threading.CancellationToken)
+  nameWithType: HttpServerEngineWebSocket.CloseOutputAsync(WebSocketCloseStatus, string?, CancellationToken)
+  nameWithType.vb: HttpServerEngineWebSocket.CloseOutputAsync(WebSocketCloseStatus, String, CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync*
+  name: CloseOutputAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync
+  nameWithType: HttpServerEngineWebSocket.CloseOutputAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync(System.Memory{System.Byte},System.Threading.CancellationToken)
+  name: ReceiveAsync(Memory<byte>, CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_ReceiveAsync_System_Memory_System_Byte__System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync(System.Memory{System.Byte},System.Threading.CancellationToken)
+  name.vb: ReceiveAsync(Memory(Of Byte), CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync(System.Memory<byte>, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync(System.Memory(Of Byte), System.Threading.CancellationToken)
+  nameWithType: HttpServerEngineWebSocket.ReceiveAsync(Memory<byte>, CancellationToken)
+  nameWithType.vb: HttpServerEngineWebSocket.ReceiveAsync(Memory(Of Byte), CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync*
+  name: ReceiveAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync
+  nameWithType: HttpServerEngineWebSocket.ReceiveAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)
+  name: SendAsync(ReadOnlyMemory<byte>, WebSocketMessageType, bool, CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Net_WebSockets_WebSocketMessageType_System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)
+  name.vb: SendAsync(ReadOnlyMemory(Of Byte), WebSocketMessageType, Boolean, CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync(System.ReadOnlyMemory<byte>, System.Net.WebSockets.WebSocketMessageType, bool, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync(System.ReadOnlyMemory(Of Byte), System.Net.WebSockets.WebSocketMessageType, Boolean, System.Threading.CancellationToken)
+  nameWithType: HttpServerEngineWebSocket.SendAsync(ReadOnlyMemory<byte>, WebSocketMessageType, bool, CancellationToken)
+  nameWithType.vb: HttpServerEngineWebSocket.SendAsync(ReadOnlyMemory(Of Byte), WebSocketMessageType, Boolean, CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync*
+  name: SendAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync
+  nameWithType: HttpServerEngineWebSocket.SendAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State
+  name: State
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_State
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State
+  nameWithType: HttpServerEngineWebSocket.State
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State*
+  name: State
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.State
+  nameWithType: HttpServerEngineWebSocket.State
 - uid: Sisk.Core.Http.ForwardingResolver
   name: ForwardingResolver
   href: api/Sisk.Core.Http.ForwardingResolver.html
@@ -4471,6 +5476,12 @@ references:
   commentId: T:Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory
   fullName: Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory
   nameWithType: ConfigurationFileLookupDirectory
+- uid: Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.All
+  name: All
+  href: api/Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.html#Sisk_Core_Http_Hosting_ConfigurationFileLookupDirectory_All
+  commentId: F:Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.All
+  fullName: Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.All
+  nameWithType: ConfigurationFileLookupDirectory.All
 - uid: Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.AppDirectory
   name: AppDirectory
   href: api/Sisk.Core.Http.Hosting.ConfigurationFileLookupDirectory.html#Sisk_Core_Http_Hosting_ConfigurationFileLookupDirectory_AppDirectory
@@ -4687,6 +5698,15 @@ references:
   commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Action)
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Action)
   nameWithType: HttpServerHostContextBuilder.UseBootstraper(Action)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Func{System.Threading.Tasks.Task})
+  name: UseBootstraper(Func<Task>)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Func_System_Threading_Tasks_Task__
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Func{System.Threading.Tasks.Task})
+  name.vb: UseBootstraper(Func(Of Task))
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: HttpServerHostContextBuilder.UseBootstraper(Func<Task>)
+  nameWithType.vb: HttpServerHostContextBuilder.UseBootstraper(Func(Of Task))
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Action)
   name: UseBootstraper(string, Action)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Action_
@@ -4696,6 +5716,15 @@ references:
   fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(String, System.Action)
   nameWithType: HttpServerHostContextBuilder.UseBootstraper(string, Action)
   nameWithType.vb: HttpServerHostContextBuilder.UseBootstraper(String, Action)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Func{System.Threading.Tasks.Task})
+  name: UseBootstraper(string, Func<Task>)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Func_System_Threading_Tasks_Task__
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Func{System.Threading.Tasks.Task})
+  name.vb: UseBootstraper(String, Func(Of Task))
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(string, System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(String, System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: HttpServerHostContextBuilder.UseBootstraper(string, Func<Task>)
+  nameWithType.vb: HttpServerHostContextBuilder.UseBootstraper(String, Func(Of Task))
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper*
   name: UseBootstraper
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html
@@ -4738,6 +5767,27 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors
   nameWithType: HttpServerHostContextBuilder.UseCors
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Sisk.Core.Http.Engine.HttpServerEngine)
+  name: UseEngine(HttpServerEngine)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine_Sisk_Core_Http_Engine_HttpServerEngine_
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Sisk.Core.Http.Engine.HttpServerEngine)
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Sisk.Core.Http.Engine.HttpServerEngine)
+  nameWithType: HttpServerHostContextBuilder.UseEngine(HttpServerEngine)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine*
+  name: UseEngine
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html
+  commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine
+  nameWithType: HttpServerHostContextBuilder.UseEngine
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1
+  name: UseEngine<TEngine>()
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1
+  name.vb: UseEngine(Of TEngine)()
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine<TEngine>()
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Of TEngine)()
+  nameWithType: HttpServerHostContextBuilder.UseEngine<TEngine>()
+  nameWithType.vb: HttpServerHostContextBuilder.UseEngine(Of TEngine)()
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver(Sisk.Core.Http.ForwardingResolver)
   name: UseForwardingResolver(ForwardingResolver)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver_Sisk_Core_Http_ForwardingResolver_
@@ -5203,6 +6253,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpContext.ExtraHeaders
   fullName: Sisk.Core.Http.HttpContext.ExtraHeaders
   nameWithType: HttpContext.ExtraHeaders
+- uid: Sisk.Core.Http.HttpContext.GetCurrentContext
+  name: GetCurrentContext()
+  href: api/Sisk.Core.Http.HttpContext.GetCurrentContext.html#Sisk_Core_Http_HttpContext_GetCurrentContext
+  commentId: M:Sisk.Core.Http.HttpContext.GetCurrentContext
+  fullName: Sisk.Core.Http.HttpContext.GetCurrentContext()
+  nameWithType: HttpContext.GetCurrentContext()
+- uid: Sisk.Core.Http.HttpContext.GetCurrentContext*
+  name: GetCurrentContext
+  href: api/Sisk.Core.Http.HttpContext.GetCurrentContext.html
+  commentId: Overload:Sisk.Core.Http.HttpContext.GetCurrentContext
+  fullName: Sisk.Core.Http.HttpContext.GetCurrentContext
+  nameWithType: HttpContext.GetCurrentContext
 - uid: Sisk.Core.Http.HttpContext.HttpServer
   name: HttpServer
   href: api/Sisk.Core.Http.HttpContext.HttpServer.html#Sisk_Core_Http_HttpContext_HttpServer
@@ -5239,6 +6301,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpContext.ListeningHost
   fullName: Sisk.Core.Http.HttpContext.ListeningHost
   nameWithType: HttpContext.ListeningHost
+- uid: Sisk.Core.Http.HttpContext.LogMode
+  name: LogMode
+  href: api/Sisk.Core.Http.HttpContext.LogMode.html#Sisk_Core_Http_HttpContext_LogMode
+  commentId: P:Sisk.Core.Http.HttpContext.LogMode
+  fullName: Sisk.Core.Http.HttpContext.LogMode
+  nameWithType: HttpContext.LogMode
+- uid: Sisk.Core.Http.HttpContext.LogMode*
+  name: LogMode
+  href: api/Sisk.Core.Http.HttpContext.LogMode.html
+  commentId: Overload:Sisk.Core.Http.HttpContext.LogMode
+  fullName: Sisk.Core.Http.HttpContext.LogMode
+  nameWithType: HttpContext.LogMode
 - uid: Sisk.Core.Http.HttpContext.MatchedRoute
   name: MatchedRoute
   href: api/Sisk.Core.Http.HttpContext.MatchedRoute.html#Sisk_Core_Http_HttpContext_MatchedRoute
@@ -5401,6 +6475,18 @@ references:
   commentId: F:Sisk.Core.Http.HttpKnownHeaderNames.AccessControlMaxAge
   fullName: Sisk.Core.Http.HttpKnownHeaderNames.AccessControlMaxAge
   nameWithType: HttpKnownHeaderNames.AccessControlMaxAge
+- uid: Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestHeaders
+  name: AccessControlRequestHeaders
+  href: api/Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestHeaders.html
+  commentId: F:Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestHeaders
+  fullName: Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestHeaders
+  nameWithType: HttpKnownHeaderNames.AccessControlRequestHeaders
+- uid: Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestMethod
+  name: AccessControlRequestMethod
+  href: api/Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestMethod.html
+  commentId: F:Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestMethod
+  fullName: Sisk.Core.Http.HttpKnownHeaderNames.AccessControlRequestMethod
+  nameWithType: HttpKnownHeaderNames.AccessControlRequestMethod
 - uid: Sisk.Core.Http.HttpKnownHeaderNames.Age
   name: Age
   href: api/Sisk.Core.Http.HttpKnownHeaderNames.Age.html
@@ -5935,6 +7021,33 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions
   fullName: Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions
   nameWithType: HttpRequest.DefaultJsonSerializerOptions
+- uid: Sisk.Core.Http.HttpRequest.DisconnectToken
+  name: DisconnectToken
+  href: api/Sisk.Core.Http.HttpRequest.DisconnectToken.html#Sisk_Core_Http_HttpRequest_DisconnectToken
+  commentId: P:Sisk.Core.Http.HttpRequest.DisconnectToken
+  fullName: Sisk.Core.Http.HttpRequest.DisconnectToken
+  nameWithType: HttpRequest.DisconnectToken
+- uid: Sisk.Core.Http.HttpRequest.DisconnectToken*
+  name: DisconnectToken
+  href: api/Sisk.Core.Http.HttpRequest.DisconnectToken.html
+  commentId: Overload:Sisk.Core.Http.HttpRequest.DisconnectToken
+  fullName: Sisk.Core.Http.HttpRequest.DisconnectToken
+  nameWithType: HttpRequest.DisconnectToken
+- uid: Sisk.Core.Http.HttpRequest.Finalize
+  name: ~HttpRequest()
+  href: api/Sisk.Core.Http.HttpRequest.Finalize.html#Sisk_Core_Http_HttpRequest_Finalize
+  commentId: M:Sisk.Core.Http.HttpRequest.Finalize
+  name.vb: ''
+  fullName: Sisk.Core.Http.HttpRequest.~HttpRequest()
+  fullName.vb: ''
+  nameWithType: HttpRequest.~HttpRequest()
+  nameWithType.vb: ''
+- uid: Sisk.Core.Http.HttpRequest.Finalize*
+  name: ~HttpRequest
+  href: api/Sisk.Core.Http.HttpRequest.Finalize.html
+  commentId: Overload:Sisk.Core.Http.HttpRequest.Finalize
+  fullName: Sisk.Core.Http.HttpRequest.~HttpRequest
+  nameWithType: HttpRequest.~HttpRequest
 - uid: Sisk.Core.Http.HttpRequest.FullPath
   name: FullPath
   href: api/Sisk.Core.Http.HttpRequest.FullPath.html#Sisk_Core_Http_HttpRequest_FullPath
@@ -6469,15 +7582,6 @@ references:
   fullName.vb: Sisk.Core.Http.HttpResponse.New(System.Net.Http.HttpContent)
   nameWithType: HttpResponse.HttpResponse(HttpContent?)
   nameWithType.vb: HttpResponse.New(HttpContent)
-- uid: Sisk.Core.Http.HttpResponse.#ctor(System.Net.HttpStatusCode)
-  name: HttpResponse(HttpStatusCode)
-  href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_System_Net_HttpStatusCode_
-  commentId: M:Sisk.Core.Http.HttpResponse.#ctor(System.Net.HttpStatusCode)
-  name.vb: New(HttpStatusCode)
-  fullName: Sisk.Core.Http.HttpResponse.HttpResponse(System.Net.HttpStatusCode)
-  fullName.vb: Sisk.Core.Http.HttpResponse.New(System.Net.HttpStatusCode)
-  nameWithType: HttpResponse.HttpResponse(HttpStatusCode)
-  nameWithType.vb: HttpResponse.New(HttpStatusCode)
 - uid: Sisk.Core.Http.HttpResponse.#ctor(System.Net.HttpStatusCode,System.Net.Http.HttpContent)
   name: HttpResponse(HttpStatusCode, HttpContent?)
   href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_System_Net_HttpStatusCode_System_Net_Http_HttpContent_
@@ -6487,6 +7591,15 @@ references:
   fullName.vb: Sisk.Core.Http.HttpResponse.New(System.Net.HttpStatusCode, System.Net.Http.HttpContent)
   nameWithType: HttpResponse.HttpResponse(HttpStatusCode, HttpContent?)
   nameWithType.vb: HttpResponse.New(HttpStatusCode, HttpContent)
+- uid: Sisk.Core.Http.HttpResponse.#ctor(System.Net.HttpStatusCode,System.String)
+  name: HttpResponse(HttpStatusCode, string)
+  href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_System_Net_HttpStatusCode_System_String_
+  commentId: M:Sisk.Core.Http.HttpResponse.#ctor(System.Net.HttpStatusCode,System.String)
+  name.vb: New(HttpStatusCode, String)
+  fullName: Sisk.Core.Http.HttpResponse.HttpResponse(System.Net.HttpStatusCode, string)
+  fullName.vb: Sisk.Core.Http.HttpResponse.New(System.Net.HttpStatusCode, String)
+  nameWithType: HttpResponse.HttpResponse(HttpStatusCode, string)
+  nameWithType.vb: HttpResponse.New(HttpStatusCode, String)
 - uid: Sisk.Core.Http.HttpResponse.#ctor(System.String)
   name: HttpResponse(string)
   href: api/Sisk.Core.Http.HttpResponse.-ctor.html#Sisk_Core_Http_HttpResponse__ctor_System_String_
@@ -6544,6 +7657,21 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpResponse.GetHashCode
   fullName: Sisk.Core.Http.HttpResponse.GetHashCode
   nameWithType: HttpResponse.GetHashCode
+- uid: Sisk.Core.Http.HttpResponse.GetHeaderValue(System.String)
+  name: GetHeaderValue(string)
+  href: api/Sisk.Core.Http.HttpResponse.GetHeaderValue.html#Sisk_Core_Http_HttpResponse_GetHeaderValue_System_String_
+  commentId: M:Sisk.Core.Http.HttpResponse.GetHeaderValue(System.String)
+  name.vb: GetHeaderValue(String)
+  fullName: Sisk.Core.Http.HttpResponse.GetHeaderValue(string)
+  fullName.vb: Sisk.Core.Http.HttpResponse.GetHeaderValue(String)
+  nameWithType: HttpResponse.GetHeaderValue(string)
+  nameWithType.vb: HttpResponse.GetHeaderValue(String)
+- uid: Sisk.Core.Http.HttpResponse.GetHeaderValue*
+  name: GetHeaderValue
+  href: api/Sisk.Core.Http.HttpResponse.GetHeaderValue.html
+  commentId: Overload:Sisk.Core.Http.HttpResponse.GetHeaderValue
+  fullName: Sisk.Core.Http.HttpResponse.GetHeaderValue
+  nameWithType: HttpResponse.GetHeaderValue
 - uid: Sisk.Core.Http.HttpResponse.GetRawHttpResponse(System.Boolean)
   name: GetRawHttpResponse(bool)
   href: api/Sisk.Core.Http.HttpResponse.GetRawHttpResponse.html#Sisk_Core_Http_HttpResponse_GetRawHttpResponse_System_Boolean_
@@ -7168,6 +8296,12 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
   fullName: Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
   nameWithType: HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable
+- uid: Sisk.Core.Http.HttpServerConfiguration.DefaultAccessLogFormat
+  name: DefaultAccessLogFormat
+  href: api/Sisk.Core.Http.HttpServerConfiguration.DefaultAccessLogFormat.html
+  commentId: F:Sisk.Core.Http.HttpServerConfiguration.DefaultAccessLogFormat
+  fullName: Sisk.Core.Http.HttpServerConfiguration.DefaultAccessLogFormat
+  nameWithType: HttpServerConfiguration.DefaultAccessLogFormat
 - uid: Sisk.Core.Http.HttpServerConfiguration.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.HttpServerConfiguration.Dispose.html#Sisk_Core_Http_HttpServerConfiguration_Dispose
@@ -7204,6 +8338,18 @@ references:
   commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
   fullName: Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression
   nameWithType: HttpServerConfiguration.EnableAutomaticResponseCompression
+- uid: Sisk.Core.Http.HttpServerConfiguration.Engine
+  name: Engine
+  href: api/Sisk.Core.Http.HttpServerConfiguration.Engine.html#Sisk_Core_Http_HttpServerConfiguration_Engine
+  commentId: P:Sisk.Core.Http.HttpServerConfiguration.Engine
+  fullName: Sisk.Core.Http.HttpServerConfiguration.Engine
+  nameWithType: HttpServerConfiguration.Engine
+- uid: Sisk.Core.Http.HttpServerConfiguration.Engine*
+  name: Engine
+  href: api/Sisk.Core.Http.HttpServerConfiguration.Engine.html
+  commentId: Overload:Sisk.Core.Http.HttpServerConfiguration.Engine
+  fullName: Sisk.Core.Http.HttpServerConfiguration.Engine
+  nameWithType: HttpServerConfiguration.Engine
 - uid: Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream
   name: ErrorsLogsStream
   href: api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream
@@ -9109,21 +10255,24 @@ references:
   commentId: M:Sisk.Core.Http.LogStream.Dispose
   fullName: Sisk.Core.Http.LogStream.Dispose()
   nameWithType: LogStream.Dispose()
-- uid: Sisk.Core.Http.LogStream.Dispose(System.Boolean)
-  name: Dispose(bool)
-  href: api/Sisk.Core.Http.LogStream.Dispose.html#Sisk_Core_Http_LogStream_Dispose_System_Boolean_
-  commentId: M:Sisk.Core.Http.LogStream.Dispose(System.Boolean)
-  name.vb: Dispose(Boolean)
-  fullName: Sisk.Core.Http.LogStream.Dispose(bool)
-  fullName.vb: Sisk.Core.Http.LogStream.Dispose(Boolean)
-  nameWithType: LogStream.Dispose(bool)
-  nameWithType.vb: LogStream.Dispose(Boolean)
 - uid: Sisk.Core.Http.LogStream.Dispose*
   name: Dispose
   href: api/Sisk.Core.Http.LogStream.Dispose.html
   commentId: Overload:Sisk.Core.Http.LogStream.Dispose
   fullName: Sisk.Core.Http.LogStream.Dispose
   nameWithType: LogStream.Dispose
+- uid: Sisk.Core.Http.LogStream.DisposeAsync
+  name: DisposeAsync()
+  href: api/Sisk.Core.Http.LogStream.DisposeAsync.html#Sisk_Core_Http_LogStream_DisposeAsync
+  commentId: M:Sisk.Core.Http.LogStream.DisposeAsync
+  fullName: Sisk.Core.Http.LogStream.DisposeAsync()
+  nameWithType: LogStream.DisposeAsync()
+- uid: Sisk.Core.Http.LogStream.DisposeAsync*
+  name: DisposeAsync
+  href: api/Sisk.Core.Http.LogStream.DisposeAsync.html
+  commentId: Overload:Sisk.Core.Http.LogStream.DisposeAsync
+  fullName: Sisk.Core.Http.LogStream.DisposeAsync
+  nameWithType: LogStream.DisposeAsync
 - uid: Sisk.Core.Http.LogStream.Disposed
   name: Disposed
   href: api/Sisk.Core.Http.LogStream.Disposed.html#Sisk_Core_Http_LogStream_Disposed
@@ -9136,6 +10285,18 @@ references:
   commentId: Overload:Sisk.Core.Http.LogStream.Disposed
   fullName: Sisk.Core.Http.LogStream.Disposed
   nameWithType: LogStream.Disposed
+- uid: Sisk.Core.Http.LogStream.Empty
+  name: Empty
+  href: api/Sisk.Core.Http.LogStream.Empty.html#Sisk_Core_Http_LogStream_Empty
+  commentId: P:Sisk.Core.Http.LogStream.Empty
+  fullName: Sisk.Core.Http.LogStream.Empty
+  nameWithType: LogStream.Empty
+- uid: Sisk.Core.Http.LogStream.Empty*
+  name: Empty
+  href: api/Sisk.Core.Http.LogStream.Empty.html
+  commentId: Overload:Sisk.Core.Http.LogStream.Empty
+  fullName: Sisk.Core.Http.LogStream.Empty
+  nameWithType: LogStream.Empty
 - uid: Sisk.Core.Http.LogStream.Encoding
   name: Encoding
   href: api/Sisk.Core.Http.LogStream.Encoding.html#Sisk_Core_Http_LogStream_Encoding
@@ -9187,6 +10348,18 @@ references:
   commentId: Overload:Sisk.Core.Http.LogStream.Flush
   fullName: Sisk.Core.Http.LogStream.Flush
   nameWithType: LogStream.Flush
+- uid: Sisk.Core.Http.LogStream.FlushAsync
+  name: FlushAsync()
+  href: api/Sisk.Core.Http.LogStream.FlushAsync.html#Sisk_Core_Http_LogStream_FlushAsync
+  commentId: M:Sisk.Core.Http.LogStream.FlushAsync
+  fullName: Sisk.Core.Http.LogStream.FlushAsync()
+  nameWithType: LogStream.FlushAsync()
+- uid: Sisk.Core.Http.LogStream.FlushAsync*
+  name: FlushAsync
+  href: api/Sisk.Core.Http.LogStream.FlushAsync.html
+  commentId: Overload:Sisk.Core.Http.LogStream.FlushAsync
+  fullName: Sisk.Core.Http.LogStream.FlushAsync
+  nameWithType: LogStream.FlushAsync
 - uid: Sisk.Core.Http.LogStream.IsBuffering
   name: IsBuffering
   href: api/Sisk.Core.Http.LogStream.IsBuffering.html#Sisk_Core_Http_LogStream_IsBuffering
@@ -9349,15 +10522,24 @@ references:
   fullName.vb: Sisk.Core.Http.LogStream.WriteLine(String)
   nameWithType: LogStream.WriteLine(string)
   nameWithType.vb: LogStream.WriteLine(String)
-- uid: Sisk.Core.Http.LogStream.WriteLine(System.String,System.Object[])
-  name: WriteLine(string, params object?[])
-  href: api/Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Object___
-  commentId: M:Sisk.Core.Http.LogStream.WriteLine(System.String,System.Object[])
-  name.vb: WriteLine(String, ParamArray Object())
-  fullName: Sisk.Core.Http.LogStream.WriteLine(string, params object?[])
-  fullName.vb: Sisk.Core.Http.LogStream.WriteLine(String, ParamArray Object())
-  nameWithType: LogStream.WriteLine(string, params object?[])
-  nameWithType.vb: LogStream.WriteLine(String, ParamArray Object())
+- uid: Sisk.Core.Http.LogStream.WriteLine(System.String,System.Collections.Generic.IEnumerable{System.Object})
+  name: WriteLine(string, IEnumerable<object?>)
+  href: api/Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__
+  commentId: M:Sisk.Core.Http.LogStream.WriteLine(System.String,System.Collections.Generic.IEnumerable{System.Object})
+  name.vb: WriteLine(String, IEnumerable(Of Object))
+  fullName: Sisk.Core.Http.LogStream.WriteLine(string, System.Collections.Generic.IEnumerable<object?>)
+  fullName.vb: Sisk.Core.Http.LogStream.WriteLine(String, System.Collections.Generic.IEnumerable(Of Object))
+  nameWithType: LogStream.WriteLine(string, IEnumerable<object?>)
+  nameWithType.vb: LogStream.WriteLine(String, IEnumerable(Of Object))
+- uid: Sisk.Core.Http.LogStream.WriteLine(System.String,System.ReadOnlySpan{System.Object})
+  name: WriteLine(string, scoped ReadOnlySpan<object?>)
+  href: api/Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__
+  commentId: M:Sisk.Core.Http.LogStream.WriteLine(System.String,System.ReadOnlySpan{System.Object})
+  name.vb: WriteLine(String, ReadOnlySpan(Of Object))
+  fullName: Sisk.Core.Http.LogStream.WriteLine(string, scoped System.ReadOnlySpan<object?>)
+  fullName.vb: Sisk.Core.Http.LogStream.WriteLine(String, System.ReadOnlySpan(Of Object))
+  nameWithType: LogStream.WriteLine(string, scoped ReadOnlySpan<object?>)
+  nameWithType.vb: LogStream.WriteLine(String, ReadOnlySpan(Of Object))
 - uid: Sisk.Core.Http.LogStream.WriteLine*
   name: WriteLine
   href: api/Sisk.Core.Http.LogStream.WriteLine.html
@@ -9397,15 +10579,15 @@ references:
   fullName.vb: Sisk.Core.Http.LogStream.WriteLineAsync(String)
   nameWithType: LogStream.WriteLineAsync(string)
   nameWithType.vb: LogStream.WriteLineAsync(String)
-- uid: Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Object[])
-  name: WriteLineAsync(string, params object?[])
-  href: api/Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Object___
-  commentId: M:Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Object[])
-  name.vb: WriteLineAsync(String, ParamArray Object())
-  fullName: Sisk.Core.Http.LogStream.WriteLineAsync(string, params object?[])
-  fullName.vb: Sisk.Core.Http.LogStream.WriteLineAsync(String, ParamArray Object())
-  nameWithType: LogStream.WriteLineAsync(string, params object?[])
-  nameWithType.vb: LogStream.WriteLineAsync(String, ParamArray Object())
+- uid: Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Collections.Generic.IEnumerable{System.Object})
+  name: WriteLineAsync(string, IEnumerable<object?>)
+  href: api/Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Collections_Generic_IEnumerable_System_Object__
+  commentId: M:Sisk.Core.Http.LogStream.WriteLineAsync(System.String,System.Collections.Generic.IEnumerable{System.Object})
+  name.vb: WriteLineAsync(String, IEnumerable(Of Object))
+  fullName: Sisk.Core.Http.LogStream.WriteLineAsync(string, System.Collections.Generic.IEnumerable<object?>)
+  fullName.vb: Sisk.Core.Http.LogStream.WriteLineAsync(String, System.Collections.Generic.IEnumerable(Of Object))
+  nameWithType: LogStream.WriteLineAsync(string, IEnumerable<object?>)
+  nameWithType.vb: LogStream.WriteLineAsync(String, IEnumerable(Of Object))
 - uid: Sisk.Core.Http.LogStream.WriteLineAsync*
   name: WriteLineAsync
   href: api/Sisk.Core.Http.LogStream.WriteLineAsync.html
@@ -10078,6 +11260,21 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpResponseStreamManager.Close
   fullName: Sisk.Core.Http.Streams.HttpResponseStreamManager.Close
   nameWithType: HttpResponseStreamManager.Close
+- uid: Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter(System.String,System.Text.Encoding,System.String)
+  name: GetStreamWriter(string?, Encoding?, string?)
+  href: api/Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_System_String_System_Text_Encoding_System_String_
+  commentId: M:Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter(System.String,System.Text.Encoding,System.String)
+  name.vb: GetStreamWriter(String, Encoding, String)
+  fullName: Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter(string?, System.Text.Encoding?, string?)
+  fullName.vb: Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter(String, System.Text.Encoding, String)
+  nameWithType: HttpResponseStreamManager.GetStreamWriter(string?, Encoding?, string?)
+  nameWithType.vb: HttpResponseStreamManager.GetStreamWriter(String, Encoding, String)
+- uid: Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter*
+  name: GetStreamWriter
+  href: api/Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter.html
+  commentId: Overload:Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter
+  fullName: Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter
+  nameWithType: HttpResponseStreamManager.GetStreamWriter
 - uid: Sisk.Core.Http.Streams.HttpResponseStreamManager.ResponseStream
   name: ResponseStream
   href: api/Sisk.Core.Http.Streams.HttpResponseStreamManager.ResponseStream.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_ResponseStream
@@ -10198,6 +11395,15 @@ references:
   fullName.vb: Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(Byte())
   nameWithType: HttpResponseStreamManager.Write(byte[])
   nameWithType.vb: HttpResponseStreamManager.Write(Byte())
+- uid: Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(System.Byte[],System.Int32,System.Int32)
+  name: Write(byte[], int, int)
+  href: api/Sisk.Core.Http.Streams.HttpResponseStreamManager.Write.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_Write_System_Byte___System_Int32_System_Int32_
+  commentId: M:Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(System.Byte[],System.Int32,System.Int32)
+  name.vb: Write(Byte(), Integer, Integer)
+  fullName: Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(byte[], int, int)
+  fullName.vb: Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(Byte(), Integer, Integer)
+  nameWithType: HttpResponseStreamManager.Write(byte[], int, int)
+  nameWithType.vb: HttpResponseStreamManager.Write(Byte(), Integer, Integer)
 - uid: Sisk.Core.Http.Streams.HttpResponseStreamManager.Write(System.ReadOnlySpan{System.Byte})
   name: Write(ReadOnlySpan<byte>)
   href: api/Sisk.Core.Http.Streams.HttpResponseStreamManager.Write.html#Sisk_Core_Http_Streams_HttpResponseStreamManager_Write_System_ReadOnlySpan_System_Byte__
@@ -10243,6 +11449,21 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpStreamPingPolicy.Dispose
   fullName: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Dispose
   nameWithType: HttpStreamPingPolicy.Dispose
+- uid: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize
+  name: ~HttpStreamPingPolicy()
+  href: api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Finalize
+  commentId: M:Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize
+  name.vb: ''
+  fullName: Sisk.Core.Http.Streams.HttpStreamPingPolicy.~HttpStreamPingPolicy()
+  fullName.vb: ''
+  nameWithType: HttpStreamPingPolicy.~HttpStreamPingPolicy()
+  nameWithType.vb: ''
+- uid: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize*
+  name: ~HttpStreamPingPolicy
+  href: api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize.html
+  commentId: Overload:Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize
+  fullName: Sisk.Core.Http.Streams.HttpStreamPingPolicy.~HttpStreamPingPolicy
+  nameWithType: HttpStreamPingPolicy.~HttpStreamPingPolicy
 - uid: Sisk.Core.Http.Streams.HttpStreamPingPolicy.Interval
   name: Interval
   href: api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.Interval.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Interval
@@ -10282,18 +11503,18 @@ references:
   commentId: T:Sisk.Core.Http.Streams.HttpWebSocket
   fullName: Sisk.Core.Http.Streams.HttpWebSocket
   nameWithType: HttpWebSocket
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Close
-  name: Close()
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Close.html#Sisk_Core_Http_Streams_HttpWebSocket_Close
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Close
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Close()
-  nameWithType: HttpWebSocket.Close()
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Close*
-  name: Close
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Close.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.Close
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Close
-  nameWithType: HttpWebSocket.Close
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync(System.Threading.CancellationToken)
+  name: CloseAsync(CancellationToken)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_CloseAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync(System.Threading.CancellationToken)
+  nameWithType: HttpWebSocket.CloseAsync(CancellationToken)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync*
+  name: CloseAsync
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync.html
+  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync
+  nameWithType: HttpWebSocket.CloseAsync
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.Dispose.html#Sisk_Core_Http_Streams_HttpWebSocket_Dispose
@@ -10342,24 +11563,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.IsClosed
   fullName: Sisk.Core.Http.Streams.HttpWebSocket.IsClosed
   nameWithType: HttpWebSocket.IsClosed
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts
-  name: MaxAttempts
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts.html#Sisk_Core_Http_Streams_HttpWebSocket_MaxAttempts
-  commentId: P:Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts
-  nameWithType: HttpWebSocket.MaxAttempts
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts*
-  name: MaxAttempts
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts
-  nameWithType: HttpWebSocket.MaxAttempts
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.OnReceive
-  name: OnReceive
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.OnReceive.html
-  commentId: E:Sisk.Core.Http.Streams.HttpWebSocket.OnReceive
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.OnReceive
-  nameWithType: HttpWebSocket.OnReceive
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.PingPolicy
   name: PingPolicy
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.PingPolicy.html#Sisk_Core_Http_Streams_HttpWebSocket_PingPolicy
@@ -10372,66 +11575,48 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.PingPolicy
   fullName: Sisk.Core.Http.Streams.HttpWebSocket.PingPolicy
   nameWithType: HttpWebSocket.PingPolicy
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Byte[])
-  name: Send(byte[])
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Byte[])
-  name.vb: Send(Byte())
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(byte[])
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.Send(Byte())
-  nameWithType: HttpWebSocket.Send(byte[])
-  nameWithType.vb: HttpWebSocket.Send(Byte())
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Byte[],System.Int32,System.Int32)
-  name: Send(byte[], int, int)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___System_Int32_System_Int32_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Send(System.Byte[],System.Int32,System.Int32)
-  name.vb: Send(Byte(), Integer, Integer)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(byte[], int, int)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.Send(Byte(), Integer, Integer)
-  nameWithType: HttpWebSocket.Send(byte[], int, int)
-  nameWithType.vb: HttpWebSocket.Send(Byte(), Integer, Integer)
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.ReadOnlyMemory{System.Byte})
-  name: Send(ReadOnlyMemory<byte>)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_ReadOnlyMemory_System_Byte__
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Send(System.ReadOnlyMemory{System.Byte})
-  name.vb: Send(ReadOnlyMemory(Of Byte))
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.ReadOnlyMemory<byte>)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.ReadOnlyMemory(Of Byte))
-  nameWithType: HttpWebSocket.Send(ReadOnlyMemory<byte>)
-  nameWithType.vb: HttpWebSocket.Send(ReadOnlyMemory(Of Byte))
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Send(System.String)
-  name: Send(string)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_String_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.Send(System.String)
-  name.vb: Send(String)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send(string)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.Send(String)
-  nameWithType: HttpWebSocket.Send(string)
-  nameWithType.vb: HttpWebSocket.Send(String)
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.Send*
-  name: Send
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.Send.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.Send
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.Send
-  nameWithType: HttpWebSocket.Send
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte})
-  name: SendAsync(ReadOnlyMemory<byte>)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte})
-  name.vb: SendAsync(ReadOnlyMemory(Of Byte))
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory<byte>)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory(Of Byte))
-  nameWithType: HttpWebSocket.SendAsync(ReadOnlyMemory<byte>)
-  nameWithType.vb: HttpWebSocket.SendAsync(ReadOnlyMemory(Of Byte))
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String)
-  name: SendAsync(string)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String)
-  name.vb: SendAsync(String)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(string)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(String)
-  nameWithType: HttpWebSocket.SendAsync(string)
-  nameWithType.vb: HttpWebSocket.SendAsync(String)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync
+  name: ReceiveMessageAsync()
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync()
+  nameWithType: HttpWebSocket.ReceiveMessageAsync()
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.Threading.CancellationToken)
+  name: ReceiveMessageAsync(CancellationToken)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.Threading.CancellationToken)
+  nameWithType: HttpWebSocket.ReceiveMessageAsync(CancellationToken)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.TimeSpan)
+  name: ReceiveMessageAsync(TimeSpan)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_TimeSpan_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.TimeSpan)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.TimeSpan)
+  nameWithType: HttpWebSocket.ReceiveMessageAsync(TimeSpan)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*
+  name: ReceiveMessageAsync
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html
+  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync
+  nameWithType: HttpWebSocket.ReceiveMessageAsync
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)
+  name: SendAsync(ReadOnlyMemory<byte>, CancellationToken)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)
+  name.vb: SendAsync(ReadOnlyMemory(Of Byte), CancellationToken)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory<byte>, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.ReadOnlyMemory(Of Byte), System.Threading.CancellationToken)
+  nameWithType: HttpWebSocket.SendAsync(ReadOnlyMemory<byte>, CancellationToken)
+  nameWithType.vb: HttpWebSocket.SendAsync(ReadOnlyMemory(Of Byte), CancellationToken)
+- uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String,System.Threading.CancellationToken)
+  name: SendAsync(string, CancellationToken)
+  href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(System.String,System.Threading.CancellationToken)
+  name.vb: SendAsync(String, CancellationToken)
+  fullName: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(string, System.Threading.CancellationToken)
+  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync(String, System.Threading.CancellationToken)
+  nameWithType: HttpWebSocket.SendAsync(string, CancellationToken)
+  nameWithType.vb: HttpWebSocket.SendAsync(String, CancellationToken)
 - uid: Sisk.Core.Http.Streams.HttpWebSocket.SendAsync*
   name: SendAsync
   href: api/Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html
@@ -10450,78 +11635,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.State
   fullName: Sisk.Core.Http.Streams.HttpWebSocket.State
   nameWithType: HttpWebSocket.State
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose
-  name: WaitForClose()
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitForClose
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose()
-  nameWithType: HttpWebSocket.WaitForClose()
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose(System.TimeSpan)
-  name: WaitForClose(TimeSpan)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitForClose_System_TimeSpan_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose(System.TimeSpan)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose(System.TimeSpan)
-  nameWithType: HttpWebSocket.WaitForClose(TimeSpan)
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose*
-  name: WaitForClose
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose
-  nameWithType: HttpWebSocket.WaitForClose
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext
-  name: WaitNext()
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitNext
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WaitNext
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext()
-  nameWithType: HttpWebSocket.WaitNext()
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext(System.TimeSpan)
-  name: WaitNext(TimeSpan)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitNext_System_TimeSpan_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WaitNext(System.TimeSpan)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext(System.TimeSpan)
-  nameWithType: HttpWebSocket.WaitNext(TimeSpan)
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext*
-  name: WaitNext
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.WaitNext
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitNext
-  nameWithType: HttpWebSocket.WaitNext
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout
-  name: WaitTimeout
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitTimeout
-  commentId: P:Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout
-  nameWithType: HttpWebSocket.WaitTimeout
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout*
-  name: WaitTimeout
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout
-  nameWithType: HttpWebSocket.WaitTimeout
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.Action{Sisk.Core.Http.Streams.HttpStreamPingPolicy})
-  name: WithPing(Action<HttpStreamPingPolicy>)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WithPing.html#Sisk_Core_Http_Streams_HttpWebSocket_WithPing_System_Action_Sisk_Core_Http_Streams_HttpStreamPingPolicy__
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.Action{Sisk.Core.Http.Streams.HttpStreamPingPolicy})
-  name.vb: WithPing(Action(Of HttpStreamPingPolicy))
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.Action<Sisk.Core.Http.Streams.HttpStreamPingPolicy>)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.Action(Of Sisk.Core.Http.Streams.HttpStreamPingPolicy))
-  nameWithType: HttpWebSocket.WithPing(Action<HttpStreamPingPolicy>)
-  nameWithType.vb: HttpWebSocket.WithPing(Action(Of HttpStreamPingPolicy))
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.String,System.TimeSpan)
-  name: WithPing(string, TimeSpan)
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WithPing.html#Sisk_Core_Http_Streams_HttpWebSocket_WithPing_System_String_System_TimeSpan_
-  commentId: M:Sisk.Core.Http.Streams.HttpWebSocket.WithPing(System.String,System.TimeSpan)
-  name.vb: WithPing(String, TimeSpan)
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(string, System.TimeSpan)
-  fullName.vb: Sisk.Core.Http.Streams.HttpWebSocket.WithPing(String, System.TimeSpan)
-  nameWithType: HttpWebSocket.WithPing(string, TimeSpan)
-  nameWithType.vb: HttpWebSocket.WithPing(String, TimeSpan)
-- uid: Sisk.Core.Http.Streams.HttpWebSocket.WithPing*
-  name: WithPing
-  href: api/Sisk.Core.Http.Streams.HttpWebSocket.WithPing.html
-  commentId: Overload:Sisk.Core.Http.Streams.HttpWebSocket.WithPing
-  fullName: Sisk.Core.Http.Streams.HttpWebSocket.WithPing
-  nameWithType: HttpWebSocket.WithPing
 - uid: Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection
   name: HttpWebSocketConnectionCollection
   href: api/Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection.html
@@ -10654,30 +11767,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Streams.WebSocketMessage.GetString
   fullName: Sisk.Core.Http.Streams.WebSocketMessage.GetString
   nameWithType: WebSocketMessage.GetString
-- uid: Sisk.Core.Http.Streams.WebSocketMessage.IsClose
-  name: IsClose
-  href: api/Sisk.Core.Http.Streams.WebSocketMessage.IsClose.html#Sisk_Core_Http_Streams_WebSocketMessage_IsClose
-  commentId: P:Sisk.Core.Http.Streams.WebSocketMessage.IsClose
-  fullName: Sisk.Core.Http.Streams.WebSocketMessage.IsClose
-  nameWithType: WebSocketMessage.IsClose
-- uid: Sisk.Core.Http.Streams.WebSocketMessage.IsClose*
-  name: IsClose
-  href: api/Sisk.Core.Http.Streams.WebSocketMessage.IsClose.html
-  commentId: Overload:Sisk.Core.Http.Streams.WebSocketMessage.IsClose
-  fullName: Sisk.Core.Http.Streams.WebSocketMessage.IsClose
-  nameWithType: WebSocketMessage.IsClose
-- uid: Sisk.Core.Http.Streams.WebSocketMessage.IsEnd
-  name: IsEnd
-  href: api/Sisk.Core.Http.Streams.WebSocketMessage.IsEnd.html#Sisk_Core_Http_Streams_WebSocketMessage_IsEnd
-  commentId: P:Sisk.Core.Http.Streams.WebSocketMessage.IsEnd
-  fullName: Sisk.Core.Http.Streams.WebSocketMessage.IsEnd
-  nameWithType: WebSocketMessage.IsEnd
-- uid: Sisk.Core.Http.Streams.WebSocketMessage.IsEnd*
-  name: IsEnd
-  href: api/Sisk.Core.Http.Streams.WebSocketMessage.IsEnd.html
-  commentId: Overload:Sisk.Core.Http.Streams.WebSocketMessage.IsEnd
-  fullName: Sisk.Core.Http.Streams.WebSocketMessage.IsEnd
-  nameWithType: WebSocketMessage.IsEnd
 - uid: Sisk.Core.Http.Streams.WebSocketMessage.Length
   name: Length
   href: api/Sisk.Core.Http.Streams.WebSocketMessage.Length.html#Sisk_Core_Http_Streams_WebSocketMessage_Length
@@ -12259,6 +13348,18 @@ references:
   commentId: Overload:Sisk.Core.Routing.Router.Combine
   fullName: Sisk.Core.Routing.Router.Combine
   nameWithType: Router.Combine
+- uid: Sisk.Core.Routing.Router.Count
+  name: Count
+  href: api/Sisk.Core.Routing.Router.Count.html#Sisk_Core_Routing_Router_Count
+  commentId: P:Sisk.Core.Routing.Router.Count
+  fullName: Sisk.Core.Routing.Router.Count
+  nameWithType: Router.Count
+- uid: Sisk.Core.Routing.Router.Count*
+  name: Count
+  href: api/Sisk.Core.Routing.Router.Count.html
+  commentId: Overload:Sisk.Core.Routing.Router.Count
+  fullName: Sisk.Core.Routing.Router.Count
+  nameWithType: Router.Count
 - uid: Sisk.Core.Routing.Router.GetDefinedRoutes
   name: GetDefinedRoutes()
   href: api/Sisk.Core.Routing.Router.GetDefinedRoutes.html#Sisk_Core_Routing_Router_GetDefinedRoutes
@@ -12271,6 +13372,18 @@ references:
   commentId: Overload:Sisk.Core.Routing.Router.GetDefinedRoutes
   fullName: Sisk.Core.Routing.Router.GetDefinedRoutes
   nameWithType: Router.GetDefinedRoutes
+- uid: Sisk.Core.Routing.Router.GetEnumerator
+  name: GetEnumerator()
+  href: api/Sisk.Core.Routing.Router.GetEnumerator.html#Sisk_Core_Routing_Router_GetEnumerator
+  commentId: M:Sisk.Core.Routing.Router.GetEnumerator
+  fullName: Sisk.Core.Routing.Router.GetEnumerator()
+  nameWithType: Router.GetEnumerator()
+- uid: Sisk.Core.Routing.Router.GetEnumerator*
+  name: GetEnumerator
+  href: api/Sisk.Core.Routing.Router.GetEnumerator.html
+  commentId: Overload:Sisk.Core.Routing.Router.GetEnumerator
+  fullName: Sisk.Core.Routing.Router.GetEnumerator
+  nameWithType: Router.GetEnumerator
 - uid: Sisk.Core.Routing.Router.GetRouteFromName(System.String)
   name: GetRouteFromName(string)
   href: api/Sisk.Core.Routing.Router.GetRouteFromName.html#Sisk_Core_Routing_Router_GetRouteFromName_System_String_
@@ -12778,6 +13891,21 @@ references:
   commentId: Overload:Sisk.Core.Routing.Router.SetRoute
   fullName: Sisk.Core.Routing.Router.SetRoute
   nameWithType: Router.SetRoute
+- uid: Sisk.Core.Routing.Router.SetRoutes(System.Collections.Generic.IEnumerable{Sisk.Core.Routing.Route})
+  name: SetRoutes(IEnumerable<Route>)
+  href: api/Sisk.Core.Routing.Router.SetRoutes.html#Sisk_Core_Routing_Router_SetRoutes_System_Collections_Generic_IEnumerable_Sisk_Core_Routing_Route__
+  commentId: M:Sisk.Core.Routing.Router.SetRoutes(System.Collections.Generic.IEnumerable{Sisk.Core.Routing.Route})
+  name.vb: SetRoutes(IEnumerable(Of Route))
+  fullName: Sisk.Core.Routing.Router.SetRoutes(System.Collections.Generic.IEnumerable<Sisk.Core.Routing.Route>)
+  fullName.vb: Sisk.Core.Routing.Router.SetRoutes(System.Collections.Generic.IEnumerable(Of Sisk.Core.Routing.Route))
+  nameWithType: Router.SetRoutes(IEnumerable<Route>)
+  nameWithType.vb: Router.SetRoutes(IEnumerable(Of Route))
+- uid: Sisk.Core.Routing.Router.SetRoutes*
+  name: SetRoutes
+  href: api/Sisk.Core.Routing.Router.SetRoutes.html
+  commentId: Overload:Sisk.Core.Routing.Router.SetRoutes
+  fullName: Sisk.Core.Routing.Router.SetRoutes
+  nameWithType: Router.SetRoutes
 - uid: Sisk.Core.Routing.Router.TryResolveActionResult(System.Object,Sisk.Core.Http.HttpResponse@)
   name: TryResolveActionResult(object?, out HttpResponse?)
   href: api/Sisk.Core.Routing.Router.TryResolveActionResult.html#Sisk_Core_Routing_Router_TryResolveActionResult_System_Object_Sisk_Core_Http_HttpResponse__

@@ -55,7 +55,7 @@ You can write log files to TextWriter objects instances, such as `Console.Out`, 
 ```cs
 using var app = HttpServer.CreateBuilder()
     .UseConfiguration(config => {
-        config.AccessLogsStream = new LogStream("logs/access.log");
+        config.AccessLogsStream = new LogStream(Console.Out);
     })
     .Build();
 ```
@@ -105,24 +105,21 @@ You can format your log file by the format described by the table:
 | %lour  | Raw size of the response (bytes)                                               | 2560                                |
 | %lms   | Elapsed time in milliseconds                                                   | 120                                  |
 | %ls    | Execution status                                                                | Executed                |
-
-
+| %{header-name}    | Represents the `header-name` header of the request.                                                                | `Mozilla/5.0 (platform; rv:gecko [...]`                |
+| %{:res-name}    | Represents the `res-name` header of the response. | |
 
 ## Rotating logs
-
-> [!TIP]
-> In Sisk 0.15 and older, this function is only available with the Sisk.ServiceProvider package. In Sisk 0.16 and above, this function is implemented on it's core package.
 
 You can configure the HTTP server to rotate the log files to a compressed .gz file when they reach a certain size. The size is checked periodically by the limiar you define.
 
 ```cs
-config.AccessLogsStream = new LogStream("access.log");
-
-var rotater = new RotatingLogPolicy(config.AccessLogsStream);
-rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+LogStream errorLog = new LogStream("logs/error.log")
+    .ConfigureRotatingPolicy(
+        maximumSize: 64 * SizeHelper.UnitMb,
+        dueTime: TimeSpan.FromHours(6));
 ```
 
-The above code will check every six hours if the LogStream's file has reached it's 1MB limit. If so, the file is compressed to an .gz file and it then `access.log` is cleaned.
+The above code will check every six hours if the LogStream's file has reached it's 64MB limit. If so, the file is compressed to an .gz file and it then `access.log` is cleaned.
 
 During this process, writing to the file is locked until the file is compressed and cleaned. All lines that enter to be written in this period will be in a queue waiting for the end of compression.
 
@@ -162,7 +159,6 @@ You can extend the `LogStream` class to write custom formats, compatible with th
         C#
     </span>
 </div>
-
 
 ```cs
 public class CustomLogStream : LogStream

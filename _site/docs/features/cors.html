@@ -212,9 +212,22 @@ Access-Control-Expose-Headers: Content-Type
 <li>The <strong>AllowOrigin</strong> property is static: only the origin you specify will be sent for all responses.</li>
 <li>The <strong>AllowOrigins</strong> property is dynamic: the server checks if the request's origin is contained in this list. If it is found, it is sent for the response of that origin.</li>
 </ul>
-<h3 id="wildcard-in-origin">Wildcard in Origin</h3>
+<h3 id="wildcards-and-automatic-headers">Wildcards and automatic headers</h3>
 <p>Alternatively, you can use a wildcard (<code>*</code>) in the response's origin to specify that any origin is allowed to access the resource. However, this value is not allowed for requests that have credentials (authorization headers) and this operation <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">will result in an error</a>.</p>
 <p>You can work around this problem by explicitly listing which origins will be allowed through the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> property or also use the <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> constant in the value of <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>. This magic property will define the <code>Access-Control-Allow-Origin</code> header for the same value as the <code>Origin</code> header of the request.</p>
+<p>You can also use <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod">AutoFromRequestMethod</a> and <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders">AutoFromRequestHeaders</a> for behavior similar to <code>AllowOrigin</code>, which automatically responds based on the headers sent.</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
+    .UseCors(new CrossOriginResourceSharingHeaders(
+        
+        // Responds based on the request's Origin header
+        allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
+        
+        // Responds based on the Access-Control-Request-Method header or the request method
+        allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
+
+        // Responds based on the Access-Control-Request-Headers header or the sent headers
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+</code></pre>
 <h2 id="other-ways-to-apply-cors">Other Ways to Apply CORS</h2>
 <p>If you are dealing with <a href="/docs/extensions/service-providers">service providers</a>, you can override values defined in the configuration file:</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
@@ -252,7 +265,7 @@ public class WidgetController : Controller {
 
         // Removes the Access-Control-Allow-Credentials header
         request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
-
+        
         // Replaces the Access-Control-Allow-Origin
         request.Context.OverrideHeaders.AccessControlAllowOrigin = &quot;https://contorso.com&quot;;
 

@@ -265,6 +265,86 @@ Method UseBootstraper
 
 
 
+<a id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper*"></a>
+
+<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Func_System_Threading_Tasks_Task__" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.Func{System.Threading.Tasks.Task})">
+  UseBootstraper(Func&lt;Task&gt;)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseBootstraper(Func&lt;Task&gt; asyncBootstrapAction)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>asyncBootstrapAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</dt>
+  <dd><p>The asynchronous action which will be executed before the HTTP server start.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper*"></a>
+
+<h3 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Func_System_Threading_Tasks_Task__" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper(System.String,System.Func{System.Threading.Tasks.Task})">
+  UseBootstraper(string, Func&lt;Task&gt;)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public HttpServerHostContextBuilder UseBootstraper(string name, Func&lt;Task&gt; asyncBootstrapAction)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>Defines an custom label for the bootstraping action name.</p>
+</dd>
+  <dt><code>asyncBootstrapAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</dt>
+  <dd><p>The asynchronous action which will be executed before the HTTP server start.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd><p>The <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a> instance.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
                 <div class="contribution d-print-none">

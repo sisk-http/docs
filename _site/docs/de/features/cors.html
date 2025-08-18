@@ -156,37 +156,37 @@
                 <article data-uid="">
 <h1 id="aktivierung-von-cors-cross-origin-resource-sharing-in-sisk">Aktivierung von CORS (Cross-Origin Resource Sharing) in Sisk</h1>
 
-<p>Sisk verfügt über ein Tool, das bei der Veröffentlichung Ihres Dienstes öffentlich nützlich für die Verwaltung von <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">Cross-Origin Resource Sharing (CORS)</a> sein kann. Diese Funktion ist nicht Teil des HTTP-Protokolls, sondern eine spezifische Funktion von Webbrowsern, die von der W3C definiert wird. Dieser Sicherheitsmechanismus verhindert, dass eine Webseite Anfragen an einen anderen Domain als diejenige sendet, die die Webseite bereitgestellt hat. Ein Dienstanbieter kann bestimmten Domains den Zugriff auf seine Ressourcen erlauben oder nur einer.</p>
+<p>Sisk verfügt über ein Tool, das bei der Handhabung von <a href="https://developer.mozilla.org/en-US/docs/de/Web/HTTP/Guides/CORS">Cross-Origin Resource Sharing (CORS)</a> hilfreich sein kann, wenn Sie Ihren Dienst öffentlich zugänglich machen. Diese Funktion ist kein Bestandteil des HTTP-Protokolls, sondern eine spezifische Funktion von Webbrowsern, die vom W3C definiert wurde. Dieser Sicherheitsmechanismus verhindert, dass eine Webseite Anfragen an eine andere Domain als die, die die Webseite bereitgestellt hat, stellt. Ein Dienstanbieter kann bestimmten Domains den Zugriff auf seine Ressourcen erlauben, oder nur einer Domain.</p>
 <h2 id="same-origin">Same Origin</h2>
-<p>Damit eine Ressource als &quot;same origin&quot; identifiziert wird, muss eine Anfrage den <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin">Origin</a>-Header in ihrer Anfrage enthalten:</p>
+<p>Damit eine Ressource als „same origin“ identifiziert wird, muss eine Anfrage den <a href="https://developer.mozilla.org/en-US/docs/de/Web/HTTP/Reference/Headers/Origin">Origin</a>-Header in ihrer Anfrage angeben:</p>
 <pre><code class="lang-http">GET /api/users HTTP/1.1
 Host: example.com
 Origin: http://example.com
 ...
 </code></pre>
-<p>Und der Remote-Server muss mit einem <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>-Header antworten, der den gleichen Wert wie die angeforderte Ursprung hat:</p>
+<p>Und der Remote-Server muss mit einem <a href="https://developer.mozilla.org/en-US/docs/de/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>-Header mit demselben Wert wie die angeforderte Origin antworten:</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 ...
 </code></pre>
-<p>Diese Überprüfung ist <strong>explizit</strong>: Der Host, Port und Protokoll müssen identisch mit dem Angeforderten sein. Überprüfen Sie das Beispiel:</p>
+<p>Diese Überprüfung ist <strong>explizit</strong>: Host, Port und Protokoll müssen exakt mit der angeforderten Origin übereinstimmen. Prüfen Sie das Beispiel:</p>
 <ul>
 <li>Ein Server antwortet, dass sein <code>Access-Control-Allow-Origin</code> <code>https://example.com</code> ist:
 <ul>
-<li><code>https://example.net</code> - die Domäne ist unterschiedlich.</li>
-<li><code>http://example.com</code> - das Schema ist unterschiedlich.</li>
-<li><code>http://example.com:5555</code> - der Port ist unterschiedlich.</li>
-<li><code>https://www.example.com</code> - der Host ist unterschiedlich.</li>
+<li><code>https://example.net</code> – die Domain ist anders.</li>
+<li><code>http://example.com</code> – das Schema ist anders.</li>
+<li><code>http://example.com:5555</code> – der Port ist anders.</li>
+<li><code>https://www.example.com</code> – der Host ist anders.</li>
 </ul>
 </li>
 </ul>
-<p>In der Spezifikation ist nur die Syntax für beide Header zulässig, sowohl für Anfragen als auch für Antworten. Der URL-Pfad wird ignoriert. Der Port wird auch weggelassen, wenn es sich um einen Standardport (80 für HTTP und 443 für HTTPS) handelt.</p>
+<p>In der Spezifikation ist nur die Syntax für beide Header erlaubt, sowohl für Anfragen als auch für Antworten. Der URL-Pfad wird ignoriert. Der Port wird ebenfalls ausgelassen, wenn es sich um einen Standardport handelt (80 für HTTP und 443 für HTTPS).</p>
 <pre><code class="lang-http">Origin: null
-Origin: &lt;schema&gt;://&lt;hostname&gt;
-Origin: &lt;schema&gt;://&lt;hostname&gt;:&lt;port&gt;
+Origin: &lt;scheme&gt;://&lt;hostname&gt;
+Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
 </code></pre>
 <h2 id="aktivierung-von-cors">Aktivierung von CORS</h2>
-<p>Natürlich haben Sie das <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a>-Objekt innerhalb Ihres <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>.</p>
+<p>Standardmäßig haben Sie das Objekt <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> innerhalb Ihres <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>.</p>
 <p>Sie können CORS beim Initialisieren des Servers konfigurieren:</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
@@ -206,23 +206,37 @@ Access-Control-Allow-Origin: http://example.com
 Access-Control-Allow-Headers: Authorization
 Access-Control-Expose-Headers: Content-Type
 </code></pre>
-<p>Diese Header müssen für alle Antworten an einen Web-Client gesendet werden, einschließlich Fehler und Umleitungen.</p>
-<p>Sie können feststellen, dass die <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a>-Klasse zwei ähnliche Eigenschaften hat: <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> und <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>. Beachten Sie, dass eine plural und die andere singular ist.</p>
+<p>Diese Header müssen für alle Antworten an einen Webclient gesendet werden, einschließlich Fehler und Weiterleitungen.</p>
+<p>Sie werden feststellen, dass die Klasse <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> zwei ähnliche Eigenschaften hat: <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> und <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>. Beachten Sie, dass eine die Mehrzahl und die andere die Einzahl ist.</p>
 <ul>
-<li>Die <strong>AllowOrigin</strong>-Eigenschaft ist statisch: Nur die Ursprung, die Sie angeben, wird für alle Antworten gesendet.</li>
-<li>Die <strong>AllowOrigins</strong>-Eigenschaft ist dynamisch: Der Server überprüft, ob die Ursprung der Anfrage in dieser Liste enthalten ist. Wenn sie gefunden wird, wird sie für die Antwort dieser Ursprung gesendet.</li>
+<li>Die <strong>AllowOrigin</strong>-Eigenschaft ist statisch: nur die von Ihnen angegebene Origin wird für alle Antworten gesendet.</li>
+<li>Die <strong>AllowOrigins</strong>-Eigenschaft ist dynamisch: der Server prüft, ob die Origin der Anfrage in dieser Liste enthalten ist. Wenn sie gefunden wird, wird sie für die Antwort dieser Origin gesendet.</li>
 </ul>
-<h3 id="wildcard-in-origin">Wildcard in Origin</h3>
-<p>Alternativ können Sie ein Wildcard (<code>*</code>) in der Antwort-Ursprung verwenden, um anzugeben, dass jede Ursprung auf die Ressource zugreifen darf. Allerdings ist dieser Wert nicht für Anfragen zulässig, die Anmeldeinformationen (Autorisierungsheader) enthalten, und dieser Vorgang <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">wird zu einem Fehler führen</a>.</p>
-<p>Sie können dieses Problem umgehen, indem Sie explizit auflisten, welche Ursprünge über die <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>-Eigenschaft zugelassen werden sollen, oder auch die <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a>-Konstante im Wert von <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> verwenden. Diese magische Eigenschaft wird den <code>Access-Control-Allow-Origin</code>-Header für den gleichen Wert wie den <code>Origin</code>-Header der Anfrage definieren.</p>
-<h2 id="andere-möglichkeiten-cors-anzuwenden">Andere Möglichkeiten, CORS anzuwenden</h2>
-<p>Wenn Sie mit <a href="/docs/extensions/service-providers">Dienstanbietern</a> arbeiten, können Sie Werte überschreiben, die in der Konfigurationsdatei definiert sind:</p>
+<h3 id="wildcards-und-automatische-header">Wildcards und automatische Header</h3>
+<p>Alternativ können Sie ein Wildcard (<code>*</code>) in der Origin der Antwort verwenden, um anzugeben, dass jede Origin auf die Ressource zugreifen darf. Dieser Wert ist jedoch nicht für Anfragen mit Credentials (Authorisierungsheader) erlaubt und diese Operation <a href="https://developer.mozilla.org/en-US/docs/de/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">führt zu einem Fehler</a>.</p>
+<p>Sie können dieses Problem umgehen, indem Sie explizit auflisten, welche Origins über die Eigenschaft <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> erlaubt sind, oder auch die Konstante <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> im Wert von <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> verwenden. Diese magische Eigenschaft definiert den <code>Access-Control-Allow-Origin</code>-Header für denselben Wert wie der <code>Origin</code>-Header der Anfrage.</p>
+<p>Sie können auch <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod">AutoFromRequestMethod</a> und <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders">AutoFromRequestHeaders</a> für ein Verhalten ähnlich wie <code>AllowOrigin</code> verwenden, das automatisch auf Basis der gesendeten Header antwortet.</p>
+<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
+    .UseCors(new CrossOriginResourceSharingHeaders(
+        
+        // Antwortet basierend auf dem Origin-Header der Anfrage
+        allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
+        
+        // Antwortet basierend auf dem Access-Control-Request-Method-Header oder der Anfrage-Methode
+        allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
+
+        // Antwortet basierend auf dem Access-Control-Request-Headers-Header oder den gesendeten Headern
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+</code></pre>
+<h2 id="andere-wege-cors-anzuwenden">Andere Wege, CORS anzuwenden</h2>
+<p>Wenn Sie mit <a href="/docs/de/extensions/service-providers">service providers</a> arbeiten, können Sie Werte, die in der Konfigurationsdatei definiert sind, überschreiben:</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
         .UsePortableConfiguration(...)
         .UseCors(cors =&gt; {
-            // Überschreibt die Ursprung, die in der Konfigurationsdatei definiert ist.
+            // Überschreibt die in der Konfiguration definierte Origin
+            // Datei.
             cors.AllowOrigin = &quot;http://example.com&quot;;
         })
         .Build();
@@ -230,15 +244,15 @@ Access-Control-Expose-Headers: Content-Type
     await app.StartAsync();
 }
 </code></pre>
-<h2 id="deaktivierung-von-cors-auf-bestimmten-routen">Deaktivierung von CORS auf bestimmten Routen</h2>
-<p>Die <code>UseCors</code>-Eigenschaft ist sowohl für Routen als auch für alle Routenattribute verfügbar und kann wie folgt deaktiviert werden:</p>
+<h2 id="deaktivieren-von-cors-auf-spezifischen-routen">Deaktivieren von CORS auf spezifischen Routen</h2>
+<p>Die Eigenschaft <code>UseCors</code> ist sowohl für Routen als auch für alle Routenattribute verfügbar und kann mit folgendem Beispiel deaktiviert werden:</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
     // GET /api/widgets/colors
     [RouteGet(&quot;/colors&quot;, UseCors = false)]
     public IEnumerable&lt;string&gt; GetWidgets() {
-        return new[] { &quot;Grüne Widget&quot;, &quot;Rote Widget&quot; };
+        return new[] { &quot;Green widget&quot;, &quot;Red widget&quot; };
     }
 }
 </code></pre>
@@ -251,19 +265,19 @@ public class WidgetController : Controller {
 
         // Entfernt den Access-Control-Allow-Credentials-Header
         request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
-
+        
         // Ersetzt den Access-Control-Allow-Origin
         request.Context.OverrideHeaders.AccessControlAllowOrigin = &quot;https://contorso.com&quot;;
 
-        return new[] { &quot;Grüne Widget&quot;, &quot;Rote Widget&quot; };
+        return new[] { &quot;Green widget&quot;, &quot;Red widget&quot; };
     }
 }
 </code></pre>
 <h2 id="preflight-anfragen">Preflight-Anfragen</h2>
-<p>Eine Preflight-Anfrage ist eine <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>-Methode-Anfrage, die der Client vor der eigentlichen Anfrage sendet.</p>
-<p>Der Sisk-Server antwortet immer mit einem <code>200 OK</code> und den anwendbaren CORS-Headern, und dann kann der Client mit der eigentlichen Anfrage fortfahren. Diese Bedingung gilt nicht, wenn eine Route für die Anfrage mit der <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> explizit für <code>Options</code> konfiguriert ist.</p>
-<h2 id="deaktivierung-von-cors-global">Deaktivierung von CORS global</h2>
-<p>Dies ist nicht möglich. Um CORS nicht zu verwenden, konfigurieren Sie es einfach nicht.</p>
+<p>Eine Preflight-Anfrage ist eine <a href="https://developer.mozilla.org/en-US/docs/de/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>-Methode, die der Client vor der eigentlichen Anfrage sendet.</p>
+<p>Der Sisk-Server antwortet immer mit einem <code>200 OK</code> und den entsprechenden CORS-Headern, und dann kann der Client mit der eigentlichen Anfrage fortfahren. Diese Bedingung gilt nicht, wenn eine Route für die Anfrage mit dem <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> explizit für <code>Options</code> konfiguriert ist.</p>
+<h2 id="globale-deaktivierung-von-cors">Globale Deaktivierung von CORS</h2>
+<p>Es ist nicht möglich, dies zu tun. Um CORS nicht zu verwenden, konfigurieren Sie es nicht.</p>
 
 </article>
 

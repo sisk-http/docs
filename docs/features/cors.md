@@ -3,7 +3,7 @@
 Sisk has a tool that can be useful for handling [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) when exposing your service publicly. This feature is not part of the HTTP protocol but a specific feature of web browsers defined by the W3C. This security mechanism prevents a web page from making requests to a different domain than the one that provided the web page. A service provider can allow certain domains to access its resources, or just one.
 
 ## Same Origin
-
+ 
 For a resource to be identified as "same origin", a request must identify the [Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin) header in its request:
 
 ```http
@@ -73,11 +73,27 @@ You may notice that the [CrossOriginResourceSharingHeaders](/api/Sisk.Core.Entit
 - The **AllowOrigin** property is static: only the origin you specify will be sent for all responses.
 - The **AllowOrigins** property is dynamic: the server checks if the request's origin is contained in this list. If it is found, it is sent for the response of that origin.
 
-### Wildcard in Origin
+### Wildcards and automatic headers
 
 Alternatively, you can use a wildcard (`*`) in the response's origin to specify that any origin is allowed to access the resource. However, this value is not allowed for requests that have credentials (authorization headers) and this operation [will result in an error](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials).
 
 You can work around this problem by explicitly listing which origins will be allowed through the [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) property or also use the [AutoAllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin) constant in the value of [AllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin). This magic property will define the `Access-Control-Allow-Origin` header for the same value as the `Origin` header of the request.
+
+You can also use [AutoFromRequestMethod](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod) and [AutoFromRequestHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders) for behavior similar to `AllowOrigin`, which automatically responds based on the headers sent.
+
+```csharp
+using var host = HttpServer.CreateBuilder()
+    .UseCors(new CrossOriginResourceSharingHeaders(
+        
+        // Responds based on the request's Origin header
+        allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
+        
+        // Responds based on the Access-Control-Request-Method header or the request method
+        allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
+
+        // Responds based on the Access-Control-Request-Headers header or the sent headers
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+```
 
 ## Other Ways to Apply CORS
 
@@ -127,7 +143,7 @@ public class WidgetController : Controller {
 
         // Removes the Access-Control-Allow-Credentials header
         request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
-
+        
         // Replaces the Access-Control-Allow-Origin
         request.Context.OverrideHeaders.AccessControlAllowOrigin = "https://contorso.com";
 

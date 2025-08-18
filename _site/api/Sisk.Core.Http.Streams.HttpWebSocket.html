@@ -239,12 +239,6 @@ Class HttpWebSocket
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.MaxAttempts.html#Sisk_Core_Http_Streams_HttpWebSocket_MaxAttempts">MaxAttempts</a></dt>
-    <dd><p>Gets or sets the maximum number of attempts to send a failed message before the server closes the connection. Set it to -1 to
-don't close the connection on failed attempts.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.PingPolicy.html#Sisk_Core_Http_Streams_HttpWebSocket_PingPolicy">PingPolicy</a></dt>
     <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.html">HttpStreamPingPolicy</a> for this HTTP web socket connection.</p>
 </dd>
@@ -254,19 +248,13 @@ don't close the connection on failed attempts.</p>
     <dd><p>Gets or sets an object linked with this <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.websockets.websocket">WebSocket</a> session.</p>
 </dd>
   </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitTimeout.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitTimeout">WaitTimeout</a></dt>
-    <dd><p>Gets or sets the maximum wait time for synchronous listener methods like <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitNext">WaitNext()</a>.</p>
-</dd>
-  </dl>
 
   <h2 class="section" id="methods">Methods
 </h2>
 
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Close.html#Sisk_Core_Http_Streams_HttpWebSocket_Close">Close()</a></dt>
-    <dd><p>Closes the connection between the client and the server and returns an HTTP response indicating that the connection has been terminated.
-This method will not throw an exception if the connection is already closed.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.CloseAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_CloseAsync_System_Threading_CancellationToken_">CloseAsync(CancellationToken)</a></dt>
+    <dd><p>Closes the WebSocket connection asynchronously.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -274,75 +262,28 @@ This method will not throw an exception if the connection is already closed.</p>
     <dd></dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___">Send(byte[])</a></dt>
-    <dd><p>Sends an binary message to the remote point.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync">ReceiveMessageAsync()</a></dt>
+    <dd><p>Receives a message from the WebSocket endpoint asynchronously with a default timeout of 30 seconds.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_Byte___System_Int32_System_Int32_">Send(byte[], int, int)</a></dt>
-    <dd><p>Sends an binary message to the remote point.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_Threading_CancellationToken_">ReceiveMessageAsync(CancellationToken)</a></dt>
+    <dd><p>Receives a message from the WebSocket endpoint asynchronously.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_ReadOnlyMemory_System_Byte__">Send(ReadOnlyMemory&lt;byte&gt;)</a></dt>
-    <dd><p>Sends an binary message to the remote point.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_TimeSpan_">ReceiveMessageAsync(TimeSpan)</a></dt>
+    <dd><p>Receives a message from the WebSocket endpoint asynchronously with a specified timeout.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.Send.html#Sisk_Core_Http_Streams_HttpWebSocket_Send_System_String_">Send(string)</a></dt>
-    <dd><p>Sends an text message to the remote point.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Threading_CancellationToken_">SendAsync(ReadOnlyMemory&lt;byte&gt;, CancellationToken)</a></dt>
+    <dd><p>Sends an asynchronous binary message to the WebSocket endpoint.</p>
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__">SendAsync(ReadOnlyMemory&lt;byte&gt;)</a></dt>
-    <dd><p>Asynchronously sends an binary message to the remote point.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_">SendAsync(string)</a></dt>
-    <dd><p>Asynchronously sends an text message to the remote point.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitForClose">WaitForClose()</a></dt>
-    <dd><p>Blocks the current call stack until the connection is terminated by either the client or the server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitForClose_System_TimeSpan_">WaitForClose(TimeSpan)</a></dt>
-    <dd><p>Blocks the current call stack until the connection is terminated by the client or the server, limited to the maximum
-timeout.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitNext">WaitNext()</a></dt>
-    <dd><p>Blocks the current thread and waits the next incoming message from this web socket instance.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WaitNext.html#Sisk_Core_Http_Streams_HttpWebSocket_WaitNext_System_TimeSpan_">WaitNext(TimeSpan)</a></dt>
-    <dd><p>Blocks the current thread and waits the next incoming message from this web socket instance within
-the maximum defined timeout.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WithPing.html#Sisk_Core_Http_Streams_HttpWebSocket_WithPing_System_Action_Sisk_Core_Http_Streams_HttpStreamPingPolicy__">WithPing(Action&lt;HttpStreamPingPolicy&gt;)</a></dt>
-    <dd><p>Configures the ping policy for this instance of HTTP Web Socket.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.WithPing.html#Sisk_Core_Http_Streams_HttpWebSocket_WithPing_System_String_System_TimeSpan_">WithPing(string, TimeSpan)</a></dt>
-    <dd><p>Configures the ping policy for this instance of HTTP Web Socket.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="events">Events
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.OnReceive.html">OnReceive</a></dt>
-    <dd><p>Represents the event which is called when this web socket receives an message from
-remote origin.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.SendAsync.html#Sisk_Core_Http_Streams_HttpWebSocket_SendAsync_System_String_System_Threading_CancellationToken_">SendAsync(string, CancellationToken)</a></dt>
+    <dd><p>Sends an asynchronous text message to the WebSocket endpoint.</p>
 </dd>
   </dl>
 

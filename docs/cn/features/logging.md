@@ -1,14 +1,14 @@
-# 日志记录
+# 日志
 
-您可以配置 Sisk 自动写入访问和错误日志。它也可以定义日志轮换、扩展和频率。
+你可以配置 Sisk 自动写入访问日志和错误日志。可以定义日志轮转、扩展和频率。
 
-[LogStream](/api/Sisk.Core.Http.LogStream) 类提供了一种异步写入日志和保持可等待写入队列的方式。
+[LogStream](/api/Sisk.Core.Http.LogStream) 类提供了一种异步写日志并保持在可等待写队列中的方式。
 
-在本文中，我们将向您展示如何为您的应用程序配置日志记录。
+本文将向你展示如何为你的应用程序配置日志记录。
 
 ## 基于文件的访问日志
 
-日志写入文件时，会打开文件，写入行文本，然后为每行写入关闭文件。这种过程是为了保持日志的写入响应性。
+日志写入文件时会打开文件，写入行文本，然后在每行写完后关闭文件。此过程是为了保持日志写入的响应性。
 
 <div class="script-header">
     <span>
@@ -19,7 +19,7 @@
     </span>
 </div>
 
-```csharp
+```cs
 class Program
 {
     static async Task Main(string[] args)
@@ -30,18 +30,18 @@ class Program
             })
             .Build();
         
-        ...
+        …
         
         await app.StartAsync();
     }
 }
 ```
 
-上面的代码将写入所有传入的请求到 `logs/access.log` 文件。注意，如果文件不存在，它将自动创建，但是文件夹不会自动创建。您不需要创建 `logs/` 目录，因为 `LogStream` 类会自动创建它。
+上述代码会将所有传入请求写入 `logs/access.log` 文件。请注意，如果文件不存在会自动创建，但其前置文件夹不会。无需手动创建 `logs/` 目录，因为 LogStream 类会自动创建它。
 
 ## 基于流的日志记录
 
-您可以将日志文件写入 `TextWriter` 对象实例，例如 `Console.Out`，通过在构造函数中传递 `TextWriter` 对象：
+你可以将日志文件写入 TextWriter 对象实例，例如 `Console.Out`，通过在构造函数中传入 TextWriter 对象：
 
 <div class="script-header">
     <span>
@@ -52,105 +52,104 @@ class Program
     </span>
 </div>
 
-```csharp
+```cs
 using var app = HttpServer.CreateBuilder()
     .UseConfiguration(config => {
-        config.AccessLogsStream = new LogStream("logs/access.log");
+        config.AccessLogsStream = new LogStream(Console.Out);
     })
     .Build();
 ```
 
-对于流式日志记录中的每个消息，`TextWriter.Flush()` 方法都会被调用。
+对于基于流的日志中的每条消息，都会调用 `TextWriter.Flush()` 方法。
 
-## 访问日志格式
+## 访问日志格式化
 
-您可以通过预定义变量自定义访问日志格式。考虑以下行：
+你可以通过预定义变量自定义访问日志格式。考虑以下行：
 
-```csharp
+```cs
 config.AccessLogsFormat = "%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -> %lou in %lmsms [%{user-agent}]";
 ```
 
-它将写入一条消息，如下所示：
+它将写出类似以下的消息：
 
     29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 
-您可以通过表格中描述的格式格式化日志文件：
+你可以按下表描述的格式来格式化日志文件：
 
-| 值  | 代表什么                                                                 | 示例                               |
+| Value  | 代表含义                                                                 | 示例                               |
 |--------|-----------------------------------------------------------------------------------|---------------------------------------|
-| %dd    | 月份中的某一天（以两位数字格式化）                                        | 05                                    |
-| %dmmm  | 月份的全名                                                            | July                                  |
-| %dmm   | 月份的缩写（三个字母）                                  | Jul                                  |
-| %dm    | 月份号（以两位数字格式化）                                          | 07                                    |
-| %dy    | 年份（以四位数字格式化）                                                 | 2023                                 |
-| %th    | 12 小时格式的小时                                                          | 03                                    |
-| %tH    | 24 小时格式的小时（HH）                                                    | 15                                    |
-| %ti    | 分钟（以两位数字格式化）                                               | 30                                    |
-| %ts    | 秒（以两位数字格式化）                                               | 45                                    |
-| %tm    | 毫秒（以三位数字格式化）                                        | 123                                   |
-| %tz    | 时区偏移（以 UTC 为单位的总小时）                                         | +03:00                               |
-| %ri    | 客户端的远程 IP 地址                                                       | 192.168.1.100                        |
-| %rm    | HTTP 方法（大写）                                                          | GET                                   |
-| %rs    | URI 方案（http/https）                                                          | https                                |
-| %ra    | URI 权威（域）                                                           | example.com                          |
-| %rh    | 请求的主机                                                             | www.example.com                       |
-| %rp    | 请求的端口                                                             | 443                                  |
-| %rz    | 请求的路径                                                             | /path/to/resource                    |
-| %rq    | 查询字符串                                                                    | ?key=value&another=123               |
-| %sc    | HTTP 响应状态代码                                                      | 200                                  |
-| %sd    | HTTP 响应状态描述                                              | OK                                   |
-| %lin   | 请求的可读大小                                                          | 1.2 KB                               |
-| %linr  | 请求的原始大小（字节）                                                | 1234                                |
-| %lou   | 响应的可读大小                                                          | 2.5 KB                               |
-| %lour  | 响应的原始大小（字节）                                               | 2560                                |
-| %lms   | 耗时的毫秒数                                                   | 120                                  |
-| %ls    | 执行状态                                                                | Executed                |
+| %dd    | 月份中的日期（两位数字）                                                        | 05                                    |
+| %dmmm  | 月份全名                                                                         | July                                  |
+| %dmm   | 月份缩写（三个字母）                                                               | Jul                                  |
+| %dm    | 月份编号（两位数字）                                                               | 07                                    |
+| %dy    | 年份（四位数字）                                                                   | 2023                                 |
+| %th    | 12 小时制小时数                                                                    | 03                                    |
+| %tH    | 24 小时制小时数（HH）                                                               | 15                                    |
+| %ti    | 分钟（两位数字）                                                                    | 30                                    |
+| %ts    | 秒（两位数字）                                                                    | 45                                    |
+| %tm    | 毫秒（三位数字）                                                                    | 123                                   |
+| %tz    | 时区偏移（UTC 总小时数）                                                             | +03:00                               |
+| %ri    | 客户端远程 IP 地址                                                               | 192.168.1.100                        |
+| %rm    | HTTP 方法（大写）                                                                   | GET                                   |
+| %rs    | URI 方案（http/https）                                                             | https                                |
+| %ra    | URI 权威（域名）                                                                    | example.com                          |
+| %rh    | 请求主机                                                                          | www.example.com                       |
+| %rp    | 请求端口                                                                          | 443                                  |
+| %rz    | 请求路径                                                                          | /path/to/resource                    |
+| %rq    | 查询字符串                                                                          | ?key=value&another=123               |
+| %sc    | HTTP 响应状态码                                                                    | 200                                  |
+| %sd    | HTTP 响应状态描述                                                                    | OK                                   |
+| %lin   | 请求的可读大小                                                                    | 1.2 KB                               |
+| %linr  | 请求的原始大小（字节）                                                               | 1234                                |
+| %lou   | 响应的可读大小                                                                    | 2.5 KB                               |
+| %lour  | 响应的原始大小（字节）                                                               | 2560                                |
+| %lms   | 毫秒级 elapsed 时间                                                              | 120                                  |
+| %ls    | 执行状态                                                                          | Executed                |
+| %{header-name}    | 表示请求的 `header-name` 头部。                                                                | `Mozilla/5.0 (platform; rv:gecko [...]`                |
+| %{:res-name}    | 表示响应的 `res-name` 头部。 | |
 
-## 日志轮换
+## 轮转日志
 
-> [!TIP]
-> 在 Sisk 0.15 及更早版本中，此功能仅在 Sisk.ServiceProvider 包中可用。在 Sisk 0.16 及更高版本中，此功能已在核心包中实现。
+你可以配置 HTTP 服务器在日志文件达到一定大小时将其轮转为压缩的 .gz 文件。大小会按你定义的阈值定期检查。
 
-您可以配置 HTTP 服务器，当日志文件达到一定大小时，将其轮换到压缩的 .gz 文件。大小是由您定义的阈值周期性检查的。
-
-```csharp
-config.AccessLogsStream = new LogStream("access.log");
-
-var rotater = new RotatingLogPolicy(config.AccessLogsStream);
-rotater.Configure(1024 * 1024, TimeSpan.FromHours(6));
+```cs
+LogStream errorLog = new LogStream("logs/error.log")
+    .ConfigureRotatingPolicy(
+        maximumSize: 64 * SizeHelper.UnitMb,
+        dueTime: TimeSpan.FromHours(6));
 ```
 
-上面的代码将每 6 小时检查一次 LogStream 的文件是否达到 1MB 限制。如果达到限制，文件将被压缩到 .gz 文件，然后 `access.log` 将被清空。
+上述代码会每六小时检查一次 LogStream 的文件是否已达到 64MB 限制。如果是，文件将被压缩为 .gz 文件，然后 `access.log` 被清理。
 
-在此过程中，写入文件将被锁定，直到文件被压缩和清空。在此期间，所有要写入的行将在队列中等待压缩完成。
+在此过程中，写入文件会被锁定，直到文件被压缩并清理完毕。此期间所有待写入的行将排队等待压缩结束。
 
 此功能仅适用于基于文件的 LogStreams。
 
-## 错误日志记录
+## 错误日志
 
-当服务器不将错误抛给调试器时，它会将错误转发到日志写入器。您可以使用以下代码配置错误写入：
+当服务器没有将错误抛给调试器时，它会在有错误时将错误转发到日志写入。你可以通过以下方式配置错误写入：
 
-```csharp
+```cs
 config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream("error.log");
 ```
 
-此属性仅在错误未被回调或 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性捕获时写入日志。
+此属性仅在错误未被回调或 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 捕获时才会写入日志。
 
-服务器写入的错误始终包含日期和时间、请求头（不包括正文）、错误跟踪和内部异常跟踪（如果有）。
+服务器写入的错误始终包含日期时间、请求头（不包括正文）、错误跟踪以及内部异常跟踪（如果有）。
 
 ## 其他日志实例
 
-您的应用程序可以有零个或多个 LogStreams，没有限制。因此，您可以将应用程序的日志定向到其他文件，而不是默认的 AccessLog 或 ErrorLog。
+你的应用程序可以拥有零个或多个 LogStreams，没有限制可以拥有多少日志通道。因此，可以将应用程序的日志定向到除默认 AccessLog 或 ErrorLog 之外的文件。
 
-```csharp
+```cs
 LogStream appMessages = new LogStream("messages.log");
-appMessages.WriteLine("应用程序在 {0} 启动", DateTime.Now);
+appMessages.WriteLine("Application started at {0}", DateTime.Now);
 ```
 
 ## 扩展 LogStream
 
-您可以扩展 `LogStream` 类以写入自定义格式，兼容当前的 Sisk 日志引擎。以下示例允许通过 Spectre.Console 库将彩色消息写入控制台：
+你可以扩展 `LogStream` 类以编写自定义格式，兼容当前的 Sisk 日志引擎。下面的示例允许通过 Spectre.Console 库将彩色消息写入 Console：
 
 <div class="script-header">
     <span>
@@ -161,7 +160,7 @@ appMessages.WriteLine("应用程序在 {0} 启动", DateTime.Now);
     </span>
 </div>
 
-```csharp
+```cs
 public class CustomLogStream : LogStream
 {
     protected override void WriteLineInternal(string line)
@@ -171,7 +170,7 @@ public class CustomLogStream : LogStream
 }
 ```
 
-另一种自动为每个请求/响应写入自定义日志的方法是创建 [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler)。以下示例更为完整。它将请求和响应的正文以 JSON 格式写入控制台。它可以用于调试请求。这个示例使用了 ContextBag 和 HttpServerHandler。
+另一种自动为每个请求/响应写入自定义日志的方法是创建一个 [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler)。下面的示例更完整。它将请求和响应正文以 JSON 写入 Console。对于调试请求非常有用。此示例使用 ContextBag 和 HttpServerHandler。
 
 <div class="script-header">
     <span>
@@ -182,7 +181,7 @@ public class CustomLogStream : LogStream
     </span>
 </div>
 
-```csharp
+```cs
 class Program
 {
     static async Task Main(string[] args)
@@ -218,21 +217,22 @@ class Program
     </span>
 </div>
 
-```csharp
+```cs
 class JsonMessageHandler : HttpServerHandler
 {
     protected override void OnHttpRequestOpen(HttpRequest request)
     {
         if (request.Method != HttpMethod.Get && request.Headers["Content-Type"]?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // 在此时，连接已经打开，客户端已经发送了指定内容为 JSON 的头。
-            // 下一行读取内容并将其存储在请求中。
+            // At this point, the connection is open and the client has sent the header specifying
+            // that the content is JSON.The line below reads the content and leaves it stored in the request.
             //
-            // 如果在请求操作中不读取内容，GC 可能会在发送响应给客户端后收集内容，因此内容可能在响应关闭后不可用。
+            // If the content is not read in the request action, the GC is likely to collect the content
+            // after sending the response to the client, so the content may not be available after the response is closed.
             //
             _ = request.RawBody;
 
-            // 在上下文中添加提示，指示此请求具有 JSON 正文
+            // add hint in the context to tell that this request has an json body on it
             request.Bag.Add("IsJsonRequest", true);
         }
     }
@@ -245,7 +245,7 @@ class JsonMessageHandler : HttpServerHandler
 
         if (result.Request.Bag.ContainsKey("IsJsonRequest"))
         {
-            // 使用 CypherPotato.LightJson 库重新格式化 JSON
+            // reformats the JSON using the CypherPotato.LightJson library
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
@@ -256,7 +256,7 @@ class JsonMessageHandler : HttpServerHandler
             responseMessage = $"{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}";
             
             if (content is HttpContent httpContent &&
-                // 检查响应是否为 JSON
+                // check if the response is JSON
                 httpContent.Headers.ContentType?.MediaType?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -265,7 +265,7 @@ class JsonMessageHandler : HttpServerHandler
         }
         else
         {
-            // 获取内部服务器处理状态
+            // gets the internal server handling status
             responseMessage = result.Status.ToString();
         }
         

@@ -171,7 +171,7 @@ Class LogStream
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LogStream : IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class LogStream : IDisposable, IAsyncDisposable</code></pre>
   </div>
 
 
@@ -189,6 +189,7 @@ Class LogStream
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
     </dd>
   </dl>
 
@@ -258,12 +259,17 @@ Class LogStream
 
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.ConsoleOutput.html#Sisk_Core_Http_LogStream_ConsoleOutput">ConsoleOutput</a></dt>
-    <dd><p>Gets a <a class="xref" href="Sisk.Core.Http.LogStream.html">LogStream</a> that writes its output to the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.console.out">Out</a> stream.</p>
+    <dd><p>Gets a shared <a class="xref" href="Sisk.Core.Http.LogStream.html">LogStream</a> that writes its output to the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.console.out">Out</a> stream.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.Disposed.html#Sisk_Core_Http_LogStream_Disposed">Disposed</a></dt>
     <dd><p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Http.LogStream.html">LogStream</a> was disposed.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.Empty.html#Sisk_Core_Http_LogStream_Empty">Empty</a></dt>
+    <dd><p>Gets a shared <a class="xref" href="Sisk.Core.Http.LogStream.html">LogStream</a> without any output stream.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -320,8 +326,8 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.LogStream.Dispose.html#Sisk_Core_Http_LogStream_Dispose_System_Boolean_">Dispose(bool)</a></dt>
-    <dd><p>Writes all pending logs from the queue and closes all resources used by this object.</p>
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.DisposeAsync.html#Sisk_Core_Http_LogStream_DisposeAsync">DisposeAsync()</a></dt>
+    <dd><p>Asynchronously writes all pending logs from the queue and closes all resources used by this object.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -330,7 +336,12 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.Flush.html#Sisk_Core_Http_LogStream_Flush">Flush()</a></dt>
-    <dd><p>Clears the current log queue and blocks the current thread until all content is written to the underlying streams.</p>
+    <dd><p>Blocks the current thread until all currently enqueued content is written to the underlying streams.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.FlushAsync.html#Sisk_Core_Http_LogStream_FlushAsync">FlushAsync()</a></dt>
+    <dd><p>Asynchronously waits until all currently enqueued content is written to the underlying streams.</p>
 </dd>
   </dl>
   <dl class="jumplist">
@@ -390,7 +401,12 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Object___">WriteLine(string, params object?[])</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__">WriteLine(string, IEnumerable&lt;object?&gt;)</a></dt>
+    <dd><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__">WriteLine(string, scoped ReadOnlySpan&lt;object?&gt;)</a></dt>
     <dd><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
 </dd>
   </dl>
@@ -415,13 +431,14 @@ shortcut for calling <a class="xref" href="Sisk.Core.Http.RotatingLogPolicy.Conf
 </dd>
   </dl>
   <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Object___">WriteLineAsync(string, params object?[])</a></dt>
+    <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Collections_Generic_IEnumerable_System_Object__">WriteLineAsync(string, IEnumerable&lt;object?&gt;)</a></dt>
     <dd><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
 </dd>
   </dl>
   <dl class="jumplist">
     <dt><a class="xref" href="Sisk.Core.Http.LogStream.WriteLineInternal.html#Sisk_Core_Http_LogStream_WriteLineInternal_System_String_">WriteLineInternal(string)</a></dt>
-    <dd><p>Represents the method that intercepts the line that will be written to an output log before being queued for writing.</p>
+    <dd><p>Represents the method that intercepts the line that will be written to an output log before being queued for writing.
+This method will block if the log queue is full.</p>
 </dd>
   </dl>
   <dl class="jumplist">

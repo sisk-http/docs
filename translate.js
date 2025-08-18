@@ -15,7 +15,7 @@ function isDirectory(filePath) {
 function enumerateMdFiles(dir) {
     const files = fs.readdirSync(dir);
     let mdFiles = [];
-    
+
     for (const file of files) {
         const filePath = path.join(dir, file);
 
@@ -39,7 +39,7 @@ async function runInference(text) {
         console.error("GROQ_API_KEY environment variable is not set.");
         process.exit(1);
     }
-    
+
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -47,30 +47,32 @@ async function runInference(text) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+            model: 'openai/gpt-oss-20b',
             messages: [{
                 role: 'user',
                 content: text
             }],
+            stream: false,
             temperature: 0.1,
             top_p: 0.75,
-            max_tokens: 8192
+            reasoning_effort: "low",
+            max_completion_tokens: 65536,
         })
     });
-
+    
     if (!response.ok) {
-
+        
         const resJson = await response.json();
         if (resJson.error?.code == "rate_limit_exceeded") {
             const retryAfter = response.headers.get("Retry-After") * 3;
             console.error("Rate limit exceeded! Retrying in " + retryAfter + " seconds.");
             await sleep(retryAfter * 1000);
-
+            
             return await runInference(text, prompt);
 
         } else {
             console.error("Failed to translate the markdown file.");
-            console.error(await response.text());
+            console.error(resJson);
             process.exit(1);
         }
     }
@@ -105,7 +107,7 @@ File name: ${fileName}
 ${text}
 </translation-input>
     `;
-    
+
     return baseText;
 }
 
@@ -118,7 +120,7 @@ ${text}
         const fileName = mdFile.replace(targetDir, '');
 
         for (const [langName, langCode] of Object.entries(translations)) {
-            
+
             const prompt = getPrompt(langName, fileName, fileContents);
             const translationPath = path.join(targetDir, langCode, fileName);
             const translationDir = path.dirname(translationPath);
@@ -126,7 +128,7 @@ ${text}
             if (fs.existsSync(translationPath)) {
                 continue;
             }
-            
+
             const translated = (await runInference(prompt))
                 .replaceAll("/docs/", `/docs/${langCode}/`);
 
@@ -140,7 +142,7 @@ ${text}
             translatedCount++;
         }
     }
-    
+
     if (translatedCount == 0) {
         console.log("No files to translate.");
     } else {

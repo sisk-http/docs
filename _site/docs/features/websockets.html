@@ -158,138 +158,69 @@
 
 <p>Sisk supports web sockets as well, such as receiving and sending messages to their client.</p>
 <p>This feature works fine in most browsers, but in Sisk it is still experimental. Please, if you find any bugs, report it on github.</p>
-<h2 id="accepting-and-receiving-messages-asynchronously">Accepting and receiving messages asynchronously</h2>
-<p>The example below shows how websocket works in practice, with an example of opening a connection, receiving a message and displaying it in the console.</p>
-<p>All messages received by WebSocket are received in bytes, so you will have to decode them upon receipt.</p>
-<p>By default, messages are fragmented into chunks and the last piece is sent as the final packet of the message. You can configure the packet size with the <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> flag. This buffering is the same for sending and receiving messages.</p>
-<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
-    {
-        using var ws = req.GetWebSocket();
-        
-        ws.OnReceive += (sender, msg) =&gt;
-        {
-            string msgText = Encoding.UTF8.GetString(msg.MessageBytes);
-            Console.WriteLine(&quot;Received message: &quot; + msgText);
-
-            // gets the HttpWebSocket context which received the message
-            HttpWebSocket senderWebSocket = (HttpWebSocket)sender!;
-            senderWebSocket.Send(&quot;Response!&quot;);
-        };
-
-        ws.WaitForClose();
-        
-        return ws.Close();
-    });
-</code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Do not use asynchronous events in this way. You can have exceptions thrown outside the HTTP server domain and they can crash your application.</p>
-</div>
-<p>If you need to handle asynchronous code and deal with multiple messages at the same time, you can use the message loop:</p>
-<pre><code class="lang-csharp">router.MapGet(&quot;/&quot;, async delegate (HttpRequest request)
+<h2 id="accepting-messages-asynchronously">Accepting messages asynchronously</h2>
+<p>WebSocket messages are received in order, queued until processed by <code>ReceiveMessageAsync</code>. This method returns no message when the timeout is reached, when the operation is canceled, or when the client is disconnected.</p>
+<p>Only one read and write operation can occur simultaneously, therefore, while you are waiting for a message with <code>ReceiveMessageAsync</code>, it is not possible to write to the connected client.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
-    using var ws = await request.GetWebSocketAsync();
+    using var ws = await req.GetWebSocketAsync();
     
-    WebSocketMessage? message;
-    while ((message = ws.WaitNext(timeout: TimeSpan.FromSeconds(30))) != null)
+    while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
-        var messageText = message.GetString();
-        Console.WriteLine($&quot;Received message: {messageText}&quot;);
+        string msgText = receivedMessage.GetString();
+        Console.WriteLine(&quot;Received message: &quot; + msgText);
 
-        await ws.SendAsync(&quot;Hello from server!&quot;);
+        await ws.SendAsync(&quot;Hello!&quot;);
     }
 
-    return ws.Close();
+    return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="accepting-and-receiving-messages-synchronously">Accepting and receiving messages synchronously</h2>
+<h2 id="accepting-messages-synchronously">Accepting messages synchronously</h2>
 <p>The example below contains a way for you to use a synchronous websocket, without an asynchronous context, where you receive the messages, deal with them, and finish using the socket.</p>
-<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, req =&gt;
-    {
-        using var ws = req.GetWebSocket();
-        WebSocketMessage? msg;
-    
-    askName:
-        ws.Send(&quot;What is your name?&quot;);
-        msg = ws.WaitNext();
-        
-        string? name = msg?.GetString();
-
-        if (string.IsNullOrEmpty(name))
-        {
-            ws.Send(&quot;Please, insert your name!&quot;);
-            goto askName;
-        }
-    
-    askAge:
-        ws.Send(&quot;And your age?&quot;);
-        msg = ws.WaitNext();
-        
-        if (!Int32.TryParse(msg?.GetString(), out int age))
-        {
-            ws.Send(&quot;Please, insert an valid number&quot;);
-            goto askAge;
-        }
-        
-        ws.Send($&quot;You're {name}, and you are {age} old.&quot;);
-        
-        return ws.Close();
-    });
-</code></pre>
-<h2 id="sending-messages">Sending messages</h2>
-<p>The Send method has three overloads, which allow you to send text, a byte array, or a byte span. All of them is chunked if the server's <a href="/api/Sisk.Core.Http.HttpServerFlags.WebSocketBufferSize">WebSocketBufferSize</a> flag is greater than the total payload size.</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
+<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
-    Router r = new Router();
+    using var ws = await req.GetWebSocketAsync();
+    WebSocketMessage? msg;
 
-    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+askName:
+    await ws.SendAsync(&quot;What is your name?&quot;);
+    msg = await ws.ReceiveMessageAsync();
+
+    if (msg is null)
+        return await ws.CloseAsync();
+
+    string name = msg.GetString();
+
+    if (string.IsNullOrEmpty(name))
     {
-        var ws = req.GetWebSocket();
+        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        goto askName;
+    }
 
-        byte[] myByteArrayContent = ...;
+askAge:
+    await ws.SendAsync(&quot;And your age?&quot;);
+    msg = await ws.ReceiveMessageAsync();
 
-        ws.Send(&quot;Hello, world&quot;);     // will be encoded as an UTF-8 byte array
-        ws.Send(myByteArrayContent);
+    if (msg is null)
+        return await ws.CloseAsync();
 
-        return ws.Close();
-    });
-
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
-}
-</code></pre>
-<h2 id="waiting-for-websocket-close">Waiting for websocket close</h2>
-<p>The method <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitForClose">WaitForClose()</a> blocks the current call stack until the connection is terminated by either the client or the server.</p>
-<p>With this, the execution of the callback of the request will be blocked until the client or the server disconnects.</p>
-<p>You can also manually close the connection with the <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.Close">Close()</a> method. This method returns an empty <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> object, which is not sent to the client, but works as a return from the function where the HTTP request was received.</p>
-<pre><code class="lang-cs">static ListeningHost BuildLhA()
-{
-    Router r = new Router();
-
-    r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+    if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        var ws = req.GetWebSocket();
+        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        goto askAge;
+    }
 
-        // wait for client close connection
-        ws.WaitForClose();
+    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
 
-        // waits until no messages are exchanged in the 60 seconds
-        // or until some party closes the connection
-        ws.WaitForClose(TimeSpan.FromSeconds(60));
-
-        return ws.Close();
-    });
-
-    return new ListeningHost(&quot;localhost&quot;, 5551, r);
-}
+    return await ws.CloseAsync();
+});
 </code></pre>
 <h2 id="ping-policy">Ping Policy</h2>
 <p>Similar to how ping policy in Server Side Events works, you can also configure a ping policy to keep the TCP connection open if there is inactivity in it.</p>
-<pre><code class="lang-cs">ws.WithPing(ping =&gt;
-{
-    ping.DataMessage = &quot;ping-message&quot;;
-    ping.Interval = TimeSpan.FromSeconds(5);
-    ping.Start();
-});
+<pre><code class="lang-cs">ws.PingPolicy.Start(
+    dataMessage: &quot;ping-message&quot;,
+    interval: TimeSpan.FromSeconds(10));
 </code></pre>
 
 </article>
