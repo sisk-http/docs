@@ -156,36 +156,35 @@
                 <article data-uid="">
 <h1 id="autenticación-básica">Autenticación Básica</h1>
 
-<p>El paquete de Autenticación Básica agrega un controlador de solicitudes capaz de manejar el esquema de autenticación básica en su aplicación Sisk con muy poca configuración y esfuerzo.
-La autenticación HTTP básica es una forma minimalista de autenticar solicitudes mediante un identificador de usuario y una contraseña, donde la sesión es controlada exclusivamente
-por el cliente y no hay tokens de autenticación o acceso.</p>
-<img src="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication/httpauth.png">
-<p>Lea más sobre el esquema de autenticación básica en la <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication">especificación de MDN</a>.</p>
+<p>El paquete Basic Auth agrega un manejador de solicitudes capaz de manejar el esquema de autenticación básica en tu aplicación Sisk con muy poca configuración y esfuerzo.
+La autenticación HTTP básica es una forma mínima de autenticar solicitudes mediante un identificador de usuario y una contraseña, donde la sesión es controlada exclusivamente por el cliente y no existen tokens de autenticación o acceso.</p>
+<p><img src="/assets/img/basic-auth.svg" alt="Basic Auth"></p>
+<p>Lee más sobre el esquema de autenticación básica en la <a href="https://developer.mozilla.org/pt-BR/docs/es/Web/HTTP/Authentication">especificación MDN</a>.</p>
 <h2 id="instalación">Instalación</h2>
-<p>Para empezar, instale el paquete Sisk.BasicAuth en su proyecto:</p>
-<pre><code>&gt; dotnet add package Sisk.BasicAuth
+<p>Para comenzar, instala el paquete Sisk.BasicAuth en tu proyecto:</p>
+<pre><code class="lang-bash">&gt; dotnet add package Sisk.BasicAuth
 </code></pre>
-<p>Puede ver más formas de instalarlo en su proyecto en el <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">repositorio de Nuget</a>.</p>
-<h2 id="creación-de-su-controlador-de-autenticación">Creación de su controlador de autenticación</h2>
-<p>Puede controlar el esquema de autenticación para un módulo completo o para rutas individuales. Para ello, primero escribamos nuestro primer controlador de autenticación básica.</p>
-<p>En el ejemplo a continuación, se establece una conexión con la base de datos, se verifica si el usuario existe y si la contraseña es válida, y después de eso, se almacena el usuario en la bolsa de contexto.</p>
+<p>Puedes ver más formas de instalarlo en tu proyecto en el <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">repositorio Nuget</a>.</p>
+<h2 id="creando-tu-manejador-de-autenticación">Creando tu manejador de autenticación</h2>
+<p>Puedes controlar el esquema de autenticación para todo un módulo o para rutas individuales. Para eso, primero escribamos nuestro primer manejador de autenticación básica.</p>
+<p>En el ejemplo de abajo, se hace una conexión a la base de datos, se verifica si el usuario existe y si la contraseña es válida, y después, se almacena el usuario en la bolsa de contexto.</p>
 <pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
 {
     public UserAuthHandler() : base()
     {
-        Realm = &quot;Para entrar en esta página, por favor, informe sus credenciales.&quot;;
+        Realm = &quot;Para entrar a esta página, por favor, informe sus credenciales.&quot;;
     }
 
     public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
     {
         DbContext db = new DbContext();
 
-        // en este caso, estamos utilizando el correo electrónico como el campo de identificador de usuario, así que
-        // vamos a buscar un usuario utilizando su correo electrónico.
+        // en este caso, estamos usando el correo electrónico como campo de id de usuario, así que
+        // vamos a buscar un usuario usando su correo electrónico.
         User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
         if (user == null)
         {
-            return base.CreateUnauthorizedResponse(&quot;Lo sentimos, no se encontró ningún usuario con este correo electrónico.&quot;);
+            return base.CreateUnauthorizedResponse(&quot;¡Lo siento! No se encontró ningún usuario con este correo electrónico.&quot;);
         }
 
         // valida que la contraseña de las credenciales sea válida para este usuario.
@@ -194,51 +193,47 @@ por el cliente y no hay tokens de autenticación o acceso.</p>
             return base.CreateUnauthorizedResponse(&quot;Credenciales inválidas.&quot;);
         }
 
-        // agrega el usuario conectado a la bolsa de contexto
+        // agrega el usuario autenticado al contexto http
         // y continúa la ejecución
         context.Bag.Add(&quot;loggedUser&quot;, user);
         return null;
     }
 }
 </code></pre>
-<p>Así que solo asocie este controlador de solicitudes con nuestra ruta o clase.</p>
+<p>Entonces, simplemente asocia este manejador de solicitudes con nuestra ruta o clase.</p>
 <pre><code class="lang-cs">public class UsersController
 {
     [RouteGet(&quot;/&quot;)]
     [RequestHandler(typeof(UserAuthHandler))]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
-        return &quot;Hola, &quot; + loggedUser.Name + &quot;!&quot;;
+        User loggedUser = request.Bag.Get&lt;User&gt;();
+        return $&quot;¡Hola, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
-<p>O utilizando la clase <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>:</p>
+<p>O usando la clase <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>:</p>
 <pre><code class="lang-cs">public class UsersController : RouterModule
 {
     public ClientModule()
     {
-        // ahora todas las rutas dentro de esta clase serán manejadas por
+        // todas las rutas dentro de esta clase serán manejadas por
         // UserAuthHandler.
         base.HasRequestHandler(new UserAuthHandler());
     }
-
+    
     [RouteGet(&quot;/&quot;)]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
-        return &quot;Hola, &quot; + loggedUser.Name + &quot;!&quot;;
+        User loggedUser = request.Bag.Get&lt;User&gt;();
+        return $&quot;¡Hola, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
 <h2 id="observaciones">Observaciones</h2>
-<p>La responsabilidad principal de la autenticación básica se lleva a cabo en el lado del cliente. El almacenamiento, el control de caché,
-y el cifrado se manejan localmente en el cliente. El servidor solo recibe las credenciales y valida si se permite o no el acceso.</p>
-<p>Tenga en cuenta que este método no es uno de los más seguros porque coloca una gran responsabilidad en
-el cliente, lo que puede ser difícil de rastrear y mantener la seguridad de sus credenciales. Además, es
-fundamental que las contraseñas se transmitan en un contexto de conexión segura (SSL), ya que no tienen cifrado inherente. Una breve intercepción en los encabezados de una solicitud puede exponer las credenciales de acceso de su usuario.</p>
-<p>Opte por soluciones de autenticación más robustas para aplicaciones en producción y evite utilizar demasiados componentes prefabricados,
-ya que pueden no adaptarse a las necesidades de su proyecto y terminar exponiéndolo a riesgos de seguridad.</p>
+<p>La responsabilidad principal de la autenticación básica se lleva a cabo en el lado del cliente. El almacenamiento, el control de caché y la encriptación se manejan localmente en el cliente. El servidor solo recibe las credenciales y valida si el acceso está permitido o no.</p>
+<p>Ten en cuenta que este método no es uno de los más seguros porque coloca una responsabilidad significativa en el cliente, lo que puede dificultar rastrear y mantener la seguridad de sus credenciales. Además, es crucial que las contraseñas se transmitan en un contexto de conexión segura (SSL), ya que no tienen ninguna encriptación inherente. Una breve interceptación en los encabezados de una solicitud puede exponer las credenciales de acceso de tu usuario.</p>
+<p>Opta por soluciones de autenticación más robustas para aplicaciones en producción y evita usar demasiados componentes de uso general, ya que pueden no adaptarse a las necesidades de tu proyecto y terminar exponiéndolo a riesgos de seguridad.</p>
 
 </article>
 

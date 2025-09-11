@@ -1,16 +1,16 @@
 items:
- 
+
 - name: Bienvenido
- 
-- name: Introducción
+
+- name: Empezando
   href: getting-started.md
 - name: Instalación
   href: installing.md
-- name: Soporte de AOT Nativo
+- name: Soporte Nativo AOT
   href: native-aot.md
 - name: Despliegue
   href: deploying.md
-- name: Trabajo con SSL
+- name: Trabajando con SSL
   href: ssl.md
 - name: Configuración de Windows
   href: registering-namespace.md
@@ -18,25 +18,25 @@ items:
   href: changelogs.md
 - name: Preguntas frecuentes
   href: faq.md
- 
+  
 - name: Fundamentos
 
 - name: Enrutamiento
   href: fundamentals/routing.md
-- name: Controladores de solicitudes
+- name: Manejadores de solicitud
   href: fundamentals/request-handlers.md
 - name: Solicitudes
   href: fundamentals/requests.md
 - name: Respuestas
   href: fundamentals/responses.md
 
-- name: Características
+- name: Funcionalidades
 
-- name: Registro de eventos
+- name: Registro de logs
   href: features/logging.md
 - name: Eventos enviados por el servidor
   href: features/server-sent-events.md
-- name: WebSockets
+- name: Web Sockets
   href: features/websockets.md
 - name: Sintaxis de descarte
   href: features/discard-syntax.md
@@ -44,11 +44,13 @@ items:
   href: features/instancing.md
 - name: Transmisión de contenido
   href: features/content-streaming.md
-- name: Compartir recursos de origen cruzado
+- name: Compartición de recursos entre orígenes cruzados
   href: features/cors.md
 
 - name: Extensiones
 
+- name: Protocolo de Contexto de Modelo (MCP)
+  href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
 - name: Proxy SSL
@@ -68,7 +70,7 @@ items:
   href: advanced/request-lifecycle.md
 - name: Resolutores de reenvío
   href: advanced/forwarding-resolvers.md
-- name: Controladores de servidor HTTP
+- name: Manejadores de servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuración de multihost
+- name: Configuración multi-host
   href: advanced/multi-host-setup.md

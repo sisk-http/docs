@@ -1,29 +1,29 @@
 items:
- 
-- name: よこそ
+
+- name: ようこそ
 
 - name: はじめに
   href: getting-started.md
 - name: インストール
   href: installing.md
-- name: ネイティブAOTサポート
+- name: ネイティブ AOT サポート
   href: native-aot.md
 - name: デプロイ
   href: deploying.md
-- name: SSLの使用
+- name: SSL で作業する
   href: ssl.md
-- name: Windowsのセットアップ
+- name: Windows 設定
   href: registering-namespace.md
-- name: 変更履歴
+- name: 変更ログ
   href: changelogs.md
 - name: よくある質問
   href: faq.md
   
-- name: 基礎
+- name: 基本
 
 - name: ルーティング
   href: fundamentals/routing.md
-- name: リクエストハンドラー
+- name: リクエストハンドラ
   href: fundamentals/request-handlers.md
 - name: リクエスト
   href: fundamentals/requests.md
@@ -36,9 +36,9 @@ items:
   href: features/logging.md
 - name: サーバー送信イベント
   href: features/server-sent-events.md
-- name: Webソケット
+- name: Web ソケット
   href: features/websockets.md
-- name: 捨て字句
+- name: Discard 構文
   href: features/discard-syntax.md
 - name: 依存性注入
   href: features/instancing.md
@@ -47,28 +47,30 @@ items:
 - name: クロスオリジンリソース共有
   href: features/cors.md
 
-- name: 拡張
+- name: 拡張機能
 
+- name: モデルコンテキストプロトコル (MCP)
+  href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
-- name: SSLプロキシ
+- name: SSL プロキシ
   href: extensions/ssl-proxy.md
-- name: ベーシック認証
+- name: Basic 認証
   href: extensions/basic-auth.md
 - name: サービスプロバイダー
   href: extensions/service-providers.md
-- name: INI設定
+- name: INI 設定
   href: extensions/ini-configuration.md
 
 - name: 上級
 
-- name: 手動セットアップ
+- name: 手動設定
   href: advanced/manual-setup.md
 - name: リクエストライフサイクル
   href: advanced/request-lifecycle.md
-- name: フォワーディングリゾルバー
+- name: フォワーディングリゾルバ
   href: advanced/forwarding-resolvers.md
-- name: HTTPサーバーハンドラー
+- name: HTTP サーバーハンドラ
   href: advanced/http-server-handlers.md
-- name: マルチホストセットアップ
+- name: マルチホスト設定
   href: advanced/multi-host-setup.md

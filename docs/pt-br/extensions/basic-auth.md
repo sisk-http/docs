@@ -1,54 +1,55 @@
-# Autenticação Básica
+# Basic Auth
 
-O pacote Basic Auth adiciona um processador de solicitações capaz de lidar com o esquema de autenticação básica em seu aplicativo Sisk com pouca configuração e esforço.
-A autenticação HTTP básica é uma forma mínima de entrada de autenticação de solicitações por um ID de usuário e senha, onde a sessão é controlada exclusivamente
-pelo cliente e não há tokens de autenticação ou acesso.
+O pacote Basic Auth adiciona um manipulador de requisição capaz de lidar com o esquema de autenticação básica em sua aplicação Sisk com pouca configuração e esforço.
+A autenticação HTTP básica é uma forma mínima de autenticar requisições por um ID de usuário e senha, onde a sessão é controlada exclusivamente pelo cliente e não há tokens de autenticação ou acesso.
 
-<img src="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication/httpauth.png">
+![Basic Auth](/assets/img/basic-auth.svg)
 
-Leia mais sobre o esquema de autenticação básica na [especificação MDN](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication).
+Leia mais sobre o esquema de autenticação básica na [especificação MDN](https://developer.mozilla.org/pt-BR/docs/pt-br/Web/HTTP/Authentication).
 
 ## Instalando
 
 Para começar, instale o pacote Sisk.BasicAuth em seu projeto:
 
-    > dotnet add package Sisk.BasicAuth
+```bash
+> dotnet add package Sisk.BasicAuth
+```
 
-Você pode visualizar mais maneiras de instalá-lo em seu projeto no [repositório Nuget](https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0).
+Você pode ver mais formas de instalá-lo em seu projeto no [repositório Nuget](https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0).
 
 ## Criando seu manipulador de autenticação
 
-Você pode controlar o esquema de autenticação para um módulo inteiro ou para rotas individuais. Para isso, primeiro vamos escrever nosso primeiro manipulador de autenticação básica.
+Você pode controlar o esquema de autenticação para um módulo inteiro ou para rotas individuais. Para isso, vamos primeiro escrever nosso primeiro manipulador de autenticação básica.
 
-No exemplo abaixo, uma conexão é feita com o banco de dados, verifica se o usuário existe e se a senha é válida e, em seguida, armazena o usuário na bolsa de contexto.
+No exemplo abaixo, uma conexão é feita ao banco de dados, verifica se o usuário existe e se a senha é válida, e depois armazena o usuário no saco de contexto.
 
 ```cs
 public class UserAuthHandler : BasicAuthenticateRequestHandler
 {
     public UserAuthHandler() : base()
     {
-        Realm = "Para entrar nesta página, informe suas credenciais.";
+        Realm = "Para entrar nesta página, por favor, informe suas credenciais.";
     }
 
     public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
     {
         DbContext db = new DbContext();
 
-        // neste caso, estamos usando o email como campo de ID de usuário, então vamos
-        // procurar um usuário usando seu email.
+        // neste caso, estamos usando o e‑mail como campo de ID do usuário, então
+        // vamos procurar por um usuário usando seu e‑mail.
         User? user = db.Users.FirstOrDefault(u => u.Email == credentials.UserId);
         if (user == null)
         {
-            return base.CreateUnauthorizedResponse("Desculpe! Nenhum usuário foi encontrado por este email.");
+            return base.CreateUnauthorizedResponse("Desculpe! Nenhum usuário foi encontrado com este e‑mail.");
         }
 
-        // valida que a senha das credenciais é válida para este usuário.
+        // valida se a senha das credenciais é válida para este usuário.
         if (!user.ValidatePassword(credentials.Password))
         {
             return base.CreateUnauthorizedResponse("Credenciais inválidas.");
         }
 
-        // adiciona o usuário logado ao contexto HTTP
+        // adiciona o usuário logado ao contexto http
         // e continua a execução
         context.Bag.Add("loggedUser", user);
         return null;
@@ -56,7 +57,7 @@ public class UserAuthHandler : BasicAuthenticateRequestHandler
 }
 ```
 
-Então, basta associar este manipulador de solicitações à nossa rota ou classe.
+Então, basta associar este manipulador de requisição à nossa rota ou classe.
 
 ```cs
 public class UsersController
@@ -65,8 +66,8 @@ public class UsersController
     [RequestHandler(typeof(UserAuthHandler))]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag["loggedUser"];
-        return "Olá, " + loggedUser.Name + "!";
+        User loggedUser = request.Bag.Get<User>();
+        return $"Hello, {loggedUser.Name}!";
     }
 }
 ```
@@ -78,30 +79,24 @@ public class UsersController : RouterModule
 {
     public ClientModule()
     {
-        // agora todas as rotas dentro desta classe serão tratadas por
+        // todas as rotas dentro desta classe serão tratadas por
         // UserAuthHandler.
         base.HasRequestHandler(new UserAuthHandler());
     }
-
+    
     [RouteGet("/")]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag["loggedUser"];
-        return "Olá, " + loggedUser.Name + "!";
+        User loggedUser = request.Bag.Get<User>();
+        return $"Hello, {loggedUser.Name}!";
     }
 }
 ```
 
 ## Observações
 
-A principal responsabilidade da autenticação básica é realizada no lado do cliente. Armazenamento, controle de cache e
-criptografia são todos gerenciados localmente no cliente. O servidor apenas recebe as
-credenciais e valida se o acesso é permitido ou não.
+A responsabilidade principal da autenticação básica é realizada no lado do cliente. Armazenamento, controle de cache e criptografia são todos tratados localmente no cliente. O servidor apenas recebe as credenciais e valida se o acesso é permitido ou não.
 
-Observe que este método não é uma das soluções mais seguras porque coloca uma responsabilidade significativa no
-cliente, o que pode ser difícil de rastrear e manter a segurança de suas credenciais. Além disso, é
-essencial que as senhas sejam transmitidas em um contexto de conexão segura (SSL), pois elas não possuem nenhuma
-criptografia inerente. Uma breve interceptação nos cabeçalhos de uma solicitação pode expor as credenciais de acesso do seu usuário.
+Observe que este método não é um dos mais seguros porque coloca uma responsabilidade significativa no cliente, o que pode ser difícil de rastrear e manter a segurança de suas credenciais. Além disso, é crucial que as senhas sejam transmitidas em um contexto de conexão segura (SSL), pois elas não têm nenhuma criptografia inerente. Uma breve interceptação nos cabeçalhos de uma requisição pode expor as credenciais de acesso do seu usuário.
 
-Opte por soluções de autenticação mais robustas para aplicativos em produção e evite usar muitos componentes prontos para uso,
-pois eles podem não se adaptar às necessidades do seu projeto e acabar expondo-o a riscos de segurança.
+Opte por soluções de autenticação mais robustas para aplicações em produção e evite usar muitos componentes prontos, pois eles podem não se adaptar às necessidades do seu projeto e acabar expô-lo a riscos de segurança.

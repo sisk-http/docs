@@ -14,7 +14,7 @@ items:
   href: ssl.md
 - name: Настройка Windows
   href: registering-namespace.md
-- name: Журнал изменений
+- name: Журналы изменений
   href: changelogs.md
 - name: Часто задаваемые вопросы
   href: faq.md
@@ -36,39 +36,41 @@ items:
   href: features/logging.md
 - name: События, отправляемые сервером
   href: features/server-sent-events.md
-- name: Веб-сокеты
+- name: Web Sockets
   href: features/websockets.md
-- name: Синтаксис отбрасывания
+- name: Синтаксис discard
   href: features/discard-syntax.md
 - name: Внедрение зависимостей
   href: features/instancing.md
-- name: Потоковая передача контента
+- name: Потоковое передача контента
   href: features/content-streaming.md
-- name: Обмен ресурсами между источниками
+- name: Cross-Origin Resource Sharing
   href: features/cors.md
 
 - name: Расширения
 
+- name: Протокол контекста модели (MCP)
+  href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
-- name: Прокси SSL
+- name: SSL Proxy
   href: extensions/ssl-proxy.md
-- name: Базовая аутентификация
+- name: Basic auth
   href: extensions/basic-auth.md
-- name: Поставщики услуг
+- name: Провайдеры сервисов
   href: extensions/service-providers.md
 - name: Конфигурация INI
   href: extensions/ini-configuration.md
 
-- name: Продвинутые
+- name: Продвинутый уровень
 
 - name: Ручная настройка
   href: advanced/manual-setup.md
 - name: Жизненный цикл запроса
   href: advanced/request-lifecycle.md
-- name: Резолверы перенаправления
+- name: Перенаправляющие резолверы
   href: advanced/forwarding-resolvers.md
 - name: Обработчики HTTP-сервера
   href: advanced/http-server-handlers.md
-- name: Настройка нескольких хостов
+- name: Настройка мульти-хоста
   href: advanced/multi-host-setup.md

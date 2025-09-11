@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Protocolo de Contexto de Modelo | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Protocolo de Contexto de Modelo | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/mcp.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="protocolo-de-contexto-de-modelo">Protocolo de Contexto de Modelo</h1>
+
+<p>Es posible construir aplicaciones que proporcionen contexto a modelos agónicos usando modelos de lenguaje grande (LLM) con el paquete <a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a>:</p>
+<pre><code class="lang-bash">dotnet add package Sisk.ModelContextProtocol
+</code></pre>
+<p>Este paquete expone clases y métodos útiles para construir servidores MCP que funcionan mediante <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Antes de comenzar, observe que este paquete está en desarrollo y puede presentar comportamientos no conformes con la especificación. Lea los <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">detalles del paquete</a> para saber qué está en desarrollo y qué no funciona todavía.</p>
+</div>
+<h2 id="iniciando-con-mcp">Iniciando con MCP</h2>
+<p>La clase <a href="/api/Sisk.ModelContextProtocol.McpProvider">McpProvider</a> es el punto de entrada para definir un servidor MCP. Es abstracta, puede definirse en cualquier lugar. Su aplicación Sisk puede tener uno o más proveedores MCP.</p>
+<pre><code class="lang-csharp">McpProvider mcp = new McpProvider(
+    serverName: &quot;math-server&quot;,
+    serverTitle: &quot;Mathematics server&quot;,
+    serverVersion: new Version(1, 0));
+
+mcp.Tools.Add(new McpTool(
+    name: &quot;math_sum&quot;,
+    description: &quot;Sums one or more numbers.&quot;,
+    schema: JsonSchema.CreateObjectSchema(
+        properties: new Dictionary&lt;string, JsonSchema&gt;()
+        {
+            { &quot;numbers&quot;,
+                JsonSchema.CreateArraySchema(
+                    itemsSchema: JsonSchema.CreateNumberSchema(),
+                    minItems: 1,
+                    description: &quot;The numbers to sum.&quot;)
+            }
+        },
+        requiredProperties: [&quot;numbers&quot;]),
+    executionHandler: async (McpToolContext context) =&gt;
+    {
+        var numbers = context.Arguments[&quot;numbers&quot;].GetJsonArray().ToArray&lt;double&gt;();
+        var sum = numbers.Sum();
+        return await Task.FromResult(McpToolResult.CreateText($&quot;Sum result: {sum:N4}&quot;));
+    }));
+</code></pre>
+<p>Si su aplicación solo provee un proveedor MCP, puede usar el singleton del builder:</p>
+<pre><code class="lang-csharp">static void Main(string[] args)
+{
+    using var host = HttpServer.CreateBuilder()
+        .UseMcp(mcp =&gt;
+        {
+            mcp.ServerName = &quot;math-server&quot;;
+            mcp.ServerTitle = &quot;Mathematics server&quot;;
+
+            mcp.Tools.Add(new McpTool(
+                name: &quot;math_sum&quot;,
+                description: &quot;Sums one or more numbers.&quot;,
+                schema: JsonSchema.CreateObjectSchema(
+                    properties: new Dictionary&lt;string, JsonSchema&gt;()
+                    {
+                        { &quot;numbers&quot;,
+                            JsonSchema.CreateArraySchema(
+                                itemsSchema: JsonSchema.CreateNumberSchema(),
+                                minItems: 1,
+                                description: &quot;The numbers to sum.&quot;)
+                        }
+                    },
+                    requiredProperties: [&quot;numbers&quot;]),
+                executionHandler: async (McpToolContext context) =&gt;
+                {
+                    var numbers = context.Arguments[&quot;numbers&quot;].GetJsonArray().ToArray&lt;double&gt;();
+                    var sum = numbers.Sum();
+                    return await Task.FromResult(McpToolResult.CreateText($&quot;Sum result: {sum:N4}&quot;));
+                }));
+        })
+        .UseRouter(router =&gt;
+        {
+            router.MapAny(&quot;/mcp&quot;, async (HttpRequest req) =&gt;
+            {
+                await req.HandleMcpRequestAsync();
+            });
+        })
+        .Build();
+
+    host.Start();
+}
+</code></pre>
+<h2 id="creando-esquemas-json-de-funciones">Creando esquemas JSON de funciones</h2>
+<p>La biblioteca [Sisk.ModelContextProtocol] usa un fork de <a href="https://github.com/CypherPotato/LightJson">LightJson</a> para manipulación del JSON y del esquema JSON. Esta implementación proporciona un builder de JSON Schema fluido para diversos objetos:</p>
+<ul>
+<li>JsonSchema.CreateObjectSchema</li>
+<li>JsonSchema.CreateArraySchema</li>
+<li>JsonSchema.CreateBooleanSchema</li>
+<li>JsonSchema.CreateNumberSchema</li>
+<li>JsonSchema.CreateStringSchema</li>
+<li>JsonSchema.Empty</li>
+</ul>
+<p>Ejemplo:</p>
+<pre><code class="lang-csharp">JsonSchema.CreateObjectSchema(
+    properties: new Dictionary&lt;string, JsonSchema&gt;()
+    {
+        { &quot;numbers&quot;,
+            JsonSchema.CreateArraySchema(
+                itemsSchema: JsonSchema.CreateNumberSchema(),
+                minItems: 1,
+                description: &quot;The numbers to sum.&quot;)
+        }
+    },
+    requiredProperties: [&quot;numbers&quot;]);
+</code></pre>
+<p>Produce el siguiente esquema:</p>
+<pre><code class="lang-json">{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;numbers&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;number&quot;
+      },
+      &quot;minItems&quot;: 1,
+      &quot;description&quot;: &quot;The numbers to sum.&quot;
+    }
+  },
+  &quot;required&quot;: [&quot;numbers&quot;]
+}
+</code></pre>
+<h2 id="manejo-de-llamadas-de-función">Manejo de llamadas de función</h2>
+<p>La función definida en el parámetro <code>executionHandler</code> de <a href="/api/Sisk.ModelContextProtocol.McpTool">McpTool</a> proporciona un objeto JsonObject que contiene los argumentos de llamada que puede leerse de forma fluida:</p>
+<pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
+    name: &quot;browser_do_action&quot;,
+    description: &quot;Run an browser action, such as scrolling, refreshing or navigating.&quot;,
+    schema: JsonSchema.CreateObjectSchema(
+        properties: new Dictionary&lt;string, JsonSchema&gt;()
+        {
+            { &quot;action_name&quot;,
+                JsonSchema.CreateStringSchema(
+                    enums: [&quot;go_back&quot;, &quot;refresh&quot;, &quot;scroll_bottom&quot;, &quot;scroll_top&quot;],
+                    description: &quot;The action name.&quot;)
+            },
+            { &quot;action_data&quot;,
+                JsonSchema.CreateStringSchema(
+                    description: &quot;Action parameter.&quot;
+                ) }
+        },
+        requiredProperties: [&quot;action_name&quot;]),
+    executionHandler: async (McpToolContext context) =&gt;
+    {
+        // read action name. will throw if null or not a explicit string
+        string actionName = context.Arguments[&quot;action_name&quot;].GetString();
+        
+        // action_data is defined as non-required, so it may be null here
+        string? actionData = context.Arguments[&quot;action_data&quot;].MaybeNull()?.GetString();
+        
+        // Handle the browser action based on the actionName
+        return await Task.FromResult(
+            McpToolResult.CreateText($&quot;Performed browser action: {actionName}&quot;));
+    }));
+</code></pre>
+<h2 id="resultados-de-funciones">Resultados de funciones</h2>
+<p>El objeto <a href="/api/Sisk.ModelContextProtocol.McpToolResult">McpToolResult</a> proporciona tres métodos de creación de contenido para una respuesta de herramienta:</p>
+<ul>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio">CreateAudio(ReadOnlySpan<byte>, string)</byte></a>: crea una respuesta basada en un audio para el cliente MCP.</li>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage">CreateImage(ReadOnlySpan<byte>, string)</byte></a>: crea una respuesta basada en una imagen al cliente MCP.</li>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateText">CreateText(string)</a>: crea una respuesta basada en un texto (el estándar) al cliente MCP.</li>
+</ul>
+<p>Además, es posible combinar varios contenidos diferentes en una única respuesta de una herramienta JSON:</p>
+<pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
+    ...
+    executionHandler: async (McpToolContext context) =&gt;
+    {
+        // simulate real work
+
+        byte[] browserScreenshot = await browser.ScreenshotAsync();
+
+        return McpToolResult.Combine(
+            McpToolResult.CreateText(&quot;Heres the screenshot of the browser:&quot;),
+            McpToolResult.CreateImage(browserScreenshot, &quot;image/png&quot;)
+        )
+    }));
+</code></pre>
+<h2 id="continuar-trabajando">Continuar trabajando</h2>
+<p>El Model Context Protocol es un protocolo de comunicación de modelos agónicos y aplicaciones que proporcionan contenido a ellos y es un protocolo nuevo, por lo tanto, es común que su especificación se actualice constantemente con deprecaciones, nuevas características y cambios críticos.</p>
+<p>Es fundamental entender los problemas que el <a href="https://modelcontextprotocol.io/docs/es/getting-started/intro">Model Context Protocol</a> resuelve antes de comenzar a crear aplicaciones agónicas.</p>
+<p>Lea también la especificación del paquete <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">Sisk.ModelContextProtocol</a> para entender su progreso, avance y lo que es posible hacer con él.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/mcp.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

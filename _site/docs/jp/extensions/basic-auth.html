@@ -156,81 +156,82 @@
                 <article data-uid="">
 <h1 id="basic-auth">Basic Auth</h1>
 
-<p>Basic Auth パッケージは、非常に少ない設定と労力で、Sisk アプリケーションで基本認証スキームを処理できるリクエスト ハンドラーを追加します。
-Basic HTTP 認証は、ユーザー ID とパスワードでリクエストを認証する最小限の入力形式であり、セッションはクライアントによって完全に制御され、認証またはアクセス トークンはありません。</p>
-<img src="https://developer.mozilla.org/pt-BR/docs/jp/Web/HTTP/Authentication/httpauth.png">
-<p>Basic 認証スキームについては、<a href="https://developer.mozilla.org/pt-BR/docs/jp/Web/HTTP/Authentication">MDN の仕様</a>を参照してください。</p>
-<h2 id="インストール">インストール</h2>
-<p>開始するには、プロジェクトに Sisk.BasicAuth パッケージをインストールします:</p>
-<pre><code>&gt; dotnet add package Sisk.BasicAuth
+<p>Basic Auth パッケージは、Sisk アプリケーションで基本認証スキームを処理できるリクエストハンドラを、ほとんど設定や労力なしで追加します。<br>
+基本 HTTP 認証は、ユーザー ID とパスワードによってリクエストを認証する最小限の入力フォームで、セッションはクライアント側でのみ制御され、認証トークンやアクセス トークンは存在しません。</p>
+<p><img src="/assets/img/basic-auth.svg" alt="Basic Auth"></p>
+<p>基本認証スキームの詳細は、<a href="https://developer.mozilla.org/pt-BR/docs/jp/Web/HTTP/Authentication">MDN specification</a> をご覧ください。</p>
+<h2 id="installing">Installing</h2>
+<p>始めるには、プロジェクトに Sisk.BasicAuth パッケージをインストールします：</p>
+<pre><code class="lang-bash">&gt; dotnet add package Sisk.BasicAuth
 </code></pre>
-<p>プロジェクトにインストールする他の方法については、<a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget リポジトリ</a>を参照してください。</p>
-<h2 id="認証ハンドラーの作成">認証ハンドラーの作成</h2>
-<p>認証スキームをモジュール全体または個々のルートに対して制御できます。まず、基本認証ハンドラーを作成しましょう。</p>
-<p>以下の例では、データベースに接続して、ユーザーが存在し、パスワードが有効であるかどうかを確認し、次にユーザーをコンテキスト バッグに保存します。</p>
+<p>Nuget リポジトリの <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget repository</a> で、インストール方法の詳細を確認できます。</p>
+<h2 id="creating-your-auth-handler">Creating your auth handler</h2>
+<p>モジュール全体または個々のルートに対して認証スキームを制御できます。まず、最初の基本認証ハンドラを書いてみましょう。</p>
+<p>以下の例では、データベースに接続し、ユーザーが存在し、パスワードが有効かどうかを確認し、その後ユーザーをコンテキストバッグに保存します。</p>
 <pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
 {
     public UserAuthHandler() : base()
     {
-        Realm = &quot;このページにアクセスするには、資格情報を入力してください。&quot;;
+        Realm = &quot;To enter this page, please, inform your credentials.&quot;;
     }
 
     public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
     {
         DbContext db = new DbContext();
 
-        // この場合、ユーザー ID フィールドとして電子メールを使用しているため、電子メールでユーザーを検索します。
+        // この例では、メールアドレスをユーザー ID フィールドとして使用しているため、
+        // メールアドレスでユーザーを検索します。
         User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
         if (user == null)
         {
-            return base.CreateUnauthorizedResponse(&quot;ユーザーが見つかりませんでした。&quot;);
+            return base.CreateUnauthorizedResponse(&quot;Sorry! No user was found by this email.&quot;);
         }
 
-        // 資格情報のパスワードがこのユーザーに対して有効であることを確認します。
+        // ユーザーに対してパスワードが有効かどうかを検証します。
         if (!user.ValidatePassword(credentials.Password))
         {
-            return base.CreateUnauthorizedResponse(&quot;資格情報が無効です。&quot;);
+            return base.CreateUnauthorizedResponse(&quot;Invalid credentials.&quot;);
         }
 
-        // ログインしたユーザーを HTTP コンテキストに追加し、実行を続行します。
+        // ログインしたユーザーを HTTP コンテキストに追加し、実行を継続します。
         context.Bag.Add(&quot;loggedUser&quot;, user);
         return null;
     }
 }
 </code></pre>
-<p>これで、このリクエスト ハンドラーをルートまたはクラスに関連付けるだけです。</p>
+<p>このリクエストハンドラをルートまたはクラスに関連付けるだけです。</p>
 <pre><code class="lang-cs">public class UsersController
 {
     [RouteGet(&quot;/&quot;)]
     [RequestHandler(typeof(UserAuthHandler))]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
-        return &quot;こんにちは、&quot; + loggedUser.Name + &quot;!&quot;;
+        User loggedUser = request.Bag.Get&lt;User&gt;();
+        return $&quot;Hello, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
-<p>または、<a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a> クラスを使用することもできます:</p>
+<p>または、<a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a> クラスを使用して：</p>
 <pre><code class="lang-cs">public class UsersController : RouterModule
 {
     public ClientModule()
     {
-        // このクラス内のすべてのルートは、UserAuthHandler によって処理されます。
+        // このクラス内のすべてのルートは UserAuthHandler によって処理されます。
         base.HasRequestHandler(new UserAuthHandler());
     }
-
+    
     [RouteGet(&quot;/&quot;)]
     public string Index(HttpRequest request)
     {
-        User loggedUser = (User)request.Context.RequestBag[&quot;loggedUser&quot;];
-        return &quot;こんにちは、&quot; + loggedUser.Name + &quot;!&quot;;
+        User loggedUser = request.Bag.Get&lt;User&gt;();
+        return $&quot;Hello, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
-<h2 id="備考">備考</h2>
-<p>基本認証の主な責任はクライアント側で実行されます。ストレージ、キャッシュ制御、暗号化はすべてクライアント側でローカルに処理され、サーバーは資格情報を受け取り、許可されたアクセスかどうかを検証するだけです。</p>
-<p>この方法は、クライアントに大きな責任を負わせるため、セキュリティの面で最も安全な方法ではありません。さらに、パスワードは SSL のようなセキュアな接続コンテキストで送信される必要があります。なぜなら、パスワードには固有の暗号化がないからです。リクエストのヘッダーを一時的に傍受するだけで、ユーザーのアクセス資格情報が公開される可能性があります。</p>
-<p>本番環境のアプリケーションでは、より堅牢な認証ソリューションを選択し、オフザシェルフのコンポーネントを使用しすぎないようにしてください。そうしないと、プロジェクトがセキュリティ リスクにさらされる可能性があります。</p>
+<h2 id="remarks">Remarks</h2>
+<p>基本認証の主な責任はクライアント側で行われます。ストレージ、キャッシュ制御、暗号化はすべてクライアント側でローカルに処理されます。サーバーは認証情報を受け取り、アクセスが許可されるかどうかを検証するだけです。</p>
+<p>この方法は、クライアントに大きな責任を負わせるため、最も安全な方法ではありません。クライアント側で認証情報を追跡・管理するのは難しく、セキュリティを維持するのが困難です。さらに、パスワードは SSL などの安全な接続コンテキストで送信される必要があります。リクエストヘッダーの簡単な傍受で、ユーザーのアクセス認証情報が漏れる可能性があります。</p>
+<p>本番環境のアプリケーションでは、より堅牢な認証ソリューションを選択し、オフ・ザ・シェルフのコンポーネントを多用しないようにしてください。そうしないと、プロジェクトのニーズに適合せず、セキュリティリスクを招く恐れがあります。</p>
 
 </article>
 
