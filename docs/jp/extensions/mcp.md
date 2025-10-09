@@ -1,20 +1,20 @@
 # モデルコンテキストプロトコル
 
-エージェントモデルにコンテキストを提供するアプリケーションを、大規模言語モデル（LLM）を使用して構築することができます。パッケージ [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) を使用します：
+大規模言語モデル（LLM）を使用してエージェントモデルにコンテキストを提供するアプリケーションを構築することが可能です。これには [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) パッケージを使用します：
 
 ```bash
 dotnet add package Sisk.ModelContextProtocol
 ```
 
-このパッケージは、[Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) で動作する MCP サーバーを構築するための便利なクラスとメソッドを公開します。
+このパッケージは、[Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) 上で動作する MCP サーバーを構築するための便利なクラスとメソッドを公開します。
 
 > [!NOTE]
 >
-> 開始する前に、このパッケージは開発中であり、仕様に準拠していない動作がある可能性があります。開発中の機能やまだ動作しない機能については、[パッケージの詳細](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) をご覧ください。
+> 開発中のパッケージであるため、仕様に準拠しない動作がある場合があります。開発中の内容やまだ動作しない機能については、[パッケージの詳細](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) をご覧ください。
 
 ## MCP の開始
 
-[McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) クラスは、MCP サーバーを定義するエントリーポイントです。抽象クラスであり、任意の場所で定義できます。Sisk アプリケーションは、1 つ以上の MCP プロバイダーを持つことができます。
+[McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) クラスは MCP サーバーを定義するエントリーポイントです。抽象クラスであり、任意の場所で定義できます。Sisk アプリケーションは 1 つ以上の MCP プロバイダーを持つことができます。
 
 ```csharp
 McpProvider mcp = new McpProvider(
@@ -44,7 +44,7 @@ mcp.Tools.Add(new McpTool(
     }));
 ```
 
-アプリケーションが単一の MCP プロバイダーのみを提供する場合は、ビルダーのシングルトンを使用できます：
+アプリケーションが 1 つの MCP プロバイダーのみを提供する場合は、ビルダーのシングルトンを使用できます：
 
 ```csharp
 static void Main(string[] args)
@@ -89,9 +89,9 @@ static void Main(string[] args)
 }
 ```
 
-## 関数の JSON スキーマを作成する
+## 関数用 JSON スキーマの作成
 
-[Sisk.ModelContextProtocol] ライブラリは、JSON と JSON スキーマの操作に [LightJson](https://github.com/CypherPotato/LightJson) のフォークを使用しています。この実装は、さまざまなオブジェクトに対してフルエントな JSON スキーマビルダーを提供します：
+[Sisk.ModelContextProtocol] ライブラリは、JSON と JSON スキーマ操作のために [LightJson](https://github.com/CypherPotato/LightJson) のフォークを使用しています。この実装は、さまざまなオブジェクト用にフルエントな JSON スキーマビルダーを提供します：
 
 - JsonSchema.CreateObjectSchema
 - JsonSchema.CreateArraySchema
@@ -135,9 +135,9 @@ JsonSchema.CreateObjectSchema(
 }
 ```
 
-## 関数呼び出しを処理する
+## 関数呼び出しの処理
 
-[McpTool](/api/Sisk.ModelContextProtocol.McpTool) の `executionHandler` パラメータで定義された関数は、呼び出し引数をフルエントに読み取れる JsonObject を提供します：
+[McpTool](/api/Sisk.ModelContextProtocol.McpTool) の `executionHandler` パラメータで定義された関数は、呼び出し引数を含む JsonObject を提供し、フルエントに読み取ることができます：
 
 ```csharp
 mcp.Tools.Add(new McpTool(
@@ -171,13 +171,13 @@ mcp.Tools.Add(new McpTool(
     }));
 ```
 
-## 関数の結果
+## 関数結果
 
 [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) オブジェクトは、ツール応答のコンテンツを作成するための 3 つのメソッドを提供します：
 
-- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio)：MCP クライアントに音声ベースの応答を作成します。
-- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage)：MCP クライアントに画像ベースの応答を作成します。
-- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText)：デフォルトでテキストベースの応答を作成します。
+- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio)：MCP クライアント用の音声ベースの応答を作成します。
+- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage)：MCP クライアント用の画像ベースの応答を作成します。
+- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText)：MCP クライアント用のテキストベースの応答（デフォルト）を作成します。
 
 さらに、複数の異なるコンテンツを単一の JSON ツール応答に組み合わせることも可能です：
 
@@ -189,7 +189,7 @@ mcp.Tools.Add(new McpTool(
         // simulate real work
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
-
+        
         return McpToolResult.Combine(
             McpToolResult.CreateText("Heres the screenshot of the browser:"),
             McpToolResult.CreateImage(browserScreenshot, "image/png")
@@ -199,8 +199,8 @@ mcp.Tools.Add(new McpTool(
 
 ## 継続的な作業
 
-Model Context Protocol は、エージェントモデルとそれらにコンテンツを提供するアプリケーションの通信プロトコルであり、新しいプロトコルであるため、仕様が頻繁に更新され、非推奨化、新機能、破壊的変更が行われることがよくあります。
+モデルコンテキストプロトコルは、エージェントモデルとそれらにコンテンツを提供するアプリケーションのための通信プロトコルです。新しいプロトコルであるため、仕様は deprecation、機能追加、破壊的変更などで継続的に更新されることが一般的です。
 
-[Model Context Protocol](https://modelcontextprotocol.io/docs/jp/getting-started/intro) が解決する問題を理解することが、エージェントアプリケーションを作成する前に重要です。
+エージェントアプリケーションを構築する前に、[Model Context Protocol](https://modelcontextprotocol.io/docs/jp/getting-started/intro) が解決する問題を理解することが重要です。
 
-[Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) パッケージの仕様も参照し、進捗状況や可能な機能を把握してください。
+また、[Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) パッケージの仕様を読んで、進捗状況、ステータス、および何ができるかを把握してください。

@@ -156,13 +156,13 @@
                 <article data-uid="">
 <h1 id="模型上下文协议">模型上下文协议</h1>
 
-<p>可以使用大型语言模型（LLM）和 <a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a> 包来构建为代理模型提供上下文的应用程序：</p>
+<p>可以使用大型语言模型（LLMs）通过 <a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a> 包为代理模型提供上下文，从而构建应用程序：</p>
 <pre><code class="lang-bash">dotnet add package Sisk.ModelContextProtocol
 </code></pre>
 <p>该包公开了有用的类和方法，用于构建通过 <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a> 工作的 MCP 服务器。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>在开始之前，请注意该包仍在开发中，可能会出现与规范不一致的行为。阅读 <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">包的详细信息</a> 以了解正在开发的内容以及尚未实现的功能。</p>
+<p>在开始之前，请注意该包仍在开发中，可能会出现不符合规范的行为。阅读 <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">包详情</a> 以了解正在开发的内容以及尚未工作的功能。</p>
 </div>
 <h2 id="开始使用-mcp">开始使用 MCP</h2>
 <p><a href="/api/Sisk.ModelContextProtocol.McpProvider">McpProvider</a> 类是定义 MCP 服务器的入口点。它是抽象的，可以在任何地方定义。您的 Sisk 应用程序可以拥有一个或多个 MCP 提供者。</p>
@@ -192,7 +192,7 @@ mcp.Tools.Add(new McpTool(
         return await Task.FromResult(McpToolResult.CreateText($&quot;Sum result: {sum:N4}&quot;));
     }));
 </code></pre>
-<p>如果您的应用程序只提供一个 MCP 提供者，您可以使用构建器的单例：</p>
+<p>如果您的应用程序只提供一个 MCP 提供者，可以使用构建器的单例：</p>
 <pre><code class="lang-csharp">static void Main(string[] args)
 {
     using var host = HttpServer.CreateBuilder()
@@ -234,8 +234,8 @@ mcp.Tools.Add(new McpTool(
     host.Start();
 }
 </code></pre>
-<h2 id="创建函数的-json-模式">创建函数的 JSON 模式</h2>
-<p>[Sisk.ModelContextProtocol] 库使用 <a href="https://github.com/CypherPotato/LightJson">LightJson</a> 的一个分支来处理 JSON 和 JSON 模式。该实现为多种对象提供了流畅的 JSON Schema 构建器：</p>
+<h2 id="为函数创建-json-schema">为函数创建 JSON Schema</h2>
+<p>[Sisk.ModelContextProtocol] 库使用了 <a href="https://github.com/CypherPotato/LightJson">LightJson</a> 的分支来处理 JSON 和 JSON Schema。该实现为各种对象提供了流畅的 JSON Schema 构建器：</p>
 <ul>
 <li>JsonSchema.CreateObjectSchema</li>
 <li>JsonSchema.CreateArraySchema</li>
@@ -257,7 +257,7 @@ mcp.Tools.Add(new McpTool(
     },
     requiredProperties: [&quot;numbers&quot;]);
 </code></pre>
-<p>生成以下模式：</p>
+<p>生成的 Schema 如下：</p>
 <pre><code class="lang-json">{
   &quot;type&quot;: &quot;object&quot;,
   &quot;properties&quot;: {
@@ -274,7 +274,7 @@ mcp.Tools.Add(new McpTool(
 }
 </code></pre>
 <h2 id="处理函数调用">处理函数调用</h2>
-<p>在 <a href="/api/Sisk.ModelContextProtocol.McpTool">McpTool</a> 的 <code>executionHandler</code> 参数中定义的函数提供了一个 JsonObject 对象，其中包含可流畅读取的调用参数：</p>
+<p>在 <a href="/api/Sisk.ModelContextProtocol.McpTool">McpTool</a> 的 <code>executionHandler</code> 参数中定义的函数提供了一个 JsonObject，包含可流畅读取的调用参数：</p>
 <pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
     name: &quot;browser_do_action&quot;,
     description: &quot;Run an browser action, such as scrolling, refreshing or navigating.&quot;,
@@ -306,13 +306,13 @@ mcp.Tools.Add(new McpTool(
     }));
 </code></pre>
 <h2 id="函数结果">函数结果</h2>
-<p><a href="/api/Sisk.ModelContextProtocol.McpToolResult">McpToolResult</a> 对象提供了三种创建工具响应内容的方法：</p>
+<p><a href="/api/Sisk.ModelContextProtocol.McpToolResult">McpToolResult</a> 对象提供三种方法来创建工具响应内容：</p>
 <ul>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio">CreateAudio(ReadOnlySpan<byte>, string)</byte></a>：为 MCP 客户端创建基于音频的响应。</li>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage">CreateImage(ReadOnlySpan<byte>, string)</byte></a>：为 MCP 客户端创建基于图像的响应。</li>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateText">CreateText(string)</a>：为 MCP 客户端创建基于文本的响应（默认）。</li>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio">CreateAudio(ReadOnlySpan<byte>, string)</byte></a>：为 MCP 客户端创建音频响应。</li>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage">CreateImage(ReadOnlySpan<byte>, string)</byte></a>：为 MCP 客户端创建图像响应。</li>
+<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateText">CreateText(string)</a>：为 MCP 客户端创建文本响应（默认）。</li>
 </ul>
-<p>此外，您可以在单个 JSON 工具响应中组合多种不同的内容：</p>
+<p>此外，还可以将多种不同内容组合成单个 JSON 工具响应：</p>
 <pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
     ...
     executionHandler: async (McpToolContext context) =&gt;
@@ -320,7 +320,7 @@ mcp.Tools.Add(new McpTool(
         // simulate real work
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
-
+        
         return McpToolResult.Combine(
             McpToolResult.CreateText(&quot;Heres the screenshot of the browser:&quot;),
             McpToolResult.CreateImage(browserScreenshot, &quot;image/png&quot;)
@@ -328,9 +328,9 @@ mcp.Tools.Add(new McpTool(
     }));
 </code></pre>
 <h2 id="继续工作">继续工作</h2>
-<p>Model Context Protocol 是一种为代理模型和提供内容的应用程序提供通信协议的新协议，因此其规范会不断更新，出现弃用、新功能和破坏性更改是很常见的。</p>
-<p>在开始构建代理应用程序之前，务必了解 <a href="https://modelcontextprotocol.io/docs/cn/getting-started/intro">Model Context Protocol</a> 解决的问题。</p>
-<p>阅读 <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">Sisk.ModelContextProtocol</a> 包的规范，以了解其进展、状态以及可做的事情。</p>
+<p>模型上下文协议是为代理模型和为其提供内容的应用程序设计的通信协议。它是一个新协议，因此其规范经常更新，包含废弃项、新功能和破坏性更改。</p>
+<p>在开始构建代理应用程序之前，了解 <a href="https://modelcontextprotocol.io/docs/cn/getting-started/intro">Model Context Protocol</a> 解决的问题至关重要。</p>
+<p>同时阅读 <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">Sisk.ModelContextProtocol</a> 包的规范，以了解其进展、状态以及可做的事情。</p>
 
 </article>
 

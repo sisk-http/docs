@@ -187,7 +187,7 @@ mcp.Tools.Add(new McpTool(
         // simulate real work
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
-
+        
         return McpToolResult.Combine(
             McpToolResult.CreateText("Heres the screenshot of the browser:"),
             McpToolResult.CreateImage(browserScreenshot, "image/png")

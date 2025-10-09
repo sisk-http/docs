@@ -1,20 +1,20 @@
 # Протокол контекста модели
 
-Можно создавать приложения, которые предоставляют контекст для агентных моделей, используя большие языковые модели (LLM) с пакетом [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/):
+Возможно построить приложения, которые предоставляют контекст для моделей агентов, используя большие языковые модели (LLM) с пакетом [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/):
 
 ```bash
 dotnet add package Sisk.ModelContextProtocol
 ```
 
-Этот пакет предоставляет полезные классы и методы для создания серверов MCP, работающих по [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http).
+Этот пакет предоставляет полезные классы и методы для создания серверов MCP, работающих по протоколу [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http).
 
 > [!NOTE]
 >
-> Перед началом обратите внимание, что этот пакет находится в разработке и может демонстрировать поведение, не соответствующее спецификации. Прочитайте [детали пакета](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), чтобы узнать, что находится в разработке и что ещё не работает.
+> Перед началом обратите внимание, что данный пакет находится в разработке и может демонстрировать поведение, не соответствующее спецификации. Прочитайте [детали пакета](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), чтобы узнать, что находится в разработке и что пока не работает.
 
 ## Начало работы с MCP
 
-Класс [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) является точкой входа для определения сервера MCP. Он абстрактный и может быть определён в любом месте. Ваше приложение Sisk может иметь один или несколько провайдеров MCP.
+Класс [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) является точкой входа для определения сервера MCP. Он абстрактный и может быть определён в любом месте. В вашем приложении Sisk может быть один или несколько провайдеров MCP.
 
 ```csharp
 McpProvider mcp = new McpProvider(
@@ -44,7 +44,7 @@ mcp.Tools.Add(new McpTool(
     }));
 ```
 
-Если ваше приложение будет предоставлять только один провайдер MCP, вы можете использовать singleton‑builder:
+Если ваше приложение будет предоставлять только один провайдер MCP, вы можете использовать singleton‑конструктор:
 
 ```csharp
 static void Main(string[] args)
@@ -89,9 +89,9 @@ static void Main(string[] args)
 }
 ```
 
-## Создание схем JSON функций
+## Создание JSON‑схем для функций
 
-Библиотека [Sisk.ModelContextProtocol] использует форк [LightJson](https://github.com/CypherPotato/LightJson) для работы с JSON и схемами JSON. Эта реализация предоставляет fluent‑builder для различных объектов JSON Schema:
+Библиотека [Sisk.ModelContextProtocol] использует форк [LightJson](https://github.com/CypherPotato/LightJson) для работы с JSON и JSON‑схемами. Эта реализация предоставляет удобный конструктор JSON‑схемы для различных объектов:
 
 - JsonSchema.CreateObjectSchema
 - JsonSchema.CreateArraySchema
@@ -116,7 +116,7 @@ JsonSchema.CreateObjectSchema(
     requiredProperties: ["numbers"]);
 ```
 
-Генерирует следующую схему:
+Получается следующая схема:
 
 ```json
 {
@@ -135,9 +135,9 @@ JsonSchema.CreateObjectSchema(
 }
 ```
 
-## Работа с вызовами функций
+## Обработка вызовов функций
 
-Функция, определённая в параметре `executionHandler` [McpTool](/api/Sisk.ModelContextProtocol.McpTool), предоставляет объект JsonObject, содержащий аргументы вызова, который можно читать в fluent‑стиле:
+Функция, определённая в параметре `executionHandler` класса [McpTool](/api/Sisk.ModelContextProtocol.McpTool), предоставляет `JsonObject`, содержащий аргументы вызова, которые можно читать плавно:
 
 ```csharp
 mcp.Tools.Add(new McpTool(
@@ -173,13 +173,13 @@ mcp.Tools.Add(new McpTool(
 
 ## Результаты функций
 
-Объект [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) предоставляет три метода создания контента для ответа инструмента:
+Объект [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) предоставляет три метода для создания контента ответа инструмента:
 
-- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio): создаёт ответ на основе аудио для клиента MCP.
-- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage): создаёт ответ на основе изображения для клиента MCP.
-- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText): создаёт ответ на основе текста (по умолчанию) для клиента MCP.
+- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio): создаёт аудио‑ответ для клиента MCP.
+- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage): создаёт изображение‑ответ для клиента MCP.
+- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText): создаёт текстовый ответ (по умолчанию) для клиента MCP.
 
-Кроме того, можно комбинировать несколько разных контентов в один ответ JSON‑инструмента:
+Кроме того, можно объединить несколько разных контентов в один JSON‑ответ инструмента:
 
 ```csharp
 mcp.Tools.Add(new McpTool(
@@ -189,7 +189,7 @@ mcp.Tools.Add(new McpTool(
         // simulate real work
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
-
+        
         return McpToolResult.Combine(
             McpToolResult.CreateText("Heres the screenshot of the browser:"),
             McpToolResult.CreateImage(browserScreenshot, "image/png")
@@ -199,8 +199,8 @@ mcp.Tools.Add(new McpTool(
 
 ## Продолжение работы
 
-Model Context Protocol — это протокол коммуникации агентных моделей и приложений, которые предоставляют им контент, и это новый протокол, поэтому его спецификация постоянно обновляется с депрекциями, новыми функциями и breaking changes.
+Протокол контекста модели — это протокол коммуникации для моделей агентов и приложений, которые предоставляют им контент. Это новый протокол, поэтому его спецификация постоянно обновляется с удалением устаревших элементов, добавлением новых возможностей и изменениями, которые могут ломать совместимость.
 
-Важно понять, какие проблемы решает [Model Context Protocol](https://modelcontextprotocol.io/docs/ru/getting-started/intro), прежде чем начинать создавать агентные приложения.
+Важно понять, какие проблемы решает [Model Context Protocol](https://modelcontextprotocol.io/docs/ru/getting-started/intro), прежде чем начинать строить приложения агентов.
 
-Читайте также спецификацию пакета [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), чтобы понять его прогресс, ход и то, что можно с ним сделать.
+Также прочитайте спецификацию пакета [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), чтобы понять его прогресс, статус и возможности.
