@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Class HttpRequest | Sisk </title>
+        <title> Class HttpRequest | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Class HttpRequest | Sisk ">
+        <meta name="title" content=" Class HttpRequest | Sisk ">
 
-        <meta name="description" content="Represents an HTTP request received by a Sisk server.">
+
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpRequest.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
         
         <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         <!-- End GoatCounter -->
         
         <script>            
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -73,7 +73,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -153,340 +153,144 @@
                     </div>
                 </div>
 
-                <article data-uid="Sisk.Core.Http.HttpRequest">
+                <article data-uid="">
+<h1 id="Sisk_Core_Http_HttpRequest"> Class HttpRequest</h1>
 
-
-
-  <h1 id="Sisk_Core_Http_HttpRequest" data-uid="Sisk.Core.Http.HttpRequest" class="text-break">
-Class HttpRequest  
-  </h1>
-
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
-  </div>
-
-  <div class="markdown summary"><p>Represents an HTTP request received by a Sisk server.</p>
-</div>
-  <div class="markdown conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class HttpRequest : IDisposable</code></pre>
-  </div>
-
-
-
-
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">HttpRequest</span></div>
-    </dd>
-  </dl>
-
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
-    </dd>
-  </dl>
-
-
-  <dl class="typelist inheritedMembers">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-  </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Authority.html#Sisk_Core_Http_HttpRequest_Authority">Authority</a></dt>
-    <dd><p>Get the requested host header with the port from this HTTP request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Bag.html#Sisk_Core_Http_HttpRequest_Bag">Bag</a></dt>
-    <dd><p>Gets the managed object which holds data for an entire HTTP session.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Body.html#Sisk_Core_Http_HttpRequest_Body">Body</a></dt>
-    <dd><p>Gets the HTTP request body as string, decoded by the request content encoding.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.ContentLength.html#Sisk_Core_Http_HttpRequest_ContentLength">ContentLength</a></dt>
-    <dd><p>Gets the content length in bytes count.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Context.html#Sisk_Core_Http_HttpRequest_Context">Context</a></dt>
-    <dd><p>Gets the <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a> for this request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Cookies.html#Sisk_Core_Http_HttpRequest_Cookies">Cookies</a></dt>
-    <dd><p>Gets an <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.html">StringKeyStoreCollection</a> object with all cookies set in this request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a></dt>
-    <dd><p>Gets or sets the default options used for JSON serialization.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.DisconnectToken.html#Sisk_Core_Http_HttpRequest_DisconnectToken">DisconnectToken</a></dt>
-    <dd><p>Gets a cancellation token that is signaled when the client disconnects.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.FullPath.html#Sisk_Core_Http_HttpRequest_FullPath">FullPath</a></dt>
-    <dd><p>Gets the raw, full HTTP request path with the query string.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.FullUrl.html#Sisk_Core_Http_HttpRequest_FullUrl">FullUrl</a></dt>
-    <dd><p>Gets the full URL for this request, with scheme, host, port, path and query.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.HasContents.html#Sisk_Core_Http_HttpRequest_HasContents">HasContents</a></dt>
-    <dd><p>Gets a boolean indicating whether this request has body contents.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Headers.html#Sisk_Core_Http_HttpRequest_Headers">Headers</a></dt>
-    <dd><p>Gets the HTTP request headers.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Host.html#Sisk_Core_Http_HttpRequest_Host">Host</a></dt>
-    <dd><p>Get the requested host (without port) for this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.IsContentAvailable.html#Sisk_Core_Http_HttpRequest_IsContentAvailable">IsContentAvailable</a></dt>
-    <dd><p>Gets a boolean indicating whether this request has body contents and whether
+<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
+Assembly: Sisk.Core.dll</p>
+<p>Represents an HTTP request received by a Sisk server.</p>
+<pre><code class="lang-csharp">public sealed class HttpRequest : IDisposable
+</code></pre>
+<h4 id="inheritance">Inheritance</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
+<a href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a></p>
+<h4 id="implements">Implements</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
+<h4 id="inherited-members">Inherited Members</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
+<h2 id="properties">Properties</h2>
+<p><a href="Sisk.Core.Http.HttpRequest.Authority.html#Sisk_Core_Http_HttpRequest_Authority">Authority</a></p>
+<p>Get the requested host header with the port from this HTTP request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Bag.html#Sisk_Core_Http_HttpRequest_Bag">Bag</a></p>
+<p>Gets the managed object which holds data for an entire HTTP session.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Body.html#Sisk_Core_Http_HttpRequest_Body">Body</a></p>
+<p>Gets the HTTP request body as string, decoded by the request content encoding.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.ContentLength.html#Sisk_Core_Http_HttpRequest_ContentLength">ContentLength</a></p>
+<p>Gets the content length in bytes count.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Context.html#Sisk_Core_Http_HttpRequest_Context">Context</a></p>
+<p>Gets the <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a> for this request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Cookies.html#Sisk_Core_Http_HttpRequest_Cookies">Cookies</a></p>
+<p>Gets an <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.html">StringKeyStoreCollection</a> object with all cookies set in this request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a></p>
+<p>Gets or sets the default options used for JSON serialization.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.DisconnectToken.html#Sisk_Core_Http_HttpRequest_DisconnectToken">DisconnectToken</a></p>
+<p>Gets a cancellation token that is signaled when the client disconnects.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.FullPath.html#Sisk_Core_Http_HttpRequest_FullPath">FullPath</a></p>
+<p>Gets the raw, full HTTP request path with the query string.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.FullUrl.html#Sisk_Core_Http_HttpRequest_FullUrl">FullUrl</a></p>
+<p>Gets the full URL for this request, with scheme, host, port, path and query.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.HasContents.html#Sisk_Core_Http_HttpRequest_HasContents">HasContents</a></p>
+<p>Gets a boolean indicating whether this request has body contents.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Headers.html#Sisk_Core_Http_HttpRequest_Headers">Headers</a></p>
+<p>Gets the HTTP request headers.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Host.html#Sisk_Core_Http_HttpRequest_Host">Host</a></p>
+<p>Get the requested host (without port) for this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.IsContentAvailable.html#Sisk_Core_Http_HttpRequest_IsContentAvailable">IsContentAvailable</a></p>
+<p>Gets a boolean indicating whether this request has body contents and whether
 it has already been read into memory by the server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.IsSecure.html#Sisk_Core_Http_HttpRequest_IsSecure">IsSecure</a></dt>
-    <dd><p>Gets a boolean indicating whether this request was locally made by an secure
+<p><a href="Sisk.Core.Http.HttpRequest.IsSecure.html#Sisk_Core_Http_HttpRequest_IsSecure">IsSecure</a></p>
+<p>Gets a boolean indicating whether this request was locally made by an secure
 transport context (SSL/TLS) or not.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Method.html#Sisk_Core_Http_HttpRequest_Method">Method</a></dt>
-    <dd><p>Gets the HTTP request method.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Path.html#Sisk_Core_Http_HttpRequest_Path">Path</a></dt>
-    <dd><p>Gets the HTTP request path without the query string.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Query.html#Sisk_Core_Http_HttpRequest_Query">Query</a></dt>
-    <dd><p>Gets the HTTP request query value collection.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.QueryString.html#Sisk_Core_Http_HttpRequest_QueryString">QueryString</a></dt>
-    <dd><p>Gets the HTTP request URL raw query string, including the '?' char.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RawBody.html#Sisk_Core_Http_HttpRequest_RawBody">RawBody</a></dt>
-    <dd><p>Gets the HTTP request body as a byte array.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RemoteAddress.html#Sisk_Core_Http_HttpRequest_RemoteAddress">RemoteAddress</a></dt>
-    <dd><p>Gets the incoming local IP address from the request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RequestEncoding.html#Sisk_Core_Http_HttpRequest_RequestEncoding">RequestEncoding</a></dt>
-    <dd><p>Gets an string <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a> that can be used to decode text in this HTTP request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RequestId.html#Sisk_Core_Http_HttpRequest_RequestId">RequestId</a></dt>
-    <dd><p>Gets a unique random ID for this request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RequestedAt.html#Sisk_Core_Http_HttpRequest_RequestedAt">RequestedAt</a></dt>
-    <dd><p>Gets the moment which the request was received by the server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.RouteParameters.html#Sisk_Core_Http_HttpRequest_RouteParameters">RouteParameters</a></dt>
-    <dd><p>Gets the <a class="xref" href="Sisk.Core.Entity.StringValueCollection.html">StringValueCollection</a> object which represents the current
+<p><a href="Sisk.Core.Http.HttpRequest.Method.html#Sisk_Core_Http_HttpRequest_Method">Method</a></p>
+<p>Gets the HTTP request method.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Path.html#Sisk_Core_Http_HttpRequest_Path">Path</a></p>
+<p>Gets the HTTP request path without the query string.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Query.html#Sisk_Core_Http_HttpRequest_Query">Query</a></p>
+<p>Gets the HTTP request query value collection.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.QueryString.html#Sisk_Core_Http_HttpRequest_QueryString">QueryString</a></p>
+<p>Gets the HTTP request URL raw query string, including the '?' char.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RawBody.html#Sisk_Core_Http_HttpRequest_RawBody">RawBody</a></p>
+<p>Gets the HTTP request body as a byte array.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RemoteAddress.html#Sisk_Core_Http_HttpRequest_RemoteAddress">RemoteAddress</a></p>
+<p>Gets the incoming local IP address from the request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RequestEncoding.html#Sisk_Core_Http_HttpRequest_RequestEncoding">RequestEncoding</a></p>
+<p>Gets an string <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a> that can be used to decode text in this HTTP request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RequestId.html#Sisk_Core_Http_HttpRequest_RequestId">RequestId</a></p>
+<p>Gets a unique random ID for this request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RequestedAt.html#Sisk_Core_Http_HttpRequest_RequestedAt">RequestedAt</a></p>
+<p>Gets the moment which the request was received by the server.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.RouteParameters.html#Sisk_Core_Http_HttpRequest_RouteParameters">RouteParameters</a></p>
+<p>Gets the <a class="xref" href="Sisk.Core.Entity.StringValueCollection.html">StringValueCollection</a> object which represents the current
 route parameters.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Uri.html#Sisk_Core_Http_HttpRequest_Uri">Uri</a></dt>
-    <dd><p>Gets the <span class="xref">System.Uri</span> component for this HTTP request requested URL.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Abort.html#Sisk_Core_Http_HttpRequest_Abort">Abort()</a></dt>
-    <dd><p>Immediately closes the connection with the client and does not send any response.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.Finalize.html#Sisk_Core_Http_HttpRequest_Finalize">~HttpRequest()</a></dt>
-    <dd></dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetBodyContents.html#Sisk_Core_Http_HttpRequest_GetBodyContents">GetBodyContents()</a></dt>
-    <dd><p>Gets the request contents of the body as a byte array.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetBodyContentsAsync.html#Sisk_Core_Http_HttpRequest_GetBodyContentsAsync_System_Threading_CancellationToken_">GetBodyContentsAsync(CancellationToken)</a></dt>
-    <dd><p>Asynchronously reads the request contents as a memory byte array.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetEventSource.html#Sisk_Core_Http_HttpRequest_GetEventSource_System_String_">GetEventSource(string?)</a></dt>
-    <dd><p>Gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in it's
+<p><a href="Sisk.Core.Http.HttpRequest.Uri.html#Sisk_Core_Http_HttpRequest_Uri">Uri</a></p>
+<p>Gets the <span class="xref">System.Uri</span> component for this HTTP request requested URL.</p>
+<h2 id="methods">Methods</h2>
+<p><a href="Sisk.Core.Http.HttpRequest.Abort.html#Sisk_Core_Http_HttpRequest_Abort">Abort()</a></p>
+<p>Immediately closes the connection with the client and does not send any response.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.Finalize.html#Sisk_Core_Http_HttpRequest_Finalize">~HttpRequest()</a></p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetBodyContents.html#Sisk_Core_Http_HttpRequest_GetBodyContents">GetBodyContents()</a></p>
+<p>Gets the request contents of the body as a byte array.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetBodyContentsAsync.html#Sisk_Core_Http_HttpRequest_GetBodyContentsAsync_System_Threading_CancellationToken_">GetBodyContentsAsync(CancellationToken)</a></p>
+<p>Asynchronously reads the request contents as a memory byte array.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetEventSource.html#Sisk_Core_Http_HttpRequest_GetEventSource_System_String_">GetEventSource(string?)</a></p>
+<p>Gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in it's
 event source listening state.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetEventSourceAsync.html#Sisk_Core_Http_HttpRequest_GetEventSourceAsync_System_String_">GetEventSourceAsync(string?)</a></dt>
-    <dd><p>Asynchronously gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in its
+<p><a href="Sisk.Core.Http.HttpRequest.GetEventSourceAsync.html#Sisk_Core_Http_HttpRequest_GetEventSourceAsync_System_String_">GetEventSourceAsync(string?)</a></p>
+<p>Asynchronously gets an Event Source interface for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in its
 event source listening state.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContent.html#Sisk_Core_Http_HttpRequest_GetFormContent">GetFormContent()</a></dt>
-    <dd><p>Reads the request body and extracts form data parameters from it.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetFormContentAsync_System_Threading_CancellationToken_">GetFormContentAsync(CancellationToken)</a></dt>
-    <dd><p>Asynchronously reads the request body and extracts form data parameters from it.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_JsonSerializerOptions_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonSerializerOptions?, CancellationToken)</a></dt>
-    <dd><p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonTypeInfo&lt;T&gt;, CancellationToken)</a></dt>
-    <dd><p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1">JsonTypeInfo&lt;T&gt;</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(CancellationToken)</a></dt>
-    <dd><p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1">GetJsonContent&lt;T&gt;()</a></dt>
-    <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default
+<p><a href="Sisk.Core.Http.HttpRequest.GetFormContent.html#Sisk_Core_Http_HttpRequest_GetFormContent">GetFormContent()</a></p>
+<p>Reads the request body and extracts form data parameters from it.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetFormContentAsync_System_Threading_CancellationToken_">GetFormContentAsync(CancellationToken)</a></p>
+<p>Asynchronously reads the request body and extracts form data parameters from it.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__">GetJsonContent&lt;T&gt;(JsonTypeInfo&lt;T&gt;)</a></p>
+<p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1">JsonTypeInfo&lt;T&gt;</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_">GetJsonContent&lt;T&gt;(JsonSerializerOptions?)</a></p>
+<p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1">GetJsonContent&lt;T&gt;()</a></p>
+<p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the default
 <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> from <a class="xref" href="Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html#Sisk_Core_Http_HttpRequest_DefaultJsonSerializerOptions">DefaultJsonSerializerOptions</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_JsonSerializerOptions_">GetJsonContent&lt;T&gt;(JsonSerializerOptions?)</a></dt>
-    <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetJsonContent.html#Sisk_Core_Http_HttpRequest_GetJsonContent__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__">GetJsonContent&lt;T&gt;(JsonTypeInfo&lt;T&gt;)</a></dt>
-    <dd><p>Deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1">JsonTypeInfo&lt;T&gt;</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetMultipartFormContent.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContent">GetMultipartFormContent()</a></dt>
-    <dd><p>Reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContentAsync_System_Threading_CancellationToken_">GetMultipartFormContentAsync(CancellationToken)</a></dt>
-    <dd><p>Asynchronously reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetRawHttpRequest.html#Sisk_Core_Http_HttpRequest_GetRawHttpRequest_System_Boolean_System_Boolean_">GetRawHttpRequest(bool, bool)</a></dt>
-    <dd><p>Gets a visual representation of this request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetRequestStream.html#Sisk_Core_Http_HttpRequest_GetRequestStream">GetRequestStream()</a></dt>
-    <dd><p>Gets the HTTP request content stream. This property is only available while the
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_Serialization_Metadata_JsonTypeInfo___0__System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonTypeInfo&lt;T&gt;, CancellationToken)</a></p>
+<p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1">JsonTypeInfo&lt;T&gt;</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Text_Json_JsonSerializerOptions_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(JsonSerializerOptions?, CancellationToken)</a></p>
+<p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetJsonContentAsync.html#Sisk_Core_Http_HttpRequest_GetJsonContentAsync__1_System_Threading_CancellationToken_">GetJsonContentAsync&lt;T&gt;(CancellationToken)</a></p>
+<p>Asynchronously deserializes the request body into an object of type <code class="typeparamref">T</code> using the default <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a>.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetMultipartFormContent.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContent">GetMultipartFormContent()</a></p>
+<p>Reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html#Sisk_Core_Http_HttpRequest_GetMultipartFormContentAsync_System_Threading_CancellationToken_">GetMultipartFormContentAsync(CancellationToken)</a></p>
+<p>Asynchronously reads the request body and obtains a <a class="xref" href="Sisk.Core.Entity.MultipartFormCollection.html">MultipartFormCollection</a> from it.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetRawHttpRequest.html#Sisk_Core_Http_HttpRequest_GetRawHttpRequest_System_Boolean_System_Boolean_">GetRawHttpRequest(bool, bool)</a></p>
+<p>Gets a visual representation of this request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetRequestStream.html#Sisk_Core_Http_HttpRequest_GetRequestStream">GetRequestStream()</a></p>
+<p>Gets the HTTP request content stream. This property is only available while the
 content has not been imported by the HTTP server and will invalidate the body content
 cached in this object.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetResponseStream.html#Sisk_Core_Http_HttpRequest_GetResponseStream">GetResponseStream()</a></dt>
-    <dd><p>Gets an HTTP response stream for this HTTP request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetWebSocket.html#Sisk_Core_Http_HttpRequest_GetWebSocket_System_String_System_String_">GetWebSocket(string?, string?)</a></dt>
-    <dd><p>Accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
+<p><a href="Sisk.Core.Http.HttpRequest.GetResponseStream.html#Sisk_Core_Http_HttpRequest_GetResponseStream">GetResponseStream()</a></p>
+<p>Gets an HTTP response stream for this HTTP request.</p>
+<p><a href="Sisk.Core.Http.HttpRequest.GetWebSocket.html#Sisk_Core_Http_HttpRequest_GetWebSocket_System_String_System_String_">GetWebSocket(string?, string?)</a></p>
+<p>Accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
 streaming state.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.GetWebSocketAsync.html#Sisk_Core_Http_HttpRequest_GetWebSocketAsync_System_String_System_String_">GetWebSocketAsync(string?, string?)</a></dt>
-    <dd><p>Asynchronously accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
+<p><a href="Sisk.Core.Http.HttpRequest.GetWebSocketAsync.html#Sisk_Core_Http_HttpRequest_GetWebSocketAsync_System_String_System_String_">GetWebSocketAsync(string?, string?)</a></p>
+<p>Asynchronously accepts and acquires a websocket for this request. Calling this method will put this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> instance in
 streaming state.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.SendTo.html#Sisk_Core_Http_HttpRequest_SendTo_Sisk_Core_Routing_RouteAction_">SendTo(RouteAction)</a></dt>
-    <dd><p>Calls another handler for this request, preserving the current call-stack frame, and then returns the response from
+<p><a href="Sisk.Core.Http.HttpRequest.SendTo.html#Sisk_Core_Http_HttpRequest_SendTo_Sisk_Core_Routing_RouteAction_">SendTo(RouteAction)</a></p>
+<p>Calls another handler for this request, preserving the current call-stack frame, and then returns the response from
 it. This method manages to prevent possible stack overflows.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.HttpRequest.ToString.html#Sisk_Core_Http_HttpRequest_ToString">ToString()</a></dt>
-    <dd><p>Gets an string representation of this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
-</dd>
-  </dl>
-
-
+<p><a href="Sisk.Core.Http.HttpRequest.ToString.html#Sisk_Core_Http_HttpRequest_ToString">ToString()</a></p>
+<p>Gets an string representation of this <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
 
 </article>
 
                 <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpRequest.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

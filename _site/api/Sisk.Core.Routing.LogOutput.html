@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Enum LogOutput | Sisk </title>
+        <title> Enum LogOutput | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Enum LogOutput | Sisk ">
+        <meta name="title" content=" Enum LogOutput | Sisk ">
 
-        <meta name="description" content="Determines the way the server can write log messages. This enumerator is for giving permissions for certain contexts to be able or not to write to the server logs, such as  and .">
+
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.LogOutput.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
         
         <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         <!-- End GoatCounter -->
         
         <script>            
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -73,7 +73,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -153,62 +153,33 @@
                     </div>
                 </div>
 
-                <article data-uid="Sisk.Core.Routing.LogOutput">
+                <article data-uid="">
+<h1 id="Sisk_Core_Routing_LogOutput"> Enum LogOutput</h1>
 
-
-
-
-  <h1 id="Sisk_Core_Routing_LogOutput" data-uid="Sisk.Core.Routing.LogOutput" class="text-break">
-Enum LogOutput  
-  </h1>
-
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
-  </div>
-
-  <div class="markdown summary"><p>Determines the way the server can write log messages. This enumerator is for giving permissions for certain contexts
+<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
+Assembly: Sisk.Core.dll</p>
+<p>Determines the way the server can write log messages. This enumerator is for giving permissions for certain contexts
 to be able or not to write to the server logs, such as <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_AccessLogsStream">AccessLogsStream</a> and <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream">ErrorsLogsStream</a>.</p>
-</div>
-  <div class="markdown conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Flags]
-public enum LogOutput</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-  <h2 id="fields">Fields
-</h2>
-  <dl class="parameters">
-    <dt id="Sisk_Core_Routing_LogOutput_AccessLog"><code>AccessLog = 2</code></dt>
-    <dd><p>Determines that the context or the route can write log messages only to the access logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_AccessLogsStream">AccessLogsStream</a>.</p>
-</dd>
-    <dt id="Sisk_Core_Routing_LogOutput_Both"><code>Both = AccessLog | ErrorLog</code></dt>
-    <dd><p>Determines that the context or the route can write log messages to both error and access logs.</p>
-</dd>
-    <dt id="Sisk_Core_Routing_LogOutput_ErrorLog"><code>ErrorLog = 4</code></dt>
-    <dd><p>Determines that the context or the route can write error messages only to the error logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream">ErrorsLogsStream</a>.</p>
-</dd>
-    <dt id="Sisk_Core_Routing_LogOutput_None"><code>None = 0</code></dt>
-    <dd><p>Determines that the context or the route cannot write any log messages.</p>
-</dd>
-  </dl>
-
-
+<pre><code class="lang-csharp">[Flags]
+public enum LogOutput
+</code></pre>
+<h2 id="fields">Fields</h2>
+<p><code>AccessLog = 2</code></p>
+<p>Determines that the context or the route can write log messages only to the access logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_AccessLogsStream">AccessLogsStream</a>.</p>
+<p><code>Both = 6</code></p>
+<p>Determines that the context or the route can write log messages to both error and access logs.</p>
+<p><code>ErrorLog = 4</code></p>
+<p>Determines that the context or the route can write error messages only to the error logs through <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.html#Sisk_Core_Http_HttpServerConfiguration_ErrorsLogsStream">ErrorsLogsStream</a>.</p>
+<p><code>None = 0</code></p>
+<p>Determines that the context or the route cannot write any log messages.</p>
 
 </article>
 
                 <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.LogOutput.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

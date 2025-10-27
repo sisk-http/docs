@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="toc.html">
@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
         
         <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         <!-- End GoatCounter -->
         
         <script>            
@@ -73,7 +73,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -144,19 +144,27 @@
 
 <p>This repository contains the source code of the <a href="https://docs.sisk-framework.org/">Sisk Documentation website</a>.</p>
 <h2 id="building">Building</h2>
+<h3 id="prerequisites">Prerequisites</h3>
 <ol>
-<li>Firstly, make sure you have <a href="https://dotnet.github.io/docfx/">docfx</a> installed in your machine. You'll need <a href="https://dotnet.microsoft.com/en-us/download">.NET SDK</a> to install it.</li>
-<li>Clone this repository.</li>
-<li>Build the <a href="https://github.com/sisk-http/core">Sisk Framework project</a> and put the .DLL binaries and XML documentation file at the <code>ref/</code> directory, on the repository root.</li>
-<li>Run <code>docfx</code>, then <code>docfx serve</code>.</li>
+<li><strong>Bun</strong> - <a href="https://bun.com/">Download</a></li>
+<li><strong>DocFX</strong> (v2.76.0 recommended) - See installation warning below</li>
+<li><strong>.NET SDK</strong> - <a href="https://dotnet.microsoft.com/en-us/download">Download</a></li>
 </ol>
-<div class="WARNING">
-<h5>Warning</h5>
-<p>Please, <strong>do not</strong> use the docfx version <strong>2.78.0</strong> or later. This version has a bug that changes the documentation navigation layout. See the <a href="https://github.com/dotnet/docfx/issues/10424">tracking issue</a>.</p>
-<p>Prefer the version <strong>2.76.0</strong>:</p>
-<pre><code>dotnet tool install -g docfx --version 2.76.0
+<h3 id="quick-start">Quick Start</h3>
+<ol>
+<li>Clone this repository</li>
+<li>Build the <a href="https://github.com/sisk-http/core">Sisk Framework project</a> and put the .DLL binaries and XML documentation file at the <code>ref/</code> directory</li>
+<li>Run the unified build script:</li>
+</ol>
+<pre><code class="lang-bash"># Restore package
+bun install
+
+# Full build (clean, translate, build)
+bun pack
 </code></pre>
-</div>
+<ol start="4">
+<li>Serve the documentation: <code>docfx serve</code></li>
+</ol>
 <p>Then you're ready to go and you'll have the static website files at <code>/_site</code>.</p>
 <h2 id="contributing">Contributing</h2>
 <p>Contributions are always welcome. Contribute with spelling corrections, fixing broken links and more.</p>

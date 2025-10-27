@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Class Route | Sisk </title>
+        <title> Class Route | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Class Route | Sisk ">
+        <meta name="title" content=" Class Route | Sisk ">
 
-        <meta name="description" content="Represents an HTTP route to be matched by an .">
+
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Route.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
         
         <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         <!-- End GoatCounter -->
         
         <script>            
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -73,7 +73,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -153,257 +153,104 @@
                     </div>
                 </div>
 
-                <article data-uid="Sisk.Core.Routing.Route">
+                <article data-uid="">
+<h1 id="Sisk_Core_Routing_Route"> Class Route</h1>
 
-
-
-  <h1 id="Sisk_Core_Routing_Route" data-uid="Sisk.Core.Routing.Route" class="text-break">
-Class Route  
-  </h1>
-
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
-  </div>
-
-  <div class="markdown summary"><p>Represents an HTTP route to be matched by an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a>.</p>
-</div>
-  <div class="markdown conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Route</code></pre>
-  </div>
-
-
-
-
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Route</span></div>
-    </dd>
-  </dl>
-
-
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="Sisk.Core.Routing.RegexRoute.html">RegexRoute</a></div>
-    </dd>
-  </dl>
-
-  <dl class="typelist inheritedMembers">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-  </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor">Route()</a></dt>
-    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with no parameters.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_">Route(RouteMethod, string, Delegate?)</a></dt>
-    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_System_Delegate_Sisk_Core_Routing_IRequestHandler___">Route(RouteMethod, string, string?, Delegate?, IRequestHandler[]?)</a></dt>
-    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="fields">Fields
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.AnyPath.html">AnyPath</a></dt>
-    <dd><p>Represents an route path which captures any URL path.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Action.html#Sisk_Core_Routing_Route_Action">Action</a></dt>
-    <dd><p>Gets or sets the function that is called after the route is matched with the request.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Bag.html#Sisk_Core_Routing_Route_Bag">Bag</a></dt>
-    <dd><p>Gets or sets an <a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.html">TypedValueDictionary</a> for this route, which can hold contextual variables
+<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
+Assembly: Sisk.Core.dll</p>
+<p>Represents an HTTP route to be matched by an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a>.</p>
+<pre><code class="lang-csharp">public class Route
+</code></pre>
+<h4 id="inheritance">Inheritance</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
+<a href="Sisk.Core.Routing.Route.html">Route</a></p>
+<h4 id="derived">Derived</h4>
+<p><a href="Sisk.Core.Routing.RegexRoute.html">RegexRoute</a></p>
+<h4 id="inherited-members">Inherited Members</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
+<h2 id="constructors">Constructors</h2>
+<p><a href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_">Route(RouteMethod, string, Delegate?)</a></p>
+<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+<p><a href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_System_Delegate_Sisk_Core_Routing_IRequestHandler___">Route(RouteMethod, string, string?, Delegate?, IRequestHandler[]?)</a></p>
+<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+<p><a href="Sisk.Core.Routing.Route.-ctor.html#Sisk_Core_Routing_Route__ctor">Route()</a></p>
+<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with no parameters.</p>
+<h2 id="fields">Fields</h2>
+<p><a href="Sisk.Core.Routing.Route.AnyPath.html#Sisk_Core_Routing_Route_AnyPath">AnyPath</a></p>
+<p>Represents an route path which captures any URL path.</p>
+<h2 id="properties">Properties</h2>
+<p><a href="Sisk.Core.Routing.Route.Action.html#Sisk_Core_Routing_Route_Action">Action</a></p>
+<p>Gets or sets the function that is called after the route is matched with the request.</p>
+<p><a href="Sisk.Core.Routing.Route.Bag.html#Sisk_Core_Routing_Route_Bag">Bag</a></p>
+<p>Gets or sets an <a class="xref" href="Sisk.Core.Entity.TypedValueDictionary.html">TypedValueDictionary</a> for this route, which can hold contextual variables
 for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.BypassGlobalRequestHandlers.html#Sisk_Core_Routing_Route_BypassGlobalRequestHandlers">BypassGlobalRequestHandlers</a></dt>
-    <dd><p>Gets or sets the global request handlers instances that will not run on this route.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.IsAsync.html#Sisk_Core_Routing_Route_IsAsync">IsAsync</a></dt>
-    <dd><p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> action return is an asynchronous <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.LogMode.html#Sisk_Core_Routing_Route_LogMode">LogMode</a></dt>
-    <dd><p>Gets or sets how this route can write messages to log files on the server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Method.html#Sisk_Core_Routing_Route_Method">Method</a></dt>
-    <dd><p>Gets or sets the matching HTTP method.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Name.html#Sisk_Core_Routing_Route_Name">Name</a></dt>
-    <dd><p>Gets or sets the route name.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Path.html#Sisk_Core_Routing_Route_Path">Path</a></dt>
-    <dd><p>Gets or sets the path expression that will be interpreted by the router and validated by the requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.RequestHandlers.html#Sisk_Core_Routing_Route_RequestHandlers">RequestHandlers</a></dt>
-    <dd><p>Gets or sets the request handlers instances to run before the route action.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.UseCors.html#Sisk_Core_Routing_Route_UseCors">UseCors</a></dt>
-    <dd><p>Gets or sets whether this route should send Cross-Origin Resource Sharing headers in the response.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.UseRegex.html#Sisk_Core_Routing_Route_UseRegex">UseRegex</a></dt>
-    <dd><p>Get or sets if this route should use regex to be interpreted instead of predefined templates.</p>
-</dd>
-  </dl>
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_Sisk_Core_Routing_RouteAction_">Any(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to any HTTP request method.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_System_Delegate_">Any(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to any HTTP request method.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_Sisk_Core_Routing_RouteAction_">Delete(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP DELETE requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_System_Delegate_">Delete(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP DELETE requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_">Get(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP GET requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_System_Delegate_">Get(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP GET requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_Sisk_Core_Routing_RouteAction_">Head(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP HEAD requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_System_Delegate_">Head(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP HEAD requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_Sisk_Core_Routing_RouteAction_">Options(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP OPTIONS requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_System_Delegate_">Options(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP OPTIONS requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_Sisk_Core_Routing_RouteAction_">Patch(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP PATCH requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_System_Delegate_">Patch(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP PATCH requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_Sisk_Core_Routing_RouteAction_">Post(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP POST requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_System_Delegate_">Post(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP POST requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_Sisk_Core_Routing_RouteAction_">Put(string, RouteAction)</a></dt>
-    <dd><p>Creates a route that responds to HTTP PUT requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_System_Delegate_">Put(string, Delegate?)</a></dt>
-    <dd><p>Creates a route that responds to HTTP PUT requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">ToString()</a></dt>
-    <dd><p>Gets an string notation for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
-</dd>
-  </dl>
-
-
+<p><a href="Sisk.Core.Routing.Route.BypassGlobalRequestHandlers.html#Sisk_Core_Routing_Route_BypassGlobalRequestHandlers">BypassGlobalRequestHandlers</a></p>
+<p>Gets or sets the global request handlers instances that will not run on this route.</p>
+<p><a href="Sisk.Core.Routing.Route.IsAsync.html#Sisk_Core_Routing_Route_IsAsync">IsAsync</a></p>
+<p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> action return is an asynchronous <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>.</p>
+<p><a href="Sisk.Core.Routing.Route.LogMode.html#Sisk_Core_Routing_Route_LogMode">LogMode</a></p>
+<p>Gets or sets how this route can write messages to log files on the server.</p>
+<p><a href="Sisk.Core.Routing.Route.Method.html#Sisk_Core_Routing_Route_Method">Method</a></p>
+<p>Gets or sets the matching HTTP method.</p>
+<p><a href="Sisk.Core.Routing.Route.Name.html#Sisk_Core_Routing_Route_Name">Name</a></p>
+<p>Gets or sets the route name.</p>
+<p><a href="Sisk.Core.Routing.Route.Path.html#Sisk_Core_Routing_Route_Path">Path</a></p>
+<p>Gets or sets the path expression that will be interpreted by the router and validated by the requests.</p>
+<p><a href="Sisk.Core.Routing.Route.RequestHandlers.html#Sisk_Core_Routing_Route_RequestHandlers">RequestHandlers</a></p>
+<p>Gets or sets the request handlers instances to run before the route action.</p>
+<p><a href="Sisk.Core.Routing.Route.UseCors.html#Sisk_Core_Routing_Route_UseCors">UseCors</a></p>
+<p>Gets or sets whether this route should send Cross-Origin Resource Sharing headers in the response.</p>
+<p><a href="Sisk.Core.Routing.Route.UseRegex.html#Sisk_Core_Routing_Route_UseRegex">UseRegex</a></p>
+<p>Get or sets if this route should use regex to be interpreted instead of predefined templates.</p>
+<h2 id="methods">Methods</h2>
+<p><a href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_System_Delegate_">Any(string, Delegate?)</a></p>
+<p>Creates a route that responds to any HTTP request method.</p>
+<p><a href="Sisk.Core.Routing.Route.Any.html#Sisk_Core_Routing_Route_Any_System_String_Sisk_Core_Routing_RouteAction_">Any(string, RouteAction)</a></p>
+<p>Creates a route that responds to any HTTP request method.</p>
+<p><a href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_System_Delegate_">Delete(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP DELETE requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Delete.html#Sisk_Core_Routing_Route_Delete_System_String_Sisk_Core_Routing_RouteAction_">Delete(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP DELETE requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_System_Delegate_">Get(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP GET requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Get.html#Sisk_Core_Routing_Route_Get_System_String_Sisk_Core_Routing_RouteAction_">Get(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP GET requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_System_Delegate_">Head(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP HEAD requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Head.html#Sisk_Core_Routing_Route_Head_System_String_Sisk_Core_Routing_RouteAction_">Head(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP HEAD requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_System_Delegate_">Options(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP OPTIONS requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Options.html#Sisk_Core_Routing_Route_Options_System_String_Sisk_Core_Routing_RouteAction_">Options(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP OPTIONS requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_System_Delegate_">Patch(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP PATCH requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Patch.html#Sisk_Core_Routing_Route_Patch_System_String_Sisk_Core_Routing_RouteAction_">Patch(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP PATCH requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_System_Delegate_">Post(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP POST requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Post.html#Sisk_Core_Routing_Route_Post_System_String_Sisk_Core_Routing_RouteAction_">Post(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP POST requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_System_Delegate_">Put(string, Delegate?)</a></p>
+<p>Creates a route that responds to HTTP PUT requests.</p>
+<p><a href="Sisk.Core.Routing.Route.Put.html#Sisk_Core_Routing_Route_Put_System_String_Sisk_Core_Routing_RouteAction_">Put(string, RouteAction)</a></p>
+<p>Creates a route that responds to HTTP PUT requests.</p>
+<p><a href="Sisk.Core.Routing.Route.ToString.html#Sisk_Core_Routing_Route_ToString">ToString()</a></p>
+<p>Gets an string notation for this <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> object.</p>
 
 </article>
 
                 <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Route.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

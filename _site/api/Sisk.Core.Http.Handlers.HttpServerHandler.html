@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Class HttpServerHandler | Sisk </title>
+        <title> Class HttpServerHandler | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Class HttpServerHandler | Sisk ">
+        <meta name="title" content=" Class HttpServerHandler | Sisk ">
 
-        <meta name="description" content="Represents an event handler for the , router, and related events.">
+
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
         <meta name="docfx:navrel" content="../toc.html">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Handlers.HttpServerHandler.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
         
         <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         <!-- End GoatCounter -->
         
         <script>            
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -73,7 +73,7 @@
                         <div id="navbar">
                             <form class="search" role="search" id="search">
                                 <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
                             </form>
                         </div>
                     </div>
@@ -153,150 +153,63 @@
                     </div>
                 </div>
 
-                <article data-uid="Sisk.Core.Http.Handlers.HttpServerHandler">
+                <article data-uid="">
+<h1 id="Sisk_Core_Http_Handlers_HttpServerHandler"> Class HttpServerHandler</h1>
 
-
-
-  <h1 id="Sisk_Core_Http_Handlers_HttpServerHandler" data-uid="Sisk.Core.Http.Handlers.HttpServerHandler" class="text-break">
-Class HttpServerHandler  
-  </h1>
-
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Handlers.html">Handlers</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
-  </div>
-
-  <div class="markdown summary"><p>Represents an event handler for the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, router, and related events.</p>
-</div>
-  <div class="markdown conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class HttpServerHandler</code></pre>
-  </div>
-
-
-
-
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">HttpServerHandler</span></div>
-    </dd>
-  </dl>
-
-
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.html">AsyncHttpServerHandler</a></div>
-      <div><a class="xref" href="Sisk.Helpers.Mitmproxy.MitmproxyProvider.html">MitmproxyProvider</a></div>
-      <div><a class="xref" href="Sisk.JsonRPC.JsonRpcServerHandler.html">JsonRpcServerHandler</a></div>
-      <div><a class="xref" href="Sisk.Ssl.SslProxyServerHandler.html">SslProxyServerHandler</a></div>
-    </dd>
-  </dl>
-
-  <dl class="typelist inheritedMembers">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-  </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.-ctor.html#Sisk_Core_Http_Handlers_HttpServerHandler__ctor">HttpServerHandler()</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnContextBagCreated.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnContextBagCreated_Sisk_Core_Entity_TypedValueDictionary_">OnContextBagCreated(TypedValueDictionary)</a></dt>
-    <dd><p>Event that is called when an HTTP context is created within an
+<p>Namespace: <a href="Sisk.Core.Http.Handlers.html">Sisk.Core.Http.Handlers</a><br>
+Assembly: Sisk.Core.dll</p>
+<p>Represents an event handler for the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, router, and related events.</p>
+<pre><code class="lang-csharp">public abstract class HttpServerHandler
+</code></pre>
+<h4 id="inheritance">Inheritance</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
+<a href="Sisk.Core.Http.Handlers.HttpServerHandler.html">HttpServerHandler</a></p>
+<h4 id="derived">Derived</h4>
+<p><a href="Sisk.Core.Http.Handlers.AsyncHttpServerHandler.html">AsyncHttpServerHandler</a></p>
+<h4 id="inherited-members">Inherited Members</h4>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
+<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
+<h2 id="constructors">Constructors</h2>
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.-ctor.html#Sisk_Core_Http_Handlers_HttpServerHandler__ctor">HttpServerHandler()</a></p>
+<h2 id="methods">Methods</h2>
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnContextBagCreated.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnContextBagCreated_Sisk_Core_Entity_TypedValueDictionary_">OnContextBagCreated(TypedValueDictionary)</a></p>
+<p>Event that is called when an HTTP context is created within an
 <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> object.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnException.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnException_System_Exception_">OnException(Exception)</a></dt>
-    <dd><p>Event that is called when an exception is caught in the HTTP server. This method is called
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnException.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnException_System_Exception_">OnException(Exception)</a></p>
+<p>Event that is called when an exception is caught in the HTTP server. This method is called
 regardless of whether <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html#Sisk_Core_Http_HttpServerConfiguration_ThrowExceptions">ThrowExceptions</a> is enabled or not.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnHttpRequestClose.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnHttpRequestClose_Sisk_Core_Http_HttpServerExecutionResult_">OnHttpRequestClose(HttpServerExecutionResult)</a></dt>
-    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnHttpRequestClose.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnHttpRequestClose_Sisk_Core_Http_HttpServerExecutionResult_">OnHttpRequestClose(HttpServerExecutionResult)</a></p>
+<p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is closed in the
 HTTP server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnHttpRequestOpen.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnHttpRequestOpen_Sisk_Core_Http_HttpRequest_">OnHttpRequestOpen(HttpRequest)</a></dt>
-    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnHttpRequestOpen.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnHttpRequestOpen_Sisk_Core_Http_HttpRequest_">OnHttpRequestOpen(HttpRequest)</a></p>
+<p>Event that is called when an <a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a> is received in the
 HTTP server.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStarted.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStarted_Sisk_Core_Http_HttpServer_">OnServerStarted(HttpServer)</a></dt>
-    <dd><p>Event that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStarted.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStarted_Sisk_Core_Http_HttpServer_">OnServerStarted(HttpServer)</a></p>
+<p>Event that is called immediately after starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>, when it's
 ready and listening.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStarting.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStarting_Sisk_Core_Http_HttpServer_">OnServerStarting(HttpServer)</a></dt>
-    <dd><p>Event that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStopped.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStopped_Sisk_Core_Http_HttpServer_">OnServerStopped(HttpServer)</a></dt>
-    <dd><p>Event that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStarting.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStarting_Sisk_Core_Http_HttpServer_">OnServerStarting(HttpServer)</a></p>
+<p>Event that is called immediately before starting the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStopped.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStopped_Sisk_Core_Http_HttpServer_">OnServerStopped(HttpServer)</a></p>
+<p>Event that is called after the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is stopped, meaning
 it has stopped from listening to requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStopping.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStopping_Sisk_Core_Http_HttpServer_">OnServerStopping(HttpServer)</a></dt>
-    <dd><p>Event that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnServerStopping.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnServerStopping_Sisk_Core_Http_HttpServer_">OnServerStopping(HttpServer)</a></p>
+<p>Event that is called before the <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> stop, when it is
 stopping from listening requests.</p>
-</dd>
-  </dl>
-  <dl class="jumplist">
-    <dt><a class="xref" href="Sisk.Core.Http.Handlers.HttpServerHandler.OnSetupRouter.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnSetupRouter_Sisk_Core_Routing_Router_">OnSetupRouter(Router)</a></dt>
-    <dd><p>Event that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
-</dd>
-  </dl>
-
-
+<p><a href="Sisk.Core.Http.Handlers.HttpServerHandler.OnSetupRouter.html#Sisk_Core_Http_Handlers_HttpServerHandler_OnSetupRouter_Sisk_Core_Routing_Router_">OnSetupRouter(Router)</a></p>
+<p>Event that is called when an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> is binded to the HTTP server.</p>
 
 </article>
 
                 <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Handlers.HttpServerHandler.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 
