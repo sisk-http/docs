@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Interface IRequestHandler | Sisk </title>
+        <title>Interface IRequestHandler | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Interface IRequestHandler | Sisk ">
+        <meta name="title" content="Interface IRequestHandler | Sisk ">
 
-
+        <meta name="description" content="Represents an interface that is executed before a request.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.IRequestHandler.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,29 +153,64 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_IRequestHandler"> Interface IRequestHandler</h1>
+                <article data-uid="Sisk.Core.Routing.IRequestHandler">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an interface that is executed before a request.</p>
-<pre><code class="lang-csharp">public interface IRequestHandler
-</code></pre>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Routing.IRequestHandler.ExecutionMode.html#Sisk_Core_Routing_IRequestHandler_ExecutionMode">ExecutionMode</a></p>
-<p>Gets or sets when this <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should run.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Routing.IRequestHandler.Execute.html#Sisk_Core_Routing_IRequestHandler_Execute_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_">Execute(HttpRequest, HttpContext)</a></p>
-<p>This method is called by the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> before executing a request when the <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instantiates an object that implements this interface. If it returns
+
+
+  <h1 id="Sisk_Core_Routing_IRequestHandler" data-uid="Sisk.Core.Routing.IRequestHandler" class="text-break">
+Interface IRequestHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an interface that is executed before a request.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRequestHandler</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.IRequestHandler.ExecutionMode.html#Sisk_Core_Routing_IRequestHandler_ExecutionMode">ExecutionMode</a></dt>
+    <dd><p>Gets or sets when this <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should run.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.IRequestHandler.Execute.html#Sisk_Core_Routing_IRequestHandler_Execute_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_">Execute(HttpRequest, HttpContext)</a></dt>
+    <dd><p>This method is called by the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> before executing a request when the <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instantiates an object that implements this interface. If it returns
 a <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object, the route action is not called and all execution of the route is stopped. If it returns &quot;null&quot;, the execution is continued.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.IRequestHandler.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

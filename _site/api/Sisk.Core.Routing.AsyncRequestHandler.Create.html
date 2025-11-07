@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method Create | Sisk </title>
+        <title>Method Create | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method Create | Sisk ">
+        <meta name="title" content="Method Create | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.AsyncRequestHandler.Create.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,30 +153,85 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_"> Method Create</h1>
+                <article data-uid="Sisk.Core.Routing.AsyncRequestHandler.Create*">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_"> Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt;, RequestHandlerExecutionMode)</h2>
-<p>Gets an inline <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> that resolves to the specified function.</p>
-<pre><code class="lang-csharp">public static AsyncRequestHandler Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt; execute, RequestHandlerExecutionMode executionMode = RequestHandlerExecutionMode.BeforeResponse)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>execute</code> <a href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a>, <a href="Sisk.Core.Http.HttpContext.html">HttpContext</a>, <a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>?&gt;&gt;</p>
-<p>The function that the <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> will run.</p>
-<p><code>executionMode</code> <a href="Sisk.Core.Routing.RequestHandlerExecutionMode.html">RequestHandlerExecutionMode</a></p>
-<p>Optional. Determines where the request handler will be executed.</p>
-<h3 id="returns">Returns</h3>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a></p>
+
+
+
+
+<h1 id="Sisk_Core_Routing_AsyncRequestHandler_Create_" data-uid="Sisk.Core.Routing.AsyncRequestHandler.Create*" class="text-break">
+Method Create  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_AsyncRequestHandler_Create_" data-uid="Sisk.Core.Routing.AsyncRequestHandler.Create*"></a>
+
+<h3 id="Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_" data-uid="Sisk.Core.Routing.AsyncRequestHandler.Create(System.Func{Sisk.Core.Http.HttpRequest,Sisk.Core.Http.HttpContext,System.Threading.Tasks.Task{Sisk.Core.Http.HttpResponse}},Sisk.Core.Routing.RequestHandlerExecutionMode)">
+  Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt;, RequestHandlerExecutionMode)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Gets an inline <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> that resolves to the specified function.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static AsyncRequestHandler Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt; execute, RequestHandlerExecutionMode executionMode = RequestHandlerExecutionMode.BeforeResponse)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>execute</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Sisk.Core.Http.HttpRequest.html">HttpRequest</a>, <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>&gt;&gt;</dt>
+  <dd><p>The function that the <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> will run.</p>
+</dd>
+  <dt><code>executionMode</code> <a class="xref" href="Sisk.Core.Routing.RequestHandlerExecutionMode.html">RequestHandlerExecutionMode</a></dt>
+  <dd><p>Optional. Determines where the request handler will be executed.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.AsyncRequestHandler.Create.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

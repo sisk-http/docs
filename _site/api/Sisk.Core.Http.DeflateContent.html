@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class DeflateContent | Sisk </title>
+        <title>Class DeflateContent | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class DeflateContent | Sisk ">
+        <meta name="title" content="Class DeflateContent | Sisk ">
 
-
+        <meta name="description" content="Represents an HTTP content that is compressed using the Deflate algorithm.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.DeflateContent.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,72 +153,177 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_DeflateContent"> Class DeflateContent</h1>
+                <article data-uid="Sisk.Core.Http.DeflateContent">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an HTTP content that is compressed using the Deflate algorithm.</p>
-<pre><code class="lang-csharp">public sealed class DeflateContent : CompressedContent, IDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a> ←
-<a href="Sisk.Core.Http.CompressedContent.html">CompressedContent</a> ←
-<a href="Sisk.Core.Http.DeflateContent.html">DeflateContent</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="Sisk.Core.Http.CompressedContent.GetCompressingStream.html#Sisk_Core_Http_CompressedContent_GetCompressingStream_System_IO_Stream_">CompressedContent.GetCompressingStream(Stream)</a>,
-<a href="Sisk.Core.Http.CompressedContent.Setup.html#Sisk_Core_Http_CompressedContent_Setup">CompressedContent.Setup()</a>,
-<a href="Sisk.Core.Http.CompressedContent.InnerContent.html#Sisk_Core_Http_CompressedContent_InnerContent">CompressedContent.InnerContent</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstringasync#system-net-http-httpcontent-readasstringasync">HttpContent.ReadAsStringAsync()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstringasync#system-net-http-httpcontent-readasstringasync(system-threading-cancellationtoken)">HttpContent.ReadAsStringAsync(CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasbytearrayasync#system-net-http-httpcontent-readasbytearrayasync">HttpContent.ReadAsByteArrayAsync()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasbytearrayasync#system-net-http-httpcontent-readasbytearrayasync(system-threading-cancellationtoken)">HttpContent.ReadAsByteArrayAsync(CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstream#system-net-http-httpcontent-readasstream">HttpContent.ReadAsStream()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstream#system-net-http-httpcontent-readasstream(system-threading-cancellationtoken)">HttpContent.ReadAsStream(CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstreamasync#system-net-http-httpcontent-readasstreamasync">HttpContent.ReadAsStreamAsync()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstreamasync#system-net-http-httpcontent-readasstreamasync(system-threading-cancellationtoken)">HttpContent.ReadAsStreamAsync(CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copyto">HttpContent.CopyTo(Stream, TransportContext?, CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream)">HttpContent.CopyToAsync(Stream)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-threading-cancellationtoken)">HttpContent.CopyToAsync(Stream, CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-net-transportcontext)">HttpContent.CopyToAsync(Stream, TransportContext?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-net-transportcontext-system-threading-cancellationtoken)">HttpContent.CopyToAsync(Stream, TransportContext?, CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync">HttpContent.LoadIntoBufferAsync()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-int64)">HttpContent.LoadIntoBufferAsync(long)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-threading-cancellationtoken)">HttpContent.LoadIntoBufferAsync(CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-int64-system-threading-cancellationtoken)">HttpContent.LoadIntoBufferAsync(long, CancellationToken)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.dispose#system-net-http-httpcontent-dispose">HttpContent.Dispose()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.headers">HttpContent.Headers</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_Net_Http_HttpContent_">DeflateContent(HttpContent)</a></p>
-<p>Initializes a new instance of compressing stream with the specified inner HTTP content.</p>
-<p><a href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_Byte___">DeflateContent(byte[])</a></p>
-<p>Initializes a new instance of compressing stream with the specified byte array content.</p>
-<p><a href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_IO_Stream_">DeflateContent(Stream)</a></p>
-<p>Initializes a new instance of compressing stream with the specified stream content.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.DeflateContent.GetCompressingStream.html#Sisk_Core_Http_DeflateContent_GetCompressingStream_System_IO_Stream_">GetCompressingStream(Stream)</a></p>
-<p>Gets a stream that compresses the output stream.</p>
-<p><a href="Sisk.Core.Http.DeflateContent.Setup.html#Sisk_Core_Http_DeflateContent_Setup">Setup()</a></p>
-<p>Represents the method that is invoked once within the constructor to setup
+
+
+  <h1 id="Sisk_Core_Http_DeflateContent" data-uid="Sisk.Core.Http.DeflateContent" class="text-break">
+Class DeflateContent  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an HTTP content that is compressed using the Deflate algorithm.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class DeflateContent : CompressedContent, IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent">HttpContent</a></div>
+      <div><a class="xref" href="Sisk.Core.Http.CompressedContent.html">CompressedContent</a></div>
+      <div><span class="xref">DeflateContent</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.CompressedContent.InnerContent.html#Sisk_Core_Http_CompressedContent_InnerContent">CompressedContent.InnerContent</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstringasync#system-net-http-httpcontent-readasstringasync">HttpContent.ReadAsStringAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstringasync#system-net-http-httpcontent-readasstringasync(system-threading-cancellationtoken)">HttpContent.ReadAsStringAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasbytearrayasync#system-net-http-httpcontent-readasbytearrayasync">HttpContent.ReadAsByteArrayAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasbytearrayasync#system-net-http-httpcontent-readasbytearrayasync(system-threading-cancellationtoken)">HttpContent.ReadAsByteArrayAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstream#system-net-http-httpcontent-readasstream">HttpContent.ReadAsStream()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstream#system-net-http-httpcontent-readasstream(system-threading-cancellationtoken)">HttpContent.ReadAsStream(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstreamasync#system-net-http-httpcontent-readasstreamasync">HttpContent.ReadAsStreamAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.readasstreamasync#system-net-http-httpcontent-readasstreamasync(system-threading-cancellationtoken)">HttpContent.ReadAsStreamAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copyto">HttpContent.CopyTo(Stream, TransportContext, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream)">HttpContent.CopyToAsync(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-threading-cancellationtoken)">HttpContent.CopyToAsync(Stream, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-net-transportcontext)">HttpContent.CopyToAsync(Stream, TransportContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.copytoasync#system-net-http-httpcontent-copytoasync(system-io-stream-system-net-transportcontext-system-threading-cancellationtoken)">HttpContent.CopyToAsync(Stream, TransportContext, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync">HttpContent.LoadIntoBufferAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-int64)">HttpContent.LoadIntoBufferAsync(long)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-threading-cancellationtoken)">HttpContent.LoadIntoBufferAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.loadintobufferasync#system-net-http-httpcontent-loadintobufferasync(system-int64-system-threading-cancellationtoken)">HttpContent.LoadIntoBufferAsync(long, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.dispose#system-net-http-httpcontent-dispose">HttpContent.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent.headers">HttpContent.Headers</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_Byte___">DeflateContent(byte[])</a></dt>
+    <dd><p>Initializes a new instance of compressing stream with the specified byte array content.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_IO_Stream_">DeflateContent(Stream)</a></dt>
+    <dd><p>Initializes a new instance of compressing stream with the specified stream content.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DeflateContent.-ctor.html#Sisk_Core_Http_DeflateContent__ctor_System_Net_Http_HttpContent_">DeflateContent(HttpContent)</a></dt>
+    <dd><p>Initializes a new instance of compressing stream with the specified inner HTTP content.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DeflateContent.GetCompressingStream.html#Sisk_Core_Http_DeflateContent_GetCompressingStream_System_IO_Stream_">GetCompressingStream(Stream)</a></dt>
+    <dd><p>Gets a stream that compresses the output stream.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.DeflateContent.Setup.html#Sisk_Core_Http_DeflateContent_Setup">Setup()</a></dt>
+    <dd><p>Represents the method that is invoked once within the constructor to setup
 this compressor. This method is indeeded to add the missing Content-Encoding headers
 used by this compressor.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.DeflateContent.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

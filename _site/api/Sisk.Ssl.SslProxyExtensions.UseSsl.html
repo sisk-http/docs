@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method UseSsl | Sisk </title>
+        <title>Method UseSsl | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method UseSsl | Sisk ">
+        <meta name="title" content="Method UseSsl | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Ssl.SslProxyExtensions.UseSsl.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,42 +153,102 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Ssl_SslProxyExtensions_UseSsl_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_System_Int16_System_Security_Cryptography_X509Certificates_X509Certificate_System_Security_Authentication_SslProtocols_System_Boolean_System_Object_System_Boolean_"> Method UseSsl</h1>
+                <article data-uid="Sisk.Ssl.SslProxyExtensions.UseSsl*">
 
-<p>Namespace: <a href="Sisk.Ssl.html">Sisk.Ssl</a><br>
-Assembly: Sisk.SslProxy.dll</p>
-<h2 id="Sisk_Ssl_SslProxyExtensions_UseSsl_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_System_Int16_System_Security_Cryptography_X509Certificates_X509Certificate_System_Security_Authentication_SslProtocols_System_Boolean_System_Object_System_Boolean_"> UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?, bool)</h2>
-<p>Configures the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> to use <a class="xref" href="Sisk.Ssl.SslProxy.html">SslProxy</a> with the specified parameters.</p>
-<pre><code class="lang-csharp">public static HttpServerHostContextBuilder UseSsl(this HttpServerHostContextBuilder builder, short sslListeningPort, X509Certificate? certificate = null, SslProtocols allowedProtocols = SslProtocols.Tls12 | SslProtocols.Tls13, bool clientCertificateRequired = false, object? proxyAuthorization = null, bool onlyUseIPv4 = false)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>builder</code> HttpServerHostContextBuilder</p>
-<p>The <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a> instance to configure.</p>
-<p><code>sslListeningPort</code> <a href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></p>
-<p>The port number on which the server will listen for SSL/HTTPS connections.</p>
-<p><code>certificate</code> <a href="https://learn.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.x509certificate">X509Certificate</a>?</p>
-<p>Optional. The SSL/HTTPS certificate to use for encrypting communications.</p>
-<p><code>allowedProtocols</code> <a href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols">SslProtocols</a></p>
-<p>Optional. The SSL/HTTPS protocols allowed for the connection. Defaults to <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols#system-security-authentication-sslprotocols-tls12">Tls12</a> and <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols#system-security-authentication-sslprotocols-tls13">Tls13</a>.</p>
-<p><code>clientCertificateRequired</code> <a href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></p>
-<p>Optional. Specifies whether a client certificate is required for authentication. Defaults to <code>false</code>.</p>
-<p><code>proxyAuthorization</code> <a href="https://learn.microsoft.com/dotnet/api/system.object">object</a>?</p>
-<p>Optional. Specifies the Proxy-Authorization header value for creating an trusted gateway between
+
+
+
+
+<h1 id="Sisk_Ssl_SslProxyExtensions_UseSsl_" data-uid="Sisk.Ssl.SslProxyExtensions.UseSsl*" class="text-break">
+Method UseSsl  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Ssl.html">Ssl</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.SslProxy.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Ssl_SslProxyExtensions_UseSsl_" data-uid="Sisk.Ssl.SslProxyExtensions.UseSsl*"></a>
+
+<h3 id="Sisk_Ssl_SslProxyExtensions_UseSsl_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_System_Int16_System_Security_Cryptography_X509Certificates_X509Certificate_System_Security_Authentication_SslProtocols_System_Boolean_System_Object_System_Boolean_" data-uid="Sisk.Ssl.SslProxyExtensions.UseSsl(Sisk.Core.Http.Hosting.HttpServerHostContextBuilder,System.Int16,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Authentication.SslProtocols,System.Boolean,System.Object,System.Boolean)">
+  UseSsl(HttpServerHostContextBuilder, short, X509Certificate?, SslProtocols, bool, object?, bool)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Configures the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> to use <a class="xref" href="Sisk.Ssl.SslProxy.html">SslProxy</a> with the specified parameters.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder UseSsl(this HttpServerHostContextBuilder builder, short sslListeningPort, X509Certificate? certificate = null, SslProtocols allowedProtocols = SslProtocols.Tls12 | SslProtocols.Tls13, bool clientCertificateRequired = false, object? proxyAuthorization = null, bool onlyUseIPv4 = false)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>builder</code> <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd><p>The <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a> instance to configure.</p>
+</dd>
+  <dt><code>sslListeningPort</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></dt>
+  <dd><p>The port number on which the server will listen for SSL/HTTPS connections.</p>
+</dd>
+  <dt><code>certificate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.x509certificate">X509Certificate</a></dt>
+  <dd><p>Optional. The SSL/HTTPS certificate to use for encrypting communications.</p>
+</dd>
+  <dt><code>allowedProtocols</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols">SslProtocols</a></dt>
+  <dd><p>Optional. The SSL/HTTPS protocols allowed for the connection. Defaults to <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols#system-security-authentication-sslprotocols-tls12">Tls12</a> and <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.authentication.sslprotocols#system-security-authentication-sslprotocols-tls13">Tls13</a>.</p>
+</dd>
+  <dt><code>clientCertificateRequired</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+  <dd><p>Optional. Specifies whether a client certificate is required for authentication. Defaults to <code>false</code>.</p>
+</dd>
+  <dt><code>proxyAuthorization</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+  <dd><p>Optional. Specifies the Proxy-Authorization header value for creating an trusted gateway between
 the application and the proxy.</p>
-<p><code>onlyUseIPv4</code> <a href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></p>
-<p>Optional. Specifies whether DNS Resolve may also use IPv6 addresses or should only use IPv4 addresses</p>
-<h3 id="returns">Returns</h3>
-<p>HttpServerHostContextBuilder</p>
-<p>The configured <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a> instance.</p>
+</dd>
+  <dt><code>onlyUseIPv4</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+  <dd><p>Optional. Specifies whether DNS Resolve may also use IPv6 addresses or should only use IPv4 addresses</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd><p>The configured <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a> instance.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Ssl.SslProxyExtensions.UseSsl.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

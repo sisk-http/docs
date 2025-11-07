@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class ListeningHostRepository | Sisk </title>
+        <title>Class ListeningHostRepository | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class ListeningHostRepository | Sisk ">
+        <meta name="title" content="Class ListeningHostRepository | Sisk ">
 
-
+        <meta name="description" content="Represents an fluent repository of  that can add, modify, or remove listening hosts while an  is running.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.ListeningHostRepository.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,64 +153,161 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_ListeningHostRepository"> Class ListeningHostRepository</h1>
+                <article data-uid="Sisk.Core.Http.ListeningHostRepository">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an fluent repository of <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> that can add, modify, or remove listening hosts while an <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is running.</p>
-<pre><code class="lang-csharp">public sealed class ListeningHostRepository : IList&lt;ListeningHost&gt;, ICollection&lt;ListeningHost&gt;, IEnumerable&lt;ListeningHost&gt;, IEnumerable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList&lt;ListeningHost&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection&lt;ListeningHost&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;ListeningHost&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.-ctor.html#Sisk_Core_Http_ListeningHostRepository__ctor">ListeningHostRepository()</a></p>
-<p>Creates a new instance of an empty <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.-ctor.html#Sisk_Core_Http_ListeningHostRepository__ctor_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__">ListeningHostRepository(IEnumerable&lt;ListeningHost&gt;)</a></p>
-<p>Creates a new instance of an <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a> copying the items from another collection of <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Count.html#Sisk_Core_Http_ListeningHostRepository_Count">Count</a></p>
-<p>Gets the number of elements contained in this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.IsReadOnly.html#Sisk_Core_Http_ListeningHostRepository_IsReadOnly">IsReadOnly</a></p>
-<p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a> is read only. This property always returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Item.html#Sisk_Core_Http_ListeningHostRepository_Item_System_Int32_">this[int]</a></p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Add.html#Sisk_Core_Http_ListeningHostRepository_Add_Sisk_Core_Http_ListeningHost_">Add(ListeningHost)</a></p>
-<p>Adds a listeninghost to this repository. If this listeninghost already exists in this class, an exception will be thrown.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Clear.html#Sisk_Core_Http_ListeningHostRepository_Clear">Clear()</a></p>
-<p>Removes all listeninghosts from this repository.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Contains.html#Sisk_Core_Http_ListeningHostRepository_Contains_Sisk_Core_Http_ListeningHost_">Contains(ListeningHost)</a></p>
-<p>Determines if an <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> is present in this repository.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.CopyTo.html#Sisk_Core_Http_ListeningHostRepository_CopyTo_Sisk_Core_Http_ListeningHost___System_Int32_">CopyTo(ListeningHost[], int)</a></p>
-<p>Copies all elements from this repository to another compatible repository.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.GetEnumerator.html#Sisk_Core_Http_ListeningHostRepository_GetEnumerator">GetEnumerator()</a></p>
-<p>Returns an enumerator that iterates through this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.IndexOf.html#Sisk_Core_Http_ListeningHostRepository_IndexOf_Sisk_Core_Http_ListeningHost_">IndexOf(ListeningHost)</a></p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Insert.html#Sisk_Core_Http_ListeningHostRepository_Insert_System_Int32_Sisk_Core_Http_ListeningHost_">Insert(int, ListeningHost)</a></p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.Remove.html#Sisk_Core_Http_ListeningHostRepository_Remove_Sisk_Core_Http_ListeningHost_">Remove(ListeningHost)</a></p>
-<p>Try to remove a <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> from this repository. If the item is removed, this methods returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHostRepository.RemoveAt.html#Sisk_Core_Http_ListeningHostRepository_RemoveAt_System_Int32_">RemoveAt(int)</a></p>
+
+
+  <h1 id="Sisk_Core_Http_ListeningHostRepository" data-uid="Sisk.Core.Http.ListeningHostRepository" class="text-break">
+Class ListeningHostRepository  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an fluent repository of <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> that can add, modify, or remove listening hosts while an <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a> is running.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ListeningHostRepository : IList&lt;ListeningHost&gt;, ICollection&lt;ListeningHost&gt;, IEnumerable&lt;ListeningHost&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ListeningHostRepository</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.-ctor.html#Sisk_Core_Http_ListeningHostRepository__ctor">ListeningHostRepository()</a></dt>
+    <dd><p>Creates a new instance of an empty <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.-ctor.html#Sisk_Core_Http_ListeningHostRepository__ctor_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__">ListeningHostRepository(IEnumerable&lt;ListeningHost&gt;)</a></dt>
+    <dd><p>Creates a new instance of an <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a> copying the items from another collection of <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Count.html#Sisk_Core_Http_ListeningHostRepository_Count">Count</a></dt>
+    <dd><p>Gets the number of elements contained in this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.IsReadOnly.html#Sisk_Core_Http_ListeningHostRepository_IsReadOnly">IsReadOnly</a></dt>
+    <dd><p>Gets an boolean indicating if this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a> is read only. This property always returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Item.html#Sisk_Core_Http_ListeningHostRepository_Item_System_Int32_">this[int]</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Add.html#Sisk_Core_Http_ListeningHostRepository_Add_Sisk_Core_Http_ListeningHost_">Add(ListeningHost)</a></dt>
+    <dd><p>Adds a listeninghost to this repository. If this listeninghost already exists in this class, an exception will be thrown.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Clear.html#Sisk_Core_Http_ListeningHostRepository_Clear">Clear()</a></dt>
+    <dd><p>Removes all listeninghosts from this repository.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Contains.html#Sisk_Core_Http_ListeningHostRepository_Contains_Sisk_Core_Http_ListeningHost_">Contains(ListeningHost)</a></dt>
+    <dd><p>Determines if an <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> is present in this repository.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.CopyTo.html#Sisk_Core_Http_ListeningHostRepository_CopyTo_Sisk_Core_Http_ListeningHost___System_Int32_">CopyTo(ListeningHost[], int)</a></dt>
+    <dd><p>Copies all elements from this repository to another compatible repository.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.GetEnumerator.html#Sisk_Core_Http_ListeningHostRepository_GetEnumerator">GetEnumerator()</a></dt>
+    <dd><p>Returns an enumerator that iterates through this <a class="xref" href="Sisk.Core.Http.ListeningHostRepository.html">ListeningHostRepository</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.IndexOf.html#Sisk_Core_Http_ListeningHostRepository_IndexOf_Sisk_Core_Http_ListeningHost_">IndexOf(ListeningHost)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Insert.html#Sisk_Core_Http_ListeningHostRepository_Insert_System_Int32_Sisk_Core_Http_ListeningHost_">Insert(int, ListeningHost)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.Remove.html#Sisk_Core_Http_ListeningHostRepository_Remove_Sisk_Core_Http_ListeningHost_">Remove(ListeningHost)</a></dt>
+    <dd><p>Try to remove a <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> from this repository. If the item is removed, this methods returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHostRepository.RemoveAt.html#Sisk_Core_Http_ListeningHostRepository_RemoveAt_System_Int32_">RemoveAt(int)</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.ListeningHostRepository.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

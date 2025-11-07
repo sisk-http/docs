@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class XmlNodeExtensions | Sisk </title>
+        <title>Class XmlNodeExtensions | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class XmlNodeExtensions | Sisk ">
+        <meta name="title" content="Class XmlNodeExtensions | Sisk ">
 
-
+        <meta name="description" content="Provides extension methods for  objects.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/TinyComponents.XmlNodeExtensions.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,48 +153,116 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="TinyComponents_XmlNodeExtensions"> Class XmlNodeExtensions</h1>
+                <article data-uid="TinyComponents.XmlNodeExtensions">
 
-<p>Namespace: <a href="TinyComponents.html">TinyComponents</a><br>
-Assembly: TinyComponents.dll</p>
-<p>Provides extension methods for <a class="xref" href="TinyComponents.INode.html">INode</a> objects.</p>
-<pre><code class="lang-csharp">public static class XmlNodeExtensions
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="TinyComponents.XmlNodeExtensions.html">XmlNodeExtensions</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="methods">Methods</h2>
-<p><a href="TinyComponents.XmlNodeExtensions.SelfClosed.html#TinyComponents_XmlNodeExtensions_SelfClosed__1___0_">SelfClosed&lt;TXmlNode&gt;(TXmlNode)</a></p>
-<p>Specifies that this <a class="xref" href="TinyComponents.INode.html">INode</a> will be self-closed.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_">WithAttribute&lt;TXmlNode&gt;(TXmlNode, string)</a></p>
-<p>Specifies an attribute for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_System_Object_">WithAttribute&lt;TXmlNode&gt;(TXmlNode, string, object?)</a></p>
-<p>Specifies an attribute for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithAttributes.html#TinyComponents_XmlNodeExtensions_WithAttributes__1___0_System_Object_">WithAttributes&lt;TXmlNode&gt;(TXmlNode, object?)</a></p>
-<p>Specifies multiple attributes for this <a class="xref" href="TinyComponents.INode.html">INode</a> from an object.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Action___0__">WithContent&lt;TXmlNode&gt;(TXmlNode, Action&lt;TXmlNode&gt;)</a></p>
-<p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Object_">WithContent&lt;TXmlNode&gt;(TXmlNode, object?)</a></p>
-<p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
-<p><a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_String_">WithContent&lt;TXmlNode&gt;(TXmlNode, string?)</a></p>
-<p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+
+
+  <h1 id="TinyComponents_XmlNodeExtensions" data-uid="TinyComponents.XmlNodeExtensions" class="text-break">
+Class XmlNodeExtensions  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="TinyComponents.html">TinyComponents</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>TinyComponents.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides extension methods for <a class="xref" href="TinyComponents.INode.html">INode</a> objects.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class XmlNodeExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">XmlNodeExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.SelfClosed.html#TinyComponents_XmlNodeExtensions_SelfClosed__1___0_">SelfClosed&lt;TXmlNode&gt;(TXmlNode)</a></dt>
+    <dd><p>Specifies that this <a class="xref" href="TinyComponents.INode.html">INode</a> will be self-closed.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_">WithAttribute&lt;TXmlNode&gt;(TXmlNode, string)</a></dt>
+    <dd><p>Specifies an attribute for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_System_Object_">WithAttribute&lt;TXmlNode&gt;(TXmlNode, string, object?)</a></dt>
+    <dd><p>Specifies an attribute for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttributes.html#TinyComponents_XmlNodeExtensions_WithAttributes__1___0_System_Object_">WithAttributes&lt;TXmlNode&gt;(TXmlNode, object?)</a></dt>
+    <dd><p>Specifies multiple attributes for this <a class="xref" href="TinyComponents.INode.html">INode</a> from an object.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Action___0__">WithContent&lt;TXmlNode&gt;(TXmlNode, Action&lt;TXmlNode&gt;)</a></dt>
+    <dd><p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Object_">WithContent&lt;TXmlNode&gt;(TXmlNode, object?)</a></dt>
+    <dd><p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_String_">WithContent&lt;TXmlNode&gt;(TXmlNode, string?)</a></dt>
+    <dd><p>Specifies children contents for this <a class="xref" href="TinyComponents.INode.html">INode</a>.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/TinyComponents.XmlNodeExtensions.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

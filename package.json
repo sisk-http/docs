@@ -1,0 +1,25 @@
+{
+    "name": "sisk-documentation",
+    "version": "1.0.0",
+    "description": "Sisk Framework Documentation Build System",
+    "private": true,
+    "scripts": {
+        "pack": "bun build.js all",
+        "build:docs": "bun build.js build",
+        "clean": "bun build.js clean",
+        "translate": "bun build.js translate",
+        "serve": "docfx serve",
+        "help": "bun build.js help"
+    },
+    "keywords": [
+        "sisk",
+        "documentation",
+        "docfx",
+        "translation"
+    ],
+    "author": "Sisk Framework",
+    "license": "MIT",
+    "dependencies": {
+        "@cypherpotato/cascadium": "^1.0.3"
+    }
+}

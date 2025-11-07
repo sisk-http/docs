@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class CookieHelper | Sisk </title>
+        <title>Class CookieHelper | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class CookieHelper | Sisk ">
+        <meta name="title" content="Class CookieHelper | Sisk ">
 
-
+        <meta name="description" content="Provides a class that contains useful methods for working with cookies in HTTP responses.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Helpers.CookieHelper.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,38 +153,91 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Helpers_CookieHelper"> Class CookieHelper</h1>
+                <article data-uid="Sisk.Core.Helpers.CookieHelper">
 
-<p>Namespace: <a href="Sisk.Core.Helpers.html">Sisk.Core.Helpers</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Provides a class that contains useful methods for working with cookies in HTTP responses.</p>
-<pre><code class="lang-csharp">public static class CookieHelper
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Helpers.CookieHelper.html">CookieHelper</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Helpers_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_">BuildCookieHeaderValue(Cookie)</a></p>
-<p>Builds the cookie header value and returns an string from it.</p>
-<p><a href="Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Helpers_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)</a></p>
-<p>Builds the cookie header value and returns an string from it.</p>
+
+
+  <h1 id="Sisk_Core_Helpers_CookieHelper" data-uid="Sisk.Core.Helpers.CookieHelper" class="text-break">
+Class CookieHelper  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Helpers.html">Helpers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides a class that contains useful methods for working with cookies in HTTP responses.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class CookieHelper</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CookieHelper</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Helpers_CookieHelper_BuildCookieHeaderValue_System_Net_Cookie_">BuildCookieHeaderValue(Cookie)</a></dt>
+    <dd><p>Builds the cookie header value and returns an string from it.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Helpers.CookieHelper.BuildCookieHeaderValue.html#Sisk_Core_Helpers_CookieHelper_BuildCookieHeaderValue_System_String_System_String_System_Nullable_System_DateTime__System_Nullable_System_TimeSpan__System_String_System_String_System_Nullable_System_Boolean__System_Nullable_System_Boolean__System_String_">BuildCookieHeaderValue(string, string, DateTime?, TimeSpan?, string?, string?, bool?, bool?, string?)</a></dt>
+    <dd><p>Builds the cookie header value and returns an string from it.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Helpers.CookieHelper.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

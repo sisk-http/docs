@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class HttpListenerAbstractEngine | Sisk </title>
+        <title>Class HttpListenerAbstractEngine | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class HttpListenerAbstractEngine | Sisk ">
+        <meta name="title" content="Class HttpListenerAbstractEngine | Sisk ">
 
-
+        <meta name="description" content="Provides an implementation of  using .">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,66 +153,158 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Engine_HttpListenerAbstractEngine"> Class HttpListenerAbstractEngine</h1>
+                <article data-uid="Sisk.Core.Http.Engine.HttpListenerAbstractEngine">
 
-<p>Namespace: <a href="Sisk.Core.Http.Engine.html">Sisk.Core.Http.Engine</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Provides an implementation of <a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a> using <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.httplistener">HttpListener</a>.</p>
-<pre><code class="lang-csharp">public sealed class HttpListenerAbstractEngine : HttpServerEngine, IDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a> ←
-<a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html">HttpListenerAbstractEngine</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpServerEngine_AddListeningPrefix_System_String_">HttpServerEngine.AddListeningPrefix(string)</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpServerEngine_ClearPrefixes">HttpServerEngine.ClearPrefixes()</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.StartServer.html#Sisk_Core_Http_Engine_HttpServerEngine_StartServer">HttpServerEngine.StartServer()</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.StopServer.html#Sisk_Core_Http_Engine_HttpServerEngine_StopServer">HttpServerEngine.StopServer()</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_">HttpServerEngine.BeginGetContext(AsyncCallback?, object?)</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext.html#Sisk_Core_Http_Engine_HttpServerEngine_EndGetContext_System_IAsyncResult_">HttpServerEngine.EndGetContext(IAsyncResult)</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.Dispose.html#Sisk_Core_Http_Engine_HttpServerEngine_Dispose">HttpServerEngine.Dispose()</a>,
-<a href="Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpServerEngine_IdleConnectionTimeout">HttpServerEngine.IdleConnectionTimeout</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.-ctor.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine__ctor">HttpListenerAbstractEngine()</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html">HttpListenerAbstractEngine</a> class.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_IdleConnectionTimeout">IdleConnectionTimeout</a></p>
-<p>Gets or sets the timeout for idle connections.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Shared">Shared</a></p>
-<p>Gets the shared instance of the <a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html">HttpListenerAbstractEngine</a> class.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_AddListeningPrefix_System_String_">AddListeningPrefix(string)</a></p>
-<p>Adds a listening prefix to the server.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_BeginGetContext_System_AsyncCallback_System_Object_">BeginGetContext(AsyncCallback?, object?)</a></p>
-<p>Begins an asynchronous operation to get an HTTP context.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_ClearPrefixes">ClearPrefixes()</a></p>
-<p>Clears all listening prefixes from the server.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Dispose">Dispose()</a></p>
-<p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_EndGetContext_System_IAsyncResult_">EndGetContext(IAsyncResult)</a></p>
-<p>Ends an asynchronous operation to get an HTTP context.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StartServer">StartServer()</a></p>
-<p>Starts the HTTP server.</p>
-<p><a href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StopServer">StopServer()</a></p>
-<p>Stops the HTTP server.</p>
+
+
+  <h1 id="Sisk_Core_Http_Engine_HttpListenerAbstractEngine" data-uid="Sisk.Core.Http.Engine.HttpListenerAbstractEngine" class="text-break">
+Class HttpListenerAbstractEngine  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Engine.html">Engine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides an implementation of <a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a> using <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.httplistener">HttpListener</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HttpListenerAbstractEngine : HttpServerEngine, IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a></div>
+      <div><span class="xref">HttpListenerAbstractEngine</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.-ctor.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine__ctor">HttpListenerAbstractEngine()</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html">HttpListenerAbstractEngine</a> class.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_EventLoopMecanism">EventLoopMecanism</a></dt>
+    <dd><p>Gets the event loop mechanism used by the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_IdleConnectionTimeout">IdleConnectionTimeout</a></dt>
+    <dd><p>Gets or sets the timeout for idle connections.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_ListeningPrefixes">ListeningPrefixes</a></dt>
+    <dd><p>Gets or sets the listening prefixes for the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Shared">Shared</a></dt>
+    <dd><p>Gets the shared instance of the <a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.html">HttpListenerAbstractEngine</a> class.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_BeginGetContext_System_AsyncCallback_System_Object_">BeginGetContext(AsyncCallback?, object?)</a></dt>
+    <dd><p>Begins an asynchronous operation to get an HTTP context.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Dispose">Dispose()</a></dt>
+    <dd><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_EndGetContext_System_IAsyncResult_">EndGetContext(IAsyncResult)</a></dt>
+    <dd><p>Ends an asynchronous operation to get an HTTP context.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_GetContextAsync_System_Threading_CancellationToken_">GetContextAsync(CancellationToken)</a></dt>
+    <dd><p>Asynchronously obtains an <a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngineContext.html">HttpServerEngineContext</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_OnConfiguring_Sisk_Core_Http_HttpServer_Sisk_Core_Http_HttpServerConfiguration_">OnConfiguring(HttpServer, HttpServerConfiguration)</a></dt>
+    <dd><p>Called when the server is being configured.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_SetListeningHosts_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__">SetListeningHosts(IEnumerable&lt;ListeningHost&gt;)</a></dt>
+    <dd><p>Sets the listening hosts for the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StartServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StartServer">StartServer()</a></dt>
+    <dd><p>Starts the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Engine.HttpListenerAbstractEngine.StopServer.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_StopServer">StopServer()</a></dt>
+    <dd><p>Stops the HTTP server.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

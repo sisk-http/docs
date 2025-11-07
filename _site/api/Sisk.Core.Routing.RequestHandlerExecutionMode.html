@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Enum RequestHandlerExecutionMode | Sisk </title>
+        <title>Enum RequestHandlerExecutionMode | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Enum RequestHandlerExecutionMode | Sisk ">
+        <meta name="title" content="Enum RequestHandlerExecutionMode | Sisk ">
 
-
+        <meta name="description" content="Defines when the  should be executed.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.RequestHandlerExecutionMode.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,30 +153,58 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_RequestHandlerExecutionMode"> Enum RequestHandlerExecutionMode</h1>
+                <article data-uid="Sisk.Core.Routing.RequestHandlerExecutionMode">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Defines when the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should be executed.</p>
-<pre><code class="lang-csharp">[Flags]
-public enum RequestHandlerExecutionMode
-</code></pre>
-<h2 id="fields">Fields</h2>
-<p><code>AfterResponse = 4</code></p>
-<p>Indicates that the request handler should be executed after the route action.</p>
-<p><code>BeforeResponse = 2</code></p>
-<p>Indicates that the request handler should be executed before the route action.</p>
-<p><code>Both = 6</code></p>
-<p>Indicates that the request handler should be executed before and after the route action.</p>
+
+
+
+  <h1 id="Sisk_Core_Routing_RequestHandlerExecutionMode" data-uid="Sisk.Core.Routing.RequestHandlerExecutionMode" class="text-break">
+Enum RequestHandlerExecutionMode  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Defines when the <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should be executed.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum RequestHandlerExecutionMode</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_AfterResponse"><code>AfterResponse = 4</code></dt>
+    <dd><p>Indicates that the request handler should be executed after the route action.</p>
+</dd>
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_BeforeResponse"><code>BeforeResponse = 2</code></dt>
+    <dd><p>Indicates that the request handler should be executed before the route action.</p>
+</dd>
+    <dt id="Sisk_Core_Routing_RequestHandlerExecutionMode_Both"><code>Both = BeforeResponse | AfterResponse</code></dt>
+    <dd><p>Indicates that the request handler should be executed before and after the route action.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.RequestHandlerExecutionMode.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

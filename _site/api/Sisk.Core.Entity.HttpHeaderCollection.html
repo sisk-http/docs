@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class HttpHeaderCollection | Sisk </title>
+        <title>Class HttpHeaderCollection | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class HttpHeaderCollection | Sisk ">
+        <meta name="title" content="Class HttpHeaderCollection | Sisk ">
 
-
+        <meta name="description" content="Represents an collection of HTTP headers with their name and values.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Entity.HttpHeaderCollection.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,261 +153,566 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Entity_HttpHeaderCollection"> Class HttpHeaderCollection</h1>
+                <article data-uid="Sisk.Core.Entity.HttpHeaderCollection">
 
-<p>Namespace: <a href="Sisk.Core.Entity.html">Sisk.Core.Entity</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an collection of HTTP headers with their name and values.</p>
-<pre><code class="lang-csharp">public sealed class HttpHeaderCollection : StringKeyStoreCollection, IDictionary&lt;string, string[]&gt;, ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.html">StringKeyStoreCollection</a> ←
-<a href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary&lt;string, string[]&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="Sisk.Core.Entity.StringKeyStoreCollection.FromQueryString.html#Sisk_Core_Entity_StringKeyStoreCollection_FromQueryString_System_String_">StringKeyStoreCollection.FromQueryString(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.FromCookieString.html#Sisk_Core_Entity_StringKeyStoreCollection_FromCookieString_System_String_">StringKeyStoreCollection.FromCookieString(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.FromNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_FromNameValueCollection_System_Collections_Specialized_NameValueCollection_">StringKeyStoreCollection.FromNameValueCollection(NameValueCollection)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ImportNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportNameValueCollection_System_Collections_Specialized_NameValueCollection_">StringKeyStoreCollection.ImportNameValueCollection(NameValueCollection)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ImportQueryString.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportQueryString_System_String_">StringKeyStoreCollection.ImportQueryString(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ImportCookieString.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportCookieString_System_String_">StringKeyStoreCollection.ImportCookieString(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_String___">StringKeyStoreCollection.Add(string, string[])</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_Collections_Generic_IEnumerable_System_String__">StringKeyStoreCollection.Add(string, IEnumerable&lt;string&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_String_">StringKeyStoreCollection.Add(string, string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStoreCollection.Add(KeyValuePair&lt;string, string[]&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.AddRange.html#Sisk_Core_Entity_StringKeyStoreCollection_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStoreCollection.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.AddRange.html#Sisk_Core_Entity_StringKeyStoreCollection_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___">StringKeyStoreCollection.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.SetRange.html#Sisk_Core_Entity_StringKeyStoreCollection_SetRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStoreCollection.SetRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStoreCollection.Set(KeyValuePair&lt;string, string[]&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_String_System_String_">StringKeyStoreCollection.Set(string, string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_String_System_Collections_Generic_IEnumerable_System_String__">StringKeyStoreCollection.Set(string, IEnumerable&lt;string&gt;)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.GetValue.html#Sisk_Core_Entity_StringKeyStoreCollection_GetValue_System_String_">StringKeyStoreCollection.GetValue(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.GetValues.html#Sisk_Core_Entity_StringKeyStoreCollection_GetValues_System_String_">StringKeyStoreCollection.GetValues(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Clear.html#Sisk_Core_Entity_StringKeyStoreCollection_Clear">StringKeyStoreCollection.Clear()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Remove.html#Sisk_Core_Entity_StringKeyStoreCollection_Remove_System_String_">StringKeyStoreCollection.Remove(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.MakeReadOnly.html#Sisk_Core_Entity_StringKeyStoreCollection_MakeReadOnly">StringKeyStoreCollection.MakeReadOnly()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ContainsKey.html#Sisk_Core_Entity_StringKeyStoreCollection_ContainsKey_System_String_">StringKeyStoreCollection.ContainsKey(string)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.GetEnumerator.html#Sisk_Core_Entity_StringKeyStoreCollection_GetEnumerator">StringKeyStoreCollection.GetEnumerator()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.TryGetValue.html#Sisk_Core_Entity_StringKeyStoreCollection_TryGetValue_System_String_System_String____">StringKeyStoreCollection.TryGetValue(string, out string[])</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.AsDictionary.html#Sisk_Core_Entity_StringKeyStoreCollection_AsDictionary">StringKeyStoreCollection.AsDictionary()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.AsNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_AsNameValueCollection">StringKeyStoreCollection.AsNameValueCollection()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.AsStringValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_AsStringValueCollection">StringKeyStoreCollection.AsStringValueCollection()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ToString.html#Sisk_Core_Entity_StringKeyStoreCollection_ToString">StringKeyStoreCollection.ToString()</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.ToString.html#Sisk_Core_Entity_StringKeyStoreCollection_ToString_System_IFormatProvider_">StringKeyStoreCollection.ToString(IFormatProvider?)</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Comparer.html#Sisk_Core_Entity_StringKeyStoreCollection_Comparer">StringKeyStoreCollection.Comparer</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Item.html#Sisk_Core_Entity_StringKeyStoreCollection_Item_System_String_">StringKeyStoreCollection.this[string]</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Keys.html#Sisk_Core_Entity_StringKeyStoreCollection_Keys">StringKeyStoreCollection.Keys</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Values.html#Sisk_Core_Entity_StringKeyStoreCollection_Values">StringKeyStoreCollection.Values</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.Count.html#Sisk_Core_Entity_StringKeyStoreCollection_Count">StringKeyStoreCollection.Count</a>,
-<a href="Sisk.Core.Entity.StringKeyStoreCollection.IsReadOnly.html#Sisk_Core_Entity_StringKeyStoreCollection_IsReadOnly">StringKeyStoreCollection.IsReadOnly</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor">HttpHeaderCollection()</a></p>
-<p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String____">HttpHeaderCollection(IDictionary&lt;string, string[]&gt;)</a></p>
-<p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
+
+
+  <h1 id="Sisk_Core_Entity_HttpHeaderCollection" data-uid="Sisk.Core.Entity.HttpHeaderCollection" class="text-break">
+Class HttpHeaderCollection  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Entity.html">Entity</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an collection of HTTP headers with their name and values.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HttpHeaderCollection : StringKeyStoreCollection, IDictionary&lt;string, string[]&gt;, ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.html">StringKeyStoreCollection</a></div>
+      <div><span class="xref">HttpHeaderCollection</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.FromQueryString.html#Sisk_Core_Entity_StringKeyStoreCollection_FromQueryString_System_String_">StringKeyStoreCollection.FromQueryString(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.FromCookieString.html#Sisk_Core_Entity_StringKeyStoreCollection_FromCookieString_System_String_">StringKeyStoreCollection.FromCookieString(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.FromNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_FromNameValueCollection_System_Collections_Specialized_NameValueCollection_">StringKeyStoreCollection.FromNameValueCollection(NameValueCollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ImportNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportNameValueCollection_System_Collections_Specialized_NameValueCollection_">StringKeyStoreCollection.ImportNameValueCollection(NameValueCollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ImportQueryString.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportQueryString_System_String_">StringKeyStoreCollection.ImportQueryString(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ImportCookieString.html#Sisk_Core_Entity_StringKeyStoreCollection_ImportCookieString_System_String_">StringKeyStoreCollection.ImportCookieString(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_String___">StringKeyStoreCollection.Add(string, string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_Collections_Generic_IEnumerable_System_String__">StringKeyStoreCollection.Add(string, IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_String_System_String_">StringKeyStoreCollection.Add(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Add.html#Sisk_Core_Entity_StringKeyStoreCollection_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStoreCollection.Add(KeyValuePair&lt;string, string[]&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.AddRange.html#Sisk_Core_Entity_StringKeyStoreCollection_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStoreCollection.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.AddRange.html#Sisk_Core_Entity_StringKeyStoreCollection_AddRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___">StringKeyStoreCollection.AddRange(IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.SetRange.html#Sisk_Core_Entity_StringKeyStoreCollection_SetRange_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String_____">StringKeyStoreCollection.SetRange(IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_Collections_Generic_KeyValuePair_System_String_System_String____">StringKeyStoreCollection.Set(KeyValuePair&lt;string, string[]&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_String_System_String_">StringKeyStoreCollection.Set(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Set.html#Sisk_Core_Entity_StringKeyStoreCollection_Set_System_String_System_Collections_Generic_IEnumerable_System_String__">StringKeyStoreCollection.Set(string, IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.GetValue.html#Sisk_Core_Entity_StringKeyStoreCollection_GetValue_System_String_">StringKeyStoreCollection.GetValue(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.GetValues.html#Sisk_Core_Entity_StringKeyStoreCollection_GetValues_System_String_">StringKeyStoreCollection.GetValues(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Clear.html#Sisk_Core_Entity_StringKeyStoreCollection_Clear">StringKeyStoreCollection.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Remove.html#Sisk_Core_Entity_StringKeyStoreCollection_Remove_System_String_">StringKeyStoreCollection.Remove(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.MakeReadOnly.html#Sisk_Core_Entity_StringKeyStoreCollection_MakeReadOnly">StringKeyStoreCollection.MakeReadOnly()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ContainsKey.html#Sisk_Core_Entity_StringKeyStoreCollection_ContainsKey_System_String_">StringKeyStoreCollection.ContainsKey(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.GetEnumerator.html#Sisk_Core_Entity_StringKeyStoreCollection_GetEnumerator">StringKeyStoreCollection.GetEnumerator()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.TryGetValue.html#Sisk_Core_Entity_StringKeyStoreCollection_TryGetValue_System_String_System_String____">StringKeyStoreCollection.TryGetValue(string, out string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.AsDictionary.html#Sisk_Core_Entity_StringKeyStoreCollection_AsDictionary">StringKeyStoreCollection.AsDictionary()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.AsNameValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_AsNameValueCollection">StringKeyStoreCollection.AsNameValueCollection()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.AsStringValueCollection.html#Sisk_Core_Entity_StringKeyStoreCollection_AsStringValueCollection">StringKeyStoreCollection.AsStringValueCollection()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ToString.html#Sisk_Core_Entity_StringKeyStoreCollection_ToString">StringKeyStoreCollection.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.ToString.html#Sisk_Core_Entity_StringKeyStoreCollection_ToString_System_IFormatProvider_">StringKeyStoreCollection.ToString(IFormatProvider)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Comparer.html#Sisk_Core_Entity_StringKeyStoreCollection_Comparer">StringKeyStoreCollection.Comparer</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Item.html#Sisk_Core_Entity_StringKeyStoreCollection_Item_System_String_">StringKeyStoreCollection.this[string]</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Keys.html#Sisk_Core_Entity_StringKeyStoreCollection_Keys">StringKeyStoreCollection.Keys</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Values.html#Sisk_Core_Entity_StringKeyStoreCollection_Values">StringKeyStoreCollection.Values</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.Count.html#Sisk_Core_Entity_StringKeyStoreCollection_Count">StringKeyStoreCollection.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Entity.StringKeyStoreCollection.IsReadOnly.html#Sisk_Core_Entity_StringKeyStoreCollection_IsReadOnly">StringKeyStoreCollection.IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor">HttpHeaderCollection()</a></dt>
+    <dd><p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String____">HttpHeaderCollection(IDictionary&lt;string, string[]&gt;)</a></dt>
+    <dd><p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
 collection.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String__">HttpHeaderCollection(IDictionary&lt;string, string?&gt;)</a></p>
-<p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Collections_Generic_IDictionary_System_String_System_String__">HttpHeaderCollection(IDictionary&lt;string, string?&gt;)</a></dt>
+    <dd><p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
 collection.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Net_WebHeaderCollection_">HttpHeaderCollection(WebHeaderCollection)</a></p>
-<p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.-ctor.html#Sisk_Core_Entity_HttpHeaderCollection__ctor_System_Net_WebHeaderCollection_">HttpHeaderCollection(WebHeaderCollection)</a></dt>
+    <dd><p>Create an new instance of the <a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.html">HttpHeaderCollection</a> class with values from another
 collection.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Accept.html#Sisk_Core_Entity_HttpHeaderCollection_Accept">Accept</a></p>
-<p>Gets the value of the HTTP Accept header.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Accept.html#Sisk_Core_Entity_HttpHeaderCollection_Accept">Accept</a></dt>
+    <dd><p>Gets the value of the HTTP Accept header.</p>
 <p>Specifies the media types that are acceptable for the response, allowing the client to indicate its preferences.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptCH.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptCH">AcceptCH</a></p>
-<p>Gets or sets the value of the HTTP Accept-CH header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptCH.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptCH">AcceptCH</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Accept-CH header.</p>
 <p>Specifies the client hints that the server supports, allowing clients to provide additional information about their capabilities.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptCharset.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptCharset">AcceptCharset</a></p>
-<p>Gets the value of the HTTP Accept-Charset header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptCharset.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptCharset">AcceptCharset</a></dt>
+    <dd><p>Gets the value of the HTTP Accept-Charset header.</p>
 <p>Indicates the character sets that are acceptable for the response, allowing the client to specify its preferred encoding.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptEncoding">AcceptEncoding</a></p>
-<p>Gets the value of the HTTP Accept-Encoding header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptEncoding">AcceptEncoding</a></dt>
+    <dd><p>Gets the value of the HTTP Accept-Encoding header.</p>
 <p>Specifies the content encodings that are acceptable for the response, allowing the client to indicate its preferences for compression.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptLanguage">AcceptLanguage</a></p>
-<p>Gets the value of the HTTP Accept-Language header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptLanguage">AcceptLanguage</a></dt>
+    <dd><p>Gets the value of the HTTP Accept-Language header.</p>
 <p>Indicates the natural languages that are preferred for the response, allowing the client to specify its language preferences.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptPatch.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptPatch">AcceptPatch</a></p>
-<p>Gets the value of the HTTP Accept-Patch header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptPatch.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptPatch">AcceptPatch</a></dt>
+    <dd><p>Gets the value of the HTTP Accept-Patch header.</p>
 <p>Indicates the patch document formats that are acceptable for the response, allowing the client to specify its preferences for patching resources.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptPost.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptPost">AcceptPost</a></p>
-<p>Gets or sets the value of the HTTP Accept-Post header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptPost.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptPost">AcceptPost</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Accept-Post header.</p>
 <p>Specifies the accepted formats for posting data to the server.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AcceptRanges.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptRanges">AcceptRanges</a></p>
-<p>Gets or sets the value of the HTTP Accept-Ranges header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AcceptRanges.html#Sisk_Core_Entity_HttpHeaderCollection_AcceptRanges">AcceptRanges</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Accept-Ranges header.</p>
 <p>Indicates that the server supports range requests for the resource, allowing clients to request specific byte ranges.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowCredentials.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowCredentials">AccessControlAllowCredentials</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Allow-Credentials header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowCredentials.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowCredentials">AccessControlAllowCredentials</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Credentials header.</p>
 <p>Indicates whether the response to the request can expose credentials, allowing cross-origin requests to include credentials.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowHeaders">AccessControlAllowHeaders</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Allow-Headers header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowHeaders">AccessControlAllowHeaders</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Headers header.</p>
 <p>Specifies which headers can be used when making the actual request in a cross-origin resource sharing (CORS) context.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowMethods.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowMethods">AccessControlAllowMethods</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Allow-Methods header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowMethods.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowMethods">AccessControlAllowMethods</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Methods header.</p>
 <p>Specifies the methods that are allowed when accessing the resource in a CORS context.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowOrigin.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowOrigin">AccessControlAllowOrigin</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Allow-Origin header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlAllowOrigin.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlAllowOrigin">AccessControlAllowOrigin</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Allow-Origin header.</p>
 <p>Specifies which origins are allowed to access the resource in a CORS context, helping to control cross-origin requests.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlExposeHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlExposeHeaders">AccessControlExposeHeaders</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Expose-Headers header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlExposeHeaders.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlExposeHeaders">AccessControlExposeHeaders</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Expose-Headers header.</p>
 <p>Indicates which headers can be exposed as part of the response to a cross-origin request.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlMaxAge.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlMaxAge">AccessControlMaxAge</a></p>
-<p>Gets or sets the value of the HTTP Access-Control-Max-Age header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.AccessControlMaxAge.html#Sisk_Core_Entity_HttpHeaderCollection_AccessControlMaxAge">AccessControlMaxAge</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Access-Control-Max-Age header.</p>
 <p>Specifies how long the results of a preflight request can be cached, reducing the number of preflight requests made.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Age.html#Sisk_Core_Entity_HttpHeaderCollection_Age">Age</a></p>
-<p>Gets or sets the value of the HTTP Age header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Age.html#Sisk_Core_Entity_HttpHeaderCollection_Age">Age</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Age header.</p>
 <p>Indicates the age of the object in a cache, helping clients understand how fresh the cached response is.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Allow.html#Sisk_Core_Entity_HttpHeaderCollection_Allow">Allow</a></p>
-<p>Gets or sets the value of the HTTP Allow header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Allow.html#Sisk_Core_Entity_HttpHeaderCollection_Allow">Allow</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Allow header.</p>
 <p>Lists the HTTP methods that are supported by the resource, informing clients about the available actions.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Authorization.html#Sisk_Core_Entity_HttpHeaderCollection_Authorization">Authorization</a></p>
-<p>Gets or sets the value of the HTTP Authorization header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Authorization.html#Sisk_Core_Entity_HttpHeaderCollection_Authorization">Authorization</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Authorization header.</p>
 <p>Contains credentials for authenticating the client with the server, often used for basic or bearer token authentication.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.CacheControl.html#Sisk_Core_Entity_HttpHeaderCollection_CacheControl">CacheControl</a></p>
-<p>Gets or sets the value of the HTTP Cache-Control header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.CacheControl.html#Sisk_Core_Entity_HttpHeaderCollection_CacheControl">CacheControl</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Cache-Control header.</p>
 <p>Directs caching mechanisms on how to cache the response, including directives for expiration and revalidation.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Connection.html#Sisk_Core_Entity_HttpHeaderCollection_Connection">Connection</a></p>
-<p>Gets the value of the HTTP Connection header. To set this header in a HTTP response, use the
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Connection.html#Sisk_Core_Entity_HttpHeaderCollection_Connection">Connection</a></dt>
+    <dd><p>Gets the value of the HTTP Connection header. To set this header in a HTTP response, use the
 <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.KeepAlive.html#Sisk_Core_Http_HttpServerConfiguration_KeepAlive">KeepAlive</a> property.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentDisposition.html#Sisk_Core_Entity_HttpHeaderCollection_ContentDisposition">ContentDisposition</a></p>
-<p>Gets or sets the value of the HTTP Content-Disposition header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentDisposition.html#Sisk_Core_Entity_HttpHeaderCollection_ContentDisposition">ContentDisposition</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Disposition header.</p>
 <p>Indicates if the content should be displayed inline in the browser or treated as an attachment to be downloaded.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_ContentEncoding">ContentEncoding</a></p>
-<p>Gets or sets the value of the HTTP Content-Encoding header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentEncoding.html#Sisk_Core_Entity_HttpHeaderCollection_ContentEncoding">ContentEncoding</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Encoding header.</p>
 <p>Specifies the encoding transformations that have been applied to the response body, such as gzip or deflate. This
 header should not be interpreted as the content text charset.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLanguage">ContentLanguage</a></p>
-<p>Gets or sets the value of the HTTP Content-Language header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentLanguage.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLanguage">ContentLanguage</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Language header.</p>
 <p>Indicates the natural language(s) of the intended audience for the response, helping clients understand the content's language.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentLocation.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLocation">ContentLocation</a></p>
-<p>Gets or sets the value of the HTTP Content-Location header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentLocation.html#Sisk_Core_Entity_HttpHeaderCollection_ContentLocation">ContentLocation</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Location header.</p>
 <p>Indicates an alternate location for the returned data, often used for redirecting clients to a different resource.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentMD5.html#Sisk_Core_Entity_HttpHeaderCollection_ContentMD5">ContentMD5</a></p>
-<p>Gets or sets the value of the HTTP Content-MD5 header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentMD5.html#Sisk_Core_Entity_HttpHeaderCollection_ContentMD5">ContentMD5</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-MD5 header.</p>
 <p>Contains the MD5 hash of the response body in an base-64 format, allowing clients to verify the integrity of the received data.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentRange.html#Sisk_Core_Entity_HttpHeaderCollection_ContentRange">ContentRange</a></p>
-<p>Gets or sets the value of the HTTP Content-Range header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentRange.html#Sisk_Core_Entity_HttpHeaderCollection_ContentRange">ContentRange</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Range header.</p>
 <p>Indicates the size of the response body in bytes, allowing the client to know how much data to expect.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentSecurityPolicy.html#Sisk_Core_Entity_HttpHeaderCollection_ContentSecurityPolicy">ContentSecurityPolicy</a></p>
-<p>Gets or sets the value of the HTTP Content-Security-Policy header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentSecurityPolicy.html#Sisk_Core_Entity_HttpHeaderCollection_ContentSecurityPolicy">ContentSecurityPolicy</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Security-Policy header.</p>
 <p>Defines security policies for the content, helping to prevent cross-site scripting (XSS) and other code injection attacks.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ContentType.html#Sisk_Core_Entity_HttpHeaderCollection_ContentType">ContentType</a></p>
-<p>Gets or sets the value of the HTTP Content-Type header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ContentType.html#Sisk_Core_Entity_HttpHeaderCollection_ContentType">ContentType</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Content-Type header.</p>
 <p>Indicates the media type of the resource, allowing the client to understand how to process the response body.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Cookie.html#Sisk_Core_Entity_HttpHeaderCollection_Cookie">Cookie</a></p>
-<p>Gets the value of the HTTP Cookie header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Cookie.html#Sisk_Core_Entity_HttpHeaderCollection_Cookie">Cookie</a></dt>
+    <dd><p>Gets the value of the HTTP Cookie header.</p>
 <p>Contains stored HTTP cookies previously sent by the server, allowing the server to identify the client on subsequent requests.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Dnt.html#Sisk_Core_Entity_HttpHeaderCollection_Dnt">Dnt</a></p>
-<p>Gets the value of the HTTP DNT header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Dnt.html#Sisk_Core_Entity_HttpHeaderCollection_Dnt">Dnt</a></dt>
+    <dd><p>Gets the value of the HTTP DNT header.</p>
 <p>The HTTP DNT (Do Not Track) request header indicates the user's tracking preference.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ETag.html#Sisk_Core_Entity_HttpHeaderCollection_ETag">ETag</a></p>
-<p>Gets or sets the value of the HTTP ETag header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ETag.html#Sisk_Core_Entity_HttpHeaderCollection_ETag">ETag</a></dt>
+    <dd><p>Gets or sets the value of the HTTP ETag header.</p>
 <p>Provides a unique identifier for a specific version of a resource, allowing clients to cache and validate resources efficiently.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Expect.html#Sisk_Core_Entity_HttpHeaderCollection_Expect">Expect</a></p>
-<p>Gets the value of the HTTP Expect header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Expect.html#Sisk_Core_Entity_HttpHeaderCollection_Expect">Expect</a></dt>
+    <dd><p>Gets the value of the HTTP Expect header.</p>
 <p>Indicates that the client expects certain behaviors from the server, such as support for specific features or conditions.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Expires.html#Sisk_Core_Entity_HttpHeaderCollection_Expires">Expires</a></p>
-<p>Gets or sets the value of the HTTP Expires header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Expires.html#Sisk_Core_Entity_HttpHeaderCollection_Expires">Expires</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Expires header.</p>
 <p>Indicates the date and time after which the response is considered stale, helping clients manage caching.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Host.html#Sisk_Core_Entity_HttpHeaderCollection_Host">Host</a></p>
-<p>Gets the value of the HTTP Host header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Host.html#Sisk_Core_Entity_HttpHeaderCollection_Host">Host</a></dt>
+    <dd><p>Gets the value of the HTTP Host header.</p>
 <p>Specifies the domain name of the server and the TCP port number on which the server is listening, allowing for virtual hosting.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.IfMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfMatch">IfMatch</a></p>
-<p>Gets the value of the HTTP If-Match header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfMatch">IfMatch</a></dt>
+    <dd><p>Gets the value of the HTTP If-Match header.</p>
 <p>Used to make a conditional request, allowing the client to specify that the request should only be processed if the resource matches the given ETag.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.IfModifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfModifiedSince">IfModifiedSince</a></p>
-<p>Gets the value of the HTTP If-Modified-Since header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfModifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfModifiedSince">IfModifiedSince</a></dt>
+    <dd><p>Gets the value of the HTTP If-Modified-Since header.</p>
 <p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has been modified since the given date.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.IfNoneMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfNoneMatch">IfNoneMatch</a></p>
-<p>Gets the value of the HTTP If-None-Match header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfNoneMatch.html#Sisk_Core_Entity_HttpHeaderCollection_IfNoneMatch">IfNoneMatch</a></dt>
+    <dd><p>Gets the value of the HTTP If-None-Match header.</p>
 <p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has been modified since the given date.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.IfRange.html#Sisk_Core_Entity_HttpHeaderCollection_IfRange">IfRange</a></p>
-<p>Gets the value of the HTTP If-Range header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfRange.html#Sisk_Core_Entity_HttpHeaderCollection_IfRange">IfRange</a></dt>
+    <dd><p>Gets the value of the HTTP If-Range header.</p>
 <p>Used to make a conditional range request, allowing the client to specify that the range should only be returned if the resource has not changed.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.IfUnmodifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfUnmodifiedSince">IfUnmodifiedSince</a></p>
-<p>Gets the value of the HTTP If-Unmodified-Since header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.IfUnmodifiedSince.html#Sisk_Core_Entity_HttpHeaderCollection_IfUnmodifiedSince">IfUnmodifiedSince</a></dt>
+    <dd><p>Gets the value of the HTTP If-Unmodified-Since header.</p>
 <p>Used to make a conditional request, allowing the client to specify that the resource should only be returned if it has not been modified since the given date.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Location.html#Sisk_Core_Entity_HttpHeaderCollection_Location">Location</a></p>
-<p>Gets or sets the value of the HTTP Location header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Location.html#Sisk_Core_Entity_HttpHeaderCollection_Location">Location</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Location header.</p>
 <p>Indicates an alternate location for the returned data, often used for redirecting clients to a different resource.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.MaxForwards.html#Sisk_Core_Entity_HttpHeaderCollection_MaxForwards">MaxForwards</a></p>
-<p>Gets or sets the value of the HTTP Max-Forwards header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.MaxForwards.html#Sisk_Core_Entity_HttpHeaderCollection_MaxForwards">MaxForwards</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Max-Forwards header.</p>
 <p>Used in OPTIONS requests to limit the number of times the request can be forwarded by proxies.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Origin.html#Sisk_Core_Entity_HttpHeaderCollection_Origin">Origin</a></p>
-<p>Gets the value of the HTTP Origin header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Origin.html#Sisk_Core_Entity_HttpHeaderCollection_Origin">Origin</a></dt>
+    <dd><p>Gets the value of the HTTP Origin header.</p>
 <p>Indicates the origin of the request, helping servers implement CORS and manage cross-origin requests.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Pragma.html#Sisk_Core_Entity_HttpHeaderCollection_Pragma">Pragma</a></p>
-<p>Gets or sets the value of the HTTP Pragma header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Pragma.html#Sisk_Core_Entity_HttpHeaderCollection_Pragma">Pragma</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Pragma header.</p>
 <p>Used to include implementation-specific directives that might apply to any recipient along the request/response chain.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthenticate">ProxyAuthenticate</a></p>
-<p>Gets or sets the value of the HTTP Proxy-Authenticate header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthenticate">ProxyAuthenticate</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Proxy-Authenticate header.</p>
 <p>Used by a proxy server to request authentication from the client, indicating the authentication method required.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthorization.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthorization">ProxyAuthorization</a></p>
-<p>Gets or sets the value of the HTTP Proxy-Authorization header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.ProxyAuthorization.html#Sisk_Core_Entity_HttpHeaderCollection_ProxyAuthorization">ProxyAuthorization</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Proxy-Authorization header.</p>
 <p>Contains credentials for authenticating the client with a proxy server, allowing access to the requested resource.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Range.html#Sisk_Core_Entity_HttpHeaderCollection_Range">Range</a></p>
-<p>Gets the value of the HTTP Range header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Range.html#Sisk_Core_Entity_HttpHeaderCollection_Range">Range</a></dt>
+    <dd><p>Gets the value of the HTTP Range header.</p>
 <p>Used to request a specific range of bytes from a resource, allowing clients to download large files in parts.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Referer.html#Sisk_Core_Entity_HttpHeaderCollection_Referer">Referer</a></p>
-<p>Gets the value of the HTTP Referer header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Referer.html#Sisk_Core_Entity_HttpHeaderCollection_Referer">Referer</a></dt>
+    <dd><p>Gets the value of the HTTP Referer header.</p>
 <p>Indicates the URL of the resource from which the request originated, helping servers understand the source of traffic.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.RetryAfter.html#Sisk_Core_Entity_HttpHeaderCollection_RetryAfter">RetryAfter</a></p>
-<p>Gets or sets the value of the HTTP Retry-After header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.RetryAfter.html#Sisk_Core_Entity_HttpHeaderCollection_RetryAfter">RetryAfter</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Retry-After header.</p>
 <p>Indicates how long the client should wait before making a follow-up request, often used in rate limiting scenarios.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.SecGPC.html#Sisk_Core_Entity_HttpHeaderCollection_SecGPC">SecGPC</a></p>
-<p>Gets the value of the HTTP Sec-GPC header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.SecGPC.html#Sisk_Core_Entity_HttpHeaderCollection_SecGPC">SecGPC</a></dt>
+    <dd><p>Gets the value of the HTTP Sec-GPC header.</p>
 <p>The HTTP Sec-GPC request header is part of the Global Privacy Control (GPC) mechanism to indicate whether the user consents to a website or service selling or sharing their personal information with third parties.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.SetCookie.html#Sisk_Core_Entity_HttpHeaderCollection_SetCookie">SetCookie</a></p>
-<p>Gets or sets the value of the HTTP Set-Cookie header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.SetCookie.html#Sisk_Core_Entity_HttpHeaderCollection_SetCookie">SetCookie</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Set-Cookie header.</p>
 <p>Used to send cookies from the server to the client, allowing the server to store state information on the client.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.TE.html#Sisk_Core_Entity_HttpHeaderCollection_TE">TE</a></p>
-<p>Gets the value of the HTTP TE header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.TE.html#Sisk_Core_Entity_HttpHeaderCollection_TE">TE</a></dt>
+    <dd><p>Gets the value of the HTTP TE header.</p>
 <p>Indicates the transfer encodings that are acceptable for the response, allowing for content negotiation.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.UserAgent.html#Sisk_Core_Entity_HttpHeaderCollection_UserAgent">UserAgent</a></p>
-<p>Gets the value of the HTTP User-Agent header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.UserAgent.html#Sisk_Core_Entity_HttpHeaderCollection_UserAgent">UserAgent</a></dt>
+    <dd><p>Gets the value of the HTTP User-Agent header.</p>
 <p>Contains information about the user agent (browser or application) making the request, including its version and platform.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Vary.html#Sisk_Core_Entity_HttpHeaderCollection_Vary">Vary</a></p>
-<p>Gets or sets the value of the HTTP Vary header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Vary.html#Sisk_Core_Entity_HttpHeaderCollection_Vary">Vary</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Vary header.</p>
 <p>Indicates that the response varies based on the value of the specified request headers, allowing for content negotiation.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.Via.html#Sisk_Core_Entity_HttpHeaderCollection_Via">Via</a></p>
-<p>Gets or sets the value of the HTTP Via header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.Via.html#Sisk_Core_Entity_HttpHeaderCollection_Via">Via</a></dt>
+    <dd><p>Gets or sets the value of the HTTP Via header.</p>
 <p>Used to track message forwards and proxies, indicating the intermediate protocols and recipients involved in the request/response chain.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.WWWAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_WWWAuthenticate">WWWAuthenticate</a></p>
-<p>Gets or sets the value of the HTTP WWW-Authenticate header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.WWWAuthenticate.html#Sisk_Core_Entity_HttpHeaderCollection_WWWAuthenticate">WWWAuthenticate</a></dt>
+    <dd><p>Gets or sets the value of the HTTP WWW-Authenticate header.</p>
 <p>Used in response to a request for authentication, indicating the authentication method that should be used to access the resource.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedFor.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedFor">XForwardedFor</a></p>
-<p>Gets the value of the HTTP X-Forwarded-For header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedFor.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedFor">XForwardedFor</a></dt>
+    <dd><p>Gets the value of the HTTP X-Forwarded-For header.</p>
 <p>Used to identify the originating IP address of a client connecting to a web server through an HTTP proxy or load balancer.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedHost.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedHost">XForwardedHost</a></p>
-<p>Gets the value of the HTTP X-Forwarded-Host header</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XForwardedHost.html#Sisk_Core_Entity_HttpHeaderCollection_XForwardedHost">XForwardedHost</a></dt>
+    <dd><p>Gets the value of the HTTP X-Forwarded-Host header</p>
 <p>Used to identify the original host requested by the client in the Host HTTP request header, often used in proxy setups.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.XFrameOptions.html#Sisk_Core_Entity_HttpHeaderCollection_XFrameOptions">XFrameOptions</a></p>
-<p>Gets or sets the value of the HTTP X-Frame-Options header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XFrameOptions.html#Sisk_Core_Entity_HttpHeaderCollection_XFrameOptions">XFrameOptions</a></dt>
+    <dd><p>Gets or sets the value of the HTTP X-Frame-Options header.</p>
 <p>Used to control whether a browser should be allowed to render a page in a iframe, frame, embed or object tag, helping to prevent clickjacking attacks.</p>
-<p><a href="Sisk.Core.Entity.HttpHeaderCollection.XUACompatible.html#Sisk_Core_Entity_HttpHeaderCollection_XUACompatible">XUACompatible</a></p>
-<p>Gets or sets the value of the HTTP X-UA-Compatible header.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.HttpHeaderCollection.XUACompatible.html#Sisk_Core_Entity_HttpHeaderCollection_XUACompatible">XUACompatible</a></dt>
+    <dd><p>Gets or sets the value of the HTTP X-UA-Compatible header.</p>
 <p>Used to specify the document mode that Internet Explorer should use to render the page, helping to ensure compatibility with older versions.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Entity.HttpHeaderCollection.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

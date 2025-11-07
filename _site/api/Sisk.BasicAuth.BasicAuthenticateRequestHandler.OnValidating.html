@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method OnValidating | Sisk </title>
+        <title>Method OnValidating | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method OnValidating | Sisk ">
+        <meta name="title" content="Method OnValidating | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,32 +153,87 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_BasicAuth_BasicAuthenticateRequestHandler_OnValidating_Sisk_BasicAuth_BasicAuthenticationCredentials_Sisk_Core_Http_HttpContext_"> Method OnValidating</h1>
+                <article data-uid="Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating*">
 
-<p>Namespace: <a href="Sisk.BasicAuth.html">Sisk.BasicAuth</a><br>
-Assembly: Sisk.BasicAuth.dll</p>
-<h2 id="Sisk_BasicAuth_BasicAuthenticateRequestHandler_OnValidating_Sisk_BasicAuth_BasicAuthenticationCredentials_Sisk_Core_Http_HttpContext_"> OnValidating(BasicAuthenticationCredentials, HttpContext)</h2>
-<p>Indicates the method that is called to validate a request with client credentials. When returning an <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>,
+
+
+
+
+<h1 id="Sisk_BasicAuth_BasicAuthenticateRequestHandler_OnValidating_" data-uid="Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating*" class="text-break">
+Method OnValidating  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.BasicAuth.html">BasicAuth</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.BasicAuth.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_BasicAuth_BasicAuthenticateRequestHandler_OnValidating_" data-uid="Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating*"></a>
+
+<h3 id="Sisk_BasicAuth_BasicAuthenticateRequestHandler_OnValidating_Sisk_BasicAuth_BasicAuthenticationCredentials_Sisk_Core_Http_HttpContext_" data-uid="Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating(Sisk.BasicAuth.BasicAuthenticationCredentials,Sisk.Core.Http.HttpContext)">
+  OnValidating(BasicAuthenticationCredentials, HttpContext)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Indicates the method that is called to validate a request with client credentials. When returning an <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a>,
 it will be sent immediately to the client and the rest of the stack will not be executed. If the return is null, it
 is interpretable that the authentication was successful and the execution should continue.</p>
-<pre><code class="lang-csharp">public virtual HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>credentials</code> <a href="Sisk.BasicAuth.BasicAuthenticationCredentials.html">BasicAuthenticationCredentials</a></p>
-<p>Represents the credentials sent by the client, already decoded and ready for use.</p>
-<p><code>context</code> HttpContext</p>
-<p>Represents the Http context.</p>
-<h3 id="returns">Returns</h3>
-<p>HttpResponse?</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public virtual HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>credentials</code> <a class="xref" href="Sisk.BasicAuth.BasicAuthenticationCredentials.html">BasicAuthenticationCredentials</a></dt>
+  <dd><p>Represents the credentials sent by the client, already decoded and ready for use.</p>
+</dd>
+  <dt><code>context</code> <a class="xref" href="Sisk.Core.Http.HttpContext.html">HttpContext</a></dt>
+  <dd><p>Represents the Http context.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.BasicAuth.BasicAuthenticateRequestHandler.OnValidating.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

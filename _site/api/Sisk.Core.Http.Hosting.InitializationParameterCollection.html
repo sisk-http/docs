@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class InitializationParameterCollection | Sisk </title>
+        <title>Class InitializationParameterCollection | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class InitializationParameterCollection | Sisk ">
+        <meta name="title" content="Class InitializationParameterCollection | Sisk ">
 
-
+        <meta name="description" content="Provides a collection of HTTP server initialization variables.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Hosting.InitializationParameterCollection.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,51 +153,121 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Hosting_InitializationParameterCollection"> Class InitializationParameterCollection</h1>
+                <article data-uid="Sisk.Core.Http.Hosting.InitializationParameterCollection">
 
-<p>Namespace: <a href="Sisk.Core.Http.Hosting.html">Sisk.Core.Http.Hosting</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Provides a collection of HTTP server initialization variables.</p>
-<pre><code class="lang-csharp">public sealed class InitializationParameterCollection : IDictionary&lt;string, string?&gt;, ICollection&lt;KeyValuePair&lt;string, string?&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt;, IEnumerable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.html">InitializationParameterCollection</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary&lt;string, string?&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection&lt;KeyValuePair&lt;string, string?&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.-ctor.html#Sisk_Core_Http_Hosting_InitializationParameterCollection__ctor">InitializationParameterCollection()</a></p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.AsNameValueCollection.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_AsNameValueCollection">AsNameValueCollection()</a></p>
-<p>Gets an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> with the values of this class.</p>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNull.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_EnsureNotNull_System_String_">EnsureNotNull(string)</a></p>
-<p>Ensures that the parameter defined by name <code class="paramref">parameterName</code> is present in this collection.</p>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNullOrEmpty.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_EnsureNotNullOrEmpty_System_String_">EnsureNotNullOrEmpty(string)</a></p>
-<p>Ensures that the parameter defined by name <code class="paramref">parameterName</code> is present and not empty in this collection.</p>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.GetStringValue.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetStringValue_System_String_">GetStringValue(string)</a></p>
-<p>Retrieves a <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> instance representing the specified parameter.</p>
-<p><a href="Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOrThrow_System_String_Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_">GetValueOrThrow(string, GetValueOption)</a></p>
-<p>Gets the specified value if present in this parameter collection, or throw an exception
+
+
+  <h1 id="Sisk_Core_Http_Hosting_InitializationParameterCollection" data-uid="Sisk.Core.Http.Hosting.InitializationParameterCollection" class="text-break">
+Class InitializationParameterCollection  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Hosting.html">Hosting</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides a collection of HTTP server initialization variables.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class InitializationParameterCollection : IDictionary&lt;string, string?&gt;, ICollection&lt;KeyValuePair&lt;string, string?&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string?&gt;&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">InitializationParameterCollection</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.-ctor.html#Sisk_Core_Http_Hosting_InitializationParameterCollection__ctor">InitializationParameterCollection()</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.AsNameValueCollection.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_AsNameValueCollection">AsNameValueCollection()</a></dt>
+    <dd><p>Gets an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> with the values of this class.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNull.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_EnsureNotNull_System_String_">EnsureNotNull(string)</a></dt>
+    <dd><p>Ensures that the parameter defined by name <code class="paramref">parameterName</code> is present in this collection.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.EnsureNotNullOrEmpty.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_EnsureNotNullOrEmpty_System_String_">EnsureNotNullOrEmpty(string)</a></dt>
+    <dd><p>Ensures that the parameter defined by name <code class="paramref">parameterName</code> is present and not empty in this collection.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.GetStringValue.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetStringValue_System_String_">GetStringValue(string)</a></dt>
+    <dd><p>Retrieves a <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> instance representing the specified parameter.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.InitializationParameterCollection.GetValueOrThrow.html#Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOrThrow_System_String_Sisk_Core_Http_Hosting_InitializationParameterCollection_GetValueOption_">GetValueOrThrow(string, GetValueOption)</a></dt>
+    <dd><p>Gets the specified value if present in this parameter collection, or throw an exception
 if the value is not present.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Hosting.InitializationParameterCollection.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

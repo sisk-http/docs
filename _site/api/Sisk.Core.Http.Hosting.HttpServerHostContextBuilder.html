@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class HttpServerHostContextBuilder | Sisk </title>
+        <title>Class HttpServerHostContextBuilder | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class HttpServerHostContextBuilder | Sisk ">
+        <meta name="title" content="Class HttpServerHostContextBuilder | Sisk ">
 
-
+        <meta name="description" content="Represents a context constructor for .">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,92 +153,244 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder"> Class HttpServerHostContextBuilder</h1>
+                <article data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder">
 
-<p>Namespace: <a href="Sisk.Core.Http.Hosting.html">Sisk.Core.Http.Hosting</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents a context constructor for <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a>.</p>
-<pre><code class="lang-csharp">public sealed class HttpServerHostContextBuilder
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.CatchConfigurationExceptions.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_CatchConfigurationExceptions">CatchConfigurationExceptions</a></p>
-<p>Defines how the constructor should capture errors thrown within
+
+
+  <h1 id="Sisk_Core_Http_Hosting_HttpServerHostContextBuilder" data-uid="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder" class="text-break">
+Class HttpServerHostContextBuilder  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Hosting.html">Hosting</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a context constructor for <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HttpServerHostContextBuilder</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">HttpServerHostContextBuilder</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.CatchConfigurationExceptions.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_CatchConfigurationExceptions">CatchConfigurationExceptions</a></dt>
+    <dd><p>Defines how the constructor should capture errors thrown within
 <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UsePortableConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UsePortableConfiguration_System_Action_Sisk_Core_Http_Hosting_PortableConfigurationBuilder__">UsePortableConfiguration(Action&lt;PortableConfigurationBuilder&gt;)</a> and display in the Console.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.ServerConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_ServerConfiguration">ServerConfiguration</a></p>
-<p>Gets the Server Configuration object.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.Build.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_Build">Build()</a></p>
-<p>Builds an <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> with the specified parameters.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1">UseAutoScan&lt;TModule&gt;()</a></p>
-<p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1">AutoScanModules&lt;TModule&gt;()</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_">UseAutoScan&lt;TModule&gt;(Assembly)</a></p>
-<p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1">AutoScanModules&lt;TModule&gt;()</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Action_">UseBootstraper(Action)</a></p>
-<p>Adds an function that will be executed immediately before starting the HTTP server.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Action_">UseBootstraper(string, Action)</a></p>
-<p>Adds an function that will be executed immediately before starting the HTTP server.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Func_System_Threading_Tasks_Task__">UseBootstraper(Func&lt;Task&gt;)</a></p>
-<p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Func_System_Threading_Tasks_Task__">UseBootstraper(string, Func&lt;Task&gt;)</a></p>
-<p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseConfiguration_System_Action_Sisk_Core_Http_HttpServerConfiguration__">UseConfiguration(Action&lt;HttpServerConfiguration&gt;)</a></p>
-<p>Calls an action that has the HTTP server configuration as an argument.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseCors_System_Action_Sisk_Core_Entity_CrossOriginResourceSharingHeaders__">UseCors(Action&lt;CrossOriginResourceSharingHeaders&gt;)</a></p>
-<p>Calls an action that has an <a class="xref" href="Sisk.Core.Entity.CrossOriginResourceSharingHeaders.html">CrossOriginResourceSharingHeaders</a> instance from the main listening host as an argument.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseCors_Sisk_Core_Entity_CrossOriginResourceSharingHeaders_">UseCors(CrossOriginResourceSharingHeaders)</a></p>
-<p>Sets an <a class="xref" href="Sisk.Core.Entity.CrossOriginResourceSharingHeaders.html">CrossOriginResourceSharingHeaders</a> instance in the current listening host.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine_Sisk_Core_Http_Engine_HttpServerEngine_">UseEngine(HttpServerEngine)</a></p>
-<p>Sets the HTTP server engine.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1">UseEngine&lt;TEngine&gt;()</a></p>
-<p>Sets the HTTP server engine using a default constructor.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver_Sisk_Core_Http_ForwardingResolver_">UseForwardingResolver(ForwardingResolver)</a></p>
-<p>This method is a shortcut for setting <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver.html#Sisk_Core_Http_HttpServerConfiguration_ForwardingResolver">ForwardingResolver</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver__1">UseForwardingResolver&lt;TForwardingResolver&gt;()</a></p>
-<p>This method is a shortcut for setting <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver.html#Sisk_Core_Http_HttpServerConfiguration_ForwardingResolver">ForwardingResolver</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHandler.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHandler__1">UseHandler&lt;THandler&gt;()</a></p>
-<p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Http.HttpServer.RegisterHandler.html#Sisk_Core_Http_HttpServer_RegisterHandler__1">RegisterHandler&lt;T&gt;()</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHandler.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHandler_Sisk_Core_Http_Handlers_HttpServerHandler_">UseHandler(HttpServerHandler)</a></p>
-<p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Http.HttpServer.RegisterHandler.html#Sisk_Core_Http_HttpServer_RegisterHandler_Sisk_Core_Http_Handlers_HttpServerHandler_">RegisterHandler(HttpServerHandler)</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHttpServer.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHttpServer_System_Action_Sisk_Core_Http_HttpServer__">UseHttpServer(Action&lt;HttpServer&gt;)</a></p>
-<p>Calls an action that has the HTTP server instance as an argument.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_System_UInt16_">UseListeningPort(ushort)</a></p>
-<p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_System_String_">UseListeningPort(string)</a></p>
-<p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_Sisk_Core_Http_ListeningPort_">UseListeningPort(ListeningPort)</a></p>
-<p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseLocale.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseLocale_System_Globalization_CultureInfo_">UseLocale(CultureInfo)</a></p>
-<p>Changes the default thread current culture through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo.defaultthreadcurrentculture">DefaultThreadCurrentCulture</a>.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UsePortableConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UsePortableConfiguration_System_Action_Sisk_Core_Http_Hosting_PortableConfigurationBuilder__">UsePortableConfiguration(Action&lt;PortableConfigurationBuilder&gt;)</a></p>
-<p>Enables the portable configuration for this application, which imports settings, parameters,
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.ServerConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_ServerConfiguration">ServerConfiguration</a></dt>
+    <dd><p>Gets the Server Configuration object.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.Build.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_Build">Build()</a></dt>
+    <dd><p>Builds an <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> with the specified parameters.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1">UseAutoScan&lt;TModule&gt;()</a></dt>
+    <dd><p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1">AutoScanModules&lt;TModule&gt;()</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseAutoScan.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseAutoScan__1_System_Reflection_Assembly_">UseAutoScan&lt;TModule&gt;(Assembly)</a></dt>
+    <dd><p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Routing.Router.AutoScanModules.html#Sisk_Core_Routing_Router_AutoScanModules__1">AutoScanModules&lt;TModule&gt;()</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Action_">UseBootstraper(Action)</a></dt>
+    <dd><p>Adds an function that will be executed immediately before starting the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_Func_System_Threading_Tasks_Task__">UseBootstraper(Func&lt;Task&gt;)</a></dt>
+    <dd><p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Action_">UseBootstraper(string, Action)</a></dt>
+    <dd><p>Adds an function that will be executed immediately before starting the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseBootstraper.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseBootstraper_System_String_System_Func_System_Threading_Tasks_Task__">UseBootstraper(string, Func&lt;Task&gt;)</a></dt>
+    <dd><p>Adds an asynchronous function that will be executed immediately before starting the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseConfiguration_System_Action_Sisk_Core_Http_HttpServerConfiguration__">UseConfiguration(Action&lt;HttpServerConfiguration&gt;)</a></dt>
+    <dd><p>Calls an action that has the HTTP server configuration as an argument.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseCors_Sisk_Core_Entity_CrossOriginResourceSharingHeaders_">UseCors(CrossOriginResourceSharingHeaders)</a></dt>
+    <dd><p>Sets an <a class="xref" href="Sisk.Core.Entity.CrossOriginResourceSharingHeaders.html">CrossOriginResourceSharingHeaders</a> instance in the current listening host.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseCors.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseCors_System_Action_Sisk_Core_Entity_CrossOriginResourceSharingHeaders__">UseCors(Action&lt;CrossOriginResourceSharingHeaders&gt;)</a></dt>
+    <dd><p>Calls an action that has an <a class="xref" href="Sisk.Core.Entity.CrossOriginResourceSharingHeaders.html">CrossOriginResourceSharingHeaders</a> instance from the main listening host as an argument.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine_Sisk_Core_Http_Engine_HttpServerEngine_">UseEngine(HttpServerEngine)</a></dt>
+    <dd><p>Sets the HTTP server engine.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1">UseEngine&lt;TEngine&gt;()</a></dt>
+    <dd><p>Sets the HTTP server engine using a default constructor.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1_System_Action___0__">UseEngine&lt;TEngine&gt;(Action&lt;TEngine&gt;)</a></dt>
+    <dd><p>Sets the HTTP server engine using a default constructor and applies the specified configuration action.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1_System_Func___0__">UseEngine&lt;TEngine&gt;(Func&lt;TEngine&gt;)</a></dt>
+    <dd><p>Sets the HTTP server engine using a factory method.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver_Sisk_Core_Http_ForwardingResolver_">UseForwardingResolver(ForwardingResolver)</a></dt>
+    <dd><p>This method is a shortcut for setting <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver.html#Sisk_Core_Http_HttpServerConfiguration_ForwardingResolver">ForwardingResolver</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver__1">UseForwardingResolver&lt;TForwardingResolver&gt;()</a></dt>
+    <dd><p>This method is a shortcut for setting <a class="xref" href="Sisk.Core.Http.HttpServerConfiguration.ForwardingResolver.html#Sisk_Core_Http_HttpServerConfiguration_ForwardingResolver">ForwardingResolver</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHandler.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHandler_Sisk_Core_Http_Handlers_HttpServerHandler_">UseHandler(HttpServerHandler)</a></dt>
+    <dd><p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Http.HttpServer.RegisterHandler.html#Sisk_Core_Http_HttpServer_RegisterHandler_Sisk_Core_Http_Handlers_HttpServerHandler_">RegisterHandler(HttpServerHandler)</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHandler.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHandler__1">UseHandler&lt;THandler&gt;()</a></dt>
+    <dd><p>This method is an shortcut for calling <a class="xref" href="Sisk.Core.Http.HttpServer.RegisterHandler.html#Sisk_Core_Http_HttpServer_RegisterHandler__1">RegisterHandler&lt;T&gt;()</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseHttpServer.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseHttpServer_System_Action_Sisk_Core_Http_HttpServer__">UseHttpServer(Action&lt;HttpServer&gt;)</a></dt>
+    <dd><p>Calls an action that has the HTTP server instance as an argument.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_Sisk_Core_Http_ListeningPort_">UseListeningPort(ListeningPort)</a></dt>
+    <dd><p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_System_String_">UseListeningPort(string)</a></dt>
+    <dd><p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseListeningPort.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseListeningPort_System_UInt16_">UseListeningPort(ushort)</a></dt>
+    <dd><p>Sets the main <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> of this host builder.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseLocale.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseLocale_System_Globalization_CultureInfo_">UseLocale(CultureInfo)</a></dt>
+    <dd><p>Changes the default thread current culture through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo.defaultthreadcurrentculture">DefaultThreadCurrentCulture</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UsePortableConfiguration.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UsePortableConfiguration_System_Action_Sisk_Core_Http_Hosting_PortableConfigurationBuilder__">UsePortableConfiguration(Action&lt;PortableConfigurationBuilder&gt;)</a></dt>
+    <dd><p>Enables the portable configuration for this application, which imports settings, parameters,
 and other information from a JSON settings file.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseRouter_System_Action_Sisk_Core_Routing_Router__">UseRouter(Action&lt;Router&gt;)</a></p>
-<p>Calls an action that has an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> instance from the host HTTP server.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseRouter_Sisk_Core_Routing_Router_">UseRouter(Router)</a></p>
-<p>Sets an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> instance in the current listening host.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseStartupMessage_System_String_">UseStartupMessage(string)</a></p>
-<p>Add an optional message to the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> output verbose.</p>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseStartupMessage_System_Func_System_String__">UseStartupMessage(Func&lt;string&gt;)</a></p>
-<p>Adds a function that returns an optional initialization message to the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> output verbose.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseRouter_Sisk_Core_Routing_Router_">UseRouter(Router)</a></dt>
+    <dd><p>Sets an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> instance in the current listening host.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseRouter_System_Action_Sisk_Core_Routing_Router__">UseRouter(Action&lt;Router&gt;)</a></dt>
+    <dd><p>Calls an action that has an <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> instance from the host HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseSsl_Sisk_Core_Http_ListeningHostSslOptions_">UseSsl(ListeningHostSslOptions)</a></dt>
+    <dd><p>Configures SSL for the listening host using the specified options.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseSsl_System_Security_Cryptography_X509Certificates_X509Certificate2_">UseSsl(X509Certificate2)</a></dt>
+    <dd><p>Configures SSL for the listening host using the specified certificate.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseStartupMessage_System_Func_System_String__">UseStartupMessage(Func&lt;string&gt;)</a></dt>
+    <dd><p>Adds a function that returns an optional initialization message to the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> output verbose.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseStartupMessage_System_String_">UseStartupMessage(string)</a></dt>
+    <dd><p>Add an optional message to the <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> output verbose.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

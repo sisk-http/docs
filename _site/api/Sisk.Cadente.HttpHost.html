@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class HttpHost | Sisk </title>
+        <title>Class HttpHost | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class HttpHost | Sisk ">
+        <meta name="title" content="Class HttpHost | Sisk ">
 
-
+        <meta name="description" content="Represents an HTTP host that listens for incoming TCP connections and handles HTTP requests.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Cadente.HttpHost.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,63 +153,151 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Cadente_HttpHost"> Class HttpHost</h1>
+                <article data-uid="Sisk.Cadente.HttpHost">
 
-<p>Namespace: <a href="Sisk.Cadente.html">Sisk.Cadente</a><br>
-Assembly: Sisk.Cadente.dll</p>
-<p>Represents an HTTP host that listens for incoming TCP connections and handles HTTP requests.</p>
-<pre><code class="lang-csharp">public sealed class HttpHost : IDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Cadente.HttpHost.html">HttpHost</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Cadente.HttpHost.-ctor.html#Sisk_Cadente_HttpHost__ctor_System_Net_IPEndPoint_">HttpHost(IPEndPoint)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> class using the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.ipendpoint">IPEndPoint</a>.</p>
-<p><a href="Sisk.Cadente.HttpHost.-ctor.html#Sisk_Cadente_HttpHost__ctor_System_Int32_">HttpHost(int)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> class using the specified port on the loopback address.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Cadente.HttpHost.Endpoint.html#Sisk_Cadente_HttpHost_Endpoint">Endpoint</a></p>
-<p>Gets the endpoint of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
-<p><a href="Sisk.Cadente.HttpHost.Handler.html#Sisk_Cadente_HttpHost_Handler">Handler</a></p>
-<p>Gets or sets an <a class="xref" href="Sisk.Cadente.HttpHostHandler.html">HttpHostHandler</a> instance for this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
-<p><a href="Sisk.Cadente.HttpHost.HttpsOptions.html#Sisk_Cadente_HttpHost_HttpsOptions">HttpsOptions</a></p>
-<p>Gets or sets the HTTPS options for secure connections. Setting an <a class="xref" href="Sisk.Cadente.HttpsOptions.html">HttpsOptions</a> object in this
+
+
+  <h1 id="Sisk_Cadente_HttpHost" data-uid="Sisk.Cadente.HttpHost" class="text-break">
+Class HttpHost  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Cadente.html">Cadente</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Cadente.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an HTTP host that listens for incoming TCP connections and handles HTTP requests.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HttpHost : IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">HttpHost</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.-ctor.html#Sisk_Cadente_HttpHost__ctor_System_Int32_">HttpHost(int)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> class using the specified port on the loopback address.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.-ctor.html#Sisk_Cadente_HttpHost__ctor_System_Net_IPEndPoint_">HttpHost(IPEndPoint)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> class using the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.ipendpoint">IPEndPoint</a>.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Endpoint.html#Sisk_Cadente_HttpHost_Endpoint">Endpoint</a></dt>
+    <dd><p>Gets the endpoint of the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Handler.html#Sisk_Cadente_HttpHost_Handler">Handler</a></dt>
+    <dd><p>Gets or sets an <a class="xref" href="Sisk.Cadente.HttpHostHandler.html">HttpHostHandler</a> instance for this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.HttpsOptions.html#Sisk_Cadente_HttpHost_HttpsOptions">HttpsOptions</a></dt>
+    <dd><p>Gets or sets the HTTPS options for secure connections. Setting an <a class="xref" href="Sisk.Cadente.HttpsOptions.html">HttpsOptions</a> object in this
 property, the <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> will use HTTPS instead of HTTP.</p>
-<p><a href="Sisk.Cadente.HttpHost.IsDisposed.html#Sisk_Cadente_HttpHost_IsDisposed">IsDisposed</a></p>
-<p>Gets a value indicating whether this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> has been disposed.</p>
-<p><a href="Sisk.Cadente.HttpHost.QueueSize.html#Sisk_Cadente_HttpHost_QueueSize">QueueSize</a></p>
-<p>Gets or sets the client queue size of all <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> instances. This value indicates how many
-connections the server can maintain simultaneously before queueing other connections attempts.</p>
-<p><a href="Sisk.Cadente.HttpHost.ServerNameHeader.html#Sisk_Cadente_HttpHost_ServerNameHeader">ServerNameHeader</a></p>
-<p>Gets or sets the name of the server in the header name.</p>
-<p><a href="Sisk.Cadente.HttpHost.TimeoutManager.html#Sisk_Cadente_HttpHost_TimeoutManager">TimeoutManager</a></p>
-<p>Gets the <a class="xref" href="Sisk.Cadente.HttpHostTimeoutManager.html">HttpHostTimeoutManager</a> for this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Cadente.HttpHost.Dispose.html#Sisk_Cadente_HttpHost_Dispose">Dispose()</a></p>
-<p><a href="Sisk.Cadente.HttpHost.Finalize.html#Sisk_Cadente_HttpHost_Finalize">~HttpHost()</a></p>
-<p><a href="Sisk.Cadente.HttpHost.Start.html#Sisk_Cadente_HttpHost_Start">Start()</a></p>
-<p>Starts the HTTP host and begins listening for incoming connections.</p>
-<p><a href="Sisk.Cadente.HttpHost.Stop.html#Sisk_Cadente_HttpHost_Stop">Stop()</a></p>
-<p>Stops the HTTP host from listening for incoming HTTP requests.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.IsDisposed.html#Sisk_Cadente_HttpHost_IsDisposed">IsDisposed</a></dt>
+    <dd><p>Gets a value indicating whether this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a> has been disposed.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.ServerNameHeader.html#Sisk_Cadente_HttpHost_ServerNameHeader">ServerNameHeader</a></dt>
+    <dd><p>Gets or sets the name of the server in the header name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.TimeoutManager.html#Sisk_Cadente_HttpHost_TimeoutManager">TimeoutManager</a></dt>
+    <dd><p>Gets the <a class="xref" href="Sisk.Cadente.HttpHostTimeoutManager.html">HttpHostTimeoutManager</a> for this <a class="xref" href="Sisk.Cadente.HttpHost.html">HttpHost</a>.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Dispose.html#Sisk_Cadente_HttpHost_Dispose">Dispose()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Finalize.html#Sisk_Cadente_HttpHost_Finalize">~HttpHost()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Start.html#Sisk_Cadente_HttpHost_Start">Start()</a></dt>
+    <dd><p>Starts the HTTP host and begins listening for incoming connections.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.HttpHost.Stop.html#Sisk_Cadente_HttpHost_Stop">Stop()</a></dt>
+    <dd><p>Stops the HTTP host from listening for incoming HTTP requests.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Cadente.HttpHost.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Struct StringValue | Sisk </title>
+        <title>Struct StringValue | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Struct StringValue | Sisk ">
+        <meta name="title" content="Struct StringValue | Sisk ">
 
-
+        <meta name="description" content="Represents an option/monad item that wraps an string value and allows conversion to most common types.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Entity.StringValue.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,100 +153,226 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Entity_StringValue"> Struct StringValue</h1>
+                <article data-uid="Sisk.Core.Entity.StringValue">
 
-<p>Namespace: <a href="Sisk.Core.Entity.html">Sisk.Core.Entity</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an option/monad item that wraps an string value and allows conversion to most common types.</p>
-<pre><code class="lang-csharp">public readonly struct StringValue : ICloneable, IEquatable&lt;StringValue&gt;, IComparable&lt;StringValue&gt;
-</code></pre>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;StringValue&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable&lt;StringValue&gt;</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Entity.StringValue.-ctor.html#Sisk_Core_Entity_StringValue__ctor_System_String_">StringValue(string)</a></p>
-<p>Creates an new empty value of the <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> with no predefined value.</p>
-<p><a href="Sisk.Core.Entity.StringValue.-ctor.html#Sisk_Core_Entity_StringValue__ctor_System_String_System_String_">StringValue(string, string?)</a></p>
-<p>Creates an new value of the <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Entity.StringValue.IsNull.html#Sisk_Core_Entity_StringValue_IsNull">IsNull</a></p>
-<p>Gets an boolean indicating if this object value is null.</p>
-<p><a href="Sisk.Core.Entity.StringValue.IsNullOrEmpty.html#Sisk_Core_Entity_StringValue_IsNullOrEmpty">IsNullOrEmpty</a></p>
-<p>Gets an boolean indicating if this object value is null or an empty string.</p>
-<p><a href="Sisk.Core.Entity.StringValue.Name.html#Sisk_Core_Entity_StringValue_Name">Name</a></p>
-<p>Gets the name of the property that hosts this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>.</p>
-<p><a href="Sisk.Core.Entity.StringValue.Value.html#Sisk_Core_Entity_StringValue_Value">Value</a></p>
-<p>Gets the value of the current <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> string if it has been assigned a valid underlying value.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Entity.StringValue.Clone.html#Sisk_Core_Entity_StringValue_Clone">Clone()</a></p>
-<p><a href="Sisk.Core.Entity.StringValue.CompareTo.html#Sisk_Core_Entity_StringValue_CompareTo_Sisk_Core_Entity_StringValue_System_StringComparison__">CompareTo(StringValue, in StringComparison)</a></p>
-<p>Compares the current object with another object of the same type, using the specified string comparison.</p>
-<p><a href="Sisk.Core.Entity.StringValue.Create.html#Sisk_Core_Entity_StringValue_Create_System_String_">Create(string?)</a></p>
-<p>Creates an new <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> from the specified string.</p>
-<p><a href="Sisk.Core.Entity.StringValue.Get.html#Sisk_Core_Entity_StringValue_Get__1_System_IFormatProvider_">Get&lt;T&gt;(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a type <code class="typeparamref">T</code> that implements <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iparsable-1">IParsable&lt;TSelf&gt;</a>.
-Throws an exception if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetBoolean.html#Sisk_Core_Entity_StringValue_GetBoolean">GetBoolean()</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>. Throws an exception
+
+
+  <h1 id="Sisk_Core_Entity_StringValue" data-uid="Sisk.Core.Entity.StringValue" class="text-break">
+Struct StringValue  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Entity.html">Entity</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an option/monad item that wraps an string value and allows conversion to most common types.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly struct StringValue : ICloneable, IEquatable&lt;StringValue&gt;, IComparable&lt;StringValue&gt;</code></pre>
+  </div>
+
+
+
+
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;<a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.-ctor.html#Sisk_Core_Entity_StringValue__ctor_System_String_">StringValue(string)</a></dt>
+    <dd><p>Creates an new empty value of the <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> with no predefined value.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.-ctor.html#Sisk_Core_Entity_StringValue__ctor_System_String_System_String_">StringValue(string, string?)</a></dt>
+    <dd><p>Creates an new value of the <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.IsNull.html#Sisk_Core_Entity_StringValue_IsNull">IsNull</a></dt>
+    <dd><p>Gets an boolean indicating if this object value is null.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.IsNullOrEmpty.html#Sisk_Core_Entity_StringValue_IsNullOrEmpty">IsNullOrEmpty</a></dt>
+    <dd><p>Gets an boolean indicating if this object value is null or an empty string.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.Name.html#Sisk_Core_Entity_StringValue_Name">Name</a></dt>
+    <dd><p>Gets the name of the property that hosts this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.Value.html#Sisk_Core_Entity_StringValue_Value">Value</a></dt>
+    <dd><p>Gets the value of the current <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> string if it has been assigned a valid underlying value.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.Clone.html#Sisk_Core_Entity_StringValue_Clone">Clone()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.CompareTo.html#Sisk_Core_Entity_StringValue_CompareTo_Sisk_Core_Entity_StringValue_System_StringComparison__">CompareTo(StringValue, in StringComparison)</a></dt>
+    <dd><p>Compares the current object with another object of the same type, using the specified string comparison.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.Create.html#Sisk_Core_Entity_StringValue_Create_System_String_">Create(string?)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> from the specified string.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetBoolean.html#Sisk_Core_Entity_StringValue_GetBoolean">GetBoolean()</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetByte.html#Sisk_Core_Entity_StringValue_GetByte_System_IFormatProvider_">GetByte(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetByte.html#Sisk_Core_Entity_StringValue_GetByte_System_IFormatProvider_">GetByte(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetChar.html#Sisk_Core_Entity_StringValue_GetChar">GetChar()</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetChar.html#Sisk_Core_Entity_StringValue_GetChar">GetChar()</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetDateTime.html#Sisk_Core_Entity_StringValue_GetDateTime_System_IFormatProvider_">GetDateTime(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetDateTime.html#Sisk_Core_Entity_StringValue_GetDateTime_System_IFormatProvider_">GetDateTime(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetDecimal.html#Sisk_Core_Entity_StringValue_GetDecimal_System_IFormatProvider_">GetDecimal(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetDecimal.html#Sisk_Core_Entity_StringValue_GetDecimal_System_IFormatProvider_">GetDecimal(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetDouble.html#Sisk_Core_Entity_StringValue_GetDouble_System_IFormatProvider_">GetDouble(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetDouble.html#Sisk_Core_Entity_StringValue_GetDouble_System_IFormatProvider_">GetDouble(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetEnum.html#Sisk_Core_Entity_StringValue_GetEnum__1">GetEnum&lt;TEnum&gt;()</a></p>
-<p>Gets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum">Enum</a> object representation from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>, parsing the current string expression into an value of
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetEnum.html#Sisk_Core_Entity_StringValue_GetEnum__1">GetEnum&lt;TEnum&gt;()</a></dt>
+    <dd><p>Gets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum">Enum</a> object representation from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>, parsing the current string expression into an value of
 <code class="typeparamref">TEnum</code>. This method will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullreferenceexception">NullReferenceException</a> if
 the value stored in this instance is null.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetGuid.html#Sisk_Core_Entity_StringValue_GetGuid_System_IFormatProvider_">GetGuid(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetGuid.html#Sisk_Core_Entity_StringValue_GetGuid_System_IFormatProvider_">GetGuid(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetInteger.html#Sisk_Core_Entity_StringValue_GetInteger_System_IFormatProvider_">GetInteger(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetInteger.html#Sisk_Core_Entity_StringValue_GetInteger_System_IFormatProvider_">GetInteger(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetLong.html#Sisk_Core_Entity_StringValue_GetLong_System_IFormatProvider_">GetLong(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetLong.html#Sisk_Core_Entity_StringValue_GetLong_System_IFormatProvider_">GetLong(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetShort.html#Sisk_Core_Entity_StringValue_GetShort_System_IFormatProvider_">GetShort(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetShort.html#Sisk_Core_Entity_StringValue_GetShort_System_IFormatProvider_">GetShort(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetSingle.html#Sisk_Core_Entity_StringValue_GetSingle_System_IFormatProvider_">GetSingle(IFormatProvider?)</a></p>
-<p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>. Throws an exception
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetSingle.html#Sisk_Core_Entity_StringValue_GetSingle_System_IFormatProvider_">GetSingle(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>. Throws an exception
 if the value couldn't be parsed to the target type.</p>
-<p><a href="Sisk.Core.Entity.StringValue.GetString.html#Sisk_Core_Entity_StringValue_GetString">GetString()</a></p>
-<p>Gets a non-null string from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>. This method will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullreferenceexception">NullReferenceException</a> if
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.GetString.html#Sisk_Core_Entity_StringValue_GetString">GetString()</a></dt>
+    <dd><p>Gets a non-null string from this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a>. This method will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullreferenceexception">NullReferenceException</a> if
 the value stored in this instance is null.</p>
-<p><a href="Sisk.Core.Entity.StringValue.MaybeNull.html#Sisk_Core_Entity_StringValue_MaybeNull">MaybeNull()</a></p>
-<p>Returns a self-reference to this object when it's value is not null.</p>
-<p><a href="Sisk.Core.Entity.StringValue.MaybeNullOrEmpty.html#Sisk_Core_Entity_StringValue_MaybeNullOrEmpty">MaybeNullOrEmpty()</a></p>
-<p>Returns a self-reference to this object when it's value is not null or an empty string.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.Get.html#Sisk_Core_Entity_StringValue_Get__1_System_IFormatProvider_">Get&lt;T&gt;(IFormatProvider?)</a></dt>
+    <dd><p>Parses the value contained in this <a class="xref" href="Sisk.Core.Entity.StringValue.html">StringValue</a> as a type <code class="typeparamref">T</code> that implements <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iparsable-1">IParsable&lt;TSelf&gt;</a>.
+Throws an exception if the value couldn't be parsed to the target type.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.MaybeNull.html#Sisk_Core_Entity_StringValue_MaybeNull">MaybeNull()</a></dt>
+    <dd><p>Returns a self-reference to this object when it's value is not null.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Entity.StringValue.MaybeNullOrEmpty.html#Sisk_Core_Entity_StringValue_MaybeNullOrEmpty">MaybeNullOrEmpty()</a></dt>
+    <dd><p>Returns a self-reference to this object when it's value is not null or an empty string.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Entity.StringValue.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

@@ -4,20 +4,27 @@ This repository contains the source code of the [Sisk Documentation website](htt
 
 ## Building
 
-1. Firstly, make sure you have [docfx](https://dotnet.github.io/docfx/) installed in your machine. You'll need [.NET SDK](https://dotnet.microsoft.com/en-us/download) to install it.
-2. Clone this repository.
-3. Build the [Sisk Framework project](https://github.com/sisk-http/core) and put the .DLL binaries and XML documentation file at the `ref/` directory, on the repository root.
-4. Run `docfx`, then `docfx serve`.
+### Prerequisites
 
-> [!WARNING]
-> 
-> Please, **do not** use the docfx version **2.78.0** or later. This version has a bug that changes the documentation navigation layout. See the [tracking issue](https://github.com/dotnet/docfx/issues/10424).
-> 
-> Prefer the version **2.76.0**:
-> 
-> ```
-> dotnet tool install -g docfx --version 2.76.0
-> ```
+1. **Bun** - [Download](https://bun.com/)
+2. **DocFX** (v2.76.0 recommended) - See installation warning below
+4. **.NET SDK** - [Download](https://dotnet.microsoft.com/en-us/download)
+
+### Quick Start
+
+1. Clone this repository
+2. Build the [Sisk Framework project](https://github.com/sisk-http/core) and put the .DLL binaries and XML documentation file at the `ref/` directory
+3. Run the unified build script:
+
+```bash
+# Restore package
+bun install
+
+# Full build (clean, translate, build)
+bun pack
+```
+
+4. Serve the documentation: `docfx serve`
 
 Then you're ready to go and you'll have the static website files at `/_site`.
 

@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class IniSection | Sisk </title>
+        <title>Class IniSection | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class IniSection | Sisk ">
+        <meta name="title" content="Class IniSection | Sisk ">
 
-
+        <meta name="description" content="Represents an INI section, which contains it&#39;s own properties.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.IniConfiguration.Core.IniSection.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,78 +153,199 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_IniConfiguration_Core_IniSection"> Class IniSection</h1>
+                <article data-uid="Sisk.IniConfiguration.Core.IniSection">
 
-<p>Namespace: <a href="Sisk.IniConfiguration.Core.html">Sisk.IniConfiguration.Core</a><br>
-Assembly: Sisk.IniConfiguration.Core.dll</p>
-<p>Represents an INI section, which contains it's own properties.</p>
-<pre><code class="lang-csharp">public sealed class IniSection : IDictionary&lt;string, string[]&gt;, ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable, IEquatable&lt;IniSection&gt;
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary&lt;string, string[]&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;IniSection&gt;</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_">IniSection(string)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a> class with the specified name.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___">IniSection(string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a> class with the specified name and items.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Count.html#Sisk_IniConfiguration_Core_IniSection_Count">Count</a></p>
-<p>Gets the number of properties in this INI section.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.IsReadOnly.html#Sisk_IniConfiguration_Core_IniSection_IsReadOnly">IsReadOnly</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Keys.html#Sisk_IniConfiguration_Core_IniSection_Keys">Keys</a></p>
-<p>Gets all keys defined in this INI section, without duplicates.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Name.html#Sisk_IniConfiguration_Core_IniSection_Name">Name</a></p>
-<p>Gets the INI section name.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Values.html#Sisk_IniConfiguration_Core_IniSection_Values">Values</a></p>
-<p>Gets all values defined in this INI section.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Item.html#Sisk_IniConfiguration_Core_IniSection_Item_System_String_">this[string]</a></p>
-<p>Gets all values associated with the specified property name, performing an case-insensitive search.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String___">Add(string, string[])</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String_">Add(string, string?)</a></p>
-<p>Adds a new key-value pair to the INI section.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">Add(KeyValuePair&lt;string, string[]&gt;)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Clear.html#Sisk_IniConfiguration_Core_IniSection_Clear">Clear()</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Contains.html#Sisk_IniConfiguration_Core_IniSection_Contains_System_Collections_Generic_KeyValuePair_System_String_System_String____">Contains(KeyValuePair&lt;string, string[]&gt;)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.ContainsKey.html#Sisk_IniConfiguration_Core_IniSection_ContainsKey_System_String_">ContainsKey(string)</a></p>
-<p>Gets an boolean indicating if the specified key/property name is
+
+
+  <h1 id="Sisk_IniConfiguration_Core_IniSection" data-uid="Sisk.IniConfiguration.Core.IniSection" class="text-break">
+Class IniSection  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.IniConfiguration.html">IniConfiguration</a>.<a class="xref" href="Sisk.IniConfiguration.Core.html">Core</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.IniConfiguration.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an INI section, which contains it's own properties.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class IniSection : IDictionary&lt;string, string[]&gt;, ICollection&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, string[]&gt;&gt;, IEnumerable, IEquatable&lt;IniSection&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">IniSection</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_">IniSection(string)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a> class with the specified name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.-ctor.html#Sisk_IniConfiguration_Core_IniSection__ctor_System_String_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_System_String_System_String___">IniSection(string, IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a> class with the specified name and items.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Count.html#Sisk_IniConfiguration_Core_IniSection_Count">Count</a></dt>
+    <dd><p>Gets the number of properties in this INI section.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.IsReadOnly.html#Sisk_IniConfiguration_Core_IniSection_IsReadOnly">IsReadOnly</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Item.html#Sisk_IniConfiguration_Core_IniSection_Item_System_String_">this[string]</a></dt>
+    <dd><p>Gets all values associated with the specified property name, performing an case-insensitive search.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Keys.html#Sisk_IniConfiguration_Core_IniSection_Keys">Keys</a></dt>
+    <dd><p>Gets all keys defined in this INI section, without duplicates.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Name.html#Sisk_IniConfiguration_Core_IniSection_Name">Name</a></dt>
+    <dd><p>Gets the INI section name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Values.html#Sisk_IniConfiguration_Core_IniSection_Values">Values</a></dt>
+    <dd><p>Gets all values defined in this INI section.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_Collections_Generic_KeyValuePair_System_String_System_String____">Add(KeyValuePair&lt;string, string[]&gt;)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String_">Add(string, string?)</a></dt>
+    <dd><p>Adds a new key-value pair to the INI section.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Add.html#Sisk_IniConfiguration_Core_IniSection_Add_System_String_System_String___">Add(string, string[])</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Clear.html#Sisk_IniConfiguration_Core_IniSection_Clear">Clear()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Contains.html#Sisk_IniConfiguration_Core_IniSection_Contains_System_Collections_Generic_KeyValuePair_System_String_System_String____">Contains(KeyValuePair&lt;string, string[]&gt;)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.ContainsKey.html#Sisk_IniConfiguration_Core_IniSection_ContainsKey_System_String_">ContainsKey(string)</a></dt>
+    <dd><p>Gets an boolean indicating if the specified key/property name is
 defined in this <a class="xref" href="Sisk.IniConfiguration.Core.IniSection.html">IniSection</a>.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.CopyTo.html#Sisk_IniConfiguration_Core_IniSection_CopyTo_System_Collections_Generic_KeyValuePair_System_String_System_String______System_Int32_">CopyTo(KeyValuePair&lt;string, string[]&gt;[], int)</a></p>
-<p>This method is not supported and will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a>.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Equals.html#Sisk_IniConfiguration_Core_IniSection_Equals_System_Object_">Equals(object?)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Equals.html#Sisk_IniConfiguration_Core_IniSection_Equals_Sisk_IniConfiguration_Core_IniSection_">Equals(IniSection?)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.GetEnumerator.html#Sisk_IniConfiguration_Core_IniSection_GetEnumerator">GetEnumerator()</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.GetHashCode.html#Sisk_IniConfiguration_Core_IniSection_GetHashCode">GetHashCode()</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.GetMany.html#Sisk_IniConfiguration_Core_IniSection_GetMany_System_String_">GetMany(string)</a></p>
-<p>Gets all values defined in this INI section by their property name.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.GetOne.html#Sisk_IniConfiguration_Core_IniSection_GetOne_System_String_">GetOne(string)</a></p>
-<p>Gets the last value defined in this INI section by their property name.</p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_String_">Remove(string)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_Collections_Generic_KeyValuePair_System_String_System_String____">Remove(KeyValuePair&lt;string, string[]&gt;)</a></p>
-<p><a href="Sisk.IniConfiguration.Core.IniSection.TryGetValue.html#Sisk_IniConfiguration_Core_IniSection_TryGetValue_System_String_System_String____">TryGetValue(string, out string[])</a></p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.CopyTo.html#Sisk_IniConfiguration_Core_IniSection_CopyTo_System_Collections_Generic_KeyValuePair_System_String_System_String______System_Int32_">CopyTo(KeyValuePair&lt;string, string[]&gt;[], int)</a></dt>
+    <dd><p>This method is not supported and will throw an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Equals.html#Sisk_IniConfiguration_Core_IniSection_Equals_Sisk_IniConfiguration_Core_IniSection_">Equals(IniSection?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Equals.html#Sisk_IniConfiguration_Core_IniSection_Equals_System_Object_">Equals(object?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.GetEnumerator.html#Sisk_IniConfiguration_Core_IniSection_GetEnumerator">GetEnumerator()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.GetHashCode.html#Sisk_IniConfiguration_Core_IniSection_GetHashCode">GetHashCode()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.GetMany.html#Sisk_IniConfiguration_Core_IniSection_GetMany_System_String_">GetMany(string)</a></dt>
+    <dd><p>Gets all values defined in this INI section by their property name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.GetOne.html#Sisk_IniConfiguration_Core_IniSection_GetOne_System_String_">GetOne(string)</a></dt>
+    <dd><p>Gets the last value defined in this INI section by their property name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_Collections_Generic_KeyValuePair_System_String_System_String____">Remove(KeyValuePair&lt;string, string[]&gt;)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.Remove.html#Sisk_IniConfiguration_Core_IniSection_Remove_System_String_">Remove(string)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.IniConfiguration.Core.IniSection.TryGetValue.html#Sisk_IniConfiguration_Core_IniSection_TryGetValue_System_String_System_String____">TryGetValue(string, out string[])</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.IniConfiguration.Core.IniSection.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

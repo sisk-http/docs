@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Delegate WebSocketUnregistrationHandler | Sisk </title>
+        <title>Delegate WebSocketUnregistrationHandler | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Delegate WebSocketUnregistrationHandler | Sisk ">
+        <meta name="title" content="Delegate WebSocketUnregistrationHandler | Sisk ">
 
-
+        <meta name="description" content="Represents an function that is called when an  is removed and had it&#39;s connection closed.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,27 +153,78 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Streams_WebSocketUnregistrationHandler"> Delegate WebSocketUnregistrationHandler</h1>
+                <article data-uid="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler">
 
-<p>Namespace: <a href="Sisk.Core.Http.Streams.html">Sisk.Core.Http.Streams</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents an function that is called when an <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection.html">HttpWebSocketConnectionCollection</a> is removed and had it's connection closed.</p>
-<pre><code class="lang-csharp">public delegate void WebSocketUnregistrationHandler(object sender, HttpWebSocket ws)
-</code></pre>
-<h4 id="parameters">Parameters</h4>
-<p><code>sender</code> <a href="https://learn.microsoft.com/dotnet/api/system.object">object</a></p>
-<p>Represents the caller <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection.html">HttpWebSocketConnectionCollection</a> object.</p>
-<p><code>ws</code> <a href="Sisk.Core.Http.Streams.HttpWebSocket.html">HttpWebSocket</a></p>
-<p>Represents the closed <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.html">HttpWebSocket</a> web socket connection.</p>
+
+
+  <h1 id="Sisk_Core_Http_Streams_WebSocketUnregistrationHandler" data-uid="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler" class="text-break">
+Delegate WebSocketUnregistrationHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Streams.html">Streams</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an function that is called when an <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection.html">HttpWebSocketConnectionCollection</a> is removed and had it's connection closed.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public delegate void WebSocketUnregistrationHandler(object sender, HttpWebSocket ws)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sender</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>Represents the caller <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocketConnectionCollection.html">HttpWebSocketConnectionCollection</a> object.</p>
+</dd>
+    <dt><code>ws</code> <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.html">HttpWebSocket</a></dt>
+    <dd><p>Represents the closed <a class="xref" href="Sisk.Core.Http.Streams.HttpWebSocket.html">HttpWebSocket</a> web socket connection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.-ctor.html#Sisk_Core_Http_Streams_WebSocketUnregistrationHandler__ctor_System_Object_System_IntPtr_">WebSocketUnregistrationHandler(object, nint)</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.BeginInvoke.html#Sisk_Core_Http_Streams_WebSocketUnregistrationHandler_BeginInvoke_System_Object_Sisk_Core_Http_Streams_HttpWebSocket_System_AsyncCallback_System_Object_">BeginInvoke(object, HttpWebSocket, AsyncCallback, object)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.EndInvoke.html#Sisk_Core_Http_Streams_WebSocketUnregistrationHandler_EndInvoke_System_IAsyncResult_">EndInvoke(IAsyncResult)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.Invoke.html#Sisk_Core_Http_Streams_WebSocketUnregistrationHandler_Invoke_System_Object_Sisk_Core_Http_Streams_HttpWebSocket_">Invoke(object, HttpWebSocket)</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.WebSocketUnregistrationHandler.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

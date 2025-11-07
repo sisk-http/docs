@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class ListeningHost | Sisk </title>
+        <title>Class ListeningHost | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class ListeningHost | Sisk ">
+        <meta name="title" content="Class ListeningHost | Sisk ">
 
-
+        <meta name="description" content="Provides a type to contain the fields needed by an HTTP server virtual host.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.ListeningHost.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,55 +153,145 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_ListeningHost"> Class ListeningHost</h1>
+                <article data-uid="Sisk.Core.Http.ListeningHost">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Provides a structure to contain the fields needed by an http server host.</p>
-<pre><code class="lang-csharp">public sealed class ListeningHost
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor">ListeningHost()</a></p>
-<p>Creates an new empty <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_Sisk_Core_Http_ListeningPort___">ListeningHost(params ListeningPort[])</a></p>
-<p>Creates an new <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance with given array of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_System_String_Sisk_Core_Routing_Router_">ListeningHost(string, Router)</a></p>
-<p>Creates an new <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance with given URL.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.ListeningHost.CanListen.html#Sisk_Core_Http_ListeningHost_CanListen">CanListen</a></p>
-<p>Gets whether this <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> can be listened by it's host <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy.html#Sisk_Core_Http_ListeningHost_CrossOriginResourceSharingPolicy">CrossOriginResourceSharingPolicy</a></p>
-<p>Gets or sets the CORS sharing policy object.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.Label.html#Sisk_Core_Http_ListeningHost_Label">Label</a></p>
-<p>Gets or sets a label for this Listening Host.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.Ports.html#Sisk_Core_Http_ListeningHost_Ports">Ports</a></p>
-<p>Gets or sets the list of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> that this host will listen on.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.Router.html#Sisk_Core_Http_ListeningHost_Router">Router</a></p>
-<p>Gets or sets the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> for this <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.ListeningHost.Equals.html#Sisk_Core_Http_ListeningHost_Equals_System_Object_">Equals(object?)</a></p>
-<p>Determines if another object is equals to this class instance.</p>
-<p><a href="Sisk.Core.Http.ListeningHost.GetHashCode.html#Sisk_Core_Http_ListeningHost_GetHashCode">GetHashCode()</a></p>
-<p>Gets the hash code for this listening host.</p>
+
+
+  <h1 id="Sisk_Core_Http_ListeningHost" data-uid="Sisk.Core.Http.ListeningHost" class="text-break">
+Class ListeningHost  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides a type to contain the fields needed by an HTTP server virtual host.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ListeningHost : IEquatable&lt;ListeningHost&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ListeningHost</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor">ListeningHost()</a></dt>
+    <dd><p>Creates an new empty <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_Sisk_Core_Http_ListeningPort___">ListeningHost(params ListeningPort[])</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance with given array of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.-ctor.html#Sisk_Core_Http_ListeningHost__ctor_System_String_Sisk_Core_Routing_Router_">ListeningHost(string, Router)</a></dt>
+    <dd><p>Creates an new <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance with given URL.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.CanListen.html#Sisk_Core_Http_ListeningHost_CanListen">CanListen</a></dt>
+    <dd><p>Gets whether this <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> can be listened by it's host <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy.html#Sisk_Core_Http_ListeningHost_CrossOriginResourceSharingPolicy">CrossOriginResourceSharingPolicy</a></dt>
+    <dd><p>Gets or sets the CORS sharing policy object.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.Label.html#Sisk_Core_Http_ListeningHost_Label">Label</a></dt>
+    <dd><p>Gets or sets a label for this Listening Host.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.Ports.html#Sisk_Core_Http_ListeningHost_Ports">Ports</a></dt>
+    <dd><p>Gets or sets the list of <a class="xref" href="Sisk.Core.Http.ListeningPort.html">ListeningPort</a> that this host will listen on.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.Router.html#Sisk_Core_Http_ListeningHost_Router">Router</a></dt>
+    <dd><p>Gets or sets the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> for this <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> instance.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.SslOptions.html#Sisk_Core_Http_ListeningHost_SslOptions">SslOptions</a></dt>
+    <dd><p>Gets or sets the SSL options for this <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a>.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.Equals.html#Sisk_Core_Http_ListeningHost_Equals_Sisk_Core_Http_ListeningHost_">Equals(ListeningHost?)</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.Equals.html#Sisk_Core_Http_ListeningHost_Equals_System_Object_">Equals(object?)</a></dt>
+    <dd><p>Determines if another object is equals to this class instance.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.ListeningHost.GetHashCode.html#Sisk_Core_Http_ListeningHost_GetHashCode">GetHashCode()</a></dt>
+    <dd><p>Gets the hash code for this listening host.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.ListeningHost.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

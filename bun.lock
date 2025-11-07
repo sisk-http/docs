@@ -1,0 +1,14 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "sisk-documentation",
+      "dependencies": {
+        "@cypherpotato/cascadium": "^1.0.3",
+      },
+    },
+  },
+  "packages": {
+    "@cypherpotato/cascadium": ["@cypherpotato/cascadium@1.0.3", "", { "bin": { "cascadium": "bin/cascadium.js" } }, "sha512-SkXPIXiJ6e4GVpTNY9HV7kL+8ku8GfI2KkOBMahKNg+3oL5xr2FrucwtSs7q6MOhWa+8Z82StvYlMBwR8b9ckg=="],
+  }
+}

@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Interface INode | Sisk </title>
+        <title>Interface INode | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Interface INode | Sisk ">
+        <meta name="title" content="Interface INode | Sisk ">
 
-
+        <meta name="description" content="Represents an renderable node.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/TinyComponents.INode.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,39 +153,94 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="TinyComponents_INode"> Interface INode</h1>
+                <article data-uid="TinyComponents.INode">
 
-<p>Namespace: <a href="TinyComponents.html">TinyComponents</a><br>
-Assembly: TinyComponents.dll</p>
-<p>Represents an renderable node.</p>
-<pre><code class="lang-csharp">public interface INode
-</code></pre>
-<h4 id="extension-methods">Extension Methods</h4>
-<p><a href="TinyComponents.XmlNodeExtensions.SelfClosed.html#TinyComponents_XmlNodeExtensions_SelfClosed__1___0_">XmlNodeExtensions.SelfClosed&lt;INode&gt;(INode)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_">XmlNodeExtensions.WithAttribute&lt;INode&gt;(INode, string)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_System_Object_">XmlNodeExtensions.WithAttribute&lt;INode&gt;(INode, string, object?)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithAttributes.html#TinyComponents_XmlNodeExtensions_WithAttributes__1___0_System_Object_">XmlNodeExtensions.WithAttributes&lt;INode&gt;(INode, object?)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Action___0__">XmlNodeExtensions.WithContent&lt;INode&gt;(INode, Action&lt;INode&gt;)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Object_">XmlNodeExtensions.WithContent&lt;INode&gt;(INode, object?)</a>,
-<a href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_String_">XmlNodeExtensions.WithContent&lt;INode&gt;(INode, string?)</a></p>
-<h2 id="properties">Properties</h2>
-<p><a href="TinyComponents.INode.Attributes.html#TinyComponents_INode_Attributes">Attributes</a></p>
-<p>Gets or sets an collection of attributes for this node.</p>
-<p><a href="TinyComponents.INode.Children.html#TinyComponents_INode_Children">Children</a></p>
-<p>Gets or sets the collection of child elements (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>) within this node.</p>
-<p><a href="TinyComponents.INode.SelfClosing.html#TinyComponents_INode_SelfClosing">SelfClosing</a></p>
-<p>Gets or sets a value indicating whether this XML node is self-closing.</p>
-<p><a href="TinyComponents.INode.TagName.html#TinyComponents_INode_TagName">TagName</a></p>
-<p>Gets or sets the tag name of the XML node.</p>
+
+
+  <h1 id="TinyComponents_INode" data-uid="TinyComponents.INode" class="text-break">
+Interface INode  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="TinyComponents.html">TinyComponents</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>TinyComponents.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an renderable node.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface INode</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.SelfClosed.html#TinyComponents_XmlNodeExtensions_SelfClosed__1___0_">XmlNodeExtensions.SelfClosed&lt;TXmlNode&gt;(TXmlNode)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_">XmlNodeExtensions.WithAttribute&lt;TXmlNode&gt;(TXmlNode, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttribute.html#TinyComponents_XmlNodeExtensions_WithAttribute__1___0_System_String_System_Object_">XmlNodeExtensions.WithAttribute&lt;TXmlNode&gt;(TXmlNode, string, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithAttributes.html#TinyComponents_XmlNodeExtensions_WithAttributes__1___0_System_Object_">XmlNodeExtensions.WithAttributes&lt;TXmlNode&gt;(TXmlNode, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Action___0__">XmlNodeExtensions.WithContent&lt;TXmlNode&gt;(TXmlNode, Action&lt;TXmlNode&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_Object_">XmlNodeExtensions.WithContent&lt;TXmlNode&gt;(TXmlNode, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TinyComponents.XmlNodeExtensions.WithContent.html#TinyComponents_XmlNodeExtensions_WithContent__1___0_System_String_">XmlNodeExtensions.WithContent&lt;TXmlNode&gt;(TXmlNode, string?)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.INode.Attributes.html#TinyComponents_INode_Attributes">Attributes</a></dt>
+    <dd><p>Gets or sets an collection of attributes for this node.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.INode.Children.html#TinyComponents_INode_Children">Children</a></dt>
+    <dd><p>Gets or sets the collection of child elements (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>) within this node.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.INode.SelfClosing.html#TinyComponents_INode_SelfClosing">SelfClosing</a></dt>
+    <dd><p>Gets or sets a value indicating whether this XML node is self-closing.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="TinyComponents.INode.TagName.html#TinyComponents_INode_TagName">TagName</a></dt>
+    <dd><p>Gets or sets the tag name of the XML node.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/TinyComponents.INode.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

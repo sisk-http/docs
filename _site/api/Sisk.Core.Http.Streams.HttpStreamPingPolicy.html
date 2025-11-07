@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class HttpStreamPingPolicy | Sisk </title>
+        <title>Class HttpStreamPingPolicy | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class HttpStreamPingPolicy | Sisk ">
+        <meta name="title" content="Class HttpStreamPingPolicy | Sisk ">
 
-
+        <meta name="description" content="Provides an automatic ping sender for HTTP Event Source connections.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,46 +153,116 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Streams_HttpStreamPingPolicy"> Class HttpStreamPingPolicy</h1>
+                <article data-uid="Sisk.Core.Http.Streams.HttpStreamPingPolicy">
 
-<p>Namespace: <a href="Sisk.Core.Http.Streams.html">Sisk.Core.Http.Streams</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Provides an automatic ping sender for HTTP Event Source connections.</p>
-<pre><code class="lang-csharp">public sealed class HttpStreamPingPolicy : IDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.html">HttpStreamPingPolicy</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.DataMessage.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_DataMessage">DataMessage</a></p>
-<p>Gets or sets the payload message that is sent to the server as a ping message.</p>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Interval.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Interval">Interval</a></p>
-<p>Gets or sets the sending interval for each ping message.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Dispose.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Dispose">Dispose()</a></p>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Finalize">~HttpStreamPingPolicy()</a></p>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start">Start()</a></p>
-<p>Starts sending periodic pings to the client.</p>
-<p><a href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start_System_String_System_TimeSpan_">Start(string, TimeSpan)</a></p>
-<p>Configures and starts sending periodic pings to the client.</p>
+
+
+  <h1 id="Sisk_Core_Http_Streams_HttpStreamPingPolicy" data-uid="Sisk.Core.Http.Streams.HttpStreamPingPolicy" class="text-break">
+Class HttpStreamPingPolicy  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Streams.html">Streams</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides an automatic ping sender for HTTP Event Source connections.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class HttpStreamPingPolicy : IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">HttpStreamPingPolicy</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.DataMessage.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_DataMessage">DataMessage</a></dt>
+    <dd><p>Gets or sets the payload message that is sent to the server as a ping message.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Interval.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Interval">Interval</a></dt>
+    <dd><p>Gets or sets the sending interval for each ping message.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Dispose.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Dispose">Dispose()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Finalize.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Finalize">~HttpStreamPingPolicy()</a></dt>
+    <dd></dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start">Start()</a></dt>
+    <dd><p>Starts sending periodic pings to the client.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.Streams.HttpStreamPingPolicy.Start.html#Sisk_Core_Http_Streams_HttpStreamPingPolicy_Start_System_String_System_TimeSpan_">Start(string, TimeSpan)</a></dt>
+    <dd><p>Configures and starts sending periodic pings to the client.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpStreamPingPolicy.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

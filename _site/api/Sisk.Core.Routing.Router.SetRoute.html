@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method SetRoute | Sisk </title>
+        <title>Method SetRoute | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method SetRoute | Sisk ">
+        <meta name="title" content="Method SetRoute | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Router.SetRoute.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,76 +153,242 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_"> Method SetRoute</h1>
+                <article data-uid="Sisk.Core.Routing.Router.SetRoute*">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_"> SetRoute(RouteMethod, string, RouteAction)</h2>
-<p>Defines an route with their method, path and action function.</p>
-<pre><code class="lang-csharp">public void SetRoute(RouteMethod method, string path, RouteAction action)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The route path.</p>
-<p><code>action</code> <a href="Sisk.Core.Routing.RouteAction.html">RouteAction</a></p>
-<p>The route function to be called after matched.</p>
-<h2 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_"> SetRoute(RouteMethod, string, Delegate)</h2>
-<p>Defines an route with their method, path and action function.</p>
-<pre><code class="lang-csharp">public void SetRoute(RouteMethod method, string path, Delegate action)
-</code></pre>
-<h3 id="parameters-1">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The route path.</p>
-<p><code>action</code> <a href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></p>
-<p>The route function to be called after matched.</p>
-<h2 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_"> SetRoute(RouteMethod, string, Delegate, string?)</h2>
-<p>Defines an route with their method, path, action function and name.</p>
-<pre><code class="lang-csharp">public void SetRoute(RouteMethod method, string path, Delegate action, string? name)
-</code></pre>
-<h3 id="parameters-2">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The route path.</p>
-<p><code>action</code> <a href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></p>
-<p>The route function to be called after matched.</p>
-<p><code>name</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a>?</p>
-<p>The route name.</p>
-<h2 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_Sisk_Core_Routing_IRequestHandler___"> SetRoute(RouteMethod, string, Delegate, string?, IRequestHandler[])</h2>
-<p>Defines an route with their method, path, action function, name and request handlers.</p>
-<pre><code class="lang-csharp">public void SetRoute(RouteMethod method, string path, Delegate action, string? name, IRequestHandler[] middlewares)
-</code></pre>
-<h3 id="parameters-3">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The route path.</p>
-<p><code>action</code> <a href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></p>
-<p>The route function to be called after matched.</p>
-<p><code>name</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a>?</p>
-<p>The route name.</p>
-<p><code>middlewares</code> <a href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a>[]</p>
-<p>Handlers that run before calling your route action.</p>
-<h2 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_Route_"> SetRoute(Route)</h2>
-<p>Defines an route in this Router instance.</p>
-<pre><code class="lang-csharp">public void SetRoute(Route r)
-</code></pre>
-<h3 id="parameters-4">Parameters</h3>
-<p><code>r</code> <a href="Sisk.Core.Routing.Route.html">Route</a></p>
-<p>The route to be defined in the Router.</p>
+
+
+
+
+<h1 id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*" class="text-break">
+Method SetRoute  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_Sisk_Core_Routing_RouteAction_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,Sisk.Core.Routing.RouteAction)">
+  SetRoute(RouteMethod, string, RouteAction)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route with their method, path and action function.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, RouteAction action)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route path.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="Sisk.Core.Routing.RouteAction.html">RouteAction</a></dt>
+  <dd><p>The route function to be called after matched.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate)">
+  SetRoute(RouteMethod, string, Delegate)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route with their method, path and action function.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route path.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The route function to be called after matched.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate,System.String)">
+  SetRoute(RouteMethod, string, Delegate, string?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route with their method, path, action function and name.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action, string? name)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route path.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The route function to be called after matched.</p>
+</dd>
+  <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route name.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_System_String_Sisk_Core_Routing_IRequestHandler___" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate,System.String,Sisk.Core.Routing.IRequestHandler[])">
+  SetRoute(RouteMethod, string, Delegate, string?, IRequestHandler[])
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route with their method, path, action function, name and request handlers.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(RouteMethod method, string path, Delegate action, string? name, IRequestHandler[] middlewares)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The route method to be matched. &quot;Any&quot; means any method that matches their path.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route path.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The route function to be called after matched.</p>
+</dd>
+  <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route name.</p>
+</dd>
+  <dt><code>middlewares</code> <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a>[]</dt>
+  <dd><p>Handlers that run before calling your route action.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Router_SetRoute_" data-uid="Sisk.Core.Routing.Router.SetRoute*"></a>
+
+<h3 id="Sisk_Core_Routing_Router_SetRoute_Sisk_Core_Routing_Route_" data-uid="Sisk.Core.Routing.Router.SetRoute(Sisk.Core.Routing.Route)">
+  SetRoute(Route)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Defines an route in this Router instance.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void SetRoute(Route r)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>r</code> <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a></dt>
+  <dd><p>The route to be defined in the Router.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Router.SetRoute.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

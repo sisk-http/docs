@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Constructor Route | Sisk </title>
+        <title>Constructor Route | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Constructor Route | Sisk ">
+        <meta name="title" content="Constructor Route | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Route.-ctor.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,49 +153,155 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_"> Constructor Route</h1>
+                <article data-uid="Sisk.Core.Routing.Route.#ctor*">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_"> Route(RouteMethod, string, Delegate?)</h2>
-<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
-<pre><code class="lang-csharp">public Route(RouteMethod method, string path, Delegate? action)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The path expression that will be interpreted by the router and validated by the requests.</p>
-<p><code>action</code> <a href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a>?</p>
-<p>The function that is called after the route is matched with the request.</p>
-<h2 id="Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_System_Delegate_Sisk_Core_Routing_IRequestHandler___"> Route(RouteMethod, string, string?, Delegate?, IRequestHandler[]?)</h2>
-<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
-<pre><code class="lang-csharp">public Route(RouteMethod method, string path, string? name, Delegate? action, IRequestHandler[]? handlers)
-</code></pre>
-<h3 id="parameters-1">Parameters</h3>
-<p><code>method</code> <a href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></p>
-<p>The matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
-<p><code>path</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The path expression that will be interpreted by the router and validated by the requests.</p>
-<p><code>name</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a>?</p>
-<p>The route name. It allows it to be found by other routes and makes it easier to create links.</p>
-<p><code>action</code> <a href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a>?</p>
-<p>The function that is called after the route is matched with the request.</p>
-<p><code>handlers</code> <a href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a>[]?</p>
-<p>The RequestHandlers to run before the route's Action.</p>
-<h2 id="Sisk_Core_Routing_Route__ctor"> Route()</h2>
-<p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with no parameters.</p>
-<pre><code class="lang-csharp">public Route()
-</code></pre>
+
+
+
+
+<h1 id="Sisk_Core_Routing_Route__ctor_" data-uid="Sisk.Core.Routing.Route.#ctor*" class="text-break">
+Constructor Route  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Route__ctor_" data-uid="Sisk.Core.Routing.Route.#ctor*"></a>
+
+<h3 id="Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_Delegate_" data-uid="Sisk.Core.Routing.Route.#ctor(Sisk.Core.Routing.RouteMethod,System.String,System.Delegate)">
+  Route(RouteMethod, string, Delegate?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public Route(RouteMethod method, string path, Delegate? action)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The path expression that will be interpreted by the router and validated by the requests.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The function that is called after the route is matched with the request.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Route__ctor_" data-uid="Sisk.Core.Routing.Route.#ctor*"></a>
+
+<h3 id="Sisk_Core_Routing_Route__ctor_Sisk_Core_Routing_RouteMethod_System_String_System_String_System_Delegate_Sisk_Core_Routing_IRequestHandler___" data-uid="Sisk.Core.Routing.Route.#ctor(Sisk.Core.Routing.RouteMethod,System.String,System.String,System.Delegate,Sisk.Core.Routing.IRequestHandler[])">
+  Route(RouteMethod, string, string?, Delegate?, IRequestHandler[]?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with given parameters.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public Route(RouteMethod method, string path, string? name, Delegate? action, IRequestHandler[]? handlers)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>method</code> <a class="xref" href="Sisk.Core.Routing.RouteMethod.html">RouteMethod</a></dt>
+  <dd><p>The matching HTTP method. If it is &quot;Any&quot;, the route will just use the path expression to be matched, not the HTTP method.</p>
+</dd>
+  <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The path expression that will be interpreted by the router and validated by the requests.</p>
+</dd>
+  <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The route name. It allows it to be found by other routes and makes it easier to create links.</p>
+</dd>
+  <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Delegate</a></dt>
+  <dd><p>The function that is called after the route is matched with the request.</p>
+</dd>
+  <dt><code>handlers</code> <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a>[]</dt>
+  <dd><p>The RequestHandlers to run before the route's Action.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Routing_Route__ctor_" data-uid="Sisk.Core.Routing.Route.#ctor*"></a>
+
+<h3 id="Sisk_Core_Routing_Route__ctor" data-uid="Sisk.Core.Routing.Route.#ctor">
+  Route()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Creates an new <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instance with no parameters.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public Route()</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.Route.-ctor.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

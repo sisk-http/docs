@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method ReceiveMessageAsync | Sisk </title>
+        <title>Method ReceiveMessageAsync | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method ReceiveMessageAsync | Sisk ">
+        <meta name="title" content="Method ReceiveMessageAsync | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,49 +153,158 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_Threading_CancellationToken_"> Method ReceiveMessageAsync</h1>
+                <article data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*">
 
-<p>Namespace: <a href="Sisk.Core.Http.Streams.html">Sisk.Core.Http.Streams</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_Threading_CancellationToken_"> ReceiveMessageAsync(CancellationToken)</h2>
-<p>Receives a message from the WebSocket endpoint asynchronously.</p>
-<pre><code class="lang-csharp">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync(CancellationToken cancellation = default)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>cancellation</code> <a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></p>
-<p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to use for cancellation.</p>
-<h3 id="returns">Returns</h3>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>?&gt;</p>
-<p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
+
+
+
+
+<h1 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*" class="text-break">
+Method ReceiveMessageAsync  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Streams.html">Streams</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*"></a>
+
+<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_Threading_CancellationToken_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.Threading.CancellationToken)">
+  ReceiveMessageAsync(CancellationToken)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Receives a message from the WebSocket endpoint asynchronously.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync(CancellationToken cancellation = default)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>cancellation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+  <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to use for cancellation.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>&gt;</dt>
+  <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
 which returns a <a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a> if a message is received; otherwise, <code>null</code>.</p>
-<h2 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_TimeSpan_"> ReceiveMessageAsync(TimeSpan)</h2>
-<p>Receives a message from the WebSocket endpoint asynchronously with a specified timeout.</p>
-<pre><code class="lang-csharp">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync(TimeSpan timeout)
-</code></pre>
-<h3 id="parameters-1">Parameters</h3>
-<p><code>timeout</code> <a href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></p>
-<p>The time to wait for a message before timing out.</p>
-<h3 id="returns-1">Returns</h3>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>?&gt;</p>
-<p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*"></a>
+
+<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_System_TimeSpan_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync(System.TimeSpan)">
+  ReceiveMessageAsync(TimeSpan)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Receives a message from the WebSocket endpoint asynchronously with a specified timeout.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync(TimeSpan timeout)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>timeout</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></dt>
+  <dd><p>The time to wait for a message before timing out.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>&gt;</dt>
+  <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
 which returns a <a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a> if a message is received; otherwise, <code>null</code>.</p>
-<h2 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync"> ReceiveMessageAsync()</h2>
-<p>Receives a message from the WebSocket endpoint asynchronously with a default timeout of 30 seconds.</p>
-<pre><code class="lang-csharp">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync()
-</code></pre>
-<h3 id="returns-2">Returns</h3>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>?&gt;</p>
-<p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync_" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync*"></a>
+
+<h3 id="Sisk_Core_Http_Streams_HttpWebSocket_ReceiveMessageAsync" data-uid="Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync">
+  ReceiveMessageAsync()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Receives a message from the WebSocket endpoint asynchronously with a default timeout of 30 seconds.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public ValueTask&lt;WebSocketMessage?&gt; ReceiveMessageAsync()</code></pre>
+</div>
+
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a>&gt;</dt>
+  <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask&lt;TResult&gt;</a> that represents the asynchronous receive operation,
 which returns a <a class="xref" href="Sisk.Core.Http.Streams.WebSocketMessage.html">WebSocketMessage</a> if a message is received; otherwise, <code>null</code>.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpWebSocket.ReceiveMessageAsync.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class CadenteHttpServerEngine | Sisk </title>
+        <title>Class CadenteHttpServerEngine | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class CadenteHttpServerEngine | Sisk ">
+        <meta name="title" content="Class CadenteHttpServerEngine | Sisk ">
 
-
+        <meta name="description" content="Represents an HTTP server engine based on the Cadente host. This class implements  and  to manage the lifecycle of the HTTP server.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,69 +153,161 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Cadente_CoreEngine_CadenteHttpServerEngine"> Class CadenteHttpServerEngine</h1>
+                <article data-uid="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine">
 
-<p>Namespace: <a href="Sisk.Cadente.CoreEngine.html">Sisk.Cadente.CoreEngine</a><br>
-Assembly: Sisk.Cadente.CoreEngine.dll</p>
-<p>Represents an HTTP server engine based on the Cadente host.
+
+
+  <h1 id="Sisk_Cadente_CoreEngine_CadenteHttpServerEngine" data-uid="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine" class="text-break">
+Class CadenteHttpServerEngine  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Cadente.html">Cadente</a>.<a class="xref" href="Sisk.Cadente.CoreEngine.html">CoreEngine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Cadente.CoreEngine.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents an HTTP server engine based on the Cadente host.
 This class implements <a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a> and <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
 to manage the lifecycle of the HTTP server.</p>
-<pre><code class="lang-csharp">public sealed class CadenteHttpServerEngine : HttpServerEngine, IDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-HttpServerEngine ←
-<a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.html">CadenteHttpServerEngine</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p>HttpServerEngine.AddListeningPrefix(string),
-HttpServerEngine.ClearPrefixes(),
-HttpServerEngine.StartServer(),
-HttpServerEngine.StopServer(),
-HttpServerEngine.BeginGetContext(AsyncCallback?, object?),
-HttpServerEngine.EndGetContext(IAsyncResult),
-HttpServerEngine.Dispose(),
-HttpServerEngine.IdleConnectionTimeout,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.-ctor.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine__ctor">CadenteHttpServerEngine()</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.html">CadenteHttpServerEngine</a> class.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.-ctor.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine__ctor_System_Action_Sisk_Cadente_HttpHost__">CadenteHttpServerEngine(Action&lt;HttpHost&gt;)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.html">CadenteHttpServerEngine</a> class
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class CadenteHttpServerEngine : HttpServerEngine, IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngine.html">HttpServerEngine</a></div>
+      <div><span class="xref">CadenteHttpServerEngine</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.-ctor.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine__ctor">CadenteHttpServerEngine()</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.html">CadenteHttpServerEngine</a> class.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.-ctor.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine__ctor_System_Action_Sisk_Cadente_HttpHost__">CadenteHttpServerEngine(Action&lt;HttpHost&gt;)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.html">CadenteHttpServerEngine</a> class
 with a specified action to set up each HTTP host.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_IdleConnectionTimeout">IdleConnectionTimeout</a></p>
-<p>Gets or sets the timeout for idle connections.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_AddListeningPrefix_System_String_">AddListeningPrefix(string)</a></p>
-<p>Adds a listening prefix to the server.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_">BeginGetContext(AsyncCallback?, object?)</a></p>
-<p>Begins an asynchronous operation to get an HTTP context.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_ClearPrefixes">ClearPrefixes()</a></p>
-<p>Clears all listening prefixes from the server.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.Dispose.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_Dispose">Dispose()</a></p>
-<p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EndGetContext.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_EndGetContext_System_IAsyncResult_">EndGetContext(IAsyncResult)</a></p>
-<p>Ends an asynchronous operation to get an HTTP context.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StartServer.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_StartServer">StartServer()</a></p>
-<p>Starts the HTTP server.</p>
-<p><a href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StopServer.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_StopServer">StopServer()</a></p>
-<p>Stops the HTTP server.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_EventLoopMecanism">EventLoopMecanism</a></dt>
+    <dd><p>Gets the event loop mechanism used by the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_IdleConnectionTimeout">IdleConnectionTimeout</a></dt>
+    <dd><p>Gets or sets the timeout for idle connections.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_ListeningPrefixes">ListeningPrefixes</a></dt>
+    <dd><p>Gets or sets the listening prefixes for the server.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_">BeginGetContext(AsyncCallback?, object?)</a></dt>
+    <dd><p>Begins an asynchronous operation to get an HTTP context.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.Dispose.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_Dispose">Dispose()</a></dt>
+    <dd><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EndGetContext.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_EndGetContext_System_IAsyncResult_">EndGetContext(IAsyncResult)</a></dt>
+    <dd><p>Ends an asynchronous operation to get an HTTP context.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_GetContextAsync_System_Threading_CancellationToken_">GetContextAsync(CancellationToken)</a></dt>
+    <dd><p>Asynchronously obtains an <a class="xref" href="Sisk.Core.Http.Engine.HttpServerEngineContext.html">HttpServerEngineContext</a>.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_OnConfiguring_Sisk_Core_Http_HttpServer_Sisk_Core_Http_HttpServerConfiguration_">OnConfiguring(HttpServer, HttpServerConfiguration)</a></dt>
+    <dd><p>Called when the server is being configured.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_SetListeningHosts_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__">SetListeningHosts(IEnumerable&lt;ListeningHost&gt;)</a></dt>
+    <dd><p>Sets the listening hosts for the server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StartServer.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_StartServer">StartServer()</a></dt>
+    <dd><p>Starts the HTTP server.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StopServer.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_StopServer">StopServer()</a></dt>
+    <dd><p>Stops the HTTP server.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

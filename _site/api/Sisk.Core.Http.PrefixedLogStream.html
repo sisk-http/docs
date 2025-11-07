@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class PrefixedLogStream | Sisk </title>
+        <title>Class PrefixedLogStream | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class PrefixedLogStream | Sisk ">
+        <meta name="title" content="Class PrefixedLogStream | Sisk ">
 
-
+        <meta name="description" content="Represents a log stream that prefixes log messages with a custom string.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.PrefixedLogStream.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,87 +153,234 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_PrefixedLogStream"> Class PrefixedLogStream</h1>
+                <article data-uid="Sisk.Core.Http.PrefixedLogStream">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents a log stream that prefixes log messages with a custom string.</p>
-<pre><code class="lang-csharp">public sealed class PrefixedLogStream : LogStream, IDisposable, IAsyncDisposable
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Http.LogStream.html">LogStream</a> ←
-<a href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="Sisk.Core.Http.LogStream.Flush.html#Sisk_Core_Http_LogStream_Flush">LogStream.Flush()</a>,
-<a href="Sisk.Core.Http.LogStream.FlushAsync.html#Sisk_Core_Http_LogStream_FlushAsync">LogStream.FlushAsync()</a>,
-<a href="Sisk.Core.Http.LogStream.Peek.html#Sisk_Core_Http_LogStream_Peek">LogStream.Peek()</a>,
-<a href="Sisk.Core.Http.LogStream.StartBuffering.html#Sisk_Core_Http_LogStream_StartBuffering_System_Int32_">LogStream.StartBuffering(int)</a>,
-<a href="Sisk.Core.Http.LogStream.StopBuffering.html#Sisk_Core_Http_LogStream_StopBuffering">LogStream.StopBuffering()</a>,
-<a href="Sisk.Core.Http.LogStream.Close.html#Sisk_Core_Http_LogStream_Close">LogStream.Close()</a>,
-<a href="Sisk.Core.Http.LogStream.ConfigureRotatingPolicy.html#Sisk_Core_Http_LogStream_ConfigureRotatingPolicy_System_Int64_System_TimeSpan_">LogStream.ConfigureRotatingPolicy(long, TimeSpan)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_">LogStream.WriteException(Exception)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_System_String_">LogStream.WriteException(Exception, string?)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine">LogStream.WriteLine()</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_Object_">LogStream.WriteLine(object?)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_">LogStream.WriteLine(string)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__">LogStream.WriteLine(string, params ReadOnlySpan&lt;object?&gt;)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__">LogStream.WriteLine(string, params IEnumerable&lt;object?&gt;)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_IFormatProvider_System_String_System_Object___">LogStream.WriteLine(IFormatProvider?, string, params object?[])</a>,
-<a href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_">LogStream.WriteExceptionAsync(Exception)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_System_String_">LogStream.WriteExceptionAsync(Exception, string?)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync">LogStream.WriteLineAsync()</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_Object_">LogStream.WriteLineAsync(object?)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_">LogStream.WriteLineAsync(string)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Collections_Generic_IEnumerable_System_Object__">LogStream.WriteLineAsync(string, params IEnumerable&lt;object?&gt;)</a>,
-<a href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_IFormatProvider_System_String_System_Object___">LogStream.WriteLineAsync(IFormatProvider?, string, params object?[])</a>,
-<a href="Sisk.Core.Http.LogStream.DisposeAsync.html#Sisk_Core_Http_LogStream_DisposeAsync">LogStream.DisposeAsync()</a>,
-<a href="Sisk.Core.Http.LogStream.Dispose.html#Sisk_Core_Http_LogStream_Dispose">LogStream.Dispose()</a>,
-<a href="Sisk.Core.Http.LogStream.ConsoleOutput.html#Sisk_Core_Http_LogStream_ConsoleOutput">LogStream.ConsoleOutput</a>,
-<a href="Sisk.Core.Http.LogStream.Empty.html#Sisk_Core_Http_LogStream_Empty">LogStream.Empty</a>,
-<a href="Sisk.Core.Http.LogStream.RotatingPolicy.html#Sisk_Core_Http_LogStream_RotatingPolicy">LogStream.RotatingPolicy</a>,
-<a href="Sisk.Core.Http.LogStream.IsBuffering.html#Sisk_Core_Http_LogStream_IsBuffering">LogStream.IsBuffering</a>,
-<a href="Sisk.Core.Http.LogStream.Disposed.html#Sisk_Core_Http_LogStream_Disposed">LogStream.Disposed</a>,
-<a href="Sisk.Core.Http.LogStream.NormalizeEntries.html#Sisk_Core_Http_LogStream_NormalizeEntries">LogStream.NormalizeEntries</a>,
-<a href="Sisk.Core.Http.LogStream.FilePath.html#Sisk_Core_Http_LogStream_FilePath">LogStream.FilePath</a>,
-<a href="Sisk.Core.Http.LogStream.TextWriter.html#Sisk_Core_Http_LogStream_TextWriter">LogStream.TextWriter</a>,
-<a href="Sisk.Core.Http.LogStream.Encoding.html#Sisk_Core_Http_LogStream_Encoding">LogStream.Encoding</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__">PrefixedLogStream(Func&lt;string&gt;)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function.</p>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_IO_TextWriter_">PrefixedLogStream(Func&lt;string&gt;, TextWriter)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function and text writer.</p>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_String_">PrefixedLogStream(Func&lt;string&gt;, string)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function and file name.</p>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_String_System_IO_TextWriter_">PrefixedLogStream(Func&lt;string&gt;, string?, TextWriter?)</a></p>
-<p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function, file name, and text writer.</p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.PrefixFunction.html#Sisk_Core_Http_PrefixedLogStream_PrefixFunction">PrefixFunction</a></p>
-<p>Gets or sets a function that returns the prefix to be added to log messages.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.WriteLineInternal.html#Sisk_Core_Http_PrefixedLogStream_WriteLineInternal_System_String_">WriteLineInternal(string)</a></p>
-<p>Represents the method that intercepts the line that will be written to an output log before being queued for writing.
+
+
+  <h1 id="Sisk_Core_Http_PrefixedLogStream" data-uid="Sisk.Core.Http.PrefixedLogStream" class="text-break">
+Class PrefixedLogStream  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a log stream that prefixes log messages with a custom string.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class PrefixedLogStream : LogStream, IDisposable, IAsyncDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Sisk.Core.Http.LogStream.html">LogStream</a></div>
+      <div><span class="xref">PrefixedLogStream</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Flush.html#Sisk_Core_Http_LogStream_Flush">LogStream.Flush()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.FlushAsync.html#Sisk_Core_Http_LogStream_FlushAsync">LogStream.FlushAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Peek.html#Sisk_Core_Http_LogStream_Peek">LogStream.Peek()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.StartBuffering.html#Sisk_Core_Http_LogStream_StartBuffering_System_Int32_">LogStream.StartBuffering(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.StopBuffering.html#Sisk_Core_Http_LogStream_StopBuffering">LogStream.StopBuffering()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Close.html#Sisk_Core_Http_LogStream_Close">LogStream.Close()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.ConfigureRotatingPolicy.html#Sisk_Core_Http_LogStream_ConfigureRotatingPolicy_System_Int64_System_TimeSpan_">LogStream.ConfigureRotatingPolicy(long, TimeSpan)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_">LogStream.WriteException(Exception)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteException.html#Sisk_Core_Http_LogStream_WriteException_System_Exception_System_String_">LogStream.WriteException(Exception, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine">LogStream.WriteLine()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_Object_">LogStream.WriteLine(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_">LogStream.WriteLine(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__">LogStream.WriteLine(string, params ReadOnlySpan&lt;object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__">LogStream.WriteLine(string, params IEnumerable&lt;object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLine.html#Sisk_Core_Http_LogStream_WriteLine_System_IFormatProvider_System_String_System_Object___">LogStream.WriteLine(IFormatProvider, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_">LogStream.WriteExceptionAsync(Exception)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteExceptionAsync.html#Sisk_Core_Http_LogStream_WriteExceptionAsync_System_Exception_System_String_">LogStream.WriteExceptionAsync(Exception, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync">LogStream.WriteLineAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_Object_">LogStream.WriteLineAsync(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_">LogStream.WriteLineAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_String_System_Collections_Generic_IEnumerable_System_Object__">LogStream.WriteLineAsync(string, params IEnumerable&lt;object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.WriteLineAsync.html#Sisk_Core_Http_LogStream_WriteLineAsync_System_IFormatProvider_System_String_System_Object___">LogStream.WriteLineAsync(IFormatProvider, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.DisposeAsync.html#Sisk_Core_Http_LogStream_DisposeAsync">LogStream.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Dispose.html#Sisk_Core_Http_LogStream_Dispose">LogStream.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.ConsoleOutput.html#Sisk_Core_Http_LogStream_ConsoleOutput">LogStream.ConsoleOutput</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Empty.html#Sisk_Core_Http_LogStream_Empty">LogStream.Empty</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.RotatingPolicy.html#Sisk_Core_Http_LogStream_RotatingPolicy">LogStream.RotatingPolicy</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.IsBuffering.html#Sisk_Core_Http_LogStream_IsBuffering">LogStream.IsBuffering</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Disposed.html#Sisk_Core_Http_LogStream_Disposed">LogStream.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.NormalizeEntries.html#Sisk_Core_Http_LogStream_NormalizeEntries">LogStream.NormalizeEntries</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.FilePath.html#Sisk_Core_Http_LogStream_FilePath">LogStream.FilePath</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.TextWriter.html#Sisk_Core_Http_LogStream_TextWriter">LogStream.TextWriter</a>
+    </div>
+    <div>
+      <a class="xref" href="Sisk.Core.Http.LogStream.Encoding.html#Sisk_Core_Http_LogStream_Encoding">LogStream.Encoding</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__">PrefixedLogStream(Func&lt;string&gt;)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_IO_TextWriter_">PrefixedLogStream(Func&lt;string&gt;, TextWriter)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function and text writer.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_String_">PrefixedLogStream(Func&lt;string&gt;, string)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function and file name.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.-ctor.html#Sisk_Core_Http_PrefixedLogStream__ctor_System_Func_System_String__System_String_System_IO_TextWriter_">PrefixedLogStream(Func&lt;string&gt;, string?, TextWriter?)</a></dt>
+    <dd><p>Initializes a new instance of the <a class="xref" href="Sisk.Core.Http.PrefixedLogStream.html">PrefixedLogStream</a> class with the specified prefix function, file name, and text writer.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.PrefixFunction.html#Sisk_Core_Http_PrefixedLogStream_PrefixFunction">PrefixFunction</a></dt>
+    <dd><p>Gets or sets a function that returns the prefix to be added to log messages.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.SuffixFunction.html#Sisk_Core_Http_PrefixedLogStream_SuffixFunction">SuffixFunction</a></dt>
+    <dd><p>Gets or sets the function that provides a suffix string value.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.WriteLineInternal.html#Sisk_Core_Http_PrefixedLogStream_WriteLineInternal_System_String_">WriteLineInternal(string)</a></dt>
+    <dd><p>Represents the method that intercepts the line that will be written to an output log before being queued for writing.
 This method will block if the log queue is full.</p>
-<p><a href="Sisk.Core.Http.PrefixedLogStream.WriteLineInternalAsync.html#Sisk_Core_Http_PrefixedLogStream_WriteLineInternalAsync_System_String_">WriteLineInternalAsync(string)</a></p>
-<p>Represents the asynchronous method that intercepts the line that will be written to an output log before being queued for writing.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Http.PrefixedLogStream.WriteLineInternalAsync.html#Sisk_Core_Http_PrefixedLogStream_WriteLineInternalAsync_System_String_">WriteLineInternalAsync(string)</a></dt>
+    <dd><p>Represents the asynchronous method that intercepts the line that will be written to an output log before being queued for writing.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.PrefixedLogStream.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

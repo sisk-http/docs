@@ -178,21 +178,6 @@ references:
   fullName.vb: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.New
   nameWithType: CadenteHttpServerEngine.CadenteHttpServerEngine
   nameWithType.vb: CadenteHttpServerEngine.New
-- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix(System.String)
-  name: AddListeningPrefix(string)
-  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_AddListeningPrefix_System_String_
-  commentId: M:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix(System.String)
-  name.vb: AddListeningPrefix(String)
-  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix(string)
-  fullName.vb: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix(String)
-  nameWithType: CadenteHttpServerEngine.AddListeningPrefix(string)
-  nameWithType.vb: CadenteHttpServerEngine.AddListeningPrefix(String)
-- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix*
-  name: AddListeningPrefix
-  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix.html
-  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix
-  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.AddListeningPrefix
-  nameWithType: CadenteHttpServerEngine.AddListeningPrefix
 - uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext(System.AsyncCallback,System.Object)
   name: BeginGetContext(AsyncCallback?, object?)
   href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_
@@ -208,18 +193,6 @@ references:
   commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext
   fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.BeginGetContext
   nameWithType: CadenteHttpServerEngine.BeginGetContext
-- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes
-  name: ClearPrefixes()
-  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_ClearPrefixes
-  commentId: M:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes
-  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes()
-  nameWithType: CadenteHttpServerEngine.ClearPrefixes()
-- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes*
-  name: ClearPrefixes
-  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes.html
-  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes
-  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ClearPrefixes
-  nameWithType: CadenteHttpServerEngine.ClearPrefixes
 - uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.Dispose
   name: Dispose()
   href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.Dispose.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_Dispose
@@ -244,6 +217,30 @@ references:
   commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EndGetContext
   fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EndGetContext
   nameWithType: CadenteHttpServerEngine.EndGetContext
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism
+  name: EventLoopMecanism
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_EventLoopMecanism
+  commentId: P:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism
+  nameWithType: CadenteHttpServerEngine.EventLoopMecanism
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism*
+  name: EventLoopMecanism
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism.html
+  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.EventLoopMecanism
+  nameWithType: CadenteHttpServerEngine.EventLoopMecanism
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  name: GetContextAsync(CancellationToken)
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_GetContextAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  nameWithType: CadenteHttpServerEngine.GetContextAsync(CancellationToken)
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync*
+  name: GetContextAsync
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync.html
+  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.GetContextAsync
+  nameWithType: CadenteHttpServerEngine.GetContextAsync
 - uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout
   name: IdleConnectionTimeout
   href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_IdleConnectionTimeout
@@ -256,6 +253,45 @@ references:
   commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout
   fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.IdleConnectionTimeout
   nameWithType: CadenteHttpServerEngine.IdleConnectionTimeout
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes
+  name: ListeningPrefixes
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_ListeningPrefixes
+  commentId: P:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes
+  nameWithType: CadenteHttpServerEngine.ListeningPrefixes
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes*
+  name: ListeningPrefixes
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes.html
+  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.ListeningPrefixes
+  nameWithType: CadenteHttpServerEngine.ListeningPrefixes
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  name: OnConfiguring(HttpServer, HttpServerConfiguration)
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_OnConfiguring_Sisk_Core_Http_HttpServer_Sisk_Core_Http_HttpServerConfiguration_
+  commentId: M:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer, Sisk.Core.Http.HttpServerConfiguration)
+  nameWithType: CadenteHttpServerEngine.OnConfiguring(HttpServer, HttpServerConfiguration)
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring*
+  name: OnConfiguring
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring.html
+  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.OnConfiguring
+  nameWithType: CadenteHttpServerEngine.OnConfiguring
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name: SetListeningHosts(IEnumerable<ListeningHost>)
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_SetListeningHosts_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__
+  commentId: M:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name.vb: SetListeningHosts(IEnumerable(Of ListeningHost))
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable<Sisk.Core.Http.ListeningHost>)
+  fullName.vb: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable(Of Sisk.Core.Http.ListeningHost))
+  nameWithType: CadenteHttpServerEngine.SetListeningHosts(IEnumerable<ListeningHost>)
+  nameWithType.vb: CadenteHttpServerEngine.SetListeningHosts(IEnumerable(Of ListeningHost))
+- uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts*
+  name: SetListeningHosts
+  href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts.html
+  commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts
+  fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.SetListeningHosts
+  nameWithType: CadenteHttpServerEngine.SetListeningHosts
 - uid: Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StartServer
   name: StartServer()
   href: api/Sisk.Cadente.CoreEngine.CadenteHttpServerEngine.StartServer.html#Sisk_Cadente_CoreEngine_CadenteHttpServerEngine_StartServer
@@ -742,42 +778,6 @@ references:
   commentId: Overload:Sisk.Cadente.CoreEngine.CadenteHttpServerEngineResponse.StatusDescription
   fullName: Sisk.Cadente.CoreEngine.CadenteHttpServerEngineResponse.StatusDescription
   nameWithType: CadenteHttpServerEngineResponse.StatusDescription
-- uid: Sisk.Cadente.HttpEventStreamWriter
-  name: HttpEventStreamWriter
-  href: api/Sisk.Cadente.HttpEventStreamWriter.html
-  commentId: T:Sisk.Cadente.HttpEventStreamWriter
-  fullName: Sisk.Cadente.HttpEventStreamWriter
-  nameWithType: HttpEventStreamWriter
-- uid: Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync(System.String)
-  name: WriteDataAsync(string)
-  href: api/Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync.html#Sisk_Cadente_HttpEventStreamWriter_WriteDataAsync_System_String_
-  commentId: M:Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync(System.String)
-  name.vb: WriteDataAsync(String)
-  fullName: Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync(string)
-  fullName.vb: Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync(String)
-  nameWithType: HttpEventStreamWriter.WriteDataAsync(string)
-  nameWithType.vb: HttpEventStreamWriter.WriteDataAsync(String)
-- uid: Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync*
-  name: WriteDataAsync
-  href: api/Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync.html
-  commentId: Overload:Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync
-  fullName: Sisk.Cadente.HttpEventStreamWriter.WriteDataAsync
-  nameWithType: HttpEventStreamWriter.WriteDataAsync
-- uid: Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync(System.String)
-  name: WriteEventAsync(string)
-  href: api/Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync.html#Sisk_Cadente_HttpEventStreamWriter_WriteEventAsync_System_String_
-  commentId: M:Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync(System.String)
-  name.vb: WriteEventAsync(String)
-  fullName: Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync(string)
-  fullName.vb: Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync(String)
-  nameWithType: HttpEventStreamWriter.WriteEventAsync(string)
-  nameWithType.vb: HttpEventStreamWriter.WriteEventAsync(String)
-- uid: Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync*
-  name: WriteEventAsync
-  href: api/Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync.html
-  commentId: Overload:Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync
-  fullName: Sisk.Cadente.HttpEventStreamWriter.WriteEventAsync
-  nameWithType: HttpEventStreamWriter.WriteEventAsync
 - uid: Sisk.Cadente.HttpHeader
   name: HttpHeader
   href: api/Sisk.Cadente.HttpHeader.html
@@ -892,27 +892,252 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHeader.Value
   fullName: Sisk.Cadente.HttpHeader.Value
   nameWithType: HttpHeader.Value
-- uid: Sisk.Cadente.HttpHeaderExtensions
-  name: HttpHeaderExtensions
-  href: api/Sisk.Cadente.HttpHeaderExtensions.html
-  commentId: T:Sisk.Cadente.HttpHeaderExtensions
-  fullName: Sisk.Cadente.HttpHeaderExtensions
-  nameWithType: HttpHeaderExtensions
-- uid: Sisk.Cadente.HttpHeaderExtensions.Set(System.Collections.Generic.List{Sisk.Cadente.HttpHeader},Sisk.Cadente.HttpHeader@)
-  name: Set(List<HttpHeader>, in HttpHeader)
-  href: api/Sisk.Cadente.HttpHeaderExtensions.Set.html#Sisk_Cadente_HttpHeaderExtensions_Set_System_Collections_Generic_List_Sisk_Cadente_HttpHeader__Sisk_Cadente_HttpHeader__
-  commentId: M:Sisk.Cadente.HttpHeaderExtensions.Set(System.Collections.Generic.List{Sisk.Cadente.HttpHeader},Sisk.Cadente.HttpHeader@)
-  name.vb: Set(List(Of HttpHeader), HttpHeader)
-  fullName: Sisk.Cadente.HttpHeaderExtensions.Set(System.Collections.Generic.List<Sisk.Cadente.HttpHeader>, in Sisk.Cadente.HttpHeader)
-  fullName.vb: Sisk.Cadente.HttpHeaderExtensions.Set(System.Collections.Generic.List(Of Sisk.Cadente.HttpHeader), Sisk.Cadente.HttpHeader)
-  nameWithType: HttpHeaderExtensions.Set(List<HttpHeader>, in HttpHeader)
-  nameWithType.vb: HttpHeaderExtensions.Set(List(Of HttpHeader), HttpHeader)
-- uid: Sisk.Cadente.HttpHeaderExtensions.Set*
+- uid: Sisk.Cadente.HttpHeaderList
+  name: HttpHeaderList
+  href: api/Sisk.Cadente.HttpHeaderList.html
+  commentId: T:Sisk.Cadente.HttpHeaderList
+  fullName: Sisk.Cadente.HttpHeaderList
+  nameWithType: HttpHeaderList
+- uid: Sisk.Cadente.HttpHeaderList.#ctor
+  name: HttpHeaderList()
+  href: api/Sisk.Cadente.HttpHeaderList.-ctor.html#Sisk_Cadente_HttpHeaderList__ctor
+  commentId: M:Sisk.Cadente.HttpHeaderList.#ctor
+  name.vb: New()
+  fullName: Sisk.Cadente.HttpHeaderList.HttpHeaderList()
+  fullName.vb: Sisk.Cadente.HttpHeaderList.New()
+  nameWithType: HttpHeaderList.HttpHeaderList()
+  nameWithType.vb: HttpHeaderList.New()
+- uid: Sisk.Cadente.HttpHeaderList.#ctor(System.Collections.Generic.IEnumerable{Sisk.Cadente.HttpHeader})
+  name: HttpHeaderList(IEnumerable<HttpHeader>)
+  href: api/Sisk.Cadente.HttpHeaderList.-ctor.html#Sisk_Cadente_HttpHeaderList__ctor_System_Collections_Generic_IEnumerable_Sisk_Cadente_HttpHeader__
+  commentId: M:Sisk.Cadente.HttpHeaderList.#ctor(System.Collections.Generic.IEnumerable{Sisk.Cadente.HttpHeader})
+  name.vb: New(IEnumerable(Of HttpHeader))
+  fullName: Sisk.Cadente.HttpHeaderList.HttpHeaderList(System.Collections.Generic.IEnumerable<Sisk.Cadente.HttpHeader>)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.New(System.Collections.Generic.IEnumerable(Of Sisk.Cadente.HttpHeader))
+  nameWithType: HttpHeaderList.HttpHeaderList(IEnumerable<HttpHeader>)
+  nameWithType.vb: HttpHeaderList.New(IEnumerable(Of HttpHeader))
+- uid: Sisk.Cadente.HttpHeaderList.#ctor(System.Collections.Generic.IEnumerable{Sisk.Cadente.HttpHeader},System.Boolean)
+  name: HttpHeaderList(IEnumerable<HttpHeader>, bool)
+  href: api/Sisk.Cadente.HttpHeaderList.-ctor.html#Sisk_Cadente_HttpHeaderList__ctor_System_Collections_Generic_IEnumerable_Sisk_Cadente_HttpHeader__System_Boolean_
+  commentId: M:Sisk.Cadente.HttpHeaderList.#ctor(System.Collections.Generic.IEnumerable{Sisk.Cadente.HttpHeader},System.Boolean)
+  name.vb: New(IEnumerable(Of HttpHeader), Boolean)
+  fullName: Sisk.Cadente.HttpHeaderList.HttpHeaderList(System.Collections.Generic.IEnumerable<Sisk.Cadente.HttpHeader>, bool)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.New(System.Collections.Generic.IEnumerable(Of Sisk.Cadente.HttpHeader), Boolean)
+  nameWithType: HttpHeaderList.HttpHeaderList(IEnumerable<HttpHeader>, bool)
+  nameWithType.vb: HttpHeaderList.New(IEnumerable(Of HttpHeader), Boolean)
+- uid: Sisk.Cadente.HttpHeaderList.#ctor*
+  name: HttpHeaderList
+  href: api/Sisk.Cadente.HttpHeaderList.-ctor.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.#ctor
+  name.vb: New
+  fullName: Sisk.Cadente.HttpHeaderList.HttpHeaderList
+  fullName.vb: Sisk.Cadente.HttpHeaderList.New
+  nameWithType: HttpHeaderList.HttpHeaderList
+  nameWithType.vb: HttpHeaderList.New
+- uid: Sisk.Cadente.HttpHeaderList.Add(Sisk.Cadente.HttpHeader)
+  name: Add(HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.Add.html#Sisk_Cadente_HttpHeaderList_Add_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Add(Sisk.Cadente.HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.Add(Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.Add(HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.Add*
+  name: Add
+  href: api/Sisk.Cadente.HttpHeaderList.Add.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Add
+  fullName: Sisk.Cadente.HttpHeaderList.Add
+  nameWithType: HttpHeaderList.Add
+- uid: Sisk.Cadente.HttpHeaderList.Clear
+  name: Clear()
+  href: api/Sisk.Cadente.HttpHeaderList.Clear.html#Sisk_Cadente_HttpHeaderList_Clear
+  commentId: M:Sisk.Cadente.HttpHeaderList.Clear
+  fullName: Sisk.Cadente.HttpHeaderList.Clear()
+  nameWithType: HttpHeaderList.Clear()
+- uid: Sisk.Cadente.HttpHeaderList.Clear*
+  name: Clear
+  href: api/Sisk.Cadente.HttpHeaderList.Clear.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Clear
+  fullName: Sisk.Cadente.HttpHeaderList.Clear
+  nameWithType: HttpHeaderList.Clear
+- uid: Sisk.Cadente.HttpHeaderList.Contains(Sisk.Cadente.HttpHeader)
+  name: Contains(HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.Contains.html#Sisk_Cadente_HttpHeaderList_Contains_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Contains(Sisk.Cadente.HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.Contains(Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.Contains(HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.Contains(System.String)
+  name: Contains(string)
+  href: api/Sisk.Cadente.HttpHeaderList.Contains.html#Sisk_Cadente_HttpHeaderList_Contains_System_String_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Contains(System.String)
+  name.vb: Contains(String)
+  fullName: Sisk.Cadente.HttpHeaderList.Contains(string)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.Contains(String)
+  nameWithType: HttpHeaderList.Contains(string)
+  nameWithType.vb: HttpHeaderList.Contains(String)
+- uid: Sisk.Cadente.HttpHeaderList.Contains*
+  name: Contains
+  href: api/Sisk.Cadente.HttpHeaderList.Contains.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Contains
+  fullName: Sisk.Cadente.HttpHeaderList.Contains
+  nameWithType: HttpHeaderList.Contains
+- uid: Sisk.Cadente.HttpHeaderList.CopyTo(Sisk.Cadente.HttpHeader[],System.Int32)
+  name: CopyTo(HttpHeader[], int)
+  href: api/Sisk.Cadente.HttpHeaderList.CopyTo.html#Sisk_Cadente_HttpHeaderList_CopyTo_Sisk_Cadente_HttpHeader___System_Int32_
+  commentId: M:Sisk.Cadente.HttpHeaderList.CopyTo(Sisk.Cadente.HttpHeader[],System.Int32)
+  name.vb: CopyTo(HttpHeader(), Integer)
+  fullName: Sisk.Cadente.HttpHeaderList.CopyTo(Sisk.Cadente.HttpHeader[], int)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.CopyTo(Sisk.Cadente.HttpHeader(), Integer)
+  nameWithType: HttpHeaderList.CopyTo(HttpHeader[], int)
+  nameWithType.vb: HttpHeaderList.CopyTo(HttpHeader(), Integer)
+- uid: Sisk.Cadente.HttpHeaderList.CopyTo*
+  name: CopyTo
+  href: api/Sisk.Cadente.HttpHeaderList.CopyTo.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.CopyTo
+  fullName: Sisk.Cadente.HttpHeaderList.CopyTo
+  nameWithType: HttpHeaderList.CopyTo
+- uid: Sisk.Cadente.HttpHeaderList.Count
+  name: Count
+  href: api/Sisk.Cadente.HttpHeaderList.Count.html#Sisk_Cadente_HttpHeaderList_Count
+  commentId: P:Sisk.Cadente.HttpHeaderList.Count
+  fullName: Sisk.Cadente.HttpHeaderList.Count
+  nameWithType: HttpHeaderList.Count
+- uid: Sisk.Cadente.HttpHeaderList.Count*
+  name: Count
+  href: api/Sisk.Cadente.HttpHeaderList.Count.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Count
+  fullName: Sisk.Cadente.HttpHeaderList.Count
+  nameWithType: HttpHeaderList.Count
+- uid: Sisk.Cadente.HttpHeaderList.Get(System.String)
+  name: Get(string)
+  href: api/Sisk.Cadente.HttpHeaderList.Get.html#Sisk_Cadente_HttpHeaderList_Get_System_String_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Get(System.String)
+  name.vb: Get(String)
+  fullName: Sisk.Cadente.HttpHeaderList.Get(string)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.Get(String)
+  nameWithType: HttpHeaderList.Get(string)
+  nameWithType.vb: HttpHeaderList.Get(String)
+- uid: Sisk.Cadente.HttpHeaderList.Get*
+  name: Get
+  href: api/Sisk.Cadente.HttpHeaderList.Get.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Get
+  fullName: Sisk.Cadente.HttpHeaderList.Get
+  nameWithType: HttpHeaderList.Get
+- uid: Sisk.Cadente.HttpHeaderList.GetEnumerator
+  name: GetEnumerator()
+  href: api/Sisk.Cadente.HttpHeaderList.GetEnumerator.html#Sisk_Cadente_HttpHeaderList_GetEnumerator
+  commentId: M:Sisk.Cadente.HttpHeaderList.GetEnumerator
+  fullName: Sisk.Cadente.HttpHeaderList.GetEnumerator()
+  nameWithType: HttpHeaderList.GetEnumerator()
+- uid: Sisk.Cadente.HttpHeaderList.GetEnumerator*
+  name: GetEnumerator
+  href: api/Sisk.Cadente.HttpHeaderList.GetEnumerator.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.GetEnumerator
+  fullName: Sisk.Cadente.HttpHeaderList.GetEnumerator
+  nameWithType: HttpHeaderList.GetEnumerator
+- uid: Sisk.Cadente.HttpHeaderList.IndexOf(Sisk.Cadente.HttpHeader)
+  name: IndexOf(HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.IndexOf.html#Sisk_Cadente_HttpHeaderList_IndexOf_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.IndexOf(Sisk.Cadente.HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.IndexOf(Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.IndexOf(HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.IndexOf*
+  name: IndexOf
+  href: api/Sisk.Cadente.HttpHeaderList.IndexOf.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.IndexOf
+  fullName: Sisk.Cadente.HttpHeaderList.IndexOf
+  nameWithType: HttpHeaderList.IndexOf
+- uid: Sisk.Cadente.HttpHeaderList.Insert(System.Int32,Sisk.Cadente.HttpHeader)
+  name: Insert(int, HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.Insert.html#Sisk_Cadente_HttpHeaderList_Insert_System_Int32_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Insert(System.Int32,Sisk.Cadente.HttpHeader)
+  name.vb: Insert(Integer, HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.Insert(int, Sisk.Cadente.HttpHeader)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.Insert(Integer, Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.Insert(int, HttpHeader)
+  nameWithType.vb: HttpHeaderList.Insert(Integer, HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.Insert*
+  name: Insert
+  href: api/Sisk.Cadente.HttpHeaderList.Insert.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Insert
+  fullName: Sisk.Cadente.HttpHeaderList.Insert
+  nameWithType: HttpHeaderList.Insert
+- uid: Sisk.Cadente.HttpHeaderList.IsReadOnly
+  name: IsReadOnly
+  href: api/Sisk.Cadente.HttpHeaderList.IsReadOnly.html#Sisk_Cadente_HttpHeaderList_IsReadOnly
+  commentId: P:Sisk.Cadente.HttpHeaderList.IsReadOnly
+  fullName: Sisk.Cadente.HttpHeaderList.IsReadOnly
+  nameWithType: HttpHeaderList.IsReadOnly
+- uid: Sisk.Cadente.HttpHeaderList.IsReadOnly*
+  name: IsReadOnly
+  href: api/Sisk.Cadente.HttpHeaderList.IsReadOnly.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.IsReadOnly
+  fullName: Sisk.Cadente.HttpHeaderList.IsReadOnly
+  nameWithType: HttpHeaderList.IsReadOnly
+- uid: Sisk.Cadente.HttpHeaderList.Item(System.Int32)
+  name: this[int]
+  href: api/Sisk.Cadente.HttpHeaderList.Item.html#Sisk_Cadente_HttpHeaderList_Item_System_Int32_
+  commentId: P:Sisk.Cadente.HttpHeaderList.Item(System.Int32)
+  name.vb: this[](Integer)
+  fullName: Sisk.Cadente.HttpHeaderList.this[int]
+  fullName.vb: Sisk.Cadente.HttpHeaderList.this[](Integer)
+  nameWithType: HttpHeaderList.this[int]
+  nameWithType.vb: HttpHeaderList.this[](Integer)
+- uid: Sisk.Cadente.HttpHeaderList.Item*
+  name: this
+  href: api/Sisk.Cadente.HttpHeaderList.Item.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Item
+  name.vb: this[]
+  fullName: Sisk.Cadente.HttpHeaderList.this
+  fullName.vb: Sisk.Cadente.HttpHeaderList.this[]
+  nameWithType: HttpHeaderList.this
+  nameWithType.vb: HttpHeaderList.this[]
+- uid: Sisk.Cadente.HttpHeaderList.Remove(Sisk.Cadente.HttpHeader)
+  name: Remove(HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.Remove.html#Sisk_Cadente_HttpHeaderList_Remove_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Remove(Sisk.Cadente.HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.Remove(Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.Remove(HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.Remove(System.String)
+  name: Remove(string)
+  href: api/Sisk.Cadente.HttpHeaderList.Remove.html#Sisk_Cadente_HttpHeaderList_Remove_System_String_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Remove(System.String)
+  name.vb: Remove(String)
+  fullName: Sisk.Cadente.HttpHeaderList.Remove(string)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.Remove(String)
+  nameWithType: HttpHeaderList.Remove(string)
+  nameWithType.vb: HttpHeaderList.Remove(String)
+- uid: Sisk.Cadente.HttpHeaderList.Remove*
+  name: Remove
+  href: api/Sisk.Cadente.HttpHeaderList.Remove.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Remove
+  fullName: Sisk.Cadente.HttpHeaderList.Remove
+  nameWithType: HttpHeaderList.Remove
+- uid: Sisk.Cadente.HttpHeaderList.RemoveAt(System.Int32)
+  name: RemoveAt(int)
+  href: api/Sisk.Cadente.HttpHeaderList.RemoveAt.html#Sisk_Cadente_HttpHeaderList_RemoveAt_System_Int32_
+  commentId: M:Sisk.Cadente.HttpHeaderList.RemoveAt(System.Int32)
+  name.vb: RemoveAt(Integer)
+  fullName: Sisk.Cadente.HttpHeaderList.RemoveAt(int)
+  fullName.vb: Sisk.Cadente.HttpHeaderList.RemoveAt(Integer)
+  nameWithType: HttpHeaderList.RemoveAt(int)
+  nameWithType.vb: HttpHeaderList.RemoveAt(Integer)
+- uid: Sisk.Cadente.HttpHeaderList.RemoveAt*
+  name: RemoveAt
+  href: api/Sisk.Cadente.HttpHeaderList.RemoveAt.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.RemoveAt
+  fullName: Sisk.Cadente.HttpHeaderList.RemoveAt
+  nameWithType: HttpHeaderList.RemoveAt
+- uid: Sisk.Cadente.HttpHeaderList.Set(Sisk.Cadente.HttpHeader)
+  name: Set(HttpHeader)
+  href: api/Sisk.Cadente.HttpHeaderList.Set.html#Sisk_Cadente_HttpHeaderList_Set_Sisk_Cadente_HttpHeader_
+  commentId: M:Sisk.Cadente.HttpHeaderList.Set(Sisk.Cadente.HttpHeader)
+  fullName: Sisk.Cadente.HttpHeaderList.Set(Sisk.Cadente.HttpHeader)
+  nameWithType: HttpHeaderList.Set(HttpHeader)
+- uid: Sisk.Cadente.HttpHeaderList.Set*
   name: Set
-  href: api/Sisk.Cadente.HttpHeaderExtensions.Set.html
-  commentId: Overload:Sisk.Cadente.HttpHeaderExtensions.Set
-  fullName: Sisk.Cadente.HttpHeaderExtensions.Set
-  nameWithType: HttpHeaderExtensions.Set
+  href: api/Sisk.Cadente.HttpHeaderList.Set.html
+  commentId: Overload:Sisk.Cadente.HttpHeaderList.Set
+  fullName: Sisk.Cadente.HttpHeaderList.Set
+  nameWithType: HttpHeaderList.Set
 - uid: Sisk.Cadente.HttpHost
   name: HttpHost
   href: api/Sisk.Cadente.HttpHost.html
@@ -1021,18 +1246,6 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHost.IsDisposed
   fullName: Sisk.Cadente.HttpHost.IsDisposed
   nameWithType: HttpHost.IsDisposed
-- uid: Sisk.Cadente.HttpHost.QueueSize
-  name: QueueSize
-  href: api/Sisk.Cadente.HttpHost.QueueSize.html#Sisk_Cadente_HttpHost_QueueSize
-  commentId: P:Sisk.Cadente.HttpHost.QueueSize
-  fullName: Sisk.Cadente.HttpHost.QueueSize
-  nameWithType: HttpHost.QueueSize
-- uid: Sisk.Cadente.HttpHost.QueueSize*
-  name: QueueSize
-  href: api/Sisk.Cadente.HttpHost.QueueSize.html
-  commentId: Overload:Sisk.Cadente.HttpHost.QueueSize
-  fullName: Sisk.Cadente.HttpHost.QueueSize
-  nameWithType: HttpHost.QueueSize
 - uid: Sisk.Cadente.HttpHost.ServerNameHeader
   name: ServerNameHeader
   href: api/Sisk.Cadente.HttpHost.ServerNameHeader.html#Sisk_Cadente_HttpHost_ServerNameHeader
@@ -1237,36 +1450,21 @@ references:
   commentId: T:Sisk.Cadente.HttpHostContext.HttpResponse
   fullName: Sisk.Cadente.HttpHostContext.HttpResponse
   nameWithType: HttpHostContext.HttpResponse
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream
-  name: GetEventStream()
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream.html#Sisk_Cadente_HttpHostContext_HttpResponse_GetEventStream
-  commentId: M:Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream()
-  nameWithType: HttpHostContext.HttpResponse.GetEventStream()
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream(System.Text.Encoding)
-  name: GetEventStream(Encoding)
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream.html#Sisk_Cadente_HttpHostContext_HttpResponse_GetEventStream_System_Text_Encoding_
-  commentId: M:Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream(System.Text.Encoding)
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream(System.Text.Encoding)
-  nameWithType: HttpHostContext.HttpResponse.GetEventStream(Encoding)
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream*
-  name: GetEventStream
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream.html
-  commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetEventStream
-  nameWithType: HttpHostContext.HttpResponse.GetEventStream
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream
-  name: GetResponseStream()
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream.html#Sisk_Cadente_HttpHostContext_HttpResponse_GetResponseStream
-  commentId: M:Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream()
-  nameWithType: HttpHostContext.HttpResponse.GetResponseStream()
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream*
-  name: GetResponseStream
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream.html
-  commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStream
-  nameWithType: HttpHostContext.HttpResponse.GetResponseStream
+- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync(System.Boolean)
+  name: GetResponseStreamAsync(bool)
+  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync.html#Sisk_Cadente_HttpHostContext_HttpResponse_GetResponseStreamAsync_System_Boolean_
+  commentId: M:Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync(System.Boolean)
+  name.vb: GetResponseStreamAsync(Boolean)
+  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync(bool)
+  fullName.vb: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync(Boolean)
+  nameWithType: HttpHostContext.HttpResponse.GetResponseStreamAsync(bool)
+  nameWithType.vb: HttpHostContext.HttpResponse.GetResponseStreamAsync(Boolean)
+- uid: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync*
+  name: GetResponseStreamAsync
+  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync.html
+  commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync
+  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.GetResponseStreamAsync
+  nameWithType: HttpHostContext.HttpResponse.GetResponseStreamAsync
 - uid: Sisk.Cadente.HttpHostContext.HttpResponse.Headers
   name: Headers
   href: api/Sisk.Cadente.HttpHostContext.HttpResponse.Headers.html#Sisk_Cadente_HttpHostContext_HttpResponse_Headers
@@ -1279,30 +1477,6 @@ references:
   commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.Headers
   fullName: Sisk.Cadente.HttpHostContext.HttpResponse.Headers
   nameWithType: HttpHostContext.HttpResponse.Headers
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream
-  name: ResponseStream
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream.html#Sisk_Cadente_HttpHostContext_HttpResponse_ResponseStream
-  commentId: P:Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream
-  nameWithType: HttpHostContext.HttpResponse.ResponseStream
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream*
-  name: ResponseStream
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream.html
-  commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.ResponseStream
-  nameWithType: HttpHostContext.HttpResponse.ResponseStream
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked
-  name: SendChunked
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked.html#Sisk_Cadente_HttpHostContext_HttpResponse_SendChunked
-  commentId: P:Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked
-  nameWithType: HttpHostContext.HttpResponse.SendChunked
-- uid: Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked*
-  name: SendChunked
-  href: api/Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked.html
-  commentId: Overload:Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked
-  fullName: Sisk.Cadente.HttpHostContext.HttpResponse.SendChunked
-  nameWithType: HttpHostContext.HttpResponse.SendChunked
 - uid: Sisk.Cadente.HttpHostContext.HttpResponse.StatusCode
   name: StatusCode
   href: api/Sisk.Cadente.HttpHostContext.HttpResponse.StatusCode.html#Sisk_Cadente_HttpHostContext_HttpResponse_StatusCode
@@ -4030,6 +4204,42 @@ references:
   commentId: N:Sisk.Core.Helpers
   fullName: Sisk.Core.Helpers
   nameWithType: Sisk.Core.Helpers
+- uid: Sisk.Core.Helpers.CertificateHelper
+  name: CertificateHelper
+  href: api/Sisk.Core.Helpers.CertificateHelper.html
+  commentId: T:Sisk.Core.Helpers.CertificateHelper
+  fullName: Sisk.Core.Helpers.CertificateHelper
+  nameWithType: CertificateHelper
+- uid: Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate(System.String[])
+  name: CreateDevelopmentCertificate(params string[])
+  href: api/Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate.html#Sisk_Core_Helpers_CertificateHelper_CreateDevelopmentCertificate_System_String___
+  commentId: M:Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate(System.String[])
+  name.vb: CreateDevelopmentCertificate(ParamArray String())
+  fullName: Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate(params string[])
+  fullName.vb: Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate(ParamArray String())
+  nameWithType: CertificateHelper.CreateDevelopmentCertificate(params string[])
+  nameWithType.vb: CertificateHelper.CreateDevelopmentCertificate(ParamArray String())
+- uid: Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate*
+  name: CreateDevelopmentCertificate
+  href: api/Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate.html
+  commentId: Overload:Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate
+  fullName: Sisk.Core.Helpers.CertificateHelper.CreateDevelopmentCertificate
+  nameWithType: CertificateHelper.CreateDevelopmentCertificate
+- uid: Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate(System.String[])
+  name: CreateTrustedDevelopmentCertificate(params string[])
+  href: api/Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate.html#Sisk_Core_Helpers_CertificateHelper_CreateTrustedDevelopmentCertificate_System_String___
+  commentId: M:Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate(System.String[])
+  name.vb: CreateTrustedDevelopmentCertificate(ParamArray String())
+  fullName: Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate(params string[])
+  fullName.vb: Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate(ParamArray String())
+  nameWithType: CertificateHelper.CreateTrustedDevelopmentCertificate(params string[])
+  nameWithType.vb: CertificateHelper.CreateTrustedDevelopmentCertificate(ParamArray String())
+- uid: Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate*
+  name: CreateTrustedDevelopmentCertificate
+  href: api/Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate.html
+  commentId: Overload:Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate
+  fullName: Sisk.Core.Helpers.CertificateHelper.CreateTrustedDevelopmentCertificate
+  nameWithType: CertificateHelper.CreateTrustedDevelopmentCertificate
 - uid: Sisk.Core.Helpers.CookieHelper
   name: CookieHelper
   href: api/Sisk.Core.Helpers.CookieHelper.html
@@ -5206,21 +5416,6 @@ references:
   fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.New
   nameWithType: HttpListenerAbstractEngine.HttpListenerAbstractEngine
   nameWithType.vb: HttpListenerAbstractEngine.New
-- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(System.String)
-  name: AddListeningPrefix(string)
-  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_AddListeningPrefix_System_String_
-  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(System.String)
-  name.vb: AddListeningPrefix(String)
-  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(string)
-  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix(String)
-  nameWithType: HttpListenerAbstractEngine.AddListeningPrefix(string)
-  nameWithType.vb: HttpListenerAbstractEngine.AddListeningPrefix(String)
-- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix*
-  name: AddListeningPrefix
-  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix.html
-  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix
-  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.AddListeningPrefix
-  nameWithType: HttpListenerAbstractEngine.AddListeningPrefix
 - uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext(System.AsyncCallback,System.Object)
   name: BeginGetContext(AsyncCallback?, object?)
   href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_BeginGetContext_System_AsyncCallback_System_Object_
@@ -5236,18 +5431,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext
   fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.BeginGetContext
   nameWithType: HttpListenerAbstractEngine.BeginGetContext
-- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
-  name: ClearPrefixes()
-  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_ClearPrefixes
-  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
-  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes()
-  nameWithType: HttpListenerAbstractEngine.ClearPrefixes()
-- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes*
-  name: ClearPrefixes
-  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes.html
-  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
-  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ClearPrefixes
-  nameWithType: HttpListenerAbstractEngine.ClearPrefixes
 - uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Dispose.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Dispose
@@ -5272,6 +5455,30 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext
   fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EndGetContext
   nameWithType: HttpListenerAbstractEngine.EndGetContext
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism
+  name: EventLoopMecanism
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_EventLoopMecanism
+  commentId: P:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism
+  nameWithType: HttpListenerAbstractEngine.EventLoopMecanism
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism*
+  name: EventLoopMecanism
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.EventLoopMecanism
+  nameWithType: HttpListenerAbstractEngine.EventLoopMecanism
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync(System.Threading.CancellationToken)
+  name: GetContextAsync(CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_GetContextAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync(System.Threading.CancellationToken)
+  nameWithType: HttpListenerAbstractEngine.GetContextAsync(CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync*
+  name: GetContextAsync
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.GetContextAsync
+  nameWithType: HttpListenerAbstractEngine.GetContextAsync
 - uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
   name: IdleConnectionTimeout
   href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_IdleConnectionTimeout
@@ -5284,6 +5491,45 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
   fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.IdleConnectionTimeout
   nameWithType: HttpListenerAbstractEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes
+  name: ListeningPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_ListeningPrefixes
+  commentId: P:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes
+  nameWithType: HttpListenerAbstractEngine.ListeningPrefixes
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes*
+  name: ListeningPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.ListeningPrefixes
+  nameWithType: HttpListenerAbstractEngine.ListeningPrefixes
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  name: OnConfiguring(HttpServer, HttpServerConfiguration)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_OnConfiguring_Sisk_Core_Http_HttpServer_Sisk_Core_Http_HttpServerConfiguration_
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring(Sisk.Core.Http.HttpServer, Sisk.Core.Http.HttpServerConfiguration)
+  nameWithType: HttpListenerAbstractEngine.OnConfiguring(HttpServer, HttpServerConfiguration)
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring*
+  name: OnConfiguring
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.OnConfiguring
+  nameWithType: HttpListenerAbstractEngine.OnConfiguring
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name: SetListeningHosts(IEnumerable<ListeningHost>)
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_SetListeningHosts_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__
+  commentId: M:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name.vb: SetListeningHosts(IEnumerable(Of ListeningHost))
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts(System.Collections.Generic.IEnumerable<Sisk.Core.Http.ListeningHost>)
+  fullName.vb: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts(System.Collections.Generic.IEnumerable(Of Sisk.Core.Http.ListeningHost))
+  nameWithType: HttpListenerAbstractEngine.SetListeningHosts(IEnumerable<ListeningHost>)
+  nameWithType.vb: HttpListenerAbstractEngine.SetListeningHosts(IEnumerable(Of ListeningHost))
+- uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts*
+  name: SetListeningHosts
+  href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts
+  fullName: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.SetListeningHosts
+  nameWithType: HttpListenerAbstractEngine.SetListeningHosts
 - uid: Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared
   name: Shared
   href: api/Sisk.Core.Http.Engine.HttpListenerAbstractEngine.Shared.html#Sisk_Core_Http_Engine_HttpListenerAbstractEngine_Shared
@@ -5344,21 +5590,6 @@ references:
   fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.New
   nameWithType: HttpServerEngine.HttpServerEngine
   nameWithType.vb: HttpServerEngine.New
-- uid: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(System.String)
-  name: AddListeningPrefix(string)
-  href: api/Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix.html#Sisk_Core_Http_Engine_HttpServerEngine_AddListeningPrefix_System_String_
-  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(System.String)
-  name.vb: AddListeningPrefix(String)
-  fullName: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(string)
-  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix(String)
-  nameWithType: HttpServerEngine.AddListeningPrefix(string)
-  nameWithType.vb: HttpServerEngine.AddListeningPrefix(String)
-- uid: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix*
-  name: AddListeningPrefix
-  href: api/Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix.html
-  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix
-  fullName: Sisk.Core.Http.Engine.HttpServerEngine.AddListeningPrefix
-  nameWithType: HttpServerEngine.AddListeningPrefix
 - uid: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext(System.AsyncCallback,System.Object)
   name: BeginGetContext(AsyncCallback?, object?)
   href: api/Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext.html#Sisk_Core_Http_Engine_HttpServerEngine_BeginGetContext_System_AsyncCallback_System_Object_
@@ -5374,18 +5605,6 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext
   fullName: Sisk.Core.Http.Engine.HttpServerEngine.BeginGetContext
   nameWithType: HttpServerEngine.BeginGetContext
-- uid: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
-  name: ClearPrefixes()
-  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes.html#Sisk_Core_Http_Engine_HttpServerEngine_ClearPrefixes
-  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
-  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes()
-  nameWithType: HttpServerEngine.ClearPrefixes()
-- uid: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes*
-  name: ClearPrefixes
-  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes.html
-  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
-  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ClearPrefixes
-  nameWithType: HttpServerEngine.ClearPrefixes
 - uid: Sisk.Core.Http.Engine.HttpServerEngine.Dispose
   name: Dispose()
   href: api/Sisk.Core.Http.Engine.HttpServerEngine.Dispose.html#Sisk_Core_Http_Engine_HttpServerEngine_Dispose
@@ -5410,6 +5629,30 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext
   fullName: Sisk.Core.Http.Engine.HttpServerEngine.EndGetContext
   nameWithType: HttpServerEngine.EndGetContext
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism
+  name: EventLoopMecanism
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism.html#Sisk_Core_Http_Engine_HttpServerEngine_EventLoopMecanism
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism
+  nameWithType: HttpServerEngine.EventLoopMecanism
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism*
+  name: EventLoopMecanism
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.EventLoopMecanism
+  nameWithType: HttpServerEngine.EventLoopMecanism
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  name: GetContextAsync(CancellationToken)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync.html#Sisk_Core_Http_Engine_HttpServerEngine_GetContextAsync_System_Threading_CancellationToken_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync(System.Threading.CancellationToken)
+  nameWithType: HttpServerEngine.GetContextAsync(CancellationToken)
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync*
+  name: GetContextAsync
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.GetContextAsync
+  nameWithType: HttpServerEngine.GetContextAsync
 - uid: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
   name: IdleConnectionTimeout
   href: api/Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout.html#Sisk_Core_Http_Engine_HttpServerEngine_IdleConnectionTimeout
@@ -5422,6 +5665,45 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
   fullName: Sisk.Core.Http.Engine.HttpServerEngine.IdleConnectionTimeout
   nameWithType: HttpServerEngine.IdleConnectionTimeout
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes
+  name: ListeningPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes.html#Sisk_Core_Http_Engine_HttpServerEngine_ListeningPrefixes
+  commentId: P:Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes
+  nameWithType: HttpServerEngine.ListeningPrefixes
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes*
+  name: ListeningPrefixes
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.ListeningPrefixes
+  nameWithType: HttpServerEngine.ListeningPrefixes
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  name: OnConfiguring(HttpServer, HttpServerConfiguration)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring.html#Sisk_Core_Http_Engine_HttpServerEngine_OnConfiguring_Sisk_Core_Http_HttpServer_Sisk_Core_Http_HttpServerConfiguration_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer,Sisk.Core.Http.HttpServerConfiguration)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring(Sisk.Core.Http.HttpServer, Sisk.Core.Http.HttpServerConfiguration)
+  nameWithType: HttpServerEngine.OnConfiguring(HttpServer, HttpServerConfiguration)
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring*
+  name: OnConfiguring
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.OnConfiguring
+  nameWithType: HttpServerEngine.OnConfiguring
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name: SetListeningHosts(IEnumerable<ListeningHost>)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts.html#Sisk_Core_Http_Engine_HttpServerEngine_SetListeningHosts_System_Collections_Generic_IEnumerable_Sisk_Core_Http_ListeningHost__
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable{Sisk.Core.Http.ListeningHost})
+  name.vb: SetListeningHosts(IEnumerable(Of ListeningHost))
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable<Sisk.Core.Http.ListeningHost>)
+  fullName.vb: Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts(System.Collections.Generic.IEnumerable(Of Sisk.Core.Http.ListeningHost))
+  nameWithType: HttpServerEngine.SetListeningHosts(IEnumerable<ListeningHost>)
+  nameWithType.vb: HttpServerEngine.SetListeningHosts(IEnumerable(Of ListeningHost))
+- uid: Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts*
+  name: SetListeningHosts
+  href: api/Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts
+  fullName: Sisk.Core.Http.Engine.HttpServerEngine.SetListeningHosts
+  nameWithType: HttpServerEngine.SetListeningHosts
 - uid: Sisk.Core.Http.Engine.HttpServerEngine.StartServer
   name: StartServer()
   href: api/Sisk.Core.Http.Engine.HttpServerEngine.StartServer.html#Sisk_Core_Http_Engine_HttpServerEngine_StartServer
@@ -5521,6 +5803,24 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineContext.Response
   fullName: Sisk.Core.Http.Engine.HttpServerEngineContext.Response
   nameWithType: HttpServerEngineContext.Response
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism
+  name: HttpServerEngineContextEventLoopMecanism
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.html
+  commentId: T:Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism
+  nameWithType: HttpServerEngineContextEventLoopMecanism
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.InlineAsyncronousGetContext
+  name: InlineAsyncronousGetContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.html#Sisk_Core_Http_Engine_HttpServerEngineContextEventLoopMecanism_InlineAsyncronousGetContext
+  commentId: F:Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.InlineAsyncronousGetContext
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.InlineAsyncronousGetContext
+  nameWithType: HttpServerEngineContextEventLoopMecanism.InlineAsyncronousGetContext
+- uid: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.UnboundAsyncronousGetContext
+  name: UnboundAsyncronousGetContext
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.html#Sisk_Core_Http_Engine_HttpServerEngineContextEventLoopMecanism_UnboundAsyncronousGetContext
+  commentId: F:Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.UnboundAsyncronousGetContext
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMecanism.UnboundAsyncronousGetContext
+  nameWithType: HttpServerEngineContextEventLoopMecanism.UnboundAsyncronousGetContext
 - uid: Sisk.Core.Http.Engine.HttpServerEngineContextRequest
   name: HttpServerEngineContextRequest
   href: api/Sisk.Core.Http.Engine.HttpServerEngineContextRequest.html
@@ -5950,6 +6250,18 @@ references:
   commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync
   fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CloseOutputAsync
   nameWithType: HttpServerEngineWebSocket.CloseOutputAsync
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket(System.Net.WebSockets.WebSocket)
+  name: CreateFromWebSocket(WebSocket)
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_CreateFromWebSocket_System_Net_WebSockets_WebSocket_
+  commentId: M:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket(System.Net.WebSockets.WebSocket)
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket(System.Net.WebSockets.WebSocket)
+  nameWithType: HttpServerEngineWebSocket.CreateFromWebSocket(WebSocket)
+- uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket*
+  name: CreateFromWebSocket
+  href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket.html
+  commentId: Overload:Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket
+  fullName: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.CreateFromWebSocket
+  nameWithType: HttpServerEngineWebSocket.CreateFromWebSocket
 - uid: Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync(System.Memory{System.Byte},System.Threading.CancellationToken)
   name: ReceiveAsync(Memory<byte>, CancellationToken)
   href: api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.ReceiveAsync.html#Sisk_Core_Http_Engine_HttpServerEngineWebSocket_ReceiveAsync_System_Memory_System_Byte__System_Threading_CancellationToken_
@@ -6982,6 +7294,24 @@ references:
   fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Of TEngine)()
   nameWithType: HttpServerHostContextBuilder.UseEngine<TEngine>()
   nameWithType.vb: HttpServerHostContextBuilder.UseEngine(Of TEngine)()
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1(System.Action{``0})
+  name: UseEngine<TEngine>(Action<TEngine>)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1_System_Action___0__
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1(System.Action{``0})
+  name.vb: UseEngine(Of TEngine)(Action(Of TEngine))
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine<TEngine>(System.Action<TEngine>)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Of TEngine)(System.Action(Of TEngine))
+  nameWithType: HttpServerHostContextBuilder.UseEngine<TEngine>(Action<TEngine>)
+  nameWithType.vb: HttpServerHostContextBuilder.UseEngine(Of TEngine)(Action(Of TEngine))
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1(System.Func{``0})
+  name: UseEngine<TEngine>(Func<TEngine>)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseEngine__1_System_Func___0__
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine``1(System.Func{``0})
+  name.vb: UseEngine(Of TEngine)(Func(Of TEngine))
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine<TEngine>(System.Func<TEngine>)
+  fullName.vb: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseEngine(Of TEngine)(System.Func(Of TEngine))
+  nameWithType: HttpServerHostContextBuilder.UseEngine<TEngine>(Func<TEngine>)
+  nameWithType.vb: HttpServerHostContextBuilder.UseEngine(Of TEngine)(Func(Of TEngine))
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver(Sisk.Core.Http.ForwardingResolver)
   name: UseForwardingResolver(ForwardingResolver)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseForwardingResolver.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseForwardingResolver_Sisk_Core_Http_ForwardingResolver_
@@ -7117,6 +7447,24 @@ references:
   commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter
   fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseRouter
   nameWithType: HttpServerHostContextBuilder.UseRouter
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(Sisk.Core.Http.ListeningHostSslOptions)
+  name: UseSsl(ListeningHostSslOptions)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseSsl_Sisk_Core_Http_ListeningHostSslOptions_
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(Sisk.Core.Http.ListeningHostSslOptions)
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(Sisk.Core.Http.ListeningHostSslOptions)
+  nameWithType: HttpServerHostContextBuilder.UseSsl(ListeningHostSslOptions)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(System.Security.Cryptography.X509Certificates.X509Certificate2)
+  name: UseSsl(X509Certificate2)
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseSsl_System_Security_Cryptography_X509Certificates_X509Certificate2_
+  commentId: M:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(System.Security.Cryptography.X509Certificates.X509Certificate2)
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl(System.Security.Cryptography.X509Certificates.X509Certificate2)
+  nameWithType: HttpServerHostContextBuilder.UseSsl(X509Certificate2)
+- uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl*
+  name: UseSsl
+  href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl.html
+  commentId: Overload:Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl
+  fullName: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseSsl
+  nameWithType: HttpServerHostContextBuilder.UseSsl
 - uid: Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage(System.Func{System.String})
   name: UseStartupMessage(Func<string>)
   href: api/Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.UseStartupMessage.html#Sisk_Core_Http_Hosting_HttpServerHostContextBuilder_UseStartupMessage_System_Func_System_String__
@@ -8737,6 +9085,33 @@ references:
   commentId: T:Sisk.Core.Http.HttpRequestException
   fullName: Sisk.Core.Http.HttpRequestException
   nameWithType: HttpRequestException
+- uid: Sisk.Core.Http.HttpRequestException.#ctor(System.String)
+  name: HttpRequestException(string)
+  href: api/Sisk.Core.Http.HttpRequestException.-ctor.html#Sisk_Core_Http_HttpRequestException__ctor_System_String_
+  commentId: M:Sisk.Core.Http.HttpRequestException.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Sisk.Core.Http.HttpRequestException.HttpRequestException(string)
+  fullName.vb: Sisk.Core.Http.HttpRequestException.New(String)
+  nameWithType: HttpRequestException.HttpRequestException(string)
+  nameWithType.vb: HttpRequestException.New(String)
+- uid: Sisk.Core.Http.HttpRequestException.#ctor(System.String,System.Exception)
+  name: HttpRequestException(string, Exception?)
+  href: api/Sisk.Core.Http.HttpRequestException.-ctor.html#Sisk_Core_Http_HttpRequestException__ctor_System_String_System_Exception_
+  commentId: M:Sisk.Core.Http.HttpRequestException.#ctor(System.String,System.Exception)
+  name.vb: New(String, Exception)
+  fullName: Sisk.Core.Http.HttpRequestException.HttpRequestException(string, System.Exception?)
+  fullName.vb: Sisk.Core.Http.HttpRequestException.New(String, System.Exception)
+  nameWithType: HttpRequestException.HttpRequestException(string, Exception?)
+  nameWithType.vb: HttpRequestException.New(String, Exception)
+- uid: Sisk.Core.Http.HttpRequestException.#ctor*
+  name: HttpRequestException
+  href: api/Sisk.Core.Http.HttpRequestException.-ctor.html
+  commentId: Overload:Sisk.Core.Http.HttpRequestException.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.HttpRequestException.HttpRequestException
+  fullName.vb: Sisk.Core.Http.HttpRequestException.New
+  nameWithType: HttpRequestException.HttpRequestException
+  nameWithType.vb: HttpRequestException.New
 - uid: Sisk.Core.Http.HttpResponse
   name: HttpResponse
   href: api/Sisk.Core.Http.HttpResponse.html
@@ -10852,6 +11227,15 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy
   fullName: Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy
   nameWithType: ListeningHost.CrossOriginResourceSharingPolicy
+- uid: Sisk.Core.Http.ListeningHost.Equals(Sisk.Core.Http.ListeningHost)
+  name: Equals(ListeningHost?)
+  href: api/Sisk.Core.Http.ListeningHost.Equals.html#Sisk_Core_Http_ListeningHost_Equals_Sisk_Core_Http_ListeningHost_
+  commentId: M:Sisk.Core.Http.ListeningHost.Equals(Sisk.Core.Http.ListeningHost)
+  name.vb: Equals(ListeningHost)
+  fullName: Sisk.Core.Http.ListeningHost.Equals(Sisk.Core.Http.ListeningHost?)
+  fullName.vb: Sisk.Core.Http.ListeningHost.Equals(Sisk.Core.Http.ListeningHost)
+  nameWithType: ListeningHost.Equals(ListeningHost?)
+  nameWithType.vb: ListeningHost.Equals(ListeningHost)
 - uid: Sisk.Core.Http.ListeningHost.Equals(System.Object)
   name: Equals(object?)
   href: api/Sisk.Core.Http.ListeningHost.Equals.html#Sisk_Core_Http_ListeningHost_Equals_System_Object_
@@ -10915,6 +11299,18 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHost.Router
   fullName: Sisk.Core.Http.ListeningHost.Router
   nameWithType: ListeningHost.Router
+- uid: Sisk.Core.Http.ListeningHost.SslOptions
+  name: SslOptions
+  href: api/Sisk.Core.Http.ListeningHost.SslOptions.html#Sisk_Core_Http_ListeningHost_SslOptions
+  commentId: P:Sisk.Core.Http.ListeningHost.SslOptions
+  fullName: Sisk.Core.Http.ListeningHost.SslOptions
+  nameWithType: ListeningHost.SslOptions
+- uid: Sisk.Core.Http.ListeningHost.SslOptions*
+  name: SslOptions
+  href: api/Sisk.Core.Http.ListeningHost.SslOptions.html
+  commentId: Overload:Sisk.Core.Http.ListeningHost.SslOptions
+  fullName: Sisk.Core.Http.ListeningHost.SslOptions
+  nameWithType: ListeningHost.SslOptions
 - uid: Sisk.Core.Http.ListeningHostRepository
   name: ListeningHostRepository
   href: api/Sisk.Core.Http.ListeningHostRepository.html
@@ -11011,18 +11407,6 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHostRepository.Count
   fullName: Sisk.Core.Http.ListeningHostRepository.Count
   nameWithType: ListeningHostRepository.Count
-- uid: Sisk.Core.Http.ListeningHostRepository.FirstOrNew
-  name: FirstOrNew()
-  href: api/Sisk.Core.Http.ListeningHostRepository.FirstOrNew.html#Sisk_Core_Http_ListeningHostRepository_FirstOrNew
-  commentId: M:Sisk.Core.Http.ListeningHostRepository.FirstOrNew
-  fullName: Sisk.Core.Http.ListeningHostRepository.FirstOrNew()
-  nameWithType: ListeningHostRepository.FirstOrNew()
-- uid: Sisk.Core.Http.ListeningHostRepository.FirstOrNew*
-  name: FirstOrNew
-  href: api/Sisk.Core.Http.ListeningHostRepository.FirstOrNew.html
-  commentId: Overload:Sisk.Core.Http.ListeningHostRepository.FirstOrNew
-  fullName: Sisk.Core.Http.ListeningHostRepository.FirstOrNew
-  nameWithType: ListeningHostRepository.FirstOrNew
 - uid: Sisk.Core.Http.ListeningHostRepository.GetEnumerator
   name: GetEnumerator()
   href: api/Sisk.Core.Http.ListeningHostRepository.GetEnumerator.html#Sisk_Core_Http_ListeningHostRepository_GetEnumerator
@@ -11119,6 +11503,78 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningHostRepository.RemoveAt
   fullName: Sisk.Core.Http.ListeningHostRepository.RemoveAt
   nameWithType: ListeningHostRepository.RemoveAt
+- uid: Sisk.Core.Http.ListeningHostSslOptions
+  name: ListeningHostSslOptions
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.html
+  commentId: T:Sisk.Core.Http.ListeningHostSslOptions
+  fullName: Sisk.Core.Http.ListeningHostSslOptions
+  nameWithType: ListeningHostSslOptions
+- uid: Sisk.Core.Http.ListeningHostSslOptions.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate)
+  name: ListeningHostSslOptions(X509Certificate)
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.-ctor.html#Sisk_Core_Http_ListeningHostSslOptions__ctor_System_Security_Cryptography_X509Certificates_X509Certificate_
+  commentId: M:Sisk.Core.Http.ListeningHostSslOptions.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate)
+  name.vb: New(X509Certificate)
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ListeningHostSslOptions(System.Security.Cryptography.X509Certificates.X509Certificate)
+  fullName.vb: Sisk.Core.Http.ListeningHostSslOptions.New(System.Security.Cryptography.X509Certificates.X509Certificate)
+  nameWithType: ListeningHostSslOptions.ListeningHostSslOptions(X509Certificate)
+  nameWithType.vb: ListeningHostSslOptions.New(X509Certificate)
+- uid: Sisk.Core.Http.ListeningHostSslOptions.#ctor*
+  name: ListeningHostSslOptions
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.-ctor.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostSslOptions.#ctor
+  name.vb: New
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ListeningHostSslOptions
+  fullName.vb: Sisk.Core.Http.ListeningHostSslOptions.New
+  nameWithType: ListeningHostSslOptions.ListeningHostSslOptions
+  nameWithType.vb: ListeningHostSslOptions.New
+- uid: Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols
+  name: AllowedProtocols
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols.html#Sisk_Core_Http_ListeningHostSslOptions_AllowedProtocols
+  commentId: P:Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols
+  nameWithType: ListeningHostSslOptions.AllowedProtocols
+- uid: Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols*
+  name: AllowedProtocols
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.AllowedProtocols
+  nameWithType: ListeningHostSslOptions.AllowedProtocols
+- uid: Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation
+  name: CheckCertificateRevocation
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation.html#Sisk_Core_Http_ListeningHostSslOptions_CheckCertificateRevocation
+  commentId: P:Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation
+  nameWithType: ListeningHostSslOptions.CheckCertificateRevocation
+- uid: Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation*
+  name: CheckCertificateRevocation
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.CheckCertificateRevocation
+  nameWithType: ListeningHostSslOptions.CheckCertificateRevocation
+- uid: Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired
+  name: ClientCertificateRequired
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired.html#Sisk_Core_Http_ListeningHostSslOptions_ClientCertificateRequired
+  commentId: P:Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired
+  nameWithType: ListeningHostSslOptions.ClientCertificateRequired
+- uid: Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired*
+  name: ClientCertificateRequired
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ClientCertificateRequired
+  nameWithType: ListeningHostSslOptions.ClientCertificateRequired
+- uid: Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate
+  name: ServerCertificate
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate.html#Sisk_Core_Http_ListeningHostSslOptions_ServerCertificate
+  commentId: P:Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate
+  nameWithType: ListeningHostSslOptions.ServerCertificate
+- uid: Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate*
+  name: ServerCertificate
+  href: api/Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate.html
+  commentId: Overload:Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate
+  fullName: Sisk.Core.Http.ListeningHostSslOptions.ServerCertificate
+  nameWithType: ListeningHostSslOptions.ServerCertificate
 - uid: Sisk.Core.Http.ListeningPort
   name: ListeningPort
   href: api/Sisk.Core.Http.ListeningPort.html
@@ -11305,6 +11761,18 @@ references:
   commentId: Overload:Sisk.Core.Http.ListeningPort.Port
   fullName: Sisk.Core.Http.ListeningPort.Port
   nameWithType: ListeningPort.Port
+- uid: Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress
+  name: ResolveListeningIPAddress()
+  href: api/Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress.html#Sisk_Core_Http_ListeningPort_ResolveListeningIPAddress
+  commentId: M:Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress
+  fullName: Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress()
+  nameWithType: ListeningPort.ResolveListeningIPAddress()
+- uid: Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress*
+  name: ResolveListeningIPAddress
+  href: api/Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress.html
+  commentId: Overload:Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress
+  fullName: Sisk.Core.Http.ListeningPort.ResolveListeningIPAddress
+  nameWithType: ListeningPort.ResolveListeningIPAddress
 - uid: Sisk.Core.Http.ListeningPort.Secure
   name: Secure
   href: api/Sisk.Core.Http.ListeningPort.Secure.html#Sisk_Core_Http_ListeningPort_Secure

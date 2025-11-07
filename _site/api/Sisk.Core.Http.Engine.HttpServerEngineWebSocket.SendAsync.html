@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method SendAsync | Sisk </title>
+        <title>Method SendAsync | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method SendAsync | Sisk ">
+        <meta name="title" content="Method SendAsync | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,35 +153,92 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Net_WebSockets_WebSocketMessageType_System_Boolean_System_Threading_CancellationToken_"> Method SendAsync</h1>
+                <article data-uid="Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync*">
 
-<p>Namespace: <a href="Sisk.Core.Http.Engine.html">Sisk.Core.Http.Engine</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Net_WebSockets_WebSocketMessageType_System_Boolean_System_Threading_CancellationToken_"> SendAsync(ReadOnlyMemory&lt;byte&gt;, WebSocketMessageType, bool, CancellationToken)</h2>
-<p>Sends data over the WebSocket asynchronously.</p>
-<pre><code class="lang-csharp">public abstract ValueTask SendAsync(ReadOnlyMemory&lt;byte&gt; buffer, WebSocketMessageType messageType, bool endOfMessage, CancellationToken cancellationToken)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>buffer</code> <a href="https://learn.microsoft.com/dotnet/api/system.readonlymemory-1">ReadOnlyMemory</a>&lt;<a href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</p>
-<p>The buffer containing the data to send.</p>
-<p><code>messageType</code> <a href="https://learn.microsoft.com/dotnet/api/system.net.websockets.websocketmessagetype">WebSocketMessageType</a></p>
-<p>The type of message to send.</p>
-<p><code>endOfMessage</code> <a href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></p>
-<p>A value indicating whether this is the end of the message.</p>
-<p><code>cancellationToken</code> <a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></p>
-<p>The cancellation token.</p>
-<h3 id="returns">Returns</h3>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a></p>
-<p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a> representing the asynchronous operation.</p>
+
+
+
+
+<h1 id="Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_" data-uid="Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync*" class="text-break">
+Method SendAsync  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Engine.html">Engine</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_" data-uid="Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync*"></a>
+
+<h3 id="Sisk_Core_Http_Engine_HttpServerEngineWebSocket_SendAsync_System_ReadOnlyMemory_System_Byte__System_Net_WebSockets_WebSocketMessageType_System_Boolean_System_Threading_CancellationToken_" data-uid="Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync(System.ReadOnlyMemory{System.Byte},System.Net.WebSockets.WebSocketMessageType,System.Boolean,System.Threading.CancellationToken)">
+  SendAsync(ReadOnlyMemory&lt;byte&gt;, WebSocketMessageType, bool, CancellationToken)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Sends data over the WebSocket asynchronously.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public abstract ValueTask SendAsync(ReadOnlyMemory&lt;byte&gt; buffer, WebSocketMessageType messageType, bool endOfMessage, CancellationToken cancellationToken)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>buffer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlymemory-1">ReadOnlyMemory</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</dt>
+  <dd><p>The buffer containing the data to send.</p>
+</dd>
+  <dt><code>messageType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.websockets.websocketmessagetype">WebSocketMessageType</a></dt>
+  <dd><p>The type of message to send.</p>
+</dd>
+  <dt><code>endOfMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+  <dd><p>A value indicating whether this is the end of the message.</p>
+</dd>
+  <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+  <dd><p>The cancellation token.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a></dt>
+  <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a> representing the asynchronous operation.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Engine.HttpServerEngineWebSocket.SendAsync.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method WriteLine | Sisk </title>
+        <title>Method WriteLine | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method WriteLine | Sisk ">
+        <meta name="title" content="Method WriteLine | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.LogStream.WriteLine.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,66 +153,248 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_LogStream_WriteLine"> Method WriteLine</h1>
+                <article data-uid="Sisk.Core.Http.LogStream.WriteLine*">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine"> WriteLine()</h2>
-<p>Writes an line-break at the end of the output.</p>
-<pre><code class="lang-csharp">public void WriteLine()
-</code></pre>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine_System_Object_"> WriteLine(object?)</h2>
-<p>Writes the text and concats an line-break at the end into the output.</p>
-<pre><code class="lang-csharp">public void WriteLine(object? message)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>message</code> <a href="https://learn.microsoft.com/dotnet/api/system.object">object</a>?</p>
-<p>The text that will be written in the output.</p>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine_System_String_"> WriteLine(string)</h2>
-<p>Writes the text and concats an line-break at the end into the output.</p>
-<pre><code class="lang-csharp">public void WriteLine(string message)
-</code></pre>
-<h3 id="parameters-1">Parameters</h3>
-<p><code>message</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The text that will be written in the output.</p>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__"> WriteLine(string, params ReadOnlySpan&lt;object?&gt;)</h2>
-<p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
-<pre><code class="lang-csharp">public void WriteLine(string format, params ReadOnlySpan&lt;object?&gt; args)
-</code></pre>
-<h3 id="parameters-2">Parameters</h3>
-<p><code>format</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The string format that represents the arguments positions.</p>
-<p><code>args</code> <a href="https://learn.microsoft.com/dotnet/api/system.readonlyspan-1">ReadOnlySpan</a>&lt;<a href="https://learn.microsoft.com/dotnet/api/system.object">object</a>?&gt;</p>
-<p>An array of objects that represents the string format slots values.</p>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__"> WriteLine(string, params IEnumerable&lt;object?&gt;)</h2>
-<p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
-<pre><code class="lang-csharp">public void WriteLine(string format, params IEnumerable&lt;object?&gt; args)
-</code></pre>
-<h3 id="parameters-3">Parameters</h3>
-<p><code>format</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The string format that represents the arguments positions.</p>
-<p><code>args</code> <a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="https://learn.microsoft.com/dotnet/api/system.object">object</a>?&gt;</p>
-<p>An array of objects that represents the string format slots values.</p>
-<h2 id="Sisk_Core_Http_LogStream_WriteLine_System_IFormatProvider_System_String_System_Object___"> WriteLine(IFormatProvider?, string, params object?[])</h2>
-<p>Writes the text format and arguments and appends a line-break at the end into the output, using the specified format provider.</p>
-<pre><code class="lang-csharp">public void WriteLine(IFormatProvider? formatProvider, string format, params object?[] args)
-</code></pre>
-<h3 id="parameters-4">Parameters</h3>
-<p><code>formatProvider</code> <a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider">IFormatProvider</a>?</p>
-<p>The format provider to use when formatting the string. If null, the current culture is used.</p>
-<p><code>format</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<p>The string format that represents the arguments positions.</p>
-<p><code>args</code> <a href="https://learn.microsoft.com/dotnet/api/system.object">object</a>?[]</p>
-<p>An array of objects that represents the string format slots values.</p>
+
+
+
+
+<h1 id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*" class="text-break">
+Method WriteLine  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine" data-uid="Sisk.Core.Http.LogStream.WriteLine">
+  WriteLine()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes an line-break at the end of the output.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine()</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine_System_Object_" data-uid="Sisk.Core.Http.LogStream.WriteLine(System.Object)">
+  WriteLine(object?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes the text and concats an line-break at the end into the output.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine(object? message)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+  <dd><p>The text that will be written in the output.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine_System_String_" data-uid="Sisk.Core.Http.LogStream.WriteLine(System.String)">
+  WriteLine(string)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes the text and concats an line-break at the end into the output.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine(string message)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The text that will be written in the output.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine_System_String_System_ReadOnlySpan_System_Object__" data-uid="Sisk.Core.Http.LogStream.WriteLine(System.String,System.ReadOnlySpan{System.Object})">
+  WriteLine(string, params ReadOnlySpan&lt;object?&gt;)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine(string format, params ReadOnlySpan&lt;object?&gt; args)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The string format that represents the arguments positions.</p>
+</dd>
+  <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlyspan-1">ReadOnlySpan</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+  <dd><p>An array of objects that represents the string format slots values.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine_System_String_System_Collections_Generic_IEnumerable_System_Object__" data-uid="Sisk.Core.Http.LogStream.WriteLine(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+  WriteLine(string, params IEnumerable&lt;object?&gt;)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes the text format and arguments and concats an line-break at the end into the output.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine(string format, params IEnumerable&lt;object?&gt; args)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The string format that represents the arguments positions.</p>
+</dd>
+  <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+  <dd><p>An array of objects that represents the string format slots values.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_LogStream_WriteLine_" data-uid="Sisk.Core.Http.LogStream.WriteLine*"></a>
+
+<h3 id="Sisk_Core_Http_LogStream_WriteLine_System_IFormatProvider_System_String_System_Object___" data-uid="Sisk.Core.Http.LogStream.WriteLine(System.IFormatProvider,System.String,System.Object[])">
+  WriteLine(IFormatProvider?, string, params object?[])
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Writes the text format and arguments and appends a line-break at the end into the output, using the specified format provider.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public void WriteLine(IFormatProvider? formatProvider, string format, params object?[] args)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>formatProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iformatprovider">IFormatProvider</a></dt>
+  <dd><p>The format provider to use when formatting the string. If null, the current culture is used.</p>
+</dd>
+  <dt><code>format</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The string format that represents the arguments positions.</p>
+</dd>
+  <dt><code>args</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+  <dd><p>An array of objects that represents the string format slots values.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.LogStream.WriteLine.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

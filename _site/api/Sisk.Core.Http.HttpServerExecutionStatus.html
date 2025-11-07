@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Enum HttpServerExecutionStatus | Sisk </title>
+        <title>Enum HttpServerExecutionStatus | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Enum HttpServerExecutionStatus | Sisk ">
+        <meta name="title" content="Enum HttpServerExecutionStatus | Sisk ">
 
-
+        <meta name="description" content="Represents the status of an execution of a request on an .">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpServerExecutionStatus.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,49 +153,87 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_HttpServerExecutionStatus"> Enum HttpServerExecutionStatus</h1>
+                <article data-uid="Sisk.Core.Http.HttpServerExecutionStatus">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents the status of an execution of a request on an <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
-<pre><code class="lang-csharp">public enum HttpServerExecutionStatus
-</code></pre>
-<h2 id="fields">Fields</h2>
-<p><code>ConnectionClosed = 3</code></p>
-<p>Represents that the connection stream was closed by the client.</p>
-<p><code>ContentServedOnIllegalMethod = 1</code></p>
-<p>Represents that the request has sent an request body with an with a HTTP method that is not indicated for
+
+
+
+  <h1 id="Sisk_Core_Http_HttpServerExecutionStatus" data-uid="Sisk.Core.Http.HttpServerExecutionStatus" class="text-break">
+Enum HttpServerExecutionStatus  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents the status of an execution of a request on an <a class="xref" href="Sisk.Core.Http.HttpServer.html">HttpServer</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum HttpServerExecutionStatus</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ConnectionClosed"><code>ConnectionClosed = 3</code></dt>
+    <dd><p>Represents that the connection stream was closed by the client.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ContentServedOnIllegalMethod"><code>ContentServedOnIllegalMethod = 1</code></dt>
+    <dd><p>Represents that the request has sent an request body with an with a HTTP method that is not indicated for
 receiving request contents.</p>
-<p><code>ContentTooLarge = 2</code></p>
-<p>Represents that the content of the request is too large than what was configured on the server, or it's bigger than the max supported size (2GB).</p>
-<p><code>DnsFailed = 5</code></p>
-<p>Represents that the client did not correctly specify a host in the request.</p>
-<p><code>DnsUnknownHost = 6</code></p>
-<p>Represents that the client requested an host that's not been set up on this server.</p>
-<p><code>ExceptionThrown = 7</code></p>
-<p>Indicates that the server encountered an exception while processing the request.</p>
-<p><code>Executed = 0</code></p>
-<p>Represents that the request was closed by the HTTP server and executed by a router and its response was succesfully delivered.</p>
-<p><code>ListeningHostNotReady = 9</code></p>
-<p>Indicates that the DNS was successful, however the matched <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> does
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ContentTooLarge"><code>ContentTooLarge = 2</code></dt>
+    <dd><p>Represents that the content of the request is too large than what was configured on the server, or it's bigger than the max supported size (2GB).</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_DnsFailed"><code>[Obsolete(&quot;This field is now obsolete and is not used anywhere.&quot;)]
+DnsFailed = 5</code></dt>
+    <dd><p>Represents that the client did not correctly specify a host in the request.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_DnsUnknownHost"><code>DnsUnknownHost = 6</code></dt>
+    <dd><p>Represents that the client requested an host that's not been set up on this server.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ExceptionThrown"><code>ExceptionThrown = 7</code></dt>
+    <dd><p>Indicates that the server encountered an exception while processing the request.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_Executed"><code>Executed = 0</code></dt>
+    <dd><p>Represents that the request was closed by the HTTP server and executed by a router and its response was succesfully delivered.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_ListeningHostNotReady"><code>ListeningHostNotReady = 9</code></dt>
+    <dd><p>Indicates that the DNS was successful, however the matched <a class="xref" href="Sisk.Core.Http.ListeningHost.html">ListeningHost</a> does
 not have an valid initialized router.</p>
-<p><code>MalformedRequest = 10</code></p>
-<p>Indicates that the server cannot or will not process the request due to something that is perceived to be a client error.</p>
-<p><code>NoResponse = 4</code></p>
-<p>Represents that the router did not deliver a response to the received request.</p>
-<p><code>RemoteRequestDropped = 11</code></p>
-<p>Indicates that the HTTP server closed an unwanted remote connection.</p>
-<p><code>UncaughtExceptionThrown = 8</code></p>
-<p>Indicates that the router encontered an uncaught exception while calling it's action function.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_MalformedRequest"><code>MalformedRequest = 10</code></dt>
+    <dd><p>Indicates that the server cannot or will not process the request due to something that is perceived to be a client error.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_NoResponse"><code>NoResponse = 4</code></dt>
+    <dd><p>Represents that the router did not deliver a response to the received request.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_RemoteRequestDropped"><code>RemoteRequestDropped = 11</code></dt>
+    <dd><p>Indicates that the HTTP server closed an unwanted remote connection.</p>
+</dd>
+    <dt id="Sisk_Core_Http_HttpServerExecutionStatus_UncaughtExceptionThrown"><code>UncaughtExceptionThrown = 8</code></dt>
+    <dd><p>Indicates that the router encontered an uncaught exception while calling it's action function.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpServerExecutionStatus.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

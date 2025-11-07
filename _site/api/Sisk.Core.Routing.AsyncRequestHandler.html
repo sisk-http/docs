@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Class AsyncRequestHandler | Sisk </title>
+        <title>Class AsyncRequestHandler | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Class AsyncRequestHandler | Sisk ">
+        <meta name="title" content="Class AsyncRequestHandler | Sisk ">
 
-
+        <meta name="description" content="Represents a class that implements  and its execution method is asynchronous.">
         <link rel="icon" href="../assets/img/favicon.ico">
         <link rel="stylesheet" href="../public/docfx.min.css">
         <link rel="stylesheet" href="../public/main.css">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.AsyncRequestHandler.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,48 +153,120 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Routing_AsyncRequestHandler"> Class AsyncRequestHandler</h1>
+                <article data-uid="Sisk.Core.Routing.AsyncRequestHandler">
 
-<p>Namespace: <a href="Sisk.Core.Routing.html">Sisk.Core.Routing</a><br>
-Assembly: Sisk.Core.dll</p>
-<p>Represents a class that implements <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> and its execution method is asynchronous.</p>
-<pre><code class="lang-csharp">public abstract class AsyncRequestHandler : IRequestHandler
-</code></pre>
-<h4 id="inheritance">Inheritance</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object">object</a> ←
-<a href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a></p>
-<h4 id="implements">Implements</h4>
-<p><a href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a></p>
-<h4 id="inherited-members">Inherited Members</h4>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object?, object?)</a>,
-<a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></p>
-<h2 id="constructors">Constructors</h2>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.-ctor.html#Sisk_Core_Routing_AsyncRequestHandler__ctor">AsyncRequestHandler()</a></p>
-<h2 id="properties">Properties</h2>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.ExecutionMode.html#Sisk_Core_Routing_AsyncRequestHandler_ExecutionMode">ExecutionMode</a></p>
-<p>Gets or sets when this <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should run.</p>
-<h2 id="methods">Methods</h2>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.Create.html#Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_">Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt;, RequestHandlerExecutionMode)</a></p>
-<p>Gets an inline <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> that resolves to the specified function.</p>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.ExecuteAsync.html#Sisk_Core_Routing_AsyncRequestHandler_ExecuteAsync_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_">ExecuteAsync(HttpRequest, HttpContext)</a></p>
-<p>This method is called by the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> before executing a request when the <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instantiates an object that implements this interface. If it returns
+
+
+  <h1 id="Sisk_Core_Routing_AsyncRequestHandler" data-uid="Sisk.Core.Routing.AsyncRequestHandler" class="text-break">
+Class AsyncRequestHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Routing.html">Routing</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a class that implements <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> and its execution method is asynchronous.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AsyncRequestHandler : IRequestHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AsyncRequestHandler</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.-ctor.html#Sisk_Core_Routing_AsyncRequestHandler__ctor">AsyncRequestHandler()</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.ExecutionMode.html#Sisk_Core_Routing_AsyncRequestHandler_ExecutionMode">ExecutionMode</a></dt>
+    <dd><p>Gets or sets when this <a class="xref" href="Sisk.Core.Routing.IRequestHandler.html">IRequestHandler</a> should run.</p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.Create.html#Sisk_Core_Routing_AsyncRequestHandler_Create_System_Func_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_System_Threading_Tasks_Task_Sisk_Core_Http_HttpResponse___Sisk_Core_Routing_RequestHandlerExecutionMode_">Create(Func&lt;HttpRequest, HttpContext, Task&lt;HttpResponse?&gt;&gt;, RequestHandlerExecutionMode)</a></dt>
+    <dd><p>Gets an inline <a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.html">AsyncRequestHandler</a> that resolves to the specified function.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.ExecuteAsync.html#Sisk_Core_Routing_AsyncRequestHandler_ExecuteAsync_Sisk_Core_Http_HttpRequest_Sisk_Core_Http_HttpContext_">ExecuteAsync(HttpRequest, HttpContext)</a></dt>
+    <dd><p>This method is called by the <a class="xref" href="Sisk.Core.Routing.Router.html">Router</a> before executing a request when the <a class="xref" href="Sisk.Core.Routing.Route.html">Route</a> instantiates an object that implements this interface. If it returns
 a <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> object, the route action is not called and all execution of the route is stopped. If it returns &quot;null&quot;, the execution is continued.</p>
-<p><a href="Sisk.Core.Routing.AsyncRequestHandler.Next.html#Sisk_Core_Routing_AsyncRequestHandler_Next">Next()</a></p>
-<p>Returns an null <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> reference, which points to the next request handler or route action.</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Sisk.Core.Routing.AsyncRequestHandler.Next.html#Sisk_Core_Routing_AsyncRequestHandler_Next">Next()</a></dt>
+    <dd><p>Returns an null <a class="xref" href="Sisk.Core.Http.HttpResponse.html">HttpResponse</a> reference, which points to the next request handler or route action.</p>
+</dd>
+  </dl>
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Routing.AsyncRequestHandler.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

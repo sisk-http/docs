@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTTP Server Engines | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="HTTP Server Engines | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/server-engines.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="http-server-engines">HTTP Server Engines</h1>
+
+<p>Das Sisk Framework ist in mehrere Pakete unterteilt, wobei das Hauptpaket (Sisk.HttpServer) keinen Basis-HTTP-Server enthält – standardmäßig wird <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Haupt-Engine von Sisk verwendet, um die Low‑Level-Rolle des Servers zu übernehmen.</p>
+<p>Die HTTP‑Engine erfüllt die Rolle der Schicht unterhalb der Anwendungsschicht, die von Sisk angeboten wird. Diese Schicht ist verantwortlich für die Verbindungsverwaltung, die Serialisierung und Deserialisierung von Nachrichten, die Steuerung der Nachrichtenwarteschlange und die Kommunikation mit dem Socket des Geräts.</p>
+<p>Die Klasse <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> stellt eine API bereit, um alle notwendigen Funktionen einer HTTP‑Engine zu implementieren, die in höheren Schichten mit Sisk verwendet werden können, wie Routing, SSE, Middleware usw. Diese Funktionen liegen nicht in der Verantwortung der HTTP‑Engine, sondern in dem Teil der Bibliotheken, die die HTTP‑Engine als Basis für die Ausführung nutzen.</p>
+<p>Durch diese Abstraktion ist es möglich, Sisk so zu portieren, dass es mit jeder anderen HTTP‑Engine verwendet werden kann, die in .NET geschrieben ist oder nicht, z. B. Kestrel. Derzeit verwendet Sisk weiterhin eine Abstraktion des nativen .NET <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Standard für neue Projekte. Diese Standardabstraktion bringt einige spezifische Probleme mit sich, wie unbestimmtes Verhalten auf verschiedenen Plattformen (HttpListener hat eine Implementierung für Windows und eine andere für andere Plattformen), fehlende SSL-Unterstützung und nicht sehr angenehme Leistung außerhalb von Windows.</p>
+<p>Eine experimentelle Implementierung eines Hochleistungsservers, der ausschließlich in C# geschrieben ist, ist ebenfalls als HTTP‑Engine für Sisk verfügbar, genannt das <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a> Projekt, das ein Experiment eines verwalteten Servers ist, der mit Sisk oder ohne verwendet werden kann.</p>
+<h2 id="implementierung-einer-httpengine-für-sisk">Implementierung einer HTTP‑Engine für Sisk</h2>
+<p>Sie können eine Verbindung zwischen einem bestehenden HTTP‑Server und Sisk herstellen, indem Sie die Klasse <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> erweitern. Zusätzlich zu dieser Klasse müssen Sie auch Abstraktionen für Kontexte, Anfragen und Antworten implementieren.</p>
+<p>Ein vollständiges Abstraktionsbeispiel ist <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">auf GitHub</a> verfügbar. Es sieht so aus:</p>
+<pre><code class="lang-csharp">/// &lt;summary&gt;
+/// Provides an implementation of &lt;see cref=&quot;HttpServerEngine&quot;/&gt; using &lt;see cref=&quot;HttpListener&quot;/&gt;.
+/// &lt;/summary&gt;
+public sealed class HttpListenerAbstractEngine : HttpServerEngine {
+    private HttpListener _listener;
+    private static Lazy&lt;HttpListenerAbstractEngine&gt; shared = new Lazy&lt;HttpListenerAbstractEngine&gt; ( () =&gt; new HttpListenerAbstractEngine () );
+
+    /// &lt;summary&gt;
+    /// Gets the shared instance of the &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt; class.
+    /// &lt;/summary&gt;
+    public static HttpListenerAbstractEngine Shared =&gt; shared.Value;
+
+    /// &lt;summary&gt;
+    /// Initializes a new instance of the &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt; class.
+    /// &lt;/summary&gt;
+    public HttpListenerAbstractEngine () {
+        _listener = new HttpListener {
+            IgnoreWriteExceptions = true
+        };
+    }
+
+    /// &lt;inheritdoc/&gt;
+    public override TimeSpan IdleConnectionTimeout {
+        get =&gt; _listener.TimeoutManager.IdleConnection;
+        set =&gt; _listener.TimeoutManager.IdleConnection = value;
+    }
+    
+    // ...
+}
+</code></pre>
+<h2 id="auswahl-einer-eventloop">Auswahl einer Event‑Loop</h2>
+<p>Während der Erstellung einer HTTP‑Engine wird der Server Anfragen in einer Schleife empfangen und Kontexte erstellen, um jede einzelne in separaten Threads zu verarbeiten. Dafür müssen Sie einen <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a> wählen:</p>
+<ul>
+<li><code>InlineAsynchronousGetContext</code> – die Event‑Loop ist linear – Aufrufe zur Handhabung des HTTP‑Kontexts erfolgen in einer asynchronen Schleife.</li>
+<li><code>UnboundAsynchronousGetContext</code> – die Event‑Loop wird durch die Methoden <code>BeginGetContext</code> und <code>EndGetContext</code> übertragen.</li>
+</ul>
+<pre><code class="lang-csharp">public override HttpServerEngineContextEventLoopMechanism EventLoopMechanism =&gt; HttpServerEngineContextEventLoopMechanism.UnboundAsynchronousGetContext;
+</code></pre>
+<p>Sie müssen nicht beide Event‑Loops implementieren. Wählen Sie diejenige, die für Ihre HTTP‑Engine am sinnvollsten ist.</p>
+<h2 id="tests">Tests</h2>
+<p>Nach dem Verknüpfen Ihrer HTTP‑Engine ist es wichtig, Tests durchzuführen, um sicherzustellen, dass alle Sisk‑Funktionen bei der Verwendung anderer Engines identisches Verhalten zeigen. <strong>Es ist äußerst wichtig</strong>, dass Sisk bei verschiedenen HTTP‑Engines das gleiche Verhalten aufweist.</p>
+<p>Sie können das Test‑Repository auf <a href="https://github.com/sisk-http/core/tree/main/tests">GitHub</a> besuchen.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/advanced/server-engines.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

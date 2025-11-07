@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method GetStreamWriter | Sisk </title>
+        <title>Method GetStreamWriter | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method GetStreamWriter | Sisk ">
+        <meta name="title" content="Method GetStreamWriter | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,33 +153,89 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_System_String_System_Text_Encoding_System_String_"> Method GetStreamWriter</h1>
+                <article data-uid="Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter*">
 
-<p>Namespace: <a href="Sisk.Core.Http.Streams.html">Sisk.Core.Http.Streams</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_System_String_System_Text_Encoding_System_String_"> GetStreamWriter(string?, Encoding?, string?)</h2>
-<p>Returns a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a> for writing to the response stream, setting the content type and encoding.</p>
-<pre><code class="lang-csharp">public StreamWriter GetStreamWriter(string? contentType, Encoding? encoding, string? newLine = &quot;\r\n&quot;)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>contentType</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a>?</p>
-<p>The content type of the response, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to omit the content type header.</p>
-<p><code>encoding</code> <a href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>?</p>
-<p>The encoding to use for the response, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to use the default encoding.</p>
-<p><code>newLine</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a>?</p>
-<p>The new line string literal for the writer.</p>
-<h3 id="returns">Returns</h3>
-<p><a href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a></p>
-<p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a> for writing to the response stream.</p>
+
+
+
+
+<h1 id="Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_" data-uid="Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter*" class="text-break">
+Method GetStreamWriter  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a>.<a class="xref" href="Sisk.Core.Http.Streams.html">Streams</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_" data-uid="Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter*"></a>
+
+<h3 id="Sisk_Core_Http_Streams_HttpResponseStreamManager_GetStreamWriter_System_String_System_Text_Encoding_System_String_" data-uid="Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter(System.String,System.Text.Encoding,System.String)">
+  GetStreamWriter(string?, Encoding?, string?)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Returns a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a> for writing to the response stream, setting the content type and encoding.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public StreamWriter GetStreamWriter(string? contentType, Encoding? encoding, string? newLine = &quot;\r\n&quot;)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>contentType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The content type of the response, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to omit the content type header.</p>
+</dd>
+  <dt><code>encoding</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.encoding">Encoding</a></dt>
+  <dd><p>The encoding to use for the response, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to use the default encoding.</p>
+</dd>
+  <dt><code>newLine</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>The new line string literal for the writer.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a></dt>
+  <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamwriter">StreamWriter</a> for writing to the response stream.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.Streams.HttpResponseStreamManager.GetStreamWriter.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 

@@ -6,7 +6,7 @@ items:
   href: getting-started.md
 - name: Instalando
   href: installing.md
-- name: Suporte Native AOT
+- name: Suporte AOT Nativo
   href: native-aot.md
 - name: Implantando
   href: deploying.md
@@ -34,15 +34,15 @@ items:
 
 - name: Registro de Log
   href: features/logging.md
-- name: Eventos enviados pelo servidor
+- name: Eventos Enviados pelo Servidor
   href: features/server-sent-events.md
 - name: Web Sockets
   href: features/websockets.md
-- name: Sintaxe de descarte
+- name: Sintaxe de Descarte
   href: features/discard-syntax.md
-- name: Injeção de dependência
+- name: Injeção de Dependência
   href: features/instancing.md
-- name: Transmissão de conteúdo
+- name: Transmissão de Conteúdo
   href: features/content-streaming.md
 - name: Compartilhamento de Recursos entre Origens (CORS)
   href: features/cors.md
@@ -55,7 +55,7 @@ items:
   href: extensions/json-rpc.md
 - name: Proxy SSL
   href: extensions/ssl-proxy.md
-- name: Autenticação básica
+- name: Autenticação Básica
   href: extensions/basic-auth.md
 - name: Provedores de Serviço
   href: extensions/service-providers.md
@@ -64,13 +64,15 @@ items:
 
 - name: Avançado
 
-- name: Configuração manual
+- name: Configuração Manual
   href: advanced/manual-setup.md
-- name: Ciclo de vida da requisição
+- name: Ciclo de Vida da Requisição
   href: advanced/request-lifecycle.md
 - name: Resolvers de Encaminhamento
   href: advanced/forwarding-resolvers.md
-- name: Manipuladores de servidor HTTP
+- name: Manipuladores de Servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuração multi-hospedeiro
+- name: Configuração Multi-Hospedeiro
   href: advanced/multi-host-setup.md
+- name: Motores HTTP
+  href: advanced/server-engines.md

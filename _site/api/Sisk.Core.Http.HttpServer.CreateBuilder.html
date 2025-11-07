@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> Method CreateBuilder | Sisk </title>
+        <title>Method CreateBuilder | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content=" Method CreateBuilder | Sisk ">
+        <meta name="title" content="Method CreateBuilder | Sisk ">
 
 
         <link rel="icon" href="../assets/img/favicon.ico">
@@ -21,7 +21,7 @@
         <meta name="docfx:rel" content="../">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpServer.CreateBuilder.md/#L1">
+
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -58,7 +58,7 @@
     </head>
     
     
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
@@ -153,50 +153,188 @@
                     </div>
                 </div>
 
-                <article data-uid="">
-<h1 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_Action_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder__"> Method CreateBuilder</h1>
+                <article data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*">
 
-<p>Namespace: <a href="Sisk.Core.Http.html">Sisk.Core.Http</a><br>
-Assembly: Sisk.Core.dll</p>
-<h2 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_Action_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder__"> CreateBuilder(Action&lt;HttpServerHostContextBuilder&gt;)</h2>
-<p>Builds an <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context invoking the handler on it.</p>
-<pre><code class="lang-csharp">public static HttpServerHostContextBuilder CreateBuilder(Action&lt;HttpServerHostContextBuilder&gt; handler)
-</code></pre>
-<h3 id="parameters">Parameters</h3>
-<p><code>handler</code> <a href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a>&gt;</p>
-<p>The action which will configure the host context.</p>
-<h3 id="returns">Returns</h3>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></p>
-<h2 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_UInt16_"> CreateBuilder(ushort)</h2>
-<p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening port.</p>
-<pre><code class="lang-csharp">public static HttpServerHostContextBuilder CreateBuilder(ushort port)
-</code></pre>
-<h3 id="parameters-1">Parameters</h3>
-<p><code>port</code> <a href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></p>
-<h3 id="returns-1">Returns</h3>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></p>
-<h2 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_String_"> CreateBuilder(string)</h2>
-<p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening host string.</p>
-<pre><code class="lang-csharp">public static HttpServerHostContextBuilder CreateBuilder(string listeningHost)
-</code></pre>
-<h3 id="parameters-2">Parameters</h3>
-<p><code>listeningHost</code> <a href="https://learn.microsoft.com/dotnet/api/system.string">string</a></p>
-<h3 id="returns-2">Returns</h3>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></p>
-<h2 id="Sisk_Core_Http_HttpServer_CreateBuilder"> CreateBuilder()</h2>
-<p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context.</p>
-<pre><code class="lang-csharp">public static HttpServerHostContextBuilder CreateBuilder()
-</code></pre>
-<h3 id="returns-3">Returns</h3>
-<p><a href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></p>
+
+
+
+
+<h1 id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*" class="text-break">
+Method CreateBuilder  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Sisk.html">Sisk</a>.<a class="xref" href="Sisk.Core.html">Core</a>.<a class="xref" href="Sisk.Core.Http.html">Http</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Sisk.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_Action_Sisk_Core_Http_Hosting_HttpServerHostContextBuilder__" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder(System.Action{Sisk.Core.Http.Hosting.HttpServerHostContextBuilder})">
+  CreateBuilder(Action&lt;HttpServerHostContextBuilder&gt;)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Builds an <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context invoking the handler on it.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder CreateBuilder(Action&lt;HttpServerHostContextBuilder&gt; handler)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>handler</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a>&gt;</dt>
+  <dd><p>The action which will configure the host context.</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_UInt16_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder(System.UInt16)">
+  CreateBuilder(ushort)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening port.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder CreateBuilder(ushort port)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>port</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></dt>
+  <dd></dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServer_CreateBuilder_System_String_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder(System.String)">
+  CreateBuilder(string)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context with predefined listening host string.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder CreateBuilder(string listeningHost)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>listeningHost</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd></dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<a id="Sisk_Core_Http_HttpServer_CreateBuilder_" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder*"></a>
+
+<h3 id="Sisk_Core_Http_HttpServer_CreateBuilder" data-uid="Sisk.Core.Http.HttpServer.CreateBuilder">
+  CreateBuilder()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Builds an empty <a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContext.html">HttpServerHostContext</a> context.</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public static HttpServerHostContextBuilder CreateBuilder()</code></pre>
+</div>
+
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Sisk.Core.Http.Hosting.HttpServerHostContextBuilder.html">HttpServerHostContextBuilder</a></dt>
+  <dd></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/api/Sisk.Core.Http.HttpServer.CreateBuilder.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
             </div>
 
