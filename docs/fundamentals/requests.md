@@ -74,6 +74,23 @@ A response with status 413 Content Too Large is returned to the client if the co
 
 The HTTP Context is an exclusive Sisk object that stores HTTP server, route, router and request handler information. You can use it to be able to organize yourself in an environment where these objects are difficult to organize.
 
+You can get the currently executing [HttpContext](/api/Sisk.Core.Http.HttpContext) using the static method `HttpContext.GetCurrentContext()`. This method returns the context of the request currently being processed in the current thread.
+
+```cs
+HttpContext context = HttpContext.GetCurrentContext();
+```
+
+### Log Mode
+
+The [HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) property allows you to control the logging behavior for the current request. You can enable or disable logging for specific requests, overriding the default server configuration.
+
+```cs
+// Disable logging for this request
+context.LogMode = LogOutputMode.None;
+```
+
+### Request Bag
+
 The [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) object contains stored information that is passed from an request handler to another point, and can be consumed at the final destination. This object can also be used by request handlers that run after the route callback.
 
 > [!TIP]
@@ -137,6 +154,8 @@ public class MyController
 ```
 
 You can also use the `Bag.Set()` and `Bag.Get()` helper methods to get or set objects by their type singletons.
+
+The `TypedValueDictionary` class also provides `GetValue` and `SetValue` methods for more control.
 
 <div class="script-header">
     <span>

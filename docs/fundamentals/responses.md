@@ -58,6 +58,13 @@ new HttpResponse(301)
 
 When you use the [Add](/api/Sisk.Core.Entity.HttpHeaderCollection.Add) method of HttpHeaderCollection, you are adding a header to the request without altering the ones already sent. The [Set](/api/Sisk.Core.Entity.HttpHeaderCollection.Set) method replaces the headers with the same name with the instructed value. The indexer of HttpHeaderCollection internally calls the Set method to replace the headers.
 
+You can also retrieve header values using the [GetHeaderValue](/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue) method. This method helps in obtaining values from both the response headers and the content headers (if any content is set).
+
+```cs
+// Returns the value of the "Content-Type" header, checking both response.Headers and response.Content.Headers
+string? contentType = response.GetHeaderValue("Content-Type");
+```
+
 ## Sending cookies
 
 Sisk has methods that facilitate the definition of cookies in the client. Cookies set by this method are already URL encoded and fit the RFC-6265 standard.
