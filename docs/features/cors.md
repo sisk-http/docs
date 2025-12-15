@@ -92,7 +92,11 @@ using var host = HttpServer.CreateBuilder()
         allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
 
         // Responds based on the Access-Control-Request-Headers header or the sent headers
-        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders],
+
+        exposeHeaders: [HttpKnownHeaderNames.ContentType, "X-Authenticated-Account-Id"],
+        allowCredentials: true))
+    .Build();
 ```
 
 ## Other Ways to Apply CORS

@@ -2,7 +2,7 @@
 
 You can configure Sisk to write access and error logs automatically. It is possible to define log rotation, extensions and frequency.
 
-The [LogStream](/api/Sisk.Core.Http.LogStream) class provides an asynchronous way of writing logs and keeping them in an awaitable write queue.
+The [LogStream](/api/Sisk.Core.Http.LogStream) class provides an asynchronous way of writing logs and keeping them in an awaitable write queue. The `LogStream` class implements `IAsyncDisposable`, ensuring that all pending logs are written before the stream is closed.
 
 In this article we will show you how to configure logging for your application.
 
@@ -106,7 +106,9 @@ You can format your log file by the format described by the table:
 | %lms   | Elapsed time in milliseconds                                                   | 120                                  |
 | %ls    | Execution status                                                                | Executed                |
 | %{header-name}    | Represents the `header-name` header of the request.                                                                | `Mozilla/5.0 (platform; rv:gecko [...]`                |
-| %{:res-name}    | Represents the `res-name` header of the response. | |
+| %{:header-name}    | Represents the `header-name` header of the response. | `application/json` |
+
+You can also use `HttpServerConfiguration.DefaultAccessLogFormat` to use the default access log format.
 
 ## Rotating logs
 
