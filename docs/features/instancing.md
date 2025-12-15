@@ -4,6 +4,8 @@ It is common to dedicate members and instances that last for the lifetime of a r
 
 This dictionary can be accessed by [request handlers](/docs/fundamentals/request-handlers) and define variables throughout that request. For example, a request handler that authenticates a user sets this user within the `HttpContext.RequestBag`, and within the request logic, this user can be retrieved with `HttpContext.RequestBag.Get<User>()`.
 
+The objects defined in this dictionary are scoped to the request lifecycle. They are disposed of at the end of the request. Not necessarily does sending a response define the end of the request lifecycle. When [request handlers](/docs/fundamentals/request-handlers) that run after sending a response are executed, the `RequestBag` objects still exist and have not been disposed of.
+
 Here’s an example:
 
 <div class="script-header">
@@ -41,7 +43,7 @@ public class AuthenticateUser : IRequestHandler
 ```csharp
 [RouteGet("/hello")]
 [RequestHandler<AuthenticateUser>]
-public static HttpResponse SayHello(HttpRequest request)
+public HttpResponse SayHello(HttpRequest request)
 {
     var authenticatedUser = request.Bag.Get<User>();
     return new HttpResponse()
@@ -71,21 +73,20 @@ The example below defines a controller that has members commonly accessed by the
 ```csharp
 public abstract class Controller : RouterModule
 {
-    public DbContext Database
-    {
-        get
-        {
-            // create an DbContext or get the existing one
-            return HttpContext.Current.RequestBag.GetOrAdd(() => new DbContext());
-        }
-    }
+    // Get the existing or create a new database instance for this request
+    protected DbContext Database => HttpContext.Current.RequestBag.GetOrAdd(() => new DbContext());
+
+    // Lazy loading repositories is common too
+    protected IUserRepository Users => HttpContext.Current.RequestBag.GetOrAdd(() => new UserRepository(Database));
+    protected IBlogRepository Blogs => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogRepository(Database));
+    protected IBlogPostRepository BlogPosts => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogPostRepository(Database));
 
     // the following line will throw if the property is accessed when the User is not
     // defined in the request bag
-    public User AuthenticatedUser { get => HttpContext.Current.RequestBag.Get<User>(); }
+    protected User AuthenticatedUser => => HttpContext.Current.RequestBag.Get<User>();
 
     // Exposing the HttpRequest instance is supported too
-    public HttpRequest Request { get => HttpContext.Current.Request; }
+    protected HttpRequest Request => HttpContext.Current.Request
 }
 ```
 
@@ -101,26 +102,26 @@ And define types that inherit from the controller:
 </div>
 
 ```csharp
-[RoutePrefix("/api/posts")]
-public class PostsController : Controller
+[RoutePrefix("/api/posts/{author}")]
+sealed class PostsController : Controller
 {
+    protected Guid AuthorId => Request.RouteParameters["author"].GetInteger();
+
     [RouteGet]
-    public IEnumerable<Blog> ListPosts()
+    public IAsyncEnumerable<BlogPost> ListPosts()
     {
-        return Database.Posts
-            .Where(post => post.AuthorId == AuthenticatedUser.Id)
-            .ToList();
+        return BlogPosts.GetPostsAsync(authorId: AuthorId);
     }
 
     [RouteGet("<id>")]
-    public Post GetPost()
+    public async Task<BlogPost?> GetPost()
     {
-        int blogId = Request.RouteParameters["id"].GetInteger();
+        int postId = Request.RouteParameters["id"].GetInteger();
 
-        Post? post = Database.Posts
-            .FirstOrDefault(post => post.Id == blogId && post.AuthorId == AuthenticatedUser.Id);
+        Post? post = await BlogPosts
+            .FindPostAsync(post => post.Id == postId && post.AuthorId == AuthorId);
 
-        return post ?? new HttpResponse(404);
+        return post;
     }
 }
 ```
