@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Konfiguration von Namensraumreservierungen auf Windows | Sisk </title>
+        <title>Konfigurieren von Namensraumreservierungen unter Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Konfiguration von Namensraumreservierungen auf Windows | Sisk ">
+        <meta name="title" content="Konfigurieren von Namensraumreservierungen unter Windows | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,10 +154,14 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="konfiguration-von-namensraumreservierungen-auf-windows">Konfiguration von Namensraumreservierungen auf Windows</h1>
+<h1 id="konfigurieren-von-namensraumreservierungen-unter-windows">Konfigurieren von Namensraumreservierungen unter Windows</h1>
 
-<p>Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu hören.</p>
-<p>Auf Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn versucht wird, einem anderen Host zuzuhören, wird auf dem Server ein Zugriff verweigert-Fehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jedem Host zuzuhören, den man auf dem System möchte.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Diese Konfiguration ist optional und nur erforderlich, wenn Sie möchten, dass Sisk unter Windows mit dem HttpListener‑Engine auf Hosts außer „localhost“ lauscht.</p>
+</div>
+<p>Sisk arbeitet mit der HttpListener‑Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um auf Anfragen zu lauschen.</p>
+<p>Unter Windows ist diese Bindung etwas restriktiv und erlaubt nur localhost als gültigen Host. Beim Versuch, auf einen anderen Host zu lauschen, wird auf dem Server ein „Access denied“-Fehler ausgelöst. Dieses Tutorial erklärt, wie Sie die Berechtigung erteilen, auf jedem gewünschten Host des Systems zu lauschen.</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -168,7 +172,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: Präfix hier einfügen, ohne Leerzeichen oder Anführungszeichen
+:: Prefix hier einfügen, ohne Leerzeichen oder Anführungszeichen
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -176,7 +180,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Wo <code>PREFIX</code> das Präfix (&quot;Zuhör-Host-&gt;Port&quot;) ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert werden, Beispiel:</p>
+<p>Dabei ist <code>PREFIX</code> das Präfix („Listening Host-&gt;Port“), auf das Ihr Server lauschen soll. Es muss mit dem URL‑Schema, Host, Port und einem abschließenden Schrägstrich formatiert sein, Beispiel:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -185,9 +189,9 @@ pause
         BATCH
     </span>
 </div>
-<pre><code class="lang-bat">SET PREFIX=http://my-anwendung.example.test/
+<pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>Damit Sie in Ihrer Anwendung über gehört werden können:</p>
+<p>Damit Sie in Ihrer Anwendung darüber lauschen können:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -201,7 +205,7 @@ pause
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://my-anwendung.example.test/&quot;)
+            .UseListeningPort(&quot;http://my-application.example.test/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;
@@ -209,7 +213,7 @@ pause
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Hallo, Welt!&quot;)
+                Content = new StringContent(&quot;Hello, world!&quot;)
             };
         });
 
@@ -279,12 +283,16 @@ pause
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

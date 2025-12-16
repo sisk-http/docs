@@ -162,7 +162,7 @@
 <li>Available on: Linux, macOS, Windows</li>
 <li>Effort: easy</li>
 </ul>
-<p>It is possible to use the experimental <strong>Cadente</strong> engine in Sisk projects, without requiring additional configuration on the computer or in the project. You will need to install the <code>Sisk.Cadente.CoreEngine</code> package in your project to be able to use the Cadente server in the Sisk server.</p>
+<p>It is possible to use the experimental <a href="/docs/cadente"><strong>Cadente</strong></a> engine in Sisk projects, without requiring additional configuration on the computer or in the project. You will need to install the <code>Sisk.Cadente.CoreEngine</code> package in your project to be able to use the Cadente server in the Sisk server.</p>
 <p>To configure SSL, you can use the <code>UseSsl</code> and <code>UseEngine</code> methods of the builder:</p>
 <pre><code class="lang-csharp">using var http = HttpServer.CreateBuilder()
     .UseEngine&lt;CadenteHttpServerEngine&gt;()
@@ -273,12 +273,16 @@
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

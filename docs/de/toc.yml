@@ -1,7 +1,5 @@
 items:
- 
 - name: Willkommen
- 
 - name: Erste Schritte
   href: getting-started.md
 - name: Installation
@@ -10,48 +8,44 @@ items:
   href: native-aot.md
 - name: Bereitstellung
   href: deploying.md
-- name: Arbeit mit SSL
+- name: Arbeiten mit SSL
   href: ssl.md
+- name: Cadente
+  href: cadente.md
 - name: Windows-Setup
   href: registering-namespace.md
 - name: Änderungsprotokolle
   href: changelogs.md
-- name: Häufig gestellte Fragen
+- name: FAQ
   href: faq.md
-  
 - name: Grundlagen
-
 - name: Routing
   href: fundamentals/routing.md
-- name: Anfragebehandlungen
+- name: Request-Handler
   href: fundamentals/request-handlers.md
 - name: Anfragen
   href: fundamentals/requests.md
 - name: Antworten
   href: fundamentals/responses.md
-
 - name: Funktionen
-
 - name: Protokollierung
   href: features/logging.md
-- name: Server-sent-Events
+- name: Servergesendete Ereignisse
   href: features/server-sent-events.md
-- name: Web-Sockets
+- name: WebSockets
   href: features/websockets.md
 - name: Discard-Syntax
   href: features/discard-syntax.md
-- name: Abhängigkeitsinjektion
+- name: Dependency Injection
   href: features/instancing.md
-- name: Inhalts-Streaming
+- name: Content-Streaming
   href: features/content-streaming.md
-- name: Cross-Origin-Ressourcen-Freigabe
+- name: Cross-Origin Resource Sharing
   href: features/cors.md
-- name: URL-Erstellung
-  href: features/url-builder.md
-
+- name: Dateiserver
+  href: features/file-server.md
 - name: Erweiterungen
-
-- name: Modell-Kontext-Protokoll (MCP)
+- name: Model Context Protocol (MCP)
   href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
@@ -65,14 +59,12 @@ items:
   href: extensions/ini-configuration.md
 - name: API-Dokumentation
   href: extensions/api-documentation.md
-
-- name: Erweitert
-
+- name: Fortgeschritten
 - name: Manuelle Einrichtung
   href: advanced/manual-setup.md
-- name: Anfrage-Lebenszyklus
+- name: Anforderungslebenszyklus
   href: advanced/request-lifecycle.md
-- name: Weiterleitungs-Auflöser
+- name: Weiterleitungs-Resolver
   href: advanced/forwarding-resolvers.md
 - name: HTTP-Server-Handler
   href: advanced/http-server-handlers.md

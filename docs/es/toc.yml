@@ -1,17 +1,19 @@
 items:
- 
+
 - name: Bienvenido
- 
-- name: Empezando
+
+- name: Comenzando
   href: getting-started.md
 - name: Instalación
   href: installing.md
-- name: Soporte AOT Nativo
+- name: Compatibilidad con Native AOT
   href: native-aot.md
 - name: Despliegue
   href: deploying.md
 - name: Trabajando con SSL
   href: ssl.md
+- name: Cadente
+  href: cadente.md
 - name: Configuración de Windows
   href: registering-namespace.md
 - name: Registros de cambios
@@ -23,7 +25,7 @@ items:
 
 - name: Enrutamiento
   href: fundamentals/routing.md
-- name: Controladores de solicitudes
+- name: Manejadores de solicitudes
   href: fundamentals/request-handlers.md
 - name: Solicitudes
   href: fundamentals/requests.md
@@ -32,7 +34,7 @@ items:
 
 - name: Características
 
-- name: Registro de eventos
+- name: Registro
   href: features/logging.md
 - name: Eventos enviados por el servidor
   href: features/server-sent-events.md
@@ -44,14 +46,14 @@ items:
   href: features/instancing.md
 - name: Transmisión de contenido
   href: features/content-streaming.md
-- name: Compartir recursos de origen cruzado
+- name: Compartir recursos entre orígenes
   href: features/cors.md
-- name: Construcción de URL
-  href: features/url-builder.md
+- name: Servidor de archivos
+  href: features/file-server.md
 
 - name: Extensiones
 
-- name: Protocolo de contexto de modelo (MCP)
+- name: Protocolo de Contexto de Modelo (MCP)
   href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
@@ -74,9 +76,9 @@ items:
   href: advanced/request-lifecycle.md
 - name: Resolutores de reenvío
   href: advanced/forwarding-resolvers.md
-- name: Controladores de servidor HTTP
+- name: Manejadores del servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuración de multi-host
+- name: Configuración multi-host
   href: advanced/multi-host-setup.md
 - name: Motores HTTP
   href: advanced/server-engines.md

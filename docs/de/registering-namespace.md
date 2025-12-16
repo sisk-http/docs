@@ -1,8 +1,11 @@
-# Konfiguration von Namensraumreservierungen auf Windows
+# Konfigurieren von Namensraumreservierungen unter Windows
 
-Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu hören.
+> [!NOTE]
+> Diese Konfiguration ist optional und nur erforderlich, wenn Sie möchten, dass Sisk unter Windows mit dem HttpListener‑Engine auf Hosts außer „localhost“ lauscht.
 
-Auf Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn versucht wird, einem anderen Host zuzuhören, wird auf dem Server ein Zugriff verweigert-Fehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jedem Host zuzuhören, den man auf dem System möchte.
+Sisk arbeitet mit der HttpListener‑Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um auf Anfragen zu lauschen.
+
+Unter Windows ist diese Bindung etwas restriktiv und erlaubt nur localhost als gültigen Host. Beim Versuch, auf einen anderen Host zu lauschen, wird auf dem Server ein „Access denied“-Fehler ausgelöst. Dieses Tutorial erklärt, wie Sie die Berechtigung erteilen, auf jedem gewünschten Host des Systems zu lauschen.
 
 <div class="script-header">
     <span>
@@ -16,7 +19,7 @@ Auf Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost 
 ```bat
 @echo off
 
-:: Präfix hier einfügen, ohne Leerzeichen oder Anführungszeichen
+:: Prefix hier einfügen, ohne Leerzeichen oder Anführungszeichen
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -25,7 +28,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-Wo `PREFIX` das Präfix ("Zuhör-Host->Port") ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert werden, Beispiel:
+Dabei ist `PREFIX` das Präfix („Listening Host->Port“), auf das Ihr Server lauschen soll. Es muss mit dem URL‑Schema, Host, Port und einem abschließenden Schrägstrich formatiert sein, Beispiel:
 
 <div class="script-header">
     <span>
@@ -37,10 +40,10 @@ Wo `PREFIX` das Präfix ("Zuhör-Host->Port") ist, auf das der Server hört. Es 
 </div>
 
 ```bat
-SET PREFIX=http://my-anwendung.example.test/
+SET PREFIX=http://my-application.example.test/
 ```
 
-Damit Sie in Ihrer Anwendung über gehört werden können:
+Damit Sie in Ihrer Anwendung darüber lauschen können:
 
 <div class="script-header">
     <span>
@@ -57,7 +60,7 @@ class Program
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort("http://my-anwendung.example.test/")
+            .UseListeningPort("http://my-application.example.test/")
             .Build();
 
         app.Router.MapGet("/", request =>
@@ -65,7 +68,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Hallo, Welt!")
+                Content = new StringContent("Hello, world!")
             };
         });
 

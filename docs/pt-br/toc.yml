@@ -1,29 +1,31 @@
 items:
- 
+
 - name: Bem-vindo
- 
-- name: Introdução
+
+- name: Começando
   href: getting-started.md
-- name: Instalando
+- name: Instalação
   href: installing.md
-- name: Suporte Nativo AOT
+- name: Suporte a Native AOT
   href: native-aot.md
-- name: Implantando
+- name: Implantação
   href: deploying.md
 - name: Trabalhando com SSL
   href: ssl.md
+- name: Cadente
+  href: cadente.md
 - name: Configuração do Windows
   href: registering-namespace.md
-- name: Registros de Alterações
+- name: Logs de alterações
   href: changelogs.md
-- name: Perguntas Frequentes
+- name: FAQ
   href: faq.md
   
 - name: Fundamentos
 
 - name: Roteamento
   href: fundamentals/routing.md
-- name: Manipuladores de Requisição
+- name: Manipuladores de requisição
   href: fundamentals/request-handlers.md
 - name: Requisições
   href: fundamentals/requests.md
@@ -32,22 +34,22 @@ items:
 
 - name: Recursos
 
-- name: Registro de Logs
+- name: Registro
   href: features/logging.md
-- name: Eventos Enviados pelo Servidor
+- name: Eventos enviados pelo servidor
   href: features/server-sent-events.md
-- name: Web Sockets
+- name: WebSockets
   href: features/websockets.md
-- name: Sintaxe Descartável
+- name: Sintaxe de descarte
   href: features/discard-syntax.md
-- name: Injeção de Dependência
+- name: Injeção de dependência
   href: features/instancing.md
-- name: Transmissão de Conteúdo
+- name: Transmissão de conteúdo
   href: features/content-streaming.md
-- name: Compartilhamento de Recursos de Origem Cruzada
+- name: Compartilhamento de recursos entre origens (CORS)
   href: features/cors.md
-- name: Construção de URL
-  href: features/url-builder.md
+- name: Servidor de arquivos
+  href: features/file-server.md
 
 - name: Extensões
 
@@ -57,26 +59,26 @@ items:
   href: extensions/json-rpc.md
 - name: Proxy SSL
   href: extensions/ssl-proxy.md
-- name: Autenticação Básica
+- name: Autenticação básica
   href: extensions/basic-auth.md
-- name: Fornecedores de Serviços
+- name: Provedores de serviço
   href: extensions/service-providers.md
 - name: Configuração INI
   href: extensions/ini-configuration.md
-- name: Documentação de API
+- name: Documentação da API
   href: extensions/api-documentation.md
 
 - name: Avançado
 
-- name: Configuração Manual
+- name: Configuração manual
   href: advanced/manual-setup.md
-- name: Ciclo de Vida da Requisição
+- name: Ciclo de vida da requisição
   href: advanced/request-lifecycle.md
-- name: Resolvidores de Encaminhamento
+- name: Resolvedores de encaminhamento
   href: advanced/forwarding-resolvers.md
-- name: Manipuladores de Servidor HTTP
+- name: Manipuladores de servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuração de Multi-Hospedagem
+- name: Configuração multi-host
   href: advanced/multi-host-setup.md
 - name: Motores HTTP
   href: advanced/server-engines.md

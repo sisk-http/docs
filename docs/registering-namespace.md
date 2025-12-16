@@ -1,5 +1,8 @@
 # Configuring namespace reservations on Windows
 
+> [!NOTE]
+> This configuration is optional and only required when you want Sisk to listen on hosts other than "localhost" on Windows using the HttpListener engine.
+
 Sisk works with the HttpListener network interface, which binds a virtual host to the system to listen for requests.
 
 On Windows, this binding is a bit restrictive, only allowing localhost to be bound as a valid host. When attempting to listen to another host, an access denied error is thrown on the server. This tutorial explains how to grant authorization to listen on any host you want on the system.

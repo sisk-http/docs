@@ -51,10 +51,9 @@ const CONFIG = {
 
     groqConfig: {
         apiUrl: 'https://api.groq.com/openai/v1/chat/completions',
-        model: 'llama-3.3-70b-versatile',
-        temperature: 0.1,
-        topP: 0.75,
-        maxTokens: 32768,
+        model: 'openai/gpt-oss-120b',
+        temperature: 0,
+        maxTokens: 65536,
         rateLimitDelay: 500, // ms between requests
         retryMultiplier: 3
     }
@@ -224,26 +223,60 @@ async function getModifiedFiles() {
     }
 }
 
+async function getDeletedFiles() {
+    try {
+        const { stdout } = await execAsync('git ls-files -d');
+
+        const deletedFiles = stdout
+            .trim()
+            .split('\n')
+            .filter(line => line.trim() !== '')
+            .filter(line => !exclusionRegex.test(line))
+            .filter(line => line.startsWith('docs/'))
+            .filter(line => line.endsWith('.md') || line.endsWith('.yml'));
+
+        return deletedFiles;
+    } catch (error) {
+        Logger.warning('Could not get deleted files from git.');
+        return [];
+    }
+}
+
 async function cleanTranslations() {
     Logger.step('Cleaning Modified Translation Files');
 
     const modifiedFiles = await getModifiedFiles();
+    const deletedFiles = await getDeletedFiles();
 
-    if (modifiedFiles.length === 0) {
-        Logger.info('No modified files to clean');
+    if (modifiedFiles.length === 0 && deletedFiles.length === 0) {
+        Logger.info('No modified or deleted files to clean');
         return;
     }
 
     let cleanedCount = 0;
     const availableTranslations = Object.values(CONFIG.translations);
 
+    // Clean translations of modified files
     for (const modifiedFile of modifiedFiles) {
         for (const translationCode of availableTranslations) {
             const translationPath = modifiedFile.replace('docs/', `docs/${translationCode}/`);
 
             if (fs.existsSync(translationPath)) {
                 fs.unlinkSync(translationPath);
-                Logger.detail(`Removed: ${translationPath}`);
+                Logger.detail(`Removed (modified): ${translationPath}`);
+                cleanedCount++;
+            }
+        }
+    }
+
+    // Remove translations of deleted files
+    for (const deletedFile of deletedFiles) {
+        for (const translationCode of availableTranslations) {
+            const translationPath = deletedFile.replace('docs/', `docs/${translationCode}/`);
+
+            if (fs.existsSync(translationPath)) {
+                fs.unlinkSync(translationPath);
+                Logger.detail(`Removed (deleted): ${translationPath}`);
                 cleanedCount++;
             }
         }

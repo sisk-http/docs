@@ -7,7 +7,7 @@ Working with SSL for development may be necessary when working in contexts that 
 - Available on: Linux, macOS, Windows
 - Effort: easy
 
-It is possible to use the experimental **Cadente** engine in Sisk projects, without requiring additional configuration on the computer or in the project. You will need to install the `Sisk.Cadente.CoreEngine` package in your project to be able to use the Cadente server in the Sisk server.
+It is possible to use the experimental [**Cadente**](/docs/cadente) engine in Sisk projects, without requiring additional configuration on the computer or in the project. You will need to install the `Sisk.Cadente.CoreEngine` package in your project to be able to use the Cadente server in the Sisk server.
 
 To configure SSL, you can use the `UseSsl` and `UseEngine` methods of the builder:
 

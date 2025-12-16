@@ -156,8 +156,12 @@
                 <article data-uid="">
 <h1 id="configurando-reservas-de-namespace-no-windows">Configurando reservas de namespace no Windows</h1>
 
-<p>Sisk funciona com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.</p>
-<p>No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Esta configuração é opcional e só é necessária quando você deseja que o Sisk escute em hosts diferentes de &quot;localhost&quot; no Windows usando o mecanismo HttpListener.</p>
+</div>
+<p>O Sisk funciona com a interface de rede HttpListener, que vincula um host virtual ao sistema para escutar solicitações.</p>
+<p>No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar escutar em outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para escutar em qualquer host que você desejar no sistema.</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -176,7 +180,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Onde em <code>PREFIX</code>, é o prefixo (&quot;Host de Escuta-&gt;Porta&quot;) que o servidor irá ouvir. Ele deve ser formatado com o esquema de URL, host, porta e uma barra no final, exemplo:</p>
+<p>Onde em <code>PREFIX</code> está o prefixo (&quot;Listening Host-&gt;Port&quot;) que seu servidor escutará. Ele deve ser formatado com o esquema da URL, host, porta e uma barra no final, exemplo:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -185,9 +189,9 @@ pause
         BATCH
     </span>
 </div>
-<pre><code class="lang-bat">SET PREFIX=http://meu-aplicativo.exemplo.teste/
+<pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>Para que você possa ser ouvido em seu aplicativo por meio de:</p>
+<p>Para que sua aplicação possa escutar através de:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -201,7 +205,7 @@ pause
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://meu-aplicativo.exemplo.teste/&quot;)
+            .UseListeningPort(&quot;http://my-application.example.test/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;
@@ -209,7 +213,7 @@ pause
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent(&quot;Olá, mundo!&quot;)
+                Content = new StringContent(&quot;Hello, world!&quot;)
             };
         });
 
@@ -279,12 +283,16 @@ pause
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

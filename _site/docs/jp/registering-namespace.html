@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Windowsでの名前空間予約の設定 | Sisk </title>
+        <title>Windows での名前空間予約の構成 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Windowsでの名前空間予約の設定 | Sisk ">
+        <meta name="title" content="Windows での名前空間予約の構成 | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,10 +154,14 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="windowsでの名前空間予約の設定">Windowsでの名前空間予約の設定</h1>
+<h1 id="windows-での名前空間予約の構成">Windows での名前空間予約の構成</h1>
 
-<p>Siskは、HttpListenerネットワークインターフェイスを使用して、仮想ホストをシステムにバインドし、リクエストを待ち受けます。</p>
-<p>Windowsでは、このバインドは少し制限があり、localhostのみが有効なホストとしてバインドされます。他のホストをリッスンしようとすると、サーバーでアクセスが拒否されたエラーが発生します。このチュートリアルでは、システムで任意のホストをリッスンするための認可を付与する方法について説明します。</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>この構成はオプションであり、Windows で HttpListener エンジンを使用して「localhost」以外のホストで Sisk をリッスンさせたい場合にのみ必要です。</p>
+</div>
+<p>Sisk は HttpListener ネットワークインターフェイスと連携し、仮想ホストをシステムにバインドしてリクエストを待ち受けます。</p>
+<p>Windows では、このバインドはやや制限が厳しく、localhost のみが有効なホストとしてバインドできます。他のホストでリッスンしようとすると、サーバー側でアクセス拒否エラーが発生します。このチュートリアルでは、システム上で任意のホストをリッスンできるように権限を付与する方法を説明します。</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -168,7 +172,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: ここにプレフィックスを入力してください (スペースや引用符なし)
+:: プレフィックスをここに挿入してください（スペースや引用符なし）
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -176,7 +180,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>ここで、<code>PREFIX</code>は、サーバーがリッスンするプレフィックス(&quot;リスニングホスト-&gt;ポート&quot;)です。URLスキーム、ホスト、ポート、末尾のスラッシュで構成する必要があります。例:</p>
+<p><code>PREFIX</code> には、サーバーがリッスンするプレフィックス（「Listening Host-&gt;Port」）を指定します。URL スキーム、ホスト、ポート、そして末尾のスラッシュを含む形式で記述する必要があります。例:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -187,7 +191,7 @@ pause
 </div>
 <pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>これにより、アプリケーションを介してリッスンできるようになります:</p>
+<p>これにより、アプリケーション側で次のようにリッスンできるようになります:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -279,12 +283,16 @@ pause
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

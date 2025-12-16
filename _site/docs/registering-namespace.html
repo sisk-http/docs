@@ -156,6 +156,10 @@
                 <article data-uid="">
 <h1 id="configuring-namespace-reservations-on-windows">Configuring namespace reservations on Windows</h1>
 
+<div class="NOTE">
+<h5>Note</h5>
+<p>This configuration is optional and only required when you want Sisk to listen on hosts other than &quot;localhost&quot; on Windows using the HttpListener engine.</p>
+</div>
 <p>Sisk works with the HttpListener network interface, which binds a virtual host to the system to listen for requests.</p>
 <p>On Windows, this binding is a bit restrictive, only allowing localhost to be bound as a valid host. When attempting to listen to another host, an access denied error is thrown on the server. This tutorial explains how to grant authorization to listen on any host you want on the system.</p>
 <div class="script-header">
@@ -279,12 +283,16 @@ pause
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

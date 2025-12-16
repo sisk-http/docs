@@ -1,17 +1,19 @@
-items: 
+items:
 
 - name: 欢迎
 
-- name: 入门指南
+- name: 入门
   href: getting-started.md
 - name: 安装
   href: installing.md
-- name: 本机 AOT 支持
+- name: 原生 AOT 支持
   href: native-aot.md
 - name: 部署
   href: deploying.md
 - name: 使用 SSL
   href: ssl.md
+- name: Cadente
+  href: cadente.md
 - name: Windows 设置
   href: registering-namespace.md
 - name: 更新日志
@@ -23,7 +25,7 @@ items:
 
 - name: 路由
   href: fundamentals/routing.md
-- name: 请求处理器
+- name: 请求处理程序
   href: fundamentals/request-handlers.md
 - name: 请求
   href: fundamentals/requests.md
@@ -32,11 +34,11 @@ items:
 
 - name: 功能
 
-- name: 日志记录
+- name: 日志
   href: features/logging.md
 - name: 服务器发送事件
   href: features/server-sent-events.md
-- name: Web 套接字
+- name: Web Sockets
   href: features/websockets.md
 - name: 丢弃语法
   href: features/discard-syntax.md
@@ -44,10 +46,10 @@ items:
   href: features/instancing.md
 - name: 内容流
   href: features/content-streaming.md
-- name: 跨源资源共享
+- name: 跨域资源共享
   href: features/cors.md
-- name: URL 构建
-  href: features/url-builder.md
+- name: 文件服务器
+  href: features/file-server.md
 
 - name: 扩展
 
@@ -57,7 +59,7 @@ items:
   href: extensions/json-rpc.md
 - name: SSL 代理
   href: extensions/ssl-proxy.md
-- name: 基本身份验证
+- name: 基本认证
   href: extensions/basic-auth.md
 - name: 服务提供者
   href: extensions/service-providers.md
@@ -74,7 +76,7 @@ items:
   href: advanced/request-lifecycle.md
 - name: 转发解析器
   href: advanced/forwarding-resolvers.md
-- name: HTTP 服务器处理器
+- name: HTTP 服务器处理程序
   href: advanced/http-server-handlers.md
 - name: 多主机设置
   href: advanced/multi-host-setup.md

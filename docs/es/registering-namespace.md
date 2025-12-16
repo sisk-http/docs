@@ -1,8 +1,11 @@
-# Configurando reservas de namespace en Windows
+# Configuración de reservas de espacios de nombres en Windows
+
+> [!NOTE]
+> Esta configuración es opcional y solo se requiere cuando deseas que Sisk escuche en hosts diferentes a "localhost" en Windows usando el motor HttpListener.
 
 Sisk funciona con la interfaz de red HttpListener, que enlaza un host virtual al sistema para escuchar solicitudes.
 
-En Windows, este enlace es un poco restrictivo, solo permitiendo que localhost se enlace como un host válido. Al intentar escuchar a otro host, se lanza un error de acceso denegado en el servidor. Este tutorial explica cómo conceder autorización para escuchar en cualquier host que desee en el sistema.
+En Windows, este enlace es algo restrictivo, solo permite que localhost se vincule como un host válido. Al intentar escuchar en otro host, se lanza un error de acceso denegado en el servidor. Este tutorial explica cómo otorgar autorización para escuchar en cualquier host que desees en el sistema.
 
 <div class="script-header">
     <span>
@@ -16,7 +19,7 @@ En Windows, este enlace es un poco restrictivo, solo permitiendo que localhost s
 ```bat
 @echo off
 
-:: inserta el prefijo aquí, sin espacios ni comillas
+:: insert prefix here, without spaces or quotes
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -25,7 +28,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-Donde en `PREFIX`, es el prefijo ("Host de escucha->Puerto") que su servidor escuchará. Debe estar formateado con el esquema de URL, host, puerto y una barra al final, ejemplo:
+Donde en `PREFIX` está el prefijo ("Host de escucha->Puerto") que tu servidor escuchará. Debe estar formateado con el esquema URL, host, puerto y una barra al final, por ejemplo:
 
 <div class="script-header">
     <span>
@@ -37,10 +40,10 @@ Donde en `PREFIX`, es el prefijo ("Host de escucha->Puerto") que su servidor esc
 </div>
 
 ```bat
-SET PREFIX=http://mi-aplicacion.example.test/
+SET PREFIX=http://my-application.example.test/
 ```
 
-Para que pueda ser escuchado en su aplicación a través de:
+De modo que puedas escuchar en tu aplicación mediante:
 
 <div class="script-header">
     <span>
@@ -57,7 +60,7 @@ class Program
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort("http://mi-aplicacion.example.test/")
+            .UseListeningPort("http://my-application.example.test/")
             .Build();
 
         app.Router.MapGet("/", request =>
@@ -65,7 +68,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Hola, mundo!")
+                Content = new StringContent("Hello, world!")
             };
         });
 

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Настройка резервирования пространства имен на Windows | Sisk </title>
+        <title>Настройка резервирования пространств имён в Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Настройка резервирования пространства имен на Windows | Sisk ">
+        <meta name="title" content="Настройка резервирования пространств имён в Windows | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,10 +154,14 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="настройка-резервирования-пространства-имен-на-windows">Настройка резервирования пространства имен на Windows</h1>
+<h1 id="настройка-резервирования-пространств-имён-в-windows">Настройка резервирования пространств имён в Windows</h1>
 
-<p>Sisk работает с сетевым интерфейсом HttpListener, который связывает виртуальный хост с системой для прослушивания запросов.</p>
-<p>В Windows это связывание немного ограничено, разрешая связывание только localhost в качестве допустимого хоста. При попытке прослушивания другого хоста на сервере возникает ошибка доступа, запрещенного. Это руководство объясняет, как предоставить авторизацию для прослушивания на любом хосте, который вы хотите на системе.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Эта конфигурация является необязательной и требуется только тогда, когда вы хотите, чтобы Sisk прослушивал хосты, отличные от &quot;localhost&quot; в Windows, используя движок HttpListener.</p>
+</div>
+<p>Sisk работает с сетевым интерфейсом HttpListener, который привязывает виртуальный хост к системе для прослушивания запросов.</p>
+<p>В Windows такое привязывание несколько ограничено: в качестве допустимого хоста можно привязать только localhost. При попытке прослушивать другой хост сервер выдаёт ошибку доступа. В этом руководстве объясняется, как предоставить разрешение на прослушивание любого желаемого хоста в системе.</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -168,7 +172,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: вставьте префикс здесь, без пробелов или кавычек
+:: вставьте префикс здесь, без пробелов и кавычек
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -176,7 +180,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Где в <code>PREFIX</code> — это префикс (&quot;Хост-&gt;Порт прослушивания&quot;), который будет прослушивать ваш сервер. Он должен быть отформатирован по схеме URL, хосту, порту и слэшу в конце, например:</p>
+<p>Где в <code>PREFIX</code> указывается префикс (&quot;Listening Host-&gt;Port&quot;), на котором ваш сервер будет прослушивать. Он должен быть отформатирован с указанием схемы URL, хоста, порта и завершающего слеша, пример:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -187,7 +191,7 @@ pause
 </div>
 <pre><code class="lang-bat">SET PREFIX=http://my-application.example.test/
 </code></pre>
-<p>Таким образом, вы можете прослушивать в вашем приложении через:</p>
+<p>Чтобы вы могли прослушивать в вашем приложении через:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -279,12 +283,16 @@ pause
                             "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
                             "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
                             "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext"
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
                         ];
                         const tokenValues = [
                             "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
                             "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort"
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
                         ];
                         const tokenInterfaces = [
                             "IRequestHandler", "IEnumerable", "ICollection", "IList"

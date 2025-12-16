@@ -1,5 +1,5 @@
 items:
- 
+
 - name: Добро пожаловать
 
 - name: Начало работы
@@ -8,15 +8,17 @@ items:
   href: installing.md
 - name: Поддержка Native AOT
   href: native-aot.md
-- name: Развертывание
+- name: Развёртывание
   href: deploying.md
 - name: Работа с SSL
   href: ssl.md
+- name: Cadente
+  href: cadente.md
 - name: Настройка Windows
   href: registering-namespace.md
-- name: Журнал изменений
+- name: Журналы изменений
   href: changelogs.md
-- name: Часто задаваемые вопросы
+- name: FAQ
   href: faq.md
   
 - name: Основы
@@ -30,24 +32,24 @@ items:
 - name: Ответы
   href: fundamentals/responses.md
 
-- name: Функции
+- name: Возможности
 
-- name: Журналирование
+- name: Логирование
   href: features/logging.md
 - name: События, отправляемые сервером
   href: features/server-sent-events.md
-- name: Веб-сокеты
+- name: Web Sockets
   href: features/websockets.md
-- name: Синтаксис отбрасывания
+- name: Синтаксис discard
   href: features/discard-syntax.md
 - name: Внедрение зависимостей
   href: features/instancing.md
 - name: Потоковая передача контента
   href: features/content-streaming.md
-- name: Обмен ресурсами между источниками
+- name: Cross-Origin Resource Sharing
   href: features/cors.md
-- name: Построение URL
-  href: features/url-builder.md
+- name: Файловый сервер
+  href: features/file-server.md
 
 - name: Расширения
 
@@ -55,7 +57,7 @@ items:
   href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
-- name: Прокси SSL
+- name: SSL-прокси
   href: extensions/ssl-proxy.md
 - name: Базовая аутентификация
   href: extensions/basic-auth.md
@@ -66,17 +68,17 @@ items:
 - name: Документация API
   href: extensions/api-documentation.md
 
-- name: Продвинутые
+- name: Продвинутый
 
 - name: Ручная настройка
   href: advanced/manual-setup.md
 - name: Жизненный цикл запроса
   href: advanced/request-lifecycle.md
-- name: Резолверы перенаправления
+- name: Перенаправляющие резолверы
   href: advanced/forwarding-resolvers.md
-- name: Обработчики сервера HTTP
+- name: Обработчики HTTP‑сервера
   href: advanced/http-server-handlers.md
-- name: Настройка нескольких хостов
+- name: Настройка мультихоста
   href: advanced/multi-host-setup.md
-- name: Движки HTTP
+- name: HTTP‑движки
   href: advanced/server-engines.md
