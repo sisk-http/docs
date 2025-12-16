@@ -12,7 +12,7 @@ dotnet add package Sisk.JsonRpc
 
 JSON-RPC - это бесстаточный, асинхронный протокол удаленного выполнения процедур (RDP), который использует JSON для односторонней передачи данных. Запрос JSON-RPC обычно идентифицируется по ID, и ответ доставляется с тем же ID, который был отправлен в запросе. Не все запросы требуют ответа, которые называются "уведомлениями".
 
-[Спецификация JSON-RPC 2.0](https://www.jsonrpc.org/specification) подробно объясняет, как работает транспорт. Этот транспорт независим от того, где он будет использоваться. Sisk реализует этот протокол через HTTP, следуя соответствиям [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), который частично поддерживает GET-запросы, но полностью поддерживает POST-запросы. Также поддерживаются веб-сокеты, которые обеспечивают асинхронную передачу сообщений.
+[Спецификация JSON-RPC 2.0](https://www.jsonrpc.org/specification) подробно объясняет, как работает транспорт. Этот транспорт независим от места его использования. Sisk реализует этот протокол через HTTP, следуя соответствиям [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), который частично поддерживает GET-запросы, но полностью поддерживает POST-запросы. Также поддерживаются веб-сокеты, обеспечивающие асинхронную передачу сообщений.
 
 Запрос JSON-RPC выглядит примерно так:
 
@@ -55,7 +55,7 @@ using var app = HttpServer.CreateBuilder(port: 5555)
         // добавляет все методы, помеченные как WebMethod, в обработчик JSON-RPC
         args.Handler.Methods.AddMethodsFromType(new MathOperations());
         
-        // сопоставляет маршрут /service с обработчиком JSON-RPC POST и GET-запросов
+        // сопоставляет маршрут /service с обработчиком JSON-RPC POST и GET запросов
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
@@ -100,11 +100,11 @@ public class MathOperations
 }
 ```
 
-Вышеуказанный пример сопоставит методы `Sum` и `Sqrt` с обработчиком JSON-RPC, и эти методы будут доступны по адресам `GET /service`, `POST /service` и `GET /ws`. Имена методов регистронезависимы.
+Вышеуказанный пример сопоставит методы `Sum` и `Sqrt` с обработчиком JSON-RPC, и эти методы будут доступны по `GET /service`, `POST /service` и `GET /ws`. Имена методов регистронезависимы.
 
 Параметры методов автоматически десериализуются в свои конкретные типы. Также поддерживается использование запросов с именованными параметрами. Сериализация JSON выполняется библиотекой [LightJson](https://github.com/CypherPotato/LightJson). Если тип не десериализуется правильно, вы можете создать специальный [конвертер JSON](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) для этого типа и связать его с вашими [JsonSerializerOptions](?) позже.
 
-Вы также можете получить объект `$.params` из запроса JSON-RPC напрямую в вашем методе.
+Вы также можете получить объект `$.params` напрямую из запроса JSON-RPC в вашем методе.
 
 <div class="script-header">
     <span>
@@ -135,7 +135,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 }
 ```
 
-Для массива порядок параметров должен быть соблюдён.
+Для массива порядок параметров должен быть соблюден.
 
 ```json
 {
@@ -158,7 +158,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 
 ## Настройка сериализатора
 
-Вы можете настроить сериализатор JSON в свойстве [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions). В этом свойстве вы можете включить использование [JSON5](https://json5.org/) для десериализации сообщений. Хотя это не соответствует спецификации JSON-RPC 2.0, JSON5 является расширением JSON, которое позволяет писать более читаемые и понятные данные.
+Вы можете настроить сериализатор JSON в свойстве [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions). В этом свойстве вы можете включить использование [JSON5](https://json5.org/) для десериализации сообщений. Хотя это не соответствует спецификации JSON-RPC 2.0, JSON5 является расширением JSON, которое позволяет более人間но-читаемую и понятную запись.
 
 <div class="script-header">
     <span>
@@ -173,12 +173,12 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 
-        // использует санитизированный компаратор имен. этот компаратор сравнивает только буквы
+        // использует санитарный компаратор имен. этот компаратор сравнивает только буквы
         // и цифры в имени, и игнорирует другие символы. например:
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // включает JSON5 для интерпретатора JSON. даже активируя это, обычный JSON все еще поддерживается
+        // включает JSON5 для интерпретатора JSON. даже активируя это, обычный JSON по-прежнему разрешен
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
         // сопоставляет маршрут POST /service с обработчиком JSON-RPC

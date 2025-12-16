@@ -1,7 +1,7 @@
 items:
-
+ 
 - name: Bienvenido
-
+ 
 - name: Empezando
   href: getting-started.md
 - name: Instalación
@@ -12,7 +12,7 @@ items:
   href: deploying.md
 - name: Trabajando con SSL
   href: ssl.md
-- name: Configuración en Windows
+- name: Configuración de Windows
   href: registering-namespace.md
 - name: Registros de cambios
   href: changelogs.md
@@ -23,20 +23,20 @@ items:
 
 - name: Enrutamiento
   href: fundamentals/routing.md
-- name: Manejadores de solicitud
+- name: Controladores de solicitudes
   href: fundamentals/request-handlers.md
 - name: Solicitudes
   href: fundamentals/requests.md
 - name: Respuestas
   href: fundamentals/responses.md
 
-- name: Funcionalidades
+- name: Características
 
-- name: Registro de logs
+- name: Registro de eventos
   href: features/logging.md
 - name: Eventos enviados por el servidor
   href: features/server-sent-events.md
-- name: Web Sockets
+- name: WebSockets
   href: features/websockets.md
 - name: Sintaxis de descarte
   href: features/discard-syntax.md
@@ -44,12 +44,14 @@ items:
   href: features/instancing.md
 - name: Transmisión de contenido
   href: features/content-streaming.md
-- name: Compartición de recursos entre orígenes (CORS)
+- name: Compartir recursos de origen cruzado
   href: features/cors.md
+- name: Construcción de URL
+  href: features/url-builder.md
 
 - name: Extensiones
 
-- name: Protocolo de Contexto de Modelo (MCP)
+- name: Protocolo de contexto de modelo (MCP)
   href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
@@ -61,6 +63,8 @@ items:
   href: extensions/service-providers.md
 - name: Configuración INI
   href: extensions/ini-configuration.md
+- name: Documentación de API
+  href: extensions/api-documentation.md
 
 - name: Avanzado
 
@@ -70,9 +74,9 @@ items:
   href: advanced/request-lifecycle.md
 - name: Resolutores de reenvío
   href: advanced/forwarding-resolvers.md
-- name: Manejadores de servidor HTTP
+- name: Controladores de servidor HTTP
   href: advanced/http-server-handlers.md
-- name: Configuración multi-host
+- name: Configuración de multi-host
   href: advanced/multi-host-setup.md
 - name: Motores HTTP
   href: advanced/server-engines.md

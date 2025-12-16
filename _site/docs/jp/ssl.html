@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SSL で作業する | Sisk </title>
+        <title>SSL を使用する | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="SSL で作業する | Sisk ">
+        <meta name="title" content="SSL を使用する | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,63 +154,63 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ssl-で作業する">SSL で作業する</h1>
+<h1 id="ssl-を使用する">SSL を使用する</h1>
 
-<p>開発時に SSL を使用する必要がある場合があります。これは、ほとんどの Web 開発シナリオのようにセキュリティが必要なコンテキストで発生します。Sisk は HttpListener の上に構築されており、ネイティブ HTTPS をサポートせず、HTTP のみをサポートします。ただし、Sisk で SSL を使用できるワークアラウンドがあります。以下で確認してください。</p>
+<p>開発の際に SSL を使用する必要がある場合、セキュリティが必要なほとんどの Web 開発シナリオで SSL を使用する必要があります。Sisk は HttpListener 上に動作しますが、HttpListener ではネイティブの HTTPS はサポートされず、HTTP のみがサポートされます。ただし、Sisk で SSL を使用できるようにするための回避策があります。以下にそれらを示します。</p>
 <h2 id="siskcadentecoreengine-を介して">Sisk.Cadente.CoreEngine を介して</h2>
 <ul>
-<li>対応 OS: Linux、macOS、Windows</li>
-<li>労力: 簡単</li>
+<li>利用可能: Linux, macOS, Windows</li>
+<li>努力: 簡単</li>
 </ul>
-<p>Sisk プロジェクトで実験的な <strong>Cadente</strong> エンジンを使用することが可能です。コンピュータやプロジェクトに追加の設定を必要とせずに使用できます。Cadente サーバーを Sisk サーバーで使用できるようにするには、プロジェクトに <code>Sisk.Cadente.CoreEngine</code> パッケージをインストールする必要があります。</p>
+<p>Sisk プロジェクトで、コンピューターまたはプロジェクトの追加の構成を必要とせずに、実験的な <strong>Cadente</strong> エンジンを使用できます。Cadente サーバーを Sisk サーバーで使用するには、プロジェクトに <code>Sisk.Cadente.CoreEngine</code> パッケージをインストールする必要があります。</p>
 <p>SSL を構成するには、ビルダーの <code>UseSsl</code> と <code>UseEngine</code> メソッドを使用できます。</p>
 <pre><code class="lang-csharp">using var http = HttpServer.CreateBuilder()
     .UseEngine&lt;CadenteHttpServerEngine&gt;()
     .UseSsl(CertificateHelper.CreateTrustedDevelopmentCertificate(&quot;localhost&quot;))
 </code></pre>
 <blockquote>
-<p>注: このパッケージはまだ実験段階です。</p>
+<p>注意: このパッケージはまだ実験段階です。</p>
 </blockquote>
 <h2 id="windows-の-iis-を介して">Windows の IIS を介して</h2>
 <ul>
-<li>対応 OS: Windows</li>
-<li>労力: 中程度</li>
+<li>利用可能: Windows</li>
+<li>努力: 中</li>
 </ul>
-<p>Windows を使用している場合、IIS を使用して HTTP サーバーで SSL を有効にできます。これを機能させるには、アプリケーションが「localhost」以外のホストでリッスンする場合は、事前に <a href="/docs/jp/registering-namespace">このチュートリアル</a> に従うことをお勧めします。</p>
-<p>これを機能させるには、Windows の機能を通じて IIS をインストールする必要があります。IIS は Windows および Windows Server ユーザーに無料で提供されています。アプリケーションで SSL を構成するには、SSL 証明書を用意してください（自己署名でも構いません）。次に、<a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">IIS 7 以降で SSL を設定する方法</a> を確認できます。</p>
+<p>Windows を使用している場合、HTTP サーバーで SSL を有効にするために IIS を使用できます。この方法を使用するには、ホストが &quot;localhost&quot; 以外の場合にアプリケーションをリッスンさせるために、事前に <a href="/docs/jp/registering-namespace">このチュートリアル</a> を参照することをお勧めします。</p>
+<p>この方法を使用するには、Windows 機能を介して IIS をインストールする必要があります。IIS は、Windows および Windows Server ユーザー向けに無料で提供されています。アプリケーションで SSL を構成するには、SSL 証明書を用意する必要があります。次に、<a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">IIS 7 またはそれ以降で SSL を設定する方法</a> を参照できます。</p>
 <h2 id="mitmproxy-を介して">mitmproxy を介して</h2>
 <ul>
-<li>対応 OS: Linux、macOS、Windows</li>
-<li>労力: 簡単</li>
+<li>利用可能: Linux, macOS, Windows</li>
+<li>努力: 簡単</li>
 </ul>
-<p><strong>mitmproxy</strong> は、開発者やセキュリティテスターがクライアント（Web ブラウザなど）とサーバー間の HTTP および HTTPS トラフィックを検査、変更、記録できるインターセプトプロキシツールです。<strong>mitmdump</strong> ユーティリティを使用して、クライアントと Sisk アプリケーション間でリバース SSL プロキシを開始できます。</p>
+<p><strong>mitmproxy</strong> は、開発者とセキュリティ テスターがクライアント (Web ブラウザなど) とサーバー之间の HTTP および HTTPS トラフィックを検査、変更、および記録できるインターセプション プロキシ ツールです。<strong>mitmdump</strong> ユーティリティを使用して、クライアントと Sisk アプリケーションの間にリバース SSL プロキシを開始できます。</p>
 <ol>
-<li>まず、マシンに <a href="https://mitmproxy.org/">mitmproxy</a> をインストールします。</li>
-<li>Sisk アプリケーションを起動します。この例では、非安全な HTTP ポートとして 8000 を使用します。</li>
-<li>mitmproxy サーバーを安全なポート 8001 でリッスンさせます：</li>
+<li>まず、<a href="https://mitmproxy.org/">mitmproxy</a> をマシンにインストールします。</li>
+<li>Sisk アプリケーションを開始します。この例では、不安全な HTTP ポートとして 8000 を使用します。</li>
+<li>mitmproxy サーバーを開始して、安全なポート 8001 でリッスンします。</li>
 </ol>
 <pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
 </code></pre>
-<p>これで準備完了です！ <code>https://localhost:8001/</code> を介してアプリケーションにアクセスできます。<code>mitmdump</code> を開始するためにアプリケーションが実行されている必要はありません。</p>
-<p>また、プロジェクトに <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy ヘルパー</a> を参照として追加することもできます。これには、mitmproxy がコンピュータにインストールされている必要があります。</p>
+<p>これで完了です! すでに <code>https://localhost:8001/</code> でアプリケーションにアクセスできます。<code>mitmdump</code> を開始するには、アプリケーションが実行中である必要はありません。</p>
+<p>代わりに、プロジェクトに <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy ヘルパー</a> の参照を追加できます。これには、コンピューターに mitmproxy がインストールされている必要があります。</p>
 <h2 id="sisksslproxy-パッケージを介して">Sisk.SslProxy パッケージを介して</h2>
 <ul>
-<li>対応 OS: Linux、macOS、Windows</li>
-<li>労力: 簡単</li>
+<li>利用可能: Linux, macOS, Windows</li>
+<li>努力: 簡単</li>
 </ul>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>Sisk.SslProxy パッケージは <code>Sisk.Cadente.CoreEngine</code> パッケージに置き換えられ、以後メンテナンスされません。</p>
+<p>Sisk.SslProxy パッケージは、<code>Sisk.Cadente.CoreEngine</code> パッケージに代わって廃止され、メンテナンスは行われません。</p>
 </div>
-<p>Sisk.SslProxy パッケージは、Sisk アプリケーションで SSL を有効にする簡単な方法です。ただし、これは <strong>非常に実験的</strong> なパッケージです。このパッケージを使用すると不安定になる可能性がありますが、パッケージを実用的かつ安定化させるために貢献する少数の人々の一員になることができます。開始するには、次のように Sisk.SslProxy パッケージをインストールします：</p>
+<p>Sisk.SslProxy パッケージは、Sisk アプリケーションで SSL を有効にするための簡単な方法です。ただし、このパッケージは <strong>非常に実験的</strong> です。このパッケージで作業することは不安定になる可能性がありますが、このパッケージを実用化し、安定させるために貢献する少数の人々の一人になることができます。開始するには、Sisk.SslProxy パッケージをインストールできます。</p>
 <pre><code class="lang-sh">dotnet add package Sisk.SslProxy
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Visual Studio パッケージマネージャーで「Include prerelease」を有効にして Sisk.SslProxy をインストールする必要があります。</p>
+<p>Sisk.SslProxy をインストールするには、Visual Studio パッケージ マネージャーで &quot;プレビュー版を含める&quot; を有効にする必要があります。</p>
 </div>
-<p>再度、これは実験プロジェクトであるため、本番環境に投入することは考えないでください。</p>
-<p>現在、Sisk.SslProxy は HTTP/1.1 のほとんどの機能（HTTP Continue、Chunked-Encoding、WebSockets、SSE）を処理できます。SslProxy については、<a href="/docs/jp/extensions/ssl-proxy">こちら</a> をご覧ください。</p>
+<p>再び言及しますが、このプロジェクトは実験的であるため、生产環境で使用することを考えるべきではありません。</p>
+<p>現在、Sisk.SslProxy は、HTTP Continue、チャンク化されたエンコード、WebSockets、SSE など、HTTP/1.1 のほとんどの機能を処理できます。SslProxy については <a href="/docs/jp/extensions/ssl-proxy">こちら</a> でさらに詳しく知ることができます。</p>
 
 </article>
 

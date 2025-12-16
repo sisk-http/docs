@@ -158,7 +158,7 @@
 
 <p>Sisk supports web sockets as well, such as receiving and sending messages to their client.</p>
 <p>This feature works fine in most browsers, but in Sisk it is still experimental. Please, if you find any bugs, report it on github.</p>
-<h2 id="accepting-messages-asynchronously">Accepting messages asynchronously</h2>
+<h2 id="accepting-messages">Accepting messages</h2>
 <p>WebSocket messages are received in order, queued until processed by <code>ReceiveMessageAsync</code>. This method returns no message when the timeout is reached, when the operation is canceled, or when the client is disconnected.</p>
 <p>Only one read and write operation can occur simultaneously, therefore, while you are waiting for a message with <code>ReceiveMessageAsync</code>, it is not possible to write to the connected client.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
@@ -176,8 +176,8 @@
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="accepting-messages-synchronously">Accepting messages synchronously</h2>
-<p>The example below contains a way for you to use a synchronous websocket, without an asynchronous context, where you receive the messages, deal with them, and finish using the socket.</p>
+<h2 id="persistent-connection">Persistent connection</h2>
+<p>The example below contains a way for you to use a persistent websocket connection, where you receive the messages, deal with them, and finish using the socket.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();

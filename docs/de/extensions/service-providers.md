@@ -1,8 +1,8 @@
 # Diensteanbieter
 
-Diensteanbieter sind eine Möglichkeit, Ihre Sisk-Anwendung auf verschiedene Umgebungen mit einer portablen Konfigurationsdatei zu übertragen. Diese Funktion ermöglicht es Ihnen, den Serverport, Parameter und andere Optionen ohne Änderung des Anwendungscode für jede Umgebung zu ändern. Dieses Modul hängt von der Sisk-Konstruktionsyntax ab und kann über die Methode `UsePortableConfiguration` konfiguriert werden.
+Diensteanbieter sind eine Möglichkeit, Ihre Sisk-Anwendung mit einer portablen Konfigurationsdatei auf verschiedene Umgebungen zu übertragen. Diese Funktion ermöglicht es Ihnen, den Serverport, Parameter und andere Optionen ohne Änderung des Anwendungscode für jede Umgebung zu ändern. Dieses Modul hängt von der Sisk-Konstruktionsyntax ab und kann über die Methode `UsePortableConfiguration` konfiguriert werden.
 
-Ein Konfigurationsanbieter wird mit `IConfigurationProvider` implementiert, der einen Konfigurationsleser bereitstellt und jede Implementierung erhalten kann. Standardmäßig bietet Sisk einen JSON-Konfigurationsleser, aber es gibt auch ein Paket für INI-Dateien. Sie können auch Ihren eigenen Konfigurationsanbieter erstellen und ihn mit:
+Ein Konfigurationsanbieter wird mit `IConfigurationProvider` implementiert, der einen Konfigurationsleser bereitstellt und jede Implementierung erhalten kann. Standardmäßig bietet Sisk einen JSON-Konfigurationsleser an, es gibt jedoch auch ein Paket für INI-Dateien. Sie können auch Ihren eigenen Konfigurationsanbieter erstellen und ihn mit:
 
 ```csharp
 using var app = HttpServer.CreateBuilder()
@@ -33,7 +33,7 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-Der obige Code sucht nach der Datei `config.toml` im aktuellen Verzeichnis des laufenden Prozesses. Wenn sie nicht gefunden wird, sucht er dann im Verzeichnis, in dem die ausführbare Datei liegt. Wenn die Datei nicht existiert, wird der Parameter `createIfDontExists` beachtet, und die Datei wird ohne Inhalt im letzten getesteten Pfad (basierend auf `lookupDirectories`) erstellt, und ein Fehler wird in der Konsole ausgegeben, was die Anwendung verhindert, sich zu initialisieren.
+Der obige Code sucht nach der Datei `config.toml` im aktuellen Verzeichnis des laufenden Prozesses. Wenn diese nicht gefunden wird, sucht er dann im Verzeichnis, in dem die ausführbare Datei liegt. Wenn die Datei nicht existiert, wird der Parameter `createIfDontExists` beachtet, der die Datei ohne Inhalt im letzten getesteten Pfad (basierend auf `lookupDirectories`) erstellt, und ein Fehler wird in der Konsole ausgegeben, was die Initialisierung der Anwendung verhindert.
 
 > [!TIP]
 > 
@@ -107,12 +107,12 @@ Die JSON-Konfigurationsdatei besteht aus den folgenden Eigenschaften:
         <tr>
             <td>Server.AccessLogsStream</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>console</code>. Gibt den Ausgabestream für die Zugriffsprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+            <td>Standardmäßig <code>console</code>. Gibt den Ausgabestream für die Zugriffsprotokolle an. Kann ein Dateiname, <code>null</code> oder <code>console</code> sein.</td>
         </tr>
         <tr>
             <td>Server.ErrorsLogsStream</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>null</code>. Gibt den Ausgabestream für die Fehlerprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+            <td>Standardmäßig <code>null</code>. Gibt den Ausgabestream für die Fehlerprotokolle an. Kann ein Dateiname, <code>null</code> oder <code>console</code> sein.</td>
         </tr>
         <tr>
             <td>Server.MaximumContentLength</td>
@@ -130,7 +130,7 @@ Die JSON-Konfigurationsdatei besteht aus den folgenden Eigenschaften:
         <tr>
             <td>Server.ThrowExceptions</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>true</code>. Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. Auf <code>false</code> setzen, wenn die Anwendung in Produktion ist, und auf <code>true</code>, wenn die Anwendung debuggt wird.</td>
+            <td>Standardmäßig <code>true</code>. Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. Auf <code>false</code> setzen, wenn in der Produktion, und auf <code>true</code>, wenn beim Debuggen.</td>
         </tr>
         <tr>
             <td>ListeningHost</td>
@@ -140,7 +140,7 @@ Die JSON-Konfigurationsdatei besteht aus den folgenden Eigenschaften:
         <tr>
             <td>ListeningHost.Label</td>
             <td>Optional</td>
-            <td>Stellt die Anwendungsbezeichnung dar.</td>
+            <td>Stellt das Anwendungslabel dar.</td>
         </tr>
         <tr>
             <td>ListeningHost.Ports</td>

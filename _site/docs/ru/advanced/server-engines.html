@@ -156,14 +156,14 @@
                 <article data-uid="">
 <h1 id="http-server-engines">HTTP Server Engines</h1>
 
-<p>Фреймворк Sisk разделён на несколько пакетов, где основной (Sisk.HttpServer) не включает базовый HTTP‑сервер — по умолчанию в качестве основного движка Sisk используется <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> для выполнения низкоуровневой роли сервера.</p>
-<p>HTTP‑движок выполняет роль слоя ниже уровня приложения, предлагаемого Sisk. Этот слой отвечает за управление соединениями, сериализацию и десериализацию сообщений, контроль очереди сообщений и взаимодействие с сокетом машины.</p>
-<p>Класс <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> предоставляет API для реализации всех необходимых функций HTTP‑движка, которые будут использоваться в верхних слоях с Sisk, таких как маршрутизация, SSE, промежуточные слои и т.д. Эти функции не являются обязанностью HTTP‑движка, а скорее подмножества библиотек, которые используют HTTP‑движок как основу для выполнения.</p>
-<p>Благодаря этой абстракции возможно портировать Sisk для использования с любым другим HTTP‑движком, написанным на .NET или не на нём, например Kestrel. В настоящее время Sisk остаётся использовать абстракцию нативного .NET <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> в качестве дефолта для новых проектов. Эта дефолтная абстракция приносит некоторые специфические проблемы, такие как неопределённое поведение на разных платформах (HttpListener имеет одну реализацию для Windows и другую для других платформ), отсутствие поддержки SSL и не очень приятная производительность вне Windows.</p>
-<p>Экспериментальная реализация высокопроизводительного сервера, написанного полностью на C#, также доступна как HTTP‑движок для Sisk, под названием проект <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a>, который является экспериментом управляемого сервера, который может использоваться с Sisk или без него.</p>
-<h2 id="реализация-httpдвижка-для-sisk">Реализация HTTP‑движка для Sisk</h2>
-<p>Вы можете создать мост соединения между существующим HTTP‑сервером и Sisk, расширив класс <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>. В дополнение к этому классу вам также понадобится реализовать абстракции для контекстов, запросов и ответов.</p>
-<p>Полный пример абстракции доступен на <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">GitHub</a> для просмотра. Он выглядит так:</p>
+<p>Фреймворк Sisk разделен на несколько пакетов, где основной пакет (Sisk.HttpServer) не включает базовый HTTP-сервер - по умолчанию используется <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> в качестве основного движка Sisk для выполнения низкоуровневой роли сервера.</p>
+<p>Движок HTTP выполняет роль слоя ниже слоя приложения, предлагаемого Sisk. Этот слой отвечает за управление соединениями, сериализацию и десериализацию сообщений, контроль очереди сообщений и общение с сокетом машины.</p>
+<p>Класс <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> предоставляет API для реализации всех необходимых функций HTTP-движка для использования в верхних слоях с Sisk, таких как маршрутизация, SSE, middleware и т. д. Эти функции не являются ответственностью HTTP-движка, а rather подмножества библиотек, которые будут использовать HTTP-движок в качестве основы для выполнения.</p>
+<p>С этой абстракцией возможно перенести Sisk для использования с любым другим HTTP-движком, написанным на .NET или не на .NET, например Kestrel. В настоящее время Sisk остается использовать абстракцию родного .NET <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> в качестве значения по умолчанию для новых проектов. Это значение по умолчанию приносит некоторые специфические проблемы, такие как неопределенное поведение на разных платформах (HttpListener имеет одну реализацию для Windows и другую для других платформ), отсутствие поддержки SSL и не очень приятную производительность вне Windows.</p>
+<p>Также доступна экспериментальная реализация высокопроизводительного сервера, написанного чисто на C#, в качестве HTTP-движка для Sisk, называемого проектом <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a>, который является экспериментом управляемого сервера, который можно использовать с Sisk или без него.</p>
+<h2 id="реализация-http-движка-для-sisk">Реализация HTTP-движка для Sisk</h2>
+<p>Вы можете создать мост соединения между существующим HTTP-сервером и Sisk, расширяя класс <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>.除了 этого класса, вам также придется реализовать абстракции для контекстов, запросов и ответов.</p>
+<p>Полный пример абстракции доступен на <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">GitHub</a> для просмотра. Он выглядит следующим образом:</p>
 <pre><code class="lang-csharp">/// &lt;summary&gt;
 /// Provides an implementation of &lt;see cref=&quot;HttpServerEngine&quot;/&gt; using &lt;see cref=&quot;HttpListener&quot;/&gt;.
 /// &lt;/summary&gt;
@@ -195,16 +195,16 @@ public sealed class HttpListenerAbstractEngine : HttpServerEngine {
 }
 </code></pre>
 <h2 id="выбор-цикла-событий">Выбор цикла событий</h2>
-<p>При создании HTTP‑движка сервер будет прослушивать запросы в цикле и создавать контексты для обработки каждого из них в отдельных потоках. Для этого вам понадобится выбрать <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a>:</p>
+<p>Во время создания HTTP-движка сервер будет слушать запросы в цикле и создавать контексты для обработки каждого из них в отдельных потоках. Для этого вам придется выбрать <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a>:</p>
 <ul>
-<li><code>InlineAsynchronousGetContext</code> — цикл событий линейный — вызовы обработки HTTP‑контекста происходят в асинхронном цикле.</li>
-<li><code>UnboundAsynchronousGetContext</code> — цикл событий передаётся через методы <code>BeginGetContext</code> и <code>EndGetContext</code>.</li>
+<li><code>InlineAsynchronousGetContext</code> цикл событий линеен - обработка контекста HTTP происходит в асинхронном цикле.</li>
+<li><code>UnboundAsynchronousGetContext</code> цикл событий передается через методы <code>BeginGetContext</code> и <code>EndGetContext</code>.</li>
 </ul>
 <pre><code class="lang-csharp">public override HttpServerEngineContextEventLoopMechanism EventLoopMechanism =&gt; HttpServerEngineContextEventLoopMechanism.UnboundAsynchronousGetContext;
 </code></pre>
-<p>Вам не нужно реализовывать оба цикла событий. Выберите тот, который имеет наибольший смысл для вашего HTTP‑движка.</p>
+<p>Вам не нужно реализовывать оба цикла событий. Выберите тот, который имеет больше смысла для вашего HTTP-движка.</p>
 <h2 id="тестирование">Тестирование</h2>
-<p>После связывания вашего HTTP‑движка крайне важно провести тесты, чтобы убедиться, что все функции Sisk ведут себя одинаково при использовании других движков. <strong>Очень важно</strong> иметь одинаковое поведение Sisk для разных HTTP‑движков.</p>
+<p>После связывания вашего HTTP-движка крайне важно провести тесты, чтобы убедиться, что все функции Sisk имеют идентичное поведение при использовании других движков. <strong>Это крайне важно</strong> иметь одинаковое поведение Sisk для разных HTTP-движков.</p>
 <p>Вы можете посетить репозиторий тестов на <a href="https://github.com/sisk-http/core/tree/main/tests">GitHub</a>.</p>
 
 </article>

@@ -1,5 +1,5 @@
 items:
-
+ 
 - name: Добро пожаловать
 
 - name: Начало работы
@@ -14,7 +14,7 @@ items:
   href: ssl.md
 - name: Настройка Windows
   href: registering-namespace.md
-- name: Журналы изменений
+- name: Журнал изменений
   href: changelogs.md
 - name: Часто задаваемые вопросы
   href: faq.md
@@ -36,43 +36,47 @@ items:
   href: features/logging.md
 - name: События, отправляемые сервером
   href: features/server-sent-events.md
-- name: Web Sockets
+- name: Веб-сокеты
   href: features/websockets.md
-- name: Синтаксис discard
+- name: Синтаксис отбрасывания
   href: features/discard-syntax.md
 - name: Внедрение зависимостей
   href: features/instancing.md
-- name: Потоковое передача контента
+- name: Потоковая передача контента
   href: features/content-streaming.md
-- name: Междоменные ресурсы (CORS)
+- name: Обмен ресурсами между источниками
   href: features/cors.md
+- name: Построение URL
+  href: features/url-builder.md
 
 - name: Расширения
 
-- name: Протокол контекстной модели (MCP)
+- name: Протокол контекста модели (MCP)
   href: extensions/mcp.md
 - name: JSON-RPC
   href: extensions/json-rpc.md
-- name: SSL-прокси
+- name: Прокси SSL
   href: extensions/ssl-proxy.md
 - name: Базовая аутентификация
   href: extensions/basic-auth.md
-- name: Провайдеры сервисов
+- name: Поставщики услуг
   href: extensions/service-providers.md
 - name: Конфигурация INI
   href: extensions/ini-configuration.md
+- name: Документация API
+  href: extensions/api-documentation.md
 
-- name: Продвинутый уровень
+- name: Продвинутые
 
 - name: Ручная настройка
   href: advanced/manual-setup.md
 - name: Жизненный цикл запроса
   href: advanced/request-lifecycle.md
-- name: Перенаправляющие резолверы
+- name: Резолверы перенаправления
   href: advanced/forwarding-resolvers.md
-- name: Обработчики HTTP-сервера
+- name: Обработчики сервера HTTP
   href: advanced/http-server-handlers.md
-- name: Настройка мульти-хостинга
+- name: Настройка нескольких хостов
   href: advanced/multi-host-setup.md
-- name: HTTP-движки
+- name: Движки HTTP
   href: advanced/server-engines.md

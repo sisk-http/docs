@@ -164,11 +164,11 @@
 </ul>
 <p>Das Sisk Framework ermöglicht aufgrund seiner expliziten Natur die Verwendung von Native AOT für fast alle seine Funktionen, ohne dass eine Überarbeitung des Quellcodes erforderlich ist, um es an Native AOT anzupassen.</p>
 <h2 id="nicht-unterstützte-funktionen">Nicht unterstützte Funktionen</h2>
-<p>Allerdings verwendet Sisk Reflexion, wenn auch minimal, für einige Funktionen. Die nachfolgend genannten Funktionen sind möglicherweise teilweise verfügbar oder während der nativen Codeausführung ganz nicht verfügbar:</p>
+<p>Allerdings verwendet Sisk Reflexion, wenn auch minimal, für einige Funktionen. Die folgenden Funktionen sind möglicherweise teilweise verfügbar oder während der nativen Codeausführung ganz nicht verfügbar:</p>
 <ul>
 <li><a href="/api/Sisk.Core.Routing.Router.AutoScanModules">Automatisches Scannen von Modulen</a> des Routers: Diese Ressource scannet die im ausführenden Assembly eingebetteten Typen und registriert die Typen, die <a href="/docs/de/fundamentals/routing">Router-Module</a> sind. Diese Ressource benötigt Typen, die während des Assembly-Trimming ausgeschlossen werden können.</li>
 </ul>
-<p>Alle anderen Funktionen sind mit AOT in Sisk kompatibel. Es ist üblich, eine oder andere Methode zu finden, die eine AOT-Warnung ausgibt, aber dieselbe, wenn sie nicht hier erwähnt wird, hat eine Überladung, die das Übergeben eines Typs, Parameters oder Typinformationen anzeigt, die dem AOT-Compiler helfen, das Objekt zu kompilieren.</p>
+<p>Alle anderen Funktionen sind mit AOT in Sisk kompatibel. Es ist üblich, eine oder andere Methode zu finden, die eine AOT-Warnung ausgibt, aber dieselbe, wenn sie hier nicht erwähnt wird, hat eine Überladung, die das Übergeben eines Typs, Parameters oder Typinformationen anzeigt, die dem AOT-Compiler helfen, das Objekt zu kompilieren.</p>
 
 </article>
 

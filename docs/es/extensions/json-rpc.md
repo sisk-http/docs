@@ -1,8 +1,8 @@
 # Extensión JSON-RPC
 
-Sisk tiene un módulo experimental para una API [JSON-RPC 2.0](https://www.jsonrpc.org/specification), que te permite crear aplicaciones aún más simples. Esta extensión implementa estrictamente la interfaz de transporte JSON-RPC 2.0 y ofrece transporte a través de HTTP GET, solicitudes POST y también web-sockets con Sisk.
+Sisk tiene un módulo experimental para una API [JSON-RPC 2.0](https://www.jsonrpc.org/specification), que permite crear aplicaciones aún más simples. Esta extensión implementa estrictamente la interfaz de transporte JSON-RPC 2.0 y ofrece transporte a través de solicitudes HTTP GET, POST y también web-sockets con Sisk.
 
-Puedes instalar la extensión a través de Nuget con el comando siguiente. Ten en cuenta que, en versiones experimentales/beta, debes habilitar la opción para buscar paquetes prelanzamiento en Visual Studio.
+Puedes instalar la extensión a través de Nuget con el comando a continuación. Ten en cuenta que, en versiones experimentales/beta, debes habilitar la opción para buscar paquetes prelanzamiento en Visual Studio.
 
 ```bash
 dotnet add package Sisk.JsonRpc
@@ -10,7 +10,7 @@ dotnet add package Sisk.JsonRpc
 
 ## Interfaz de transporte
 
-JSON-RPC es un protocolo de ejecución remota de procedimientos (RDP) sin estado y asíncrono que utiliza JSON para la comunicación de datos unidireccional. Una solicitud JSON-RPC se identifica típicamente por un ID, y una respuesta se entrega con el mismo ID que se envió en la solicitud. No todas las solicitudes requieren una respuesta, que se llaman "notificaciones".
+JSON-RPC es un protocolo de ejecución remota de procedimientos (RDP) sin estado y asíncrono que utiliza JSON para la comunicación de datos unidireccional. Una solicitud JSON-RPC generalmente se identifica por un ID, y una respuesta se entrega con el mismo ID que se envió en la solicitud. No todas las solicitudes requieren una respuesta, que se llaman "notificaciones".
 
 La [especificación JSON-RPC 2.0](https://www.jsonrpc.org/specification) explica en detalle cómo funciona el transporte. Este transporte es agnóstico de dónde se utilizará. Sisk implementa este protocolo a través de HTTP, siguiendo las conformidades de [JSON-RPC sobre HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), que admite parcialmente las solicitudes GET, pero admite completamente las solicitudes POST. También se admiten los web-sockets, que proporcionan una comunicación de mensajes asíncrona.
 
@@ -104,7 +104,7 @@ El ejemplo anterior asignará los métodos `Sum` y `Sqrt` al controlador JSON-RP
 
 Los parámetros de los métodos se deserializan automáticamente en sus tipos específicos. También se admite el uso de parámetros con nombre en las solicitudes. La serialización JSON se realiza mediante la biblioteca [LightJson](https://github.com/CypherPotato/LightJson). Cuando un tipo no se deserializa correctamente, puedes crear un convertidor JSON personalizado para ese tipo y asociarlo con tus opciones de serializador JSON más adelante.
 
-También puedes obtener el objeto `$.params` crudo de la solicitud JSON-RPC directamente en tu método.
+También puedes obtener el objeto `$.params` raw de la solicitud JSON-RPC directamente en tu método.
 
 <div class="script-header">
     <span>
@@ -178,10 +178,10 @@ using var host = HttpServer.CreateBuilder ( 5556 )
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // habilita JSON5 para el intérprete JSON. incluso activando esto, el JSON plano todavía se admite
+        // habilita JSON5 para el intérprete JSON. incluso activando esto, el JSON plano todavía se permite
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // asigna la ruta POST /service al controlador JSON-RPC
+        // asigna la ruta POST /service al controlador JSON RPC
         e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
     } )
     .Build ();

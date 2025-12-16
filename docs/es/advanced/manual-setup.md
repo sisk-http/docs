@@ -1,8 +1,8 @@
 # Configuración manual (avanzada)
 
-En esta sección, crearemos nuestro servidor HTTP sin ningún estándar predefinido, de una manera completamente abstracta. Aquí, puedes construir manualmente cómo funcionará tu servidor HTTP. Cada ListeningHost tiene un enrutador, y un servidor HTTP puede tener varios ListeningHosts, cada uno apuntando a un host diferente en un puerto diferente.
+En esta sección, crearemos nuestro servidor HTTP sin ningún estándar predefinido, de una manera completamente abstracta. Aquí, puedes construir manualmente cómo funcionará tu servidor HTTP. Cada ListeningHost tiene un enrutador, y un servidor HTTP puede tener múltiples ListeningHosts, cada uno apuntando a un host diferente en un puerto diferente.
 
-Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: para cada solicitud, debe haber una respuesta. Sisk sigue este principio también. Creemos un método que responda con un mensaje "Hola, mundo!" en HTML, especificando el código de estado y los encabezados.
+Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: para cada solicitud, debe haber una respuesta. Sisk sigue este principio también. Creemos un método que responda con un mensaje "Hola, mundo" en HTML, especificando el código de estado y los encabezados.
 
 ```csharp
 // Program.cs
@@ -31,7 +31,7 @@ El siguiente paso es asociar este método con una ruta HTTP.
 
 ## Enrutadores
 
-Los enrutadores son abstracciones de rutas de solicitud y sirven como el puente entre solicitudes y respuestas para el servicio. Los enrutadores gestionan las rutas del servicio, las funciones y los errores.
+Los enrutadores son abstracciones de rutas de solicitud y sirven como el puente entre solicitudes y respuestas para el servicio. Los enrutadores administran rutas de servicio, funciones y errores.
 
 Un enrutador puede tener varias rutas, y cada ruta puede realizar diferentes operaciones en esa ruta, como ejecutar una función, servir una página o proporcionar un recurso desde el servidor.
 
@@ -44,7 +44,7 @@ Router mainRouter = new Router();
 mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage);
 ```
 
-Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, `mainRouter` no está vinculado a un host o un servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.
+Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, `mainRouter` no está vinculado a un host o servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.
 
 ## Hosts y puertos de escucha
 
@@ -88,6 +88,6 @@ Ahora podemos compilar nuestro ejecutable y ejecutar nuestro servidor HTTP con e
 dotnet watch
 ```
 
-En tiempo de ejecución, abra su navegador y navegue hasta la ruta del servidor, y debería ver:
+En tiempo de ejecución, abre tu navegador y navega a la ruta del servidor, y deberías ver:
 
 <img src="/assets/img/localhost.png" >

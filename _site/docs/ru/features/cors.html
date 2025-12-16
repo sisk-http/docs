@@ -156,37 +156,37 @@
                 <article data-uid="">
 <h1 id="включение-cors-cross-origin-resource-sharing-в-sisk">Включение CORS (Cross-Origin Resource Sharing) в Sisk</h1>
 
-<p>Sisk имеет инструмент, который может быть полезен для обработки <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Guides/CORS">Cross-Origin Resource Sharing (CORS)</a> при открытии вашего сервиса для публичного доступа. Эта функция не является частью протокола HTTP, а специфической особенностью веб‑браузеров, определённой W3C. Этот механизм безопасности предотвращает выполнение веб‑страницы запросов к другому домену, отличному от того, который предоставил веб‑страницу. Поставщик услуг может разрешить доступ определённым доменам, или только одному.</p>
+<p>Sisk имеет инструмент, который может быть полезен для обработки <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Guides/CORS">Cross-Origin Resource Sharing (CORS)</a> при публикации вашей службы. Эта функция не является частью протокола HTTP, а является специальной функцией веб-браузеров, определенной W3C. Этот механизм безопасности предотвращает отправку запросов веб-страницей на другой домен, чем тот, который предоставил веб-страницу. Поставщик службы может разрешить доступ к своим ресурсам определенным доменам или только одному.</p>
 <h2 id="same-origin">Same Origin</h2>
-<p>Для того чтобы ресурс был идентифицирован как «same origin», запрос должен содержать заголовок <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Reference/Headers/Origin">Origin</a> в своём запросе:</p>
+<p>Чтобы ресурс был идентифицирован как &quot;same origin&quot;, запрос должен содержать заголовок <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Reference/Headers/Origin">Origin</a>:</p>
 <pre><code class="lang-http">GET /api/users HTTP/1.1
 Host: example.com
 Origin: http://example.com
 ...
 </code></pre>
-<p>И удалённый сервер должен ответить заголовком <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a> со значением, совпадающим с запрошенным origin:</p>
+<p>И удаленный сервер должен ответить с заголовком <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a> с тем же значением, что и запрошенный origin:</p>
 <pre><code class="lang-http">HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://example.com
 ...
 </code></pre>
-<p>Эта проверка <strong>явная</strong>: хост, порт и протокол должны совпадать с запрошенными. Проверьте пример:</p>
+<p>Эта проверка является <strong>явной</strong>: хост, порт и протокол должны быть одинаковыми, как запрошено. Проверьте пример:</p>
 <ul>
 <li>Сервер отвечает, что его <code>Access-Control-Allow-Origin</code> равен <code>https://example.com</code>:
 <ul>
-<li><code>https://example.net</code> – домен отличается.</li>
-<li><code>http://example.com</code> – схема отличается.</li>
-<li><code>http://example.com:5555</code> – порт отличается.</li>
-<li><code>https://www.example.com</code> – хост отличается.</li>
+<li><code>https://example.net</code> - домен khác.</li>
+<li><code>http://example.com</code> - схема khác.</li>
+<li><code>http://example.com:5555</code> - порт другой.</li>
+<li><code>https://www.example.com</code> - хост другой.</li>
 </ul>
 </li>
 </ul>
-<p>В спецификации разрешён только синтаксис для обоих заголовков, как для запросов, так и для ответов. Путь URL игнорируется. Порт также опускается, если это порт по умолчанию (80 для HTTP и 443 для HTTPS).</p>
+<p>В спецификации разрешена только синтаксис для обоих заголовков, как для запросов, так и для ответов. Путь URL игнорируется. Порт также опускается, если это стандартный порт (80 для HTTP и 443 для HTTPS).</p>
 <pre><code class="lang-http">Origin: null
 Origin: &lt;scheme&gt;://&lt;hostname&gt;
 Origin: &lt;scheme&gt;://&lt;hostname&gt;:&lt;port&gt;
 </code></pre>
 <h2 id="включение-cors">Включение CORS</h2>
-<p>Нативно у вас есть объект <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> внутри вашего <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>.</p>
+<p>По умолчанию у вас есть объект <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> внутри вашего <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a>.</p>
 <p>Вы можете настроить CORS при инициализации сервера:</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
@@ -206,16 +206,16 @@ Access-Control-Allow-Origin: http://example.com
 Access-Control-Allow-Headers: Authorization
 Access-Control-Expose-Headers: Content-Type
 </code></pre>
-<p>Эти заголовки необходимо отправлять для всех ответов веб‑клиенту, включая ошибки и перенаправления.</p>
-<p>Вы можете заметить, что класс <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> имеет два похожих свойства: <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> и <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>. Обратите внимание, что одно во множественном числе, другое — в единственном.</p>
+<p>Эти заголовки необходимо отправлять для всех ответов веб-клиенту, включая ошибки и перенаправления.</p>
+<p>Вы можете заметить, что класс <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders">CrossOriginResourceSharingHeaders</a> имеет два похожих свойства: <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a> и <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>. Обратите внимание, что одно из них множественное, а другое единственное.</p>
 <ul>
-<li>Свойство <strong>AllowOrigin</strong> статическое: только указанный origin будет отправлен для всех ответов.</li>
-<li>Свойство <strong>AllowOrigins</strong> динамическое: сервер проверяет, содержится ли origin запроса в этом списке. Если найден, он отправляется в ответе для того origin.</li>
+<li>Свойство <strong>AllowOrigin</strong> является статическим: только указанный вами origin будет отправлен для всех ответов.</li>
+<li>Свойство <strong>AllowOrigins</strong> является динамическим: сервер проверяет, содержится ли origin запроса в этом списке. Если он найден, он отправляется для ответа этого origin.</li>
 </ul>
 <h3 id="wildcards-и-автоматические-заголовки">Wildcards и автоматические заголовки</h3>
-<p>В качестве альтернативы вы можете использовать подстановочный символ (<code>*</code>) в origin ответа, чтобы указать, что любой origin разрешён для доступа к ресурсу. Однако это значение не допускается для запросов с учётными данными (заголовки авторизации), и эта операция <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">приведёт к ошибке</a>.</p>
-<p>Вы можете обойти эту проблему, явно перечислив, какие origins будут разрешены через свойство <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> или также использовать константу <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> в значении <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>. Это «магическое» свойство определит заголовок <code>Access-Control-Allow-Origin</code> со значением, совпадающим с заголовком <code>Origin</code> запроса.</p>
-<p>Вы также можете использовать <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod">AutoFromRequestMethod</a> и <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders">AutoFromRequestHeaders</a> для поведения, аналогичного <code>AllowOrigin</code>, которое автоматически отвечает на основе отправленных заголовков.</p>
+<p>Альтернативно, вы можете использовать wildcard (<code>*</code>) в ответе origin, чтобы указать, что любой origin может получить доступ к ресурсу. Однако, это значение не разрешено для запросов, которые имеют учетные данные (заголовки авторизации) и эта операция <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials">вызовет ошибку</a>.</p>
+<p>Вы можете обойти эту проблему, явно перечислив, какие origins будут разрешены через свойство <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a>, или также использовать константу <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin">AutoAllowOrigin</a> в значении <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin">AllowOrigin</a>. Это магическое свойство определит заголовок <code>Access-Control-Allow-Origin</code> для того же значения, что и заголовок <code>Origin</code> запроса.</p>
+<p>Вы также можете использовать <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod">AutoFromRequestMethod</a> и <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders">AutoFromRequestHeaders</a> для поведения, подобного <code>AllowOrigin</code>, которое автоматически отвечает на основе заголовков, отправленных.</p>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
     .UseCors(new CrossOriginResourceSharingHeaders(
         
@@ -226,17 +226,20 @@ Access-Control-Expose-Headers: Content-Type
         allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
 
         // Отвечает на основе заголовка Access-Control-Request-Headers или отправленных заголовков
-        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders],
+
+        exposeHeaders: [HttpKnownHeaderNames.ContentType, &quot;X-Authenticated-Account-Id&quot;],
+        allowCredentials: true))
+    .Build();
 </code></pre>
 <h2 id="другие-способы-применения-cors">Другие способы применения CORS</h2>
-<p>Если вы работаете с <a href="/docs/ru/extensions/service-providers">service providers</a>, вы можете переопределить значения, определённые в файле конфигурации:</p>
+<p>Если вы работаете с <a href="/docs/ru/extensions/service-providers">поставщиками служб</a>, вы можете переопределить значения, определенные в файле конфигурации:</p>
 <pre><code class="lang-csharp">static async Task Main(string[] args)
 {
     using var app = HttpServer.CreateBuilder()
         .UsePortableConfiguration(...)
         .UseCors(cors =&gt; {
-            // Переопределит origin, определённый в конфигурации
-            // файле.
+            // Переопределит origin, определенный в файле конфигурации.
             cors.AllowOrigin = &quot;http://example.com&quot;;
         })
         .Build();
@@ -245,7 +248,7 @@ Access-Control-Expose-Headers: Content-Type
 }
 </code></pre>
 <h2 id="отключение-cors-на-конкретных-маршрутах">Отключение CORS на конкретных маршрутах</h2>
-<p>Свойство <code>UseCors</code> доступно как для маршрутов, так и для всех атрибутов маршрута и может быть отключено следующим примером:</p>
+<p>Свойство <code>UseCors</code> доступно для обоих маршрутов и всех атрибутов маршрутов и может быть отключено следующим примером:</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
@@ -257,7 +260,7 @@ public class WidgetController : Controller {
 }
 </code></pre>
 <h2 id="замена-значений-в-ответе">Замена значений в ответе</h2>
-<p>Вы можете явно заменить или удалить значения в действии роутера:</p>
+<p>Вы можете заменить или удалить значения явно в действии маршрута:</p>
 <pre><code class="lang-csharp">[RoutePrefix(&quot;api/widgets&quot;)]
 public class WidgetController : Controller {
 
@@ -274,9 +277,9 @@ public class WidgetController : Controller {
 }
 </code></pre>
 <h2 id="предварительные-запросы">Предварительные запросы</h2>
-<p>Предварительный запрос — это запрос метода <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>, который клиент отправляет до фактического запроса.</p>
-<p>Сервер Sisk всегда отвечает на запрос <code>200 OK</code> и применимыми заголовками CORS, после чего клиент может продолжить с фактическим запросом. Это условие не применяется, когда существует маршрут для запроса с явно настроенным <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> для <code>Options</code>.</p>
-<h2 id="отключение-cors-глобально">Отключение CORS глобально</h2>
+<p>Предварительный запрос - это запрос метода <a href="https://developer.mozilla.org/en-US/docs/ru/Web/HTTP/Reference/Methods/OPTIONS">OPTIONS</a>, который клиент отправляет перед фактическим запросом.</p>
+<p>Сервер Sisk всегда будет отвечать на запрос с кодом <code>200 OK</code> и соответствующими заголовками CORS, и затем клиент может продолжить фактический запрос. Это условие не применяется, когда существует маршрут для запроса с явно настроенным <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod</a> для <code>Options</code>.</p>
+<h2 id="глобальное-отключение-cors">Глобальное отключение CORS</h2>
 <p>Это невозможно. Чтобы не использовать CORS, не настраивайте его.</p>
 
 </article>

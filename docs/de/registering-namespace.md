@@ -1,8 +1,8 @@
 # Konfiguration von Namensraumreservierungen auf Windows
 
-Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu empfangen.
+Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu hören.
 
-Unter Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn man versucht, auf einen anderen Host zuzugreifen, wird auf dem Server ein Zugriffsverweigerungsfehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jeden Host auf dem System zuzuhören, den man möchte.
+Auf Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn versucht wird, einem anderen Host zuzuhören, wird auf dem Server ein Zugriff verweigert-Fehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jedem Host zuzuhören, den man auf dem System möchte.
 
 <div class="script-header">
     <span>
@@ -25,7 +25,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 pause
 ```
 
-Wo `PREFIX` das Präfix ("Zuhör-Host->Port") ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert sein, Beispiel:
+Wo `PREFIX` das Präfix ("Zuhör-Host->Port") ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert werden, Beispiel:
 
 <div class="script-header">
     <span>
@@ -40,7 +40,7 @@ Wo `PREFIX` das Präfix ("Zuhör-Host->Port") ist, auf das der Server hört. Es 
 SET PREFIX=http://my-anwendung.example.test/
 ```
 
-Damit Sie in Ihrer Anwendung über Folgendes zugehört werden können:
+Damit Sie in Ihrer Anwendung über gehört werden können:
 
 <div class="script-header">
     <span>

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Web Sockets | Sisk </title>
+        <title>Web ソケット | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Web Sockets | Sisk ">
+        <meta name="title" content="Web ソケット | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,13 +154,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="web-sockets">Web Sockets</h1>
+<h1 id="web-ソケット">Web ソケット</h1>
 
-<p>Sisk は WebSocket もサポートしており、クライアントへのメッセージの送受信が可能です。</p>
-<p>この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験段階です。バグを発見した場合は GitHub で報告してください。</p>
-<h2 id="非同期でメッセージを受信する">非同期でメッセージを受信する</h2>
-<p>WebSocket のメッセージは順序通りに受信され、<code>ReceiveMessageAsync</code> で処理されるまでキューに入れられます。このメソッドは、タイムアウトに達したとき、操作がキャンセルされたとき、またはクライアントが切断されたときにメッセージを返しません。</p>
-<p>読み取りと書き込みは同時に 1 つしか実行できないため、<code>ReceiveMessageAsync</code> でメッセージを待っている間は、接続されたクライアントに書き込むことはできません。</p>
+<p>Sisk では Web ソケットもサポートしており、クライアントへのメッセージの受信と送信が可能です。</p>
+<p>この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github に報告してください。</p>
+<h2 id="メッセージの受信">メッセージの受信</h2>
+<p>WebSocket メッセージは順番に受信され、<code>ReceiveMessageAsync</code> によって処理されるまでキューに保管されます。このメソッドは、タイムアウトが達成されたとき、操作がキャンセルされたとき、またはクライアントが切断されたときにはメッセージを返しません。</p>
+<p>同時に読み取りと書き込みの操作が 1 つしか行えないため、<code>ReceiveMessageAsync</code> でメッセージを待っている間に、接続されたクライアントに書き込むことはできません。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -168,23 +168,23 @@
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine(&quot;Received message: &quot; + msgText);
+        Console.WriteLine(&quot;メッセージを受信しました: &quot; + msgText);
 
-        await ws.SendAsync(&quot;Hello!&quot;);
+        await ws.SendAsync(&quot;こんにちは!&quot;);
     }
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="同期でメッセージを受信する">同期でメッセージを受信する</h2>
-<p>以下の例では、非同期コンテキストを使わずに同期的に WebSocket を使用し、メッセージを受信し、処理し、ソケットの使用を終了する方法を示しています。</p>
+<h2 id="持続的な接続">持続的な接続</h2>
+<p>以下の例には、メッセージを受信し、処理し、ソケットの使用を終了する方法が含まれています。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;What is your name?&quot;);
+    await ws.SendAsync(&quot;あなたの名前は何ですか?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -194,12 +194,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        await ws.SendAsync(&quot;名前を入力してください!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;And your age?&quot;);
+    await ws.SendAsync(&quot;あなたの年齢は?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -207,19 +207,19 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        await ws.SendAsync(&quot;有効な数字を入力してください&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
+    await ws.SendAsync($&quot;あなたは {name} さんで、{age} 歳です.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
 <h2 id="ping-ポリシー">Ping ポリシー</h2>
-<p>Server Side Events の ping ポリシーと同様に、TCP 接続に不活動がある場合に接続を維持するために ping ポリシーを設定できます。</p>
+<p>サーバー側イベントの Ping ポリシーと同様に、TCP 接続を維持するために Ping ポリシーを設定できます。</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
-    dataMessage: &quot;ping-message&quot;,
+    dataMessage: &quot;ping-メッセージ&quot;,
     interval: TimeSpan.FromSeconds(10));
 </code></pre>
 

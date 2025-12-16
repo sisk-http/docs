@@ -156,20 +156,20 @@
                 <article data-uid="">
 <h1 id="configuração-ini">Configuração INI</h1>
 
-<p>O Sisk tem um método para obter configurações de inicialização além do JSON. Na verdade, qualquer pipeline que implemente <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> pode ser usado com <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, lendo a configuração do servidor de qualquer tipo de arquivo.</p>
+<p>Sisk tem um método para obter configurações de inicialização além do JSON. Na verdade, qualquer pipeline que implemente <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> pode ser usado com <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, lendo a configuração do servidor de qualquer tipo de arquivo.</p>
 <p>O pacote <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> fornece um leitor de arquivos INI baseado em fluxo que não lança exceções para erros de sintaxe comuns e tem uma sintaxe de configuração simples. Esse pacote pode ser usado fora do framework Sisk, oferecendo flexibilidade para projetos que requerem um leitor de documentos INI eficiente.</p>
 <h2 id="instalando">Instalando</h2>
 <p>Para instalar o pacote, você pode começar com:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>Você também pode instalar o pacote core, que não inclui o <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> INI, nem a dependência do Sisk, apenas os serializadores INI:</p>
+<p>Você também pode instalar o pacote principal, que não inclui o <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> INI, nem a dependência do Sisk, apenas os serializadores INI:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration.Core
 </code></pre>
 <p>Com o pacote principal, você pode usá-lo em seu código como mostrado no exemplo abaixo:</p>
 <pre><code class="lang-cs">class Program
 {
     static HttpServerHostContext Host = null!;
-    
+
     static void Main(string[] args)
     {
         Host = HttpServer.CreateBuilder()
@@ -221,12 +221,12 @@ Name = &quot;Kanye West&quot;
 <li>Comentários são suportados com <code>#</code> e <code>;</code>. Além disso, <strong>comentários de tralha são permitidos</strong>.</li>
 <li>Propriedades podem ter múltiplos valores.</li>
 </ul>
-<p>Em detalhe, a documentação para o &quot;sabor&quot; do analisador INI usado no Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponível neste documento</a>.</p>
+<p>Em detalhes, a documentação para o &quot;sabor&quot; do analisador INI usado no Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponível neste documento</a>.</p>
 <p>Usando o seguinte código INI como exemplo:</p>
 <pre><code class="lang-ini">One = 1
-Value = este é um valor
-Another value = &quot;este valor
-    tem uma quebra de linha nele&quot;
+Value = this is an value
+Another value = &quot;this value
+    has an line break on it&quot;
 
 ; o código abaixo tem algumas cores
 [some section]
@@ -283,22 +283,22 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.AccessLogsStream</code></td>
 <td>Não</td>
-<td>Especifica o fluxo de saída do log de acesso.</td>
+<td>Especifica o fluxo de saída de logs de acesso.</td>
 </tr>
 <tr>
 <td><code>Server.ErrorsLogsStream</code></td>
 <td>Não</td>
-<td>Especifica o fluxo de saída do log de erros.</td>
+<td>Especifica o fluxo de saída de logs de erros.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowMethods</code></td>
 <td>Não</td>
-<td>Especifica o valor do cabeçalho Allow-Methods CORS.</td>
+<td>Especifica o valor do cabeçalho CORS Allow-Methods.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowHeaders</code></td>
 <td>Não</td>
-<td>Especifica o valor do cabeçalho Allow-Headers CORS.</td>
+<td>Especifica o valor do cabeçalho CORS Allow-Headers.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
@@ -313,17 +313,17 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.ExposeHeaders</code></td>
 <td>Não</td>
-<td>Especifica o valor do cabeçalho Expose-Headers CORS.</td>
+<td>Especifica o valor do cabeçalho CORS Expose-Headers.</td>
 </tr>
 <tr>
 <td><code>Cors.AllowCredentials</code></td>
 <td>Não</td>
-<td>Especifica o valor do cabeçalho Allow-Credentials CORS.</td>
+<td>Especifica o valor do cabeçalho CORS Allow-Credentials.</td>
 </tr>
 <tr>
 <td><code>Cors.MaxAge</code></td>
 <td>Não</td>
-<td>Especifica o valor do cabeçalho Max-Age CORS.</td>
+<td>Especifica o valor do cabeçalho CORS Max-Age.</td>
 </tr>
 </tbody>
 </table>

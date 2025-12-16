@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Logging | Sisk </title>
+        <title>Protokollierung | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Logging | Sisk ">
+        <meta name="title" content="Protokollierung | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,13 +154,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="logging">Logging</h1>
+<h1 id="protokollierung">Protokollierung</h1>
 
-<p>Sie können Sisk so konfigurieren, dass Zugriffs- und Fehlerprotokolle automatisch geschrieben werden. Es ist möglich, Logrotation, Erweiterungen und Frequenz zu definieren.</p>
-<p>Die Klasse <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> bietet einen asynchronen Weg, Protokolle zu schreiben und sie in einer wartbaren Schreibwarteschlange zu halten.</p>
-<p>In diesem Artikel zeigen wir Ihnen, wie Sie das Logging für Ihre Anwendung konfigurieren.</p>
+<p>Sie können Sisk so konfigurieren, dass es automatisch Zugriffs- und Fehlerprotokolle schreibt. Es ist möglich, Protokollrotation, Erweiterungen und Häufigkeit zu definieren.</p>
+<p>Die <a href="/api/Sisk.Core.Http.LogStream">LogStream</a>-Klasse bietet eine asynchrone Möglichkeit, Protokolle zu schreiben und sie in einer wartbaren Warteschlange zu halten. Die <code>LogStream</code>-Klasse implementiert <code>IAsyncDisposable</code>, um sicherzustellen, dass alle ausstehenden Protokolle geschrieben werden, bevor der Stream geschlossen wird.</p>
+<p>In diesem Artikel zeigen wir Ihnen, wie Sie die Protokollierung für Ihre Anwendung konfigurieren.</p>
 <h2 id="dateibasierte-zugriffsprotokolle">Dateibasierte Zugriffsprotokolle</h2>
-<p>Protokolle zu Dateien öffnen die Datei, schreiben die Zeilentext und schließen die Datei anschließend für jede geschriebene Zeile. Dieses Verfahren wurde übernommen, um die Schreibreaktivität in den Protokollen zu erhalten.</p>
+<p>Protokolle in Dateien öffnen die Datei, schreiben den Text der Zeile und schließen die Datei für jede geschriebene Zeile. Dieses Verfahren wurde beibehalten, um die Schreibreaktion in den Protokollen aufrechtzuerhalten.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -185,9 +185,9 @@
     }
 }
 </code></pre>
-<p>Der obige Code schreibt alle eingehenden Anfragen in die Datei <code>logs/access.log</code>. Beachten Sie, dass die Datei automatisch erstellt wird, wenn sie nicht existiert, jedoch der Ordner davor nicht. Es ist nicht erforderlich, das Verzeichnis <code>logs/</code> zu erstellen, da die LogStream-Klasse es automatisch erstellt.</p>
-<h2 id="stream-basiertes-logging">Stream-basiertes Logging</h2>
-<p>Sie können Logdateien in TextWriter-Objekte schreiben, wie z. B. <code>Console.Out</code>, indem Sie ein TextWriter-Objekt im Konstruktor übergeben:</p>
+<p>Der obige Code schreibt alle eingehenden Anfragen in die Datei <code>logs/access.log</code>. Beachten Sie, dass die Datei automatisch erstellt wird, wenn sie nicht existiert, jedoch nicht das Verzeichnis davor. Es ist nicht notwendig, das Verzeichnis <code>logs/</code> zu erstellen, da die <code>LogStream</code>-Klasse es automatisch erstellt.</p>
+<h2 id="stream-basierte-protokollierung">Stream-basierte Protokollierung</h2>
+<p>Sie können Protokolldateien an <code>TextWriter</code>-Objekte wie <code>Console.Out</code> schreiben, indem Sie ein <code>TextWriter</code>-Objekt im Konstruktor übergeben:</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -202,47 +202,47 @@
     })
     .Build();
 </code></pre>
-<p>Für jede Nachricht, die im stream-basierten Log geschrieben wird, wird die Methode <code>TextWriter.Flush()</code> aufgerufen.</p>
-<h2 id="formatierung-des-zugriffsprotokolls">Formatierung des Zugriffsprotokolls</h2>
-<p>Sie können das Format des Zugriffsprotokolls mit vordefinierten Variablen anpassen. Betrachten Sie die folgende Zeile:</p>
+<p>Für jede in der stream-basierten Protokollierung geschriebene Nachricht wird die <code>TextWriter.Flush()</code>-Methode aufgerufen.</p>
+<h2 id="zugriffsprotokollformat">Zugriffsprotokollformat</h2>
+<p>Sie können das Zugriffsprotokollformat durch vordefinierte Variablen anpassen. Betrachten Sie die folgende Zeile:</p>
 <pre><code class="lang-cs">config.AccessLogsFormat = &quot;%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -&gt; %lou in %lmsms [%{user-agent}]&quot;;
 </code></pre>
-<p>Es schreibt eine Nachricht wie:</p>
-<pre><code>29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+<p>Sie schreibt eine Nachricht wie:</p>
+<pre><code>29/märz/2023 15:21:47 -0300 Ausgeführt ::1 http://localhost:5555/ [200 OK] 689B -&gt; 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 </code></pre>
-<p>Sie können Ihre Logdatei nach dem beschriebenen Format formatieren:</p>
+<p>Sie können das Protokollformat durch die im folgenden Tabelle beschriebenen Werte anpassen:</p>
 <table>
 <thead>
 <tr>
-<th>Value</th>
-<th>Was es repräsentiert</th>
+<th>Wert</th>
+<th>Was es darstellt</th>
 <th>Beispiel</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>%dd</td>
-<td>Tag des Monats (formatiert als zwei Ziffern)</td>
+<td>Tag des Monats (als zwei Ziffern formatiert)</td>
 <td>05</td>
 </tr>
 <tr>
 <td>%dmmm</td>
 <td>Vollständiger Name des Monats</td>
-<td>July</td>
+<td>März</td>
 </tr>
 <tr>
 <td>%dmm</td>
 <td>Abgekürzter Name des Monats (drei Buchstaben)</td>
-<td>Jul</td>
+<td>Mär</td>
 </tr>
 <tr>
 <td>%dm</td>
-<td>Monatsnummer (formatiert als zwei Ziffern)</td>
-<td>07</td>
+<td>Monat (als zwei Ziffern formatiert)</td>
+<td>03</td>
 </tr>
 <tr>
 <td>%dy</td>
-<td>Jahr (formatiert als vier Ziffern)</td>
+<td>Jahr (als vier Ziffern formatiert)</td>
 <td>2023</td>
 </tr>
 <tr>
@@ -257,32 +257,32 @@
 </tr>
 <tr>
 <td>%ti</td>
-<td>Minuten (formatiert als zwei Ziffern)</td>
+<td>Minuten (als zwei Ziffern formatiert)</td>
 <td>30</td>
 </tr>
 <tr>
 <td>%ts</td>
-<td>Sekunden (formatiert als zwei Ziffern)</td>
+<td>Sekunden (als zwei Ziffern formatiert)</td>
 <td>45</td>
 </tr>
 <tr>
 <td>%tm</td>
-<td>Millisekunden (formatiert als drei Ziffern)</td>
+<td>Millisekunden (als drei Ziffern formatiert)</td>
 <td>123</td>
 </tr>
 <tr>
 <td>%tz</td>
-<td>Zeitzonenoffset (Gesamtstunden in UTC)</td>
+<td>Zeitzone (gesamte Stunden in UTC)</td>
 <td>+03:00</td>
 </tr>
 <tr>
 <td>%ri</td>
-<td>Remote IP-Adresse des Clients</td>
+<td>Client-IP-Adresse</td>
 <td>192.168.1.100</td>
 </tr>
 <tr>
 <td>%rm</td>
-<td>HTTP-Methode (Großbuchstaben)</td>
+<td>HTTP-Methode (in Großbuchstaben)</td>
 <td>GET</td>
 </tr>
 <tr>
@@ -292,7 +292,7 @@
 </tr>
 <tr>
 <td>%ra</td>
-<td>URI-Authority (Domain)</td>
+<td>URI-Autorität (Domain)</td>
 <td>example.com</td>
 </tr>
 <tr>
@@ -312,7 +312,7 @@
 </tr>
 <tr>
 <td>%rq</td>
-<td>Abfragezeichenkette</td>
+<td>Abfragezeichenfolge</td>
 <td>?key=value&amp;another=123</td>
 </tr>
 <tr>
@@ -328,7 +328,7 @@
 <tr>
 <td>%lin</td>
 <td>Menschlich lesbare Größe der Anfrage</td>
-<td>1.2 KB</td>
+<td>1,2 KB</td>
 </tr>
 <tr>
 <td>%linr</td>
@@ -338,7 +338,7 @@
 <tr>
 <td>%lou</td>
 <td>Menschlich lesbare Größe der Antwort</td>
-<td>2.5 KB</td>
+<td>2,5 KB</td>
 </tr>
 <tr>
 <td>%lour</td>
@@ -353,44 +353,45 @@
 <tr>
 <td>%ls</td>
 <td>Ausführungsstatus</td>
-<td>Executed</td>
+<td>Ausgeführt</td>
 </tr>
 <tr>
 <td>%{header-name}</td>
-<td>Repräsentiert den Header <code>header-name</code> der Anfrage.</td>
+<td>Stellt den <code>header-name</code>-Header der Anfrage dar.</td>
 <td><code>Mozilla/5.0 (platform; rv:gecko [...]</code></td>
 </tr>
 <tr>
-<td>%{:res-name}</td>
-<td>Repräsentiert den Header <code>res-name</code> der Antwort.</td>
-<td></td>
+<td>%{:header-name}</td>
+<td>Stellt den <code>header-name</code>-Header der Antwort dar.</td>
+<td><code>application/json</code></td>
 </tr>
 </tbody>
 </table>
+<p>Sie können auch <code>HttpServerConfiguration.DefaultAccessLogFormat</code> verwenden, um das Standard-Zugriffsprotokollformat zu verwenden.</p>
 <h2 id="rotierende-protokolle">Rotierende Protokolle</h2>
-<p>Sie können den HTTP-Server so konfigurieren, dass die Logdateien in eine komprimierte .gz-Datei umgewandelt werden, wenn sie eine bestimmte Größe erreichen. Die Größe wird periodisch anhand des von Ihnen definierten Schwellenwerts überprüft.</p>
+<p>Sie können den HTTP-Server so konfigurieren, dass er die Protokolldateien in eine komprimierte .gz-Datei umwandelt, wenn sie eine bestimmte Größe erreichen. Die Größe wird regelmäßig durch den von Ihnen definierten Schwellenwert überprüft.</p>
 <pre><code class="lang-cs">LogStream errorLog = new LogStream(&quot;logs/error.log&quot;)
     .ConfigureRotatingPolicy(
         maximumSize: 64 * SizeHelper.UnitMb,
         dueTime: TimeSpan.FromHours(6));
 </code></pre>
-<p>Der obige Code prüft alle sechs Stunden, ob die Datei des LogStreams sein 64 MB-Limit erreicht hat. Wenn ja, wird die Datei in eine .gz-Datei komprimiert und anschließend wird <code>access.log</code> bereinigt.</p>
-<p>Während dieses Prozesses ist das Schreiben in die Datei gesperrt, bis die Datei komprimiert und bereinigt ist. Alle Zeilen, die in diesem Zeitraum geschrieben werden sollen, befinden sich in einer Warteschlange, die auf das Ende der Komprimierung wartet.</p>
-<p>Diese Funktion funktioniert nur mit dateibasierten LogStreams.</p>
+<p>Der obige Code überprüft alle sechs Stunden, ob die Datei des <code>LogStream</code> die 64-MB-Grenze erreicht hat. Wenn ja, wird die Datei in eine .gz-Datei komprimiert und die <code>access.log</code>-Datei wird gelöscht.</p>
+<p>Während dieses Prozesses wird das Schreiben in die Datei gesperrt, bis die Datei komprimiert und gelöscht ist. Alle Zeilen, die in diesem Zeitraum geschrieben werden sollen, werden in einer Warteschlange gespeichert, bis die Komprimierung abgeschlossen ist.</p>
+<p>Diese Funktion funktioniert nur mit dateibasierten <code>LogStream</code>-Objekten.</p>
 <h2 id="fehlerprotokollierung">Fehlerprotokollierung</h2>
-<p>Wenn ein Server keine Fehler an den Debugger weiterleitet, leitet er die Fehler beim Schreiben von Protokollen weiter, wenn welche vorhanden sind. Sie können das Schreiben von Fehlern mit folgendem Code konfigurieren:</p>
+<p>Wenn ein Server keine Fehler an den Debugger weiterleitet, leitet er Fehler an die Protokollierung weiter, wenn Fehler auftreten. Sie können die Fehlerprotokollierung mit konfigurieren:</p>
 <pre><code class="lang-cs">config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream(&quot;error.log&quot;);
 </code></pre>
-<p>Diese Eigenschaft schreibt nur etwas in das Protokoll, wenn der Fehler nicht von der Callback-Funktion oder der Eigenschaft <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> erfasst wird.</p>
-<p>Der vom Server geschriebene Fehler enthält immer Datum und Uhrzeit, die Anfrage-Header (nicht den Körper), die Fehlerspur und die Spur der inneren Ausnahme, falls vorhanden.</p>
-<h2 id="weitere-logging-instanzen">Weitere Logging-Instanzen</h2>
-<p>Ihre Anwendung kann null oder mehrere LogStreams haben, es gibt keine Begrenzung, wie viele Logkanäle sie haben kann. Daher ist es möglich, das Log Ihrer Anwendung auf eine Datei zu leiten, die nicht das Standardzugriffs- oder Fehlerprotokoll ist.</p>
+<p>Diese Eigenschaft schreibt nur dann etwas in das Protokoll, wenn der Fehler nicht durch den Rückruf oder die <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>-Eigenschaft abgefangen wird.</p>
+<p>Der Fehler, der vom Server geschrieben wird, schreibt immer das Datum und die Uhrzeit, die Anfrageheader (nicht den Anfragebody), die Fehlerstapelverfolgung und die innere Ausnahme-Stapelverfolgung, wenn vorhanden.</p>
+<h2 id="andere-protokollierungsinstanzen">Andere Protokollierungsinstanzen</h2>
+<p>Ihre Anwendung kann null oder mehrere <code>LogStream</code>-Objekte haben, es gibt keine Begrenzung für die Anzahl der Protokollkanäle, die sie haben kann. Es ist daher möglich, die Protokolle Ihrer Anwendung in eine andere Datei als die Standard-<code>AccessLog</code>- oder <code>ErrorLog</code>-Datei umzuleiten.</p>
 <pre><code class="lang-cs">LogStream appMessages = new LogStream(&quot;messages.log&quot;);
-appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
+appMessages.WriteLine(&quot;Anwendung gestartet am {0}&quot;, DateTime.Now);
 </code></pre>
 <h2 id="erweiterung-von-logstream">Erweiterung von LogStream</h2>
-<p>Sie können die Klasse <code>LogStream</code> erweitern, um benutzerdefinierte Formate zu schreiben, die mit der aktuellen Sisk-Log-Engine kompatibel sind. Das folgende Beispiel ermöglicht das Schreiben farbiger Nachrichten in die Konsole über die Bibliothek Spectre.Console:</p>
+<p>Sie können die <code>LogStream</code>-Klasse erweitern, um benutzerdefinierte Formate zu schreiben, die mit dem aktuellen Sisk-Protokollmotor kompatibel sind. Das folgende Beispiel ermöglicht es, farbige Nachrichten in der Konsole über die Spectre.Console-Bibliothek zu schreiben:</p>
 <div class="script-header">
     <span>
         CustomLogStream.cs
@@ -407,7 +408,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
     }
 }
 </code></pre>
-<p>Eine weitere Möglichkeit, automatisch benutzerdefinierte Protokolle für jede Anfrage/Antwort zu schreiben, besteht darin, einen <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a> zu erstellen. Das folgende Beispiel ist etwas ausführlicher. Es schreibt den Körper der Anfrage und Antwort in JSON in die Konsole. Es kann nützlich sein, Anfragen im Allgemeinen zu debuggen. Dieses Beispiel nutzt ContextBag und HttpServerHandler.</p>
+<p>Eine weitere Möglichkeit, automatisch benutzerdefinierte Protokolle für jede Anfrage/Antwort zu schreiben, besteht darin, einen <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">HttpServerHandler</a> zu erstellen. Das folgende Beispiel ist ein wenig umfassender. Es schreibt den Body der Anfrage und Antwort in JSON in die Konsole. Es kann für die allgemeine Fehlersuche nützlich sein. Dieses Beispiel verwendet ContextBag und HttpServerHandler.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -433,7 +434,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
                 {
                     method = request.Method.Method,
                     path = request.Path,
-                    specialMessage = &quot;Hello, world!!&quot;
+                    specialMessage = &quot;Hallo, Welt!!&quot;
                 }));
         });
 
@@ -455,15 +456,15 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
     {
         if (request.Method != HttpMethod.Get &amp;&amp; request.Headers[&quot;Content-Type&quot;]?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // At this point, the connection is open and the client has sent the header specifying
-            // that the content is JSON.The line below reads the content and leaves it stored in the request.
+            // Zu diesem Zeitpunkt ist die Verbindung geöffnet und der Client hat den Header gesendet, der angibt,
+            // dass der Inhalt JSON ist. Die folgende Zeile liest den Inhalt und speichert ihn im Anfrageobjekt.
             //
-            // If the content is not read in the request action, the GC is likely to collect the content
-            // after sending the response to the client, so the content may not be available after the response is closed.
+            // Wenn der Inhalt nicht im Anfragevorgang gelesen wird, wird der Inhalt möglicherweise nach dem Senden der Antwort an den Client
+            // durch den Garbage Collector gesammelt, sodass der Inhalt möglicherweise nicht mehr verfügbar ist, nachdem die Antwort geschlossen wurde.
             //
             _ = request.RawBody;
 
-            // add hint in the context to tell that this request has an json body on it
+            // Fügen Sie einen Hinweis im Kontext hinzu, um anzugeben, dass diese Anfrage einen JSON-Body enthält
             request.Bag.Add(&quot;IsJsonRequest&quot;, true);
         }
     }
@@ -476,7 +477,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
 
         if (result.Request.Bag.ContainsKey(&quot;IsJsonRequest&quot;))
         {
-            // reformats the JSON using the CypherPotato.LightJson library
+            // Reformuliert das JSON mithilfe der CypherPotato.LightJson-Bibliothek
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
@@ -487,7 +488,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
             responseMessage = $&quot;{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}&quot;;
             
             if (content is HttpContent httpContent &amp;&amp;
-                // check if the response is JSON
+                // Überprüfen, ob die Antwort JSON ist
                 httpContent.Headers.ContentType?.MediaType?.Contains(&quot;json&quot;, StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -496,7 +497,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
         }
         else
         {
-            // gets the internal server handling status
+            // Ruft den internen Server-Verarbeitungsstatus ab
             responseMessage = result.Status.ToString();
         }
         

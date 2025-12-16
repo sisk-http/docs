@@ -1,14 +1,14 @@
 # Web Sockets
 
-Sisk 支持 WebSockets，例如接收和发送消息给客户端。
+Sisk 同时支持 web sockets，例如接收和发送消息到客户端。
 
-此功能在大多数浏览器中运行良好，但在 Sisk 中仍处于实验阶段。若发现任何 bug，请在 GitHub 上报告。
+此功能在大多数浏览器中工作正常，但在 Sisk 中仍然是实验性的。如果您发现任何错误，请在 github 上报告。
 
-## 异步接收消息
+## 接收消息
 
-WebSocket 消息按顺序接收，排队直到被 `ReceiveMessageAsync` 处理。该方法在超时、操作被取消或客户端断开时返回无消息。
+WebSocket 消息按顺序接收，直到由 `ReceiveMessageAsync` 处理。该方法在超时、操作被取消或客户端断开连接时返回无消息。
 
-一次只能进行一次读取和写入操作，因此在等待 `ReceiveMessageAsync` 的消息时，无法向已连接的客户端写入。
+同时只能进行一个读取和写入操作，因此，当您使用 `ReceiveMessageAsync` 等待消息时，无法写入连接的客户端。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -27,9 +27,9 @@ router.MapGet("/connect", async (HttpRequest req) =>
 });
 ```
 
-## 同步接收消息
+## 持久连接
 
-下面的示例展示了如何使用同步 WebSocket，而不需要异步上下文，在接收消息、处理后完成 socket 的使用。
+下面的示例包含一种使用持久 websocket 连接的方法，您可以接收消息、处理它们并完成使用 socket。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -73,7 +73,7 @@ askAge:
 
 ## Ping 策略
 
-类似于 Server Side Events 中的 ping 策略，你也可以配置 ping 策略，以在无活动时保持 TCP 连接打开。
+类似于服务器端事件中的 ping 策略，您也可以配置 ping 策略以保持 TCP 连接在无活动时保持打开。
 
 ```cs
 ws.PingPolicy.Start(

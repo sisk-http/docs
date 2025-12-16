@@ -1,14 +1,14 @@
-# Requests
+# リクエスト
 
-リクエストは HTTP リクエストメッセージを表す構造体です。`[HttpRequest](/api/Sisk.Core.Http.HttpRequest)` オブジェクトは、アプリケーション全体で HTTP メッセージを処理するための便利な関数を提供します。
+リクエストは、HTTP リクエスト メッセージを表す構造体です。[HttpRequest](/api/Sisk.Core.Http.HttpRequest) オブジェクトには、HTTP メッセージをアプリケーション全体で処理するための便利な関数が含まれています。
 
 HTTP リクエストは、メソッド、パス、バージョン、ヘッダー、ボディで構成されます。
 
-このドキュメントでは、これらの要素を取得する方法を説明します。
+このドキュメントでは、これらの要素を取得する方法について説明します。
 
-## リクエストメソッドの取得
+## リクエスト メソッドの取得
 
-受信したリクエストのメソッドを取得するには、`Method` プロパティを使用します。
+受信したリクエストのメソッドを取得するには、Method プロパティを使用できます。
 
 ```cs
 static HttpResponse Index(HttpRequest request)
@@ -21,63 +21,80 @@ static HttpResponse Index(HttpRequest request)
 このプロパティは、[HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) オブジェクトで表されるリクエストのメソッドを返します。
 
 > [!NOTE]
-> ルートメソッドとは異なり、このプロパティは `[RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod)` アイテムを返しません。代わりに、実際のリクエストメソッドを返します。
+> ルート メソッドとは異なり、このプロパティは [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) アイテムを提供しません。代わりに、実際のリクエスト メソッドを返します。
 
 ## リクエスト URL コンポーネントの取得
 
-URL のさまざまなコンポーネントは、リクエストの特定のプロパティを介して取得できます。例として、次の URL を考えます。
+リクエストの特定のプロパティを使用して、URL からさまざまなコンポーネントを取得できます。例として、次の URL を考えてみましょう。
 
-```
+``` 
 http://localhost:5000/user/login?email=foo@bar.com
 ```
 
 | コンポーネント名 | 説明 | コンポーネント値 |
 | --- | --- | --- |
-| [Path](/api/Sisk.Core.Http.HttpRequest.Path) | リクエストパスを取得します。 | `/user/login` |
-| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | リクエストパスとクエリ文字列を取得します。 | `/user/login?email=foo@bar.com` |
-| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | 完全な URL リクエスト文字列を取得します。 | `http://localhost:5000/user/login?email=foo@bar.com` |
-| [Host](/api/Sisk.Core.Http.HttpRequest.Host) | リクエストホストを取得します。 | `localhost` |
-| [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | リクエストホストとポートを取得します。 | `localhost:5000` |
-| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | リクエストクエリを取得します。 | `?email=foo@bar.com` |
-| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | 名前付き値コレクションとしてリクエストクエリを取得します。 | `{StringValueCollection object}` |
-| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | リクエストが SSL を使用しているかどうかを判定します (true/false)。 | `false` |
+| [Path](/api/Sisk.Core.Http.HttpRequest.Path) | リクエスト パスを取得します。 | `/user/login` |
+| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | リクエスト パスとクエリ文字列を取得します。 | `/user/login?email=foo@bar.com` |
+| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | リクエストの完全な URL 文字列を取得します。 | `http://localhost:5000/user/login?email=foo@bar.com` |
+| [Host](/api/Sisk.Core.Http.HttpRequest.Host) | リクエスト ホストを取得します。 | `localhost` |
+| [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | リクエスト ホストとポートを取得します。 | `localhost:5000` |
+| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | リクエストのクエリを取得します。 | `?email=foo@bar.com` |
+| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | リクエストのクエリを名前付き値コレクションで取得します。 | `{StringValueCollection object}` |
+| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | リクエストが SSL (true) を使用しているかどうかを判断します。 | `false` |
 
-また、`[HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri)` プロパティを使用すると、上記のすべてを 1 つのオブジェクトで取得できます。
+また、[HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri) プロパティを使用して、上記のすべての情報を 1 つのオブジェクトで取得することもできます。
 
-## リクエストボディの取得
+## リクエスト ボディの取得
 
-フォーム、ファイル、または API トランザクションなどのボディを含むリクエストがあります。プロパティからリクエストボディを取得できます。
+一部のリクエストには、フォーム、ファイル、または API トランザクションなどのボディが含まれています。リクエストのボディを取得するには、次のプロパティを使用できます。
 
 ```cs
-// リクエストエンコーディングをエンコーダーとして使用して、文字列としてリクエストボディを取得
+// リクエスト ボディを文字列として取得します (リクエストのエンコードを使用)。
 string body = request.Body;
 
-// またはバイト配列として取得
+// または、バイト配列として取得します。
 byte[] bodyBytes = request.RawBody;
 
-// それ以外の場合はストリームとして取得
+// または、ストリームとして取得します。
 Stream requestStream = request.GetRequestStream();
 ```
 
-リクエストにボディがあるかどうか、およびロードされているかどうかは、`[HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents)` と `[IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable)` プロパティで判断できます。`HasContents` はリクエストにコンテンツがあるかを、`IsContentAvailable` は HTTP サーバーがリモートポイントからコンテンツを完全に受信したかを示します。
+また、リクエストにボディが含まれているか、またボディが読み込まれているかどうかを判断するために、[HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) プロパティと [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) プロパティを使用することもできます。
 
-`GetRequestStream` を使用してリクエストコンテンツを複数回読み取ることはできません。このメソッドで読み取ると、`RawBody` と `Body` の値も利用できなくなります。リクエストストリームは、リクエストのコンテキスト内で破棄する必要はなく、作成された HTTP セッションの終了時に破棄されます。また、`[HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding)` プロパティを使用して、リクエストを手動でデコードするための最適なエンコーディングを取得できます。
+`GetRequestStream` メソッドを使用してリクエスト コンテンツを読み取ることは 1 回のみ可能です。如果この方法で読み取ると、`RawBody` と `Body` の値も使用できなくなります。リクエストのコンテキストでは、リクエスト ストリームを破棄する必要はありません。HTTP セッションの終了時に自動的に破棄されます。また、[HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) プロパティを使用して、リクエストを手動でデコードするための最適なエンコードを取得することもできます。
 
-サーバーはリクエストコンテンツの読み取りに制限を設けており、これは `[HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body)` と `[HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)` の両方に適用されます。これらのプロパティは、入力ストリーム全体を `[HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength)` と同じサイズのローカルバッファにコピーします。
+サーバーには、[HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) と [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body) の両方に適用される、リクエスト コンテンツの読み取りに制限があります。これらのプロパティは、入力ストリームのコンテンツを同じサイズのローカル バッファーにコピーします。
 
-クライアントが送信したコンテンツが `[HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)` を超える場合、ステータス 413 Content Too Large のレスポンスがクライアントに返されます。さらに、設定された制限がない、または制限が大きすぎる場合、クライアントが送信したコンテンツが `[Int32.MaxValue]` (2 GB) を超えると、サーバーは `[OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)` をスローします。上記のプロパティを介してコンテンツにアクセスしようとするときに発生します。ストリーミングを使用してコンテンツを処理することもできます。
+クライアントが [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) で定義された制限を超えるコンテンツを送信した場合、サーバーはクライアントに 413 コンテンツが大きすぎるというステータスのレスポンスを返します。さらに、制限が設定されていない場合、または制限が大きすぎる場合、サーバーはクライアントが [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 GB) を超えるコンテンツを送信しようとした場合に [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) をスローします。ただし、プロパティを使用してコンテンツにアクセスする代わりに、ストリーミングを使用してコンテンツを処理することはできます。
 
 > [!NOTE]
-> Sisk は許可していますが、HTTP セマンティクスに従ってアプリケーションを作成し、許可されていない方法でコンテンツを取得または提供しないようにすることが常に良いアイデアです。 [RFC 9110 "HTTP Semantics"](https://httpwg.org/spec/rfc9110.html) を参照してください。
+> Sisk では許可されている場合でも、HTTP セマンティクスに従ってアプリケーションを作成し、コンテンツを取得または提供するために許可されていないメソッドを使用しないことが常に良い考えです。[RFC 9110 "HTTP セマンティクス"](https://httpwg.org/spec/rfc9110.html) について読みます。
 
-## リクエストコンテキストの取得
+## リクエスト コンテキストの取得
 
-HTTP コンテキストは、HTTP サーバー、ルート、ルーター、リクエストハンドラー情報を格納する Sisk 専用オブジェクトです。これらのオブジェクトを整理するのが難しい環境で、整理するために使用できます。
+HTTP コンテキストは、Sisk の独自オブジェクトであり、HTTP サーバー、ルート、ルーター、およびリクエスト ハンドラーの情報を格納します。このコンテキストを使用して、これらのオブジェクトが難しい環境で自分自身を整理することができます。
 
-`[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag)` オブジェクトは、リクエストハンドラーから別のポイントへ渡される情報を保持し、最終目的地で消費できます。このオブジェクトは、ルートコールバック後に実行されるリクエストハンドラーでも使用できます。
+現在実行中の [HttpContext](/api/Sisk.Core.Http.HttpContext) を取得するには、静的メソッド `HttpContext.GetCurrentContext()` を使用できます。このメソッドは、現在処理中のリクエストのコンテキストを返します。
+
+```cs
+HttpContext context = HttpContext.GetCurrentContext();
+```
+
+### ログ モード
+
+[HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) プロパティを使用して、現在のリクエストのログ記録動作を制御できます。特定のリクエストに対してログ記録を有効または無効にし、サーバーの既定の構成をオーバーライドできます。
+
+```cs
+// このリクエストのログ記録を無効にします。
+context.LogMode = LogOutputMode.None;
+```
+
+### リクエスト バッグ
+
+[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) オブジェクトには、リクエスト ハンドラーから別のポイントに渡される情報が格納され、最終的な宛先で使用できます。このオブジェクトは、ルート コールバックの後に実行されるリクエスト ハンドラーによっても使用できます。
 
 > [!TIP]
-> このプロパティは `[HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag)` プロパティからもアクセスできます。
+> このプロパティは、[HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) プロパティでもアクセスできます。
 
 <div class="script-header">
     <span>
@@ -109,7 +126,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-上記のリクエストハンドラーは `AuthenticatedUser` をリクエストバッグに定義し、後で最終コールバックで消費できます。
+上記のリクエスト ハンドラーは、リクエスト バッグに `AuthenticatedUser` を定義し、後で最終的なコールバックで使用できます。
 
 <div class="script-header">
     <span>
@@ -136,7 +153,9 @@ public class MyController
 }
 ```
 
-`Bag.Set()` と `Bag.Get()` ヘルパーメソッドを使用して、型単位のシングルトンでオブジェクトを取得または設定することもできます。
+また、`Bag.Set()` および `Bag.Get()` ヘルパー メソッドを使用して、オブジェクトをそのタイプのシングルトンで取得または設定することもできます。
+
+`TypedValueDictionary` クラスも、より詳細な制御のために `GetValue` および `SetValue` メソッドを提供します。
 
 <div class="script-header">
     <span>
@@ -176,9 +195,9 @@ public static HttpResponse GetUser(HttpRequest request)
 }
 ```
 
-## フォームデータの取得
+## フォーム データの取得
 
-以下の例のように、`[NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection)` でフォームデータの値を取得できます。
+フォーム データの値を [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) で取得できます。
 
 <div class="script-header">
     <span>
@@ -205,9 +224,9 @@ public HttpResponse Index(HttpRequest request)
 }
 ```
 
-## マルチパートフォームデータの取得
+## マルチパート フォーム データの取得
 
-Sisk の HTTP リクエストは、ファイル、フォームフィールド、または任意のバイナリコンテンツなどのアップロードされたマルチパートコンテンツを取得できます。
+Sisk の HTTP リクエストでは、マルチパート コンテンツ (ファイル、フォーム フィールド、バイナリ コンテンツなど) を取得できます。
 
 <div class="script-header">
     <span>
@@ -222,40 +241,38 @@ Sisk の HTTP リクエストは、ファイル、フォームフィールド、
 [RoutePost("/upload-contents")]
 public HttpResponse Index(HttpRequest request)
 {
-    // 以下のメソッドは、リクエスト入力全体を
-    // MultipartObjects の配列に読み取ります
+    // 次のメソッドは、リクエストの入力全体を MultipartObject の配列に読み取ります。
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // Multipart フォームデータで提供されたファイル名。
-        // オブジェクトがファイルでない場合は null が返ります。
+        // マルチパート フォーム データで提供されたファイル名。
+        // ファイルでない場合は null が返されます。
         Console.WriteLine("File name       : " + uploadedObject.Filename);
 
-        // マルチパートフォームデータオブジェクトのフィールド名。
+        // マルチパート フォーム データのフィールド名。
         Console.WriteLine("Field name      : " + uploadedObject.Name);
 
-        // マルチパートフォームデータのコンテンツ長。
+        // マルチパート フォーム データのコンテンツの長さ。
         Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
 
-        // 既知のコンテンツタイプに基づいて画像フォーマットを判定します。
-        // コンテンツが認識されていない一般的なファイル形式の場合、以下のメソッドは
-        // MultipartObjectCommonFormat.Unknown を返します。
+        // 各ファイルのヘッダーに基づいて、ファイル形式を一般的なファイル形式で判断します。
+        // 認識できないファイル形式の場合は、MultipartObjectCommonFormat.Unknown が返されます。
         Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
 
-Sisk の [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) とそのメソッド、プロパティ、機能については、さらに詳しく読むことができます。
+Sisk の [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) とそのメソッド、プロパティ、機能についてさらに詳しく知ることができます。
 
-## クライアント切断の検出
+## クライアントの切断の検出
 
-Sisk v1.15 以降、フレームワークは、クライアントとサーバー間の接続が応答を受信する前に予期せず閉じられた場合にスローされる `CancellationToken` を提供します。このトークンは、クライアントが応答を望まなくなったときに長時間実行される操作をキャンセルするために役立ちます。
+Sisk のバージョン v1.15 以降、フレームワークは、クライアントとサーバーの接続がレスポンスの受信前に予期せず切断された場合にスローされるトークンを提供します。このトークンは、クライアントがもうレスポンスを必要としない場合に長時間実行される操作をキャンセルするために役立ちます。
 
 ```csharp
 router.MapGet("/connect", async (HttpRequest req) =>
 {
-    // リクエストから切断トークンを取得
+    // リクエストから切断トークンを取得します。
     var dc = req.DisconnectToken;
 
     await LongOperationAsync(dc);
@@ -264,23 +281,23 @@ router.MapGet("/connect", async (HttpRequest req) =>
 });
 ```
 
-このトークンはすべての HTTP エンジンと互換性があるわけではなく、各エンジンで実装が必要です。
+このトークンは、すべての HTTP エンジンで互換性があるわけではありません。各エンジンには独自の実装が必要です。
 
-## サーバー送信イベント（SSE）サポート
+## サーバー送信イベントのサポート
 
-Sisk は [Server-sent events](https://developer.mozilla.org/en-US/docs/jp/Web/API/Server-sent_events) をサポートし、チャンクをストリームとして送信し、サーバーとクライアント間の接続を維持できます。
+Sisk では、[サーバー送信イベント](https://developer.mozilla.org/en-US/docs/jp/Web/API/Server-sent_events)をサポートしており、チャンクをストリームとして送信し、サーバーとクライアントの接続を維持できます。
 
-`[HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource)` メソッドを呼び出すと、HttpRequest がリスナー状態になります。この状態では、HTTP リクエストのコンテキストは HttpResponse を期待せず、サーバー側イベントで送信されるパケットと重複します。
+[HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) メソッドを呼び出すと、HttpRequest がリスナー状態になり、HTTP リクエストのコンテキストは、サーバー送信イベントによって送信されるパケットと干渉する可能性があるため、HttpResponse を期待しません。
 
-すべてのパケットを送信した後、コールバックは `[Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close)` メソッドを返す必要があります。これにより、サーバーに最終レスポンスが送信され、ストリーミングが終了したことが示されます。
+すべてのパケットを送信した後、コールバックは [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) メソッドを返す必要があります。これにより、サーバーは最終的なレスポンスを送信し、ストリーミングが終了したことを示します。
 
-送信されるすべてのパケットの総長を予測できないため、`Content-Length` ヘッダーで接続の終了を決定することはできません。
+送信されるパケットの合計長は予測できないため、`Content-Length` ヘッダーで接続の終了を判断することはできません。
 
-ほとんどのブラウザのデフォルトでは、サーバー側イベントは GET メソッド以外の HTTP ヘッダーやメソッドを送信しません。したがって、イベントソースリクエストで特定のヘッダーが必要なリクエストハンドラーを使用する場合は、ヘッダーがない可能性が高いです。
+ほとんどのブラウザーの既定では、サーバー側のイベントは GET メソッド以外の HTTP ヘッダーまたはメソッドをサポートしていません。したがって、特定のヘッダーがリクエストに含まれていることを要求するリクエスト ハンドラーを使用する場合、イベント ソース リクエストでそれらが含まれている可能性は低いです。
 
-また、ほとんどのブラウザは、クライアント側で `EventSource.close` メソッドが呼び出されないと、ストリームを再起動します。これにより、サーバー側で無限に追加処理が発生します。この種の問題を回避するには、イベントソースがすべてのパケットの送信を終了したことを示す最終パケットを送信することが一般的です。
+また、クライアント側で [EventSource.close](https://developer.mozilla.org/en-US/docs/jp/Web/API/EventSource/close) メソッドが呼び出されない場合、ブラウザーはストリームを再開し、サーバー側で無限の追加処理が発生する可能性があります。この問題を避けるために、イベント ソースがすべてのパケットの送信を完了したことを示す最終的なパケットを送信することが一般的です。
 
-以下の例は、ブラウザがサーバー側イベントをサポートするサーバーと通信する方法を示しています。
+以下の例は、ブラウザーがサーバー送信イベントをサポートするサーバーと通信する方法を示しています。
 
 <div class="script-header">
     <span>
@@ -315,7 +332,7 @@ Sisk は [Server-sent events](https://developer.mozilla.org/en-US/docs/jp/Web/AP
 </html>
 ```
 
-そして、クライアントにメッセージを段階的に送信します。
+そして、サーバーはクライアントにメッセージを逐次的に送信します。
 
 <div class="script-header">
     <span>
@@ -347,18 +364,18 @@ public class MyController
 }
 ```
 
-このコードを実行すると、次のような結果が期待されます。
+このコードを実行すると、次の結果が期待されます。
 
 <img src="/assets/img/server side events demo.gif" />
 
-## プロキシされた IP とホストの解決
+## プロキシ IP とホストの解決
 
-Sisk はプロキシとともに使用でき、したがって IP アドレスはクライアントからプロキシへのトランザクションでプロキシエンドポイントに置き換えられる場合があります。
+Sisk はプロキシと使用できます。したがって、クライアントからプロキシへのトランザクションでは、IP アドレスがプロキシ エンドポイントに置き換えられる可能性があります。
 
-Sisk で独自のリゾルバを定義するには、[forwarding resolvers](/docs/jp/advanced/forwarding-resolvers) を使用します。
+Sisk では、[フォワーディング リゾルバー](/docs/jp/advanced/forwarding-resolvers)を使用して独自のリゾルバーを定義できます。
 
-## ヘッダーエンコーディング
+## ヘッダーのエンコード
 
-ヘッダーエンコーディングは、いくつかの実装で問題になることがあります。Windows では UTF-8 ヘッダーがサポートされていないため、ASCII が使用されます。Sisk には、誤ってエンコードされたヘッダーをデコードするのに役立つ組み込みエンコーディングコンバータがあります。
+ヘッダーのエンコードは、一部の実装では問題になる可能性があります。Windows では、UTF-8 ヘッダーはサポートされていないため、ASCII が使用されます。Sisk には、不正にエンコードされたヘッダーをデコードするための組み込みのエンコード コンバーターがあります。
 
-この操作はコストが高く、デフォルトでは無効になっていますが、[NormalizeHeadersEncodings](/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings) フラグで有効にできます。
+この操作はコストがかかるため、既定では無効になっていますが、[NormalizeHeadersEncodings](/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings) フラグで有効にすることができます。

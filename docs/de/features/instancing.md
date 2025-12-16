@@ -1,8 +1,10 @@
 # Abhängigkeitsinjektion
 
-Es ist üblich, Mitglieder und Instanzen zu widmen, die für die gesamte Lebensdauer eines Anfrages gültig sind, wie z.B. eine Datenbankverbindung, einen authentifizierten Benutzer oder ein Sitzungstoken. Eine der Möglichkeiten besteht darin, den [HttpContext.RequestBag](/api/Sisk.Core.Http.HttpContext) zu verwenden, der ein Dictionary erstellt, das für die gesamte Lebensdauer eines Anfrages gültig ist.
+Es ist üblich, Mitglieder und Instanzen zu widmen, die für die gesamte Lebensdauer eines Anfrages bestehen bleiben, wie z.B. eine Datenbankverbindung, ein authentifizierter Benutzer oder ein Sitzungstoken. Eine der Möglichkeiten ist durch den [HttpContext.RequestBag](/api/Sisk.Core.Http.HttpContext), der ein Dictionary erstellt, das für die gesamte Lebensdauer eines Anfrages besteht.
 
-Dieses Dictionary kann von [Anfragebehandlern](/docs/fundamentals/request-handlers) zugreifen und Variablen während der gesamten Anfrage definieren. Zum Beispiel kann ein Anfragebehandler, der einen Benutzer authentifiziert, diesen Benutzer im `HttpContext.RequestBag` setzen, und innerhalb der Anfrage-Logik kann dieser Benutzer mit `HttpContext.RequestBag.Get<User>()` abgerufen werden.
+Dieses Dictionary kann von [Anfragebehandlern](/docs/de/fundamentals/request-handlers) zugreift werden und definiert Variablen während dieser Anfrage. Zum Beispiel setzt ein Anfragebehandler, der einen Benutzer authentifiziert, diesen Benutzer im `HttpContext.RequestBag` und innerhalb der Anfrage-Logik kann dieser Benutzer mit `HttpContext.RequestBag.Get<User>()` abgerufen werden.
+
+Die im Dictionary definierten Objekte sind auf den Anfrage-Lebenszyklus beschränkt. Sie werden am Ende der Anfrage entsorgt. Das Senden einer Antwort definiert nicht unbedingt das Ende des Anfrage-Lebenszyklus. Wenn [Anfragebehandler](/docs/de/fundamentals/request-handlers), die nach dem Senden einer Antwort ausgeführt werden, die `RequestBag`-Objekte noch existieren und noch nicht entsorgt wurden.
 
 Hier ist ein Beispiel:
 
@@ -41,7 +43,7 @@ public class AuthenticateUser : IRequestHandler
 ```csharp
 [RouteGet("/hello")]
 [RequestHandler<AuthenticateUser>]
-public static HttpResponse SayHello(HttpRequest request)
+public HttpResponse SayHello(HttpRequest request)
 {
     var authenticatedUser = request.Bag.Get<User>();
     return new HttpResponse()
@@ -55,9 +57,9 @@ Dies ist ein vorläufiges Beispiel für diese Operation. Die Instanz von `User` 
 
 Es ist möglich, Logik zu definieren, um Instanzen zu erhalten, wenn sie nicht zuvor im `RequestBag` definiert wurden, durch Methoden wie [GetOrAdd](/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd) oder [GetOrAddAsync](/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync).
 
-Seit Version 1.3 wurde die statische Eigenschaft [HttpContext.Current](/api/Sisk.Core.Http.HttpContext.Current) eingeführt, die den Zugriff auf den aktuellen `HttpContext` des Anfragekontexts ermöglicht. Dies ermöglicht es, Mitglieder des `HttpContext` außerhalb der aktuellen Anfrage zu exponieren und Instanzen in Routen-Objekten zu definieren.
+Seit Version 1.3 wurde die statische Eigenschaft [HttpContext.Current](/api/Sisk.Core.Http.HttpContext.Current) eingeführt, die den Zugriff auf den aktuellen `HttpContext` des Anfragekontexts ermöglicht. Dies ermöglicht es, Mitglieder des `HttpContext` außerhalb der aktuellen Anfrage zu exponieren und Instanzen in Route-Objekten zu definieren.
 
-Das folgende Beispiel definiert einen Controller, der Mitglieder enthält, die häufig im Kontext einer Anfrage zugegriffen werden.
+Das folgende Beispiel definiert einen Controller, der Mitglieder enthält, die häufig vom Kontext einer Anfrage zugreift werden.
 
 <div class="script-header">
     <span>
@@ -71,25 +73,24 @@ Das folgende Beispiel definiert einen Controller, der Mitglieder enthält, die h
 ```csharp
 public abstract class Controller : RouterModule
 {
-    public DbContext Database
-    {
-        get
-        {
-            // erstelle einen DbContext oder hole den bestehenden
-            return HttpContext.Current.RequestBag.GetOrAdd(() => new DbContext());
-        }
-    }
+    // Erhalten Sie die bestehende oder erstellen Sie eine neue Datenbankinstanz für diese Anfrage
+    protected DbContext Database => HttpContext.Current.RequestBag.GetOrAdd(() => new DbContext());
 
-    // die folgende Zeile wird einen Fehler werfen, wenn die Eigenschaft zugegriffen wird, wenn der Benutzer nicht
+    // Lazy-Loading von Repositories ist auch üblich
+    protected IUserRepository Users => HttpContext.Current.RequestBag.GetOrAdd(() => new UserRepository(Database));
+    protected IBlogRepository Blogs => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogRepository(Database));
+    protected IBlogPostRepository BlogPosts => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogPostRepository(Database));
+
+    // Die folgende Zeile wird einen Fehler werfen, wenn die Eigenschaft aufgerufen wird, wenn der Benutzer nicht
     // im RequestBag definiert ist
-    public User AuthentifizierterBenutzer { get => HttpContext.Current.RequestBag.Get<User>(); }
+    protected User AuthenticatedUser => => HttpContext.Current.RequestBag.Get<User>();
 
-    // der Zugriff auf die HttpRequest-Instanz wird auch unterstützt
-    public HttpRequest Request { get => HttpContext.Current.Request; }
+    // Exponieren des HttpRequest-Objekts wird auch unterstützt
+    protected HttpRequest Request => HttpContext.Current.Request
 }
 ```
 
-Und definiere Typen, die von diesem Controller erben:
+Und definieren Sie Typen, die von dem Controller erben:
 
 <div class="script-header">
     <span>
@@ -101,37 +102,37 @@ Und definiere Typen, die von diesem Controller erben:
 </div>
 
 ```csharp
-[RoutePrefix("/api/posts")]
-public class PostsController : Controller
+[RoutePrefix("/api/posts/{author}")]
+sealed class PostsController : Controller
 {
+    protected Guid AuthorId => Request.RouteParameters["author"].GetInteger();
+
     [RouteGet]
-    public IEnumerable<Blog> ListPosts()
+    public IAsyncEnumerable<BlogPost> ListPosts()
     {
-        return Database.Posts
-            .Where(post => post.AuthorId == AuthentifizierterBenutzer.Id)
-            .ToList();
+        return BlogPosts.GetPostsAsync(authorId: AuthorId);
     }
 
     [RouteGet("<id>")]
-    public Post GetPost()
+    public async Task<BlogPost?> GetPost()
     {
-        int blogId = Request.RouteParameters["id"].GetInteger();
+        int postId = Request.RouteParameters["id"].GetInteger();
 
-        Post? post = Database.Posts
-            .FirstOrDefault(post => post.Id == blogId && post.AuthorId == AuthentifizierterBenutzer.Id);
+        Post? post = await BlogPosts
+            .FindPostAsync(post => post.Id == postId && post.AuthorId == AuthorId);
 
-        return post ?? new HttpResponse(404);
+        return post;
     }
 }
 ```
 
-Für das obige Beispiel müssen Sie einen [Wert-Handler](/docs/fundamentals/responses.html#implicit-response-types) in Ihrem Router konfigurieren, damit die von Ihrem Router zurückgegebenen Objekte in ein gültiges [HttpResponse](/api/Sisk.Core.Http.HttpResponse) umgewandelt werden.
+Für das obige Beispiel müssen Sie einen [Wert-Handler](/docs/de/fundamentals/responses.html#implicit-response-types) in Ihrem Router konfigurieren, damit die Objekte, die vom Router zurückgegeben werden, in eine gültige [HttpResponse](/api/Sisk.Core.Http.HttpResponse) umgewandelt werden.
 
-Beachten Sie, dass die Methoden kein `HttpRequest request`-Argument haben, wie es in anderen Methoden der Fall ist. Dies liegt daran, dass der Router seit Version 1.3 zwei Arten von Delegaten für Routing-Antworten unterstützt: [RouteAction](/api/Sisk.Core.Routing.RouteAction), der standardmäßig ein `HttpRequest`-Argument erhält, und [ParameterlessRouteAction](/api/Sisk.Core.Routing.ParameterlessRouteAction). Das `HttpRequest`-Objekt kann immer noch über die [Request](/api/Sisk.Core.Http.HttpContext.Request)-Eigenschaft des statischen `HttpContext` auf dem Thread zugegriffen werden.
+Beachten Sie, dass die Methoden kein `HttpRequest request`-Argument haben, wie es in anderen Methoden der Fall ist. Dies liegt daran, dass der Router seit Version 1.3 zwei Arten von Delegaten für Routing-Antworten unterstützt: [RouteAction](/api/Sisk.Core.Routing.RouteAction), der standardmäßige Delegate, der ein `HttpRequest`-Argument erhält, und [ParameterlessRouteAction](/api/Sisk.Core.Routing.ParameterlessRouteAction). Das `HttpRequest`-Objekt kann immer noch durch beide Delegaten über die [Request](/api/Sisk.Core.Http.HttpContext.Request)-Eigenschaft des statischen `HttpContext` auf dem Thread zugegriffen werden.
 
-Im obigen Beispiel haben wir ein disposable-Objekt, den `DbContext`, definiert, und wir müssen sicherstellen, dass alle im `DbContext` erstellten Instanzen verworfen werden, wenn die HTTP-Sitzung endet. Dazu können wir zwei Methoden verwenden. Eine Möglichkeit besteht darin, einen [Anfragebehandler](/docs/fundamentals/request-handlers) zu erstellen, der nach der Aktion des Routers ausgeführt wird, und die andere Möglichkeit besteht darin, einen benutzerdefinierten [Server-Handler](/docs/advanced/http-server-handlers) zu verwenden.
+Im obigen Beispiel haben wir ein entsorgbares Objekt, die `DbContext`, definiert, und wir müssen sicherstellen, dass alle im `DbContext` erstellten Instanzen entsorgt werden, wenn die HTTP-Sitzung endet. Dazu können wir zwei Methoden verwenden. Eine Möglichkeit besteht darin, einen [Anfragebehandler](/docs/de/fundamentals/request-handlers) zu erstellen, der nach der Aktion des Routers ausgeführt wird, und die andere Möglichkeit besteht darin, einen benutzerdefinierten [Server-Handler](/docs/de/advanced/http-server-handlers) zu verwenden.
 
-Für die erste Methode können wir den Anfragebehandler inline direkt im [OnSetup](/api/Sisk.Core.Routing.RouterModule.OnSetup)-Methoden des `RouterModule` erstellen:
+Für die erste Methode können wir den Anfragebehandler inline direkt im [OnSetup](/api/Sisk.Core.Routing.RouterModule.OnSetup)-Methoden erben von `RouterModule` erstellen:
 
 <div class="script-header">
     <span>
@@ -145,7 +146,7 @@ Für die erste Methode können wir den Anfragebehandler inline direkt im [OnSetu
 ```csharp
 public abstract class Controller : RouterModule
 {
-    // ...
+    ...
 
     protected override void OnSetup(Router parentRouter)
     {
@@ -154,8 +155,8 @@ public abstract class Controller : RouterModule
         HasRequestHandler(RequestHandler.Create(
             execute: (req, ctx) =>
             {
-                // hole einen im Request-Handler-Kontext definierten DbContext und
-                // verwerfe ihn
+                // Erhalten Sie eine im Anfragebehandler-Kontext definierte DbContext und
+                // entsorgen Sie sie
                 ctx.RequestBag.GetOrDefault<DbContext>()?.Dispose();
                 return null;
             },
@@ -166,11 +167,11 @@ public abstract class Controller : RouterModule
 
 > [!TIP]
 >
-> Seit Sisk-Version 1.4 ist die Eigenschaft [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) eingeführt und standardmäßig aktiviert, die bestimmt, ob der HTTP-Server alle `IDisposable`-Werte im Kontext-Beutel verwerfen soll, wenn eine HTTP-Sitzung geschlossen wird.
+> Seit Sisk-Version 1.4 ist die Eigenschaft [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) eingeführt und standardmäßig aktiviert, die definiert, ob der HTTP-Server alle `IDisposable`-Werte im Kontext-Beutel entsorgen soll, wenn eine HTTP-Sitzung geschlossen wird.
 
-Die obige Methode stellt sicher, dass der `DbContext` verworfen wird, wenn die HTTP-Sitzung abgeschlossen ist. Sie können dies für weitere Mitglieder tun, die am Ende einer Antwort verworfen werden müssen.
+Die obige Methode stellt sicher, dass die `DbContext` entsorgt wird, wenn die HTTP-Sitzung abgeschlossen ist. Sie können dies für weitere Mitglieder tun, die am Ende einer Antwort entsorgt werden müssen.
 
-Für die zweite Methode können Sie einen benutzerdefinierten [Server-Handler](/docs/advanced/http-server-handlers) erstellen, der den `DbContext` verwerfen wird, wenn die HTTP-Sitzung abgeschlossen ist.
+Für die zweite Methode können Sie einen benutzerdefinierten [Server-Handler](/docs/de/advanced/http-server-handlers) erstellen, der die `DbContext` entsorgt, wenn die HTTP-Sitzung abgeschlossen ist.
 
 <div class="script-header">
     <span>
@@ -191,7 +192,7 @@ public class ObjectDisposerHandler : HttpServerHandler
 }
 ```
 
-Und verwenden Sie ihn in Ihrem App-Builder:
+Und verwenden Sie es in Ihrem App-Builder:
 
 <div class="script-header">
     <span>
@@ -208,4 +209,4 @@ using var host = HttpServer.CreateBuilder()
     .Build();
 ```
 
-Dies ist eine Möglichkeit, Code-Reinigung und Abhängigkeitsinjektion zu handhaben und die Abhängigkeiten einer Anfrage getrennt von der Art des Moduls zu halten, das verwendet wird, um die Menge an dupliziertem Code innerhalb jeder Aktion eines Routers zu reduzieren. Es ist eine Praxis, die ähnlich ist wie die, die in Frameworks wie ASP.NET verwendet wird.
+Dies ist eine Möglichkeit, Code-Reinigung zu handhaben und die Abhängigkeiten einer Anfrage getrennt von der Art des Moduls zu halten, das verwendet wird, um die Menge an dupliziertem Code innerhalb jeder Aktion eines Routers zu reduzieren. Es ist eine Praxis, die ähnlich ist wie die, die bei der Abhängigkeitsinjektion in Frameworks wie ASP.NET verwendet wird.

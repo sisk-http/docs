@@ -1,10 +1,10 @@
-# SiskでCORS（クロスオリジンリソース共有）を有効にする
+# SiskでのCORS（Cross-Origin Resource Sharing）を有効にする
 
-Siskには、サービスを公開する際に[クロスオリジンリソース共有（CORS）](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS) を扱うのに便利なツールがあります。この機能はHTTPプロトコルの一部ではなく、W3C によって定義された Web ブラウザ固有の機能です。このセキュリティメカニズムは、Web ページが Web ページを提供したドメインとは異なるドメインへのリクエストを行うことを防止します。サービスプロバイダーは、特定のドメインにリソースへのアクセスを許可するか、あるいは単一のドメインのみを許可することができます。
+Siskには、公開されているサービスで[CORS（Cross-Origin Resource Sharing）](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS)を処理するためのツールがあります。この機能は、HTTPプロトコルの一部ではなく、W3Cによって定義されたWebブラウザの特定の機能です。このセキュリティメカニズムは、Webページが提供されたWebページと異なるドメインへのリクエストを送信することを防ぎます。サービスプロバイダーは、特定のドメインまたは1つのドメインにリソースへのアクセスを許可できます。
 
-## 同一オリジン
+## 同じオリジン
 
-リソースが「同一オリジン」として識別されるには、リクエストが [Origin](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Headers/Origin) ヘッダーをリクエストに含める必要があります。
+リソースが「同じオリジン」として識別されるためには、リクエストが[オリジン](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Headers/Origin)ヘッダーを含める必要があります。
 
 ```http
 GET /api/users HTTP/1.1
@@ -13,7 +13,7 @@ Origin: http://example.com
 ...
 ```
 
-そしてリモートサーバーは、リクエストされたオリジンと同じ値を持つ [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/Access-Control-Allow-Origin) ヘッダーで応答しなければなりません。
+そして、リモートサーバーは、リクエストされたオリジンと同じ値を持つ[Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/Access-Control-Allow-Origin)ヘッダーで応答する必要があります。
 
 ```http
 HTTP/1.1 200 OK
@@ -21,15 +21,15 @@ Access-Control-Allow-Origin: http://example.com
 ...
 ```
 
-この検証は **明示的** です：ホスト、ポート、プロトコルはリクエストされたものと同じでなければなりません。例を確認してください。
+この検証は**明示的**です。ホスト、ポート、プロトコルは、リクエストされたものと同じでなければなりません。例を確認してください。
 
-- サーバーが `Access-Control-Allow-Origin` を `https://example.com` と応答する場合：
-    - `https://example.net` - ドメインが異なる。
-    - `http://example.com` - スキームが異なる。
-    - `http://example.com:5555` - ポートが異なる。
-    - `https://www.example.com` - ホストが異なる。
+* サーバーは、`Access-Control-Allow-Origin` が `https://example.com` であることを応答します。
+ + `https://example.net` - ドメインが異なります。
+ + `http://example.com` - スキームが異なります。
+ + `http://example.com:5555` - ポートが異なります。
+ + `https://www.example.com` - ホストが異なります。
 
-仕様では、リクエストとレスポンスの両方のヘッダーに対して構文のみが許可されます。URL パスは無視されます。ポートはデフォルトポート（HTTP は 80、HTTPS は 443）である場合は省略されます。
+仕様では、ヘッダーの構文は、リクエストとレスポンスの両方に対して許可されます。URLパスは無視されます。デフォルトのポート（HTTPの80、HTTPSの443）である場合、ポートは省略されます。
 
 ```http
 Origin: null
@@ -37,11 +37,11 @@ Origin: <scheme>://<hostname>
 Origin: <scheme>://<hostname>:<port>
 ```
 
-## CORS を有効にする
+## CORSを有効にする
 
-ネイティブに、[ListeningHost](/api/Sisk.Core.Http.ListeningHost) 内に [CrossOriginResourceSharingHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders) オブジェクトがあります。
+ネイティブに、[CrossOriginResourceSharingHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders) オブジェクトが[ListeningHost](/api/Sisk.Core.Http.ListeningHost)内にあります。
 
-サーバーを初期化するときに CORS を構成できます。
+サーバーを初期化するときにCORSを設定できます。
 
 ```csharp
 static async Task Main(string[] args)
@@ -57,7 +57,7 @@ static async Task Main(string[] args)
 }
 ```
 
-上記のコードは **すべてのレスポンス** に対して次のヘッダーを送信します。
+上記のコードは、**すべてのレスポンス**に対して次のヘッダーを送信します。
 
 ```http
 HTTP/1.1 200 OK
@@ -66,38 +66,42 @@ Access-Control-Allow-Headers: Authorization
 Access-Control-Expose-Headers: Content-Type
 ```
 
-これらのヘッダーは、エラーやリダイレクトを含むすべてのレスポンスに対して送信する必要があります。
+これらのヘッダーは、エラーとリダイレクトを含むすべてのWebクライアントへのレスポンスに送信される必要があります。
 
-[CrossOriginResourceSharingHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders) クラスには、[AllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin) と [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) の 2 つの似たプロパティがあります。1 つは複数形、もう 1 つは単数形です。
+[CrossOriginResourceSharingHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders) クラスには、2つの似たプロパティがあります: [AllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin) と [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins)。1つは単数形で、もう1つは複数形です。
 
-- **AllowOrigin** プロパティは静的です：指定したオリジンのみがすべてのレスポンスで送信されます。
-- **AllowOrigins** プロパティは動的です：サーバーはリクエストのオリジンがこのリストに含まれているかを確認します。見つかった場合、そのオリジンのレスポンスに送信されます。
+* **AllowOrigin** プロパティは静的です。指定されたオリジンだけがすべてのレスポンスに送信されます。
+* **AllowOrigins** プロパティは動的です。サーバーは、リクエストのオリジンがこのリストに含まれているかどうかを確認します。如果見つかった場合、そのオリジンのレスポンスに送信されます。
 
 ### ワイルドカードと自動ヘッダー
 
-代わりに、レスポンスのオリジンにワイルドカード（`*`）を使用して、任意のオリジンがリソースにアクセスできるように指定できます。ただし、この値は認証情報（認証ヘッダー）を持つリクエストには許可されず、[エラー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials) が発生します。
+代わりに、レスポンスのオリジンにワイルドカード (`*`) を使用して、どのオリジンでもリソースにアクセスできるように指定できます。ただし、この値は、資格情報（認証ヘッダー）を持つリクエストには許可されず、この操作は[エラー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials)になります。
 
-この問題を回避するには、[AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) プロパティで許可されるオリジンを明示的に列挙するか、[AllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin) の値に [AutoAllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin) 定数を使用します。このマジックプロパティは、リクエストの `Origin` ヘッダーと同じ値で `Access-Control-Allow-Origin` ヘッダーを定義します。
+この問題を回避するには、[AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) プロパティを使用して、許可されるオリジンを明示的にリストするか、または [AllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin) プロパティの値に [AutoAllowOrigin](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin) 定数を使用できます。このマジックプロパティは、`Access-Control-Allow-Origin` ヘッダーを、リクエストの `Origin` ヘッダーの値と同じ値に定義します。
 
-また、`AllowOrigin` と同様の動作を自動で行う [AutoFromRequestMethod](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod) と [AutoFromRequestHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders) を使用できます。
+また、[AutoFromRequestMethod](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod) と [AutoFromRequestHeaders](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders) を使用して、`AllowOrigin` と同様の動作を実現できます。これらは、ヘッダーが送信された方法に基づいて自動的にレスポンスします。
 
 ```csharp
 using var host = HttpServer.CreateBuilder()
     .UseCors(new CrossOriginResourceSharingHeaders(
         
-        // リクエストの Origin ヘッダーに基づいて応答
+        // リクエストのOriginヘッダーに基づいてレスポンスします。
         allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
         
-        // Access-Control-Request-Method ヘッダーまたはリクエストメソッドに基づいて応答
+        // Access-Control-Request-Methodヘッダーまたはリクエストメソッドに基づいてレスポンスします。
         allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
 
-        // Access-Control-Request-Headers ヘッダーまたは送信されたヘッダーに基づいて応答
-        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+        // Access-Control-Request-Headersヘッダーまたは送信されたヘッダーに基づいてレスポンスします。
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders],
+
+        exposeHeaders: [HttpKnownHeaderNames.ContentType, "X-Authenticated-Account-Id"],
+        allowCredentials: true))
+    .Build();
 ```
 
-## CORS を適用する他の方法
+## CORSを他の方法で適用する
 
-[サービスプロバイダー](/docs/jp/extensions/service-providers) を扱っている場合、設定ファイルで定義された値を上書きできます。
+サービスプロバイダーを扱っている場合は、構成ファイルで定義された値をオーバーライドできます。
 
 ```csharp
 static async Task Main(string[] args)
@@ -105,7 +109,7 @@ static async Task Main(string[] args)
     using var app = HttpServer.CreateBuilder()
         .UsePortableConfiguration(...)
         .UseCors(cors => {
-            // 設定ファイルで定義されたオリジンを上書き
+            // 構成ファイルで定義されたオリジンをオーバーライドします。
             cors.AllowOrigin = "http://example.com";
         })
         .Build();
@@ -114,9 +118,9 @@ static async Task Main(string[] args)
 }
 ```
 
-## 特定のルートで CORS を無効にする
+## 特定のルートでのCORSを無効にする
 
-`UseCors` プロパティはルートとすべてのルート属性で利用可能で、次の例のように無効にできます。
+`UseCors` プロパティは、ルートとすべてのルート属性で使用でき、次の例のように無効にできます。
 
 ```csharp
 [RoutePrefix("api/widgets")]
@@ -130,9 +134,9 @@ public class WidgetController : Controller {
 }
 ```
 
-## レスポンス内の値を置き換える
+## レスポンスの値を置き換える
 
-ルーターアクションで明示的に値を置き換えたり削除したりできます。
+ルーター アクションで値を明示的に置き換えるまたは削除することができます。
 
 ```csharp
 [RoutePrefix("api/widgets")]
@@ -140,10 +144,10 @@ public class WidgetController : Controller {
 
     public IEnumerable<string> GetWidgets(HttpRequest request) {
 
-        // Access-Control-Allow-Credentials ヘッダーを削除
+        // Access-Control-Allow-Credentialsヘッダーを削除します。
         request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
         
-        // Access-Control-Allow-Origin を置き換え
+        // Access-Control-Allow-Originを置き換えます。
         request.Context.OverrideHeaders.AccessControlAllowOrigin = "https://contorso.com";
 
         return new[] { "Green widget", "Red widget" };
@@ -151,12 +155,12 @@ public class WidgetController : Controller {
 }
 ```
 
-## プリフライトリクエスト
+## プリフライト リクエスト
 
-プリフライトリクエストは、実際のリクエストの前にクライアントが送信する [OPTIONS](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Methods/OPTIONS) メソッドリクエストです。
+プリフライト リクエストは、クライアントが実際のリクエストを送信する前に送信する [OPTIONS](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Methods/OPTIONS) メソッドのリクエストです。
 
-Sisk サーバーは常に `200 OK` と適用される CORS ヘッダーで応答し、クライアントは実際のリクエストを続行できます。この条件は、`Options` に対して明示的に構成された [RouteMethod](/api/Sisk.Core.Routing.RouteMethod) を持つルートが存在する場合にのみ適用されません。
+Siskサーバーは、適用可能なCORSヘッダーとともに、常に `200 OK` でリクエストに応答し、クライアントは実際のリクエストを続行できます。この条件は、[RouteMethod](/api/Sisk.Core.Routing.RouteMethod) が `Options` に明示的に設定されたルートが存在する場合を除き、適用されません。
 
-## CORS をグローバルに無効にする
+## CORSをグローバルに無効にする
 
-これは不可能です。CORS を使用しない場合は、構成しないでください。
+これは不可能です。CORSを使用しない場合は、構成しないでください。

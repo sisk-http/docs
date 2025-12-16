@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="routing">Routing</h1>
 
-<p>Der <a href="/api/Sisk.Core.Routing.Router">Router</a> ist der erste Schritt beim Aufbau des Servers. Er ist verantwortlich für die Unterbringung von <a href="/api/Sisk.Core.Routing.Route">Route</a>-Objekten, die Endpunkte sind, die URLs und ihre Methoden mit Aktionen verknüpfen, die vom Server ausgeführt werden. Jede Aktion ist verantwortlich für das Empfangen einer Anfrage und das Liefern einer Antwort an den Client.</p>
-<p>Die Routen sind Paare von Pfad-Ausdrücken (&quot;Pfadmuster&quot;) und der HTTP-Methode, auf die sie hören können. Wenn eine Anfrage an den Server gestellt wird, versucht er, eine Route zu finden, die der erhaltenen Anfrage entspricht, und ruft dann die Aktion dieser Route auf und liefert die resultierende Antwort an den Client.</p>
+<p>Der <a href="/api/Sisk.Core.Routing.Router">Router</a> ist der erste Schritt beim Aufbau des Servers. Er ist verantwortlich für die Verwaltung von <a href="/api/Sisk.Core.Routing.Route">Route</a>-Objekten, die Endpunkte sind, die URLs und ihre Methoden mit Aktionen verknüpfen, die vom Server ausgeführt werden. Jede Aktion ist verantwortlich für das Empfangen einer Anfrage und das Liefern einer Antwort an den Client.</p>
+<p>Die Routen sind Paare von Pfad-Ausdrücken (&quot;Pfadmuster&quot;) und der HTTP-Methode, auf die sie hören können. Wenn eine Anfrage an den Server gestellt wird, wird er versuchen, eine Route zu finden, die der erhaltenen Anfrage entspricht, und dann die Aktion dieser Route aufrufen und die resultierende Antwort an den Client liefern.</p>
 <p>Es gibt mehrere Möglichkeiten, Routen in Sisk zu definieren: Sie können statisch, dynamisch oder auto-gescannt, durch Attribute definiert oder direkt im Router-Objekt definiert werden.</p>
 <pre><code class="lang-cs">Router mainRouter = new Router();
 
@@ -167,7 +167,7 @@ mainRouter.MapGet(&quot;/&quot;, request =&gt; {
 });
 </code></pre>
 <p>Um zu verstehen, was eine Route tun kann, müssen wir verstehen, was eine Anfrage tun kann. Ein <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> enthält alles, was Sie benötigen. Sisk enthält auch einige zusätzliche Funktionen, die die Gesamtentwicklung beschleunigen.</p>
-<p>Für jede vom Server empfangene Aktion wird ein Delegat vom Typ <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> aufgerufen. Dieser Delegat enthält ein Parameter, das ein <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> mit allen notwendigen Informationen über die vom Server empfangene Anfrage enthält. Das resultierende Objekt aus diesem Delegaten muss ein <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> oder ein Objekt sein, das durch <a href="/docs/de/fundamentals/responses#implizite-antworttypen">implizite Antworttypen</a> darauf abgebildet werden kann.</p>
+<p>Für jede Aktion, die vom Server empfangen wird, wird ein Delegat vom Typ <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> aufgerufen. Dieser Delegat enthält ein Parameter, das ein <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> mit allen notwendigen Informationen über die vom Server empfangene Anfrage enthält. Das resultierende Objekt aus diesem Delegaten muss ein <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> oder ein Objekt sein, das durch <a href="/docs/de/fundamentals/responses#implizite-antworttypen">implizite Antworttypen</a> zugeordnet werden kann.</p>
 <h2 id="übereinstimmende-routen">Übereinstimmende Routen</h2>
 <p>Wenn eine Anfrage an den HTTP-Server gestellt wird, sucht Sisk nach einer Route, die den Ausdruck des empfangenen Pfads erfüllt. Der Ausdruck wird immer zwischen der Route und dem Anfragepfad getestet, ohne die Abfragezeichenfolge zu berücksichtigen.</p>
 <p>Dieser Test hat keine Priorität und ist exklusiv für eine einzelne Route. Wenn keine Route mit dieser Anfrage übereinstimmt, wird die <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a>-Antwort an den Client zurückgegeben. Wenn der Pfad-Ausdruck übereinstimmt, aber die HTTP-Methode nicht übereinstimmt, wird die <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a>-Antwort an den Client zurückgegeben.</p>
@@ -196,7 +196,7 @@ mainRouter += Route.Get(&quot;/image.png&quot;, (request) =&gt;
     return new HttpResponse()
     {
         // der StreamContent-Inner
-        // stream wird nach dem Senden
+        // Stream wird nach dem Senden
         // der Antwort verworfen.
         Content = new StreamContent(imageStream)
     };
@@ -212,13 +212,13 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
 });
 </code></pre>
 <p>Die <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a>-Eigenschaft von HttpResponse enthält alle Informationen über die Pfadvariablen der empfangenen Anfrage.</p>
-<p>Jeder vom Server empfangene Pfad wird vor dem Pfad-Ausdruck-Test normalisiert, indem die folgenden Regeln angewendet werden:</p>
+<p>Jeder Pfad, der vom Server empfangen wird, wird vor dem Pfad-Ausdruck-Test normalisiert, indem die folgenden Regeln angewendet werden:</p>
 <ul>
 <li>Alle leeren Segmente werden aus dem Pfad entfernt, z. B. <code>////foo//bar</code> wird zu <code>/foo/bar</code>.</li>
-<li>Der Pfad-Test ist <strong>groß-/kleinschreibungsabhängig</strong>, es sei denn, <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> ist auf <code>true</code> gesetzt.</li>
+<li>Pfadübereinstimmung ist <strong>groß-/kleinschreibungsabhängig</strong>, es sei denn, <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> ist auf <code>true</code> gesetzt.</li>
 </ul>
-<p>Die <a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> und <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> Eigenschaften von <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> geben ein <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a>-Objekt zurück, bei dem jedes indizierte Eigenschaft ein nicht-Null-<a href="/api/Sisk.Core.Entity.StringValue">StringValue</a> zurückgibt, das als Option/Monad verwendet werden kann, um seinen Rohwert in ein verwaltetes Objekt umzuwandeln.</p>
-<p>Das folgende Beispiel liest den Routen-Parameter &quot;id&quot; und erhält ein <code>Guid</code> daraus. Wenn der Parameter kein gültiges Guid ist, wird eine Ausnahme ausgelöst und ein 500-Fehler an den Client zurückgegeben, wenn der Server <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> nicht behandelt.</p>
+<p>Die <a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> und <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> Eigenschaften von <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> geben ein <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a>-Objekt zurück, bei dem jedes indexierte Eigenschaft ein nicht-nullable <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a> zurückgibt, das als Option/Monad verwendet werden kann, um seinen Rohwert in ein verwaltetes Objekt umzuwandeln.</p>
+<p>Das folgende Beispiel liest den Routenparameter &quot;id&quot; und erhält ein <code>Guid</code> daraus. Wenn der Parameter kein gültiges Guid ist, wird eine Ausnahme ausgelöst und ein 500-Fehler an den Client zurückgegeben, wenn der Server <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> nicht behandelt.</p>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
 {
     Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
@@ -226,12 +226,12 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
 </code></pre>
 <blockquote>
 <p>[!HINWEIS]
-Pfade haben ihre abschließenden <code>/</code> ignoriert, sowohl in der Anfrage als auch in der Routen-Pfad, d. h., wenn Sie versuchen, auf eine Route zuzugreifen, die als <code>/index/page</code> definiert ist, können Sie auch auf <code>/index/page/</code> zugreifen.</p>
+Pfade haben ihre abschließenden <code>/</code> ignoriert, sowohl in der Anfrage als auch in der Routenpfad, d. h., wenn Sie versuchen, auf eine Route zuzugreifen, die als <code>/index/page</code> definiert ist, können Sie auch auf <code>/index/page/</code> zugreifen.</p>
 <p>Sie können auch URLs zwingen, mit <code>/</code> zu enden, indem Sie die <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a>-Flag setzen.</p>
 </blockquote>
 <h3 id="erstellen-von-routen-mit-klasseninstanzen">Erstellen von Routen mit Klasseninstanzen</h3>
-<p>Sie können auch Routen dynamisch mit Reflexion und dem <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> definieren. Auf diese Weise werden die Instanzen einer Klasse, deren Methoden dieses Attribut implementieren, ihre Routen im Ziel-Router definiert.</p>
-<p>Für eine Methode, die als Route definiert werden soll, muss sie mit einem <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> markiert werden, wie z. B. dem Attribut selbst oder einem <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. Die Methode kann statisch, instanziell, öffentlich oder privat sein. Wenn die Methode <code>SetObject(type)</code> oder <code>SetObject&lt;TType&gt;()</code> verwendet wird, werden Instanzmethoden ignoriert.</p>
+<p>Sie können auch Routen dynamisch mit Reflexion und dem Attribut <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> definieren. Auf diese Weise werden die Instanzen einer Klasse, deren Methoden dieses Attribut implementieren, ihre Routen im Ziel-Router definieren.</p>
+<p>Damit eine Methode als Route definiert werden kann, muss sie mit einem <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> markiert werden, wie z. B. das Attribut selbst oder ein <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. Die Methode kann statisch, instanziell, öffentlich oder privat sein. Wenn die Methode <code>SetObject(type)</code> oder <code>SetObject&lt;TType&gt;()</code> verwendet wird, werden Instanzmethoden ignoriert.</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -261,24 +261,24 @@ Pfade haben ihre abschließenden <code>/</code> ignoriert, sowohl in der Anfrage
     }
 }
 </code></pre>
-<p>Die folgende Zeile wird beide Methoden <code>Index</code> und <code>Hello</code> von <code>MyController</code> als Routen definieren, da beide als Routen markiert sind und eine Instanz der Klasse bereitgestellt wurde, nicht deren Typ. Wenn deren Typ stattdessen bereitgestellt worden wäre, würden nur die statischen Methoden definiert.</p>
+<p>Die folgende Zeile wird beide Methoden <code>Index</code> und <code>Hello</code> von <code>MyController</code> als Routen definieren, da beide als Routen markiert sind und eine Instanz der Klasse bereitgestellt wird, nicht deren Typ. Wenn deren Typ anstelle der Instanz bereitgestellt worden wäre, würden nur die statischen Methoden definiert.</p>
 <pre><code class="lang-cs">var myController = new MyController();
 mainRouter.SetObject(myController);
 </code></pre>
 <p>Seit Sisk-Version 0.16 ist es möglich, AutoScan zu aktivieren, das nach benutzerdefinierten Klassen sucht, die <code>RouterModule</code> implementieren, und diese automatisch mit dem Router verknüpft. Dies wird nicht mit AOT-Kompilierung unterstützt.</p>
 <pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
 </code></pre>
-<p>Der obige Befehl sucht nach allen Typen, die <code>ApiController</code> implementieren, aber nicht den Typ selbst. Die beiden optionalen Parameter geben an, wie die Methoden nach diesen Typen suchen. Der erste Argument impliziert die Assembly, in der die Typen gesucht werden, und der zweite gibt an, wie die Typen definiert werden.</p>
+<p>Der obige Befehl sucht nach allen Typen, die <code>ApiController</code> implementieren, aber nicht den Typ selbst. Die beiden optionalen Parameter zeigen an, wie die Methoden nach diesen Typen suchen. Der erste Argument impliziert die Assembly, in der die Typen gesucht werden, und der zweite zeigt an, wie die Typen definiert werden.</p>
 <h2 id="regex-routen">Regex-Routen</h2>
 <p>Anstelle der Verwendung der Standard-HTTP-Pfad-Übereinstimmungsmethode können Sie eine Route markieren, um sie mit Regex zu interpretieren.</p>
-<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;My route&quot;, IndexPage, null);
+<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;Meine Route&quot;, IndexPage, null);
 indexRoute.UseRegex = true;
 mainRouter.SetRoute(indexRoute);
 </code></pre>
 <p>Oder mit der <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a>-Klasse:</p>
 <pre><code class="lang-cs">mainRouter.SetRoute(new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
 {
-    return new HttpResponse(&quot;hallo, Welt&quot;);
+    return new HttpResponse(&quot;hallo, welt&quot;);
 }));
 </code></pre>
 <p>Sie können auch Gruppen aus dem Regex-Muster in die <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">HttpRequest.RouteParameters</a>-Inhalte erfassen:</p>
@@ -352,7 +352,7 @@ public class UsersController
 </code></pre>
 <p>Im obigen Beispiel wird der HttpResponse-Parameter weggelassen, um durch den globalen Kontext <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> verwendet zu werden. Weitere Informationen finden Sie im folgenden Abschnitt.</p>
 <h2 id="routen-ohne-anfrageparameter">Routen ohne Anfrageparameter</h2>
-<p>Routen können ohne den <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>-Parameter definiert werden und es ist dennoch möglich, die Anfrage und ihre Komponenten im Anfragekontext zu erhalten. Betrachten wir eine Abstraktion <code>ControllerBase</code>, die als Grundlage für alle Controller einer API dient und die <code>Request</code>-Eigenschaft bereitstellt, um die <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> zu erhalten, die derzeit im Kontext ist.</p>
+<p>Routen können ohne den <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>-Parameter definiert werden und es ist dennoch möglich, die Anfrage und ihre Komponenten im Anfragekontext zu erhalten. Betrachten wir eine Abstraktion <code>ControllerBase</code>, die als Grundlage für alle Controller einer API dient und die <code>Request</code>-Eigenschaft bereitstellt, um die <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> derzeit zu erhalten.</p>
 <div class="script-header">
     <span>
         Controller/ControllerBase.cs
@@ -371,7 +371,7 @@ public class UsersController
     public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
 }
 </code></pre>
-<p>Und für alle seine Nachkommen, um die Routen-Syntax ohne den Anfrageparameter zu verwenden:</p>
+<p>Und für alle seine Nachkommen, um die Routensyntax ohne den Anfrageparameter zu verwenden:</p>
 <div class="script-header">
     <span>
         Controller/UsersController.cs
@@ -397,7 +397,7 @@ public class UsersController : ControllerBase
 </code></pre>
 <p>Weitere Details zum aktuellen Kontext und zur Abhängigkeitsinjektion finden Sie im <a href="/docs/de/features/instancing">Abhängigkeitsinjektion</a>-Tutorial.</p>
 <h2 id="routen-für-jede-methode">Routen für jede Methode</h2>
-<p>Sie können eine Route definieren, die nur nach ihrem Pfad übereinstimmt und die HTTP-Methode ignoriert. Dies kann nützlich sein, um die Methode innerhalb der Routen-Aktion zu validieren.</p>
+<p>Sie können eine Route definieren, die nur nach ihrem Pfad übereinstimmt und die HTTP-Methode ignoriert. Dies kann nützlich sein, um die Methode innerhalb der Routen-Rückruf-Funktion zu überprüfen.</p>
 <pre><code class="lang-cs">// wird mit / auf jede HTTP-Methode übereinstimmen
 mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 </code></pre>
@@ -406,13 +406,13 @@ mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 <pre><code class="lang-cs">// die folgende Route wird mit allen POST-Anfragen übereinstimmen
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 </code></pre>
-<h2 id="groß-kleinschreibung-ignorierende-routen-übereinstimmung">Groß-/Kleinschreibung ignorierende Routen-Übereinstimmung</h2>
+<h2 id="groß-kleinschreibungsunabhängige-routen-übereinstimmung">Groß-/Kleinschreibungsunabhängige Routen-Übereinstimmung</h2>
 <p>Standardmäßig ist die Interpretation von Routen mit Anfragen groß-/kleinschreibungsabhängig. Um dies zu ignorieren, aktivieren Sie diese Option:</p>
 <pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
 </code></pre>
-<p>Dies aktiviert auch die Option <code>RegexOptions.IgnoreCase</code> für Routen, bei denen es sich um Regex-Übereinstimmung handelt.</p>
+<p>Dies aktiviert auch die Option <code>RegexOptions.IgnoreCase</code> für Routen, bei denen Regex-Übereinstimmung verwendet wird.</p>
 <h2 id="nicht-gefunden-404-rückruf-handler">Nicht gefunden (404)-Rückruf-Handler</h2>
-<p>Sie können einen benutzerdefinierten Rückruf für den Fall erstellen, dass eine Anfrage keine bekannte Route entspricht.</p>
+<p>Sie können einen benutzerdefinierten Rückruf für den Fall erstellen, dass eine Anfrage keine bekannte Route übereinstimmt.</p>
 <pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
 {
     return new HttpResponse(404)
@@ -425,7 +425,7 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 };
 </code></pre>
 <h2 id="methode-nicht-zulässig-405-rückruf-handler">Methode nicht zulässig (405)-Rückruf-Handler</h2>
-<p>Sie können auch einen benutzerdefinierten Rückruf für den Fall erstellen, dass eine Anfrage ihren Pfad entspricht, aber nicht die Methode.</p>
+<p>Sie können auch einen benutzerdefinierten Rückruf für den Fall erstellen, dass eine Anfrage ihren Pfad übereinstimmt, aber nicht die Methode.</p>
 <pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
 {
     return new HttpResponse(405)
@@ -435,7 +435,7 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 };
 </code></pre>
 <h2 id="interne-fehlerbehandlung">Interne Fehlerbehandlung</h2>
-<p>Routen-Rückrufe können während der Serverausführung Fehler auslösen. Wenn diese nicht richtig behandelt werden, kann die Gesamtfunktion des HTTP-Servers unterbrochen werden. Der Router hat einen Rückruf für den Fall, dass ein Routen-Rückruf fehlschlägt und die Serviceunterbrechung verhindert.</p>
+<p>Routen-Rückrufe können während der Serverausführung Fehler auslösen. Wenn diese nicht richtig behandelt werden, kann die Gesamtfunktion des HTTP-Servers unterbrochen werden. Der Router hat einen Rückruf für den Fall, dass ein Routen-Rückruf fehlschlägt und die Dienstunterbrechung verhindert.</p>
 <p>Diese Methode ist nur erreichbar, wenn <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> auf <code>false</code> gesetzt ist.</p>
 <pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
 {

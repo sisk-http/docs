@@ -157,7 +157,7 @@
 <h1 id="logging">Logging</h1>
 
 <p>You can configure Sisk to write access and error logs automatically. It is possible to define log rotation, extensions and frequency.</p>
-<p>The <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> class provides an asynchronous way of writing logs and keeping them in an awaitable write queue.</p>
+<p>The <a href="/api/Sisk.Core.Http.LogStream">LogStream</a> class provides an asynchronous way of writing logs and keeping them in an awaitable write queue. The <code>LogStream</code> class implements <code>IAsyncDisposable</code>, ensuring that all pending logs are written before the stream is closed.</p>
 <p>In this article we will show you how to configure logging for your application.</p>
 <h2 id="file-based-access-logs">File based access logs</h2>
 <p>Logs to files open the file, write the line text, and then close the file for every line written. This procedure was adopted to maintain write responsiveness in the logs.</p>
@@ -361,12 +361,13 @@
 <td><code>Mozilla/5.0 (platform; rv:gecko [...]</code></td>
 </tr>
 <tr>
-<td>%{:res-name}</td>
-<td>Represents the <code>res-name</code> header of the response.</td>
-<td></td>
+<td>%{:header-name}</td>
+<td>Represents the <code>header-name</code> header of the response.</td>
+<td><code>application/json</code></td>
 </tr>
 </tbody>
 </table>
+<p>You can also use <code>HttpServerConfiguration.DefaultAccessLogFormat</code> to use the default access log format.</p>
 <h2 id="rotating-logs">Rotating logs</h2>
 <p>You can configure the HTTP server to rotate the log files to a compressed .gz file when they reach a certain size. The size is checked periodically by the limiar you define.</p>
 <pre><code class="lang-cs">LogStream errorLog = new LogStream(&quot;logs/error.log&quot;)

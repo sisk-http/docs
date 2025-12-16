@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Documentaci&#243;n de la API | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Documentaci&#243;n de la API | Sisk ">
+
+
+        <link rel="icon" href="../../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../../toc.html">
+        <meta name="docfx:tocrel" content="../toc.html">
+
+        <meta name="docfx:rel" content="../../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/api-documentation.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../../index.html">
+                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+
+                    <div id="language-wrapper">
+                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                    <img src="/assets/flag/usa.png">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                    <img src="/assets/flag/russia.png">
+                                    Русский
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                    <img src="/assets/flag/brazil.png">
+                                    Português
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                    <img src="/assets/flag/spain.png">
+                                    Español
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                    <img src="/assets/flag/germany.png">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                    <img src="/assets/flag/china.png">
+                                    中文 (简体)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                    <img src="/assets/flag/japan.png">
+                                    日本語
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="documentación-de-la-api">Documentación de la API</h1>
+
+<p>La extensión <code>Sisk.Documenting</code> permite generar documentación de la API para su aplicación Sisk de forma automática. Se basa en la estructura de su código y atributos para crear un sitio de documentación integral, con soporte para exportar a formato Open API (Swagger).</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Este paquete está actualmente en desarrollo y no se ha publicado aún. Su comportamiento y API pueden cambiar en actualizaciones futuras.</p>
+</div>
+<p>Dado que este paquete no está disponible en NuGet, debe incorporar el código fuente directamente en su proyecto o hacer referencia a él como una dependencia de proyecto. Puede acceder al código fuente <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting">aquí</a>.</p>
+<p>Para utilizar <code>Sisk.Documenting</code>, necesita registrarla en su constructor de aplicación y decorar sus controladores de rutas con atributos de documentación.</p>
+<h3 id="registro-del-middleware">Registro del middleware</h3>
+<p>Utilice el método de extensión <code>UseApiDocumentation</code> en su <code>HttpServerBuilder</code> para habilitar la documentación de la API.</p>
+<pre><code class="lang-csharp">using Sisk.Documenting;
+
+// ...
+
+host.UseApiDocumentation(
+    context: new ApiGenerationContext()
+    {
+        ApplicationName = &quot;Mi aplicación&quot;,
+        ApplicationDescription = &quot;Descripción de mi aplicación.&quot;,
+        Version = &quot;1.0.0&quot;
+    },
+    routerPath: &quot;/api/docs&quot;,
+    exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] });
+</code></pre>
+<ul>
+<li><strong>context</strong>: Define metadatos sobre su aplicación, como nombre, descripción y versión.</li>
+<li><strong>routerPath</strong>: La ruta URL donde se accederá a la interfaz de usuario de la documentación (o JSON).</li>
+<li><strong>exporter</strong>: Configura cómo se exporta la documentación. El <code>OpenApiExporter</code> habilita el soporte para Open API (Swagger).</li>
+</ul>
+<h3 id="documentación-de-puntos-de-conexión">Documentación de puntos de conexión</h3>
+<p>Puede describir sus puntos de conexión utilizando los atributos <code>[ApiEndpoint]</code> y <code>[ApiQueryParameter]</code> en sus métodos de controlador de rutas.</p>
+<h3 id="apiendpoint"><code>ApiEndpoint</code></h3>
+<p>El atributo <code>[ApiEndpoint]</code> permite proporcionar una descripción para el punto de conexión.</p>
+<pre><code class="lang-csharp">[ApiEndpoint(Description = &quot;Devuelve un mensaje de saludo.&quot;)]
+public HttpResponse Index(HttpRequest request) { ... }
+</code></pre>
+<h3 id="apiqueryparameter"><code>ApiQueryParameter</code></h3>
+<p>El atributo <code>[ApiQueryParameter]</code> documenta los parámetros de la cadena de consulta que acepta el punto de conexión.</p>
+<pre><code class="lang-csharp">[ApiQueryParameter(name: &quot;name&quot;, IsRequired = false, Description = &quot;El nombre de la persona a saludar.&quot;, Type = &quot;string&quot;)]
+public HttpResponse Index(HttpRequest request) { ... }
+</code></pre>
+<ul>
+<li><strong>name</strong>: El nombre del parámetro de la consulta.</li>
+<li><strong>IsRequired</strong>: Especifica si el parámetro es obligatorio.</li>
+<li><strong>Description</strong>: Una descripción legible por humanos del parámetro.</li>
+<li><strong>Type</strong>: El tipo de datos esperado (por ejemplo, &quot;string&quot;, &quot;int&quot;).</li>
+</ul>
+<h3 id="apiendpoint-1"><code>ApiEndpoint</code></h3>
+<p>Anota un punto de conexión con información general.</p>
+<ul>
+<li><strong>Name</strong> (string, requerido en constructor): El nombre del punto de conexión de la API.</li>
+<li><strong>Description</strong> (string): Una descripción breve de lo que hace el punto de conexión.</li>
+<li><strong>Group</strong> (string): Permite agrupar puntos de conexión (por ejemplo, por controlador o módulo).</li>
+<li><strong>InheritDescriptionFromXmlDocumentation</strong> (bool, valor predeterminado: <code>true</code>): Si es <code>true</code>, intenta usar el resumen de la documentación XML del método si <code>Description</code> no está establecida.</li>
+</ul>
+<h3 id="apiheader"><code>ApiHeader</code></h3>
+<p>Documenta un encabezado HTTP específico que el punto de conexión espera o utiliza.</p>
+<ul>
+<li><strong>HeaderName</strong> (string, requerido en constructor): La clave del encabezado (por ejemplo, &quot;Authorization&quot;).</li>
+<li><strong>Description</strong> (string): Describe el propósito del encabezado.</li>
+<li><strong>IsRequired</strong> (bool): Indica si el encabezado es obligatorio para la solicitud.</li>
+</ul>
+<h3 id="apiparameter"><code>ApiParameter</code></h3>
+<p>Define un parámetro genérico para el punto de conexión, a menudo utilizado para campos de formulario o parámetros del cuerpo no cubiertos por otros atributos.</p>
+<ul>
+<li><strong>Name</strong> (string, requerido en constructor): El nombre del parámetro.</li>
+<li><strong>TypeName</strong> (string, requerido en constructor): El tipo de datos del parámetro (por ejemplo, &quot;string&quot;, &quot;int&quot;).</li>
+<li><strong>Description</strong> (string): Una descripción del parámetro.</li>
+<li><strong>IsRequired</strong> (bool): Indica si el parámetro es obligatorio.</li>
+</ul>
+<h3 id="apiparametersfrom"><code>ApiParametersFrom</code></h3>
+<p>Genera automáticamente la documentación de parámetros a partir de las propiedades de una clase o tipo especificado.</p>
+<ul>
+<li><strong>Type</strong> (Type, requerido en constructor): El tipo <code>Type</code> para reflejar propiedades desde.</li>
+</ul>
+<h3 id="apipathparameter"><code>ApiPathParameter</code></h3>
+<p>Documenta una variable de ruta (por ejemplo, en <code>/users/{id}</code>).</p>
+<ul>
+<li><strong>Name</strong> (string, requerido en constructor): El nombre del parámetro de la ruta.</li>
+<li><strong>Description</strong> (string): Describe lo que representa el parámetro.</li>
+<li><strong>Type</strong> (string): El tipo de datos esperado.</li>
+</ul>
+<h3 id="apiqueryparameter-1"><code>ApiQueryParameter</code></h3>
+<p>Documenta un parámetro de la cadena de consulta (por ejemplo, <code>?page=1</code>).</p>
+<ul>
+<li><strong>Name</strong> (string, requerido en constructor): La clave del parámetro de la consulta.</li>
+<li><strong>Description</strong> (string): Describe el parámetro.</li>
+<li><strong>Type</strong> (string): El tipo de datos esperado.</li>
+<li><strong>IsRequired</strong> (bool): Indica si el parámetro de la consulta debe estar presente.</li>
+</ul>
+<h3 id="apirequest"><code>ApiRequest</code></h3>
+<p>Describe el cuerpo de la solicitud esperado.</p>
+<ul>
+<li><strong>Description</strong> (string, requerido en constructor): Una descripción del cuerpo de la solicitud.</li>
+<li><strong>Example</strong> (string): Una cadena cruda que contiene un ejemplo del cuerpo de la solicitud.</li>
+<li><strong>ExampleLanguage</strong> (string): El lenguaje del ejemplo (por ejemplo, &quot;json&quot;, &quot;xml&quot;).</li>
+<li><strong>ExampleType</strong> (Type): Si se establece, el ejemplo se generará automáticamente a partir de este tipo (si está soportado por el contexto).</li>
+</ul>
+<h3 id="apiresponse"><code>ApiResponse</code></h3>
+<p>Describe una respuesta posible del punto de conexión.</p>
+<ul>
+<li><strong>StatusCode</strong> (HttpStatusCode, requerido en constructor): El código de estado HTTP devuelto (por ejemplo, <code>HttpStatusCode.OK</code>).</li>
+<li><strong>Description</strong> (string): Describe la condición para esta respuesta.</li>
+<li><strong>Example</strong> (string): Una cadena cruda que contiene un ejemplo del cuerpo de la respuesta.</li>
+<li><strong>ExampleLanguage</strong> (string): El lenguaje del ejemplo.</li>
+<li><strong>ExampleType</strong> (Type): Si se establece, el ejemplo se generará automáticamente a partir de este tipo.</li>
+</ul>
+<h2 id="controladores-de-tipo">Controladores de tipo</h2>
+<p>Los controladores de tipo son responsables de convertir los tipos .NET (clases, enumeraciones, etc.) en ejemplos de documentación. Esto es particularmente útil para generar ejemplos automáticos de cuerpo de solicitud y respuesta en función de sus modelos de datos.</p>
+<p>Estos controladores se configuran dentro del <code>ApiGenerationContext</code>.</p>
+<pre><code class="lang-csharp">var context = new ApiGenerationContext()
+{
+    // ...
+    BodyExampleTypeHandler = new JsonExampleTypeHandler(),
+    ParameterExampleTypeHandler = new JsonExampleTypeHandler()
+};
+</code></pre>
+<h3 id="jsonexampletypehandler">JsonExampleTypeHandler</h3>
+<p>El <code>JsonExampleTypeHandler</code> es un controlador integrado que genera ejemplos en JSON. Implementa tanto <code>IExampleBodyTypeHandler</code> como <code>IExampleParameterTypeHandler</code>.</p>
+<p>Puede personalizarlo con opciones <code>JsonSerializerOptions</code> específicas o <code>IJsonTypeInfoResolver</code> para que coincida con la lógica de serialización de su aplicación.</p>
+<pre><code class="lang-csharp">var jsonHandler = new JsonExampleTypeHandler(new JsonSerializerOptions
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    WriteIndented = true
+});
+
+context.BodyExampleTypeHandler = jsonHandler;
+</code></pre>
+<h3 id="controladores-de-tipo-personalizados">Controladores de tipo personalizados</h3>
+<p>Puede implementar sus propios controladores para admitir otros formatos (como XML) o para personalizar cómo se generan los ejemplos.</p>
+<h4 id="iexamplebodytypehandler">IExampleBodyTypeHandler</h4>
+<p>Implemente esta interfaz para generar ejemplos de cuerpo para tipos de solicitud y respuesta.</p>
+<pre><code class="lang-csharp">public class XmlExampleTypeHandler : IExampleBodyTypeHandler
+{
+    public BodyExampleResult? GetBodyExampleForType(Type type)
+    {
+        // Genera una cadena XML para el tipo
+        string xmlContent = MyXmlGenerator.Generate(type);
+
+        return new BodyExampleResult(xmlContent, &quot;xml&quot;);
+    }
+}
+</code></pre>
+<h4 id="iexampleparametertypehandler">IExampleParameterTypeHandler</h4>
+<p>Implemente esta interfaz para generar descripciones detalladas de parámetros a partir de un tipo (utilizado por <code>[ApiParametersFrom]</code>).</p>
+<pre><code class="lang-csharp">public class CustomParameterHandler : IExampleParameterTypeHandler
+{
+    public ParameterExampleResult[] GetParameterExamplesForType(Type type)
+    {
+        var properties = type.GetProperties();
+        var examples = new List&lt;ParameterExampleResult&gt;();
+
+        foreach (var prop in properties)
+        {
+            examples.Add(new ParameterExampleResult(
+                name: prop.Name,
+                typeName: prop.PropertyType.Name,
+                isRequired: true,
+                description: &quot;Descripción generada&quot;
+            ));
+        }
+
+        return examples.ToArray();
+    }
+}
+</code></pre>
+<h2 id="exportadores">Exportadores</h2>
+<p>Los exportadores son responsables de convertir los metadatos de documentación de la API recopilados en un formato específico que pueda ser consumido por otras herramientas o mostrado al usuario.</p>
+<h3 id="openapiexporter">OpenApiExporter</h3>
+<p>El exportador predeterminado proporcionado es el <code>OpenApiExporter</code>, que genera un archivo JSON que sigue la <a href="https://spec.openapis.org/oas/v3.0.0">Especificación OpenAPI 3.0.0</a>.</p>
+<pre><code class="lang-csharp">new OpenApiExporter()
+{
+    OpenApiVersion = &quot;3.0.0&quot;,
+    ServerUrls = new[] { &quot;http://localhost:5555&quot; },
+    Contact = new OpenApiContact()
+    {
+        Name = &quot;Soporte&quot;,
+        Email = &quot;soporte@example.com&quot;,
+        Url = &quot;https://example.com/soporte&quot;
+    },
+    License = new OpenApiLicense()
+    {
+        Name = &quot;MIT&quot;,
+        Url = &quot;https://opensource.org/licenses/MIT&quot;
+    },
+    TermsOfService = &quot;https://example.com/terminos&quot;
+}
+</code></pre>
+<h3 id="creación-de-un-exportador-personalizado">Creación de un exportador personalizado</h3>
+<p>Puede crear su propio exportador implementando la interfaz <code>IApiDocumentationExporter</code>. Esto le permite generar documentación en formatos como Markdown, HTML, Colección Postman o cualquier otro formato personalizado.</p>
+<p>La interfaz requiere que implemente un solo método: <code>ExportDocumentationContent</code>.</p>
+<pre><code class="lang-csharp">using Sisk.Core.Http;
+using Sisk.Documenting;
+
+public class MyCustomExporter : IApiDocumentationExporter
+{
+    public HttpContent ExportDocumentationContent(ApiDocumentation documentation)
+    {
+        // 1. Procesa el objeto de documentación
+        var sb = new StringBuilder();
+        sb.AppendLine($&quot;# {documentation.ApplicationName}&quot;);
+
+        foreach(var endpoint in documentation.Endpoints)
+        {
+            sb.AppendLine($&quot;## {endpoint.Method} {endpoint.Path}&quot;);
+            sb.AppendLine(endpoint.Description);
+        }
+
+        // 2. Devuelve el contenido como un HttpContent
+        return new StringContent(sb.ToString(), Encoding.UTF8, &quot;text/markdown&quot;);
+    }
+}
+</code></pre>
+<p>Luego, simplemente úselo en su configuración:</p>
+<pre><code class="lang-csharp">host.UseApiDocumentation(
+    // ...
+    exporter: new MyCustomExporter()
+);
+</code></pre>
+<h3 id="ejemplo-completo">Ejemplo completo</h3>
+<p>A continuación, se muestra un ejemplo completo que demuestra cómo configurar <code>Sisk.Documenting</code> y documentar un controlador simple.</p>
+<pre><code class="lang-csharp">using Sisk.Core.Entity;
+using Sisk.Core.Http;
+using Sisk.Core.Routing;
+using Sisk.Documenting;
+using Sisk.Documenting.Annotations;
+
+using var host = HttpServer.CreateBuilder(5555)
+    .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
+    .UseApiDocumentation(
+        context: new ApiGenerationContext()
+        {
+            ApplicationName = &quot;Mi aplicación&quot;,
+            ApplicationDescription = &quot;Saluda a alguien.&quot;
+        },
+        routerPath: &quot;/api/docs&quot;,
+        exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] })
+    .UseRouter(router =&gt;
+    {
+        router.SetObject(new MyController());
+    })
+    .Build();
+
+await host.StartAsync();
+
+class MyController
+{
+    [RouteGet]
+    [ApiEndpoint(Description = &quot;Devuelve un mensaje de saludo.&quot;)]
+    [ApiQueryParameter(name: &quot;name&quot;, IsRequired = false, Description = &quot;El nombre de la persona a saludar.&quot;, Type = &quot;string&quot;)]
+    public HttpResponse Index(HttpRequest request)
+    {
+        string? name = request.Query[&quot;name&quot;].MaybeNullOrEmpty() ?? &quot;mundo&quot;;
+        return new HttpResponse($&quot;Hola, {name}!&quot;);
+    }
+}
+</code></pre>
+<p>En este ejemplo, acceder a <code>/api/docs</code> servirá la documentación generada para la API &quot;Mi aplicación&quot;, describiendo el punto de conexión <code>GET /</code> y su parámetro <code>name</code>.</p>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/extensions/api-documentation.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+            </script>
+        </footer>
+    </body>
+</html>

@@ -1,30 +1,30 @@
 # Ciclo de vida de la solicitud
-A continuación se explica todo el ciclo de vida de una solicitud a través de un ejemplo de una solicitud HTTP.
+A continuación, se explica todo el ciclo de vida de una solicitud a través de un ejemplo de una solicitud HTTP.
 
 - **Recepción de la solicitud:** cada solicitud crea un contexto HTTP entre la solicitud en sí y la respuesta que se entregará al cliente. Este contexto proviene del listener integrado en Sisk, que puede ser el [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0), [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0), o [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/).
     - Validación de solicitud externa: se valida la [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction) para la solicitud.
         - Si la solicitud es externa y la propiedad es `Drop`, la conexión se cierra sin una respuesta al cliente con un `HttpServerExecutionStatus = RemoteRequestDropped`.
-    - Configuración del resolutor de reenvío: si un [ForwardingResolver](/docs/advanced/forwarding-resolvers) está configurado, se llama al método [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) en el host original de la solicitud.
-    - Coincidencia de DNS: con el host resuelto y con más de un [ListeningHost](/api/Sisk.Core.Http.ListeningHost) configurado, el servidor busca el host correspondiente para la solicitud.
-        - Si no hay un ListeningHost que coincida, se devuelve una respuesta 400 Bad Request al cliente y un estado `HttpServerExecutionStatus = DnsUnknownHost` se devuelve al contexto HTTP.
+    - Configuración del resolutor de reenvío: si un [ForwardingResolver](/docs/es/advanced/forwarding-resolvers) está configurado, se llamará al método [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) en el host original de la solicitud.
+    - Coincidencia de DNS: con el host resuelto y con más de un [ListeningHost](/api/Sisk.Core.Http.ListeningHost) configurado, el servidor buscará el host correspondiente para la solicitud.
+        - Si no hay ListeningHost que coincida, se devuelve una respuesta 400 Bad Request al cliente y un estado `HttpServerExecutionStatus = DnsUnknownHost` se devuelve al contexto HTTP.
         - Si un ListeningHost coincide, pero su [Router](/api/Sisk.Core.Http.ListeningHost.Router) no está inicializado, se devuelve una respuesta 503 Service Unavailable al cliente y un estado `HttpServerExecutionStatus = ListeningHostNotReady` se devuelve al contexto HTTP.
-    - Enlace del router: el router del ListeningHost correspondiente se asocia con el servidor HTTP recibido.
-        - Si el router ya está asociado con otro servidor HTTP, lo que no está permitido porque el router utiliza activamente los recursos de configuración del servidor, se lanza una excepción `InvalidOperationException`. Esto solo ocurre durante la inicialización del servidor HTTP, no durante la creación del contexto HTTP.
+    - Enlace del enrutador: el enrutador del ListeningHost correspondiente se asocia con el servidor HTTP recibido.
+        - Si el enrutador ya está asociado con otro servidor HTTP, lo que no está permitido porque el enrutador utiliza activamente los recursos de configuración del servidor, se lanza una `InvalidOperationException`. Esto solo ocurre durante la inicialización del servidor HTTP, no durante la creación del contexto HTTP.
     - Predefinición de encabezados:
         - Predefine el encabezado `X-Request-Id` en la respuesta si está configurado para hacerlo.
         - Predefine el encabezado `X-Powered-By` en la respuesta si está configurado para hacerlo.
-    - Validación del tamaño del contenido: valida si el contenido de la solicitud es menor que [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) solo si es mayor que cero.
+    - Validación del tamaño del contenido: se valida si el contenido de la solicitud es menor que [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) solo si es mayor que cero.
         - Si la solicitud envía un `Content-Length` mayor que el configurado, se devuelve una respuesta 413 Payload Too Large al cliente y un estado `HttpServerExecutionStatus = ContentTooLarge` se devuelve al contexto HTTP.
     - El evento `OnHttpRequestOpen` se invoca para todos los controladores de servidor HTTP configurados.
-- **Enrutamiento de la acción:** el servidor invoca el router para la solicitud recibida.
-    - Si el router no encuentra una ruta que coincida con la solicitud:
+- **Enrutamiento de la acción:** el servidor invoca el enrutador para la solicitud recibida.
+    - Si el enrutador no encuentra una ruta que coincida con la solicitud:
         - Si la propiedad [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) está configurada, se invoca la acción y la respuesta de la acción se reenvía al cliente HTTP.
         - Si la propiedad anterior es nula, se devuelve una respuesta 404 Not Found por defecto al cliente.
-    - Si el router encuentra una ruta coincidente, pero el método de la ruta no coincide con el método de la solicitud:
+    - Si el enrutador encuentra una ruta coincidente, pero el método de la ruta no coincide con el método de la solicitud:
         - Si la propiedad [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) está configurada, se invoca la acción y la respuesta de la acción se reenvía al cliente HTTP.
         - Si la propiedad anterior es nula, se devuelve una respuesta 405 Method Not Allowed por defecto al cliente.
     - Si la solicitud es del método `OPTIONS`:
-        - El router devuelve una respuesta 200 Ok al cliente solo si no hay una ruta que coincida con el método de la solicitud (el método de la ruta no es explícitamente [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)).
+        - El enrutador devuelve una respuesta 200 Ok al cliente solo si no hay ruta que coincida con el método de la solicitud (el método de la ruta no es explícitamente [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)).
     - Si la propiedad [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash) está habilitada, la ruta coincidente no es una expresión regular, la ruta de la solicitud no termina con `/` y el método de la solicitud es `GET`:
         - Se devuelve una respuesta HTTP 307 Temporary Redirect con el encabezado `Location` con la ruta y la consulta a la misma ubicación con un `/` al final al cliente.
     - El evento `OnContextBagCreated` se invoca para todos los controladores de servidor HTTP configurados.
@@ -38,7 +38,7 @@ A continuación se explica todo el ciclo de vida de una solicitud a través de u
         - Si se lanza un error en este paso y [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) está deshabilitado:
             - Si la propiedad [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) está habilitada, se invoca y la respuesta resultante se devuelve al cliente.
             - Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.
-    - Se invoca la acción del router y se convierte en una respuesta HTTP.
+    - Se invoca la acción del enrutador y se convierte en una respuesta HTTP.
         - Si se lanza un error en este paso y [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) está deshabilitado:
             - Si la propiedad [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) está habilitada, se invoca y la respuesta resultante se devuelve al cliente.
             - Si la propiedad anterior no está definida, se devuelve una respuesta vacía al servidor, que reenvía una respuesta según el tipo de excepción lanzada, que generalmente es 500 Internal Server Error.
@@ -62,6 +62,6 @@ A continuación se explica todo el ciclo de vida de una solicitud a través de u
     - Si [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) está habilitado, se descartan todos los objetos definidos en el contexto de la solicitud que heredan de [IDisposable](/en-us/dotnet/api/system.idisposable).
     - El evento `OnHttpRequestClose` se invoca para todos los controladores de servidor HTTP configurados.
     - Si se lanzó una excepción en el servidor, el evento `OnException` se invoca para todos los controladores de servidor HTTP configurados.
-    - Si la ruta permite el registro de acceso y [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) no es nulo, se escribe una línea de registro en el flujo de registro.
-    - Si la ruta permite el registro de errores, hay una excepción y [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) no es nulo, se escribe una línea de registro en el flujo de registro de errores.
+    - Si la ruta permite el registro de acceso y [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) no es nulo, se escribe una línea de registro en la salida de registro.
+    - Si la ruta permite el registro de errores, hay una excepción y [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) no es nulo, se escribe una línea de registro en la salida de registro de errores.
     - Si el servidor está esperando una solicitud a través de [HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext), se libera el mutex y el contexto se vuelve disponible para el usuario.

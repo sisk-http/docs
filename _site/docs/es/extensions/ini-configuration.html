@@ -156,13 +156,13 @@
                 <article data-uid="">
 <h1 id="proveedor-de-configuración-ini">Proveedor de configuración INI</h1>
 
-<p>Sisk tiene un método para obtener configuraciones de inicio diferentes a JSON. De hecho, cualquier canal que implemente <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> se puede utilizar con <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, leyendo la configuración del servidor desde cualquier tipo de archivo.</p>
+<p>Sisk tiene un método para obtener configuraciones de inicio diferentes a JSON. De hecho, cualquier canalización que implemente <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> se puede utilizar con <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, leyendo la configuración del servidor desde cualquier tipo de archivo.</p>
 <p>El paquete <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> proporciona un lector de archivos INI basado en flujo que no lanza excepciones por errores de sintaxis comunes y tiene una sintaxis de configuración simple. Este paquete se puede utilizar fuera del marco de Sisk, ofreciendo flexibilidad para proyectos que requieren un lector de documentos INI eficiente.</p>
 <h2 id="instalación">Instalación</h2>
 <p>Para instalar el paquete, puede comenzar con:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
 </code></pre>
-<p>También puede instalar el paquete principal, que no incluye el lector de configuración INI <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, ni la dependencia de Sisk, solo los serializadores INI:</p>
+<p>También puede instalar el paquete principal, que no incluye el <a href="https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> INI, ni la dependencia de Sisk, solo los serializadores INI:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration.Core
 </code></pre>
 <p>Con el paquete principal, puede utilizarlo en su código como se muestra en el ejemplo a continuación:</p>
@@ -218,7 +218,7 @@ Name = &quot;Kanye West&quot;
 <li>Los nombres de propiedades y secciones son <strong>insensibles a mayúsculas y minúsculas</strong>.</li>
 <li>Los nombres de propiedades y valores son <strong>recortados</strong>, a menos que los valores estén entre comillas.</li>
 <li>Los valores pueden estar entre comillas simples o dobles. Las comillas pueden tener saltos de línea dentro de ellas.</li>
-<li>Se admiten comentarios con <code>#</code> y <code>;</code>. También se admiten <strong>comentarios al final</strong>.</li>
+<li>Los comentarios están soportados con <code>#</code> y <code>;</code>. También se permiten <strong>comentarios al final</strong>.</li>
 <li>Las propiedades pueden tener varios valores.</li>
 </ul>
 <p>En detalle, la documentación para el &quot;sabor&quot; del analizador INI utilizado en Sisk está <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">disponible en este documento</a>.</p>
@@ -232,7 +232,7 @@ Another value = &quot;this value
 [some section]
 Color = Red
 Color = Blue
-Color = Yellow ; no use yellow
+Color = Yellow ; no use amarillo
 </code></pre>
 <p>Analícelo con:</p>
 <pre><code class="lang-csharp">// analice el texto INI desde la cadena
@@ -250,7 +250,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <thead>
 <tr>
 <th>Sección y nombre</th>
-<th>Admite varios valores</th>
+<th>Permite varios valores</th>
 <th>Descripción</th>
 </tr>
 </thead>

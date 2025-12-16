@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configuraci&#243;n de reservas de namespace en Windows | Sisk </title>
+        <title>Configurando reservas de namespace en Windows | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configuraci&#243;n de reservas de namespace en Windows | Sisk ">
+        <meta name="title" content="Configurando reservas de namespace en Windows | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,13 +154,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="configuración-de-reservas-de-namespace-en-windows">Configuración de reservas de namespace en Windows</h1>
+<h1 id="configurando-reservas-de-namespace-en-windows">Configurando reservas de namespace en Windows</h1>
 
 <p>Sisk funciona con la interfaz de red HttpListener, que enlaza un host virtual al sistema para escuchar solicitudes.</p>
-<p>En Windows, esta unión es un poco restrictiva, solo permitiendo que localhost se enlace como un host válido. Al intentar escuchar a otro host, se lanza un error de acceso denegado en el servidor. Este tutorial explica cómo conceder autorización para escuchar en cualquier host que desee en el sistema.</p>
+<p>En Windows, este enlace es un poco restrictivo, solo permitiendo que localhost se enlace como un host válido. Al intentar escuchar a otro host, se lanza un error de acceso denegado en el servidor. Este tutorial explica cómo conceder autorización para escuchar en cualquier host que desee en el sistema.</p>
 <div class="script-header">
     <span>
-        Configuración de namespace.bat
+        Namespace Setup.bat
     </span>
     <span>
         BATCH
@@ -168,7 +168,7 @@
 </div>
 <pre><code class="lang-bat">@echo off
 
-:: insertar prefijo aquí, sin espacios ni comillas
+:: inserta el prefijo aquí, sin espacios ni comillas
 SET PREFIX=
 
 SET DOMAIN=%ComputerName%\%USERNAME%
@@ -179,13 +179,13 @@ pause
 <p>Donde en <code>PREFIX</code>, es el prefijo (&quot;Host de escucha-&gt;Puerto&quot;) que su servidor escuchará. Debe estar formateado con el esquema de URL, host, puerto y una barra al final, ejemplo:</p>
 <div class="script-header">
     <span>
-        Configuración de namespace.bat
+        Namespace Setup.bat
     </span>
     <span>
         BATCH
     </span>
 </div>
-<pre><code class="lang-bat">SET PREFIX=http://mi-aplicación.example.test/
+<pre><code class="lang-bat">SET PREFIX=http://mi-aplicacion.example.test/
 </code></pre>
 <p>Para que pueda ser escuchado en su aplicación a través de:</p>
 <div class="script-header">
@@ -201,7 +201,7 @@ pause
     static async Task Main(string[] args)
     {
         using var app = HttpServer.CreateBuilder()
-            .UseListeningPort(&quot;http://mi-aplicación.example.test/&quot;)
+            .UseListeningPort(&quot;http://mi-aplicacion.example.test/&quot;)
             .Build();
 
         app.Router.MapGet(&quot;/&quot;, request =&gt;

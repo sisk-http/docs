@@ -156,13 +156,13 @@
                 <article data-uid="">
 <h1 id="リクエストハンドリング">リクエストハンドリング</h1>
 
-<p>リクエストハンドラー、別名「ミドルウェア」と呼ばれるものは、リクエストがルーターで実行される前または後に実行される関数です。これらは、ルートごとまたはルーターごとに定義できます。</p>
+<p>リクエストハンドラー、別名「ミドルウェア」は、ルーターでリクエストが実行される前または後に実行される関数です。ルートごとまたはルーターごとに定義できます。</p>
 <p>リクエストハンドラーには2つの種類があります。</p>
 <ul>
-<li><strong>BeforeResponse</strong>: リクエストハンドラーがルーターアクションを呼び出す前に実行されることを定義します。</li>
-<li><strong>AfterResponse</strong>: リクエストハンドラーがルーターアクションを呼び出した後に実行されることを定義します。このコンテキストでHTTPレスポンスを送信すると、ルーターアクションのレスポンスが上書きされます。</li>
+<li><strong>BeforeResponse</strong>: リクエストハンドラーがルーター アクションを呼び出す前に実行されることを定義します。</li>
+<li><strong>AfterResponse</strong>: リクエストハンドラーがルーター アクションを呼び出した後に実行されることを定義します。このコンテキストでHTTPレスポンスを送信すると、ルーターのアクションレスポンスが上書きされます。</li>
 </ul>
-<p>両方のリクエストハンドラーは、実際のルーターコールバック関数のレスポンスを上書きできます。さらに、リクエストハンドラーは、認証、コンテンツ、またはその他の情報の検証に役立ちます。また、情報を保存したり、ログを記録したり、レスポンスの前または後に実行できる他のステップもあります。</p>
+<p>両方のリクエストハンドラーは、実際のルーター コールバック関数のレスポンスを上書きできます。さらに、リクエストハンドラーは、認証、コンテンツ、またはその他の情報の検証に役立ちます。ストレージ、ログ、またはレスポンスの前にまたは後に実行できる他のステップもあります。</p>
 <p><img src="/assets/img/requesthandlers1.png" alt=""></p>
 <p>このように、リクエストハンドラーは実行を中断し、サイクルを終了する前にレスポンスを返すことができます。その他のプロセスは破棄されます。</p>
 <p>例: ユーザー認証リクエストハンドラーがユーザーを認証しないとします。リクエストライフサイクルは続行されず、ハングします。リクエストハンドラーが2番目の位置にある場合、3番目以降のハンドラーは評価されません。</p>
@@ -196,8 +196,8 @@
     }
 }
 </code></pre>
-<p>上記の例では、Authorizationヘッダーがリクエストに存在する場合、続行し、次のリクエストハンドラーまたはルーターコールバックが呼び出されるようにします。ExecutionModeプロパティによって、レスポンスの前または後に実行されるリクエストハンドラーを指定できます。非null値を返すと、ルーターのレスポンスが上書きされます。</p>
-<p>リクエストハンドラーがnullを返すと、リクエストが続行され、次のオブジェクトが呼び出されるか、サイクルがルーターのレスポンスで終了します。</p>
+<p>上記の例では、<code>Authorization</code> ヘッダーがリクエストに存在する場合、続行し、次のリクエストハンドラーまたはルーター コールバックが呼び出されることを示しています。リクエストハンドラーがレスポンスの後に実行され、null以外の値を返すと、ルーターのレスポンスが上書きされます。</p>
+<p>リクエストハンドラーが <code>null</code> を返すと、リクエストが続行され、次のオブジェクトが呼び出されるか、サイクルがルーターのレスポンスで終了します。</p>
 <h2 id="ルートへのリクエストハンドラーの関連付け">ルートへのリクエストハンドラーの関連付け</h2>
 <p>ルートに1つまたは複数のリクエストハンドラーを定義できます。</p>
 <div class="script-header">
@@ -216,7 +216,7 @@
     new WriteToLogRequestHandler()            // after request handler
 });
 </code></pre>
-<p>または、<a href="/api/Sisk.Core.Routing.Route">Route</a> オブジェクトを作成できます。</p>
+<p>または、<a href="/api/Sisk.Core.Routing.Route">Route</a> オブジェクトを作成します。</p>
 <div class="script-header">
     <span>
         Router.cs
@@ -233,7 +233,7 @@ indexRoute.RequestHandlers = new IRequestHandler[]
 mainRouter.SetRoute(indexRoute);
 </code></pre>
 <h2 id="ルーターへのリクエストハンドラーの関連付け">ルーターへのリクエストハンドラーの関連付け</h2>
-<p>ルーター全体で実行されるグローバルリクエストハンドラーを定義できます。</p>
+<p>ルーター全体で実行されるグローバル リクエストハンドラーを定義できます。</p>
 <div class="script-header">
     <span>
         Router.cs
@@ -269,7 +269,7 @@ mainRouter.SetRoute(indexRoute);
     }
 }
 </code></pre>
-<p>注: リクエストハンドラータイプを渡す必要があります。インスタンスを渡すことはできません。そうすると、ルーターパーサーによってリクエストハンドラーがインスタンス化されます。コンストラクタ引数を<a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a> プロパティで渡すことができます。</p>
+<p>リクエストハンドラーのタイプを渡す必要があります。インスタンスではありません。そうすると、リクエストハンドラーはルーター パーサーによってインスタンス化されます。コンストラクタ引数を <a href="/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments">ConstructorArguments</a> プロパティで渡すことができます。</p>
 <p>例:</p>
 <div class="script-header">
     <span>
@@ -287,7 +287,7 @@ public HttpResponse Index(HttpRequest request)
     };
 }
 </code></pre>
-<p>独自の属性を作成してRequestHandlerを実装することもできます。</p>
+<p>リクエストハンドラーを実装する独自の属性を作成することもできます。</p>
 <div class="script-header">
     <span>
         Middleware/Attributes/AuthenticateAttribute.cs
@@ -321,8 +321,8 @@ static HttpResponse Index(HttpRequest request)
     };
 }
 </code></pre>
-<h2 id="グローバルリクエストハンドラーのバイパス">グローバルリクエストハンドラーのバイパス</h2>
-<p>ルートにグローバルリクエストハンドラーを定義した後、特定のルートでそれを無視できます。</p>
+<h2 id="グローバル-リクエストハンドラーのバイパス">グローバル リクエストハンドラーのバイパス</h2>
+<p>ルートでグローバル リクエストハンドラーを定義した後、特定のルートでそれを無視できます。</p>
 <div class="script-header">
     <span>
         Router.cs
@@ -341,14 +341,14 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
 {
     BypassGlobalRequestHandlers = new IRequestHandler[]
     {
-        myRequestHandler,                    // ok: グローバルリクエストハンドラーと同じインスタンス
-        new AuthenticateUserRequestHandler() // wrong: グローバルリクエストハンドラーはスキップされません
+        myRequestHandler,                    // ok: グローバル リクエストハンドラーと同じインスタンス
+        new AuthenticateUserRequestHandler() // wrong: グローバル リクエストハンドラーはスキップされません
     }
 });
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>リクエストハンドラーをバイパスする場合、同じ参照を使用してスキップする必要があります。別のリクエストハンドラーインスタンスを作成すると、グローバルリクエストハンドラーはスキップされません。グローバルリクエストハンドラーとバイパスグローバルリクエストハンドラーの両方で同じリクエストハンドラー参照を使用することを確認してください。</p>
+<p>リクエストハンドラーをバイパスする場合、スキップするために使用したのと同じ参照を使用する必要があります。別のリクエストハンドラー インスタンスを作成すると、グローバル リクエストハンドラーはスキップされません。グローバル リクエストハンドラーと BypassGlobalRequestHandlers で使用するのと同じリクエストハンドラー参照を使用することを覚えておいてください。</p>
 </div>
 
 </article>

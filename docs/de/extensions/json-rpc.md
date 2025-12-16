@@ -55,7 +55,7 @@ using var app = HttpServer.CreateBuilder(port: 5555)
         // fügt alle Methoden mit dem Attribut WebMethod zum JSON-RPC-Handler hinzu
         args.Handler.Methods.AddMethodsFromType(new MathOperations());
         
-        // ordnet die Route /service zum JSON-RPC-Handler für POST- und GET-Anfragen zu
+        // ordnet die Route /service dem JSON-RPC-Handler für POST- und GET-Anfragen zu
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
@@ -102,7 +102,7 @@ public class MathOperations
 
 Das obige Beispiel ordnet die Methoden `Sum` und `Sqrt` dem JSON-RPC-Handler zu und macht diese Methoden über `GET /service`, `POST /service` und `GET /ws` verfügbar. Methodennamen sind nicht case-sensitiv.
 
-Methodeparameter werden automatisch in ihre spezifischen Typen deserialisiert. Die Verwendung von Anfragen mit benannten Parametern wird auch unterstützt. Die JSON-Serialisierung wird von der [LightJson](https://github.com/CypherPotato/LightJson)-Bibliothek durchgeführt. Wenn ein Typ nicht korrekt deserialisiert wird, können Sie einen spezifischen [JSON-Konverter](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) für diesen Typ erstellen und ihn mit Ihren [JsonSerializerOptions](?) verknüpfen.
+Methodenparameter werden automatisch in ihre spezifischen Typen deserialisiert. Die Verwendung von Anfragen mit benannten Parametern wird auch unterstützt. Die JSON-Serialisierung wird von der [LightJson](https://github.com/CypherPotato/LightJson)-Bibliothek durchgeführt. Wenn ein Typ nicht korrekt deserialisiert wird, können Sie einen spezifischen [JSON-Konverter](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) für diesen Typ erstellen und ihn später mit Ihren [JsonSerializerOptions](?) verknüpfen.
 
 Sie können auch das `$.params`-Objekt direkt aus der JSON-RPC-Anfrage in Ihrer Methode abrufen.
 
@@ -125,7 +125,7 @@ public float Sum(JsonArray|JsonObject @params)
 
 Damit dies geschieht, muss `@params` der **einzige** Parameter in Ihrer Methode sein, mit genau dem Namen `params` (in C# ist das `@` erforderlich, um diesen Parameter-Namen zu entkommen).
 
-Die Deserialisierung von Parametern erfolgt sowohl für benannte Objekte als auch für positionale Arrays. Zum Beispiel kann die folgende Methode durch beide Anfragen aufgerufen werden:
+Die Deserialisierung von Parametern erfolgt sowohl für benannte Objekte als auch für positionale Arrays. Zum Beispiel kann die folgende Methode remote durch beide Anfragen aufgerufen werden:
 
 ```csharp
 [WebMethod]
@@ -158,7 +158,7 @@ Für ein Array muss die Reihenfolge der Parameter befolgt werden.
 
 ## Anpassen des Serialisierungsprogramms
 
-Sie können den JSON-Serialisierer in der [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions)-Eigenschaft anpassen. In dieser Eigenschaft können Sie die Verwendung von [JSON5](https://json5.org/) für die Deserialisierung von Nachrichten aktivieren. Obwohl dies nicht konform mit JSON-RPC 2.0 ist, ist JSON5 eine Erweiterung von JSON, die ein menschenlesbareres und lesbareres Schreiben ermöglicht.
+Sie können den JSON-Serialisierer in der [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions)-Eigenschaft anpassen. In dieser Eigenschaft können Sie die Verwendung von [JSON5](https://json5.org/) für die Deserialisierung von Nachrichten aktivieren. Obwohl dies nicht konform mit JSON-RPC 2.0 ist, ist JSON5 eine Erweiterung von JSON, die ein menschenlesbares und lesbares Schreiben ermöglicht.
 
 <div class="script-header">
     <span>
@@ -178,10 +178,10 @@ using var host = HttpServer.CreateBuilder ( 5556 )
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // aktiviert JSON5 für den JSON-Interpreter. Selbst wenn dies aktiviert ist, ist Plain-JSON immer noch erlaubt
+        // aktiviert JSON5 für den JSON-Interpreter. Selbst wenn dies aktiviert ist, ist einfaches JSON immer noch erlaubt
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // ordnet die POST /service-Route zum JSON-RPC-Handler zu
+        // ordnet die POST /service-Route dem JSON-RPC-Handler zu
         e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
     } )
     .Build ();

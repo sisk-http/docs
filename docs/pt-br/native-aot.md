@@ -1,6 +1,6 @@
 # Suporte Nativo AOT
 
-[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) permite a publicação de aplicativos .NET nativos que são autossuficientes e não requerem o tempo de execução .NET instalado no host de destino. Além disso, o Native AOT fornece benefícios como:
+[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) permite a publicação de aplicativos .NET nativos que são autossuficientes e não requerem o tempo de execução do .NET instalado no host de destino. Além disso, o Native AOT fornece benefícios como:
 
 - Aplicativos muito menores
 - Inicialização significativamente mais rápida

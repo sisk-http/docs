@@ -156,13 +156,13 @@
                 <article data-uid="">
 <h1 id="mehrere-lauscher-hosts-pro-server">Mehrere Lauscher-Hosts pro Server</h1>
 
-<p>Das Sisk Framework unterstützt seit jeher die Verwendung von mehr als einem Host pro Server, d.h. ein einzelner HTTP-Server kann auf mehreren Ports hören und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.</p>
+<p>Das Sisk Framework unterstützt seit jeher die Verwendung von mehr als einem Host pro Server, d. h. ein einzelner HTTP-Server kann auf mehreren Ports hören und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.</p>
 <p>Auf diese Weise ist es einfach, Verantwortlichkeiten zu trennen und Dienste auf einem einzelnen HTTP-Server mit Sisk zu verwalten. Das folgende Beispiel zeigt die Erstellung von zwei ListeningHosts, von denen jeder auf einem anderen Port hört, mit unterschiedlichen Routern und Aktionen.</p>
-<p>Lesen Sie <a href="/v1/getting-started.md#manuell-ihre-app-erstellen">manuell Ihre App erstellen</a>, um die Details über diese Abstraktion zu verstehen.</p>
+<p>Lesen Sie <a href="/v1/getting-started.md#manuell-erstellen-sie-ihre-app">manuell Ihre App erstellen</a>, um die Details über diese Abstraktion zu verstehen.</p>
 <pre><code class="lang-cs">static void Main(string[] args)
 {
-    // Erstellen von zwei Listening-Hosts, von denen jeder seinen eigenen Router und
-    // Port hat
+    // Erstellt zwei Lauscher-Hosts, von denen jeder seinen eigenen Router hat und
+    // auf seinem eigenen Port hört
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
@@ -174,19 +174,19 @@
     hostB.Router = new Router();
     hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hallo vom Host B!&quot;));
 
-    // Erstellen einer Server-Konfiguration und Hinzufügen beider
-    // Listening-Hosts
+    // Erstellt eine Server-Konfiguration und fügt beide
+    // Lauscher-Hosts hinzu
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // Erstellen eines HTTP-Servers, der die angegebene
+    // Erstellt einen HTTP-Server, der die angegebene
     // Konfiguration verwendet
     //
     HttpServer server = new HttpServer(configuration);
 
-    // Starten des Servers
+    // Startet den Server
     server.Start();
 
     Console.WriteLine(&quot;Versuchen Sie, Host A unter {0} zu erreichen&quot;, server.ListeningPrefixes[0]);

@@ -156,22 +156,22 @@
                 <article data-uid="">
 <h1 id="路由">路由</h1>
 
-<p><a href="/api/Sisk.Core.Routing.Router">Router</a> 是构建服务器的第一步。它负责存储 <a href="/api/Sisk.Core.Routing.Route">Route</a> 对象，这些对象是将 URL 和其方法映射到服务器执行的操作的端点。每个操作负责接收请求并将响应发送回客户端。</p>
-<p>路由是路径表达式（“路径模式”）和它们可以监听的 HTTP 方法的对。 当请求发送到服务器时，它将尝试找到匹配接收到的请求的路由，然后调用该路由的操作并将结果响应发送回客户端。</p>
-<p>有多种方式在 Sisk 中定义路由：它们可以是静态的、动态的或自动扫描的，通过属性定义或直接在 Router 对象中定义。</p>
+<p><a href="/api/Sisk.Core.Routing.Router">Router</a> 是构建服务器的第一步。它负责存储 <a href="/api/Sisk.Core.Routing.Route">Route</a> 对象，这些对象是将 URL 和其方法映射到服务器执行的操作的端点。每个操作负责接收请求并将响应交付给客户端。</p>
+<p>路由是路径表达式（“路径模式”）和它们可以监听的 HTTP 方法的对。当请求发送到服务器时，它将尝试找到一个与接收到的请求匹配的路由，然后调用该路由的操作并将结果响应交付给客户端。</p>
+<p>在 Sisk 中，有多种方式来定义路由：它们可以是静态的、动态的或自动扫描的，可以使用属性定义，也可以直接在 Router 对象中定义。</p>
 <pre><code class="lang-cs">Router mainRouter = new Router();
 
-// 将 GET / 映射到以下操作
+// 将 GET / 路由映射到以下操作
 mainRouter.MapGet(&quot;/&quot;, request =&gt; {
     return new HttpResponse(&quot;Hello, world!&quot;);
 });
 </code></pre>
-<p>要了解路由可以做什么，我们需要了解请求可以做什么。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 将包含所有需要的信息。 Sisk 还包括一些额外的功能，可以加快整体开发速度。</p>
-<p>对于服务器接收到的每个操作，都会调用类型为 <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> 的委托。该委托包含一个参数，持有 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象，该对象包含有关请求的所有必要信息。从该委托返回的对象必须是 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 或通过 <a href="/docs/cn/fundamentals/responses#implicit-response-types">隐式响应类型</a> 映射到它的对象。</p>
+<p>为了理解路由可以做什么，我们需要了解请求可以做什么。一个 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 将包含您需要的所有内容。Sisk 还包括一些额外的功能，可以加快整体开发速度。</p>
+<p>对于服务器接收到的每个操作，都会调用一个类型为 <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> 的委托。这个委托包含一个参数，持有一个 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 对象，该对象包含有关请求的所有必要信息。从这个委托返回的对象必须是 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 或通过 <a href="/docs/cn/fundamentals/responses#implicit-response-types">隐式响应类型</a> 映射到它的对象。</p>
 <h2 id="匹配路由">匹配路由</h2>
-<p>当请求发送到 HTTP 服务器时，Sisk 搜索满足请求路径表达式的路由。该表达式始终在路由和请求路径之间进行测试，而不考虑查询字符串。</p>
-<p>此测试没有优先级，并且仅限于单个路由。 当没有路由与该请求匹配时，返回 <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> 响应给客户端。 当路径模式匹配，但 HTTP 方法不匹配时，发送 <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> 响应给客户端。</p>
-<p>Sisk 检查路由碰撞的可能性，以避免这些问题。 当定义路由时，Sisk 将查找可能与正在定义的路由碰撞的可能路由。 该测试包括检查路径和路由设置为接受的方法。</p>
+<p>当请求发送到 HTTP 服务器时，Sisk 搜索一个满足请求路径表达式的路由。该表达式始终在路由和请求路径之间进行测试，而不考虑查询字符串。</p>
+<p>此测试没有优先级，并且仅限于单个路由。当没有路由与该请求匹配时，返回 <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> 响应给客户端。当路径模式匹配，但 HTTP 方法不匹配时，返回 <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> 响应给客户端。</p>
+<p>Sisk 检查路由碰撞的可能性，以避免这些问题。当定义路由时，Sisk 将查找可能与正在定义的路由碰撞的可能路由。该测试包括检查路由设置为接受的路径和方法。</p>
 <h3 id="使用路径模式创建路由">使用路径模式创建路由</h3>
 <p>您可以使用各种 <code>SetRoute</code> 方法定义路由。</p>
 <pre><code class="lang-cs">// SetRoute 方式
@@ -210,14 +210,14 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
     return new HttpResponse($&quot;Hello, {name} {surname}!&quot;);
 });
 </code></pre>
-<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> 包含有关请求路径变量的所有信息。</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 HttpResponse 包含有关请求路径变量的所有信息。</p>
 <p>每个发送到服务器的路径在执行路径模式测试之前都会被规范化，遵循以下规则：</p>
 <ul>
 <li>所有空段都从路径中删除，例如：<code>////foo//bar</code> 变为 <code>/foo/bar</code>。</li>
 <li>路径匹配是 <strong>区分大小写</strong> 的，除非 <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> 设置为 <code>true</code>。</li>
 </ul>
-<p><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 返回 <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a> 对象，其中每个索引属性返回非空 <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>，可以用作选项/单子将其原始值转换为托管对象。</p>
-<p>以下示例读取路由参数“id”并从中获取 <code>Guid</code>。如果参数不是有效的 Guid，抛出异常，并在服务器不处理 <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> 时返回 500 错误给客户端。</p>
+<p><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> 和 <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> 属性的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 返回一个 <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a> 对象，其中每个索引属性返回一个非空 <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>，可以用作选项/单子将其原始值转换为托管对象。</p>
+<p>以下示例读取路由参数“id”并从中获取一个 <code>Guid</code>。如果参数不是有效的 Guid，抛出异常，并在服务器不处理 <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> 时返回 500 错误给客户端。</p>
 <pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/user/&lt;id&gt;&quot;, (request) =&gt;
 {
     Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
@@ -226,11 +226,11 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
 <div class="NOTE">
 <h5>Note</h5>
 <p>路径的尾部 <code>/</code> 在请求路径和路由路径中都被忽略，即，如果您尝试访问定义为 <code>/index/page</code> 的路由，您也可以使用 <code>/index/page/</code> 访问它。</p>
-<p>您还可以通过启用 <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a> 标志强制 URL 以 <code>/</code> 结尾。</p>
+<p>您还可以强制 URL 以 <code>/</code> 结尾，方法是启用 <a href="/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash">ForceTrailingSlash</a> 标志。</p>
 </div>
 <h3 id="使用类实例创建路由">使用类实例创建路由</h3>
-<p>您还可以使用反射和 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 属性动态定义路由。这样，具有此属性的类的实例将在目标路由器中定义其路由。</p>
-<p>要将方法定义为路由，它必须用 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 标记，例如该属性本身或 <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>。该方法可以是静态的、实例的、公共的或私有的。当使用 <code>SetObject(type)</code> 或 <code>SetObject&lt;TType&gt;()</code> 方法时，实例方法将被忽略。</p>
+<p>您还可以使用带有 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 属性的反射动态定义路由。这样，具有此属性的类的实例将在目标路由器中定义其路由。</p>
+<p>要将方法定义为路由，它必须用 <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a> 标记，例如该属性本身或 <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>。方法可以是静态的、实例的、公共的或私有的。当使用 <code>SetObject(type)</code> 或 <code>SetObject&lt;TType&gt;()</code> 方法时，实例方法将被忽略。</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -260,14 +260,14 @@ mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (reques
     }
 }
 </code></pre>
-<p>以下行将定义 <code>MyController</code> 的 <code>Index</code> 和 <code>Hello</code> 方法作为路由，因为它们都被标记为路由，并且提供了类的实例，而不是其类型。如果提供的是其类型而不是实例，则仅定义静态方法。</p>
+<p>以下行将定义 <code>MyController</code> 的 <code>Index</code> 和 <code>Hello</code> 方法作为路由，因为它们都被标记为路由，并且提供了类的实例，而不是其类型。如果提供的是类型而不是实例，则仅定义静态方法。</p>
 <pre><code class="lang-cs">var myController = new MyController();
 mainRouter.SetObject(myController);
 </code></pre>
 <p>从 Sisk 0.16 版开始，可以启用 AutoScan，它将搜索实现 <code>RouterModule</code> 的用户定义类，并将其自动关联到路由器。这不支持 AOT 编译。</p>
 <pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
 </code></pre>
-<p>上述指令将搜索所有实现 <code>ApiController</code> 的类型，但不包括该类型本身。两个可选参数指示方法将如何搜索这些类型。第一个参数表示将在其中搜索类型的程序集，第二个参数表示定义类型的方式。</p>
+<p>上述指令将搜索所有实现 <code>ApiController</code> 的类型，但不包括类型本身。两个可选参数指示方法将如何搜索这些类型。第一个参数表示将在其中搜索类型的程序集，第二个参数表示定义类型的方式。</p>
 <h2 id="正则路由">正则路由</h2>
 <p>您可以将路由标记为使用正则表达式进行解释，而不是使用默认的 HTTP 路径匹配方法。</p>
 <pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, &quot;My route&quot;, IndexPage, null);
@@ -301,7 +301,7 @@ mainRouter.SetRoute(indexRoute);
 </code></pre>
 <h2 id="路由前缀">路由前缀</h2>
 <p>您可以使用 <a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a> 属性为类或模块中的所有路由添加前缀，并将前缀设置为字符串。</p>
-<p>请参见以下使用 BREAD 体系结构（浏览、读取、编辑、添加和删除）的示例：</p>
+<p>请参阅以下使用 BREAD 架构（浏览、读取、编辑、添加和删除）的示例：</p>
 <div class="script-header">
     <span>
         Controller/Api/UsersController.cs
@@ -349,10 +349,9 @@ public class UsersController
     }
 }
 </code></pre>
-<p>在上面的示例中，<code>HttpResponse</code> 参数已省略，以便通过全局上下文 <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> 使用。请参阅下一节以获取更多信息。</p>
+<p>在上面的示例中，HttpResponse 参数已省略，以便通过全局上下文 <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> 使用。请参阅下一节以获取更多信息。</p>
 <h2 id="无请求参数的路由">无请求参数的路由</h2>
-<p>路由可以在不需要 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 参数的情况下定义，并且仍然可以在请求上下文中获取请求及其组件。</p>
-<p>让我们考虑一个 <code>ControllerBase</code> 抽象，它作为 API 的所有控制器的基础，并且该抽象提供 <code>Request</code> 属性来获取当前线程的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>。</p>
+<p>路由可以在不需要 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> 参数的情况下定义，并且仍然可以在请求上下文中获取请求及其组件。让我们考虑一个 <code>ControllerBase</code> 抽象，它作为 API 的所有控制器的基础，并且该抽象提供 <code>Request</code> 属性来获取当前的 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>。</p>
 <div class="script-header">
     <span>
         Controller/ControllerBase.cs
@@ -366,7 +365,7 @@ public class UsersController
     // 从当前线程获取请求
     public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
     
-    // 下面的行从当前 HTTP 会话获取数据库，或者如果不存在则创建一个新的。
+    // 下面的行从当前 HTTP 会话获取数据库，如果不存在则创建一个新数据库
     public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
 }
 </code></pre>
@@ -396,22 +395,22 @@ public class UsersController : ControllerBase
 </code></pre>
 <p>有关当前上下文和依赖注入的更多详细信息，请参阅 <a href="/docs/cn/features/instancing">依赖注入</a> 教程。</p>
 <h2 id="任意方法路由">任意方法路由</h2>
-<p>您可以定义一个路由，以便仅通过其路径匹配，并跳过 HTTP 方法。这可以在路由回调内部对方法进行验证时很有用。</p>
-<pre><code class="lang-cs">// 将匹配 / 的任何 HTTP 方法
+<p>您可以定义一个路由，使其仅通过其路径匹配，并跳过 HTTP 方法。这对于在路由回调内部执行方法验证可能很有用。</p>
+<pre><code class="lang-cs">// 将匹配任何 HTTP 方法的 /
 mainRouter.SetRoute(RouteMethod.Any, &quot;/&quot;, callbackFunction);
 </code></pre>
 <h2 id="任意路径路由">任意路径路由</h2>
-<p>任意路径路由将测试从 HTTP 服务器接收的任何路径，并且仅限于路由方法。 如果路由方法为 RouteMethod.Any 且路由在其路径表达式中使用 <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>，则此路由将监听来自 HTTP 服务器的所有请求，并且无法定义其他路由。</p>
+<p>任意路径路由测试所有发送到 HTTP 服务器的路径，subject 到路由方法被测试。如果路由方法是 RouteMethod.Any 且路由在其路径表达式中使用 <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a>，则此路由将监听所有发送到 HTTP 服务器的请求，并且不能定义其他路由。</p>
 <pre><code class="lang-cs">// 下面的路由将匹配所有 POST 请求
 mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 </code></pre>
-<h2 id="忽略大小写路由匹配">忽略大小写路由匹配</h2>
-<p>默认情况下，路由与请求的解释是区分大小写的。要使其忽略大小写，请启用此选项：</p>
+<h2 id="忽略路由匹配大小写">忽略路由匹配大小写</h2>
+<p>默认情况下，路由的解释与请求是区分大小写的。要使其忽略大小写，请启用此选项：</p>
 <pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
 </code></pre>
 <p>这也将为使用正则表达式匹配的路由启用 <code>RegexOptions.IgnoreCase</code> 选项。</p>
 <h2 id="未找到404回调处理程序">未找到（404）回调处理程序</h2>
-<p>您可以为请求不匹配任何已知路由时创建自定义回调。</p>
+<p>您可以为找不到任何已知路由的请求创建一个自定义回调。</p>
 <pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
 {
     return new HttpResponse(404)
@@ -424,7 +423,7 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
 };
 </code></pre>
 <h2 id="方法不允许405回调处理程序">方法不允许（405）回调处理程序</h2>
-<p>您还可以为请求匹配其路径但不匹配方法时创建自定义回调。</p>
+<p>您还可以为匹配其路径但不匹配方法的请求创建一个自定义回调。</p>
 <pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
 {
     return new HttpResponse(405)

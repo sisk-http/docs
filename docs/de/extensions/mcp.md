@@ -1,30 +1,28 @@
-# Model Context Protocol
+# Modell-Kontext-Protokoll
 
-Es ist möglich, Anwendungen zu erstellen, die Kontext für Agentenmodelle mithilfe von großen Sprachmodellen (LLMs) über das Paket [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) bereitstellen:
+Es ist möglich, Anwendungen zu erstellen, die Kontext für Agenten-Modelle mit großen Sprachmodellen (LLMs) bereitstellen, indem das [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) Paket verwendet wird:
 
-```bash
-dotnet add package Sisk.ModelContextProtocol
-```
+    dotnet add package Sisk.ModelContextProtocol
 
-Dieses Paket stellt nützliche Klassen und Methoden zur Verfügung, um MCP-Server zu erstellen, die über [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) funktionieren.
+Dieses Paket enthält nützliche Klassen und Methoden zum Erstellen von MCP-Servern, die über [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) funktionieren.
 
 > [!NOTE]
 >
-> Bevor Sie beginnen, beachten Sie, dass dieses Paket in der Entwicklung ist und Verhaltensweisen aufweisen kann, die nicht der Spezifikation entsprechen. Lesen Sie die [Paketdetails](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), um zu erfahren, was sich in der Entwicklung befindet und was noch nicht funktioniert.
+> Bevor Sie beginnen, beachten Sie, dass dieses Paket in Entwicklung ist und Verhaltensweisen aufweisen kann, die nicht der Spezifikation entsprechen. Lesen Sie die [Paketdetails](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), um zu erfahren, was in Entwicklung ist und was noch nicht funktioniert.
 
-## Einstieg mit MCP
+## Erste Schritte mit MCP
 
-Die Klasse [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) ist der Einstiegspunkt zur Definition eines MCP-Servers. Sie ist abstrakt und kann überall definiert werden. Ihre Sisk-Anwendung kann einen oder mehrere MCP-Provider haben.
+Die [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) Klasse ist der Einstiegspunkt für die Definition eines MCP-Servers. Sie ist abstrakt und kann überall definiert werden. Ihre Sisk-Anwendung kann einen oder mehrere MCP-Anbieter haben.
 
 ```csharp
 McpProvider mcp = new McpProvider(
     serverName: "math-server",
-    serverTitle: "Mathematics server",
+    serverTitle: "Mathematik-Server",
     serverVersion: new Version(1, 0));
 
 mcp.Tools.Add(new McpTool(
     name: "math_sum",
-    description: "Sums one or more numbers.",
+    description: "Summiert eine oder mehrere Zahlen.",
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary<string, JsonSchema>()
         {
@@ -32,7 +30,7 @@ mcp.Tools.Add(new McpTool(
                 JsonSchema.CreateArraySchema(
                     itemsSchema: JsonSchema.CreateNumberSchema(),
                     minItems: 1,
-                    description: "The numbers to sum.")
+                    description: "Die Zahlen zur Summierung.")
             }
         },
         requiredProperties: ["numbers"]),
@@ -40,11 +38,11 @@ mcp.Tools.Add(new McpTool(
     {
         var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
         var sum = numbers.Sum();
-        return await Task.FromResult(McpToolResult.CreateText($"Sum result: {sum:N4}"));
+        return await Task.FromResult(McpToolResult.CreateText($"Summiertes Ergebnis: {sum:N4}"));
     }));
 ```
 
-Wenn Ihre Anwendung nur einen MCP-Provider bereitstellen soll, können Sie den Singleton des Builders verwenden:
+Wenn Ihre Anwendung nur einen MCP-Anbieter bereitstellt, können Sie den Singleton des Erstellers verwenden:
 
 ```csharp
 static void Main(string[] args)
@@ -53,11 +51,11 @@ static void Main(string[] args)
         .UseMcp(mcp =>
         {
             mcp.ServerName = "math-server";
-            mcp.ServerTitle = "Mathematics server";
+            mcp.ServerTitle = "Mathematik-Server";
 
             mcp.Tools.Add(new McpTool(
                 name: "math_sum",
-                description: "Sums one or more numbers.",
+                description: "Summiert eine oder mehrere Zahlen.",
                 schema: JsonSchema.CreateObjectSchema(
                     properties: new Dictionary<string, JsonSchema>()
                     {
@@ -65,7 +63,7 @@ static void Main(string[] args)
                             JsonSchema.CreateArraySchema(
                                 itemsSchema: JsonSchema.CreateNumberSchema(),
                                 minItems: 1,
-                                description: "The numbers to sum.")
+                                description: "Die Zahlen zur Summierung.")
                         }
                     },
                     requiredProperties: ["numbers"]),
@@ -73,7 +71,7 @@ static void Main(string[] args)
                 {
                     var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
                     var sum = numbers.Sum();
-                    return await Task.FromResult(McpToolResult.CreateText($"Sum result: {sum:N4}"));
+                    return await Task.FromResult(McpToolResult.CreateText($"Summiertes Ergebnis: {sum:N4}"));
                 }));
         })
         .UseRouter(router =>
@@ -89,9 +87,9 @@ static void Main(string[] args)
 }
 ```
 
-## Erstellen von JSON-Schemas für Funktionen
+## Erstellen von JSON-Schemata für Funktionen
 
-Die Bibliothek [Sisk.ModelContextProtocol] verwendet einen Fork von [LightJson](https://github.com/CypherPotato/LightJson) für JSON- und JSON-Schema-Manipulation. Diese Implementierung bietet einen flüssigen JSON-Schema-Builder für verschiedene Objekte:
+Die [Sisk.ModelContextProtocol] Bibliothek verwendet eine Fork von [LightJson](https://github.com/CypherPotato/LightJson) für JSON- und JSON-Schema-Manipulation. Diese Implementierung bietet einen flüssigen JSON-Schema-Builder für verschiedene Objekte:
 
 - JsonSchema.CreateObjectSchema
 - JsonSchema.CreateArraySchema
@@ -110,7 +108,7 @@ JsonSchema.CreateObjectSchema(
             JsonSchema.CreateArraySchema(
                 itemsSchema: JsonSchema.CreateNumberSchema(),
                 minItems: 1,
-                description: "The numbers to sum.")
+                description: "Die Zahlen zur Summierung.")
         }
     },
     requiredProperties: ["numbers"]);
@@ -128,7 +126,7 @@ Erzeugt das folgende Schema:
         "type": "number"
       },
       "minItems": 1,
-      "description": "The numbers to sum."
+      "description": "Die Zahlen zur Summierung."
     }
   },
   "required": ["numbers"]
@@ -137,70 +135,70 @@ Erzeugt das folgende Schema:
 
 ## Behandlung von Funktionsaufrufen
 
-Die in der `executionHandler`-Parameter von [McpTool](/api/Sisk.ModelContextProtocol.McpTool) definierte Funktion liefert ein JsonObject, das die Aufrufargumente enthält und flüssig gelesen werden kann:
+Die Funktion, die im `executionHandler`-Parameter von [McpTool](/api/Sisk.ModelContextProtocol.McpTool) definiert ist, bietet ein JsonObject, das die Aufrufargumente enthält, das flüssig gelesen werden kann:
 
 ```csharp
 mcp.Tools.Add(new McpTool(
     name: "browser_do_action",
-    description: "Run an browser action, such as scrolling, refreshing or navigating.",
+    description: "Führt eine Browser-Aktion aus, wie z.B. Scrollen, Aktualisieren oder Navigieren.",
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary<string, JsonSchema>()
         {
             { "action_name",
                 JsonSchema.CreateStringSchema(
                     enums: ["go_back", "refresh", "scroll_bottom", "scroll_top"],
-                    description: "The action name.")
+                    description: "Der Name der Aktion.")
             },
             { "action_data",
                 JsonSchema.CreateStringSchema(
-                    description: "Action parameter."
+                    description: "Aktionsparameter."
                 ) }
         },
         requiredProperties: ["action_name"]),
     executionHandler: async (McpToolContext context) =>
     {
-        // read action name. will throw if null or not a explicit string
+        // liest den Aktionennamen. Wirft eine Ausnahme, wenn null oder kein expliziter String
         string actionName = context.Arguments["action_name"].GetString();
         
-        // action_data is defined as non-required, so it may be null here
+        // action_data ist als nicht erforderlich definiert, daher kann es hier null sein
         string? actionData = context.Arguments["action_data"].MaybeNull()?.GetString();
         
-        // Handle the browser action based on the actionName
+        // Behandelt die Browser-Aktion basierend auf dem Aktionennamen
         return await Task.FromResult(
-            McpToolResult.CreateText($"Performed browser action: {actionName}"));
+            McpToolResult.CreateText($"Führte Browser-Aktion aus: {actionName}"));
     }));
 ```
 
-## Funktionsresultate
+## Funktionsergebnisse
 
-Das Objekt [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) bietet drei Methoden zur Erstellung von Inhalten für eine Tool-Antwort:
+Das [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) Objekt bietet drei Methoden zum Erstellen von Inhalten für eine Tool-Antwort:
 
-- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio): erstellt eine audio-basierte Antwort für den MCP-Client.
-- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage): erstellt eine bildbasierte Antwort für den MCP-Client.
-- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText): erstellt eine textbasierte Antwort (Standard) für den MCP-Client.
+- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio): Erstellt eine audio-basierte Antwort für den MCP-Client.
+- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage): Erstellt eine bild-basierte Antwort für den MCP-Client.
+- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText): Erstellt eine text-basierte Antwort (Standard) für den MCP-Client.
 
-Zusätzlich ist es möglich, mehrere verschiedene Inhalte zu einer einzigen JSON-Tool-Antwort zu kombinieren:
+Es ist auch möglich, mehrere verschiedene Inhalte in eine einzelne JSON-Tool-Antwort zu kombinieren:
 
 ```csharp
 mcp.Tools.Add(new McpTool(
     ...
     executionHandler: async (McpToolContext context) =>
     {
-        // simulate real work
+        // simuliert reale Arbeit
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
         
         return McpToolResult.Combine(
-            McpToolResult.CreateText("Heres the screenshot of the browser:"),
+            McpToolResult.CreateText("Hier ist das Screenshot des Browsers:"),
             McpToolResult.CreateImage(browserScreenshot, "image/png")
         )
     }));
 ```
 
-## Weiterarbeit
+## Fortsetzung der Arbeit
 
-Das Model Context Protocol ist ein Kommunikationsprotokoll für Agentenmodelle und Anwendungen, die ihnen Inhalte bereitstellen. Es ist ein neues Protokoll, daher ist es üblich, dass seine Spezifikation ständig mit Deprecations, neuen Features und Breaking Changes aktualisiert wird.
+Das Modell-Kontext-Protokoll ist ein Kommunikationsprotokoll für Agenten-Modelle und Anwendungen, die Inhalte für sie bereitstellen. Es ist ein neues Protokoll, daher ist es üblich, dass seine Spezifikation ständig aktualisiert wird mit Veraltungen, neuen Funktionen und breaking changes.
 
-Es ist entscheidend, die Probleme zu verstehen, die das [Model Context Protocol](https://modelcontextprotocol.io/docs/de/getting-started/intro) löst, bevor man mit dem Aufbau von Agentenanwendungen beginnt.
+Es ist wichtig, die Probleme zu verstehen, die das [Modell-Kontext-Protokoll](https://modelcontextprotocol.io/docs/de/getting-started/intro) löst, bevor Sie beginnen, Agenten-Anwendungen zu erstellen.
 
-Lesen Sie auch die Spezifikation des Pakets [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol), um dessen Fortschritt, Status und mögliche Einsatzmöglichkeiten zu verstehen.
+Lesen Sie auch die Spezifikation des [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) Pakets, um seinen Fortschritt, Status und was damit gemacht werden kann, zu verstehen.

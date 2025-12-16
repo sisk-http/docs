@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="konfiguration-von-namensraumreservierungen-auf-windows">Konfiguration von Namensraumreservierungen auf Windows</h1>
 
-<p>Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu empfangen.</p>
-<p>Unter Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn man versucht, auf einen anderen Host zuzugreifen, wird auf dem Server ein Zugriffsverweigerungsfehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jeden Host auf dem System zuzuhören, den man möchte.</p>
+<p>Sisk arbeitet mit der HttpListener-Netzwerkschnittstelle, die einen virtuellen Host an das System bindet, um Anfragen zu hören.</p>
+<p>Auf Windows ist diese Bindung ein bisschen restriktiv und erlaubt nur localhost als gültigen Host. Wenn versucht wird, einem anderen Host zuzuhören, wird auf dem Server ein Zugriff verweigert-Fehler ausgelöst. Dieses Tutorial erklärt, wie man die Autorisierung erteilt, um auf jedem Host zuzuhören, den man auf dem System möchte.</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -176,7 +176,7 @@ netsh http add urlacl url=%PREFIX% user=%DOMAIN%
 
 pause
 </code></pre>
-<p>Wo <code>PREFIX</code> das Präfix (&quot;Zuhör-Host-&gt;Port&quot;) ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert sein, Beispiel:</p>
+<p>Wo <code>PREFIX</code> das Präfix (&quot;Zuhör-Host-&gt;Port&quot;) ist, auf das der Server hört. Es muss im URL-Schema, Host, Port und einem Schrägstrich am Ende formatiert werden, Beispiel:</p>
 <div class="script-header">
     <span>
         Namespace Setup.bat
@@ -187,7 +187,7 @@ pause
 </div>
 <pre><code class="lang-bat">SET PREFIX=http://my-anwendung.example.test/
 </code></pre>
-<p>Damit Sie in Ihrer Anwendung über Folgendes zugehört werden können:</p>
+<p>Damit Sie in Ihrer Anwendung über gehört werden können:</p>
 <div class="script-header">
     <span>
         Program.cs

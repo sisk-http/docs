@@ -1,6 +1,6 @@
 # Configuração INI
 
-O Sisk tem um método para obter configurações de inicialização além do JSON. Na verdade, qualquer pipeline que implemente [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) pode ser usado com [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder), lendo a configuração do servidor de qualquer tipo de arquivo.
+Sisk tem um método para obter configurações de inicialização além do JSON. Na verdade, qualquer pipeline que implemente [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) pode ser usado com [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder), lendo a configuração do servidor de qualquer tipo de arquivo.
 
 O pacote [Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) fornece um leitor de arquivos INI baseado em fluxo que não lança exceções para erros de sintaxe comuns e tem uma sintaxe de configuração simples. Esse pacote pode ser usado fora do framework Sisk, oferecendo flexibilidade para projetos que requerem um leitor de documentos INI eficiente.
 
@@ -12,7 +12,7 @@ Para instalar o pacote, você pode começar com:
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-Você também pode instalar o pacote core, que não inclui o [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader) INI, nem a dependência do Sisk, apenas os serializadores INI:
+Você também pode instalar o pacote principal, que não inclui o [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader) INI, nem a dependência do Sisk, apenas os serializadores INI:
 
 ```bash
 $ dotnet add package Sisk.IniConfiguration.Core
@@ -24,7 +24,7 @@ Com o pacote principal, você pode usá-lo em seu código como mostrado no exemp
 class Program
 {
     static HttpServerHostContext Host = null!;
-    
+
     static void Main(string[] args)
     {
         Host = HttpServer.CreateBuilder()
@@ -81,15 +81,15 @@ Implementação atual do sabor:
 - Comentários são suportados com `#` e `;`. Além disso, **comentários de tralha são permitidos**.
 - Propriedades podem ter múltiplos valores.
 
-Em detalhe, a documentação para o "sabor" do analisador INI usado no Sisk está [disponível neste documento](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
+Em detalhes, a documentação para o "sabor" do analisador INI usado no Sisk está [disponível neste documento](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
 
 Usando o seguinte código INI como exemplo:
 
 ```ini
 One = 1
-Value = este é um valor
-Another value = "este valor
-    tem uma quebra de linha nele"
+Value = this is an value
+Another value = "this value
+    has an line break on it"
 
 ; o código abaixo tem algumas cores
 [some section]
@@ -121,12 +121,12 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 | `Server.MaximumContentLength` | Não | O tamanho máximo do conteúdo em bytes. |
 | `Server.IncludeRequestIdHeader` | Não | Especifica se o servidor HTTP deve enviar o cabeçalho X-Request-Id. |
 | `Server.ThrowExceptions` | Não |  Especifica se as exceções não tratadas devem ser lançadas.  |
-| `Server.AccessLogsStream` | Não |  Especifica o fluxo de saída do log de acesso. |
-| `Server.ErrorsLogsStream` | Não |  Especifica o fluxo de saída do log de erros. |
-| `Cors.AllowMethods` | Não |  Especifica o valor do cabeçalho Allow-Methods CORS. |
-| `Cors.AllowHeaders` | Não |  Especifica o valor do cabeçalho Allow-Headers CORS. |
+| `Server.AccessLogsStream` | Não |  Especifica o fluxo de saída de logs de acesso. |
+| `Server.ErrorsLogsStream` | Não |  Especifica o fluxo de saída de logs de erros. |
+| `Cors.AllowMethods` | Não |  Especifica o valor do cabeçalho CORS Allow-Methods. |
+| `Cors.AllowHeaders` | Não |  Especifica o valor do cabeçalho CORS Allow-Headers. |
 | `Cors.AllowOrigins` | Não |  Especifica múltiplos cabeçalhos Allow-Origin, separados por vírgulas. [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) para mais informações. |
 | `Cors.AllowOrigin` | Não |  Especifica um cabeçalho Allow-Origin. |
-| `Cors.ExposeHeaders` | Não |  Especifica o valor do cabeçalho Expose-Headers CORS. |
-| `Cors.AllowCredentials` | Não |  Especifica o valor do cabeçalho Allow-Credentials CORS. |
-| `Cors.MaxAge` | Não |  Especifica o valor do cabeçalho Max-Age CORS. |
+| `Cors.ExposeHeaders` | Não |  Especifica o valor do cabeçalho CORS Expose-Headers. |
+| `Cors.AllowCredentials` | Não |  Especifica o valor do cabeçalho CORS Allow-Credentials. |
+| `Cors.MaxAge` | Não |  Especifica o valor do cabeçalho CORS Max-Age.

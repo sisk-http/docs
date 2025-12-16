@@ -12,7 +12,7 @@ dotnet add package Sisk.JsonRpc
 
 JSON-RPC 是一种无状态、异步的远程过程调用（RDP）协议，使用 JSON 进行单向数据通信。JSON-RPC 请求通常由一个 ID 标识，响应由相同的 ID 发送。并非所有请求都需要响应，这些被称为“通知”。
 
-[JSON-RPC 2.0 规范](https://www.jsonrpc.org/specification) 详细解释了传输的工作原理。该传输与其使用位置无关。Sisk 通过 HTTP 实现该协议，遵循 [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) 的规定，部分支持 GET 请求，完全支持 POST 请求。WebSockets 也被支持，提供异步消息通信。
+[JSON-RPC 2.0 规范](https://www.jsonrpc.org/specification) 详细解释了传输的工作原理。该传输与其使用位置无关。Sisk 通过 HTTP 实现了该协议，遵循 [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) 的规定，部分支持 GET 请求，完全支持 POST 请求。WebSockets 也被支持，提供异步消息通信。
 
 JSON-RPC 请求类似于：
 
@@ -25,7 +25,7 @@ JSON-RPC 请求类似于：
 }
 ```
 
-成功响应类似于：
+成功的响应类似于：
 
 ```json
 {
@@ -100,11 +100,11 @@ public class MathOperations
 }
 ```
 
-上面的示例将 `Sum` 和 `Sqrt` 方法映射到 JSON-RPC 处理器，这些方法将在 `GET /service`、`POST /service` 和 `GET /ws` 中可用。方法名称不区分大小写。
+上述示例将 `Sum` 和 `Sqrt` 方法映射到 JSON-RPC 处理器，这些方法将在 `GET /service`、`POST /service` 和 `GET /ws` 中可用。方法名称不区分大小写。
 
-方法参数将自动反序列化为其特定类型。使用带有命名参数的请求也是支持的。JSON 序列化由 [LightJson](https://github.com/CypherPotato/LightJson) 库执行。当类型不能正确反序列化时，您可以为该类型创建一个特定的 [JSON 转换器](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) 并稍后将其与 [JsonSerializerOptions](?) 关联起来。
+方法参数将自动反序列化为其特定类型。支持使用命名参数的请求。JSON 序列化由 [LightJson](https://github.com/CypherPotato/LightJson) 库执行。当类型不能正确反序列化时，您可以为该类型创建一个特定的 [JSON 转换器](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) 并稍后将其与 [JsonSerializerOptions](?) 关联起来。
 
-您还可以直接在方法中获取 JSON-RPC 请求的原始 `$.params` 对象。
+您还可以直接在方法中获取 JSON-RPC 请求的 `$.params` 原始对象。
 
 <div class="script-header">
     <span>
@@ -123,9 +123,9 @@ public float Sum(JsonArray|JsonObject @params)
 }
 ```
 
-为此，`@params` 必须是方法中唯一的参数，且名称必须为 `params`（在 C# 中，`@` 用于转义此参数名称）。
+为了实现这一点，`@params` 必须是方法中唯一的参数，且其名称必须为 `params`（在 C# 中，`@` 符号用于转义此参数名称）。
 
-参数反序列化适用于命名对象和位置数组。例如，以下方法可以通过以下两种请求调用：
+参数反序列化适用于命名对象和位置数组。例如，以下方法可以通过以下两种请求远程调用：
 
 ```csharp
 [WebMethod]
@@ -158,7 +158,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 
 ## 自定义序列化器
 
-您可以在 [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) 属性中自定义 JSON 序列化器。在此属性中，您可以启用 [JSON5](https://json5.org/) 以用于反序列化消息。虽然这不是 JSON-RPC 2.0 的一部分，但 JSON5 是 JSON 的一个扩展，允许更易读和更具可读性的写作。
+您可以在 [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) 属性中自定义 JSON 序列化器。在此属性中，您可以启用 [JSON5](https://json5.org/) 以用于反序列化消息。虽然这不是 JSON-RPC 2.0 的一部分，但 JSON5 是 JSON 的一个扩展，允许更易读和更具可读性的写法。
 
 <div class="script-header">
     <span>
@@ -173,11 +173,11 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 
-        // 使用一个标准化的名称比较器。该比较器仅比较名称中的字母和数字，并丢弃其他符号。例如：
+        // 使用一个标准化的名称比较器。该比较器仅比较名称中的字母和数字，忽略其他符号。例如：
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // 启用 JSON5 以用于 JSON 解释器。即使激活此选项，普通 JSON 仍然被允许
+        // 启用 JSON5 用于 JSON 解释器。即使激活此选项，普通 JSON 仍然被允许
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
         // 将 POST /service 路由映射到 JSON-RPC 处理器

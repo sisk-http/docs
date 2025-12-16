@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Manuel (erweitert) Setup | Sisk </title>
+        <title>Manuel (erweitert) Einrichten | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Manuel (erweitert) Setup | Sisk ">
+        <meta name="title" content="Manuel (erweitert) Einrichten | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,9 +154,9 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="manuel-erweitert-setup">Manuel (erweitert) Setup</h1>
+<h1 id="manuel-erweitert-einrichten">Manuel (erweitert) Einrichten</h1>
 
-<p>In diesem Abschnitt erstellen wir unseren HTTP-Server ohne vordefinierte Standards, auf eine völlig abstrakte Weise. Hier können Sie manuell aufbauen, wie Ihr HTTP-Server funktionieren wird. Jeder ListeningHost hat einen Router und ein HTTP-Server kann mehrere ListeningHosts haben, die jeweils auf einen anderen Host auf einem anderen Port zeigen.</p>
+<p>In diesem Abschnitt erstellen wir unseren HTTP-Server ohne vordefinierte Standards, auf eine völlig abstrakte Weise. Hier können Sie Ihren HTTP-Server manuell aufbauen. Jeder ListeningHost hat einen Router und ein HTTP-Server kann mehrere ListeningHosts haben, die jeweils auf einen anderen Host auf einem anderen Port verweisen.</p>
 <p>Zunächst müssen wir das Konzept von Anfrage/Antwort verstehen. Es ist ziemlich einfach: für jede Anfrage muss es eine Antwort geben. Sisk folgt diesem Prinzip auch. Lassen Sie uns eine Methode erstellen, die mit einer &quot;Hallo, Welt!&quot;-Nachricht in HTML antwortet, wobei der Statuscode und die Header angegeben werden.</p>
 <pre><code class="lang-csharp">// Program.cs
 using Sisk.Core.Http;
@@ -181,18 +181,18 @@ static HttpResponse IndexPage(HttpRequest request)
 </code></pre>
 <p>Der nächste Schritt ist, diese Methode mit einer HTTP-Route zu verknüpfen.</p>
 <h2 id="router">Router</h2>
-<p>Router sind Abstraktionen von Anfrage-Routen und dienen als Brücke zwischen Anfragen und Antworten für den Dienst. Router verwalten Dienst-Routen, Funktionen und Fehler.</p>
-<p>Ein Router kann mehrere Routen haben und jede Route kann unterschiedliche Operationen auf diesem Pfad ausführen, wie z.B. die Ausführung einer Funktion, das Servieren einer Seite oder die Bereitstellung einer Ressource vom Server.</p>
+<p>Router sind Abstraktionen von Anfrage-Routen und dienen als Brücke zwischen Anfragen und Antworten für den Dienst. Router verwalten Dienstrouten, Funktionen und Fehler.</p>
+<p>Ein Router kann mehrere Routen haben und jede Route kann unterschiedliche Operationen auf diesem Pfad ausführen, wie z.B. die Ausführung einer Funktion, das Bereitstellen einer Seite oder das Bereitstellen einer Ressource vom Server.</p>
 <p>Lassen Sie uns unseren ersten Router erstellen und unsere <code>IndexPage</code>-Methode mit dem Index-Pfad verknüpfen.</p>
 <pre><code class="lang-csharp">Router mainRouter = new Router();
 
 // SetRoute wird alle Index-Routen mit unserer Methode verknüpfen.
 mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
 </code></pre>
-<p>Jetzt kann unser Router Anfragen empfangen und Antworten senden. Allerdings ist <code>mainRouter</code> nicht an einen Host oder einen Server gebunden, daher wird er nicht alleine funktionieren. Der nächste Schritt ist, unseren ListeningHost zu erstellen.</p>
+<p>Jetzt kann unser Router Anfragen empfangen und Antworten senden. Allerdings ist <code>mainRouter</code> nicht an einen Host oder einen Server gebunden, daher funktioniert er nicht selbstständig. Der nächste Schritt ist, unseren ListeningHost zu erstellen.</p>
 <h2 id="listening-hosts-und-ports">Listening Hosts und Ports</h2>
-<p>Ein <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> kann einen Router und mehrere Listening-Ports für denselben Router hosten. Ein <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> ist ein Präfix, an dem der HTTP-Server zuhört.</p>
-<p>Hier können wir einen <code>ListeningHost</code> erstellen, der auf zwei Endpunkte für unseren Router zeigt:</p>
+<p>Ein <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> kann einen Router und mehrere Listening-Ports für denselben Router hosten. Ein <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> ist ein Präfix, an dem der HTTP-Server lauscht.</p>
+<p>Hier können wir einen <code>ListeningHost</code> erstellen, der auf zwei Endpunkte für unseren Router verweist:</p>
 <pre><code class="lang-csharp">ListeningHost myHost = new ListeningHost
 {
     Router = new Router(),
@@ -202,7 +202,7 @@ mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
     }
 };
 </code></pre>
-<p>Jetzt wird unser HTTP-Server auf den angegebenen Endpunkten zuhören und seine Anfragen an unseren Router weiterleiten.</p>
+<p>Jetzt wird unser HTTP-Server auf den angegebenen Endpunkten lauschen und seine Anfragen an unseren Router weiterleiten.</p>
 <h2 id="server-konfiguration">Server-Konfiguration</h2>
 <p>Die Server-Konfiguration ist für das meiste Verhalten des HTTP-Servers selbst verantwortlich. In dieser Konfiguration können wir <code>ListeningHosts</code> mit unserem Server verknüpfen.</p>
 <pre><code class="lang-csharp">HttpServerConfiguration config = new HttpServerConfiguration();

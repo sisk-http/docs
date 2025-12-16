@@ -4,14 +4,14 @@
 
 最后，什么是 Sisk Framework？它是一个开源的轻量级库，使用 .NET 构建，旨在成为最小化、灵活和抽象的。它允许开发人员快速创建互联网服务，几乎不需要任何配置。Sisk 使您的现有应用程序能够拥有一个托管的 HTTP 模块，完整且可丢弃。
 
-Sisk 的价值观包括代码透明度、模块化、性能和可扩展性，并且可以处理各种类型的应用程序，例如 Restful、JSON-RPC、Web-sockets 等。
+Sisk 的价值包括代码透明度、模块化、性能和可扩展性，并且可以处理各种类型的应用程序，例如 Restful、JSON-RPC、Web-sockets 等。
 
 其主要功能包括：
 
 | 资源 | 描述 |
 | ------- | --------- |
 | [路由](/docs/cn/fundamentals/routing) | 支持前缀、自定义方法、路径变量、值转换器等的路径路由器。 |
-| [请求处理器](/docs/cn/fundamentals/request-handlers) | 也称为中间件，提供一个接口来构建自己的请求处理器，与请求之前或之后的操作一起工作。 |
+| [请求处理器](/docs/cn/fundamentals/request-handlers) | 也称为中间件，提供一个接口来构建自己的请求处理器，与请求一起工作。 |
 | [压缩](/docs/cn/fundamentals/responses#gzip-deflate-and-brotli-compression) | 使用 Sisk轻松压缩响应内容。 |
 | [Web sockets](/docs/cn/features/websockets) | 提供接受完整 Web sockets 的路由，用于读取和写入客户端。 |
 | [服务器发送事件](/docs/cn/features/server-sent-events) | 提供向支持 SSE 协议的客户端发送服务器事件的功能。 |
@@ -83,7 +83,7 @@ class Program
 }
 ```
 
-了解 Sisk 的每个重要组件至关重要。稍后在本文档中，您将了解更多关于 Sisk 工作原理的信息。
+了解 Sisk 的每个重要组件至关重要。稍后在本文档中，您将了解更多关于 Sisk 的工作原理。
 
 ## 手动（高级）设置
 

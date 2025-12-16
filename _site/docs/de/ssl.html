@@ -156,14 +156,14 @@
                 <article data-uid="">
 <h1 id="arbeiten-mit-ssl">Arbeiten mit SSL</h1>
 
-<p>Arbeiten mit SSL für die Entwicklung kann erforderlich sein, wenn man in Kontexten arbeitet, die Sicherheit erfordern, wie die meisten Webentwicklungsszenarien. Sisk läuft auf HttpListener, das kein natives HTTPS unterstützt, sondern nur HTTP. Es gibt jedoch Umgehungslösungen, die es ermöglichen, mit SSL in Sisk zu arbeiten. Siehe sie unten:</p>
-<h2 id="durch-die-siskcadentecoreengine">Durch die Sisk.Cadente.CoreEngine</h2>
+<p>Arbeiten mit SSL für die Entwicklung kann notwendig sein, wenn in Kontexten gearbeitet wird, die Sicherheit erfordern, wie in den meisten Webentwicklungsszenarien. Sisk operiert auf Basis von HttpListener, der keine native HTTPS-Unterstützung bietet, sondern nur HTTP. Es gibt jedoch Umgehungen, die es ermöglichen, mit SSL in Sisk zu arbeiten. Siehe sie unten:</p>
+<h2 id="über-den-siskcadentecoreengine">Über den Sisk.Cadente.CoreEngine</h2>
 <ul>
 <li>Verfügbar auf: Linux, macOS, Windows</li>
 <li>Aufwand: einfach</li>
 </ul>
-<p>Es ist möglich, die experimentelle <strong>Cadente</strong>-Engine in Sisk-Projekten zu verwenden, ohne zusätzliche Konfiguration auf dem Computer oder im Projekt zu benötigen. Sie müssen das Paket <code>Sisk.Cadente.CoreEngine</code> in Ihrem Projekt installieren, um den Cadente-Server im Sisk-Server nutzen zu können.</p>
-<p>Um SSL zu konfigurieren, können Sie die Methoden <code>UseSsl</code> und <code>UseEngine</code> des Builders verwenden:</p>
+<p>Es ist möglich, den experimentellen <strong>Cadente</strong>-Engine in Sisk-Projekten zu verwenden, ohne dass eine zusätzliche Konfiguration auf dem Computer oder im Projekt erforderlich ist. Sie müssen das <code>Sisk.Cadente.CoreEngine</code>-Paket in Ihrem Projekt installieren, um den Cadente-Server im Sisk-Server verwenden zu können.</p>
+<p>Um SSL zu konfigurieren, können Sie die <code>UseSsl</code>- und <code>UseEngine</code>-Methoden des Builders verwenden:</p>
 <pre><code class="lang-csharp">using var http = HttpServer.CreateBuilder()
     .UseEngine&lt;CadenteHttpServerEngine&gt;()
     .UseSsl(CertificateHelper.CreateTrustedDevelopmentCertificate(&quot;localhost&quot;))
@@ -171,46 +171,46 @@
 <blockquote>
 <p>Hinweis: Dieses Paket befindet sich noch in der experimentellen Phase.</p>
 </blockquote>
-<h2 id="durch-iis-unter-windows">Durch IIS unter Windows</h2>
+<h2 id="über-iis-auf-windows">Über IIS auf Windows</h2>
 <ul>
 <li>Verfügbar auf: Windows</li>
 <li>Aufwand: mittel</li>
 </ul>
-<p>Wenn Sie unter Windows sind, können Sie IIS verwenden, um SSL auf Ihrem HTTP-Server zu aktivieren. Dafür ist es ratsam, vorher <a href="/docs/de/registering-namespace">dieses Tutorial</a> zu befolgen, wenn Sie möchten, dass Ihre Anwendung auf einem Host als „localhost“ lauscht.</p>
-<p>Um dies zum Laufen zu bringen, müssen Sie IIS über Windows-Features installieren. IIS ist kostenlos für Windows- und Windows Server-Benutzer verfügbar. Um SSL in Ihrer Anwendung zu konfigurieren, haben Sie das SSL-Zertifikat bereit, auch wenn es selbstsigniert ist. Anschließend können Sie <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">wie man SSL auf IIS 7 oder höher einrichtet</a> sehen.</p>
-<h2 id="durch-mitmproxy">Durch mitmproxy</h2>
+<p>Wenn Sie auf Windows sind, können Sie IIS verwenden, um SSL auf Ihrem HTTP-Server zu aktivieren. Es wird empfohlen, dass Sie diesem <a href="/docs/de/registering-namespace">Tutorial</a> vorher folgen, wenn Sie möchten, dass Ihre Anwendung auf einem anderen Host als &quot;localhost&quot; hört.</p>
+<p>Damit dies funktioniert, müssen Sie IIS über die Windows-Funktionen installieren. IIS ist für Windows- und Windows-Server-Benutzer kostenlos verfügbar. Um SSL in Ihrer Anwendung zu konfigurieren, müssen Sie das SSL-Zertifikat bereit haben, auch wenn es selbstsigniert ist. Anschließend können Sie sehen, <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">wie Sie SSL auf IIS 7 oder höher einrichten</a>.</p>
+<h2 id="über-mitmproxy">Über mitmproxy</h2>
 <ul>
 <li>Verfügbar auf: Linux, macOS, Windows</li>
 <li>Aufwand: einfach</li>
 </ul>
-<p><strong>mitmproxy</strong> ist ein Interzeptions-Proxy-Tool, das Entwicklern und Sicherheitstestern ermöglicht, HTTP- und HTTPS-Verkehr zwischen einem Client (wie einem Webbrowser) und einem Server zu inspizieren, zu modifizieren und aufzuzeichnen. Sie können das <strong>mitmdump</strong>-Utility verwenden, um einen Reverse-SSL-Proxy zwischen Ihrem Client und Ihrer Sisk-Anwendung zu starten.</p>
+<p><strong>mitmproxy</strong> ist ein Interceptions-Proxy-Tool, das es Entwicklern und Sicherheitstestern ermöglicht, HTTP- und HTTPS-Verkehr zwischen einem Client (wie einem Webbrowser) und einem Server zu überwachen, zu modifizieren und aufzuzeichnen. Sie können die <strong>mitmdump</strong>-Utility verwenden, um einen Reverse-SSL-Proxy zwischen Ihrem Client und Ihrer Sisk-Anwendung zu starten.</p>
 <ol>
-<li>Installieren Sie zunächst <a href="https://mitmproxy.org/">mitmproxy</a> auf Ihrem Rechner.</li>
-<li>Starten Sie Ihre Sisk-Anwendung. Für dieses Beispiel verwenden wir Port 8000 als unsicheren HTTP-Port.</li>
-<li>Starten Sie den mitmproxy-Server, um auf dem sicheren Port 8001 zu lauschen:</li>
+<li>Zuerst installieren Sie <a href="https://mitmproxy.org/">mitmproxy</a> auf Ihrem Computer.</li>
+<li>Starten Sie Ihre Sisk-Anwendung. In diesem Beispiel verwenden wir Port 8000 als unsicheren HTTP-Port.</li>
+<li>Starten Sie den mitmproxy-Server, um auf dem sicheren Port 8001 zu hören:</li>
 </ol>
 <pre><code class="lang-sh">mitmdump --mode reverse:http://localhost:8000/ -p 8001
 </code></pre>
-<p>Und Sie sind bereit! Sie können Ihre Anwendung bereits über <code>https://localhost:8001/</code> aufrufen. Ihre Anwendung muss nicht laufen, damit Sie <code>mitmdump</code> starten.</p>
-<p>Alternativ können Sie Ihrem Projekt einen Verweis auf den <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy-Helfer</a> hinzufügen. Dies erfordert jedoch, dass mitmproxy auf Ihrem Computer installiert ist.</p>
-<h2 id="durch-das-sisksslproxy-paket">Durch das Sisk.SslProxy-Paket</h2>
+<p>Und Sie sind bereit! Sie können bereits auf Ihre Anwendung über <code>https://localhost:8001/</code> zugreifen. Ihre Anwendung muss nicht laufen, um <code>mitmdump</code> zu starten.</p>
+<p>Alternativ können Sie einen Verweis auf die <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy">mitmproxy-Hilfe</a> in Ihrem Projekt hinzufügen. Dies erfordert jedoch, dass mitmproxy auf Ihrem Computer installiert ist.</p>
+<h2 id="über-das-sisksslproxy-paket">Über das Sisk.SslProxy-Paket</h2>
 <ul>
 <li>Verfügbar auf: Linux, macOS, Windows</li>
 <li>Aufwand: einfach</li>
 </ul>
-<div class="IMPORTANT">
-<h5>Important</h5>
-<p>Das Sisk.SslProxy-Paket ist in der Favoritenliste zugunsten des Pakets <code>Sisk.Cadente.CoreEngine</code> veraltet und wird nicht mehr gepflegt.</p>
-</div>
-<p>Das Sisk.SslProxy-Paket ist ein einfacher Weg, SSL in Ihrer Sisk-Anwendung zu aktivieren. Es ist jedoch ein <strong>extrem experimentelles</strong> Paket. Es kann instabil sein, mit diesem Paket zu arbeiten, aber Sie können Teil des kleinen Prozentsatzes von Personen sein, die dazu beitragen, dieses Paket funktionsfähig und stabil zu machen. Um loszulegen, können Sie das Sisk.SslProxy-Paket mit installieren:</p>
+<blockquote>
+<p>[!WICHTIG]</p>
+<p>Das Sisk.SslProxy-Paket ist veraltet und wird nicht mehr unterstützt. Stattdessen wird das <code>Sisk.Cadente.CoreEngine</code>-Paket empfohlen.</p>
+</blockquote>
+<p>Das Sisk.SslProxy-Paket ist eine einfache Möglichkeit, SSL auf Ihrer Sisk-Anwendung zu aktivieren. Es handelt sich jedoch um ein <strong>extrem experimentelles</strong> Paket. Es kann instabil sein, mit diesem Paket zu arbeiten, aber Sie können Teil der kleinen Gruppe von Menschen sein, die dazu beitragen, dieses Paket lebensfähig und stabil zu machen. Um loszulegen, können Sie das Sisk.SslProxy-Paket mit installieren:</p>
 <pre><code class="lang-sh">dotnet add package Sisk.SslProxy
 </code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Sie müssen „Include prerelease“ im Visual Studio Package Manager aktivieren, um Sisk.SslProxy zu installieren.</p>
-</div>
-<p>Nochmals: Es ist ein experimentelles Projekt, also denken Sie nicht einmal daran, es in Produktion zu bringen.</p>
-<p>Derzeit kann Sisk.SslProxy die meisten HTTP/1.1-Funktionen verarbeiten, einschließlich HTTP Continue, Chunked-Encoding, WebSockets und SSE. Lesen Sie mehr über SslProxy <a href="/docs/de/extensions/ssl-proxy">hier</a>.</p>
+<blockquote>
+<p>[!HINWEIS]</p>
+<p>Sie müssen &quot;Vorabversionen einbeziehen&quot; im Visual Studio-Paket-Manager aktivieren, um Sisk.SslProxy zu installieren.</p>
+</blockquote>
+<p>Es handelt sich erneut um ein experimentelles Projekt, also sollten Sie nicht einmal daran denken, es in die Produktion zu übernehmen.</p>
+<p>Derzeit kann Sisk.SslProxy die meisten HTTP/1.1-Features verarbeiten, einschließlich HTTP-Continue, Chunked-Encoding, WebSockets und SSE. Lesen Sie mehr über SslProxy <a href="/docs/de/extensions/ssl-proxy">hier</a>.</p>
 
 </article>
 

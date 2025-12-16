@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configura&#231;&#227;o de v&#225;rios hosts | Sisk </title>
+        <title>M&#250;ltiplos hosts de escuta por servidor | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configura&#231;&#227;o de v&#225;rios hosts | Sisk ">
+        <meta name="title" content="M&#250;ltiplos hosts de escuta por servidor | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,11 +154,11 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="configuração-de-vários-hosts">Configuração de vários hosts</h1>
+<h1 id="múltiplos-hosts-de-escuta-por-servidor">Múltiplos hosts de escuta por servidor</h1>
 
-<p>O Sisk Framework sempre suportou o uso de mais de um host por servidor, ou seja, um único servidor HTTP pode escutar em múltiplos portas e cada porta possui seu próprio roteador e seu próprio serviço em execução nela.</p>
-<p>Isso facilita a separação de responsabilidades e a gestão de serviços em um único servidor HTTP com o Sisk. O exemplo abaixo mostra a criação de dois ListeningHosts, cada um escutando em uma porta diferente, com roteadores e ações diferentes.</p>
-<p>Leia <a href="/v1/getting-started.md#manually-creating-your-app">criação manual do seu aplicativo</a> para entender os detalhes sobre essa abstração.</p>
+<p>O Sisk Framework sempre suportou o uso de mais de um host por servidor, ou seja, um único servidor HTTP pode escutar em múltiplas portas e cada porta tem seu próprio roteador e seu próprio serviço executando nela.</p>
+<p>Dessa forma, é fácil separar responsabilidades e gerenciar serviços em um único servidor HTTP com o Sisk. O exemplo abaixo mostra a criação de dois ListeningHosts, cada um escutando em uma porta diferente, com roteadores e ações diferentes.</p>
+<p>Leia <a href="/v1/getting-started.md#manually-creating-your-app">criando seu aplicativo manualmente</a> para entender os detalhes sobre essa abstração.</p>
 <pre><code class="lang-cs">static void Main(string[] args)
 {
     // criar dois hosts de escuta, cada um com seu próprio roteador e
@@ -174,22 +174,23 @@
     hostB.Router = new Router();
     hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Olá do host B!&quot;));
 
-    // criar uma configuração do servidor e adicionar ambos
+    // criar uma configuração de servidor e adicionar ambos
     // os hosts de escuta nela
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // cria um servidor HTTP que usa a configuração especificada
+    // criar um servidor HTTP que usa a configuração
+    // especificada
     //
     HttpServer server = new HttpServer(configuration);
 
-    // inicia o servidor
+    // iniciar o servidor
     server.Start();
 
-    Console.WriteLine(&quot;Tente acessar o host A em {0}&quot;, server.ListeningPrefixes[0]);
-    Console.WriteLine(&quot;Tente acessar o host B em {0}&quot;, server.ListeningPrefixes[1]);
+    Console.WriteLine(&quot;Tente alcançar o host A em {0}&quot;, server.ListeningPrefixes[0]);
+    Console.WriteLine(&quot;Tente alcançar o host B em {0}&quot;, server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

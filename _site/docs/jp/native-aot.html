@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ネイティブAOTサポート | Sisk </title>
+        <title>ネイティブAOTのサポート | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="ネイティブAOTサポート | Sisk ">
+        <meta name="title" content="ネイティブAOTのサポート | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -154,19 +154,19 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ネイティブaotサポート">ネイティブAOTサポート</h1>
+<h1 id="ネイティブaotのサポート">ネイティブAOTのサポート</h1>
 
 <p><a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">.NET Native AOT</a>を使用すると、.NETランタイムがターゲットホストにインストールされていない場合でも、自己完結型のネイティブ.NETアプリケーションを公開できます。さらに、ネイティブAOTでは以下のような利点があります：</p>
 <ul>
 <li>アプリケーションのサイズが大幅に小さくなる</li>
-<li>初期化が大幅に高速化する</li>
+<li>初期化が大幅に高速化される</li>
 <li>メモリ消費量が低くなる</li>
 </ul>
 <p>Sisk Frameworkは、明示的な性質により、ほとんどの機能でネイティブAOTを使用できます。ソースコードをネイティブAOTに適応させるためのリワークは不要です。</p>
 <h2 id="サポートされていない機能">サポートされていない機能</h2>
-<p>ただし、Siskは一部の機能で反射を使用しています。以下に記載されている機能は、ネイティブコード実行中に部分的に利用可能または完全に利用不可になる可能性があります：</p>
+<p>ただし、Siskは、一部の機能で最小限のリフレクションを使用しています。以下に記載されている機能は、ネイティブコードの実行中に部分的に利用可能または完全に利用不可になる可能性があります：</p>
 <ul>
-<li><a href="/api/Sisk.Core.Routing.Router.AutoScanModules">モジュールの自動スキャン</a> of the router: このリソースは、実行中のアセンブリに埋め込まれた型をスキャンし、<a href="/docs/jp/fundamentals/routing">ルーターモジュール</a>である型を登録します。このリソースでは、アセンブリトリミング中に除外される可能性のある型が必要です。</li>
+<li><a href="/api/Sisk.Core.Routing.Router.AutoScanModules">モジュールの自動スキャン</a> of the router: このリソースは、実行中のアセンブリに埋め込まれた型をスキャンし、<a href="/docs/jp/fundamentals/routing">ルーターモジュール</a>である型を登録します。このリソースでは、アセンブリのトリミング中に除外される可能性のある型が必要です。</li>
 </ul>
 <p>Siskの他のすべての機能はAOTと互換性があります。AOT警告を出すメソッドが見つかることがありますが、ここに記載されていない場合は、型、パラメーター、または型情報を渡すオーバーロードがあり、AOTコンパイラがオブジェクトをコンパイルするのを支援します。</p>
 

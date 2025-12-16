@@ -156,7 +156,7 @@
                 <article data-uid="">
 <h1 id="ini-構成プロバイダー">INI 構成プロバイダー</h1>
 
-<p>Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、<a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> を実装する任意のパイプラインを使用して、<a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> でサーバー構成を任意のファイル タイプから読み取ることができます。</p>
+<p>Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、<a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> を実装する任意のパイプラインを使用して、<a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> でサーバーの構成を任意のファイル タイプから読み取ることができます。</p>
 <p><a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> パッケージでは、共通の構文エラーに対して例外をスローしないストリームベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。</p>
 <h2 id="インストール">インストール</h2>
 <p>パッケージをインストールするには、次のコマンドから始めることができます。</p>
@@ -218,7 +218,7 @@ Name = &quot;Kanye West&quot;
 <li>プロパティとセクション名は <strong>大文字小文字を区別しません</strong>。</li>
 <li>プロパティ名と値は <strong>トリミングされます</strong>、ただし値が引用符で囲まれている場合は除きます。</li>
 <li>値は単一引用符または二重引用符で囲むことができます。引用符内には改行を含めることができます。</li>
-<li>コメントは <code>#</code> と <code>;</code> でサポートされます。<strong>末尾のコメントも許可されます</strong>。</li>
+<li><code>#</code> と <code>;</code> でコメントをサポートします。<strong>末尾のコメントも許可されます</strong>。</li>
 <li>プロパティには複数の値を指定できます。</li>
 </ul>
 <p>詳細については、Sisk で使用されている INI パーサーの &quot;フレーバー&quot; のドキュメントが <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">こちら</a> にあります。</p>
@@ -228,7 +228,7 @@ Value = this is an value
 Another value = &quot;this value
     has an line break on it&quot;
 
-; 次のコードにはいくつかの色があります
+; 以下のコードにはいくつかの色があります
 [some section]
 Color = Red
 Color = Blue
@@ -303,7 +303,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Cors.AllowOrigins</code></td>
 <td>いいえ</td>
-<td>複数の Allow-Origin ヘッダー、コンマで区切られた値を指定します。 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> に関する詳細情報。</td>
+<td>複数の Allow-Origin ヘッダー、コンマで区切られた値。 <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> に関する詳細情報。</td>
 </tr>
 <tr>
 <td><code>Cors.AllowOrigin</code></td>

@@ -4,9 +4,9 @@ El Sisk admite la lectura y el envío de flujos de contenido desde y hacia el cl
 
 ## Flujo de contenido de la solicitud
 
-Los contenidos pequeños se cargan automáticamente en la memoria del búfer de la conexión HTTP, cargando rápidamente este contenido en [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) y [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para contenidos más grandes, se puede utilizar el método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) para obtener el flujo de lectura del contenido de la solicitud.
+Los contenidos pequeños se cargan automáticamente en la memoria del búfer de conexión HTTP, cargando rápidamente este contenido en [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) y [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody). Para contenidos más grandes, se puede utilizar el método [HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) para obtener el flujo de lectura de contenido de la solicitud.
 
-Es importante destacar que el método [HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) lee todo el contenido de la solicitud en la memoria, por lo que puede no ser útil para leer contenidos grandes.
+Es importante destacar que el método [HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) lee todo el contenido de la solicitud en memoria, por lo que puede no ser útil para leer contenidos grandes.
 
 Consideremos el siguiente ejemplo:
 
@@ -46,9 +46,9 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-En el ejemplo anterior, el método `UploadDocument` lee el contenido de la solicitud y lo guarda en un archivo. No se realiza ninguna asignación de memoria adicional, excepto por el búfer de lectura utilizado por `Stream.CopyToAsync`. El ejemplo anterior elimina la presión de asignación de memoria para un archivo muy grande, lo que puede optimizar el rendimiento de la aplicación.
+En el ejemplo anterior, el método `UploadDocument` lee el contenido de la solicitud y lo guarda en un archivo. No se realiza ninguna asignación de memoria adicional excepto por el búfer de lectura utilizado por `Stream.CopyToAsync`. El ejemplo anterior elimina la presión de asignación de memoria para un archivo muy grande, lo que puede optimizar el rendimiento de la aplicación.
 
-Es una buena práctica utilizar siempre un [CancellationToken](https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken) en una operación que pueda ser larga, como enviar archivos, ya que depende de la velocidad de la red entre el cliente y el servidor.
+Es una buena práctica utilizar siempre un [CancellationToken](https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken) en una operación que pueda ser larga, como el envío de archivos, ya que depende de la velocidad de la red entre el cliente y el servidor.
 
 El ajuste con un CancellationToken se puede realizar de la siguiente manera:
 
@@ -109,13 +109,13 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-El método anterior realiza una asignación de memoria cada vez que se lee el contenido de la imagen. Si la imagen es grande, esto puede causar un problema de rendimiento, y en situaciones de pico, incluso una sobrecarga de memoria y caída del servidor. En estas situaciones, la caché puede ser útil, pero no eliminará el problema, ya que la memoria seguirá reservada para ese archivo. La caché aliviará la presión de tener que asignar memoria para cada solicitud, pero para archivos grandes, no será suficiente.
+El método anterior realiza una asignación de memoria cada vez que se lee el contenido de la imagen. Si la imagen es grande, esto puede causar un problema de rendimiento, y en situaciones de pico, incluso una sobrecarga de memoria y hacer que el servidor se bloquee. En estas situaciones, la caché puede ser útil, pero no eliminará el problema, ya que la memoria seguirá reservada para ese archivo. La caché aliviará la presión de tener que asignar memoria para cada solicitud, pero para archivos grandes, no será suficiente.
 
 Enviar la imagen a través de un flujo puede ser una solución al problema. En lugar de leer todo el contenido de la imagen, se crea un flujo de lectura en el archivo y se copia al cliente utilizando un búfer pequeño.
 
 #### Enviar a través del método GetResponseStream
 
-El método [HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) crea un objeto que permite enviar fragmentos de la respuesta HTTP a medida que se prepara el flujo de contenido. Este método es más manual, requiriendo que se defina el estado, los encabezados y el tamaño del contenido antes de enviar el contenido.
+El método [HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) crea un objeto que permite enviar trozos de la respuesta HTTP a medida que se prepara el flujo de contenido. Este método es más manual, requiriendo que se defina el estado, los encabezados y el tamaño del contenido antes de enviar el contenido.
 
 <div class="script-header">
     <span>
@@ -146,7 +146,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
         // antes de enviarlo.
         requestStreamManager.SetContentLength ( fs.Length );
 
-        // si no se conoce el tamaño del contenido, se puede utilizar codificación por fragmentos
+        // si no se conoce el tamaño del contenido, se puede utilizar codificación por trozos
         // para enviar el contenido
         requestStreamManager.SendChunked = true;
 
@@ -158,7 +158,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 #### Enviar contenido a través de un StreamContent
 
-La clase [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar contenido desde una fuente de datos como un flujo de bytes. Esta forma de envío es más fácil, eliminando los requisitos anteriores, y incluso permitiendo el uso de [codificación de compresión](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) para reducir el tamaño del contenido.
+La clase [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) permite enviar contenido desde una fuente de datos como un flujo de bytes. Esta forma de envío es más fácil, eliminando los requisitos anteriores, e incluso permitiendo el uso de [codificación de compresión](/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression) para reducir el tamaño del contenido.
 
 <div class="script-header">
     <span>

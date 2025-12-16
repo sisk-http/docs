@@ -1,6 +1,6 @@
 # Configurando reservas de namespace no Windows
 
-Sisk trabalha com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.
+Sisk funciona com a interface de rede HttpListener, que vincula um host virtual ao sistema para ouvir solicitações.
 
 No Windows, essa vinculação é um pouco restritiva, permitindo apenas que o localhost seja vinculado como um host válido. Ao tentar ouvir outro host, um erro de acesso negado é lançado no servidor. Este tutorial explica como conceder autorização para ouvir em qualquer host que você desejar no sistema.
 
@@ -40,7 +40,7 @@ Onde em `PREFIX`, é o prefixo ("Host de Escuta->Porta") que o servidor irá ouv
 SET PREFIX=http://meu-aplicativo.exemplo.teste/
 ```
 
-Para que você possa ser ouvido em sua aplicação por meio de:
+Para que você possa ser ouvido em seu aplicativo por meio de:
 
 <div class="script-header">
     <span>

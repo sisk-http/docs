@@ -28,11 +28,11 @@ Puedes implementar todos los servicios que desees utilizando cualquier bibliotec
 
 ## ¿Por qué debería usar Sisk en lugar de <framework>?
 
-No lo sé. Tú me lo dices.
+No lo sé. Tú dime.
 
 Sisk se creó para llenar un escenario genérico para aplicaciones web HTTP en .NET. Proyectos establecidos, como ASP.NET, resuelven varios problemas, pero con diferentes sesgos. A diferencia de los frameworks más grandes, Sisk requiere que el usuario sepa lo que está haciendo y construyendo. Los conceptos básicos de desarrollo web y el protocolo HTTP son esenciales para trabajar con Sisk.
 
-Sisk se parece más a Express de Node.js que a ASP.NET Core. Es una abstracción de alto nivel que te permite crear aplicaciones con lógica HTTP que tú quieras.
+Sisk se parece más a Express de Node.js que a ASP.NET Core. Es una abstracción de alto nivel que te permite crear aplicaciones con lógica HTTP que tú desees.
 
 ## ¿Qué necesito para aprender Sisk?
 

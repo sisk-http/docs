@@ -6,9 +6,9 @@ Actualmente, con la clase [ForwardingResolver](/api/Sisk.Core.Http.ForwardingRes
 
 Por ejemplo, el encabezado `X-Forwarded-For` incluye información sobre las direcciones IP que reenviaron la solicitud. Este encabezado es utilizado por los proxies para transportar una cadena de información al servicio final e incluye la dirección IP de todos los proxies utilizados, incluyendo la dirección real del cliente. El problema es: a veces es difícil identificar la dirección IP remota del cliente y no hay una regla específica para identificar este encabezado. Se recomienda encarecidamente leer la documentación de los encabezados que se van a implementar a continuación:
 
-- Lea sobre el encabezado `X-Forwarded-For` [aquí](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns).
-- Lea sobre el encabezado `X-Forwarded-Host` [aquí](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host).
-- Lea sobre el encabezado `X-Forwarded-Proto` [aquí](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto).
+- Lea sobre el encabezado `X-Forwarded-For` [aquí](https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns).
+- Lea sobre el encabezado `X-Forwarded-Host` [aquí](https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-Host).
+- Lea sobre el encabezado `X-Forwarded-Proto` [aquí](https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-Proto).
 
 ## La clase ForwardingResolver
 

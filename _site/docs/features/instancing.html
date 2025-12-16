@@ -158,6 +158,7 @@
 
 <p>It is common to dedicate members and instances that last for the lifetime of a request, such as a database connection, an authenticated user, or a session token. One of the possibilities is through the <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, which creates a dictionary that lasts for the entire lifetime of a request.</p>
 <p>This dictionary can be accessed by <a href="/docs/fundamentals/request-handlers">request handlers</a> and define variables throughout that request. For example, a request handler that authenticates a user sets this user within the <code>HttpContext.RequestBag</code>, and within the request logic, this user can be retrieved with <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>The objects defined in this dictionary are scoped to the request lifecycle. They are disposed of at the end of the request. Not necessarily does sending a response define the end of the request lifecycle. When <a href="/docs/fundamentals/request-handlers">request handlers</a> that run after sending a response are executed, the <code>RequestBag</code> objects still exist and have not been disposed of.</p>
 <p>Here’s an example:</p>
 <div class="script-header">
     <span>
@@ -189,7 +190,7 @@
 </div>
 <pre><code class="lang-csharp">[RouteGet(&quot;/hello&quot;)]
 [RequestHandler&lt;AuthenticateUser&gt;]
-public static HttpResponse SayHello(HttpRequest request)
+public HttpResponse SayHello(HttpRequest request)
 {
     var authenticatedUser = request.Bag.Get&lt;User&gt;();
     return new HttpResponse()
@@ -212,21 +213,20 @@ public static HttpResponse SayHello(HttpRequest request)
 </div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
-    public DbContext Database
-    {
-        get
-        {
-            // create an DbContext or get the existing one
-            return HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
-        }
-    }
+    // Get the existing or create a new database instance for this request
+    protected DbContext Database =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
+
+    // Lazy loading repositories is common too
+    protected IUserRepository Users =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new UserRepository(Database));
+    protected IBlogRepository Blogs =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new BlogRepository(Database));
+    protected IBlogPostRepository BlogPosts =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new BlogPostRepository(Database));
 
     // the following line will throw if the property is accessed when the User is not
     // defined in the request bag
-    public User AuthenticatedUser { get =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;(); }
+    protected User AuthenticatedUser =&gt; =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;();
 
     // Exposing the HttpRequest instance is supported too
-    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+    protected HttpRequest Request =&gt; HttpContext.Current.Request
 }
 </code></pre>
 <p>And define types that inherit from the controller:</p>
@@ -238,26 +238,26 @@ public static HttpResponse SayHello(HttpRequest request)
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
-public class PostsController : Controller
+<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts/{author}&quot;)]
+sealed class PostsController : Controller
 {
+    protected Guid AuthorId =&gt; Request.RouteParameters[&quot;author&quot;].GetInteger();
+
     [RouteGet]
-    public IEnumerable&lt;Blog&gt; ListPosts()
+    public IAsyncEnumerable&lt;BlogPost&gt; ListPosts()
     {
-        return Database.Posts
-            .Where(post =&gt; post.AuthorId == AuthenticatedUser.Id)
-            .ToList();
+        return BlogPosts.GetPostsAsync(authorId: AuthorId);
     }
 
     [RouteGet(&quot;&lt;id&gt;&quot;)]
-    public Post GetPost()
+    public async Task&lt;BlogPost?&gt; GetPost()
     {
-        int blogId = Request.RouteParameters[&quot;id&quot;].GetInteger();
+        int postId = Request.RouteParameters[&quot;id&quot;].GetInteger();
 
-        Post? post = Database.Posts
-            .FirstOrDefault(post =&gt; post.Id == blogId &amp;&amp; post.AuthorId == AuthenticatedUser.Id);
+        Post? post = await BlogPosts
+            .FindPostAsync(post =&gt; post.Id == postId &amp;&amp; post.AuthorId == AuthorId);
 
-        return post ?? new HttpResponse(404);
+        return post;
     }
 }
 </code></pre>

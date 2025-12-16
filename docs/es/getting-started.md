@@ -2,7 +2,7 @@
 
 Bienvenido a la documentación de Sisk.
 
-Finalmente, ¿qué es el Marco de Sisk? Es una biblioteca de código abierto y ligera construida con .NET, diseñada para ser minimalista, flexible y abstracta. Permite a los desarrolladores crear servicios de Internet rápidamente, con poca o ninguna configuración necesaria. Sisk permite que su aplicación existente tenga un módulo HTTP administrado, completo y desechable o completo.
+Finalmente, ¿qué es el Marco de Sisk? Es una biblioteca de código abierto y ligera construida con .NET, diseñada para ser minimalista, flexible y abstracta. Permite a los desarrolladores crear servicios de internet rápidamente, con poca o ninguna configuración necesaria. Sisk hace posible que su aplicación existente tenga un módulo HTTP administrado, completo y desechable o completo.
 
 Los valores de Sisk incluyen la transparencia del código, la modularidad, el rendimiento y la escalabilidad, y pueden manejar varios tipos de aplicaciones, como Restful, JSON-RPC, Web-sockets y más.
 
@@ -12,11 +12,11 @@ Sus características principales incluyen:
 | ------- | --------- |
 | [Enrutamiento](/docs/es/fundamentals/routing) | Un enrutador de rutas que admite prefijos, métodos personalizados, variables de ruta, convertidores de valores y más. |
 | [Controladores de solicitudes](/docs/es/fundamentals/request-handlers) | También conocidos como *middlewares*, proporcionan una interfaz para crear sus propios controladores de solicitudes que funcionan con la solicitud antes o después de una acción. |
-| [Compresión](/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima el contenido de sus respuestas fácilmente con Sisk. |
-| [Web sockets](/docs/es/features/websockets) | Proporciona rutas que aceptan web sockets completos, para leer y escribir en el cliente. |
-| [Eventos enviados por el servidor](/docs/es/features/server-sent-events) | Proporciona el envío de eventos del servidor a los clientes que admiten el protocolo SSE. |
-| [Registro](/docs/es/features/logging) | Registro simplificado. Registre errores, acceso, defina registros rotativos por tamaño, varias secuencias de salida para el mismo registro y más. |
-| [Multi-host](/docs/es/advanced/multi-host-setup) | Tener un servidor HTTP para varios puertos, y cada puerto con su propio enrutador, y cada enrutador con su propia aplicación. |
+| [Compresión](/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima el contenido de su respuesta fácilmente con Sisk. |
+| [Web sockets](/docs/es/features/websockets) | Proporciona rutas que aceptan websockets completos, para leer y escribir en el cliente. |
+| [Eventos enviados por el servidor](/docs/es/features/server-sent-events) | Proporciona el envío de eventos del servidor a clientes que admiten el protocolo SSE. |
+| [Registro](/docs/es/features/logging) | Registro simplificado. Registre errores, acceso, defina registros rotativos por tamaño, varias secuencias de salida para el mismo registro, y más. |
+| [Multi-hospedaje](/docs/es/advanced/multi-host-setup) | Tenga un servidor HTTP para varios puertos, y cada puerto con su propio enrutador, y cada enrutador con su propia aplicación. |
 | [Controladores de servidor](/docs/es/advanced/http-server-handlers) | Amplíe su propia implementación del servidor HTTP. Personalice con extensiones, mejoras y nuevas características.
 
 ## Primeros pasos
@@ -83,8 +83,8 @@ class Program
 }
 ```
 
-Es importante comprender cada componente vital de Sisk. Más adelante en este documento, aprenderá más sobre cómo funciona Sisk.
+Es importante entender cada componente vital de Sisk. Más adelante en este documento, aprenderá más sobre cómo funciona Sisk.
 
 ## Configuración manual (avanzada)
 
-Puede aprender cómo funciona cada mecanismo de Sisk en [esta sección](/docs/es/advanced/manual-setup) de la documentación, que explica el comportamiento y las relaciones entre el HttpServer, Router, ListeningPort y otros componentes.
+Puede aprender cómo funciona cada mecanismo de Sisk en [esta sección](/docs/es/advanced/manual-setup) de la documentación, que explica el comportamiento y las relaciones entre el HttpServer, el enrutador, el puerto de escucha y otros componentes.

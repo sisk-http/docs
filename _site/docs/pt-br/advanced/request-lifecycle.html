@@ -158,23 +158,23 @@
 
 <p>Abaixo é explicado o ciclo de vida completo de uma requisição por meio de um exemplo de requisição HTTP.</p>
 <ul>
-<li><strong>Recebendo a requisição:</strong> cada requisição cria um contexto HTTP entre a requisição em si e a resposta que será entregue ao cliente. Esse contexto vem do ouvinte embutido no Sisk, que pode ser o <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>, <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a> ou <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a>.
+<li><strong>Recebendo a requisição:</strong> cada requisição cria um contexto HTTP entre a requisição em si e a resposta que será entregue ao cliente. Esse contexto vem do ouvinte embutido no Sisk, que pode ser o <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a>, <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0">Kestrel</a>, ou <a href="https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/">Cadente</a>.
 <ul>
 <li>Validação de requisição externa: a validação de <a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">HttpServerConfiguration.RemoteRequestsAction</a> é validada para a requisição.
 <ul>
 <li>Se a requisição for externa e a propriedade for <code>Drop</code>, a conexão é fechada sem uma resposta ao cliente com um <code>HttpServerExecutionStatus = RemoteRequestDropped</code>.</li>
 </ul>
 </li>
-<li>Configuração do resolvedor de encaminhamento: se um <a href="/docs/advanced/forwarding-resolvers">ForwardingResolver</a> estiver configurado, ele chamará o método <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> no host original da requisição.</li>
+<li>Configuração do resolver de encaminhamento: se um <a href="/docs/pt-br/advanced/forwarding-resolvers">ForwardingResolver</a> estiver configurado, ele chamará o método <a href="/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost">OnResolveRequestHost</a> no host original da requisição.</li>
 <li>Combinação de DNS: com o host resolvido e com mais de um <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> configurado, o servidor procurará pelo host correspondente para a requisição.
 <ul>
-<li>Se nenhum ListeningHost corresponder, uma resposta 400 Bad Request será retornada ao cliente e um status <code>HttpServerExecutionStatus = DnsUnknownHost</code> será retornado ao contexto HTTP.</li>
-<li>Se um ListeningHost corresponder, mas seu <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> não estiver inicializado, uma resposta 503 Service Unavailable será retornada ao cliente e um status <code>HttpServerExecutionStatus = ListeningHostNotReady</code> será retornado ao contexto HTTP.</li>
+<li>Se nenhum ListeningHost corresponder, uma resposta 400 Bad Request é retornada ao cliente e um status <code>HttpServerExecutionStatus = DnsUnknownHost</code> é retornado ao contexto HTTP.</li>
+<li>Se um ListeningHost corresponder, mas seu <a href="/api/Sisk.Core.Http.ListeningHost.Router">Router</a> não estiver inicializado, uma resposta 503 Service Unavailable é retornada ao cliente e um status <code>HttpServerExecutionStatus = ListeningHostNotReady</code> é retornado ao contexto HTTP.</li>
 </ul>
 </li>
 <li>Associação do roteador: o roteador do ListeningHost correspondente é associado ao servidor HTTP recebido.
 <ul>
-<li>Se o roteador já estiver associado a outro servidor HTTP, o que não é permitido porque o roteador usa ativamente os recursos de configuração do servidor, uma <code>InvalidOperationException</code> será lançada. Isso ocorre apenas durante a inicialização do servidor HTTP, não durante a criação do contexto HTTP.</li>
+<li>Se o roteador já estiver associado a outro servidor HTTP, o que não é permitido porque o roteador usa ativamente os recursos de configuração do servidor, uma <code>InvalidOperationException</code> é lançada. Isso ocorre apenas durante a inicialização do servidor HTTP, não durante a criação do contexto HTTP.</li>
 </ul>
 </li>
 <li>Pré-definição de cabeçalhos:
@@ -185,55 +185,55 @@
 </li>
 <li>Validação do tamanho do conteúdo: valida se o conteúdo da requisição é menor que <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> apenas se for maior que zero.
 <ul>
-<li>Se a requisição enviar um <code>Content-Length</code> maior que o configurado, uma resposta 413 Payload Too Large será retornada ao cliente e um status <code>HttpServerExecutionStatus = ContentTooLarge</code> será retornado ao contexto HTTP.</li>
+<li>Se a requisição enviar um <code>Content-Length</code> maior que o configurado, uma resposta 413 Payload Too Large é retornada ao cliente e um status <code>HttpServerExecutionStatus = ContentTooLarge</code> é retornado ao contexto HTTP.</li>
 </ul>
 </li>
 <li>O evento <code>OnHttpRequestOpen</code> é invocado para todos os manipuladores de servidor HTTP configurados.</li>
 </ul>
 </li>
-<li><strong>Roteando a ação:</strong> o servidor invoca o roteador para a requisição recebida.
+<li><strong>Encaminhando a ação:</strong> o servidor invoca o roteador para a requisição recebida.
 <ul>
 <li>Se o roteador não encontrar uma rota que corresponda à requisição:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> estiver configurada, a ação será invocada e a resposta da ação será encaminhada ao cliente HTTP.</li>
-<li>Se a propriedade anterior for nula, uma resposta 404 Not Found padrão será retornada ao cliente.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> estiver configurada, a ação é invocada e a resposta da ação é encaminhada ao cliente HTTP.</li>
+<li>Se a propriedade anterior for nula, uma resposta 404 Not Found padrão é retornada ao cliente.</li>
 </ul>
 </li>
 <li>Se o roteador encontrar uma rota correspondente, mas o método da rota não corresponder ao método da requisição:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> estiver configurada, a ação será invocada e a resposta da ação será encaminhada ao cliente HTTP.</li>
-<li>Se a propriedade anterior for nula, uma resposta 405 Method Not Allowed padrão será retornada ao cliente.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> estiver configurada, a ação é invocada e a resposta da ação é encaminhada ao cliente HTTP.</li>
+<li>Se a propriedade anterior for nula, uma resposta 405 Method Not Allowed padrão é retornada ao cliente.</li>
 </ul>
 </li>
 <li>Se a requisição for do método <code>OPTIONS</code>:
 <ul>
-<li>O roteador retornará uma resposta 200 Ok ao cliente apenas se nenhuma rota corresponder ao método da requisição (o método da rota não é explicitamente <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a>).</li>
+<li>O roteador retorna uma resposta 200 Ok ao cliente apenas se nenhuma rota corresponder ao método da requisição (o método da rota não é explicitamente <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Options</a>).</li>
 </ul>
 </li>
 <li>Se a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a> estiver habilitada, a rota correspondente não for uma expressão regular, o caminho da requisição não terminar com <code>/</code> e o método da requisição for <code>GET</code>:
 <ul>
-<li>Uma resposta 307 Temporary Redirect HTTP com o cabeçalho <code>Location</code> com o caminho e a consulta para o mesmo local com um <code>/</code> no final será retornada ao cliente.</li>
+<li>Uma resposta 307 Temporary Redirect HTTP com o cabeçalho <code>Location</code> com o caminho e a consulta para o mesmo local com um <code>/</code> no final é retornada ao cliente.</li>
 </ul>
 </li>
 <li>O evento <code>OnContextBagCreated</code> é invocado para todos os manipuladores de servidor HTTP configurados.</li>
 <li>Todas as instâncias globais de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> com a flag <code>BeforeResponse</code> são executadas.
 <ul>
-<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador será encaminhada ao cliente HTTP e o contexto será fechado.</li>
+<li>Se algum manipulador retornar uma resposta não nula, essa resposta é encaminhada ao cliente HTTP e o contexto é fechado.</li>
 <li>Se um erro for lançado nessa etapa e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> estiver desabilitado:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela será invocada e a resposta resultante será retornada ao cliente.</li>
-<li>Se a propriedade anterior não estiver definida, uma resposta vazia será retornada ao servidor, que encaminhará uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.</li>
+<li>Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Todas as instâncias de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> definidas na rota e com a flag <code>BeforeResponse</code> são executadas.
 <ul>
-<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador será encaminhada ao cliente HTTP e o contexto será fechado.</li>
+<li>Se algum manipulador retornar uma resposta não nula, essa resposta é encaminhada ao cliente HTTP e o contexto é fechado.</li>
 <li>Se um erro for lançado nessa etapa e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> estiver desabilitado:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela será invocada e a resposta resultante será retornada ao cliente.</li>
-<li>Se a propriedade anterior não estiver definida, uma resposta vazia será retornada ao servidor, que encaminhará uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.</li>
+<li>Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
 </ul>
 </li>
 </ul>
@@ -242,30 +242,30 @@
 <ul>
 <li>Se um erro for lançado nessa etapa e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> estiver desabilitado:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela será invocada e a resposta resultante será retornada ao cliente.</li>
-<li>Se a propriedade anterior não estiver definida, uma resposta vazia será retornada ao servidor, que encaminhará uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.</li>
+<li>Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Todas as instâncias globais de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> com a flag <code>AfterResponse</code> são executadas.
 <ul>
-<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substituirá a resposta anterior e será imediatamente encaminhada ao cliente HTTP.</li>
+<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substitui a resposta anterior e é encaminhada imediatamente ao cliente HTTP.</li>
 <li>Se um erro for lançado nessa etapa e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> estiver desabilitado:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela será invocada e a resposta resultante será retornada ao cliente.</li>
-<li>Se a propriedade anterior não estiver definida, uma resposta vazia será retornada ao servidor, que encaminhará uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.</li>
+<li>Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Todas as instâncias de <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a> definidas na rota e com a flag <code>AfterResponse</code> são executadas.
 <ul>
-<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substituirá a resposta anterior e será imediatamente encaminhada ao cliente HTTP.</li>
+<li>Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substitui a resposta anterior e é encaminhada imediatamente ao cliente HTTP.</li>
 <li>Se um erro for lançado nessa etapa e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> estiver desabilitado:
 <ul>
-<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela será invocada e a resposta resultante será retornada ao cliente.</li>
-<li>Se a propriedade anterior não estiver definida, uma resposta vazia será retornada ao servidor, que encaminhará uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
+<li>Se a propriedade <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a> estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.</li>
+<li>Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que geralmente é 500 Internal Server Error.</li>
 </ul>
 </li>
 </ul>
@@ -274,7 +274,7 @@
 </li>
 <li><strong>Processando a resposta:</strong> com a resposta pronta, o servidor a prepara para envio ao cliente.
 <ul>
-<li>Os cabeçalhos da Política de Compartilhamento de Recursos de Origem Cruzada (CORS) são definidos na resposta de acordo com o que foi configurado no <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a> atual.</li>
+<li>Os cabeçalhos da Política de Recursos de Origem Cruzada (CORS) são definidos na resposta de acordo com o que foi configurado no <a href="/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy">ListeningHost.CrossOriginResourceSharingPolicy</a> atual.</li>
 <li>O código de status e os cabeçalhos da resposta são enviados ao cliente.</li>
 <li>O conteúdo da resposta é enviado ao cliente:
 <ul>
@@ -286,8 +286,8 @@
 <li>Se <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> estiver habilitado, todos os objetos definidos no contexto da requisição que herdam de <a href="/en-us/dotnet/api/system.idisposable">IDisposable</a> são descartados.</li>
 <li>O evento <code>OnHttpRequestClose</code> é invocado para todos os manipuladores de servidor HTTP configurados.</li>
 <li>Se uma exceção for lançada no servidor, o evento <code>OnException</code> é invocado para todos os manipuladores de servidor HTTP configurados.</li>
-<li>Se a rota permitir logging de acesso e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> não for nulo, uma linha de log é escrita no fluxo de log de saída.</li>
-<li>Se a rota permitir logging de erros, houver uma exceção e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> não for nulo, uma linha de log é escrita no fluxo de log de erros de saída.</li>
+<li>Se a rota permitir logging de acesso e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> não for nulo, uma linha de log é escrita no fluxo de log de acesso.</li>
+<li>Se a rota permitir logging de erros, houver uma exceção e <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> não for nulo, uma linha de log é escrita no fluxo de log de erros.</li>
 <li>Se o servidor estiver aguardando uma requisição por meio de <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a>, o mutex é liberado e o contexto se torna disponível para o usuário.</li>
 </ul>
 </li>

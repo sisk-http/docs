@@ -226,7 +226,11 @@ Access-Control-Expose-Headers: Content-Type
         allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
 
         // Responds based on the Access-Control-Request-Headers header or the sent headers
-        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders]))
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders],
+
+        exposeHeaders: [HttpKnownHeaderNames.ContentType, &quot;X-Authenticated-Account-Id&quot;],
+        allowCredentials: true))
+    .Build();
 </code></pre>
 <h2 id="other-ways-to-apply-cors">Other Ways to Apply CORS</h2>
 <p>If you are dealing with <a href="/docs/extensions/service-providers">service providers</a>, you can override values defined in the configuration file:</p>

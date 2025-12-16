@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Instanciando membros por solicita&#231;&#227;o | Sisk </title>
+        <title>Inje&#231;&#227;o de Depend&#234;ncia | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Instanciando membros por solicita&#231;&#227;o | Sisk ">
+        <meta name="title" content="Inje&#231;&#227;o de Depend&#234;ncia | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,85 +154,125 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="instanciando-membros-por-solicitação">Instanciando membros por solicitação</h1>
+<h1 id="injeção-de-dependência">Injeção de Dependência</h1>
 
-<p>É comum dedicar membros e instâncias que duram por toda a vida de uma solicitação, como uma conexão com banco de dados, um usuário autenticado ou um token de sessão. Uma das possibilidades é através do <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, que cria um dicionário que dura por toda a vida de uma solicitação.</p>
-<p>Este dicionário pode ser acessado por <a href="/docs/fundamentals/request-handlers">tratadores de solicitação</a> e definir variáveis ​​durante toda a solicitação. Por exemplo, um tratador de solicitação que autentica um usuário define esse usuário dentro do <code>HttpContext.RequestBag</code>, e dentro da lógica da solicitação, esse usuário pode ser recuperado com <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>É comum dedicar membros e instâncias que duram por toda a vida de uma solicitação, como uma conexão de banco de dados, um usuário autenticado ou um token de sessão. Uma das possibilidades é através do <a href="/api/Sisk.Core.Http.HttpContext">HttpContext.RequestBag</a>, que cria um dicionário que dura por toda a vida de uma solicitação.</p>
+<p>Este dicionário pode ser acessado por <a href="/docs/pt-br/fundamentals/request-handlers">tratadores de solicitação</a> e definir variáveis ao longo da solicitação. Por exemplo, um tratador de solicitação que autentica um usuário define este usuário dentro do <code>HttpContext.RequestBag</code>, e dentro da lógica da solicitação, este usuário pode ser recuperado com <code>HttpContext.RequestBag.Get&lt;User&gt;()</code>.</p>
+<p>Os objetos definidos neste dicionário são limitados ao ciclo de vida da solicitação. Eles são descartados no final da solicitação. Não necessariamente, o envio de uma resposta define o fim do ciclo de vida da solicitação. Quando <a href="/docs/pt-br/fundamentals/request-handlers">tratadores de solicitação</a> que são executados após o envio de uma resposta são executados, os objetos <code>RequestBag</code> ainda existem e não foram descartados.</p>
 <p>Aqui está um exemplo:</p>
+<div class="script-header">
+    <span>
+        RequestHandlers/AuthenticateUser.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class AuthenticateUser : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-
+    
     public HttpResponse? Execute(HttpRequest request, HttpContext context)
     {
         User authenticatedUser = AuthenticateUser(request);
         context.RequestBag.Set(authenticatedUser);
-        return null; // avançar para o próximo tratador de solicitação ou lógica da solicitação
+        return null; // avançar para o próximo tratador de solicitação ou lógica de solicitação
     }
 }
-
-[RouteGet(&quot;/hello&quot;)]
+</code></pre>
+<div class="script-header">
+    <span>
+        Controllers/HelloController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RouteGet(&quot;/hello&quot;)]
 [RequestHandler&lt;AuthenticateUser&gt;]
-public static HttpResponse SayHello(HttpRequest request)
+public HttpResponse SayHello(HttpRequest request)
 {
     var authenticatedUser = request.Bag.Get&lt;User&gt;();
     return new HttpResponse()
     {
-        Content = new StringContent($&quot;Olá {authenticatedUser.Name}!&quot;)
+        Content = new StringContent($&quot;Hello {authenticatedUser.Name}!&quot;)
     };
 }
 </code></pre>
-<p>Este é um exemplo preliminar dessa operação. A instância de <code>User</code> foi criada dentro do tratador de solicitação dedicado à autenticação, e todas as rotas que usam esse tratador de solicitação terão a garantia de que haverá um <code>User</code> em sua instância de <code>HttpContext.RequestBag</code>.</p>
-<p>É possível definir lógica para obter instâncias quando não definidas anteriormente no <code>RequestBag</code> através de métodos como <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> ou <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
-<p>Desde a versão 1.3, a propriedade estática <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> foi introduzida, permitindo o acesso ao <code>HttpContext</code> atualmente em execução do contexto da solicitação. Isso permite expor membros do <code>HttpContext</code> fora do contexto da solicitação atual e definir instâncias em objetos de rota.</p>
-<p>O exemplo abaixo define um controlador que possui membros comumente acessados pelo contexto de uma solicitação.</p>
+<p>Este é um exemplo preliminar desta operação. A instância de <code>User</code> foi criada dentro do tratador de solicitação dedicado à autenticação, e todas as rotas que usam este tratador de solicitação terão a garantia de que haverá um <code>User</code> em sua instância de <code>HttpContext.RequestBag</code>.</p>
+<p>É possível definir lógica para obter instâncias quando não previamente definidas no <code>RequestBag</code> por meio de métodos como <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd">GetOrAdd</a> ou <a href="/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync">GetOrAddAsync</a>.</p>
+<p>Desde a versão 1.3, a propriedade estática <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a> foi introduzida, permitindo o acesso ao <code>HttpContext</code> atualmente em execução do contexto da solicitação. Isso permite expor membros do <code>HttpContext</code> fora da solicitação atual e definir instâncias em objetos de rota.</p>
+<p>O exemplo abaixo define um controlador que tem membros comumente acessados pelo contexto de uma solicitação.</p>
+<div class="script-header">
+    <span>
+        Controllers/Controller.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
-    public DbContext Database
-    {
-        get
-        {
-            // criar um DbContext ou obter o existente
-            return HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
-        }
-    }
+    // Obter a instância existente ou criar uma nova instância de banco de dados para esta solicitação
+    protected DbContext Database =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new DbContext());
 
-    // a linha seguinte lançará uma exceção se a propriedade for acessada quando o User não
-    // estiver definido no bag da solicitação
-    public User AuthenticatedUser { get =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;(); }
+    // Carregar repositórios de forma preguiçosa também é comum
+    protected IUserRepository Users =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new UserRepository(Database));
+    protected IBlogRepository Blogs =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new BlogRepository(Database));
+    protected IBlogPostRepository BlogPosts =&gt; HttpContext.Current.RequestBag.GetOrAdd(() =&gt; new BlogPostRepository(Database));
 
-    // Expor a instância HttpRequest também é suportado
-    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
+    // a seguinte linha lançará uma exceção se a propriedade for acessada quando o User não
+    // estiver definido no request bag
+    protected User AuthenticatedUser =&gt; =&gt; HttpContext.Current.RequestBag.Get&lt;User&gt;();
+
+    // Expor a instância de HttpRequest também é suportado
+    protected HttpRequest Request =&gt; HttpContext.Current.Request
 }
 </code></pre>
 <p>E definir tipos que herdam do controlador:</p>
-<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts&quot;)]
-public class PostsController : Controller
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+<pre><code class="lang-csharp">[RoutePrefix(&quot;/api/posts/{author}&quot;)]
+sealed class PostsController : Controller
 {
+    protected Guid AuthorId =&gt; Request.RouteParameters[&quot;author&quot;].GetInteger();
+
     [RouteGet]
-    public IEnumerable&lt;Blog&gt; ListPosts()
+    public IAsyncEnumerable&lt;BlogPost&gt; ListPosts()
     {
-        return Database.Posts
-            .Where(post =&gt; post.AuthorId == AuthenticatedUser.Id)
-            .ToList();
+        return BlogPosts.GetPostsAsync(authorId: AuthorId);
     }
 
     [RouteGet(&quot;&lt;id&gt;&quot;)]
-    public Post GetPost()
+    public async Task&lt;BlogPost?&gt; GetPost()
     {
-        int blogId = Request.RouteParameters[&quot;id&quot;].GetInteger();
+        int postId = Request.RouteParameters[&quot;id&quot;].GetInteger();
 
-        Post? post = Database.Posts
-            .FirstOrDefault(post =&gt; post.Id == blogId &amp;&amp; post.AuthorId == AuthenticatedUser.Id);
+        Post? post = await BlogPosts
+            .FindPostAsync(post =&gt; post.Id == postId &amp;&amp; post.AuthorId == AuthorId);
 
-        return post ?? new HttpResponse(404);
+        return post;
     }
 }
 </code></pre>
-<p>Para o exemplo acima, você precisará configurar um <a href="/docs/fundamentals/responses.html#implicit-response-types">tratador de valor</a> no seu roteador para que os objetos retornados pelo roteador sejam transformados em um <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> válido.</p>
-<p>Observe que os métodos não têm um argumento <code>HttpRequest request</code> como presente em outros métodos. Isso ocorre porque, desde a versão 1.3, o roteador suporta dois tipos de delegados para roteamento de respostas: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, que é o delegado padrão que recebe um argumento <code>HttpRequest</code>, e <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. O objeto <code>HttpRequest</code> ainda pode ser acessado por ambos os delegados através da propriedade <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> do <code>HttpContext</code> estático no thread.</p>
-<p>No exemplo acima, definimos um objeto descartável, o <code>DbContext</code>, e precisamos garantir que todas as instâncias criadas em um <code>DbContext</code> sejam descartadas quando a sessão HTTP terminar. Para isso, podemos usar duas maneiras de alcançar isso. Uma é criar um <a href="/docs/fundamentals/request-handlers">tratador de solicitação</a> que é executado após a ação do roteador, e a outra maneira é através de um <a href="/docs/advanced/http-server-handlers">tratador de servidor</a> personalizado.</p>
+<p>Para o exemplo acima, você precisará configurar um <a href="/docs/pt-br/fundamentals/responses.html#implicit-response-types">tratador de valor</a> em seu roteador para que os objetos retornados pelo roteador sejam transformados em uma resposta <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> válida.</p>
+<p>Observe que os métodos não têm um argumento <code>HttpRequest request</code> presente em outros métodos. Isso ocorre porque, desde a versão 1.3, o roteador suporta dois tipos de delegados para respostas de rota: <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a>, que é o delegado padrão que recebe um argumento <code>HttpRequest</code>, e <a href="/api/Sisk.Core.Routing.ParameterlessRouteAction">ParameterlessRouteAction</a>. O objeto <code>HttpRequest</code> ainda pode ser acessado por ambos os delegados através da propriedade <a href="/api/Sisk.Core.Http.HttpContext.Request">Request</a> do <code>HttpContext</code> estático na thread.</p>
+<p>No exemplo acima, definimos um objeto descartável, o <code>DbContext</code>, e precisamos garantir que todas as instâncias criadas em um <code>DbContext</code> sejam descartadas quando a sessão HTTP for finalizada. Para isso, podemos usar duas maneiras de alcançar isso. Uma é criar um <a href="/docs/pt-br/fundamentals/request-handlers">tratador de solicitação</a> que seja executado após a ação do roteador, e a outra maneira é através de um <a href="/docs/pt-br/advanced/http-server-handlers">tratador de servidor personalizado</a>.</p>
 <p>Para o primeiro método, podemos criar o tratador de solicitação inline diretamente no método <a href="/api/Sisk.Core.Routing.RouterModule.OnSetup">OnSetup</a> herdado de <code>RouterModule</code>:</p>
+<div class="script-header">
+    <span>
+        Controllers/PostsController.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public abstract class Controller : RouterModule
 {
     ...
@@ -244,8 +284,8 @@ public class PostsController : Controller
         HasRequestHandler(RequestHandler.Create(
             execute: (req, ctx) =&gt;
             {
-                // obter um DbContext definido no contexto do tratador de solicitação e
-                // descartá-lo
+                // obter uma instância de DbContext definida no contexto do tratador de solicitação e
+                // descartá-la
                 ctx.RequestBag.GetOrDefault&lt;DbContext&gt;()?.Dispose();
                 return null;
             },
@@ -253,8 +293,20 @@ public class PostsController : Controller
     }
 }
 </code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Desde a versão 1.4 do Sisk, a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">HttpServerConfiguration.DisposeDisposableContextValues</a> foi introduzida e habilitada por padrão, que define se o servidor HTTP deve descartar todos os valores <code>IDisposable</code> no saco de contexto quando uma sessão HTTP for fechada.</p>
+</div>
 <p>O método acima garantirá que o <code>DbContext</code> seja descartado quando a sessão HTTP for finalizada. Você pode fazer isso para mais membros que precisam ser descartados no final de uma resposta.</p>
-<p>Para o segundo método, você pode criar um <a href="/docs/advanced/http-server-handlers">tratador de servidor</a> personalizado que descartará o <code>DbContext</code> quando a sessão HTTP for finalizada.</p>
+<p>Para o segundo método, você pode criar um <a href="/docs/pt-br/advanced/http-server-handlers">tratador de servidor personalizado</a> que descartará o <code>DbContext</code> quando a sessão HTTP for finalizada.</p>
+<div class="script-header">
+    <span>
+        Server/Handlers/ObjectDisposerHandler.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">public class ObjectDisposerHandler : HttpServerHandler
 {
     protected override void OnHttpRequestClose(HttpServerExecutionResult result)
@@ -263,12 +315,20 @@ public class PostsController : Controller
     }
 }
 </code></pre>
-<p>E usá-lo no seu construtor:</p>
+<p>E usá-lo em seu construtor de aplicativo:</p>
+<div class="script-header">
+    <span>
+        Program.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder()
     .UseHandler&lt;ObjectDisposerHandler&gt;()
     .Build();
 </code></pre>
-<p>Esta é uma maneira de lidar com a limpeza de código e manter as dependências de uma solicitação separadas pelo tipo de módulo que será usado, reduzindo a quantidade de código duplicado dentro de cada ação de um roteador. É uma prática semelhante ao que a injeção de dependência é usada em frameworks como ASP.NET.</p>
+<p>Essa é uma maneira de lidar com a limpeza de código e manter as dependências de uma solicitação separadas pelo tipo de módulo que será usado, reduzindo a quantidade de código duplicado dentro de cada ação de um roteador. É uma prática semelhante ao que a injeção de dependência é usada para em frameworks como o ASP.NET.</p>
 
 </article>
 

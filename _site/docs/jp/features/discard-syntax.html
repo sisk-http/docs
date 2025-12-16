@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Discard syntax | Sisk </title>
+        <title>捨てられる構文 | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Discard syntax | Sisk ">
+        <meta name="title" content="捨てられる構文 | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,18 +154,18 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="discard-syntax">Discard syntax</h1>
+<h1 id="捨てられる構文">捨てられる構文</h1>
 
-<p>HTTPサーバーは、OAuth認証などのアクションからのコールバック要求を待ち受けるために使用でき、要求を受け取った後には破棄できます。これは、バックグラウンドアクションが必要だが、HTTPアプリケーションを設定したくない場合に便利です。</p>
-<p>以下の例は、<a href="/api/Sisk.Core.Http.HttpServer.CreateListener">CreateListener</a>を使用してポート5555でリスニングHTTPサーバーを作成し、次のコンテキストを待つ方法を示しています。</p>
+<p>HTTPサーバーは、OAuth認証などのアクションからのコールバック要求を待ち受けるために使用でき、要求を受け取った後には捨てられる。この機能は、バックグラウンドアクションが必要だが、HTTPアプリケーションを設定したくない場合に便利です。</p>
+<p>以下の例は、<a href="/api/Sisk.Core.Http.HttpServer.CreateListener">CreateListener</a> を使用してポート5555でHTTPサーバーを作成し、次のコンテキストを待機する方法を示しています。</p>
 <pre><code class="lang-csharp">using (var server = HttpServer.CreateListener(5555))
 {
-    // 次のHTTP要求を待つ
+    // 次のHTTP要求を待機
     var context = await server.WaitNextAsync();
     Console.WriteLine($&quot;要求されたパス: {context.Request.Path}&quot;);
 }
 </code></pre>
-<p><a href="/api/Sisk.Core.Http.HttpServer.WaitNext">WaitNext</a>関数は、完了した要求処理の次のコンテキストを待ちます。この操作の結果が取得されると、サーバーはすでに要求を完全に処理し、クライアントに応答を送信しています。</p>
+<p><a href="/api/Sisk.Core.Http.HttpServer.WaitNext">WaitNext</a> 関数は、完了した要求処理の次のコンテキストを待機します。この操作の結果が取得されると、サーバーはすでに要求を完全に処理し、クライアントに応答を送信しています。</p>
 
 </article>
 

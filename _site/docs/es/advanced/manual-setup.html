@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="configuración-manual-avanzada">Configuración manual (avanzada)</h1>
 
-<p>En esta sección, crearemos nuestro servidor HTTP sin ningún estándar predefinido, de una manera completamente abstracta. Aquí, puedes construir manualmente cómo funcionará tu servidor HTTP. Cada ListeningHost tiene un enrutador, y un servidor HTTP puede tener varios ListeningHosts, cada uno apuntando a un host diferente en un puerto diferente.</p>
-<p>Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: para cada solicitud, debe haber una respuesta. Sisk sigue este principio también. Creemos un método que responda con un mensaje &quot;Hola, mundo!&quot; en HTML, especificando el código de estado y los encabezados.</p>
+<p>En esta sección, crearemos nuestro servidor HTTP sin ningún estándar predefinido, de una manera completamente abstracta. Aquí, puedes construir manualmente cómo funcionará tu servidor HTTP. Cada ListeningHost tiene un enrutador, y un servidor HTTP puede tener múltiples ListeningHosts, cada uno apuntando a un host diferente en un puerto diferente.</p>
+<p>Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: para cada solicitud, debe haber una respuesta. Sisk sigue este principio también. Creemos un método que responda con un mensaje &quot;Hola, mundo&quot; en HTML, especificando el código de estado y los encabezados.</p>
 <pre><code class="lang-csharp">// Program.cs
 using Sisk.Core.Http;
 using Sisk.Core.Routing;
@@ -181,7 +181,7 @@ static HttpResponse IndexPage(HttpRequest request)
 </code></pre>
 <p>El siguiente paso es asociar este método con una ruta HTTP.</p>
 <h2 id="enrutadores">Enrutadores</h2>
-<p>Los enrutadores son abstracciones de rutas de solicitud y sirven como el puente entre solicitudes y respuestas para el servicio. Los enrutadores gestionan las rutas del servicio, las funciones y los errores.</p>
+<p>Los enrutadores son abstracciones de rutas de solicitud y sirven como el puente entre solicitudes y respuestas para el servicio. Los enrutadores administran rutas de servicio, funciones y errores.</p>
 <p>Un enrutador puede tener varias rutas, y cada ruta puede realizar diferentes operaciones en esa ruta, como ejecutar una función, servir una página o proporcionar un recurso desde el servidor.</p>
 <p>Creemos nuestro primer enrutador y asociemos nuestro método <code>IndexPage</code> con la ruta de índice.</p>
 <pre><code class="lang-csharp">Router mainRouter = new Router();
@@ -189,7 +189,7 @@ static HttpResponse IndexPage(HttpRequest request)
 // SetRoute asociará todas las rutas de índice con nuestro método.
 mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
 </code></pre>
-<p>Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, <code>mainRouter</code> no está vinculado a un host o un servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.</p>
+<p>Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, <code>mainRouter</code> no está vinculado a un host o servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.</p>
 <h2 id="hosts-y-puertos-de-escucha">Hosts y puertos de escucha</h2>
 <p>Un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> puede hospedar un enrutador y varios puertos de escucha para el mismo enrutador. Un <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> es un prefijo donde el servidor HTTP escuchará.</p>
 <p>Aquí, podemos crear un <code>ListeningHost</code> que apunte a dos puntos finales para nuestro enrutador:</p>
@@ -216,7 +216,7 @@ Console.ReadKey(); // Evita que la aplicación se cierre
 <p>Ahora podemos compilar nuestro ejecutable y ejecutar nuestro servidor HTTP con el comando:</p>
 <pre><code class="lang-bash">dotnet watch
 </code></pre>
-<p>En tiempo de ejecución, abra su navegador y navegue hasta la ruta del servidor, y debería ver:</p>
+<p>En tiempo de ejecución, abre tu navegador y navega a la ruta del servidor, y deberías ver:</p>
 <img src="/assets/img/localhost.png">
 
 </article>

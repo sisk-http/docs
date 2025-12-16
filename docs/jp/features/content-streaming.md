@@ -1,12 +1,12 @@
 # コンテンツのストリーミング
 
-Sisk では、クライアントとサーバー間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中にコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するために役立ちます。
+Sisk では、クライアントとの間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中にコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するために役立ちます。
 
 ## リクエストコンテンツストリーム
 
-小さなコンテンツは自動的に HTTP 接続バッファメモリに読み込まれ、[HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) と [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody) に迅速に読み込まれます。より大きなコンテンツの場合は、[HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) メソッドを使用してリクエストコンテンツ読み取りストリームを取得できます。
+小さなコンテンツは自動的に HTTP 接続バッファメモリに読み込まれ、[HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) と [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.RawBody) に迅速に読み込まれます。より大きなコンテンツの場合は、[HttpRequest.GetRequestStream](/api/Sisk.Core.Http.HttpRequest.GetRequestStream) メソッドを使用して、リクエストコンテンツの読み取りストリームを取得できます。
 
-[HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) メソッドは、リクエスト全体のコンテンツをメモリに読み込むため、大きなコンテンツを読み取るには適していないことに注意してください。
+[HttpRequest.GetMultipartFormContent](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent) メソッドは、リクエストの全コンテンツをメモリに読み込むため、大きなコンテンツを読み取るには適していないことに注意してください。
 
 以下の例を考えてみましょう:
 
@@ -62,7 +62,7 @@ CancellationToken での調整は、以下のように行うことができま�
 </div>
 
 ```csharp
-// 30 秒のタイムアウトに達した場合、以下のキャンセルトークンは例外をスローします。
+// 以下のキャンセルトークンは、30 秒のタイムアウトに達した場合に例外をスローします。
 CancellationTokenSource copyCancellation = new CancellationTokenSource ( delay: TimeSpan.FromSeconds ( 30 ) );
 
 try {
@@ -78,7 +78,7 @@ catch (OperationCanceledException) {
 ```
 
 ## レスポンスコンテンツストリーム
-レスポンスコンテンツを送信することも可能です。現在、[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) メソッドと [StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) タイプのコンテンツを使用するという 2 つの方法があります。
+レスポンスコンテンツを送信することも可能です。現在、[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) メソッドと、[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 型のコンテンツを使用する、2 つの方法があります。
 
 画像ファイルを提供するシナリオを考えてみましょう。以下のコードを使用できます:
 
@@ -95,7 +95,7 @@ catch (OperationCanceledException) {
 [RouteGet ( "/api/profile-picture" )]
 public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
-    // プロファイル画像を取得するための例メソッド
+    // プロフィール画像を取得するための例メソッド
     var profilePictureFilename = "profile-picture.jpg";
     byte[] profilePicture = await File.ReadAllBytesAsync ( profilePictureFilename );
 
@@ -109,13 +109,13 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-上記のメソッドは、画像コンテンツを読み取るたびにメモリ割り当てを行います。画像が大きい場合、これによりパフォーマンスの問題が発生し、ピーク時にはメモリオーバーロードによりサーバーがクラッシュする可能性があります。このような状況では、キャッシングは役立ちますが、ファイルのためにメモリが依然として予約されるため、問題を完全に解決することはできません。キャッシングは、毎回メモリを割り当てる必要性の圧力を軽減するのに役立ちますが、大きなファイルの場合は十分ではありません。
+上記のメソッドは、画像コンテンツを読み取るたびにメモリ割り当てを行います。如果画像が大きい場合、これはパフォーマンスの問題を引き起こし、ピーク時にはメモリオーバーロードやサーバークラッシュの原因となる可能性があります。このような状況では、キャッシングは役立ちますが、問題を完全に解決することはできません。キャッシングは、毎回メモリ割り当ての負担を軽減するのに役立ちますが、大きなファイルの場合は十分ではありません。
 
-画像をストリームで送信することが問題の解決策となります。画像コンテンツ全体を読み取るのではなく、ファイル上で読み取りストリームを作成し、クライアントに小さなバッファを使用してコピーします。
+ストリーミングを使用して画像を送信することが解決策となります。画像の全コンテンツを読み取るのではなく、ファイル上で読み取りストリームを作成し、クライアントに小さなバッファを使用してコピーします。
 
 #### GetResponseStream メソッドを使用した送信
 
-[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) メソッドは、HTTP 応答のコンテンツフローが準備されるにつれて、HTTP 応答のチャンクを送信できるオブジェクトを作成します。このメソッドはより手動で、コンテンツを送信する前にステータス、ヘッダー、コンテンツサイズを定義する必要があります。
+[HttpRequest.GetResponseStream](/api/Sisk.Core.Http.HttpRequest.GetResponseStream) メソッドは、HTTP 応答のコンテンツフローが準備されるにつれて、HTTP 応答のチャンクを送信できるオブジェクトを作成します。このメソッドはより手動で、コンテンツを送信する前に、ステータス、ヘッダー、コンテンツサイズを定義する必要があります。
 
 <div class="script-header">
     <span>
@@ -184,4 +184,4 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
 
 > [!IMPORTANT]
 >
-> このタイプのコンテンツでは、ストリームを `using` ブロックで囲むことは避けてください。コンテンツフローが終了すると、HTTP サーバーによってコンテンツが自動的に破棄されます。
+> この種のコンテンツでは、ストリームを `using` ブロックで囲むことは避けてください。コンテンツフローが終了すると、HTTP サーバーによってコンテンツが自動的に破棄されます。エラーが発生した場合でも同様です。

@@ -156,7 +156,7 @@
                 <article data-uid="">
 <h1 id="потоковая-передача-контента">Потоковая передача контента</h1>
 
-<p>Sisk поддерживает чтение и отправку потоков контента на клиент и с клиента. Эта функция полезна для удаления нагрузки на память при сериализации и десериализации контента во время жизни запроса.</p>
+<p>Sisk поддерживает чтение и отправку потоков контента клиенту и от клиента. Эта функция полезна для удаления нагрузки на память при сериализации и десериализации контента во время жизни запроса.</p>
 <h2 id="поток-контента-запроса">Поток контента запроса</h2>
 <p>Маленькие содержимые автоматически загружаются в буфер памяти HTTP-соединения, быстро загружая это содержимое в <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> и <a href="/api/Sisk.Core.Http.HttpRequest.RawBody">HttpRequest.RawBody</a>. Для более крупных содержимых можно использовать метод <a href="/api/Sisk.Core.Http.HttpRequest.GetRequestStream">HttpRequest.GetRequestStream</a>, чтобы получить поток чтения контента запроса.</p>
 <p>Стоит отметить, что метод <a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent">HttpRequest.GetMultipartFormContent</a> читает весь контент запроса в память, поэтому он может не быть полезен для чтения крупных содержимых.</p>
@@ -195,7 +195,7 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
 }
 </code></pre>
 <p>В примере выше метод <code>UploadDocument</code> читает контент запроса и сохраняет контент в файл. Не производится дополнительная аллокация памяти, кроме буфера чтения, используемого <code>Stream.CopyToAsync</code>. Пример выше удаляет нагрузку на аллокацию памяти для очень крупного файла, что может оптимизировать производительность приложения.</p>
-<p>Хорошей практикой является всегда использовать <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> в операции, которая может занять время, такой как отправка файлов, поскольку она зависит от скорости сети между клиентом и сервером.</p>
+<p>Хорошей практикой является всегда использовать <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> в операции, которая может занять много времени, такой как отправка файлов, поскольку она зависит от скорости сети между клиентом и сервером.</p>
 <p>Настройка с помощью <code>CancellationToken</code> может быть выполнена следующим образом:</p>
 <div class="script-header">
     <span>
@@ -205,7 +205,7 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
         C#
     </span>
 </div>
-<pre><code class="lang-csharp">// токен отмены ниже будет выбрасывать исключение, если истечет 30-секундный таймаут.
+<pre><code class="lang-csharp">// токен отмены ниже бросит исключение, если будет достигнута 30-секундная задержка.
 CancellationTokenSource copyCancellation = new CancellationTokenSource ( delay: TimeSpan.FromSeconds ( 30 ) );
 
 try {
@@ -215,7 +215,7 @@ try {
 }
 catch (OperationCanceledException) {
     return new HttpResponse ( HttpStatusInformation.BadRequest ) {
-        Content = JsonContent.Create ( new { Error = &quot;Отправка файла превысила максимальное время отправки (30 секунд).&quot; } )
+        Content = JsonContent.Create ( new { Error = &quot;Загрузка превысила максимальное время загрузки (30 секунд).&quot; } )
     };
 }
 </code></pre>
@@ -247,9 +247,9 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
 }
 </code></pre>
 <p>Метод выше производит аллокацию памяти каждый раз, когда он читает контент изображения. Если изображение большое, это может вызвать проблему производительности, и в пиковых ситуациях даже привести к переполнению памяти и краху сервера. В таких ситуациях кэширование может быть полезным, но оно не устранит проблему, поскольку память все равно будет зарезервирована для этого файла. Кэширование облегчит нагрузку на аллокацию памяти для каждого запроса, но для крупных файлов оно не будет достаточно.</p>
-<p>Отправка изображения через поток может быть решением проблемы. Вместо чтения всего контента изображения создается поток чтения файла и копируется на клиент с помощью небольшого буфера.</p>
+<p>Отправка изображения через поток может быть решением проблемы. Вместо чтения всего контента изображения создается поток чтения файла и копируется клиенту с помощью небольшого буфера.</p>
 <h4 id="отправка-через-метод-getresponsestream">Отправка через метод GetResponseStream</h4>
-<p>Метод <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> создает объект, который позволяет отправлять части HTTP-ответа по мере подготовки потока контента. Этот метод более ручной, требующий определения статуса, заголовков и размера контента перед отправкой контента.</p>
+<p>Метод <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">HttpRequest.GetResponseStream</a> создает объект, который позволяет отправлять фрагменты HTTP-ответа по мере подготовки потока контента. Этот метод более ручной, требующий определения статуса, заголовков и размера контента перед отправкой контента.</p>
 <div class="script-header">
     <span>
         Controller/ImageController.cs
@@ -277,17 +277,17 @@ public async Task&lt;HttpResponse&gt; UploadDocument ( HttpRequest request ) {
         // перед отправкой его.
         requestStreamManager.SetContentLength ( fs.Length );
 
-        // если вы не знаете размера контента, можно использовать chunked-encoding
+        // если вы не знаете размер контента, можно использовать chunked-encoding
         // для отправки контента
         requestStreamManager.SendChunked = true;
 
-        // и затем, записать в поток вывода
+        // и затем записать в поток вывода
         await fs.CopyToAsync ( requestStreamManager.ResponseStream );
     }
 }
 </code></pre>
 <h4 id="отправка-контента-через-streamcontent">Отправка контента через StreamContent</h4>
-<p>Класс <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> позволяет отправлять контент из источника данных в виде потока байтов. Эта форма отправки проще, удаляя предыдущие требования, и даже позволяет использовать <a href="/docs/fundamentals/responses#gzip-deflate-and-brotli-compression">сжатие контента</a>, чтобы уменьшить размер контента.</p>
+<p>Класс <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0">StreamContent</a> позволяет отправлять контент из источника данных в виде потока байтов. Эта форма отправки проще, удаляя предыдущие требования, и даже позволяет использовать <a href="/docs/ru/fundamentals/responses#gzip-deflate-and-brotli-compression">кодирование сжатия</a>, чтобы уменьшить размер контента.</p>
 <div class="script-header">
     <span>
         Controller/ImageController.cs

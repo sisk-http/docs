@@ -6,4 +6,4 @@ Você pode instalar o Sisk por meio do Nuget, dotnet cli ou [outras opções](ht
 dotnet add package Sisk.HttpServer
 ```
 
-Este comando instalará a versão mais recente do Sisk no seu projeto.
+Este comando irá instalar a versão mais recente do Sisk no seu projeto.

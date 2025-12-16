@@ -109,7 +109,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 }
 ```
 
-上面的方法每次读取图像内容时都会进行内存分配。如果图像很大，这可能会导致性能问题，并且在峰值情况下，甚至可能导致内存过载和服务器崩溃。在这些情况下，缓存可能很有用，但它不会消除问题，因为仍然需要为该文件保留内存。缓存可以缓解每次请求都需要分配内存的压力，但对于大文件来说，它是不够的。
+上面的方法每次读取图像内容时都会进行内存分配。如果图像很大，这可能会导致性能问题，并且在峰值情况下，甚至可能导致内存过载和服务器崩溃。在这些情况下，缓存可能会有所帮助，但它不会消除问题，因为仍然需要为该文件保留内存。缓存可以缓解每次请求都需要分配内存的压力，但对于大文件来说，它是不够的。
 
 通过流式传输发送图像可以解决这个问题。与其读取整个图像内容，不如创建一个文件的读取流，并使用一个小缓冲区将其复制到客户端。
 
@@ -132,7 +132,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
     var profilePictureFilename = "profile-picture.jpg";
 
-    // 在这种发送形式中，必须在发送内容之前定义状态和头部
+    // 以这种形式发送，状态和头部必须在发送内容之前定义
     var requestStreamManager = request.GetResponseStream ();
 
     requestStreamManager.SetStatus ( System.Net.HttpStatusCode.OK );
@@ -141,7 +141,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
     using (var fs = File.OpenRead ( profilePictureFilename )) {
 
-        // 在这种发送形式中，必须在发送内容之前定义内容大小
+        // 以这种形式发送，内容大小也必须在发送之前定义
         requestStreamManager.SetContentLength ( fs.Length );
 
         // 如果不知道内容大小，可以使用分块编码来发送内容
@@ -155,7 +155,7 @@ public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
 
 #### 通过 StreamContent 发送内容
 
-[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类允许将数据源作为字节流发送内容。这种发送形式更为简单，消除了之前的要求，甚至允许使用 [压缩编码](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression) 来减少内容大小。
+[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 类允许将数据源作为字节流发送内容。这种发送方式更容易，消除了之前的要求，甚至允许使用 [压缩编码](/docs/cn/fundamentals/responses#gzip-deflate-and-brotli-compression) 来减少内容大小。
 
 <div class="script-header">
     <span>
@@ -184,4 +184,4 @@ public HttpResponse UploadDocument ( HttpRequest request ) {
 
 > [!IMPORTANT]
 >
-> 在这种类型的内容中，不要将流封装在 `using` 块中。内容将在 HTTP 服务器完成内容流时自动丢弃，无论是否有错误。
+> 在这种类型的内容中，不要将流封装在 `using` 块中。内容将由 HTTP 服务器在内容流完成时自动丢弃，无论是否有错误。

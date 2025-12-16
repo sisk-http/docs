@@ -1,12 +1,12 @@
-items:
+items: 
 
 - name: 欢迎
 
-- name: 入门
+- name: 入门指南
   href: getting-started.md
 - name: 安装
   href: installing.md
-- name: 原生 AOT 支持
+- name: 本机 AOT 支持
   href: native-aot.md
 - name: 部署
   href: deploying.md
@@ -36,16 +36,18 @@ items:
   href: features/logging.md
 - name: 服务器发送事件
   href: features/server-sent-events.md
-- name: WebSocket
+- name: Web 套接字
   href: features/websockets.md
 - name: 丢弃语法
   href: features/discard-syntax.md
 - name: 依赖注入
   href: features/instancing.md
-- name: 内容流式传输
+- name: 内容流
   href: features/content-streaming.md
-- name: 跨域资源共享
+- name: 跨源资源共享
   href: features/cors.md
+- name: URL 构建
+  href: features/url-builder.md
 
 - name: 扩展
 
@@ -55,12 +57,14 @@ items:
   href: extensions/json-rpc.md
 - name: SSL 代理
   href: extensions/ssl-proxy.md
-- name: 基本认证
+- name: 基本身份验证
   href: extensions/basic-auth.md
 - name: 服务提供者
   href: extensions/service-providers.md
 - name: INI 配置
   href: extensions/ini-configuration.md
+- name: API 文档
+  href: extensions/api-documentation.md
 
 - name: 高级
 

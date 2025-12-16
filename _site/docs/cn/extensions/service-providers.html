@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="服务提供者">服务提供者</h1>
 
-<p>服务提供者是一种将 Sisk 应用程序移植到不同环境的方式，使用一个可移植的配置文件。该功能允许您在不修改应用程序代码的情况下更改服务器的端口、参数和其他选项。该模块依赖于 Sisk 构造语法，可以通过 <code>UsePortableConfiguration</code> 方法进行配置。</p>
-<p>一个配置提供者是通过 <code>IConfigurationProvider</code> 实现的，它提供了一个配置读取器，可以接受任何实现。默认情况下，Sisk 提供了一个 JSON 配置读取器，但也存在一个用于 INI 文件的包。您也可以创建自己的配置提供者并将其注册为：</p>
+<p>服务提供者是一种将 Sisk 应用程序移植到不同环境的方式，使用可移植的配置文件。该功能允许您在不修改应用程序代码的情况下更改服务器端口、参数和其他选项。该模块依赖于 Sisk 构造语法，可以通过 <code>UsePortableConfiguration</code> 方法进行配置。</p>
+<p>一个配置提供者是通过 <code>IConfigurationProvider</code> 实现的，它提供了一个配置读取器，可以接收任何实现。默认情况下，Sisk 提供了一个 JSON 配置读取器，但也有一个用于 INI 文件的包。您也可以创建自己的配置提供者并注册它：</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
     .UsePortableConfiguration(config =&gt;
     {
@@ -165,8 +165,8 @@
     })
     .Build();
 </code></pre>
-<p>如前所述，默认的提供者是一个 JSON 文件。默认情况下，文件名为 <code>service-config.json</code>，并在运行进程的当前目录中搜索，而不是可执行文件目录。</p>
-<p>您可以选择更改文件名，以及 Sisk 应该在哪里查找配置文件，使用：</p>
+<p>如前所述，默认提供者是一个 JSON 文件。默认情况下，文件名为 <code>service-config.json</code>，它在运行进程的当前目录中搜索，而不是可执行文件目录。</p>
+<p>您可以选择更改文件名，以及 Sisk 应该在哪里查找配置文件：</p>
 <pre><code class="lang-csharp">using Sisk.Core.Http;
 using Sisk.Core.Http.Hosting;
 
@@ -181,7 +181,7 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>上面的代码将在运行进程的当前目录中查找 <code>config.toml</code> 文件。如果找不到，它将在可执行文件所在的目录中搜索。如果文件不存在，<code>createIfDontExists</code> 参数将被尊重，创建一个空文件在最后测试的路径（基于 <code>lookupDirectories</code>），并在控制台中抛出一个错误，防止应用程序初始化。</p>
+<p>上面的代码将在运行进程的当前目录中查找 <code>config.toml</code> 文件。如果找不到，它将在可执行文件所在的目录中查找。如果文件不存在，<code>createIfDontExists</code> 参数将被尊重，创建一个空文件，在最后测试的路径中（基于 <code>lookupDirectories</code>），并在控制台中抛出一个错误，防止应用程序初始化。</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>您可以查看 INI 配置读取器和 JSON 配置读取器的源代码，以了解如何实现 <code>IConfigurationProvider</code>。</p>
@@ -224,7 +224,7 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>每个配置读取器提供了一种读取服务器初始化参数的方式。一些属性被指示在进程环境中而不是在配置文件中定义，例如敏感的 API 数据、API 密钥等。</p>
+<p>每个配置读取器提供了一种读取服务器初始化参数的方式。一些属性指示应在进程环境中设置，而不是在配置文件中定义，例如敏感的 API 数据、API 密钥等。</p>
 <h2 id="配置文件结构">配置文件结构</h2>
 <p>JSON 配置文件由以下属性组成：</p>
 <table>
@@ -264,7 +264,7 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>Server.ThrowExceptions</td>
             <td>可选</td>
-            <td>默认为 <code>true</code>。指定是否应抛出未处理的异常。设置为 <code>false</code> 时为生产环境，<code>true</code> 时为调试环境。</td>
+            <td>默认为 <code>true</code>。指定是否应抛出未处理的异常。设置为 <code>false</code> 时为生产环境，设置为 <code>true</code> 时为调试环境。</td>
         </tr>
         <tr>
             <td>ListeningHost</td>

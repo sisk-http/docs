@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>HTTP Server Engines | Sisk </title>
+        <title>HTTP-Server-Engines | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="HTTP Server Engines | Sisk ">
+        <meta name="title" content="HTTP-Server-Engines | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,30 +154,30 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="http-server-engines">HTTP Server Engines</h1>
+<h1 id="http-server-engines">HTTP-Server-Engines</h1>
 
-<p>Das Sisk Framework ist in mehrere Pakete unterteilt, wobei das Hauptpaket (Sisk.HttpServer) keinen Basis-HTTP-Server enthält – standardmäßig wird <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Haupt-Engine von Sisk verwendet, um die Low‑Level-Rolle des Servers zu übernehmen.</p>
-<p>Die HTTP‑Engine erfüllt die Rolle der Schicht unterhalb der Anwendungsschicht, die von Sisk angeboten wird. Diese Schicht ist verantwortlich für die Verbindungsverwaltung, die Serialisierung und Deserialisierung von Nachrichten, die Steuerung der Nachrichtenwarteschlange und die Kommunikation mit dem Socket des Geräts.</p>
-<p>Die Klasse <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> stellt eine API bereit, um alle notwendigen Funktionen einer HTTP‑Engine zu implementieren, die in höheren Schichten mit Sisk verwendet werden können, wie Routing, SSE, Middleware usw. Diese Funktionen liegen nicht in der Verantwortung der HTTP‑Engine, sondern in dem Teil der Bibliotheken, die die HTTP‑Engine als Basis für die Ausführung nutzen.</p>
-<p>Durch diese Abstraktion ist es möglich, Sisk so zu portieren, dass es mit jeder anderen HTTP‑Engine verwendet werden kann, die in .NET geschrieben ist oder nicht, z. B. Kestrel. Derzeit verwendet Sisk weiterhin eine Abstraktion des nativen .NET <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Standard für neue Projekte. Diese Standardabstraktion bringt einige spezifische Probleme mit sich, wie unbestimmtes Verhalten auf verschiedenen Plattformen (HttpListener hat eine Implementierung für Windows und eine andere für andere Plattformen), fehlende SSL-Unterstützung und nicht sehr angenehme Leistung außerhalb von Windows.</p>
-<p>Eine experimentelle Implementierung eines Hochleistungsservers, der ausschließlich in C# geschrieben ist, ist ebenfalls als HTTP‑Engine für Sisk verfügbar, genannt das <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a> Projekt, das ein Experiment eines verwalteten Servers ist, der mit Sisk oder ohne verwendet werden kann.</p>
-<h2 id="implementierung-einer-httpengine-für-sisk">Implementierung einer HTTP‑Engine für Sisk</h2>
-<p>Sie können eine Verbindung zwischen einem bestehenden HTTP‑Server und Sisk herstellen, indem Sie die Klasse <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> erweitern. Zusätzlich zu dieser Klasse müssen Sie auch Abstraktionen für Kontexte, Anfragen und Antworten implementieren.</p>
-<p>Ein vollständiges Abstraktionsbeispiel ist <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">auf GitHub</a> verfügbar. Es sieht so aus:</p>
+<p>Das Sisk Framework ist in mehrere Pakete unterteilt, wobei das Hauptpaket (Sisk.HttpServer) keinen Basis-HTTP-Server enthält - standardmäßig wird <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Haupt-Engine von Sisk verwendet, um die untergeordnete Rolle des Servers auszuführen.</p>
+<p>Die HTTP-Engine erfüllt die Rolle der Schicht unterhalb der Anwendungsschicht, die von Sisk angeboten wird. Diese Schicht ist für die Verbindungsbearbeitung, die Serialisierung und Deserialisierung von Nachrichten, die Steuerung der Nachrichtenwarteschlange und die Kommunikation mit dem Socket des Computers verantwortlich.</p>
+<p>Die <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>-Klasse bietet eine API, um alle notwendigen Funktionalitäten einer HTTP-Engine zu implementieren, die in höheren Schichten mit Sisk verwendet werden können, wie z.B. Routing, SSE, Middlewares usw. Diese Funktionen sind nicht die Verantwortung der HTTP-Engine, sondern vielmehr eines Teils der Bibliotheken, die die HTTP-Engine als Basis für die Ausführung verwenden.</p>
+<p>Durch diese Abstraktion ist es möglich, Sisk so anzupassen, dass es mit jeder anderen HTTP-Engine verwendet werden kann, die in .NET oder einer anderen Sprache geschrieben ist, wie z.B. Kestrel. Derzeit verwendet Sisk weiterhin eine Abstraktion des nativen .NET-<a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> als Standard für neue Projekte. Diese Standardabstraktion bringt einige spezifische Probleme mit sich, wie z.B. unbestimmtes Verhalten auf verschiedenen Plattformen (HttpListener hat eine Implementierung für Windows und eine andere für andere Plattformen), fehlende Unterstützung für SSL und keine sehr angenehme Leistung außerhalb von Windows.</p>
+<p>Eine experimentelle Implementierung eines Hochleistungs-Servers, der rein in C# geschrieben ist, ist auch als HTTP-Engine für Sisk verfügbar, genannt das <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a>-Projekt, das ein Experiment eines verwalteten Servers ist, der mit Sisk oder ohne verwendet werden kann.</p>
+<h2 id="implementierung-einer-http-engine-für-sisk">Implementierung einer HTTP-Engine für Sisk</h2>
+<p>Sie können eine Verbindung zwischen einem bestehenden HTTP-Server und Sisk herstellen, indem Sie die <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>-Klasse erweitern. Zusätzlich zu dieser Klasse müssen Sie auch Abstraktionen für Kontexte, Anfragen und Antworten implementieren.</p>
+<p>Ein vollständiges Abstraktionsbeispiel ist <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">auf GitHub</a> verfügbar. Es sieht wie folgt aus:</p>
 <pre><code class="lang-csharp">/// &lt;summary&gt;
-/// Provides an implementation of &lt;see cref=&quot;HttpServerEngine&quot;/&gt; using &lt;see cref=&quot;HttpListener&quot;/&gt;.
+/// Bietet eine Implementierung von &lt;see cref=&quot;HttpServerEngine&quot;/&gt; mit &lt;see cref=&quot;HttpListener&quot;/&gt;.
 /// &lt;/summary&gt;
 public sealed class HttpListenerAbstractEngine : HttpServerEngine {
     private HttpListener _listener;
     private static Lazy&lt;HttpListenerAbstractEngine&gt; shared = new Lazy&lt;HttpListenerAbstractEngine&gt; ( () =&gt; new HttpListenerAbstractEngine () );
 
     /// &lt;summary&gt;
-    /// Gets the shared instance of the &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt; class.
+    /// Ruft die gemeinsam genutzte Instanz der &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt;-Klasse ab.
     /// &lt;/summary&gt;
     public static HttpListenerAbstractEngine Shared =&gt; shared.Value;
 
     /// &lt;summary&gt;
-    /// Initializes a new instance of the &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt; class.
+    /// Initialisiert eine neue Instanz der &lt;see cref=&quot;HttpListenerAbstractEngine&quot;/&gt;-Klasse.
     /// &lt;/summary&gt;
     public HttpListenerAbstractEngine () {
         _listener = new HttpListener {
@@ -194,18 +194,18 @@ public sealed class HttpListenerAbstractEngine : HttpServerEngine {
     // ...
 }
 </code></pre>
-<h2 id="auswahl-einer-eventloop">Auswahl einer Event‑Loop</h2>
-<p>Während der Erstellung einer HTTP‑Engine wird der Server Anfragen in einer Schleife empfangen und Kontexte erstellen, um jede einzelne in separaten Threads zu verarbeiten. Dafür müssen Sie einen <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a> wählen:</p>
+<h2 id="auswahl-eines-ereignisschleifens">Auswahl eines Ereignisschleifens</h2>
+<p>Während der Erstellung einer HTTP-Engine wird der Server auf Anfragen hören und Kontexte erstellen, um jede davon in separaten Threads zu bearbeiten. Dazu müssen Sie einen <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a> auswählen:</p>
 <ul>
-<li><code>InlineAsynchronousGetContext</code> – die Event‑Loop ist linear – Aufrufe zur Handhabung des HTTP‑Kontexts erfolgen in einer asynchronen Schleife.</li>
-<li><code>UnboundAsynchronousGetContext</code> – die Event‑Loop wird durch die Methoden <code>BeginGetContext</code> und <code>EndGetContext</code> übertragen.</li>
+<li><code>InlineAsynchronousGetContext</code> die Ereignisschleife ist linear - HTTP-Kontextbearbeitungsrufe erfolgen in einer asynchronen Schleife.</li>
+<li><code>UnboundAsynchronousGetContext</code> die Ereignisschleife wird durch die <code>BeginGetContext</code>- und <code>EndGetContext</code>-Methoden übertragen.</li>
 </ul>
 <pre><code class="lang-csharp">public override HttpServerEngineContextEventLoopMechanism EventLoopMechanism =&gt; HttpServerEngineContextEventLoopMechanism.UnboundAsynchronousGetContext;
 </code></pre>
-<p>Sie müssen nicht beide Event‑Loops implementieren. Wählen Sie diejenige, die für Ihre HTTP‑Engine am sinnvollsten ist.</p>
-<h2 id="tests">Tests</h2>
-<p>Nach dem Verknüpfen Ihrer HTTP‑Engine ist es wichtig, Tests durchzuführen, um sicherzustellen, dass alle Sisk‑Funktionen bei der Verwendung anderer Engines identisches Verhalten zeigen. <strong>Es ist äußerst wichtig</strong>, dass Sisk bei verschiedenen HTTP‑Engines das gleiche Verhalten aufweist.</p>
-<p>Sie können das Test‑Repository auf <a href="https://github.com/sisk-http/core/tree/main/tests">GitHub</a> besuchen.</p>
+<p>Sie müssen nicht beide Ereignisschleifen implementieren. Wählen Sie diejenige, die am meisten Sinn für Ihre HTTP-Engine ergibt.</p>
+<h2 id="testen">Testen</h2>
+<p>Nachdem Sie Ihre HTTP-Engine verknüpft haben, ist es wichtig, Tests durchzuführen, um sicherzustellen, dass alle Sisk-Funktionen identisches Verhalten aufweisen, wenn andere Engines verwendet werden. <strong>Es ist extrem wichtig</strong>, dass Sisk für verschiedene HTTP-Engines identisches Verhalten aufweist.</p>
+<p>Sie können das Test-Repository auf <a href="https://github.com/sisk-http/core/tree/main/tests">GitHub</a> besuchen.</p>
 
 </article>
 

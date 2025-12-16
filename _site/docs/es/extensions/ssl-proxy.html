@@ -158,11 +158,11 @@
 
 <div class="WARNING">
 <h5>Warning</h5>
-<p>Esta característica es experimental y no debe usarse en producción. Por favor, consulte <a href="/docs/deploying.html#proxying-your-application">este documento</a> si desea hacer que Sisk funcione con SSL.</p>
+<p>Esta característica es experimental y no debe usarse en producción. Consulte <a href="/docs/es/deploying.html#proxying-your-application">este documento</a> si desea hacer que Sisk funcione con SSL.</p>
 </div>
-<p>El Proxy SSL de Sisk es un módulo que proporciona una conexión HTTPS para un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> en Sisk y enruta los mensajes HTTPS a un contexto HTTP inseguro. El módulo se creó para proporcionar una conexión SSL para un servicio que utiliza <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> para ejecutarse, que no admite SSL.</p>
-<p>El proxy se ejecuta dentro de la misma aplicación y escucha los mensajes HTTP/1.1, reenviándolos en el mismo protocolo a Sisk. Actualmente, esta característica es muy experimental y puede ser lo suficientemente inestable como para no usarse en producción.</p>
-<p>En la actualidad, el SslProxy admite casi todas las características de HTTP/1.1, como keep-alive, codificación chunked, websockets, etc. Para una conexión abierta al proxy SSL, se crea una conexión TCP al servidor de destino y el proxy se reenvía a la conexión establecida.</p>
+<p>El Proxy SSL de Sisk es un módulo que proporciona una conexión HTTPS para un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> en Sisk y enruta mensajes HTTPS a un contexto HTTP inseguro. El módulo se creó para proporcionar una conexión SSL para un servicio que utiliza <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> para ejecutarse, que no admite SSL.</p>
+<p>El proxy se ejecuta dentro de la misma aplicación y escucha mensajes HTTP/1.1, reenviándolos en el mismo protocolo a Sisk. Actualmente, esta característica es muy experimental y puede ser lo suficientemente inestable como para no usarse en producción.</p>
+<p>En la actualidad, el SslProxy admite casi todas las características de HTTP/1.1, como keep-alive, codificación en bloques, websockets, etc. Para una conexión abierta al proxy SSL, se crea una conexión TCP al servidor de destino y el proxy se reenvía a la conexión establecida.</p>
 <p>El SslProxy se puede utilizar con HttpServer.CreateBuilder de la siguiente manera:</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
     .UseRouter(r =&gt;
@@ -181,7 +181,7 @@
 
 app.Start();
 </code></pre>
-<p>Debes proporcionar un certificado SSL válido para el proxy. Para asegurarte de que el certificado sea aceptado por los navegadores, recuerda importarlo en el sistema operativo para que funcione correctamente.</p>
+<p>Debe proporcionar un certificado SSL válido para el proxy. Para asegurarse de que el certificado sea aceptado por los navegadores, recuerde importarlo en el sistema operativo para que funcione correctamente.</p>
 
 </article>
 

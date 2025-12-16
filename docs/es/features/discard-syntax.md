@@ -7,10 +7,10 @@ El siguiente ejemplo muestra cómo crear un servidor HTTP de escucha en el puert
 ```csharp
 using (var server = HttpServer.CreateListener(5555))
 {
-    // espera la próxima solicitud HTTP
+    // esperar la siguiente solicitud http
     var context = await server.WaitNextAsync();
     Console.WriteLine($"Ruta solicitada: {context.Request.Path}");
 }
 ```
 
-La función [WaitNext](/api/Sisk.Core.Http.HttpServer.WaitNext) espera el próximo contexto de un procesamiento de solicitud completado. Una vez que se obtiene el resultado de esta operación, el servidor ya ha procesado completamente la solicitud y ha enviado la respuesta al cliente.
+La función [WaitNext](/api/Sisk.Core.Http.HttpServer.WaitNext) espera el siguiente contexto de un procesamiento de solicitud completado. Una vez que se obtiene el resultado de esta operación, el servidor ya ha manejado completamente la solicitud y ha enviado la respuesta al cliente.

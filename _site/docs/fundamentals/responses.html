@@ -189,6 +189,10 @@ res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
 <p>When you use the <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> method of HttpHeaderCollection, you are adding a header to the request without altering the ones already sent. The <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> method replaces the headers with the same name with the instructed value. The indexer of HttpHeaderCollection internally calls the Set method to replace the headers.</p>
+<p>You can also retrieve header values using the <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue">GetHeaderValue</a> method. This method helps in obtaining values from both the response headers and the content headers (if any content is set).</p>
+<pre><code class="lang-cs">// Returns the value of the &quot;Content-Type&quot; header, checking both response.Headers and response.Content.Headers
+string? contentType = response.GetHeaderValue(&quot;Content-Type&quot;);
+</code></pre>
 <h2 id="sending-cookies">Sending cookies</h2>
 <p>Sisk has methods that facilitate the definition of cookies in the client. Cookies set by this method are already URL encoded and fit the RFC-6265 standard.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();

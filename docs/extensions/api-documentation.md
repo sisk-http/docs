@@ -5,11 +5,7 @@ The `Sisk.Documenting` extension allows you to generate API documentation for yo
 > [!WARNING]
 > This package is currently under development and is not yet published. Its behavior and API may be subject to change in future updates.
 
-## Installation
-
 Since this package is not yet available on NuGet, you must incorporate the source code directly into your project or reference it as a project dependency. You can access the source code [here](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting).
-
-## Usage
 
 To use `Sisk.Documenting`, you need to register it in your application builder and decorate your route handlers with documentation attributes.
 
@@ -30,8 +26,7 @@ host.UseApiDocumentation(
         Version = "1.0.0"
     },
     routerPath: "/api/docs",
-    exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] }
-);
+    exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] });
 ```
 
 - **context**: Defines metadata about your application, such as name, description, and version.
@@ -42,7 +37,7 @@ host.UseApiDocumentation(
 
 You can describe your endpoints using the `[ApiEndpoint]` and `[ApiQueryParameter]` attributes on your route handler methods.
 
-#### ApiEndpoint
+### `ApiEndpoint`
 
 The `[ApiEndpoint]` attribute allows you to provide a description for the endpoint.
 
@@ -51,7 +46,7 @@ The `[ApiEndpoint]` attribute allows you to provide a description for the endpoi
 public HttpResponse Index(HttpRequest request) { ... }
 ```
 
-#### ApiQueryParameter
+### `ApiQueryParameter`
 
 The `[ApiQueryParameter]` attribute documents query string parameters that the endpoint accepts.
 
@@ -65,11 +60,7 @@ public HttpResponse Index(HttpRequest request) { ... }
 - **Description**: A human-readable description of the parameter.
 - **Type**: The expected data type (e.g., "string", "int").
 
-## Available Attributes
-
-The following list describes all attributes available in `Sisk.Documenting.Annotations` to document your API.
-
-### [ApiEndpoint]
+### `ApiEndpoint`
 
 Annotates an endpoint with general information.
 
@@ -78,7 +69,7 @@ Annotates an endpoint with general information.
 *   **Group** (string): Allows grouping endpoints (e.g., by controller or module).
 *   **InheritDescriptionFromXmlDocumentation** (bool, default: `true`): If `true`, attempts to use the method's XML documentation summary if `Description` is not set.
 
-### [ApiHeader]
+### `ApiHeader`
 
 Documents a specific HTTP header that the endpoint expects or utilizes.
 
@@ -86,7 +77,7 @@ Documents a specific HTTP header that the endpoint expects or utilizes.
 *   **Description** (string): Describes the header's purpose.
 *   **IsRequired** (bool): Indicates if the header is mandatory for the request.
 
-### [ApiParameter]
+### `ApiParameter`
 
 Defines a generic parameter for the endpoint, often used for form fields or body parameters not covered by other attributes.
 
@@ -95,13 +86,13 @@ Defines a generic parameter for the endpoint, often used for form fields or body
 *   **Description** (string): A description of the parameter.
 *   **IsRequired** (bool): Indicates if the parameter is mandatory.
 
-### [ApiParametersFrom]
+### `ApiParametersFrom`
 
 Automatically generates parameter documentation from the properties of a specified class or type.
 
 *   **Type** (Type, required in constructor): The class `Type` to reflect properties from.
 
-### [ApiPathParameter]
+### `ApiPathParameter`
 
 Documents a path variable (e.g., in `/users/{id}`).
 
@@ -109,7 +100,7 @@ Documents a path variable (e.g., in `/users/{id}`).
 *   **Description** (string): Describes what the parameter represents.
 *   **Type** (string): The expected data type.
 
-### [ApiQueryParameter]
+### `ApiQueryParameter`
 
 Documents a query string parameter (e.g., `?page=1`).
 
@@ -118,7 +109,7 @@ Documents a query string parameter (e.g., `?page=1`).
 *   **Type** (string): The expected data type.
 *   **IsRequired** (bool): Indicates if the query parameter must be present.
 
-### [ApiRequest]
+### `ApiRequest`
 
 Describes the expected request body.
 
@@ -127,7 +118,7 @@ Describes the expected request body.
 *   **ExampleLanguage** (string): The language of the example (e.g., "json", "xml").
 *   **ExampleType** (Type): If set, the example will be generated automatically from this type (if supported by the context).
 
-### [ApiResponse]
+### `ApiResponse`
 
 Describes a possible response from the endpoint.
 

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Web Sockets | Sisk </title>
+        <title>Web-Sockets | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Web Sockets | Sisk ">
+        <meta name="title" content="Web-Sockets | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,13 +154,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="web-sockets">Web Sockets</h1>
+<h1 id="web-sockets">Web-Sockets</h1>
 
-<p>Sisk unterstützt WebSockets ebenfalls, zum Beispiel das Empfangen und Senden von Nachrichten an den Client.</p>
-<p>Diese Funktion arbeitet in den meisten Browsern einwandfrei, in Sisk ist sie jedoch noch experimentell. Bitte melden Sie etwaige Fehler auf GitHub.</p>
-<h2 id="nachrichten-asynchron-akzeptieren">Nachrichten asynchron akzeptieren</h2>
-<p>WebSocket-Nachrichten werden in Reihenfolge empfangen, bis sie von <code>ReceiveMessageAsync</code> verarbeitet werden. Diese Methode liefert keine Nachricht, wenn das Timeout erreicht ist, die Operation abgebrochen wird oder der Client getrennt ist.</p>
-<p>Nur eine Lese- und Schreiboperation kann gleichzeitig stattfinden, daher ist es nicht möglich, während des Wartens auf eine Nachricht mit <code>ReceiveMessageAsync</code> etwas an den verbundenen Client zu schreiben.</p>
+<p>Sisk unterstützt auch Web-Sockets, wie das Empfangen und Senden von Nachrichten an ihre Clients.</p>
+<p>Diese Funktion funktioniert in den meisten Browsern einwandfrei, in Sisk ist sie jedoch noch experimentell. Bitte melden Sie alle Fehler auf Github.</p>
+<h2 id="akzeptieren-von-nachrichten">Akzeptieren von Nachrichten</h2>
+<p>WebSocket-Nachrichten werden in der Reihenfolge ihres Eingangs empfangen und bis zur Verarbeitung durch <code>ReceiveMessageAsync</code> zwischengespeichert. Diese Methode gibt keine Nachricht zurück, wenn die Zeitüberschreitung erreicht ist, wenn der Vorgang abgebrochen wird oder wenn der Client getrennt wird.</p>
+<p>Nur ein Lese- und Schreibvorgang kann gleichzeitig erfolgen, daher ist es nicht möglich, während des Wartens auf eine Nachricht mit <code>ReceiveMessageAsync</code> an den verbundenen Client zu schreiben.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -168,23 +168,23 @@
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine(&quot;Received message: &quot; + msgText);
+        Console.WriteLine(&quot;Empfangene Nachricht: &quot; + msgText);
 
-        await ws.SendAsync(&quot;Hello!&quot;);
+        await ws.SendAsync(&quot;Hallo!&quot;);
     }
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="nachrichten-synchron-akzeptieren">Nachrichten synchron akzeptieren</h2>
-<p>Das folgende Beispiel zeigt, wie man einen synchronen WebSocket verwendet, ohne einen asynchronen Kontext, wobei man die Nachrichten empfängt, verarbeitet und den Socket anschließend beendet.</p>
+<h2 id="beständige-verbindung">Beständige Verbindung</h2>
+<p>Das folgende Beispiel enthält eine Möglichkeit, eine beständige WebSocket-Verbindung zu verwenden, bei der Sie die Nachrichten empfangen, bearbeiten und die Verbindung beenden.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;What is your name?&quot;);
+    await ws.SendAsync(&quot;Wie ist Ihr Name?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -194,12 +194,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        await ws.SendAsync(&quot;Bitte geben Sie Ihren Namen ein!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;And your age?&quot;);
+    await ws.SendAsync(&quot;Und Ihr Alter?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -207,19 +207,19 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        await ws.SendAsync(&quot;Bitte geben Sie eine gültige Zahl ein&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
+    await ws.SendAsync($&quot;Sie sind {name} und {age} Jahre alt.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="ping-policy">Ping-Policy</h2>
-<p>Ähnlich wie die Ping-Policy bei Server Side Events kann auch hier eine Ping-Policy konfiguriert werden, um die TCP-Verbindung offen zu halten, wenn dort Inaktivität besteht.</p>
+<h2 id="ping-richtlinie">Ping-Richtlinie</h2>
+<p>Ähnlich wie die Ping-Richtlinie bei Server-Seitigen Ereignissen funktioniert, können Sie auch eine Ping-Richtlinie konfigurieren, um die TCP-Verbindung bei Inaktivität offen zu halten.</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
-    dataMessage: &quot;ping-message&quot;,
+    dataMessage: &quot;ping-nachricht&quot;,
     interval: TimeSpan.FromSeconds(10));
 </code></pre>
 

@@ -22,7 +22,7 @@ Um guia sobre como [implantar](/docs/pt-br/deploying) em diferentes sistemas e a
 
 ## O Sisk tem autenticação, monitoramento e serviços de banco de dados?
 
-Não. O Sisk não tem nenhum desses. É um framework para desenvolver aplicações web HTTP, mas é um framework minimalista que entrega o que é necessário para que sua aplicação funcione.
+Não. O Sisk não tem nenhum desses. É um framework para desenvolver aplicações web HTTP, mas ainda é um framework minimalista que entrega o que é necessário para que sua aplicação funcione.
 
 Você pode implementar todos os serviços que desejar usando qualquer biblioteca de terceiros que preferir. O Sisk foi feito para ser agnóstico, flexível e funcionar com qualquer coisa.
 
@@ -41,7 +41,7 @@ Você precisa dos básicos de:
 - Desenvolvimento web (HTTP, Restful, etc.)
 - .NET
 
-Isso é tudo. Tendo uma noção desses dois tópicos, você pode dedicar algumas horas para desenvolver uma aplicação avançada com o Sisk.
+É isso. Tendo uma noção desses dois tópicos, você pode dedicar algumas horas para desenvolver uma aplicação avançada com o Sisk.
 
 ## Posso desenvolver aplicações comerciais com o Sisk?
 

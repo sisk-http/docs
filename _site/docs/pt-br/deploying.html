@@ -159,27 +159,27 @@
 <p>O processo de implantar uma aplicação Sisk consiste em publicar seu projeto em produção. Embora o processo seja relativamente simples, é importante notar detalhes que podem ser letais para a segurança e estabilidade da infraestrutura de implantação.</p>
 <p>Idealmente, você deve estar pronto para implantar sua aplicação na nuvem, após realizar todos os testes possíveis para ter sua aplicação pronta.</p>
 <h2 id="publicando-sua-aplicação">Publicando sua aplicação</h2>
-<p>Publicar sua aplicação ou serviço Sisk é gerar binários prontos e otimizados para produção. Neste exemplo, vamos compilar os binários para produção para executar em uma máquina que tenha o .NET Runtime instalado.</p>
+<p>Publicar sua aplicação ou serviço Sisk é gerar binários prontos e otimizados para produção. Neste exemplo, vamos compilar os binários para produção para executar em uma máquina que tem o .NET Runtime instalado.</p>
 <p>Você precisará ter o .NET SDK instalado em sua máquina para compilar sua aplicação, e o .NET Runtime instalado no servidor de destino para executar sua aplicação. Você pode aprender como instalar o .NET Runtime em seu servidor Linux <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">aqui</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> e <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a>.</p>
-<p>No diretório onde seu projeto está localizado, abra um terminal e use o comando de publicação do .NET:</p>
+<p>No diretório onde seu projeto está localizado, abra um terminal e use o comando .NET publish:</p>
 <pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
 </code></pre>
 <p>Isso gerará seus binários dentro de <code>bin/Release/publish/linux-x64</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Se sua aplicação estiver executando usando o pacote Sisk.ServiceProvider, você deve copiar seu <code>service-config.json</code> para o servidor de hospedagem junto com todos os binários gerados pelo <code>dotnet publish</code>.
-Você pode deixar o arquivo pré-configurado, com variáveis de ambiente, portas e hosts de escuta e configurações adicionais do servidor.</p>
+Você pode deixar o arquivo pré-configurado, com variáveis de ambiente, portas e hosts de escuta, e configurações adicionais do servidor.</p>
 </div>
 <p>A próxima etapa é levar esses arquivos para o servidor onde sua aplicação será hospedada.</p>
-<p>Depois disso, dê permissões de execução para o arquivo binário. Neste caso, vamos considerar que o nome do nosso projeto é &quot;my-app&quot;:</p>
+<p>Depois disso, dê permissões de execução para o seu arquivo binário. Neste caso, vamos considerar que o nome do nosso projeto é &quot;my-app&quot;:</p>
 <pre><code class="lang-shell">$ cd /home/htdocs
 $ chmod +x my-app
 $ ./my-app
 </code></pre>
-<p>Após executar sua aplicação, verifique se ela produz alguma mensagem de erro. Se não produzir, é porque sua aplicação está em execução.</p>
+<p>Depois de executar sua aplicação, verifique se ela produz alguma mensagem de erro. Se não produzir, é porque sua aplicação está executando.</p>
 <p>Neste ponto, provavelmente não será possível acessar sua aplicação pela rede externa fora do seu servidor, pois as regras de acesso, como Firewall, não foram configuradas. Vamos considerar isso nas próximas etapas.</p>
 <p>Você deve ter o endereço do host virtual onde sua aplicação está escutando. Isso é definido manualmente na aplicação e depende de como você está instanciando seu serviço Sisk.</p>
-<p>Se você <strong>não</strong> estiver usando o pacote Sisk.ServiceProvider, você deve encontrar o endereço onde definiu sua instância de HttpServer:</p>
+<p>Se você <strong>não</strong> estiver usando o pacote Sisk.ServiceProvider, você deve encontrar onde definiu sua instância de HttpServer:</p>
 <pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
 // sisk deve escutar em http://localhost:5000/
 </code></pre>
@@ -206,15 +206,15 @@ $ ./my-app
 <li>Separa os balanceadores de carga para sua aplicação;</li>
 <li>Previne danos de segurança à infraestrutura de falha.</li>
 </ul>
-<p>Você pode servir sua aplicação por meio de um proxy reverso como <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> ou <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>, ou você pode usar um túnel http-over-dns como <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>.</p>
-<p>Além disso, lembre-se de resolver corretamente os cabeçalhos de encaminhamento do proxy para obter as informações do cliente, como endereço IP e host, por meio de <a href="/docs/advanced/forwarding-resolvers">resolutores de encaminhamento</a>.</p>
-<p>A próxima etapa após criar seu túnel, configurar o firewall e ter sua aplicação em execução é criar um serviço para sua aplicação.</p>
+<p>Você pode servir sua aplicação por meio de um proxy reverso como <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> ou <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a>, ou pode usar um túnel http-over-dns como <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a>.</p>
+<p>Além disso, lembre-se de resolver corretamente os cabeçalhos de encaminhamento do seu proxy para obter as informações do cliente, como endereço IP e host, por meio de <a href="/docs/pt-br/advanced/forwarding-resolvers">resolvidores de encaminhamento</a>.</p>
+<p>A próxima etapa após criar seu túnel, configurar o Firewall e ter sua aplicação em execução é criar um serviço para sua aplicação.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Usar certificados SSL diretamente no serviço Sisk em sistemas não-Windows não é possível. Isso é um ponto da implementação do HttpListener, que é o módulo central para como a gestão da fila HTTP é feita no Sisk, e essa implementação varia de sistema operacional para sistema operacional. Você pode usar SSL em seu serviço Sisk se <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">associar um certificado ao host virtual com IIS</a>. Para outros sistemas, usar um proxy reverso é altamente recomendado.</p>
 </div>
 <h2 id="criando-um-serviço">Criando um serviço</h2>
-<p>Criar um serviço fará com que sua aplicação esteja sempre disponível, mesmo após reiniciar a instância do servidor ou uma falha não recuperável.</p>
+<p>Criar um serviço fará com que sua aplicação esteja sempre disponível, mesmo após reiniciar sua instância de servidor ou uma falha não recuperável.</p>
 <p>Neste tutorial simples, vamos usar o conteúdo do tutorial anterior como um exemplo para manter seu serviço sempre ativo.</p>
 <ol>
 <li><p>Acesse o diretório onde os arquivos de configuração do serviço estão localizados:</p>
@@ -250,7 +250,7 @@ RestartSec=3
 WantedBy=multi-user.target
 </code></pre>
 </li>
-<li><p>Reinicie o módulo de gerenciamento de serviços:</p>
+<li><p>Reinicie o módulo de gerenciamento de serviço:</p>
 <pre><code class="lang-sh">$ sudo systemctl daemon-reload
 </code></pre>
 </li>

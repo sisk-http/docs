@@ -1,14 +1,14 @@
-# Web Sockets
+# Web ソケット
 
-Sisk は WebSocket もサポートしており、クライアントへのメッセージの送受信が可能です。
+Sisk では Web ソケットもサポートしており、クライアントへのメッセージの受信と送信が可能です。
 
-この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験段階です。バグを発見した場合は GitHub で報告してください。
+この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github に報告してください。
 
-## 非同期でメッセージを受信する
+## メッセージの受信
 
-WebSocket のメッセージは順序通りに受信され、`ReceiveMessageAsync` で処理されるまでキューに入れられます。このメソッドは、タイムアウトに達したとき、操作がキャンセルされたとき、またはクライアントが切断されたときにメッセージを返しません。
+WebSocket メッセージは順番に受信され、`ReceiveMessageAsync` によって処理されるまでキューに保管されます。このメソッドは、タイムアウトが達成されたとき、操作がキャンセルされたとき、またはクライアントが切断されたときにはメッセージを返しません。
 
-読み取りと書き込みは同時に 1 つしか実行できないため、`ReceiveMessageAsync` でメッセージを待っている間は、接続されたクライアントに書き込むことはできません。
+同時に読み取りと書き込みの操作が 1 つしか行えないため、`ReceiveMessageAsync` でメッセージを待っている間に、接続されたクライアントに書き込むことはできません。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -18,18 +18,18 @@ router.MapGet("/connect", async (HttpRequest req) =>
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine("Received message: " + msgText);
+        Console.WriteLine("メッセージを受信しました: " + msgText);
 
-        await ws.SendAsync("Hello!");
+        await ws.SendAsync("こんにちは!");
     }
 
     return await ws.CloseAsync();
 });
 ```
 
-## 同期でメッセージを受信する
+## 持続的な接続
 
-以下の例では、非同期コンテキストを使わずに同期的に WebSocket を使用し、メッセージを受信し、処理し、ソケットの使用を終了する方法を示しています。
+以下の例には、メッセージを受信し、処理し、ソケットの使用を終了する方法が含まれています。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -38,7 +38,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync("What is your name?");
+    await ws.SendAsync("あなたの名前は何ですか?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -48,12 +48,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync("Please, insert your name!");
+        await ws.SendAsync("名前を入力してください!");
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync("And your age?");
+    await ws.SendAsync("あなたの年齢は?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -61,11 +61,11 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync("Please, insert an valid number");
+        await ws.SendAsync("有効な数字を入力してください");
         goto askAge;
     }
 
-    await ws.SendAsync($"You're {name}, and you are {age} old.");
+    await ws.SendAsync($"あなたは {name} さんで、{age} 歳です.");
 
     return await ws.CloseAsync();
 });
@@ -73,10 +73,10 @@ askAge:
 
 ## Ping ポリシー
 
-Server Side Events の ping ポリシーと同様に、TCP 接続に不活動がある場合に接続を維持するために ping ポリシーを設定できます。
+サーバー側イベントの Ping ポリシーと同様に、TCP 接続を維持するために Ping ポリシーを設定できます。
 
 ```cs
 ws.PingPolicy.Start(
-    dataMessage: "ping-message",
+    dataMessage: "ping-メッセージ",
     interval: TimeSpan.FromSeconds(10));
 ```

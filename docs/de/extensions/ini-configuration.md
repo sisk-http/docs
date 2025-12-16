@@ -1,6 +1,6 @@
 # INI-Konfiguration
 
-Sisk hat eine Methode für das Abrufen von Startkonfigurationen, die nicht JSON sind. Tatsächlich kann jede Pipeline, die [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) implementiert, mit [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder) verwendet werden, um die Serverkonfiguration aus jeder Dateityp zu lesen.
+Sisk hat eine Methode, um Startkonfigurationen zu erhalten, die nicht JSON sind. Tatsächlich kann jede Pipeline, die [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) implementiert, mit [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder) verwendet werden, um die Serverkonfiguration aus jeder Dateityp zu lesen.
 
 Das [Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/)-Paket bietet einen streambasierten INI-Dateileser, der keine Ausnahmen für häufige Syntaxfehler auslöst und eine einfache Konfigurationssyntax hat. Dieses Paket kann außerhalb des Sisk-Frameworks verwendet werden und bietet Flexibilität für Projekte, die einen effizienten INI-Dokumentleser benötigen.
 
@@ -76,20 +76,20 @@ Name = "Kanye West"
 Aktuelle Implementierung des Geschmacks:
 
 - Eigenschaften- und Sektionsnamen sind **groß-/kleinschreibungsunabhängig**.
-- Eigenschaftsnamen und Werte sind **gekürzt**, sofern Werte nicht in Anführungszeichen gesetzt sind.
-- Werte können mit einfachen oder doppelten Anführungszeichen in Anführungszeichen gesetzt werden. Anführungszeichen können Zeilenumbrüche enthalten.
+- Eigenschaftsnamen und Werte werden **entfernt**, sofern Werte nicht in Anführungszeichen gesetzt sind.
+- Werte können mit einfachen oder doppelten Anführungszeichen umschlossen werden. Anführungszeichen können Zeilenumbrüche enthalten.
 - Kommentare werden mit `#` und `;` unterstützt. **Nachgestellte Kommentare sind ebenfalls erlaubt**.
 - Eigenschaften können mehrere Werte haben.
 
-Im Detail finden Sie die Dokumentation für den "Geschmack" des INI-Parsers, der in Sisk verwendet wird, [in diesem Dokument](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
+Im Detail ist die Dokumentation für den "Geschmack" des INI-Parsers, der in Sisk verwendet wird, [in diesem Dokument verfügbar](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
 
-Verwenden Sie beispielsweise den folgenden INI-Code:
+Mit dem folgenden INI-Code als Beispiel:
 
 ```ini
 One = 1
-Value = dies ist ein Wert
-Another value = "dieser Wert
-    hat einen Zeilenumbruch darin"
+Value = this is an value
+Another value = "this value
+    has an line break on it"
 
 ; der Code unten hat einige Farben
 [some section]
@@ -98,10 +98,10 @@ Color = Blue
 Color = Yellow ; verwenden Sie nicht gelb
 ```
 
-Analysieren Sie ihn mit:
+Parse es mit:
 
 ```csharp
-// analysieren Sie den INI-Text aus der Zeichenfolge
+// parse die INI-Text aus der Zeichenfolge
 IniDocument doc = IniDocument.FromString(iniText);
 
 // erhalten Sie einen Wert
@@ -114,19 +114,19 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 
 ## Konfigurationsparameter
 
-| Sektion und Name | Mehrere Werte zulassen | Beschreibung |
+| Sektion und Name | Erlaubt mehrere Werte | Beschreibung |
 | ---------------- | --------------------- | ----------- |
 | `Server.Listen` | Ja | Die Zuhöradressen/Ports des Servers. |
 | `Server.Encoding` | Nein | Die Standardcodierung des Servers. |
 | `Server.MaximumContentLength` | Nein | Die maximale Inhaltslänge des Servers in Bytes. |
-| `Server.IncludeRequestIdHeader` | Nein | Gibt an, ob der HTTP-Server den X-Request-Id-Header senden soll. |
-| `Server.ThrowExceptions` | Nein | Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. |
-| `Server.AccessLogsStream` | Nein | Gibt den Ausgabestream für den Zugriff auf die Protokolle an. |
-| `Server.ErrorsLogsStream` | Nein | Gibt den Ausgabestream für die Fehlerprotokolle an. |
-| `Cors.AllowMethods` | Nein | Gibt den Wert des CORS-Allow-Methods-Headers an. |
-| `Cors.AllowHeaders` | Nein | Gibt den Wert des CORS-Allow-Headers-Headers an. |
-| `Cors.AllowOrigins` | Nein | Gibt mehrere Allow-Origin-Header, getrennt durch Kommata, an. [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) für weitere Informationen. |
-| `Cors.AllowOrigin` | Nein | Gibt einen Allow-Origin-Header an. |
-| `Cors.ExposeHeaders` | Nein | Gibt den Wert des CORS-Expose-Headers-Headers an. |
-| `Cors.AllowCredentials` | Nein | Gibt den Wert des CORS-Allow-Credentials-Headers an. |
-| `Cors.MaxAge` | Nein | Gibt den Wert des CORS-Max-Age-Headers an. |
+| `Server.IncludeRequestIdHeader` | Nein | Gibt an, ob der HTTP-Server die X-Request-Id-Header senden soll. |
+| `Server.ThrowExceptions` | Nein |  Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen.  |
+| `Server.AccessLogsStream` | Nein |  Gibt den Ausgabestream für die Zugriffsprotokolle an. |
+| `Server.ErrorsLogsStream` | Nein |  Gibt den Ausgabestream für die Fehlerprotokolle an. |
+| `Cors.AllowMethods` | Nein |  Gibt den Wert des CORS-Allow-Methods-Headers an. |
+| `Cors.AllowHeaders` | Nein |  Gibt den Wert des CORS-Allow-Headers-Headers an. |
+| `Cors.AllowOrigins` | Nein |  Gibt mehrere Allow-Origin-Header, getrennt durch Kommata, an. [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) für weitere Informationen. |
+| `Cors.AllowOrigin` | Nein |  Gibt einen Allow-Origin-Header an. |
+| `Cors.ExposeHeaders` | Nein |  Gibt den Wert des CORS-Expose-Headers-Headers an. |
+| `Cors.AllowCredentials` | Nein |  Gibt den Wert des CORS-Allow-Credentials-Headers an. |
+| `Cors.MaxAge` | Nein |  Gibt den Wert des CORS-Max-Age-Headers an.

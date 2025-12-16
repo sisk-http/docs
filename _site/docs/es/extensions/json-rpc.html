@@ -156,12 +156,12 @@
                 <article data-uid="">
 <h1 id="extensión-json-rpc">Extensión JSON-RPC</h1>
 
-<p>Sisk tiene un módulo experimental para una API <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a>, que te permite crear aplicaciones aún más simples. Esta extensión implementa estrictamente la interfaz de transporte JSON-RPC 2.0 y ofrece transporte a través de HTTP GET, solicitudes POST y también web-sockets con Sisk.</p>
-<p>Puedes instalar la extensión a través de Nuget con el comando siguiente. Ten en cuenta que, en versiones experimentales/beta, debes habilitar la opción para buscar paquetes prelanzamiento en Visual Studio.</p>
+<p>Sisk tiene un módulo experimental para una API <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a>, que permite crear aplicaciones aún más simples. Esta extensión implementa estrictamente la interfaz de transporte JSON-RPC 2.0 y ofrece transporte a través de solicitudes HTTP GET, POST y también web-sockets con Sisk.</p>
+<p>Puedes instalar la extensión a través de Nuget con el comando a continuación. Ten en cuenta que, en versiones experimentales/beta, debes habilitar la opción para buscar paquetes prelanzamiento en Visual Studio.</p>
 <pre><code class="lang-bash">dotnet add package Sisk.JsonRpc
 </code></pre>
 <h2 id="interfaz-de-transporte">Interfaz de transporte</h2>
-<p>JSON-RPC es un protocolo de ejecución remota de procedimientos (RDP) sin estado y asíncrono que utiliza JSON para la comunicación de datos unidireccional. Una solicitud JSON-RPC se identifica típicamente por un ID, y una respuesta se entrega con el mismo ID que se envió en la solicitud. No todas las solicitudes requieren una respuesta, que se llaman &quot;notificaciones&quot;.</p>
+<p>JSON-RPC es un protocolo de ejecución remota de procedimientos (RDP) sin estado y asíncrono que utiliza JSON para la comunicación de datos unidireccional. Una solicitud JSON-RPC generalmente se identifica por un ID, y una respuesta se entrega con el mismo ID que se envió en la solicitud. No todas las solicitudes requieren una respuesta, que se llaman &quot;notificaciones&quot;.</p>
 <p>La <a href="https://www.jsonrpc.org/specification">especificación JSON-RPC 2.0</a> explica en detalle cómo funciona el transporte. Este transporte es agnóstico de dónde se utilizará. Sisk implementa este protocolo a través de HTTP, siguiendo las conformidades de <a href="https://www.jsonrpc.org/historical/json-rpc-over-http.html">JSON-RPC sobre HTTP</a>, que admite parcialmente las solicitudes GET, pero admite completamente las solicitudes POST. También se admiten los web-sockets, que proporcionan una comunicación de mensajes asíncrona.</p>
 <p>Una solicitud JSON-RPC se parece a:</p>
 <pre><code class="lang-json">{
@@ -237,7 +237,7 @@ await app.StartAsync();
 </code></pre>
 <p>El ejemplo anterior asignará los métodos <code>Sum</code> y <code>Sqrt</code> al controlador JSON-RPC, y estos métodos estarán disponibles en <code>GET /service</code>, <code>POST /service</code> y <code>GET /ws</code>. Los nombres de los métodos son insensibles a mayúsculas y minúsculas.</p>
 <p>Los parámetros de los métodos se deserializan automáticamente en sus tipos específicos. También se admite el uso de parámetros con nombre en las solicitudes. La serialización JSON se realiza mediante la biblioteca <a href="https://github.com/CypherPotato/LightJson">LightJson</a>. Cuando un tipo no se deserializa correctamente, puedes crear un convertidor JSON personalizado para ese tipo y asociarlo con tus opciones de serializador JSON más adelante.</p>
-<p>También puedes obtener el objeto <code>$.params</code> crudo de la solicitud JSON-RPC directamente en tu método.</p>
+<p>También puedes obtener el objeto <code>$.params</code> raw de la solicitud JSON-RPC directamente en tu método.</p>
 <div class="script-header">
     <span>
         MathOperations.cs
@@ -296,10 +296,10 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // habilita JSON5 para el intérprete JSON. incluso activando esto, el JSON plano todavía se admite
+        // habilita JSON5 para el intérprete JSON. incluso activando esto, el JSON plano todavía se permite
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // asigna la ruta POST /service al controlador JSON-RPC
+        // asigna la ruta POST /service al controlador JSON RPC
         e.Router.MapPost ( &quot;/service&quot;, e.Handler.Transport.HttpPost );
     } )
     .Build ();

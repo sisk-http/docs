@@ -156,8 +156,8 @@
                 <article data-uid="">
 <h1 id="diensteanbieter">Diensteanbieter</h1>
 
-<p>Diensteanbieter sind eine Möglichkeit, Ihre Sisk-Anwendung auf verschiedene Umgebungen mit einer portablen Konfigurationsdatei zu übertragen. Diese Funktion ermöglicht es Ihnen, den Serverport, Parameter und andere Optionen ohne Änderung des Anwendungscode für jede Umgebung zu ändern. Dieses Modul hängt von der Sisk-Konstruktionsyntax ab und kann über die Methode <code>UsePortableConfiguration</code> konfiguriert werden.</p>
-<p>Ein Konfigurationsanbieter wird mit <code>IConfigurationProvider</code> implementiert, der einen Konfigurationsleser bereitstellt und jede Implementierung erhalten kann. Standardmäßig bietet Sisk einen JSON-Konfigurationsleser, aber es gibt auch ein Paket für INI-Dateien. Sie können auch Ihren eigenen Konfigurationsanbieter erstellen und ihn mit:</p>
+<p>Diensteanbieter sind eine Möglichkeit, Ihre Sisk-Anwendung mit einer portablen Konfigurationsdatei auf verschiedene Umgebungen zu übertragen. Diese Funktion ermöglicht es Ihnen, den Serverport, Parameter und andere Optionen ohne Änderung des Anwendungscode für jede Umgebung zu ändern. Dieses Modul hängt von der Sisk-Konstruktionsyntax ab und kann über die Methode <code>UsePortableConfiguration</code> konfiguriert werden.</p>
+<p>Ein Konfigurationsanbieter wird mit <code>IConfigurationProvider</code> implementiert, der einen Konfigurationsleser bereitstellt und jede Implementierung erhalten kann. Standardmäßig bietet Sisk einen JSON-Konfigurationsleser an, es gibt jedoch auch ein Paket für INI-Dateien. Sie können auch Ihren eigenen Konfigurationsanbieter erstellen und ihn mit:</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder()
     .UsePortableConfiguration(config =&gt;
     {
@@ -181,7 +181,7 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>Der obige Code sucht nach der Datei <code>config.toml</code> im aktuellen Verzeichnis des laufenden Prozesses. Wenn sie nicht gefunden wird, sucht er dann im Verzeichnis, in dem die ausführbare Datei liegt. Wenn die Datei nicht existiert, wird der Parameter <code>createIfDontExists</code> beachtet, und die Datei wird ohne Inhalt im letzten getesteten Pfad (basierend auf <code>lookupDirectories</code>) erstellt, und ein Fehler wird in der Konsole ausgegeben, was die Anwendung verhindert, sich zu initialisieren.</p>
+<p>Der obige Code sucht nach der Datei <code>config.toml</code> im aktuellen Verzeichnis des laufenden Prozesses. Wenn diese nicht gefunden wird, sucht er dann im Verzeichnis, in dem die ausführbare Datei liegt. Wenn die Datei nicht existiert, wird der Parameter <code>createIfDontExists</code> beachtet, der die Datei ohne Inhalt im letzten getesteten Pfad (basierend auf <code>lookupDirectories</code>) erstellt, und ein Fehler wird in der Konsole ausgegeben, was die Initialisierung der Anwendung verhindert.</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>Sie können den Quellcode des INI-Konfigurationslesers und des JSON-Konfigurationslesers betrachten, um zu verstehen, wie ein <code>IConfigurationProvider</code> implementiert wird.</p>
@@ -244,12 +244,12 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>Server.AccessLogsStream</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>console</code>. Gibt den Ausgabestream für die Zugriffsprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+            <td>Standardmäßig <code>console</code>. Gibt den Ausgabestream für die Zugriffsprotokolle an. Kann ein Dateiname, <code>null</code> oder <code>console</code> sein.</td>
         </tr>
         <tr>
             <td>Server.ErrorsLogsStream</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>null</code>. Gibt den Ausgabestream für die Fehlerprotokolle an. Kann eine Dateiname, <code>null</code> oder <code>console</code> sein.</td>
+            <td>Standardmäßig <code>null</code>. Gibt den Ausgabestream für die Fehlerprotokolle an. Kann ein Dateiname, <code>null</code> oder <code>console</code> sein.</td>
         </tr>
         <tr>
             <td>Server.MaximumContentLength</td>
@@ -267,7 +267,7 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>Server.ThrowExceptions</td>
             <td>Optional</td>
-            <td>Standardmäßig <code>true</code>. Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. Auf <code>false</code> setzen, wenn die Anwendung in Produktion ist, und auf <code>true</code>, wenn die Anwendung debuggt wird.</td>
+            <td>Standardmäßig <code>true</code>. Gibt an, ob unbehandelte Ausnahmen ausgelöst werden sollen. Auf <code>false</code> setzen, wenn in der Produktion, und auf <code>true</code>, wenn beim Debuggen.</td>
         </tr>
         <tr>
             <td>ListeningHost</td>
@@ -277,7 +277,7 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>ListeningHost.Label</td>
             <td>Optional</td>
-            <td>Stellt die Anwendungsbezeichnung dar.</td>
+            <td>Stellt das Anwendungslabel dar.</td>
         </tr>
         <tr>
             <td>ListeningHost.Ports</td>

@@ -1,30 +1,28 @@
 # 模型上下文协议
 
-可以使用大型语言模型（LLMs）通过 [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) 包为代理模型提供上下文，从而构建应用程序：
+可以使用 [Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) 包来构建提供大型语言模型（LLM）上下文的应用程序：
 
-```bash
-dotnet add package Sisk.ModelContextProtocol
-```
+    dotnet add package Sisk.ModelContextProtocol
 
-该包公开了有用的类和方法，用于构建通过 [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) 工作的 MCP 服务器。
+此包公开了用于构建使用 [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) 的MCP服务器的有用类和方法。
 
 > [!NOTE]
 >
-> 在开始之前，请注意该包仍在开发中，可能会出现不符合规范的行为。阅读 [包详情](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) 以了解正在开发的内容以及尚未工作的功能。
+> 开始之前，请注意此包处于开发中，可能会表现出不符合规范的行为。请阅读 [包详细信息](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) 以了解哪些功能正在开发中，哪些功能尚不工作。
 
-## 开始使用 MCP
+## 开始使用MCP
 
-[McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) 类是定义 MCP 服务器的入口点。它是抽象的，可以在任何地方定义。您的 Sisk 应用程序可以拥有一个或多个 MCP 提供者。
+[McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) 类是定义MCP服务器的入口点。它是抽象的，可以在任何地方定义。您的Sisk应用程序可以有一个或多个MCP提供程序。
 
 ```csharp
 McpProvider mcp = new McpProvider(
     serverName: "math-server",
-    serverTitle: "Mathematics server",
+    serverTitle: "数学服务器",
     serverVersion: new Version(1, 0));
 
 mcp.Tools.Add(new McpTool(
     name: "math_sum",
-    description: "Sums one or more numbers.",
+    description: "求一或多个数字的和。",
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary<string, JsonSchema>()
         {
@@ -32,7 +30,7 @@ mcp.Tools.Add(new McpTool(
                 JsonSchema.CreateArraySchema(
                     itemsSchema: JsonSchema.CreateNumberSchema(),
                     minItems: 1,
-                    description: "The numbers to sum.")
+                    description: "要求和的数字。")
             }
         },
         requiredProperties: ["numbers"]),
@@ -40,11 +38,11 @@ mcp.Tools.Add(new McpTool(
     {
         var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
         var sum = numbers.Sum();
-        return await Task.FromResult(McpToolResult.CreateText($"Sum result: {sum:N4}"));
+        return await Task.FromResult(McpToolResult.CreateText($"求和结果：{sum:N4}"));
     }));
 ```
 
-如果您的应用程序只提供一个 MCP 提供者，可以使用构建器的单例：
+如果您的应用程序只提供一个MCP提供程序，可以使用构建器的单例：
 
 ```csharp
 static void Main(string[] args)
@@ -53,11 +51,11 @@ static void Main(string[] args)
         .UseMcp(mcp =>
         {
             mcp.ServerName = "math-server";
-            mcp.ServerTitle = "Mathematics server";
+            mcp.ServerTitle = "数学服务器";
 
             mcp.Tools.Add(new McpTool(
                 name: "math_sum",
-                description: "Sums one or more numbers.",
+                description: "求一或多个数字的和。",
                 schema: JsonSchema.CreateObjectSchema(
                     properties: new Dictionary<string, JsonSchema>()
                     {
@@ -65,7 +63,7 @@ static void Main(string[] args)
                             JsonSchema.CreateArraySchema(
                                 itemsSchema: JsonSchema.CreateNumberSchema(),
                                 minItems: 1,
-                                description: "The numbers to sum.")
+                                description: "要求和的数字。")
                         }
                     },
                     requiredProperties: ["numbers"]),
@@ -73,7 +71,7 @@ static void Main(string[] args)
                 {
                     var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
                     var sum = numbers.Sum();
-                    return await Task.FromResult(McpToolResult.CreateText($"Sum result: {sum:N4}"));
+                    return await Task.FromResult(McpToolResult.CreateText($"求和结果：{sum:N4}"));
                 }));
         })
         .UseRouter(router =>
@@ -89,9 +87,9 @@ static void Main(string[] args)
 }
 ```
 
-## 为函数创建 JSON Schema
+## 为函数创建JSON模式
 
-[Sisk.ModelContextProtocol] 库使用了 [LightJson](https://github.com/CypherPotato/LightJson) 的分支来处理 JSON 和 JSON Schema。该实现为各种对象提供了流畅的 JSON Schema 构建器：
+[Sisk.ModelContextProtocol] 库使用 [LightJson](https://github.com/CypherPotato/LightJson) 的分支来处理JSON和JSON模式。该实现为各种对象提供了流畅的JSON模式构建器：
 
 - JsonSchema.CreateObjectSchema
 - JsonSchema.CreateArraySchema
@@ -110,13 +108,13 @@ JsonSchema.CreateObjectSchema(
             JsonSchema.CreateArraySchema(
                 itemsSchema: JsonSchema.CreateNumberSchema(),
                 minItems: 1,
-                description: "The numbers to sum.")
+                description: "要求和的数字。")
         }
     },
     requiredProperties: ["numbers"]);
 ```
 
-生成的 Schema 如下：
+生成以下模式：
 
 ```json
 {
@@ -128,7 +126,7 @@ JsonSchema.CreateObjectSchema(
         "type": "number"
       },
       "minItems": 1,
-      "description": "The numbers to sum."
+      "description": "要求和的数字。"
     }
   },
   "required": ["numbers"]
@@ -137,61 +135,61 @@ JsonSchema.CreateObjectSchema(
 
 ## 处理函数调用
 
-在 [McpTool](/api/Sisk.ModelContextProtocol.McpTool) 的 `executionHandler` 参数中定义的函数提供了一个 JsonObject，包含可流畅读取的调用参数：
+[McpTool](/api/Sisk.ModelContextProtocol.McpTool) 的 `executionHandler` 参数中定义的函数提供了一个包含调用参数的JsonObject，可以流畅地读取：
 
 ```csharp
 mcp.Tools.Add(new McpTool(
     name: "browser_do_action",
-    description: "Run an browser action, such as scrolling, refreshing or navigating.",
+    description: "运行浏览器操作，例如滚动、刷新或导航。",
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary<string, JsonSchema>()
         {
             { "action_name",
                 JsonSchema.CreateStringSchema(
                     enums: ["go_back", "refresh", "scroll_bottom", "scroll_top"],
-                    description: "The action name.")
+                    description: "操作名称。")
             },
             { "action_data",
                 JsonSchema.CreateStringSchema(
-                    description: "Action parameter."
-                ) }
+                    description: "操作参数。")
+            }
         },
         requiredProperties: ["action_name"]),
     executionHandler: async (McpToolContext context) =>
     {
-        // read action name. will throw if null or not a explicit string
+        // 读取操作名称。如果为null或不是显式字符串，则会抛出异常
         string actionName = context.Arguments["action_name"].GetString();
         
-        // action_data is defined as non-required, so it may be null here
+        // action_data被定义为非必需的，因此它可能为null
         string? actionData = context.Arguments["action_data"].MaybeNull()?.GetString();
         
-        // Handle the browser action based on the actionName
+        // 根据actionName处理浏览器操作
         return await Task.FromResult(
-            McpToolResult.CreateText($"Performed browser action: {actionName}"));
+            McpToolResult.CreateText($"执行浏览器操作：{actionName}"));
     }));
 ```
 
 ## 函数结果
 
-[McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) 对象提供三种方法来创建工具响应内容：
+[McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) 对象提供了三种方法来创建工具响应的内容：
 
-- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio)：为 MCP 客户端创建音频响应。
-- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage)：为 MCP 客户端创建图像响应。
-- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText)：为 MCP 客户端创建文本响应（默认）。
+- [CreateAudio(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio)：为MCP客户端创建基于音频的响应。
+- [CreateImage(ReadOnlySpan<byte>, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage)：为MCP客户端创建基于图像的响应。
+- [CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText)：为MCP客户端创建基于文本的响应（默认）。
 
-此外，还可以将多种不同内容组合成单个 JSON 工具响应：
+另外，可以将多个不同内容组合成一个JSON工具响应：
 
 ```csharp
 mcp.Tools.Add(new McpTool(
     ...
     executionHandler: async (McpToolContext context) =>
     {
-        // simulate real work
+        // 模拟实际工作
 
         byte[] browserScreenshot = await browser.ScreenshotAsync();
         
         return McpToolResult.Combine(
-            McpToolResult.CreateText("Heres the screenshot of the browser:"),
+            McpToolResult.CreateText("这是浏览器的截图："),
             McpToolResult.CreateImage(browserScreenshot, "image/png")
         )
     }));
@@ -199,8 +197,8 @@ mcp.Tools.Add(new McpTool(
 
 ## 继续工作
 
-模型上下文协议是为代理模型和为其提供内容的应用程序设计的通信协议。它是一个新协议，因此其规范经常更新，包含废弃项、新功能和破坏性更改。
+模型上下文协议是代理模型和为其提供内容的应用程序之间的通信协议。它是一个新协议，因此其规范经常更新，包括弃用、新功能和破坏性更改。
 
-在开始构建代理应用程序之前，了解 [Model Context Protocol](https://modelcontextprotocol.io/docs/cn/getting-started/intro) 解决的问题至关重要。
+在开始构建代理应用程序之前，了解 [模型上下文协议](https://modelcontextprotocol.io/docs/cn/getting-started/intro) 解决的问题至关重要。
 
-同时阅读 [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) 包的规范，以了解其进展、状态以及可做的事情。
+还应阅读 [Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) 包的规范，以了解其进度、状态和可以使用它做什么。

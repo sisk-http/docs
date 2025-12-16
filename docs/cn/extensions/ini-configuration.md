@@ -1,8 +1,8 @@
 # INI 配置提供程序
 
-Sisk 有一种方法可以获取启动配置，而不仅仅是 JSON。事实上，任何实现 [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) 的管道都可以与 [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder)一起使用，从任何文件类型中读取服务器配置。
+Sisk 有一种除了 JSON 之外的获取启动配置的方法。实际上，任何实现 [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) 的管道都可以与 [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder)一起使用，读取服务器配置从任何文件类型。
 
-[Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) 包提供了一个基于流的 INI 文件读取器，它不会为常见的语法错误抛出异常，并且具有简单的配置语法。这个包可以在 Sisk 框架之外使用，为需要高效 INI 文档读取器的项目提供了灵活性。
+[Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) 包提供了一个基于流的 INI 文件读取器，不会为常见的语法错误抛出异常，并且具有简单的配置语法。该包可以在 Sisk 框架之外使用，为需要高效 INI 文档读取器的项目提供灵活性。
 
 ## 安装
 
@@ -12,13 +12,13 @@ Sisk 有一种方法可以获取启动配置，而不仅仅是 JSON。事实上�
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-你也可以安装核心包，它不包括 INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader)，也不包括 Sisk 依赖项，只包括 INI 序列化器：
+您也可以安装核心包，它不包括 INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader)，也不包括 Sisk 依赖项，只包括 INI 序列化器：
 
 ```bash
 $ dotnet add package Sisk.IniConfiguration.Core
 ```
 
-使用主包，你可以在代码中使用它，如下面的示例所示：
+使用主包，您可以在代码中使用它，如下面的示例所示：
 
 ```cs
 class Program
@@ -52,7 +52,7 @@ class Program
 }
 ```
 
-上面的代码将在进程的当前目录（CurrentDirectory）中查找一个 app.ini 文件。INI 文件的内容如下：
+上面的代码将在进程的当前目录（CurrentDirectory）中查找 app.ini 文件。INI 文件如下所示：
 
 ```ini
 [Server]
@@ -75,13 +75,13 @@ Name = "Kanye West"
 
 当前实现风格：
 
-- 属性和节名是 **大小写不敏感** 的。
-- 属性名和值是 **修剪** 的，除非值被引号括起来。
-- 值可以用单引号或双引号括起来。引号内可以包含换行符。
-- 支持使用 `#` 和 `;` 的注释。**尾随注释也是允许的**。
+- 属性和节名称是 **大小写不敏感** 的。
+- 属性名称和值是 **修剪** 的，除非值被引号括起来。
+- 值可以用单引号或双引号括起来。引号内可以有换行符。
+- 支持使用 `#` 和 `;` 的注释。**尾部注释也是允许的**。
 - 属性可以有多个值。
 
-详细信息，Sisk 中使用的 INI 解析器的“风格”文档可以在 [这里](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md) 找到。
+详细来说，Sisk 中使用的 INI 解析器的“风格”文档 [可在此文档中找到](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md)。
 
 使用以下 INI 代码作为示例：
 
@@ -115,17 +115,17 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 
 | 节和名称 | 允许多个值 | 描述 |
 | ---------------- | --------------------- | ----------- |
-| `Server.Listen` | 是 | 服务器监听地址/端口。 |
-| `Server.Encoding` | 否 | 服务器默认编码。 |
-| `Server.MaximumContentLength` | 否 | 服务器最大内容长度（以字节为单位）。 |
-| `Server.IncludeRequestIdHeader` | 否 | 指定是否应发送 X-Request-Id 标头。 |
-| `Server.ThrowExceptions` | 否 | 指定是否应抛出未处理的异常。 |
-| `Server.AccessLogsStream` | 否 | 指定访问日志输出流。 |
-| `Server.ErrorsLogsStream` | 否 | 指定错误日志输出流。 |
-| `Cors.AllowMethods` | 否 | 指定 CORS Allow-Methods 标头值。 |
-| `Cors.AllowHeaders` | 否 | 指定 CORS Allow-Headers 标头值。 |
-| `Cors.AllowOrigins` | 否 | 指定多个 Allow-Origin 标头，逗号分隔。[AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) 有更多信息。 |
-| `Cors.AllowOrigin` | 否 | 指定一个 Allow-Origin 标头。 |
-| `Cors.ExposeHeaders` | 否 | 指定 CORS Expose-Headers 标头值。 |
-| `Cors.AllowCredentials` | 否 | 指定 CORS Allow-Credentials 标头值。 |
-| `Cors.MaxAge` | 否 | 指定 CORS Max-Age 标头值。 |
+| `Server.Listen` | Yes | 服务器监听地址/端口。 |
+| `Server.Encoding` | No | 服务器默认编码。 |
+| `Server.MaximumContentLength` | No | 服务器最大内容长度（以字节为单位）。 |
+| `Server.IncludeRequestIdHeader` | No | 指定 HTTP 服务器是否应发送 X-Request-Id 标头。 |
+| `Server.ThrowExceptions` | No | 指定是否应抛出未处理的异常。 |
+| `Server.AccessLogsStream` | No | 指定访问日志输出流。 |
+| `Server.ErrorsLogsStream` | No | 指定错误日志输出流。 |
+| `Cors.AllowMethods` | No | 指定 CORS Allow-Methods 标头值。 |
+| `Cors.AllowHeaders` | No | 指定 CORS Allow-Headers 标头值。 |
+| `Cors.AllowOrigins` | No | 指定多个 Allow-Origin 标头，逗号分隔。 [AllowOrigins](/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins) 有更多信息。 |
+| `Cors.AllowOrigin` | No | 指定一个 Allow-Origin 标头。 |
+| `Cors.ExposeHeaders` | No | 指定 CORS Expose-Headers 标头值。 |
+| `Cors.AllowCredentials` | No | 指定 CORS Allow-Credentials 标头值。 |
+| `Cors.MaxAge` | No | 指定 CORS Max-Age 标头值。

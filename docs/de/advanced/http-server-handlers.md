@@ -1,12 +1,12 @@
 # Http-Server-Handler
 
-In Sisk-Version 0.16 haben wir die `HttpServerHandler`-Klasse eingeführt, die darauf abzielt, das Gesamtverhalten von Sisk zu erweitern und zusätzliche Ereignishandler für Sisk bereitzustellen, wie z. B. das Handling von Http-Anfragen, Routern, Kontextbeuteln und mehr.
+In Sisk-Version 0.16 haben wir die `HttpServerHandler`-Klasse eingeführt, die darauf abzielt, das Gesamtverhalten von Sisk zu erweitern und zusätzliche Ereignishandler für Sisk bereitzustellen, wie z.B. das Handling von Http-Anfragen, Routern, Kontextbeuteln und mehr.
 
-Die Klasse konzentriert sich auf Ereignisse, die während der Lebensdauer des gesamten HTTP-Servers und auch einer Anfrage auftreten. Das Http-Protokoll hat keine Sitzungen, und daher ist es nicht möglich, Informationen von einer Anfrage zur nächsten zu erhalten. Sisk bietet derzeit eine Möglichkeit, Sitzungen, Kontexte, Datenbankverbindungen und andere nützliche Anbieter zu implementieren, um Ihre Arbeit zu unterstützen.
+Die Klasse konzentriert Ereignisse, die während der Lebensdauer des gesamten HTTP-Servers und auch einer Anfrage auftreten. Das Http-Protokoll hat keine Sitzungen, und daher ist es nicht möglich, Informationen von einer Anfrage zu einer anderen zu erhalten. Sisk bietet derzeit eine Möglichkeit, Sitzungen, Kontexte, Datenbankverbindungen und andere nützliche Anbieter zu implementieren, um Ihre Arbeit zu unterstützen.
 
-Bitte besuchen Sie [diese Seite](/api/Sisk.Core.Http.Handlers.HttpServerHandler), um zu lesen, wo jedes Ereignis ausgelöst wird und welchen Zweck es hat. Sie können auch den [Lebenszyklus einer HTTP-Anfrage](/v1/advanced/request-lifecycle) anzeigen, um zu verstehen, was mit einer Anfrage passiert und wo Ereignisse ausgelöst werden. Der HTTP-Server ermöglicht es Ihnen, mehrere Handler gleichzeitig zu verwenden. Jeder Ereignisanruf ist synchron, d. h. er blockiert den aktuellen Thread für jede Anfrage oder jeden Kontext, bis alle zugehörigen Handler ausgeführt und abgeschlossen sind.
+Bitte besuchen Sie [diese Seite](/api/Sisk.Core.Http.Handlers.HttpServerHandler), um zu lesen, wo jedes Ereignis ausgelöst wird und welchen Zweck es hat. Sie können auch den [Lebenszyklus einer HTTP-Anfrage](/v1/advanced/request-lifecycle) anzeigen, um zu verstehen, was mit einer Anfrage passiert und wo Ereignisse ausgelöst werden. Der HTTP-Server ermöglicht es, mehrere Handler gleichzeitig zu verwenden. Jeder Ereignisanruf ist synchron, d.h. er blockiert den aktuellen Thread für jede Anfrage oder jeden Kontext, bis alle zugehörigen Handler ausgeführt und abgeschlossen sind.
 
-Im Gegensatz zu RequestHandlern können sie nicht auf bestimmte Routengruppen oder spezifische Routen angewendet werden. Stattdessen werden sie auf den gesamten HTTP-Server angewendet. Sie können Bedingungen innerhalb Ihres Http-Server-Handlers anwenden. Darüber hinaus werden Singleton-Instanzen jedes HttpServerHandlers für jede Sisk-Anwendung definiert, so dass nur eine Instanz pro `HttpServerHandler` definiert ist.
+Im Gegensatz zu RequestHandlern können sie nicht auf bestimmte Route-Gruppen oder bestimmte Routen angewendet werden. Stattdessen werden sie auf den gesamten HTTP-Server angewendet. Sie können Bedingungen innerhalb Ihres Http-Server-Handlers anwenden. Darüber hinaus werden Singleton-Instanzen jedes HttpServerHandlers für jede Sisk-Anwendung definiert, so dass nur eine Instanz pro `HttpServerHandler` definiert ist.
 
 Ein praktisches Beispiel für die Verwendung von HttpServerHandler ist die automatische Entsorgung einer Datenbankverbindung am Ende der Anfrage.
 
@@ -19,8 +19,8 @@ public class DatabaseConnectionHandler : HttpServerHandler
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // prüft, ob die Anfrage einen DbContext definiert hat
-        // in ihrem Kontextbeutel
+        // prüft, ob die Anfrage einen DbContext
+        // in ihrem Kontextbeutel definiert hat
         if (requestBag.IsSet<DbContext>())
         {
             var db = requestBag.Get<DbContext>();
@@ -41,7 +41,7 @@ public static class DatabaseConnectionHandlerExtensions
 }
 ```
 
-Mit dem obigen Code ermöglicht die `GetDbContext`-Erweiterung die Erstellung eines Verbindungskontexts direkt aus dem HttpRequest-Objekt. Eine nicht entsorgte Verbindung kann Probleme beim Ausführen mit der Datenbank verursachen, daher wird sie in `OnHttpRequestClose` beendet.
+Mit dem obigen Code ermöglicht die `GetDbContext`-Erweiterung die Erstellung eines Kontexts direkt aus dem HttpRequest-Objekt. Eine nicht entsorgte Verbindung kann Probleme verursachen, wenn sie mit der Datenbank ausgeführt wird, daher wird sie in `OnHttpRequestClose` beendet.
 
 Sie können einen Handler auf einem Http-Server in Ihrem Builder oder direkt mit [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler) registrieren.
 
@@ -133,6 +133,6 @@ public class ApiController : RouterModule
 }
 ```
 
-Entwickler können Sitzungen, Kontexte und Datenbankverbindungen mithilfe dieser Klasse implementieren. Der bereitgestellte Code zeigt ein praktisches Beispiel mit dem DatabaseConnectionHandler, der die automatische Entsorgung einer Datenbankverbindung am Ende jeder Anfrage ermöglicht.
+Entwickler können Sitzungen, Kontexte und Datenbankverbindungen mithilfe dieser Klasse implementieren. Der bereitgestellte Code zeigt ein praktisches Beispiel mit dem DatabaseConnectionHandler, der die automatische Entsorgung von Datenbankverbindungen am Ende jeder Anfrage ermöglicht.
 
-Die Integration ist einfach, mit Handlern, die während der Servereinrichtung registriert werden. Die HttpServerHandler-Klasse bietet ein leistungsfähiges Werkzeugset für die Verwaltung von Ressourcen und die Erweiterung des Sisk-Verhaltens in HTTP-Anwendungen.
+Die Integration ist einfach, da Handler während der Servereinrichtung registriert werden. Die HttpServerHandler-Klasse bietet ein leistungsfähiges Werkzeugset für die Verwaltung von Ressourcen und die Erweiterung des Sisk-Verhaltens in HTTP-Anwendungen.

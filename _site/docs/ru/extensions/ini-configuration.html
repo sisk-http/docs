@@ -157,7 +157,7 @@
 <h1 id="провайдер-конфигурации-ini">Провайдер конфигурации INI</h1>
 
 <p>Sisk имеет метод для получения конфигураций запуска, отличных от JSON. На самом деле, любой конвейер, реализующий <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a>, может быть использован с <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a>, читая конфигурацию сервера из любого типа файла.</p>
-<p>Пакет <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> предоставляет потоковый читатель файлов INI, который не выбрасывает исключения для обычных синтаксических ошибок и имеет простой синтаксис конфигурации. Этот пакет можно использовать вне рамок фреймворка Sisk, предлагая гибкость для проектов, требующих эффективного считывателя документов INI.</p>
+<p>Пакет <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a> предоставляет потоковый читатель файлов INI, который не выбрасывает исключения для обычных синтаксических ошибок и имеет простой синтаксис конфигурации. Этот пакет можно использовать вне рамок фреймворка Sisk, предлагая гибкость для проектов, требующих эффективного читателя документов INI.</p>
 <h2 id="установка">Установка</h2>
 <p>Чтобы установить пакет, можно начать с:</p>
 <pre><code class="lang-bash">$ dotnet add package Sisk.IniConfiguration
@@ -218,23 +218,22 @@ Name = &quot;Kanye West&quot;
 <li>Имена свойств и секций <strong>не чувствительны к регистру</strong>.</li>
 <li>Имена свойств и значения <strong>обрезаются</strong>, если значения не заключены в кавычки.</li>
 <li>Значения можно заключать в одинарные или двойные кавычки. Кавычки могут содержать переносы строк внутри себя.</li>
-<li>Комментарии поддерживаются с помощью <code>#</code> и <code>;</code>. Также <strong>допускаются конечные комментарии</strong>.</li>
+<li>Комментарии поддерживаются с помощью <code>#</code> и <code>;</code>. Также <strong>допускаются комментарии в конце строки</strong>.</li>
 <li>Свойства могут иметь несколько значений.</li>
 </ul>
-<p>Подробнее, документация для &quot;вкуса&quot; парсера INI, используемого в Sisk, доступна <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">в этом документе</a>.</p>
+<p>В подробностях документация для &quot;вкуса&quot; парсера INI, используемого в Sisk, доступна <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">в этом документе</a>.</p>
 <p>Используя следующий код INI в качестве примера:</p>
 <pre><code class="lang-ini">One = 1
 Value = это значение
 Another value = &quot;это значение
-    имеет перенос строки на нем&quot;
-
+    имеет перенос строки&quot;
 ; код ниже имеет некоторые цвета
 [some section]
 Color = Red
 Color = Blue
 Color = Yellow ; не используйте желтый
 </code></pre>
-<p>Парсить его с помощью:</p>
+<p>Парсить его можно с помощью:</p>
 <pre><code class="lang-csharp">// парсить текст INI из строки
 IniDocument doc = IniDocument.FromString(iniText);
 
@@ -258,7 +257,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.Listen</code></td>
 <td>Да</td>
-<td>Адреса и порты прослушивания сервера.</td>
+<td>Адреса/порт прослушивания сервера.</td>
 </tr>
 <tr>
 <td><code>Server.Encoding</code></td>
@@ -268,7 +267,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.MaximumContentLength</code></td>
 <td>Нет</td>
-<td>Максимальный размер содержимого в байтах.</td>
+<td>Максимальный размер контента в байтах.</td>
 </tr>
 <tr>
 <td><code>Server.IncludeRequestIdHeader</code></td>

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tratamento de Requisi&#231;&#245;es | Sisk </title>
+        <title>Tratamento de requisi&#231;&#245;es | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Tratamento de Requisi&#231;&#245;es | Sisk ">
+        <meta name="title" content="Tratamento de requisi&#231;&#245;es | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,7 +154,7 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="tratamento-de-requisições">Tratamento de Requisições</h1>
+<h1 id="tratamento-de-requisições">Tratamento de requisições</h1>
 
 <p>Os tratadores de requisições, também conhecidos como &quot;middlewares&quot;, são funções que são executadas antes ou após uma requisição ser executada no roteador. Eles podem ser definidos por rota ou por roteador.</p>
 <p>Existem dois tipos de tratadores de requisições:</p>
@@ -167,7 +167,7 @@
 <p>Dessa forma, um tratador de requisição pode interromper toda a execução e retornar uma resposta antes de finalizar o ciclo, descartando tudo o mais no processo.</p>
 <p>Exemplo: suponha que um tratador de requisição de autenticação de usuário não autentique o usuário. Isso impedirá que o ciclo de requisição continue e ficará pendente. Se isso acontecer no tratador de requisição na posição dois, o terceiro e subsequentes não serão avaliados.</p>
 <p><img src="/assets/img/requesthandlers2.png" alt=""></p>
-<h2 id="criando-um-tratador-de-requisição">Criando um Tratador de Requisição</h2>
+<h2 id="criando-um-tratador-de-requisição">Criando um tratador de requisição</h2>
 <p>Para criar um tratador de requisição, podemos criar uma classe que herda a interface <a href="/api/Sisk.Core.Routing.IRequestHandler">IRequestHandler</a>, no seguinte formato:</p>
 <div class="script-header">
     <span>
@@ -196,9 +196,9 @@
     }
 }
 </code></pre>
-<p>No exemplo acima, indicamos que, se o cabeçalho <code>Authorization</code> estiver presente na requisição, deve continuar e a próxima requisição ou a ação do roteador deve ser chamada, dependendo do que vier a seguir. Se um tratador de requisição for executado após a resposta por meio de sua propriedade <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> e retornar um valor não nulo, ele substituirá a resposta do roteador.</p>
-<p>Sempre que um tratador de requisição retorna <code>null</code>, isso indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.</p>
-<h2 id="associando-um-tratador-de-requisição-a-uma-rota-única">Associando um Tratador de Requisição a uma Rota Única</h2>
+<p>No exemplo acima, indicamos que, se o cabeçalho <code>Authorization</code> estiver presente na requisição, deve continuar e chamar o próximo tratador de requisição ou a callback do roteador, dependendo do que vier a seguir. Se um tratador de requisição for executado após a resposta por sua propriedade <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> e retornar um valor não nulo, ele substituirá a resposta do roteador.</p>
+<p>Sempre que um tratador de requisição retorna <code>null</code>, indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.</p>
+<h2 id="associando-um-tratador-de-requisição-a-uma-rota-única">Associando um tratador de requisição a uma rota única</h2>
 <p>Você pode definir um ou mais tratadores de requisição para uma rota.</p>
 <div class="script-header">
     <span>
@@ -232,7 +232,7 @@ indexRoute.RequestHandlers = new IRequestHandler[]
 };
 mainRouter.SetRoute(indexRoute);
 </code></pre>
-<h2 id="associando-um-tratador-de-requisição-a-um-roteador">Associando um Tratador de Requisição a um Roteador</h2>
+<h2 id="associando-um-tratador-de-requisição-a-um-roteador">Associando um tratador de requisição a um roteador</h2>
 <p>Você pode definir um tratador de requisição global que será executado em todas as rotas de um roteador.</p>
 <div class="script-header">
     <span>
@@ -247,7 +247,7 @@ mainRouter.SetRoute(indexRoute);
     new AuthenticateUserRequestHandler()
 };
 </code></pre>
-<h2 id="associando-um-tratador-de-requisição-a-um-atributo">Associando um Tratador de Requisição a um Atributo</h2>
+<h2 id="associando-um-tratador-de-requisição-a-um-atributo">Associando um tratador de requisição a um atributo</h2>
 <p>Você pode definir um tratador de requisição em um atributo de método junto com um atributo de rota.</p>
 <div class="script-header">
     <span>
@@ -264,7 +264,7 @@ mainRouter.SetRoute(indexRoute);
     static HttpResponse Index(HttpRequest request)
     {
         return new HttpResponse() {
-            Content = new StringContent(&quot;Hello world!&quot;)
+            Content = new StringContent(&quot;Olá, mundo!&quot;)
         };
     }
 }
@@ -283,7 +283,7 @@ mainRouter.SetRoute(indexRoute);
 public HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent(&quot;Hello world!&quot;)
+        Content = new StringContent(&quot;Olá, mundo!&quot;)
     };
 }
 </code></pre>
@@ -317,11 +317,11 @@ public HttpResponse Index(HttpRequest request)
 static HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent(&quot;Hello world!&quot;)
+        Content = new StringContent(&quot;Olá, mundo!&quot;)
     };
 }
 </code></pre>
-<h2 id="ignorando-um-tratador-de-requisição-global">Ignorando um Tratador de Requisição Global</h2>
+<h2 id="ignorando-um-tratador-de-requisição-global">Ignorando um tratador de requisição global</h2>
 <p>Depois de definir um tratador de requisição global em uma rota, você pode ignorá-lo em rotas específicas.</p>
 <div class="script-header">
     <span>
@@ -337,7 +337,7 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quot;, IndexPage, null)
+mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;Minha rota&quot;, IndexPage, null)
 {
     BypassGlobalRequestHandlers = new IRequestHandler[]
     {
@@ -348,7 +348,7 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quo
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Se você estiver ignorando um tratador de requisição, é necessário usar a mesma referência do que foi instanciada anteriormente para ignorar. Criar outra instância do tratador de requisição não ignorará o tratador de requisição global, pois sua referência será alterada. Lembre-se de usar a mesma referência do tratador de requisição usada em ambos GlobalRequestHandlers e BypassGlobalRequestHandlers.</p>
+<p>Se você estiver ignorando um tratador de requisição, é necessário usar a mesma referência do que foi instanciada anteriormente para ignorar. Criar outra instância do tratador de requisição não ignorará o tratador de requisição global, pois sua referência será alterada. Lembre-se de usar a mesma referência do tratador de requisição usada em ambos os GlobalRequestHandlers e BypassGlobalRequestHandlers.</p>
 </div>
 
 </article>

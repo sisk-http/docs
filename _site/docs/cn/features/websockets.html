@@ -156,11 +156,11 @@
                 <article data-uid="">
 <h1 id="web-sockets">Web Sockets</h1>
 
-<p>Sisk 支持 WebSockets，例如接收和发送消息给客户端。</p>
-<p>此功能在大多数浏览器中运行良好，但在 Sisk 中仍处于实验阶段。若发现任何 bug，请在 GitHub 上报告。</p>
-<h2 id="异步接收消息">异步接收消息</h2>
-<p>WebSocket 消息按顺序接收，排队直到被 <code>ReceiveMessageAsync</code> 处理。该方法在超时、操作被取消或客户端断开时返回无消息。</p>
-<p>一次只能进行一次读取和写入操作，因此在等待 <code>ReceiveMessageAsync</code> 的消息时，无法向已连接的客户端写入。</p>
+<p>Sisk 同时支持 web sockets，例如接收和发送消息到客户端。</p>
+<p>此功能在大多数浏览器中工作正常，但在 Sisk 中仍然是实验性的。如果您发现任何错误，请在 github 上报告。</p>
+<h2 id="接收消息">接收消息</h2>
+<p>WebSocket 消息按顺序接收，直到由 <code>ReceiveMessageAsync</code> 处理。该方法在超时、操作被取消或客户端断开连接时返回无消息。</p>
+<p>同时只能进行一个读取和写入操作，因此，当您使用 <code>ReceiveMessageAsync</code> 等待消息时，无法写入连接的客户端。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -176,8 +176,8 @@
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="同步接收消息">同步接收消息</h2>
-<p>下面的示例展示了如何使用同步 WebSocket，而不需要异步上下文，在接收消息、处理后完成 socket 的使用。</p>
+<h2 id="持久连接">持久连接</h2>
+<p>下面的示例包含一种使用持久 websocket 连接的方法，您可以接收消息、处理它们并完成使用 socket。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -217,7 +217,7 @@ askAge:
 });
 </code></pre>
 <h2 id="ping-策略">Ping 策略</h2>
-<p>类似于 Server Side Events 中的 ping 策略，你也可以配置 ping 策略，以在无活动时保持 TCP 连接打开。</p>
+<p>类似于服务器端事件中的 ping 策略，您也可以配置 ping 策略以保持 TCP 连接在无活动时保持打开。</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
     dataMessage: &quot;ping-message&quot;,
     interval: TimeSpan.FromSeconds(10));

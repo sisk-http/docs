@@ -156,11 +156,11 @@
                 <article data-uid="">
 <h1 id="web-sockets">Web Sockets</h1>
 
-<p>Sisk soporta websockets también, como recibir y enviar mensajes a su cliente.</p>
-<p>Esta característica funciona bien en la mayoría de los navegadores, pero en Sisk todavía es experimental. Por favor, si encuentras algún error, repórtalo en github.</p>
-<h2 id="aceptar-mensajes-de-forma-asíncrona">Aceptar mensajes de forma asíncrona</h2>
-<p>Los mensajes WebSocket se reciben en orden, se encolan hasta ser procesados por <code>ReceiveMessageAsync</code>. Este método no devuelve ningún mensaje cuando se alcanza el tiempo de espera, cuando la operación es cancelada o cuando el cliente se desconecta.</p>
-<p>Solo puede ocurrir una operación de lectura y escritura simultáneamente, por lo tanto, mientras esperas un mensaje con <code>ReceiveMessageAsync</code>, no es posible escribir al cliente conectado.</p>
+<p>Sisk admite web sockets también, como recibir y enviar mensajes a sus clientes.</p>
+<p>Esta característica funciona bien en la mayoría de los navegadores, pero en Sisk todavía es experimental. Por favor, si encuentra algún error, repórtelo en github.</p>
+<h2 id="aceptar-mensajes">Aceptar mensajes</h2>
+<p>Los mensajes de WebSocket se reciben en orden, encolados hasta que se procesan con <code>ReceiveMessageAsync</code>. Este método no devuelve ningún mensaje cuando se alcanza el tiempo de espera, cuando se cancela la operación o cuando el cliente se desconecta.</p>
+<p>Solo se puede realizar una operación de lectura y escritura simultáneamente, por lo tanto, mientras espera un mensaje con <code>ReceiveMessageAsync</code>, no es posible escribir en el cliente conectado.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -176,15 +176,15 @@
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="aceptar-mensajes-de-forma-síncrona">Aceptar mensajes de forma síncrona</h2>
-<p>El ejemplo siguiente contiene una forma de usar un websocket síncrono, sin un contexto asíncrono, donde recibes los mensajes, los manejas y terminas de usar el socket.</p>
+<h2 id="conexión-persistente">Conexión persistente</h2>
+<p>El ejemplo a continuación contiene una forma de utilizar una conexión de websocket persistente, donde recibe los mensajes, los maneja y termina utilizando el socket.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;What is your name?&quot;);
+    await ws.SendAsync(&quot;¿Cuál es su nombre?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -194,12 +194,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        await ws.SendAsync(&quot;Por favor, inserte su nombre!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;And your age?&quot;);
+    await ws.SendAsync(&quot;¿Y su edad?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -207,17 +207,17 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        await ws.SendAsync(&quot;Por favor, inserte un número válido&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
+    await ws.SendAsync($&quot;Usted es {name}, y tiene {age} años.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="política-de-ping">Política de Ping</h2>
-<p>Similar a cómo funciona la política de ping en Server Side Events, también puedes configurar una política de ping para mantener la conexión TCP abierta si hay inactividad en ella.</p>
+<h2 id="política-de-ping">Política de ping</h2>
+<p>Similar a cómo funciona la política de ping en Server Side Events, también puede configurar una política de ping para mantener la conexión TCP abierta si hay inactividad en ella.</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
     dataMessage: &quot;ping-message&quot;,
     interval: TimeSpan.FromSeconds(10));

@@ -156,19 +156,19 @@
                 <article data-uid="">
 <h1 id="soporte-de-aot-nativo">Soporte de AOT Nativo</h1>
 
-<p><a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">.NET Native AOT</a> permite la publicación de aplicaciones .NET nativas que son autosuficientes y no requieren que el tiempo de ejecución de .NET esté instalado en el host de destino. Además, Native AOT proporciona beneficios como:</p>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/">.NET Native AOT</a> permite la publicación de aplicaciones .NET nativas que son autosuficientes y no requieren que el tiempo de ejecución .NET esté instalado en el host de destino. Además, Native AOT proporciona beneficios como:</p>
 <ul>
 <li>Aplicaciones mucho más pequeñas</li>
 <li>Inicialización significativamente más rápida</li>
-<li>Consumo de memoria más bajo</li>
+<li>Menor consumo de memoria</li>
 </ul>
 <p>Sisk Framework, por su naturaleza explícita, permite el uso de Native AOT para casi todas sus características sin requerir rework en el código fuente para adaptarlo a Native AOT.</p>
-<h2 id="características-no-soportadas">Características no soportadas</h2>
+<h2 id="características-no-compatibles">Características no compatibles</h2>
 <p>Sin embargo, Sisk utiliza la reflexión, aunque mínima, para algunas características. Las características mencionadas a continuación pueden estar parcialmente disponibles o completamente no disponibles durante la ejecución de código nativo:</p>
 <ul>
 <li><a href="/api/Sisk.Core.Routing.Router.AutoScanModules">Exploración automática de módulos</a> del enrutador: este recurso escanea los tipos incrustados en el ensamblado en ejecución y registra los tipos que son <a href="/docs/es/fundamentals/routing">módulos del enrutador</a>. Este recurso requiere tipos que pueden ser excluidos durante el recorte del ensamblado.</li>
 </ul>
-<p>Todas las demás características son compatibles con AOT en Sisk. Es común encontrar uno o otro método que da una advertencia de AOT, pero el mismo, si no se menciona aquí, tiene una sobrecarga que indica el paso de un tipo, parámetro o información de tipo que ayuda al compilador de AOT a compilar el objeto.</p>
+<p>Todas las demás características son compatibles con AOT en Sisk. Es común encontrar uno o otro método que genera una advertencia de AOT, pero el mismo, si no se menciona aquí, tiene una sobrecarga que indica el paso de un tipo, parámetro o información de tipo que ayuda al compilador de AOT a compilar el objeto.</p>
 
 </article>
 

@@ -156,17 +156,17 @@
                 <article data-uid="">
 <h1 id="motores-de-servidor-http">Motores de Servidor HTTP</h1>
 
-<p>O Sisk Framework é dividido em vários pacotes, onde o principal (Sisk.HttpServer) não inclui um servidor HTTP base - por padrão, o <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> é usado como o motor principal do Sisk para desempenhar o papel de baixo nível do servidor.</p>
-<p>O motor HTTP cumpre o papel da camada abaixo da camada de aplicação oferecida pelo Sisk. Essa camada é responsável pela gestão de conexões, serialização e desserialização de mensagens, controle da fila de mensagens e comunicação com o socket da máquina.</p>
-<p>A classe <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> expõe uma API para implementar todas as funcionalidades necessárias de um motor HTTP a ser usado em camadas superiores com o Sisk, como roteamento, SSE, middlewares, etc. Essas funções não são responsabilidade do motor HTTP, mas sim do subconjunto de bibliotecas que utilizarão o motor HTTP como base para execução.</p>
-<p>Com essa abstração, é possível portar o Sisk para ser usado com qualquer outro motor HTTP, escrito em .NET ou não, como o Kestrel, por exemplo. Atualmente, o Sisk continua usando uma abstração do <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> nativo do .NET como padrão para novos projetos. Essa abstração padrão traz alguns problemas específicos, como comportamento não especificado em diferentes plataformas (o HttpListener tem uma implementação para Windows e outra para outras plataformas), falta de suporte a SSL e desempenho não muito agradável fora do Windows.</p>
-<p>Uma implementação experimental de um servidor de alto desempenho escrito puramente em C# também está disponível como motor HTTP para o Sisk, chamado projeto <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a>, que é um experimento de servidor gerenciado que pode ser usado com ou sem o Sisk.</p>
+<p>O Sisk Framework é dividido em vários pacotes, onde o principal (Sisk.HttpServer) não inclui um servidor HTTP base - por padrão, o <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> é usado como o principal motor do Sisk para realizar o papel de baixo nível do servidor.</p>
+<p>O motor HTTP cumpre o papel da camada abaixo da camada de aplicação oferecida pelo Sisk. Essa camada é responsável pelo gerenciamento de conexões, serialização e deserialização de mensagens, controle de fila de mensagens e comunicação com o soquete da máquina.</p>
+<p>A classe <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a> expõe uma API para implementar todas as funcionalidades necessárias de um motor HTTP para ser usado em camadas superiores com o Sisk, como roteamento, SSE, middlewares, etc. Essas funções não são responsabilidade do motor HTTP, mas sim de um subconjunto de bibliotecas que utilizarão o motor HTTP como base para execução.</p>
+<p>Com essa abstração, é possível portar o Sisk para ser usado com qualquer outro motor HTTP, escrito em .NET ou não, como o Kestrel, por exemplo. Atualmente, o Sisk permanece usando uma abstração do nativo <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0">HttpListener</a> do .NET como padrão para novos projetos. Essa abstração padrão traz alguns problemas específicos, como comportamento não especificado em diferentes plataformas (o HttpListener tem uma implementação para Windows e outra para outras plataformas), falta de suporte a SSL e desempenho não muito agradável fora do Windows.</p>
+<p>Uma implementação experimental de um servidor de alto desempenho escrito puramente em C# também está disponível como um motor HTTP para o Sisk, chamado de projeto <a href="https://github.com/sisk-http/core/tree/main/cadente">Cadente</a>, que é um experimento de um servidor gerenciado que pode ser usado com o Sisk ou não.</p>
 <h2 id="implementando-um-motor-http-para-o-sisk">Implementando um Motor HTTP para o Sisk</h2>
-<p>Você pode criar uma ponte de conexão entre um servidor HTTP existente e o Sisk estendendo a classe <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>. Além dessa classe, você também terá que implementar abstrações para contextos, requisições e respostas.</p>
-<p>Um exemplo completo de abstração está <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">disponível no GitHub</a> para visualização. Ele fica assim:</p>
+<p>Você pode criar uma ponte de conexão entre um servidor HTTP existente e o Sisk estendendo a classe <a href="/api/Sisk.Core.Http.Engine.HttpServerEngine">HttpServerEngine</a>. Além dessa classe, você também terá que implementar abstrações para contextos, solicitações e respostas.</p>
+<p>Um exemplo completo de abstração está <a href="https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs">disponível no GitHub</a> para visualização. Ele parece com isso:</p>
 <pre><code class="lang-csharp">/// &lt;summary&gt;
-/*  Fornece uma implementação de &lt;see cref=&quot;HttpServerEngine&quot;/&gt; usando &lt;see cref=&quot;HttpListener&quot;/&gt;.
-*/
+/// Fornece uma implementação de &lt;see cref=&quot;HttpServerEngine&quot;/&gt; usando &lt;see cref=&quot;HttpListener&quot;/&gt;.
+/// &lt;/summary&gt;
 public sealed class HttpListenerAbstractEngine : HttpServerEngine {
     private HttpListener _listener;
     private static Lazy&lt;HttpListenerAbstractEngine&gt; shared = new Lazy&lt;HttpListenerAbstractEngine&gt; ( () =&gt; new HttpListenerAbstractEngine () );
@@ -195,16 +195,16 @@ public sealed class HttpListenerAbstractEngine : HttpServerEngine {
 }
 </code></pre>
 <h2 id="escolhendo-um-loop-de-eventos">Escolhendo um Loop de Eventos</h2>
-<p>Durante a criação de um motor HTTP, o servidor ouvirá requisições em um loop e criará contextos para tratar cada uma delas em threads separadas. Para isso, você terá que escolher um <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a>:</p>
+<p>Durante a criação de um motor HTTP, o servidor irá ouvir solicitações em um loop e criar contextos para lidar com cada uma delas em threads separados. Para isso, você terá que escolher um <a href="/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism">HttpServerEngineContextEventLoopMechanism</a>:</p>
 <ul>
 <li><code>InlineAsynchronousGetContext</code> o loop de eventos é linear - as chamadas de tratamento de contexto HTTP ocorrem em um loop assíncrono.</li>
 <li><code>UnboundAsynchronousGetContext</code> o loop de eventos é transmitido através dos métodos <code>BeginGetContext</code> e <code>EndGetContext</code>.</li>
 </ul>
 <pre><code class="lang-csharp">public override HttpServerEngineContextEventLoopMechanism EventLoopMechanism =&gt; HttpServerEngineContextEventLoopMechanism.UnboundAsynchronousGetContext;
 </code></pre>
-<p>Você não precisa implementar ambos os loops de eventos. Escolha o que fizer mais sentido para o seu motor HTTP.</p>
+<p>Você não precisa implementar ambos os loops de eventos. Escolha o que mais faz sentido para o seu motor HTTP.</p>
 <h2 id="testes">Testes</h2>
-<p>Após vincular seu motor HTTP, é essencial realizar testes para garantir que todas as funcionalidades do Sisk tenham comportamento idêntico ao usar outros motores. <strong>É extremamente importante</strong> ter o mesmo comportamento do Sisk para diferentes motores HTTP.</p>
+<p>Após vincular o seu motor HTTP, é essencial realizar testes para garantir que todas as funcionalidades do Sisk tenham um comportamento idêntico ao usar outros motores. <strong>É extremamente importante</strong> ter o mesmo comportamento do Sisk para diferentes motores HTTP.</p>
 <p>Você pode visitar o repositório de testes no <a href="https://github.com/sisk-http/core/tree/main/tests">GitHub</a>.</p>
 
 </article>

@@ -156,49 +156,50 @@
                 <article data-uid="">
 <h1 id="basic-auth">Basic Auth</h1>
 
-<p>Das Basic Auth-Paket fügt einen Request-Handler hinzu, der das Basic-Authentication-Schema in Ihrer Sisk-Anwendung mit sehr wenig Konfiguration und Aufwand verarbeiten kann. Basic HTTP Authentication ist eine minimalistische Eingabemaske zur Authentifizierung von Anfragen mittels Benutzer-ID und Passwort, wobei die Sitzung ausschließlich vom Client gesteuert wird und keine Authentifizierungs- oder Zugriffstoken vorhanden sind.</p>
+<p>Das Basic-Auth-Paket fügt einen Anfrage-Handler hinzu, der in der Lage ist, das Basic-Authentifizierungsschema in Ihrer Sisk-Anwendung mit sehr wenig Konfiguration und Aufwand zu handhaben.
+Basic-HTTP-Authentifizierung ist eine minimale Eingabeform der Authentifizierung von Anfragen durch eine Benutzer-ID und ein Passwort, wobei die Sitzung ausschließlich vom Client gesteuert wird und es keine Authentifizierungs- oder Zugriffstoken gibt.</p>
 <p><img src="/assets/img/basic-auth.svg" alt="Basic Auth"></p>
-<p>Lesen Sie mehr über das Basic Authentication-Schema in der <a href="https://developer.mozilla.org/pt-BR/docs/de/Web/HTTP/Authentication">MDN-Spezifikation</a>.</p>
-<h2 id="installing">Installing</h2>
+<p>Erfahren Sie mehr über das Basic-Authentifizierungsschema in der <a href="https://developer.mozilla.org/pt-BR/docs/de/Web/HTTP/Authentication">MDN-Spezifikation</a>.</p>
+<h2 id="installation">Installation</h2>
 <p>Um loszulegen, installieren Sie das Sisk.BasicAuth-Paket in Ihrem Projekt:</p>
-<pre><code class="lang-bash">&gt; dotnet add package Sisk.BasicAuth
+<pre><code>&gt; dotnet add package Sisk.BasicAuth
 </code></pre>
-<p>Weitere Installationsmöglichkeiten finden Sie im <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget-Repository</a>.</p>
-<h2 id="creating-your-auth-handler">Creating your auth handler</h2>
-<p>Sie können das Authentifizierungsschema für ein ganzes Modul oder für einzelne Routen steuern. Dazu schreiben wir zunächst unseren ersten Basic Authentication-Handler.</p>
-<p>Im folgenden Beispiel wird eine Verbindung zur Datenbank hergestellt, geprüft, ob der Benutzer existiert und ob das Passwort gültig ist, und anschließend der Benutzer im Kontext-Behälter gespeichert.</p>
+<p>Sie können mehrere Möglichkeiten zur Installation in Ihrem Projekt im <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget-Repository</a> anzeigen.</p>
+<h2 id="erstellen-ihres-auth-handlers">Erstellen Ihres Auth-Handlers</h2>
+<p>Sie können das Authentifizierungsschema für ein ganzes Modul oder für einzelne Routen steuern. Dazu schreiben wir zunächst unseren ersten Basic-Authentifizierungs-Handler.</p>
+<p>Im folgenden Beispiel wird eine Verbindung zur Datenbank hergestellt, es wird überprüft, ob der Benutzer existiert und ob das Passwort gültig ist, und anschließend wird der Benutzer im Kontextbeutel gespeichert.</p>
 <pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
 {
     public UserAuthHandler() : base()
     {
-        Realm = &quot;Um diese Seite zu betreten, geben Sie bitte Ihre Zugangsdaten ein.&quot;;
+        Realm = &quot;Um diese Seite zu betreten, geben Sie bitte Ihre Anmeldeinformationen ein.&quot;;
     }
 
     public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
     {
         DbContext db = new DbContext();
 
-        // In diesem Fall verwenden wir die E‑Mail als Benutzer‑ID-Feld, daher suchen wir nach einem Benutzer anhand seiner E‑Mail.
+        // In diesem Fall verwenden wir die E-Mail-Adresse als Benutzer-ID-Feld, also suchen wir nach einem Benutzer mit seiner E-Mail-Adresse.
         User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
         if (user == null)
         {
-            return base.CreateUnauthorizedResponse(&quot;Entschuldigung! Kein Benutzer mit dieser E‑Mail gefunden.&quot;);
+            return base.CreateUnauthorizedResponse(&quot;Entschuldigung! Kein Benutzer mit dieser E-Mail-Adresse gefunden.&quot;);
         }
 
-        // Prüft, ob das Passwort der Credentials für diesen Benutzer gültig ist.
+        // Überprüft, ob das Passwort für diesen Benutzer gültig ist.
         if (!user.ValidatePassword(credentials.Password))
         {
-            return base.CreateUnauthorizedResponse(&quot;Ungültige Zugangsdaten.&quot;);
+            return base.CreateUnauthorizedResponse(&quot;Ungültige Anmeldeinformationen.&quot;);
         }
 
-        // Fügt den angemeldeten Benutzer dem HTTP‑Kontext hinzu
+        // Fügt den angemeldeten Benutzer zum HTTP-Kontext hinzu
         // und setzt die Ausführung fort
         context.Bag.Add(&quot;loggedUser&quot;, user);
         return null;
     }
 }
 </code></pre>
-<p>Verknüpfen Sie diesen Request-Handler einfach mit Ihrer Route oder Klasse.</p>
+<p>Assoziieren Sie also diesen Anfrage-Handler mit unserer Route oder Klasse.</p>
 <pre><code class="lang-cs">public class UsersController
 {
     [RouteGet(&quot;/&quot;)]
@@ -206,17 +207,17 @@
     public string Index(HttpRequest request)
     {
         User loggedUser = request.Bag.Get&lt;User&gt;();
-        return $&quot;Hello, {loggedUser.Name}!&quot;;
+        return $&quot;Hallo, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
-<p>Oder mithilfe der Klasse <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>:</p>
+<p>Oder mit der <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a>-Klasse:</p>
 <pre><code class="lang-cs">public class UsersController : RouterModule
 {
     public ClientModule()
     {
         // Alle Routen in dieser Klasse werden von
-        // UserAuthHandler verarbeitet.
+        // UserAuthHandler gehandhabt.
         base.HasRequestHandler(new UserAuthHandler());
     }
     
@@ -224,14 +225,14 @@
     public string Index(HttpRequest request)
     {
         User loggedUser = request.Bag.Get&lt;User&gt;();
-        return $&quot;Hello, {loggedUser.Name}!&quot;;
+        return $&quot;Hallo, {loggedUser.Name}!&quot;;
     }
 }
 </code></pre>
-<h2 id="remarks">Remarks</h2>
-<p>Die Hauptverantwortung der Basic Authentication liegt beim Client. Speicherung, Cache‑Kontrolle und Verschlüsselung werden ausschließlich lokal auf dem Client gehandhabt. Der Server erhält lediglich die Credentials und prüft, ob der Zugriff erlaubt ist oder nicht.</p>
-<p>Beachten Sie, dass diese Methode nicht die sicherste ist, da sie eine erhebliche Verantwortung auf den Client legt, was die Nachverfolgung und Aufrechterhaltung der Sicherheit der Credentials erschwert. Zudem ist es entscheidend, dass Passwörter in einem sicheren Verbindungs‑Kontext (SSL) übertragen werden, da sie keine inhärente Verschlüsselung besitzen. Eine kurze Abfangung in den Headern einer Anfrage kann die Zugangsdaten Ihres Benutzers preisgeben.</p>
-<p>Setzen Sie auf robustere Authentifizierungslösungen für Produktionsanwendungen und vermeiden Sie die Verwendung zu vieler fertiger Komponenten, da diese möglicherweise nicht den Anforderungen Ihres Projekts entsprechen und es Sicherheitsrisiken aussetzen können.</p>
+<h2 id="hinweise">Hinweise</h2>
+<p>Die primäre Verantwortung für die Basic-Authentifizierung liegt auf der Client-Seite. Speicherung, Cache-Steuerung und Verschlüsselung werden alle lokal auf dem Client gehandhabt. Der Server erhält nur die Anmeldeinformationen und überprüft, ob der Zugriff erlaubt ist oder nicht.</p>
+<p>Beachten Sie, dass diese Methode nicht eine der sichersten ist, da sie eine erhebliche Verantwortung auf den Client legt, der schwierig zu verfolgen und die Sicherheit seiner Anmeldeinformationen zu gewährleisten ist. Darüber hinaus ist es wichtig, dass Passwörter in einem sicheren Verbindungskontext (SSL) übertragen werden, da sie keine inhärente Verschlüsselung haben. Eine kurze Abfangung der Header einer Anfrage kann die Zugriffsanmeldeinformationen Ihres Benutzers offenlegen.</p>
+<p>Wählen Sie für Produktionsanwendungen robustere Authentifizierungslösungen und vermeiden Sie die Verwendung von zu vielen vorgefertigten Komponenten, da diese möglicherweise nicht an die Bedürfnisse Ihres Projekts angepasst sind und es letztendlich Sicherheitsrisiken aussetzen.</p>
 
 </article>
 

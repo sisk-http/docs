@@ -1,14 +1,14 @@
-# Web Sockets
+# Веб-сокеты
 
-Sisk поддерживает веб‑сокеты, например, получение и отправка сообщений клиенту.
+Sisk поддерживает веб-сокеты, такие как получение и отправка сообщений клиенту.
 
-Эта функция работает корректно во многих браузерах, но в Sisk она всё ещё экспериментальная. Если вы обнаружите ошибки, сообщите о них на GitHub.
+Эта функция работает хорошо в большинстве браузеров, но в Sisk она еще экспериментальная. Пожалуйста, если вы найдете какие-либо ошибки, сообщите об этом на github.
 
-## Приём сообщений асинхронно
+## Принятие сообщений
 
-Сообщения WebSocket принимаются в порядке, ставятся в очередь до обработки `ReceiveMessageAsync`. Этот метод не возвращает сообщение, если истёк таймаут, операция отменена или клиент отключён.
+Сообщения веб-сокетов получаются в порядке, помещаются в очередь до тех пор, пока они не будут обработаны методом `ReceiveMessageAsync`. Этот метод не возвращает сообщение, когда истекает время ожидания, когда операция отменяется или когда клиент отключается.
 
-Одновременно может выполняться только одна операция чтения и записи, поэтому, пока вы ждёте сообщение через `ReceiveMessageAsync`, писать в подключённого клиента невозможно.
+Только одна операция чтения и записи может происходить одновременно, поэтому, пока вы ждете сообщения с помощью `ReceiveMessageAsync`, невозможно записать в подключенный клиент.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -18,18 +18,18 @@ router.MapGet("/connect", async (HttpRequest req) =>
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine("Received message: " + msgText);
+        Console.WriteLine("Получено сообщение: " + msgText);
 
-        await ws.SendAsync("Hello!");
+        await ws.SendAsync("Привет!");
     }
 
     return await ws.CloseAsync();
 });
 ```
 
-## Приём сообщений синхронно
+## Постоянное соединение
 
-Ниже приведён пример использования синхронного веб‑сокета без асинхронного контекста, где вы получаете сообщения, обрабатываете их и завершаете работу с сокетом.
+Пример ниже содержит способ использования постоянного соединения веб-сокета, где вы получаете сообщения, обрабатываете их и завершаете использование сокета.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -38,7 +38,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync("What is your name?");
+    await ws.SendAsync("Как вас зовут?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -48,12 +48,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync("Please, insert your name!");
+        await ws.SendAsync("Пожалуйста, введите ваше имя!");
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync("And your age?");
+    await ws.SendAsync("А ваш возраст?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -61,19 +61,19 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync("Please, insert an valid number");
+        await ws.SendAsync("Пожалуйста, введите действительное число");
         goto askAge;
     }
 
-    await ws.SendAsync($"You're {name}, and you are {age} old.");
+    await ws.SendAsync($"Вы {name}, и вам {age} лет.");
 
     return await ws.CloseAsync();
 });
 ```
 
-## Политика Ping
+## Политика пинга
 
-Подобно тому, как работает политика ping в Server Side Events, вы также можете настроить политику ping, чтобы держать TCP‑соединение открытым при отсутствии активности.
+Аналогично тому, как работает политика пинга в Server Side Events, вы также можете настроить политику пинга, чтобы поддерживать TCP-соединение открытым, если в нем нет активности.
 
 ```cs
 ws.PingPolicy.Start(

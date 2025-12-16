@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Web Sockets | Sisk </title>
+        <title>Веб-сокеты | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Web Sockets | Sisk ">
+        <meta name="title" content="Веб-сокеты | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,13 +154,13 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="web-sockets">Web Sockets</h1>
+<h1 id="веб-сокеты">Веб-сокеты</h1>
 
-<p>Sisk поддерживает веб‑сокеты, например, получение и отправка сообщений клиенту.</p>
-<p>Эта функция работает корректно во многих браузерах, но в Sisk она всё ещё экспериментальная. Если вы обнаружите ошибки, сообщите о них на GitHub.</p>
-<h2 id="приём-сообщений-асинхронно">Приём сообщений асинхронно</h2>
-<p>Сообщения WebSocket принимаются в порядке, ставятся в очередь до обработки <code>ReceiveMessageAsync</code>. Этот метод не возвращает сообщение, если истёк таймаут, операция отменена или клиент отключён.</p>
-<p>Одновременно может выполняться только одна операция чтения и записи, поэтому, пока вы ждёте сообщение через <code>ReceiveMessageAsync</code>, писать в подключённого клиента невозможно.</p>
+<p>Sisk поддерживает веб-сокеты, такие как получение и отправка сообщений клиенту.</p>
+<p>Эта функция работает хорошо в большинстве браузеров, но в Sisk она еще экспериментальная. Пожалуйста, если вы найдете какие-либо ошибки, сообщите об этом на github.</p>
+<h2 id="принятие-сообщений">Принятие сообщений</h2>
+<p>Сообщения веб-сокетов получаются в порядке, помещаются в очередь до тех пор, пока они не будут обработаны методом <code>ReceiveMessageAsync</code>. Этот метод не возвращает сообщение, когда истекает время ожидания, когда операция отменяется или когда клиент отключается.</p>
+<p>Только одна операция чтения и записи может происходить одновременно, поэтому, пока вы ждете сообщения с помощью <code>ReceiveMessageAsync</code>, невозможно записать в подключенный клиент.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -168,23 +168,23 @@
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine(&quot;Received message: &quot; + msgText);
+        Console.WriteLine(&quot;Получено сообщение: &quot; + msgText);
 
-        await ws.SendAsync(&quot;Hello!&quot;);
+        await ws.SendAsync(&quot;Привет!&quot;);
     }
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="приём-сообщений-синхронно">Приём сообщений синхронно</h2>
-<p>Ниже приведён пример использования синхронного веб‑сокета без асинхронного контекста, где вы получаете сообщения, обрабатываете их и завершаете работу с сокетом.</p>
+<h2 id="постоянное-соединение">Постоянное соединение</h2>
+<p>Пример ниже содержит способ использования постоянного соединения веб-сокета, где вы получаете сообщения, обрабатываете их и завершаете использование сокета.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;What is your name?&quot;);
+    await ws.SendAsync(&quot;Как вас зовут?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -194,12 +194,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;Please, insert your name!&quot;);
+        await ws.SendAsync(&quot;Пожалуйста, введите ваше имя!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;And your age?&quot;);
+    await ws.SendAsync(&quot;А ваш возраст?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -207,17 +207,17 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
+        await ws.SendAsync(&quot;Пожалуйста, введите действительное число&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
+    await ws.SendAsync($&quot;Вы {name}, и вам {age} лет.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="политика-ping">Политика Ping</h2>
-<p>Подобно тому, как работает политика ping в Server Side Events, вы также можете настроить политику ping, чтобы держать TCP‑соединение открытым при отсутствии активности.</p>
+<h2 id="политика-пинга">Политика пинга</h2>
+<p>Аналогично тому, как работает политика пинга в Server Side Events, вы также можете настроить политику пинга, чтобы поддерживать TCP-соединение открытым, если в нем нет активности.</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
     dataMessage: &quot;ping-message&quot;,
     interval: TimeSpan.FromSeconds(10));

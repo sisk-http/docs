@@ -160,10 +160,10 @@
 <h5>Warning</h5>
 <p>この機能は実験的であり、運用環境では使用しないでください。Sisk を SSL で動作させる方法については、<a href="/docs/jp/deploying.html#proxying-your-application">このドキュメント</a> を参照してください。</p>
 </div>
-<p>Sisk SSL Proxy は、Sisk の <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> に HTTPS 接続を提供し、HTTPS メッセージを非安全な HTTP コンテキストにルーティングするモジュールです。このモジュールは、SSL をサポートしない <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> を使用して実行されるサービスに SSL 接続を提供するために構築されました。</p>
+<p>Sisk SSL Proxy は、Sisk の <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> に HTTPS 接続を提供し、HTTPS メッセージを非安全な HTTP コンテキストにルーティングするモジュールです。このモジュールは、SSL 接続をサポートしない <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0">HttpListener</a> を使用して実行されるサービスに SSL 接続を提供するために構築されました。</p>
 <p>プロキシは同じアプリケーション内で実行され、HTTP/1.1 メッセージをリッスンし、同じプロトコルで Sisk に転送します。現在、この機能は非常に実験的であり、運用環境で使用するには不安定すぎる可能性があります。</p>
 <p>現在、SslProxy は、キープアライブ、チャンク化されたエンコード、WebSockets など、ほとんどの HTTP/1.1 機能をサポートしています。SSL プロキシへのオープン接続の場合、ターゲット サーバーに TCP 接続が作成され、プロキシは確立された接続に転送されます。</p>
-<p>SslProxy は、次のように HttpServer.CreateBuilder と共に使用できます。</p>
+<p>SslProxy は、次のように HttpServer.CreateBuilder とともに使用できます。</p>
 <pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
     .UseRouter(r =&gt;
     {

@@ -2,7 +2,7 @@
 
 Los controladores de solicitudes, también conocidos como "middlewares", son funciones que se ejecutan antes o después de que se ejecute una solicitud en el enrutador. Pueden definirse por ruta o por enrutador.
 
-Existen dos tipos de controladores de solicitudes:
+Hay dos tipos de controladores de solicitudes:
 
 - **BeforeResponse**: define que el controlador de solicitudes se ejecutará antes de llamar a la acción del enrutador.
 - **AfterResponse**: define que el controlador de solicitudes se ejecutará después de llamar a la acción del enrutador. Enviar una respuesta HTTP en este contexto sobrescribirá la respuesta de la acción del enrutador.
@@ -11,13 +11,13 @@ Ambos controladores de solicitudes pueden anular la respuesta real de la funció
 
 ![](/assets/img/requesthandlers1.png)
 
-De esta manera, un controlador de solicitudes puede interrumpir toda esta ejecución y devolver una respuesta antes de terminar el ciclo, descartando todo lo demás en el proceso.
+De esta manera, un controlador de solicitudes puede interrumpir toda esta ejecución y devolver una respuesta antes de finalizar el ciclo, descartando todo lo demás en el proceso.
 
-Ejemplo: supongamos que un controlador de solicitudes de autenticación de usuario no autentica al usuario. Evitará que el ciclo de solicitud continúe y se suspenderá. Si esto sucede en el controlador de solicitudes en la posición dos, el tercero y siguientes no se evaluarán.
+Ejemplo: supongamos que un controlador de solicitudes de autenticación de usuario no autentica al usuario. Evitará que el ciclo de vida de la solicitud continúe y se suspenderá. Si esto sucede en el controlador de solicitudes en la posición dos, el tercero y siguientes no se evaluarán.
 
 ![](/assets/img/requesthandlers2.png)
 
-## Creación de un controlador de solicitudes
+## Crear un controlador de solicitudes
 
 Para crear un controlador de solicitudes, podemos crear una clase que herede de la interfaz [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler), en este formato:
 
@@ -39,7 +39,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
     {
         if (request.Headers.Authorization != null)
         {
-            // Devolver null indica que el ciclo de solicitud puede continuar
+            // Devolver null indica que el ciclo de la solicitud puede continuar
             return null;
         }
         else
@@ -51,11 +51,11 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-En el ejemplo anterior, indicamos que si el encabezado `Authorization` está presente en la solicitud, debe continuar y la siguiente solicitud de controlador o la devolución de llamada del enrutador debe ser llamada, lo que sea que venga a continuación. Si es un controlador de solicitudes que se ejecuta después de la respuesta por su propiedad [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) y devuelve un valor no nulo, sobrescribirá la respuesta del enrutador.
+En el ejemplo anterior, indicamos que si el encabezado `Authorization` está presente en la solicitud, debe continuar y la siguiente solicitud o la devolución de llamada del enrutador debe ser llamada, lo que sea que venga a continuación. Si es un controlador de solicitudes que se ejecuta después de la respuesta por su propiedad [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) y devuelve un valor no nulo, sobrescribirá la respuesta del enrutador.
 
-Siempre que un controlador de solicitudes devuelva `null`, indica que la solicitud debe continuar y el siguiente objeto debe ser llamado o el ciclo debe terminar con la respuesta del enrutador.
+Siempre que un controlador de solicitudes devuelva `null`, indica que la solicitud debe continuar y el siguiente objeto debe ser llamado o el ciclo debe finalizar con la respuesta del enrutador.
 
-## Asociación de un controlador de solicitudes con una sola ruta
+## Asociar un controlador de solicitudes con una sola ruta
 
 Puedes definir uno o más controladores de solicitudes para una ruta.
 
@@ -71,10 +71,10 @@ Puedes definir uno o más controladores de solicitudes para una ruta.
 ```cs
 mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 {
-    new AuthenticateUserRequestHandler(),     // antes de la solicitud
-    new ValidateJsonContentRequestHandler(),  // antes de la solicitud
+    new AuthenticateUserRequestHandler(),     // controlador de solicitudes antes de la solicitud
+    new ValidateJsonContentRequestHandler(),  // controlador de solicitudes antes de la solicitud
     //                                        -- el método IndexPage se ejecutará aquí
-    new WriteToLogRequestHandler()            // después de la solicitud
+    new WriteToLogRequestHandler()            // controlador de solicitudes después de la solicitud
 });
 ```
 
@@ -98,9 +98,9 @@ indexRoute.RequestHandlers = new IRequestHandler[]
 mainRouter.SetRoute(indexRoute);
 ```
 
-## Asociación de un controlador de solicitudes con un enrutador
+## Asociar un controlador de solicitudes con un enrutador
 
-Puedes definir un controlador de solicitudes global que se ejecutará en todas las rutas del enrutador.
+Puedes definir un controlador de solicitudes global que se ejecutará en todas las rutas de un enrutador.
 
 <div class="script-header">
     <span>
@@ -118,9 +118,9 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 };
 ```
 
-## Asociación de un controlador de solicitudes con un atributo
+## Asociar un controlador de solicitudes con un atributo
 
-Puedes definir un controlador de solicitudes en un atributo junto con un atributo de ruta.
+Puedes definir un controlador de solicitudes en un atributo de método junto con un atributo de ruta.
 
 <div class="script-header">
     <span>
@@ -210,7 +210,7 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-## Omisión de un controlador de solicitudes global
+## Saltar un controlador de solicitudes global
 
 Después de definir un controlador de solicitudes global en una ruta, puedes ignorar este controlador de solicitudes en rutas específicas.
 
@@ -235,10 +235,10 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "Mi ruta", IndexPage, null)
     BypassGlobalRequestHandlers = new IRequestHandler[]
     {
         myRequestHandler,                    // ok: la misma instancia de lo que está en los controladores de solicitudes globales
-        new AuthenticateUserRequestHandler() // incorrecto: no saltará el controlador de solicitudes global
+        new AuthenticateUserRequestHandler() // wrong: no saltará el controlador de solicitudes global
     }
 });
 ```
 
 > [!NOTE]
-> Si estás omitiendo un controlador de solicitudes, debes usar la misma referencia de lo que instanciaste antes para saltar. Crear otra instancia de controlador de solicitudes no saltará el controlador de solicitudes global, ya que su referencia cambiará. Recuerda usar la misma referencia de controlador de solicitudes utilizada en ambos GlobalRequestHandlers y BypassGlobalRequestHandlers.
+> Si estás saltando un controlador de solicitudes, debes usar la misma referencia de lo que instanciaste antes para saltar. Crear otra instancia del controlador de solicitudes no saltará el controlador de solicitudes global, ya que su referencia cambiará. Recuerda usar la misma referencia del controlador de solicitudes utilizada en ambos GlobalRequestHandlers y BypassGlobalRequestHandlers.

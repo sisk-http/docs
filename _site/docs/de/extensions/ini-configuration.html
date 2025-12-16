@@ -156,7 +156,7 @@
                 <article data-uid="">
 <h1 id="ini-konfiguration">INI-Konfiguration</h1>
 
-<p>Sisk hat eine Methode für das Abrufen von Startkonfigurationen, die nicht JSON sind. Tatsächlich kann jede Pipeline, die <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> implementiert, mit <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> verwendet werden, um die Serverkonfiguration aus jeder Dateityp zu lesen.</p>
+<p>Sisk hat eine Methode, um Startkonfigurationen zu erhalten, die nicht JSON sind. Tatsächlich kann jede Pipeline, die <a href="/api/Sisk.Core.Http.Hosting.IConfigurationReader">IConfigurationReader</a> implementiert, mit <a href="/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder">PortableConfigurationBuilder.WithConfigurationPipeline</a> verwendet werden, um die Serverkonfiguration aus jeder Dateityp zu lesen.</p>
 <p>Das <a href="https://www.nuget.org/packages/Sisk.IniConfiguration/">Sisk.IniConfiguration</a>-Paket bietet einen streambasierten INI-Dateileser, der keine Ausnahmen für häufige Syntaxfehler auslöst und eine einfache Konfigurationssyntax hat. Dieses Paket kann außerhalb des Sisk-Frameworks verwendet werden und bietet Flexibilität für Projekte, die einen effizienten INI-Dokumentleser benötigen.</p>
 <h2 id="installation">Installation</h2>
 <p>Um das Paket zu installieren, können Sie mit folgendem Befehl beginnen:</p>
@@ -216,17 +216,17 @@ Name = &quot;Kanye West&quot;
 <p>Aktuelle Implementierung des Geschmacks:</p>
 <ul>
 <li>Eigenschaften- und Sektionsnamen sind <strong>groß-/kleinschreibungsunabhängig</strong>.</li>
-<li>Eigenschaftsnamen und Werte sind <strong>gekürzt</strong>, sofern Werte nicht in Anführungszeichen gesetzt sind.</li>
-<li>Werte können mit einfachen oder doppelten Anführungszeichen in Anführungszeichen gesetzt werden. Anführungszeichen können Zeilenumbrüche enthalten.</li>
+<li>Eigenschaftsnamen und Werte werden <strong>entfernt</strong>, sofern Werte nicht in Anführungszeichen gesetzt sind.</li>
+<li>Werte können mit einfachen oder doppelten Anführungszeichen umschlossen werden. Anführungszeichen können Zeilenumbrüche enthalten.</li>
 <li>Kommentare werden mit <code>#</code> und <code>;</code> unterstützt. <strong>Nachgestellte Kommentare sind ebenfalls erlaubt</strong>.</li>
 <li>Eigenschaften können mehrere Werte haben.</li>
 </ul>
-<p>Im Detail finden Sie die Dokumentation für den &quot;Geschmack&quot; des INI-Parsers, der in Sisk verwendet wird, <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">in diesem Dokument</a>.</p>
-<p>Verwenden Sie beispielsweise den folgenden INI-Code:</p>
+<p>Im Detail ist die Dokumentation für den &quot;Geschmack&quot; des INI-Parsers, der in Sisk verwendet wird, <a href="https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md">in diesem Dokument verfügbar</a>.</p>
+<p>Mit dem folgenden INI-Code als Beispiel:</p>
 <pre><code class="lang-ini">One = 1
-Value = dies ist ein Wert
-Another value = &quot;dieser Wert
-    hat einen Zeilenumbruch darin&quot;
+Value = this is an value
+Another value = &quot;this value
+    has an line break on it&quot;
 
 ; der Code unten hat einige Farben
 [some section]
@@ -234,8 +234,8 @@ Color = Red
 Color = Blue
 Color = Yellow ; verwenden Sie nicht gelb
 </code></pre>
-<p>Analysieren Sie ihn mit:</p>
-<pre><code class="lang-csharp">// analysieren Sie den INI-Text aus der Zeichenfolge
+<p>Parse es mit:</p>
+<pre><code class="lang-csharp">// parse die INI-Text aus der Zeichenfolge
 IniDocument doc = IniDocument.FromString(iniText);
 
 // erhalten Sie einen Wert
@@ -250,7 +250,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <thead>
 <tr>
 <th>Sektion und Name</th>
-<th>Mehrere Werte zulassen</th>
+<th>Erlaubt mehrere Werte</th>
 <th>Beschreibung</th>
 </tr>
 </thead>
@@ -273,7 +273,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.IncludeRequestIdHeader</code></td>
 <td>Nein</td>
-<td>Gibt an, ob der HTTP-Server den X-Request-Id-Header senden soll.</td>
+<td>Gibt an, ob der HTTP-Server die X-Request-Id-Header senden soll.</td>
 </tr>
 <tr>
 <td><code>Server.ThrowExceptions</code></td>
@@ -283,7 +283,7 @@ string[]? colors = doc.GetSection(&quot;some section&quot;)?.GetMany(&quot;color
 <tr>
 <td><code>Server.AccessLogsStream</code></td>
 <td>Nein</td>
-<td>Gibt den Ausgabestream für den Zugriff auf die Protokolle an.</td>
+<td>Gibt den Ausgabestream für die Zugriffsprotokolle an.</td>
 </tr>
 <tr>
 <td><code>Server.ErrorsLogsStream</code></td>

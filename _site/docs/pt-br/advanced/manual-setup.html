@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Configura&#231;&#227;o manual (avan&#231;ado) | Sisk </title>
+        <title>Configura&#231;&#227;o manual (avan&#231;ada) | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Configura&#231;&#227;o manual (avan&#231;ado) | Sisk ">
+        <meta name="title" content="Configura&#231;&#227;o manual (avan&#231;ada) | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -154,10 +154,10 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="configuração-manual-avançado">Configuração manual (avançado)</h1>
+<h1 id="configuração-manual-avançada">Configuração manual (avançada)</h1>
 
-<p>Nesta seção, vamos criar nosso servidor HTTP sem nenhum padrão predefinido, de uma maneira completamente abstrata. Aqui, você pode construir manualmente como seu servidor HTTP funcionará. Cada <code>ListeningHost</code> possui um roteador, e um servidor HTTP pode ter vários <code>ListeningHosts</code>, cada um apontando para um host diferente em uma porta diferente.</p>
-<p>Primeiro, precisamos entender o conceito de solicitação/resposta. É bastante simples: para cada solicitação, deve haver uma resposta. O Sisk segue esse princípio também. Vamos criar um método que responda com uma mensagem &quot;Olá, Mundo!&quot; em HTML, especificando o código de status e cabeçalhos.</p>
+<p>Nesta seção, criaremos nosso servidor HTTP sem nenhum padrão pré-definido, de forma completamente abstrata. Aqui, você pode construir manualmente como seu servidor HTTP funcionará. Cada ListeningHost tem um roteador e um servidor HTTP pode ter vários ListeningHosts, cada um apontando para um host diferente em uma porta diferente.</p>
+<p>Primeiro, precisamos entender o conceito de solicitação/resposta. É bastante simples: para cada solicitação, deve haver uma resposta. O Sisk segue esse princípio também. Vamos criar um método que responde com uma mensagem &quot;Olá, Mundo!&quot; em HTML, especificando o código de status e cabeçalhos.</p>
 <pre><code class="lang-csharp">// Program.cs
 using Sisk.Core.Http;
 using Sisk.Core.Routing;
@@ -179,19 +179,19 @@ static HttpResponse IndexPage(HttpRequest request)
     return indexResponse;
 }
 </code></pre>
-<p>O próximo passo é associar esse método a uma rota HTTP.</p>
+<p>A próxima etapa é associar esse método a uma rota HTTP.</p>
 <h2 id="roteadores">Roteadores</h2>
-<p>Roteadores são abstrações de rotas de solicitação e servem como a ponte entre solicitações e respostas para o serviço. Roteadores gerenciam rotas de serviço, funções e erros.</p>
-<p>Um roteador pode ter várias rotas, e cada rota pode realizar diferentes operações naquele caminho, como executar uma função, servir uma página ou fornecer um recurso do servidor.</p>
-<p>Vamos criar nosso primeiro roteador e associar nosso método <code>IndexPage</code> ao caminho index.</p>
+<p>Roteadores são abstrações de rotas de solicitação e servem como ponte entre solicitações e respostas para o serviço. Roteadores gerenciam rotas de serviço, funções e erros.</p>
+<p>Um roteador pode ter várias rotas e cada rota pode realizar operações diferentes nesse caminho, como executar uma função, servir uma página ou fornecer um recurso do servidor.</p>
+<p>Vamos criar nosso primeiro roteador e associar nosso método <code>IndexPage</code> ao caminho de índice.</p>
 <pre><code class="lang-csharp">Router mainRouter = new Router();
 
-// SetRoute associará todas as rotas index às nossas funções.
+// SetRoute associará todas as rotas de índice com nosso método.
 mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
 </code></pre>
-<p>Agora nosso roteador pode receber solicitações e enviar respostas. No entanto, <code>mainRouter</code> não está vinculado a um host ou servidor, então ele não funcionará sozinho. O próximo passo é criar nosso <code>ListeningHost</code>.</p>
+<p>Agora nosso roteador pode receber solicitações e enviar respostas. No entanto, <code>mainRouter</code> não está vinculado a um host ou servidor, então não funcionará sozinho. A próxima etapa é criar nosso ListeningHost.</p>
 <h2 id="hosts-de-escuta-e-portas">Hosts de Escuta e Portas</h2>
-<p>Um <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> pode hospedar um roteador e várias portas de escuta para o mesmo roteador. Um <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> é um prefixo onde o servidor HTTP irá escutar.</p>
+<p>Um <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> pode hospedar um roteador e várias portas de escuta para o mesmo roteador. Uma <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> é um prefixo onde o servidor HTTP escutará.</p>
 <p>Aqui, podemos criar um <code>ListeningHost</code> que aponta para dois endpoints para nosso roteador:</p>
 <pre><code class="lang-csharp">ListeningHost myHost = new ListeningHost
 {
@@ -202,16 +202,16 @@ mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
     }
 };
 </code></pre>
-<p>Agora nosso servidor HTTP irá escutar os endpoints especificados e redirecionar suas solicitações para nosso roteador.</p>
+<p>Agora nosso servidor HTTP escutará os endpoints especificados e redirecionará suas solicitações para nosso roteador.</p>
 <h2 id="configuração-do-servidor">Configuração do Servidor</h2>
-<p>A configuração do servidor é responsável por grande parte do comportamento do servidor HTTP em si. Nesta configuração, podemos associar <code>ListeningHosts</code> ao nosso servidor.</p>
+<p>A configuração do servidor é responsável pela maior parte do comportamento do servidor HTTP em si. Nessa configuração, podemos associar <code>ListeningHosts</code> com nosso servidor.</p>
 <pre><code class="lang-csharp">HttpServerConfiguration config = new HttpServerConfiguration();
-config.ListeningHosts.Add(myHost); // Adicione nosso ListeningHost a esta configuração do servidor
+config.ListeningHosts.Add(myHost); // Adicione nosso ListeningHost a essa configuração do servidor
 </code></pre>
 <p>Em seguida, podemos criar nosso servidor HTTP:</p>
 <pre><code class="lang-csharp">HttpServer server = new HttpServer(config);
 server.Start();    // Inicia o servidor
-Console.ReadKey(); // Previne o encerramento da aplicação
+Console.ReadKey(); // Impede que o aplicativo saia
 </code></pre>
 <p>Agora podemos compilar nosso executável e executar nosso servidor HTTP com o comando:</p>
 <pre><code class="lang-bash">dotnet watch

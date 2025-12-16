@@ -156,34 +156,34 @@
                 <article data-uid="">
 <h1 id="bereitstellung-ihrer-sisk-anwendung">Bereitstellung Ihrer Sisk-Anwendung</h1>
 
-<p>Der Prozess der Bereitstellung einer Sisk-Anwendung besteht darin, Ihr Projekt in die Produktion zu veröffentlichen. Obwohl der Prozess relativ einfach ist, ist es wichtig, Details zu beachten, die für die Sicherheit und Stabilität der Infrastruktur der Bereitstellung von entscheidender Bedeutung sein können.</p>
-<p>Idealerweise sollten Sie bereit sein, Ihre Anwendung in die Cloud zu veröffentlichen, nachdem Sie alle möglichen Tests durchgeführt haben, um Ihre Anwendung bereit zu machen.</p>
+<p>Der Prozess der Bereitstellung einer Sisk-Anwendung besteht darin, Ihr Projekt in die Produktion zu veröffentlichen. Obwohl der Prozess relativ einfach ist, ist es erwähnenswert, Details zu beachten, die für die Sicherheit und Stabilität der Infrastruktur der Bereitstellung tödlich sein können.</p>
+<p>Idealerweise sollten Sie bereit sein, Ihre Anwendung in die Cloud zu deployen, nachdem Sie alle möglichen Tests durchgeführt haben, um Ihre Anwendung bereit zu machen.</p>
 <h2 id="veröffentlichen-ihrer-app">Veröffentlichen Ihrer App</h2>
-<p>Das Veröffentlichen Ihrer Sisk-Anwendung oder eines Dienstes bedeutet, Binärdateien zu generieren, die für die Produktion bereit und optimiert sind. In diesem Beispiel werden wir die Binärdateien für die Produktion kompilieren, um auf einem Computer mit der .NET-Laufzeitumgebung zu laufen.</p>
-<p>Sie benötigen die .NET-SDK auf Ihrem Computer, um Ihre App zu erstellen, und die .NET-Laufzeitumgebung auf dem Zielserver, um Ihre App auszuführen. Sie können erfahren, wie Sie die .NET-Laufzeitumgebung auf Ihrem Linux-Server <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">hier</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> und <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a> installieren.</p>
-<p>Öffnen Sie im Ordner, in dem sich Ihr Projekt befindet, ein Terminal und verwenden Sie den .NET-Veröffentlichungsbefehl:</p>
+<p>Das Veröffentlichen Ihrer Sisk-Anwendung oder eines Dienstes bedeutet, Binaries zu generieren, die für die Produktion bereit und optimiert sind. In diesem Beispiel werden wir die Binaries für die Produktion kompilieren, um auf einer Maschine zu laufen, die die .NET-Laufzeit auf der Maschine installiert hat.</p>
+<p>Sie benötigen die .NET-SDK auf Ihrem Computer installiert, um Ihre App zu erstellen, und die .NET-Laufzeit auf dem Zielserver, um Ihre App auszuführen. Sie können erfahren, wie Sie die .NET-Laufzeit auf Ihrem Linux-Server <a href="https://learn.microsoft.com/en-us/dotnet/core/install/linux">hier</a>, <a href="https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70">Windows</a> und <a href="https://learn.microsoft.com/en-us/dotnet/core/install/macos">Mac OS</a> installieren.</p>
+<p>Im Ordner, in dem sich Ihr Projekt befindet, öffnen Sie ein Terminal und verwenden den .NET-Veröffentlichungsbefehl:</p>
 <pre><code class="lang-shell">$ dotnet publish -r linux-x64 -c Release
 </code></pre>
-<p>Dies generiert Ihre Binärdateien im Ordner <code>bin/Release/publish/linux-x64</code>.</p>
+<p>Dies generiert Ihre Binaries innerhalb von <code>bin/Release/publish/linux-x64</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Wenn Ihre App mit dem Sisk.ServiceProvider-Paket läuft, sollten Sie Ihre <code>service-config.json</code> in den Host-Server zusammen mit allen Binärdateien kopieren, die von <code>dotnet publish</code> generiert werden.
-Sie können die Datei vor konfigurieren, mit Umgebungsvariablen, Lauscher-Ports und -Hosts sowie zusätzlichen Server-Konfigurationen.</p>
+<p>Wenn Ihre App mit dem Sisk.ServiceProvider-Paket läuft, sollten Sie Ihre <code>service-config.json</code> in Ihren Hostserver kopieren, zusammen mit allen Binaries, die von <code>dotnet publish</code> generiert werden.
+Sie können die Datei vor konfigurieren, mit Umgebungsvariablen, Lauscher-Ports und Hosts und zusätzlichen Serverkonfigurationen.</p>
 </div>
-<p>Der nächste Schritt besteht darin, diese Dateien auf den Server zu übertragen, auf dem Ihre Anwendung gehostet wird.</p>
-<p>Anschließend geben Sie der Binärdatei Ausführungsrechte. In diesem Fall nehmen wir an, dass unser Projektname &quot;my-app&quot; ist:</p>
+<p>Der nächste Schritt ist, diese Dateien auf den Server zu übertragen, auf dem Ihre Anwendung gehostet wird.</p>
+<p>Danach geben Sie Ausführungsrechte für Ihre Binärdatei. In diesem Fall nehmen wir an, dass unser Projektname &quot;my-app&quot; ist:</p>
 <pre><code class="lang-shell">$ cd /home/htdocs
 $ chmod +x my-app
 $ ./my-app
 </code></pre>
-<p>Nachdem Sie Ihre Anwendung gestartet haben, überprüfen Sie, ob sie Fehlermeldungen produziert. Wenn sie keine Fehlermeldungen produziert, bedeutet dies, dass Ihre Anwendung läuft.</p>
-<p>An diesem Punkt ist es wahrscheinlich nicht möglich, auf Ihre Anwendung von außerhalb des Servers zuzugreifen, da Zugriffsregeln wie Firewall nicht konfiguriert sind. Wir werden dies in den nächsten Schritten berücksichtigen.</p>
+<p>Nach dem Ausführen Ihrer Anwendung prüfen Sie, ob sie Fehlermeldungen produziert. Wenn sie keine produziert, bedeutet dies, dass Ihre Anwendung läuft.</p>
+<p>An diesem Punkt ist es wahrscheinlich nicht möglich, auf Ihre Anwendung von außerhalb Ihres Servers zuzugreifen, da Zugriffsregeln wie Firewall nicht konfiguriert sind. Wir werden dies in den nächsten Schritten berücksichtigen.</p>
 <p>Sie sollten die Adresse des virtuellen Hosts haben, auf dem Ihre Anwendung läuft. Dies wird manuell in der Anwendung festgelegt und hängt davon ab, wie Sie Ihren Sisk-Dienst instanziieren.</p>
 <p>Wenn Sie <strong>nicht</strong> das Sisk.ServiceProvider-Paket verwenden, sollten Sie es finden, wo Sie Ihre HttpServer-Instanz definiert haben:</p>
 <pre><code class="lang-cs">HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
 // sisk sollte auf http://localhost:5000/ lauschen
 </code></pre>
-<p>Manuelle Zuweisung eines ListeningHost:</p>
+<p>Manuelle Zuweisung eines Lauschers:</p>
 <pre><code class="lang-cs">config.ListeningHosts.Add(new ListeningHost(&quot;https://localhost:5000/&quot;, router));
 </code></pre>
 <p>Oder wenn Sie das Sisk.ServiceProvider-Paket verwenden, in Ihrer <code>service-config.json</code>:</p>
@@ -196,25 +196,25 @@ $ ./my-app
   }
 }
 </code></pre>
-<p>Daraus können wir einen Reverse-Proxy erstellen, um Ihren Dienst zu hören und den Datenverkehr über das offene Netzwerk verfügbar zu machen.</p>
+<p>Von hier aus können wir einen Reverse-Proxy erstellen, um Ihren Dienst zu lauschen und den Datenverkehr über das offene Netzwerk verfügbar zu machen.</p>
 <h2 id="proxying-ihrer-anwendung">Proxying Ihrer Anwendung</h2>
 <p>Das Proxying Ihres Dienstes bedeutet, dass Sie Ihren Sisk-Dienst nicht direkt einem externen Netzwerk aussetzen. Diese Praxis ist sehr häufig bei Server-Bereitstellungen, da:</p>
 <ul>
-<li>Sie damit ein SSL-Zertifikat in Ihrer Anwendung verknüpfen können;</li>
+<li>Sie damit ein SSL-Zertifikat in Ihrer Anwendung zuordnen können;</li>
 <li>Sie Zugriffsregeln vor dem Zugriff auf den Dienst erstellen und Überlastungen vermeiden können;</li>
 <li>Sie die Bandbreite und Anfragegrenzen kontrollieren können;</li>
 <li>Sie Lastenausgleich für Ihre Anwendung trennen können;</li>
 <li>Sie Sicherheitsschäden an der fehlgeschlagenen Infrastruktur verhindern können.</li>
 </ul>
 <p>Sie können Ihre Anwendung durch einen Reverse-Proxy wie <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&amp;tabs=linux-ubuntu#install-nginx">Nginx</a> oder <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0">Apache</a> bereitstellen, oder Sie können einen http-over-dns-Tunnel wie <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/">Cloudflared</a> verwenden.</p>
-<p>Außerdem sollten Sie daran denken, die Weiterleitungsheader Ihres Proxys korrekt aufzulösen, um die Informationen Ihres Clients, wie z.B. die IP-Adresse und den Host, über <a href="/docs/advanced/forwarding-resolvers">Weiterleitungs-Resolver</a> zu erhalten.</p>
-<p>Der nächste Schritt nach der Erstellung Ihres Tunnels, der Firewall-Konfiguration und dem Ausführen Ihrer Anwendung besteht darin, einen Dienst für Ihre Anwendung zu erstellen.</p>
+<p>Außerdem sollten Sie daran denken, die Weiterleitungsheader Ihres Proxys korrekt aufzulösen, um die Informationen Ihres Clients, wie IP-Adresse und Host, über <a href="/docs/de/advanced/forwarding-resolvers">Weiterleitungs-Resolver</a> zu erhalten.</p>
+<p>Der nächste Schritt nach der Erstellung Ihres Tunnels, der Firewall-Konfiguration und dem Laufen Ihrer Anwendung ist, einen Dienst für Ihre Anwendung zu erstellen.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Die Verwendung von SSL-Zertifikaten direkt im Sisk-Dienst auf nicht-Windows-Systemen ist nicht möglich. Dies ist ein Punkt der Implementierung von HttpListener, der das zentrale Modul für die HTTP-Warteschlangenverwaltung in Sisk ist, und diese Implementierung variiert von Betriebssystem zu Betriebssystem. Sie können SSL in Ihrem Sisk-Dienst verwenden, wenn Sie <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ein Zertifikat mit dem virtuellen Host mit IIS verknüpfen</a>. Für andere Systeme wird die Verwendung eines Reverse-Proxys dringend empfohlen.</p>
+<p>Die direkte Verwendung von SSL-Zertifikaten in der Sisk-Anwendung auf nicht-Windows-Systemen ist nicht möglich. Dies ist ein Punkt der Implementierung von HttpListener, der das zentrale Modul für die HTTP-Warteschlangenverwaltung in Sisk ist, und diese Implementierung variiert von Betriebssystem zu Betriebssystem. Sie können SSL in Ihrer Sisk-Anwendung verwenden, wenn Sie <a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis">ein Zertifikat mit dem virtuellen Host mit IIS zuordnen</a>. Für andere Systeme wird die Verwendung eines Reverse-Proxys stark empfohlen.</p>
 </div>
 <h2 id="erstellen-eines-dienstes">Erstellen eines Dienstes</h2>
-<p>Das Erstellen eines Dienstes macht Ihre Anwendung immer verfügbar, auch nach dem Neustart Ihres Servers oder einem nicht wiederherstellbaren Absturz.</p>
+<p>Das Erstellen eines Dienstes macht Ihre Anwendung immer verfügbar, auch nach dem Neustart Ihres Server-Instanz oder einem nicht-wiederherstellbaren Absturz.</p>
 <p>In diesem einfachen Tutorial werden wir den Inhalt des vorherigen Tutorials als Showcase verwenden, um Ihren Dienst immer aktiv zu halten.</p>
 <ol>
 <li><p>Greifen Sie auf den Ordner zu, in dem sich die Dienstkonfigurationsdateien befinden:</p>
@@ -242,7 +242,7 @@ User=&lt;Benutzer, der den Dienst starten wird&gt;
 WorkingDirectory=/home/htdocs
 ExecStart=/home/htdocs/my-app
 
-# Setzen Sie den Dienst so, dass er immer nach einem Absturz neu startet
+# Setzen Sie den Dienst auf immer neu starten bei einem Absturz
 Restart=always
 RestartSec=3
 
@@ -254,17 +254,17 @@ WantedBy=multi-user.target
 <pre><code class="lang-sh">$ sudo systemctl daemon-reload
 </code></pre>
 </li>
-<li><p>Starten Sie Ihren neu erstellten Dienst mit dem Namen der Datei, die Sie festgelegt haben, und überprüfen Sie, ob er läuft:</p>
+<li><p>Starten Sie Ihren neu erstellten Dienst vom Namen der Datei, die Sie festgelegt haben, und prüfen Sie, ob er läuft:</p>
 <pre><code class="lang-sh">$ sudo systemctl start my-app
 $ sudo systemctl status my-app
 </code></pre>
 </li>
-<li><p>Wenn Ihre App läuft (&quot;Active: active&quot;), aktivieren Sie Ihren Dienst, um ihn nach einem System-Neustart weiterlaufen zu lassen:</p>
+<li><p>Jetzt, wenn Ihre App läuft (&quot;Active: active&quot;), aktivieren Sie Ihren Dienst, um ihn nach einem System-Neustart weiterlaufen zu lassen:</p>
 <pre><code class="lang-sh">$ sudo systemctl enable my-app
 </code></pre>
 </li>
 </ol>
-<p>Jetzt sind Sie bereit, Ihre Sisk-Anwendung vorzustellen.</p>
+<p>Jetzt sind Sie bereit, loszulegen und Ihre Sisk-Anwendung allen zu präsentieren.</p>
 
 </article>
 

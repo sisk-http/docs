@@ -1,6 +1,6 @@
 # Proveedor de configuración INI
 
-Sisk tiene un método para obtener configuraciones de inicio diferentes a JSON. De hecho, cualquier canal que implemente [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) se puede utilizar con [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder), leyendo la configuración del servidor desde cualquier tipo de archivo.
+Sisk tiene un método para obtener configuraciones de inicio diferentes a JSON. De hecho, cualquier canalización que implemente [IConfigurationReader](/api/Sisk.Core.Http.Hosting.IConfigurationReader) se puede utilizar con [PortableConfigurationBuilder.WithConfigurationPipeline](/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder), leyendo la configuración del servidor desde cualquier tipo de archivo.
 
 El paquete [Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) proporciona un lector de archivos INI basado en flujo que no lanza excepciones por errores de sintaxis comunes y tiene una sintaxis de configuración simple. Este paquete se puede utilizar fuera del marco de Sisk, ofreciendo flexibilidad para proyectos que requieren un lector de documentos INI eficiente.
 
@@ -12,7 +12,7 @@ Para instalar el paquete, puede comenzar con:
 $ dotnet add package Sisk.IniConfiguration
 ```
 
-También puede instalar el paquete principal, que no incluye el lector de configuración INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader), ni la dependencia de Sisk, solo los serializadores INI:
+También puede instalar el paquete principal, que no incluye el [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader) INI, ni la dependencia de Sisk, solo los serializadores INI:
 
 ```bash
 $ dotnet add package Sisk.IniConfiguration.Core
@@ -78,7 +78,7 @@ Implementación actual del sabor:
 - Los nombres de propiedades y secciones son **insensibles a mayúsculas y minúsculas**.
 - Los nombres de propiedades y valores son **recortados**, a menos que los valores estén entre comillas.
 - Los valores pueden estar entre comillas simples o dobles. Las comillas pueden tener saltos de línea dentro de ellas.
-- Se admiten comentarios con `#` y `;`. También se admiten **comentarios al final**.
+- Los comentarios están soportados con `#` y `;`. También se permiten **comentarios al final**.
 - Las propiedades pueden tener varios valores.
 
 En detalle, la documentación para el "sabor" del analizador INI utilizado en Sisk está [disponible en este documento](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md).
@@ -95,7 +95,7 @@ Another value = "this value
 [some section]
 Color = Red
 Color = Blue
-Color = Yellow ; no use yellow
+Color = Yellow ; no use amarillo
 ```
 
 Analícelo con:
@@ -114,7 +114,7 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 
 ## Parámetros de configuración
 
-| Sección y nombre | Admite varios valores | Descripción |
+| Sección y nombre | Permite varios valores | Descripción |
 | ---------------- | --------------------- | ----------- |
 | `Server.Listen` | Sí | Las direcciones/puertos de escucha del servidor. |
 | `Server.Encoding` | No | La codificación predeterminada del servidor. |
@@ -129,4 +129,4 @@ string[]? colors = doc.GetSection("some section")?.GetMany("color");
 | `Cors.AllowOrigin` | No |  Especifica un encabezado Allow-Origin. |
 | `Cors.ExposeHeaders` | No |  Especifica el valor del encabezado CORS Expose-Headers. |
 | `Cors.AllowCredentials` | No |  Especifica el valor del encabezado CORS Allow-Credentials. |
-| `Cors.MaxAge` | No |  Especifica el valor del encabezado CORS Max-Age. |
+| `Cors.MaxAge` | No |  Especifica el valor del encabezado CORS Max-Age.

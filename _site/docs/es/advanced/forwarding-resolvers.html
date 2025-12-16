@@ -160,9 +160,9 @@
 <p>Actualmente, con la clase <a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a>, es posible resolver la dirección IP del cliente, el host y el protocolo HTTP utilizado. Después de la versión 1.0 de Sisk, el servidor ya no tiene una implementación estándar para decodificar estos encabezados por razones de seguridad que varían de servicio a servicio.</p>
 <p>Por ejemplo, el encabezado <code>X-Forwarded-For</code> incluye información sobre las direcciones IP que reenviaron la solicitud. Este encabezado es utilizado por los proxies para transportar una cadena de información al servicio final e incluye la dirección IP de todos los proxies utilizados, incluyendo la dirección real del cliente. El problema es: a veces es difícil identificar la dirección IP remota del cliente y no hay una regla específica para identificar este encabezado. Se recomienda encarecidamente leer la documentación de los encabezados que se van a implementar a continuación:</p>
 <ul>
-<li>Lea sobre el encabezado <code>X-Forwarded-For</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns">aquí</a>.</li>
-<li>Lea sobre el encabezado <code>X-Forwarded-Host</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host">aquí</a>.</li>
-<li>Lea sobre el encabezado <code>X-Forwarded-Proto</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto">aquí</a>.</li>
+<li>Lea sobre el encabezado <code>X-Forwarded-For</code> <a href="https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns">aquí</a>.</li>
+<li>Lea sobre el encabezado <code>X-Forwarded-Host</code> <a href="https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-Host">aquí</a>.</li>
+<li>Lea sobre el encabezado <code>X-Forwarded-Proto</code> <a href="https://developer.mozilla.org/en-US/docs/es/Web/HTTP/Headers/X-Forwarded-Proto">aquí</a>.</li>
 </ul>
 <h2 id="la-clase-forwardingresolver">La clase ForwardingResolver</h2>
 <p>Esta clase tiene tres métodos virtuales que permiten la implementación más adecuada para cada servicio. Cada método es responsable de resolver la información de la solicitud a través de un proxy: la dirección IP del cliente, el host de la solicitud y el protocolo de seguridad utilizado. Por defecto, Sisk siempre utilizará la información de la solicitud original, sin resolver ningún encabezado.</p>

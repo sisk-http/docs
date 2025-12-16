@@ -7,7 +7,7 @@ Es gibt zwei Arten von Anfragebehandlern:
 - **BeforeResponse**: definiert, dass der Anfragebehandler vor dem Aufruf der Router-Aktion ausgeführt wird.
 - **AfterResponse**: definiert, dass der Anfragebehandler nach dem Aufruf der Router-Aktion ausgeführt wird. Das Senden einer HTTP-Antwort in diesem Kontext überschreibt die Router-Aktionsantwort.
 
-Beide Anfragebehandler können die tatsächliche Router-Rückruf-Funktion überschreiben. Darüber hinaus können Anfragebehandler nützlich sein, um eine Anfrage zu validieren, wie z.B. Authentifizierung, Inhalt oder andere Informationen, wie z.B. das Speichern von Informationen, Protokollen oder anderen Schritten, die vor oder nach einer Antwort ausgeführt werden können.
+Beide Anfragebehandler können die tatsächliche Router-Rückruf-Funktion überschreiben. Außerdem können Anfragebehandler nützlich sein, um eine Anfrage zu validieren, wie z.B. Authentifizierung, Inhalt oder andere Informationen, wie z.B. das Speichern von Informationen, Protokollen oder anderen Schritten, die vor oder nach einer Antwort durchgeführt werden können.
 
 ![](/assets/img/requesthandlers1.png)
 
@@ -51,7 +51,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-Im obigen Beispiel haben wir angegeben, dass, wenn die `Authorization`-Header in der Anfrage vorhanden ist, sie fortgesetzt werden sollte und der nächste Anfragebehandler oder die Router-Rückruf-Funktion aufgerufen werden sollte, je nachdem, was zuerst kommt. Wenn ein Anfragebehandler nach der Antwort durch ihre Eigenschaft [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) ausgeführt wird und einen nicht-leeren Wert zurückgibt, wird er die Router-Antwort überschreiben.
+Im obigen Beispiel haben wir angegeben, dass, wenn der `Authorization`-Header in der Anfrage vorhanden ist, er fortgesetzt werden soll und der nächste Anfragebehandler oder die Router-Rückruf-Funktion aufgerufen werden soll, je nachdem, was zuerst kommt. Wenn ein Anfragebehandler nach der Antwort durch seine Eigenschaft [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) ausgeführt wird und einen nicht-leeren Wert zurückgibt, überschreibt er die Router-Antwort.
 
 Wenn ein Anfragebehandler `null` zurückgibt, bedeutet dies, dass die Anfrage fortgesetzt werden muss und das nächste Objekt aufgerufen werden muss oder der Zyklus mit der Router-Antwort enden muss.
 
@@ -100,7 +100,7 @@ mainRouter.SetRoute(indexRoute);
 
 ## Zuordnen eines Anfragebehandlers zu einem Router
 
-Sie können einen globalen Anfragebehandler definieren, der auf allen Routen auf einem Router ausgeführt wird.
+Sie können einen globalen Anfragebehandler definieren, der auf allen Routen eines Routers ausgeführt wird.
 
 <div class="script-header">
     <span>
@@ -145,7 +145,7 @@ public class MyController
 }
 ```
 
-Beachten Sie, dass es notwendig ist, den gewünschten Anfragebehandlertyp und nicht eine Objektinstanz zu übergeben. Auf diese Weise wird der Anfragebehandler vom Router-Parser instanziert. Sie können Argumente im Klassenkonstruktor mit der [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments)-Eigenschaft übergeben.
+Beachten Sie, dass es notwendig ist, den gewünschten Anfragebehandlertyp und nicht eine Objektinstanz zu übergeben. Auf diese Weise wird der Anfragebehandler durch den Router-Parser instanziert. Sie können Argumente im Klassenkonstruktor mit der [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments)-Eigenschaft übergeben.
 
 Beispiel:
 
@@ -241,4 +241,4 @@ mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "Meine Route", IndexPage, nu
 ```
 
 > [!HINWEIS]
-> Wenn Sie einen Anfragebehandler umgehen, müssen Sie dieselbe Referenz verwenden, die Sie zuvor instanziert haben, um den globalen Anfragebehandler zu überspringen. Das Erstellen einer anderen Anfragebehandler-Instanz wird den globalen Anfragebehandler nicht überspringen, da die Referenz geändert wird. Beachten Sie, dass Sie dieselbe Anfragebehandler-Referenz verwenden müssen, die in beiden GlobalRequestHandlers und BypassGlobalRequestHandlers verwendet wird.
+> Wenn Sie einen Anfragebehandler umgehen, müssen Sie dieselbe Referenz verwenden, die Sie zuvor instanziert haben, um ihn zu überspringen. Das Erstellen einer anderen Anfragebehandler-Instanz wird den globalen Anfragebehandler nicht überspringen, da sich die Referenz ändert. Beachten Sie, dass Sie dieselbe Anfragebehandler-Referenz verwenden müssen, die in beiden GlobalRequestHandlers und BypassGlobalRequestHandlers verwendet wird.

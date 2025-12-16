@@ -1,6 +1,6 @@
-# Manuel (erweitert) Setup
+# Manuel (erweitert) Einrichten
 
-In diesem Abschnitt erstellen wir unseren HTTP-Server ohne vordefinierte Standards, auf eine völlig abstrakte Weise. Hier können Sie manuell aufbauen, wie Ihr HTTP-Server funktionieren wird. Jeder ListeningHost hat einen Router und ein HTTP-Server kann mehrere ListeningHosts haben, die jeweils auf einen anderen Host auf einem anderen Port zeigen.
+In diesem Abschnitt erstellen wir unseren HTTP-Server ohne vordefinierte Standards, auf eine völlig abstrakte Weise. Hier können Sie Ihren HTTP-Server manuell aufbauen. Jeder ListeningHost hat einen Router und ein HTTP-Server kann mehrere ListeningHosts haben, die jeweils auf einen anderen Host auf einem anderen Port verweisen.
 
 Zunächst müssen wir das Konzept von Anfrage/Antwort verstehen. Es ist ziemlich einfach: für jede Anfrage muss es eine Antwort geben. Sisk folgt diesem Prinzip auch. Lassen Sie uns eine Methode erstellen, die mit einer "Hallo, Welt!"-Nachricht in HTML antwortet, wobei der Statuscode und die Header angegeben werden.
 
@@ -31,9 +31,9 @@ Der nächste Schritt ist, diese Methode mit einer HTTP-Route zu verknüpfen.
 
 ## Router
 
-Router sind Abstraktionen von Anfrage-Routen und dienen als Brücke zwischen Anfragen und Antworten für den Dienst. Router verwalten Dienst-Routen, Funktionen und Fehler.
+Router sind Abstraktionen von Anfrage-Routen und dienen als Brücke zwischen Anfragen und Antworten für den Dienst. Router verwalten Dienstrouten, Funktionen und Fehler.
 
-Ein Router kann mehrere Routen haben und jede Route kann unterschiedliche Operationen auf diesem Pfad ausführen, wie z.B. die Ausführung einer Funktion, das Servieren einer Seite oder die Bereitstellung einer Ressource vom Server.
+Ein Router kann mehrere Routen haben und jede Route kann unterschiedliche Operationen auf diesem Pfad ausführen, wie z.B. die Ausführung einer Funktion, das Bereitstellen einer Seite oder das Bereitstellen einer Ressource vom Server.
 
 Lassen Sie uns unseren ersten Router erstellen und unsere `IndexPage`-Methode mit dem Index-Pfad verknüpfen.
 
@@ -44,13 +44,13 @@ Router mainRouter = new Router();
 mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage);
 ```
 
-Jetzt kann unser Router Anfragen empfangen und Antworten senden. Allerdings ist `mainRouter` nicht an einen Host oder einen Server gebunden, daher wird er nicht alleine funktionieren. Der nächste Schritt ist, unseren ListeningHost zu erstellen.
+Jetzt kann unser Router Anfragen empfangen und Antworten senden. Allerdings ist `mainRouter` nicht an einen Host oder einen Server gebunden, daher funktioniert er nicht selbstständig. Der nächste Schritt ist, unseren ListeningHost zu erstellen.
 
 ## Listening Hosts und Ports
 
-Ein [ListeningHost](/api/Sisk.Core.Http.ListeningHost) kann einen Router und mehrere Listening-Ports für denselben Router hosten. Ein [ListeningPort](/api/Sisk.Core.Http.ListeningPort) ist ein Präfix, an dem der HTTP-Server zuhört.
+Ein [ListeningHost](/api/Sisk.Core.Http.ListeningHost) kann einen Router und mehrere Listening-Ports für denselben Router hosten. Ein [ListeningPort](/api/Sisk.Core.Http.ListeningPort) ist ein Präfix, an dem der HTTP-Server lauscht.
 
-Hier können wir einen `ListeningHost` erstellen, der auf zwei Endpunkte für unseren Router zeigt:
+Hier können wir einen `ListeningHost` erstellen, der auf zwei Endpunkte für unseren Router verweist:
 
 ```csharp
 ListeningHost myHost = new ListeningHost
@@ -63,7 +63,7 @@ ListeningHost myHost = new ListeningHost
 };
 ```
 
-Jetzt wird unser HTTP-Server auf den angegebenen Endpunkten zuhören und seine Anfragen an unseren Router weiterleiten.
+Jetzt wird unser HTTP-Server auf den angegebenen Endpunkten lauschen und seine Anfragen an unseren Router weiterleiten.
 
 ## Server-Konfiguration
 

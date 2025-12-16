@@ -51,10 +51,10 @@ const CONFIG = {
 
     groqConfig: {
         apiUrl: 'https://api.groq.com/openai/v1/chat/completions',
-        model: 'openai/gpt-oss-20b',
+        model: 'llama-3.3-70b-versatile',
         temperature: 0.1,
         topP: 0.75,
-        maxTokens: 65536,
+        maxTokens: 32768,
         rateLimitDelay: 500, // ms between requests
         retryMultiplier: 3
     }
@@ -273,10 +273,12 @@ Rules:
 - The translated text must follow the original input structure.
 
 File name: ${fileName}
-        
+
 <translation-input>
 ${text}
-</translation-input>`;
+</translation-input>
+
+Reply only with the translated text to ${toLanguage}.`;
 }
 
 async function runInference(text) {
@@ -302,7 +304,6 @@ async function runInference(text) {
             stream: false,
             temperature: CONFIG.groqConfig.temperature,
             top_p: CONFIG.groqConfig.topP,
-            reasoning_effort: 'low',
             max_completion_tokens: CONFIG.groqConfig.maxTokens,
         })
     });

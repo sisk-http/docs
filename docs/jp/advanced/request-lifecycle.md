@@ -1,67 +1,67 @@
 # リクエストライフサイクル
-以下は、HTTP リクエストの例を通じて、リクエストの全ライフサイクルを説明します。
+以下は、HTTPリクエストの例を通じて、リクエストの全ライフサイクルを説明しています。
 
-- **リクエストの受信:** 各リクエストは、リクエスト自体とクライアントに配信されるレスポンスの間で HTTP コンテキストを作成します。このコンテキストは、Sisk に組み込まれたリスナーから来ます。これは、[HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)、[Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0)、または [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/) になります。
-    - 外部リクエストの検証: [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction) の検証がリクエストに対して行われます。
-        - リクエストが外部で、プロパティが `Drop` の場合、クライアントにレスポンスを返さずに接続が閉じられ、`HttpServerExecutionStatus = RemoteRequestDropped` になります。
-    - フォワーディング リゾルバーの構成: フォワーディング リゾルバーが構成されている場合、リクエストの元のホストに対して [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) メソッドが呼び出されます。
-    - DNS の一致: ホストが解決され、複数の [ListeningHost](/api/Sisk.Core.Http.ListeningHost) が構成されている場合、サーバーはリクエストに対応するホストを探します。
-        - 対応する ListeningHost が見つからない場合、クライアントに 400 Bad Request レスポンスが返され、HTTP コンテキストに `HttpServerExecutionStatus = DnsUnknownHost` ステータスが返されます。
-        - ListeningHost が見つかるが、その [Router](/api/Sisk.Core.Http.ListeningHost.Router) が初期化されていない場合、クライアントに 503 Service Unavailable レスポンスが返され、HTTP コンテキストに `HttpServerExecutionStatus = ListeningHostNotReady` ステータスが返されます。
-    - ルーターのバインディング: 対応する ListeningHost のルーターが受信した HTTP サーバーに結び付けられます。
-        - ルーターがすでに別の HTTP サーバーに結び付けられている場合、サーバーの構成リソースをアクティブに使用しているため、`InvalidOperationException` がスローされます。これは、HTTP サーバーの初期化中にのみ発生し、HTTP コンテキストの作成中に発生しません。
+- **リクエストの受信:** 各リクエストは、リクエスト自体とクライアントに配信されるレスポンスの間でHTTPコンテキストを作成します。このコンテキストは、Siskの組み込みリスナーから来ます。これは、[HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)、[Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0)、または[Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/)のいずれかになります。
+    - 外部リクエストの検証: [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction)の検証がリクエストに対して行われます。
+        - リクエストが外部の場合で、このプロパティが`Drop`の場合、クライアントにレスポンスを返さずに接続が閉じられ、`HttpServerExecutionStatus = RemoteRequestDropped`ステータスがHTTPコンテキストに返されます。
+    - フォワーディングリゾルバの構成: フォワーディングリゾルバが構成されている場合、リクエストの元のホストに対して[OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost)メソッドが呼び出されます。
+    - DNSのマッチング: ホストが解決され、複数の[ListeningHost](/api/Sisk.Core.Http.ListeningHost)が構成されている場合、サーバーはリクエストに対応するホストを探します。
+        - 対応するListeningHostが見つからない場合、クライアントに400 Bad Requestレスポンスが返され、`HttpServerExecutionStatus = DnsUnknownHost`ステータスがHTTPコンテキストに返されます。
+        - ListeningHostが見つかるが、その[Router](/api/Sisk.Core.Http.ListeningHost.Router)が初期化されていない場合、クライアントに503 Service Unavailableレスポンスが返され、`HttpServerExecutionStatus = ListeningHostNotReady`ステータスがHTTPコンテキストに返されます。
+    - ルーターのバインディング: 対応するListeningHostのルーターが受信したHTTPサーバーに結び付けられます。
+        - ルーターがすでに別のHTTPサーバーに結び付けられている場合、ルーターはサーバーの構成リソースをアクティブに使用しているため、`InvalidOperationException`がスローされます。これは、HTTPサーバーの初期化中にのみ発生し、HTTPコンテキストの作成中には発生しません。
     - ヘッダーの事前定義:
-        - `X-Request-Id` ヘッダーがレスポンスに事前定義されます (構成されている場合)。
-        - `X-Powered-By` ヘッダーがレスポンスに事前定義されます (構成されている場合)。
-    - コンテンツ サイズの検証: リクエスト コンテンツが [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength) 未満であることを検証します (これが 0 より大きい場合)。
-        - リクエストが構成されたものより大きい `Content-Length` を送信した場合、クライアントに 413 Payload Too Large レスポンスが返され、HTTP コンテキストに `HttpServerExecutionStatus = ContentTooLarge` ステータスが返されます。
-    - すべての構成された HTTP サーバー ハンドラーに対して `OnHttpRequestOpen` イベントが呼び出されます。
+        - `X-Request-Id`ヘッダーがレスポンスに事前定義されるように構成されている場合。
+        - `X-Powered-By`ヘッダーがレスポンスに事前定義されるように構成されている場合。
+    - コンテンツサイズの検証: リクエストコンテンツが[HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)未満であることを検証します。ただし、構成値が0より大きい場合のみ。
+        - リクエストが構成値より大きい`Content-Length`を送信した場合、クライアントに413 Payload Too Largeレスポンスが返され、`HttpServerExecutionStatus = ContentTooLarge`ステータスがHTTPコンテキストに返されます。
+    - すべての構成されたHTTPサーバーハンドラーに対して`OnHttpRequestOpen`イベントが呼び出されます。
 - **アクションのルーティング:** サーバーは受信したリクエストに対してルーターを呼び出します。
     - ルーターがリクエストに一致するルートを見つけることができない場合:
-        - [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。
-        - 前述のプロパティが null の場合、デフォルトの 404 Not Found レスポンスがクライアントに返されます。
+        - [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler)プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。
+        - 前述のプロパティがnullの場合、デフォルトの404 Not Foundレスポンスがクライアントに返されます。
     - ルーターがリクエストに一致するルートを見つけるが、ルートのメソッドがリクエストのメソッドと一致しない場合:
-        - [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。
-        - 前述のプロパティが null の場合、デフォルトの 405 Method Not Allowed レスポンスがクライアントに返されます。
-    - リクエストが `OPTIONS` メソッドの場合:
-        - ルーターは、リクエスト メソッドに一致するルートが見つからない場合 (ルートのメソッドが明示的に [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod) ではない場合) に、クライアントに 200 Ok レスポンスを返します。
-    - [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash) プロパティが有効で、ルートが正規表現ではなく、リクエスト パスが `/` で終わらず、リクエスト メソッドが `GET` の場合:
-        - クライアントに、パスとクエリを同じ場所に `/` を付けてリダイレクトする 307 Temporary Redirect HTTP レスポンスが返されます。
-    - すべての構成された HTTP サーバー ハンドラーに対して `OnContextBagCreated` イベントが呼び出されます。
-    - `BeforeResponse` フラグを持つすべてのグローバル [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インスタンスが実行されます。
-        - どのハンドラーも null 以外のレスポンスを返した場合、そのレスポンスはクライアントに転送され、コンテキストは閉じられます。
-        - このステップでエラーが発生し、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) が無効になっている場合:
-            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
-            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。
-    - `BeforeResponse` フラグを持つルートで定義されたすべての [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インスタンスが実行されます。
-        - どのハンドラーも null 以外のレスポンスを返した場合、そのレスポンスはクライアントに転送され、コンテキストは閉じられます。
-        - このステップでエラーが発生し、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) が無効になっている場合:
-            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
-            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。
-    - ルーターのアクションが呼び出され、HTTP レスポンスに変換されます。
-        - このステップでエラーが発生し、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) が無効になっている場合:
-            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
-            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。
-    - `AfterResponse` フラグを持つすべてのグローバル [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インスタンスが実行されます。
-        - どのハンドラーも null 以外のレスポンスを返した場合、そのハンドラーのレスポンスが前のレスポンスに置き換わり、すぐにクライアントに転送されます。
-        - このステップでエラーが発生し、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) が無効になっている場合:
-            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
-            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。
-    - `AfterResponse` フラグを持つルートで定義されたすべての [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インスタンスが実行されます。
-        - どのハンドラーも null 以外のレスポンスを返した場合、そのハンドラーのレスポンスが前のレスポンスに置き換わり、すぐにクライアントに転送されます。
-        - このステップでエラーが発生し、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) が無効になっている場合:
-            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
-            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は 500 Internal Server Error になります。
+        - [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler)プロパティが構成されている場合、アクションが呼び出され、クライアントにアクションのレスポンスが転送されます。
+        - 前述のプロパティがnullの場合、デフォルトの405 Method Not Allowedレスポンスがクライアントに返されます。
+    - リクエストが`OPTIONS`メソッドの場合:
+        - ルーターは、リクエストメソッドに一致するルートが見つからない場合(ルートのメソッドが明示的に[RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)でない場合)に、クライアントに200 Okレスポンスを返します。
+    - [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash)プロパティが有効で、ルートが正規表現ではなく、リクエストパスが`/`で終わっていない場合、リクエストメソッドが`GET`の場合:
+        - クライアントに307 Temporary Redirect HTTPレスポンスが返され、`Location`ヘッダーに同じ場所へのパスとクエリが含まれます。
+    - すべての構成されたHTTPサーバーハンドラーに対して`OnContextBagCreated`イベントが呼び出されます。
+    - `BeforeResponse`フラグを持つすべてのグローバル[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)インスタンスが実行されます。
+        - どのハンドラーもnull以外のレスポンスを返した場合、そのレスポンスがクライアントに転送され、コンテキストが閉じられます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions)が無効になっている場合:
+            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は500 Internal Server Errorレスポンスがクライアントに転送されます。
+    - ルートで定義された`BeforeResponse`フラグを持つすべての[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)インスタンスが実行されます。
+        - どのハンドラーもnull以外のレスポンスを返した場合、そのレスポンスがクライアントに転送され、コンテキストが閉じられます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions)が無効になっている場合:
+            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は500 Internal Server Errorレスポンスがクライアントに転送されます。
+    - ルーターのアクションが呼び出され、HTTPレスポンスに変換されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions)が無効になっている場合:
+            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は500 Internal Server Errorレスポンスがクライアントに転送されます。
+    - `AfterResponse`フラグを持つすべてのグローバル[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)インスタンスが実行されます。
+        - どのハンドラーもnull以外のレスポンスを返した場合、ハンドラーのレスポンスが以前のレスポンスに置き換わり、すぐにクライアントに転送されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions)が無効になっている場合:
+            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は500 Internal Server Errorレスポンスがクライアントに転送されます。
+    - ルートで定義された`AfterResponse`フラグを持つすべての[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)インスタンスが実行されます。
+        - どのハンドラーもnull以外のレスポンスを返した場合、ハンドラーのレスポンスが以前のレスポンスに置き換わり、すぐにクライアントに転送されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions)が無効になっている場合:
+            - [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)プロパティが有効になっている場合、それが呼び出され、結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが定義されていない場合、空のレスポンスがサーバーに返され、通常は500 Internal Server Errorレスポンスがクライアントに転送されます。
 - **レスポンスの処理:** レスポンスが準備できたら、サーバーはそれをクライアントに送信するために準備します。
-    - Cross-Origin Resource Sharing Policy (CORS) ヘッダーが、現在の [ListeningHost.CrossOriginResourceSharingPolicy](/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy) に基づいてレスポンスに定義されます。
-    - レスポンスのステータス コードとヘッダーがクライアントに送信されます。
-    - レスポンス コンテンツがクライアントに送信されます:
-        - レスポンス コンテンツが [ByteArrayContent](/en-us/dotnet/api/system.net.http.bytearraycontent) の派生クラスの場合、レスポンス バイトが直接レスポンス出力ストリームにコピーされます。
+    - 現在の[ListeningHost.CrossOriginResourceSharingPolicy](/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy)で構成されたCORSヘッダーがレスポンスに定義されます。
+    - レスポンスのステータスコードとヘッダーがクライアントに送信されます。
+    - レスポンスコンテンツがクライアントに送信されます:
+        - レスポンスコンテンツが[ByteArrayContent](/en-us/dotnet/api/system.net.http.bytearraycontent)の派生クラスの場合、レスポンスバイトが直接レスポンス出力ストリームにコピーされます。
         - 前述の条件が満たされない場合、レスポンスはストリームにシリアル化され、レスポンス出力ストリームにコピーされます。
-    - ストリームが閉じられ、レスポンス コンテンツが破棄されます。
-    - [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) が有効になっている場合、リクエスト コンテキストで定義されたすべての [IDisposable](/en-us/dotnet/api/system.idisposable) を継承するオブジェクトが破棄されます。
-    - すべての構成された HTTP サーバー ハンドラーに対して `OnHttpRequestClose` イベントが呼び出されます。
-    - サーバーで例外が発生した場合、すべての構成された HTTP サーバー ハンドラーに対して `OnException` イベントが呼び出されます。
-    - ルートがアクセス ロギングを許可し、[HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) が null でない場合、ログ出力にログ行が書き込まれます。
-    - ルートがエラー ロギングを許可し、例外が発生し、[HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) が null でない場合、エラー ログ出力にログ行が書き込まれます。
-    - サーバーが [HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext) を通じてリクエストを待っている場合、ミューテックスが解放され、コンテキストがユーザーに利用可能になります。
+    - ストリームが閉じられ、レスポンスコンテンツが破棄されます。
+    - [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues)が有効になっている場合、リクエストコンテキストで定義されたすべての[IDisposable](/en-us/dotnet/api/system.idisposable)を継承するオブジェクトが破棄されます。
+    - すべての構成されたHTTPサーバーハンドラーに対して`OnHttpRequestClose`イベントが呼び出されます。
+    - サーバーで例外がスローされた場合、すべての構成されたHTTPサーバーハンドラーに対して`OnException`イベントが呼び出されます。
+    - ルートがアクセスログを許可し、[HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream)がnullでない場合、ログ出力にログ行が書き込まれます。
+    - ルートがエラーログを許可し、例外が発生し、[HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream)がnullでない場合、エラーログ出力にログ行が書き込まれます。
+    - サーバーが[HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext)を通じてリクエストを待っている場合、ミューテックスが解放され、コンテキストがユーザーに利用可能になります。

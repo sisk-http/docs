@@ -1,8 +1,8 @@
 # サービス プロバイダー
 
-サービス プロバイダーは、Sisk アプリケーションをさまざまな環境に移植するための方法です。ポータブルな構成ファイルを使用して、サーバーのポート、パラメーター、他のオプションを変更できます。各環境ごとにアプリケーション コードを変更する必要はありません。このモジュールは、Sisk の構築構文に依存し、UsePortableConfiguration メソッドを使用して構成できます。
+サービス プロバイダーは、Sisk アプリケーションをさまざまな環境に移植するための方法です。この機能により、サーバーのポート、パラメーター、およびその他のオプションを変更できますが、アプリケーション コードを各環境用に変更する必要はありません。このモジュールは、Sisk の構築構文に依存し、`UsePortableConfiguration` メソッドを使用して構成できます。
 
-構成プロバイダーは、IConfigurationProvider を実装して構成リーダーを提供し、任意の実装を受け取ることができます。デフォルトでは、Sisk では JSON 構成リーダーが提供されますが、INI ファイル用のパッケージもあります。独自の構成プロバイダーを作成し、次のように登録することもできます。
+構成プロバイダーは、`IConfigurationProvider` で実装され、構成リーダーを提供し、任意の実装を受け取ることができます。デフォルトでは、Sisk では JSON 構成リーダーが提供されますが、INI ファイル用のパッケージもあります。独自の構成プロバイダーを作成し、次のように登録することもできます。
 
 ```csharp
 using var app = HttpServer.CreateBuilder()
@@ -13,7 +13,7 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-前述のように、デフォルトのプロバイダーは JSON ファイルです。デフォルトでは、service-config.json という名前のファイルが検索され、実行中のプロセスのカレント ディレクトリで検索されますが、実行可能ファイルのディレクトリではありません。
+前述のように、デフォルトのプロバイダーは JSON ファイルです。デフォルトでは、`service-config.json` という名前のファイルが検索され、実行中のプロセスのカレント ディレクトリで検索されますが、実行可能ファイルのディレクトリではありません。
 
 ファイル名を変更したり、Sisk が構成ファイルを検索する場所を指定したりすることもできます。
 
@@ -33,11 +33,11 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-上記のコードは、実行中のプロセスのカレント ディレクトリで config.toml ファイルを検索します。如果見つからない場合は、実行可能ファイルのディレクトリで検索します。如果ファイルが存在しない場合、createIfDontExists パラメーターが尊重され、最後にテストされたパス（lookupDirectories に基づく）にファイルが作成され、エラーがコンソールに出力され、アプリケーションの初期化が阻止されます。
+上記のコードは、実行中のプロセスのカレント ディレクトリで `config.toml` ファイルを検索します。如果見つからない場合は、実行可能ファイルのディレクトリで検索します。如果ファイルが存在しない場合、`createIfDontExists` パラメーターが尊重され、最後にテストされたパス（`lookupDirectories` に基づく）にファイルが作成され、エラーがコンソールに表示され、アプリケーションの初期化が阻止されます。
 
 > [!TIP]
 > 
-> INI 構成リーダーと JSON 構成リーダーのソース コードを参照して、IConfigurationProvider がどのように実装されるかを理解することができます。
+> INI 構成リーダーと JSON 構成リーダーのソース コードを参照して、`IConfigurationProvider` がどのように実装されるかを理解することができます。
 
 ## JSON ファイルからの構成の読み取り
 
@@ -70,7 +70,7 @@ using var app = HttpServer.CreateBuilder()
 }
 ```
 
-構成ファイルから作成されたパラメーターは、サーバーのコンストラクターでアクセスできます。
+構成ファイルから作成されたパラメーターは、サーバー コンストラクターでアクセスできます。
 
 ```csharp
 using var app = HttpServer.CreateBuilder()
@@ -84,7 +84,7 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-各構成リーダーは、サーバーの初期化パラメーターを読み取る方法を提供します。プロセス環境で定義する必要がある一部のプロパティ (機密性の高い API データ、API キーなど) は、構成ファイルに定義するのではなく、プロセス環境で定義する必要があります。
+各構成リーダーは、サーバー初期化パラメーターを読み取る方法を提供します。プロセス環境で定義されるべきプロパティ (機密 API データ、API キーなど) は、構成ファイルで定義するのではなく、別の方法で指定する必要があります。
 
 ## 構成ファイルの構造
 
@@ -107,14 +107,12 @@ JSON 構成ファイルは、次のプロパティで構成されます。
         <tr>
             <td>Server.AccessLogsStream</td>
             <td>省略可能</td>
-            <td>デフォルトは <code>console</code>。アクセス ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。
-            </td>
+            <td>デフォルトは <code>console</code>。アクセス ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。</td>
         </tr>
         <tr>
             <td>Server.ErrorsLogsStream</td>
             <td>省略可能</td>
-            <td>デフォルトは <code>null</code>。エラー ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。
-            </td>
+            <td>デフォルトは <code>null</code>。エラー ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。</td>
         </tr>
         <tr>
             <td>Server.MaximumContentLength</td>
@@ -122,7 +120,7 @@ JSON 構成ファイルは、次のプロパティで構成されます。
             <tr>
             <td>Server.MaximumContentLength</td>
             <td>省略可能</td>
-            <td>デフォルトは <code>0</code>。コンテンツの最大長をバイト単位で指定します。0 は無制限を意味します。</td>
+            <td>デフォルトは <code>0</code>。コンテンツの最大長 (バイト単位) を指定します。0 は無制限を意味します。</td>
         </tr>
         <tr>
             <td>Server.IncludeRequestIdHeader</td>
@@ -132,7 +130,7 @@ JSON 構成ファイルは、次のプロパティで構成されます。
         <tr>
             <td>Server.ThrowExceptions</td>
             <td>省略可能</td>
-            <td>デフォルトは <code>true</code>。未処理の例外をスローするかどうかを指定します。プロダクション環境では <code>false</code>、デバッグ環境では <code>true</code> に設定します。</td>
+            <td>デフォルトは <code>true</code>。未処理例外がスローされるかどうかを指定します。プロダクション環境では <code>false</code>、デバッグ環境では <code>true</code> に設定します。</td>
         </tr>
         <tr>
             <td>ListeningHost</td>
@@ -187,7 +185,7 @@ JSON 構成ファイルは、次のプロパティで構成されます。
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
             <td>省略可能</td>
-            <td>デフォルトは <code>null</code>。整数を期待します。<code>Max-Age</code> ヘッダーを秒単位で指定します。</td>
+            <td>デフォルトは <code>null</code>。整数を期待します。<code>Max-Age</code> ヘッダー (秒単位) を指定します。</td>
         </tr>
         <tr>
             <td>ListeningHost.Parameters</td>

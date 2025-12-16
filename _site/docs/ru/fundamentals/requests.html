@@ -156,11 +156,11 @@
                 <article data-uid="">
 <h1 id="запросы">Запросы</h1>
 
-<p>Запросы — это структуры, представляющие сообщение HTTP-запроса. Объект <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> содержит полезные функции для обработки HTTP‑сообщений во всей вашей программе.</p>
-<p>HTTP‑запрос формируется методом, путем, версией, заголовками и телом.</p>
-<p>В этом документе мы покажем, как получить каждый из этих элементов.</p>
+<p>Запросы представляют собой структуры, которые представляют сообщение HTTP-запроса. Объект <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> содержит полезные функции для обработки HTTP-сообщений на протяжении всего вашего приложения.</p>
+<p>HTTP-запрос формируется методом, путем, версией, заголовками и телом.</p>
+<p>В этом документе мы научим вас, как получить каждый из этих элементов.</p>
 <h2 id="получение-метода-запроса">Получение метода запроса</h2>
-<p>Чтобы получить метод полученного запроса, можно использовать свойство Method:</p>
+<p>Чтобы получить метод полученного запроса, вы можете использовать свойство Method:</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     HttpMethod requestMethod = request.Method;
@@ -170,10 +170,10 @@
 <p>Это свойство возвращает метод запроса, представленный объектом <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>В отличие от методов маршрута, это свойство не обслуживает элемент <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Вместо этого оно возвращает реальный метод запроса.</p>
+<p>В отличие от методов маршрутизации, это свойство не обслуживает элемент <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>. Вместо этого оно возвращает фактический метод запроса.</p>
 </div>
-<h2 id="получение-компонентов-url-запроса">Получение компонентов URL запроса</h2>
-<p>Вы можете получить различные компоненты из URL через определенные свойства запроса. Для этого примера рассмотрим URL:</p>
+<h2 id="получение-компонентов-url">Получение компонентов URL</h2>
+<p>Вы можете получить различные компоненты из URL через определенные свойства запроса. Для этого примера давайте рассмотрим URL:</p>
 <pre><code>http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
@@ -212,12 +212,12 @@
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
-<td>Получает запрос.</td>
+<td>Получает запрос запроса.</td>
 <td><code>?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
-<td>Получает запрос в виде коллекции именованных значений.</td>
+<td>Получает запрос запроса в виде коллекции именованных значений.</td>
 <td><code>{StringValueCollection object}</code></td>
 </tr>
 <tr>
@@ -227,29 +227,38 @@
 </tr>
 </tbody>
 </table>
-<p>Вы также можете воспользоваться свойством <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, которое включает всё вышеупомянутое в одном объекте.</p>
+<p>Вы также можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>, которое включает все вышеперечисленное в один объект.</p>
 <h2 id="получение-тела-запроса">Получение тела запроса</h2>
-<p>Некоторые запросы включают тело, такое как формы, файлы или транзакции API. Вы можете получить тело запроса из свойства:</p>
+<p>Некоторые запросы включают тело, такие как формы, файлы или транзакции API. Вы можете получить тело запроса из свойства:</p>
 <pre><code class="lang-cs">// получает тело запроса как строку, используя кодировку запроса в качестве кодировщика
 string body = request.Body;
 
-// или получает его в виде массива байт
+// или получает его в виде массива байтов
 byte[] bodyBytes = request.RawBody;
 
-// или, наоборот, вы можете потоково читать его.
+// или вы можете передать его как поток.
 Stream requestStream = request.GetRequestStream();
 </code></pre>
-<p>Также возможно определить, есть ли тело в запросе и загружено ли оно, с помощью свойств <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, которое определяет, есть ли у запроса содержимое, и <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, которое указывает, что HTTP‑сервер полностью получил содержимое от удалённой точки.</p>
-<p>Невозможно прочитать содержимое запроса через <code>GetRequestStream</code> более одного раза. Если вы прочитаете с помощью этого метода, значения в <code>RawBody</code> и <code>Body</code> также не будут доступны. Нет необходимости освобождать поток запроса в контексте запроса, так как он освобождается в конце HTTP‑сессии, в которой он создан. Кроме того, вы можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>, чтобы получить лучшую кодировку для ручного декодирования запроса.</p>
+<p>Также возможно определить, есть ли тело в запросе и загружено ли оно с помощью свойств <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, которое определяет, имеет ли запрос содержимое, и <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, которое указывает, что HTTP-сервер полностью получил содержимое из удаленной точки.</p>
+<p>Невозможно прочитать содержимое запроса через <code>GetRequestStream</code> более одного раза. Если вы прочитаете с помощью этого метода, значения в <code>RawBody</code> и <code>Body</code> также не будут доступны. Не нужно освобождать поток запроса в контексте запроса, поскольку он освобождается в конце HTTP-сессии, в которой он создается. Кроме того, вы можете использовать свойство <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>, чтобы получить лучшую кодировку для декодирования запроса вручную.</p>
 <p>Сервер имеет ограничения на чтение содержимого запроса, которые применяются как к <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a>, так и к <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>. Эти свойства копируют весь входной поток в локальный буфер того же размера, что и <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
-<p>Ответ со статусом 413 Content Too Large возвращается клиенту, если отправленное содержимое превышает <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, определённое в пользовательской конфигурации. Кроме того, если нет настроенного ограничения или оно слишком велико, сервер выбросит <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>, когда содержимое, отправленное клиентом, превышает <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 ГБ), и если содержимое попытаться получить через одно из упомянутых выше свойств. Вы всё равно можете работать с содержимым через поток.</p>
+<p>Ответ со статусом 413 Содержимое слишком велико возвращается клиенту, если отправленное содержимое больше <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, определенного в конфигурации пользователя. Кроме того, если нет настроенного ограничения или если оно слишком велико, сервер выдаст исключение <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>, когда содержимое, отправленное клиентом, превышает <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 ГБ) и если содержимое попытается получить доступ через одно из упомянутых выше свойств. Вы все равно можете иметь дело с содержимым через поток.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Хотя Sisk позволяет это, всегда полезно следовать HTTP‑семантике при создании вашего приложения и не получать или обслуживать контент в методах, которые этого не допускают. Читайте о <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP Semantics&quot;</a>.</p>
+<p>Хотя Sisk позволяет это, всегда хорошей идеей является следовать семантике HTTP для создания вашего приложения и не получать или обслуживать содержимое в методах, которые не допускают этого. Прочитайте о <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP Семантика&quot;</a>.</p>
 </div>
 <h2 id="получение-контекста-запроса">Получение контекста запроса</h2>
-<p>HTTP Context — это эксклюзивный объект Sisk, который хранит информацию о сервере, маршруте, роутере и обработчике запроса. Вы можете использовать его, чтобы организовать себя в среде, где эти объекты трудно организовать.</p>
-<p>Объект <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> содержит сохранённую информацию, которая передаётся от обработчика запроса к другому пункту, и может быть использована в конечном пункте. Этот объект также может использоваться обработчиками запросов, которые выполняются после обратного вызова маршрута.</p>
+<p>Контекст HTTP — это эксклюзивный объект Sisk, который хранит информацию о сервере HTTP, маршруте, маршрутизаторе и обработчике запроса. Вы можете использовать его, чтобы организовать себя в среде, где эти объекты трудно организовать.</p>
+<p>Вы можете получить текущий контекст <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> с помощью статического метода <code>HttpContext.GetCurrentContext()</code>. Этот метод возвращает контекст запроса, который в настоящее время обрабатывается в текущем потоке.</p>
+<pre><code class="lang-cs">HttpContext context = HttpContext.GetCurrentContext();
+</code></pre>
+<h3 id="режим-журнала">Режим журнала</h3>
+<p>Свойство <a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a> позволяет вам контролировать поведение журнала для текущего запроса. Вы можете включить или отключить журнал для конкретных запросов, переопределяя конфигурацию сервера по умолчанию.</p>
+<pre><code class="lang-cs">// отключить журнал для этого запроса
+context.LogMode = LogOutputMode.None;
+</code></pre>
+<h3 id="мешок-запроса">Мешок запроса</h3>
+<p>Объект <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> содержит сохраненную информацию, которая передается из обработчика запроса в другую точку и может быть потреблена в конечной точке. Этот объект также может быть использован обработчиками запросов, которые запускаются после обратного вызова маршрута.</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>Это свойство также доступно через свойство <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a>.</p>
@@ -281,7 +290,7 @@ Stream requestStream = request.GetRequestStream();
     }
 }
 </code></pre>
-<p>Вышеуказанный обработчик запроса определит <code>AuthenticatedUser</code> в мешке запроса и может быть использован позже в конечном обратном вызове:</p>
+<p>Вышеуказанный обработчик запроса определит <code>AuthenticatedUser</code> в мешке запроса и может быть потреблен позже в конечном обратном вызове:</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -304,7 +313,8 @@ Stream requestStream = request.GetRequestStream();
     }
 }
 </code></pre>
-<p>Вы также можете использовать вспомогательные методы <code>Bag.Set()</code> и <code>Bag.Get()</code> для получения или установки объектов по их типу‑единственникам.</p>
+<p>Вы также можете использовать методы <code>Bag.Set()</code> и <code>Bag.Get()</code>, чтобы получить или установить объекты по их типам-одиночкам.</p>
+<p>Класс <code>TypedValueDictionary</code> также предоставляет методы <code>GetValue</code> и <code>SetValue</code> для более точного контроля.</p>
 <div class="script-header">
     <span>
         Middleware/Authenticate.cs
@@ -338,7 +348,7 @@ public static HttpResponse GetUser(HttpRequest request)
 }
 </code></pre>
 <h2 id="получение-данных-формы">Получение данных формы</h2>
-<p>Вы можете получить значения данных формы в <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> с примером ниже:</p>
+<p>Вы можете получить значения данных формы в <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> с помощью следующего примера:</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -361,8 +371,8 @@ public HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<h2 id="получение-многокомпонентных-данных-формы">Получение многокомпонентных данных формы</h2>
-<p>HTTP‑запрос Sisk позволяет получить загруженные многокомпонентные содержимое, такие как файлы, поля формы или любой бинарный контент.</p>
+<h2 id="получение-данных-multipart-формы">Получение данных multipart-формы</h2>
+<p>Запрос HTTP Sisk позволяет получить загруженные multipart-содержимое, такое как файлы, поля форм или любое бинарное содержимое.</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -374,32 +384,32 @@ public HttpResponse Index(HttpRequest request)
 <pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
 public HttpResponse Index(HttpRequest request)
 {
-    // следующий метод читает весь входной запрос в
-    // массив MultipartObjects
+    // следующий метод читает весь входной запрос в массив
+    // MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // Имя файла, предоставленное данными формы Multipart.
-        // Возвращается Null, если объект не является файлом.
+        // имя файла, предоставленное данными multipart-формы.
+        // Null возвращается, если объект не является файлом.
         Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
 
-        // Имя поля объекта данных формы Multipart.
+        // имя поля multipart-формы.
         Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
 
-        // Длина содержимого данных формы Multipart.
+        // длина содержимого multipart-формы.
         Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
 
-        // Определить формат изображения, основанный на заголовке файла для каждого
-        // известного типа содержимого. Если содержимое не является распознанным общим файлом,
-        // этот метод ниже вернёт MultipartObjectCommonFormat.Unknown
+        // определите формат изображения на основе заголовка файла для каждого
+        // известного типа содержимого. Если содержимое не является распознаваемым общим форматом файла,
+        // этот метод ниже вернет MultipartObjectCommonFormat.Unknown
         Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>Вы можете прочитать больше о <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> и их методах, свойствах и функциональностях.</p>
+<p>Вы можете прочитать больше о <a href="/api/Sisk.Core.Entity.MultipartObject">объектах multipart-формы Sisk</a> и их методах, свойствах и функциях.</p>
 <h2 id="обнаружение-отключения-клиента">Обнаружение отключения клиента</h2>
-<p>Начиная с версии v1.15 Sisk предоставляет CancellationToken, который выбрасывается, когда соединение между клиентом и сервером преждевременно закрывается до получения ответа. Этот токен может быть полезен для обнаружения, когда клиент больше не хочет ответа и отмены длительных операций.</p>
+<p>Поскольку версия v1.15 Sisk, фреймворк предоставляет токен отмены, который выбрасывается, когда соединение между клиентом и сервером закрывается преждевременно до получения ответа. Этот токен может быть полезен для обнаружения, когда клиент больше не хочет ответа и отмены длительных операций.</p>
 <pre><code class="lang-csharp">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     // получает токен отключения из запроса
@@ -410,15 +420,15 @@ public HttpResponse Index(HttpRequest request)
     return new HttpResponse();
 });
 </code></pre>
-<p>Этот токен не совместим со всеми HTTP‑движками, и каждый требует реализации.</p>
-<h2 id="поддержка-событий-отправляемых-сервером">Поддержка событий, отправляемых сервером</h2>
-<p>Sisk поддерживает <a href="https://developer.mozilla.org/en-US/docs/ru/Web/API/Server-sent_events">Server-sent events</a>, которые позволяют отправлять куски как поток и держать соединение между сервером и клиентом живым.</p>
-<p>Вызов метода <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> поместит HttpRequest в его состояние слушателя. Отсюда контекст этого HTTP‑запроса не будет ожидать HttpResponse, так как он будет перекрывать пакеты, отправляемые серверными событиями.</p>
-<p>После отправки всех пакетов, обратный вызов должен вернуть метод <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>, который отправит окончательный ответ серверу и укажет, что поток завершён.</p>
-<p>Невозможно предсказать, какой будет общая длина всех пакетов, которые будут отправлены, поэтому невозможно определить конец соединения с заголовком <code>Content-Length</code>.</p>
-<p>По умолчанию большинство браузеров не поддерживают отправку HTTP‑заголовков или методов, отличных от GET. Поэтому будьте осторожны при использовании обработчиков запросов с запросами event‑source, которые требуют конкретных заголовков в запросе, так как они, вероятно, не будут иметь их.</p>
-<p>Кроме того, большинство браузеров перезапускают потоки, если метод <a href="https://developer.mozilla.org/en-US/docs/ru/Web/API/EventSource/close">EventSource.close</a> не вызывается на стороне клиента после получения всех пакетов, вызывая бесконечную дополнительную обработку на стороне сервера. Чтобы избежать такой проблемы, обычно отправляется окончательный пакет, указывающий, что источник событий завершил отправку всех пакетов.</p>
-<p>Ниже приведён пример, показывающий, как браузер может сообщить серверу, поддерживающему Server‑side events.</p>
+<p>Этот токен не совместим со всеми движками HTTP, и каждый требует реализации.</p>
+<h2 id="поддержка-серверных-событий">Поддержка серверных событий</h2>
+<p>Sisk поддерживает <a href="https://developer.mozilla.org/en-US/docs/ru/Web/API/Server-sent_events">серверные события</a>, которые позволяют отправлять фрагменты как поток и поддерживать соединение между сервером и клиентом.</p>
+<p>Вызов метода <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> приведет к тому, что запрос HTTP будет находиться в состоянии прослушивания. После этого контекст этого запроса HTTP не будет ожидать ответа HttpResponse, поскольку он будет перекрывать пакеты, отправляемые серверными событиями.</p>
+<p>После отправки всех пакетов обратный вызов должен вернуть метод <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>, который отправит окончательный ответ серверу и укажет, что потоковое вещание завершилось.</p>
+<p>Невозможно предсказать, какой будет общий размер всех пакетов, которые будут отправлены, поэтому невозможно определить конец соединения с помощью заголовка <code>Content-Length</code>.</p>
+<p>По умолчанию большинства браузеров серверные события не поддерживают отправку HTTP-заголовков или методов, кроме метода GET. Поэтому будьте осторожны при использовании обработчиков запросов с запросами event-source, которые требуют определенных заголовков в запросе, поскольку они, вероятно, не будут иметь их.</p>
+<p>Кроме того, большинство браузеров перезапускают потоки, если метод <a href="https://developer.mozilla.org/en-US/docs/ru/Web/API/EventSource/close">EventSource.close</a> не вызван на стороне клиента после получения всех пакетов, что приводит к бесконечной дополнительной обработке на стороне сервера. Чтобы избежать этой проблемы, обычно отправляют окончательный пакет, указывающий, что источник событий завершил отправку всех пакетов.</p>
+<p>Пример ниже показывает, как браузер может общаться с сервером, поддерживающим серверные события.</p>
 <div class="script-header">
     <span>
         sse-example.html
@@ -449,7 +459,7 @@ public HttpResponse Index(HttpRequest request)
     &lt;/script&gt;
 &lt;/html&gt;
 </code></pre>
-<p>И постепенно отправлять сообщения клиенту:</p>
+<p>И постепенно отправляйте сообщения клиенту:</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -477,14 +487,14 @@ public HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<p>При запуске этого кода ожидается результат, похожий на это:</p>
+<p>Когда вы запускаете этот код, мы ожидаем результат, подобный этому:</p>
 <img src="/assets/img/server side events demo.gif">
-<h2 id="разрешение-проксированных-ip-и-хостов">Разрешение проксированных IP и хостов</h2>
-<p>Sisk можно использовать с прокси, и поэтому IP‑адреса могут быть заменены прокси‑конечной точкой в транзакции от клиента к прокси.</p>
-<p>Вы можете определить собственные резолверы в Sisk с <a href="/docs/ru/advanced/forwarding-resolvers">forwarding resolvers</a>.</p>
+<h2 id="разрешение-прокси-ip-и-хостов">Разрешение прокси-IP и хостов</h2>
+<p>Sisk можно использовать с прокси, и поэтому IP-адреса могут быть заменены конечной точкой прокси в транзакции от клиента к прокси.</p>
+<p>Вы можете определить свои собственные разрешители в Sisk с помощью <a href="/docs/ru/advanced/forwarding-resolvers">разрешителей пересылки</a>.</p>
 <h2 id="кодирование-заголовков">Кодирование заголовков</h2>
-<p>Кодирование заголовков может быть проблемой для некоторых реализаций. В Windows заголовки UTF‑8 не поддерживаются, поэтому используется ASCII. Sisk имеет встроенный конвертер кодировок, который может быть полезен для декодирования некорректно закодированных заголовков.</p>
-<p>Эта операция затратна и отключена по умолчанию, но может быть включена под флагом <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
+<p>Кодирование заголовков может быть проблемой для некоторых реализаций. В Windows заголовки UTF-8 не поддерживаются, поэтому используется ASCII. Sisk имеет встроенный конвертер кодировки, который может быть полезен для декодирования неправильно закодированных заголовков.</p>
+<p>Эта операция дорога и отключена по умолчанию, но может быть включена под флагом <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>.</p>
 
 </article>
 

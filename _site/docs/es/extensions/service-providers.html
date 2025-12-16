@@ -181,7 +181,7 @@ using var app = HttpServer.CreateBuilder()
     })
     .Build();
 </code></pre>
-<p>El código anterior buscará el archivo config.toml en el directorio actual del proceso en ejecución. Si no se encuentra, luego buscará en el directorio donde se encuentra el ejecutable. Si el archivo no existe, el parámetro createIfDontExists se honra, creando el archivo, sin contenido, en la última ruta de acceso probada (basada en lookupDirectories), y se lanza un error en la consola, evitando que la aplicación se inicialice.</p>
+<p>El código anterior buscará el archivo config.toml en el directorio actual del proceso en ejecución. Si no se encuentra, luego buscará en el directorio donde se encuentra el ejecutable. Si el archivo no existe, el parámetro createIfDontExists se honra, creando el archivo, sin contenido, en la última ruta probada (basada en lookupDirectories), y se lanza un error en la consola, impidiendo que la aplicación se inicialice.</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>Puede ver el código fuente del lector de configuración INI y el lector de configuración JSON para entender cómo se implementa un IConfigurationProvider.</p>
@@ -244,14 +244,14 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>Server.AccessLogsStream</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>console</code>. Especifica la secuencia de salida de los registros de acceso. Puede ser un nombre de archivo,
+            <td>Predeterminado en <code>console</code>. Especifica la secuencia de salida de los registros de acceso. Puede ser un nombre de archivo,
                 <code>null</code> o <code>console</code>.
             </td>
         </tr>
         <tr>
             <td>Server.ErrorsLogsStream</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Especifica la secuencia de salida de los registros de errores. Puede ser un nombre de archivo,
+            <td>Predeterminado en <code>null</code>. Especifica la secuencia de salida de los registros de errores. Puede ser un nombre de archivo,
                 <code>null</code> o <code>console</code>.
             </td>
         </tr>
@@ -261,17 +261,17 @@ using var app = HttpServer.CreateBuilder()
             </tr><tr>
             <td>Server.MaximumContentLength</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>0</code>. Especifica la longitud máxima de contenido en bytes. Cero significa infinito.</td>
+            <td>Predeterminado en <code>0</code>. Especifica la longitud máxima de contenido en bytes. Cero significa infinito.</td>
         </tr>
         <tr>
             <td>Server.IncludeRequestIdHeader</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>false</code>. Especifica si el servidor HTTP debe enviar el encabezado <code>X-Request-Id</code>.</td>
+            <td>Predeterminado en <code>false</code>. Especifica si el servidor HTTP debe enviar el encabezado <code>X-Request-Id</code>.</td>
         </tr>
         <tr>
             <td>Server.ThrowExceptions</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>true</code>. Especifica si las excepciones no controladas deben lanzarse. Establezca en <code>false</code> cuando esté en producción y <code>true</code> cuando esté depurando.</td>
+            <td>Predeterminado en <code>true</code>. Especifica si las excepciones no controladas deben lanzarse. Establezca en <code>false</code> cuando esté en producción y <code>true</code> cuando esté depurando.</td>
         </tr>
         <tr>
             <td>ListeningHost</td>
@@ -286,7 +286,7 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>ListeningHost.Ports</td>
             <td>Requerido</td>
-            <td>Representa una matriz de cadenas, que coincide con la sintaxis de <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a>.</td>
+            <td>Representa una matriz de cadenas, que coincide con la sintaxis <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy</td>
@@ -296,37 +296,37 @@ using var app = HttpServer.CreateBuilder()
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>false</code>. Especifica el encabezado <code>Allow-Credentials</code>.</td>
+            <td>Predeterminado en <code>false</code>. Especifica el encabezado <code>Allow-Credentials</code>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Expose-Headers</code>.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Expose-Headers</code>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera una cadena. Especifica el encabezado <code>Allow-Origin</code>.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera una cadena. Especifica el encabezado <code>Allow-Origin</code>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica múltiples encabezados <code>Allow-Origin</code>. Consulte <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> para obtener más información.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica múltiples encabezados <code>Allow-Origin</code>. Consulte <a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> para obtener más información.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Allow-Methods</code>.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Allow-Methods</code>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Allow-Headers</code>.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera una matriz de cadenas. Especifica el encabezado <code>Allow-Headers</code>.</td>
         </tr>
         <tr>
             <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
             <td>Opcional</td>
-            <td>Por defecto, es <code>null</code>. Esta propiedad espera un entero. Especifica el encabezado <code>Max-Age</code> en segundos.</td>
+            <td>Predeterminado en <code>null</code>. Esta propiedad espera un entero. Especifica el encabezado <code>Max-Age</code> en segundos.</td>
         </tr>
         <tr>
             <td>ListeningHost.Parameters</td>

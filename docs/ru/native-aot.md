@@ -1,4 +1,4 @@
-# Native AOT Поддержка
+# Поддержка Native AOT
 
 [.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) позволяет публиковать родные приложения .NET, которые являются самодостаточными и не требуют установки среды выполнения .NET на целевом хосте. Кроме того, Native AOT предоставляет такие преимущества, как:
 
