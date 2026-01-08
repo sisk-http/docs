@@ -440,6 +440,19 @@ async function buildDocFx() {
     await runCommand('docfx --maxParallelism 1', 'DocFX build');
 }
 
+async function copyLlmsTxt() {
+    Logger.step('Copying llms.txt to _site');
+    const source = path.join(__dirname, 'llms.txt');
+    const dest = path.join(__dirname, '_site', 'llms.txt');
+
+    if (fs.existsSync(source)) {
+        fs.copyFileSync(source, dest);
+        Logger.success('llms.txt copied to _site');
+    } else {
+        Logger.warning('llms.txt not found, skipping copy');
+    }
+}
+
 async function buildMetadata() {
     Logger.step('Generating DocFX Metadata');
     await runCommand('docfx metadata --outputFormat markdown --output _md', 'Metadata generation');
@@ -537,6 +550,7 @@ async function packJsonl() {
 async function buildAll() {
     await buildCss();
     await buildDocFx();
+    await copyLlmsTxt();
     await buildMetadata();
     await packJsonl();
 }

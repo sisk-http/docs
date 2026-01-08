@@ -1,0 +1,241 @@
+# Sisk Framework
+
+> Sisk is a lightweight, agnostic, and robust .NET web development framework.
+
+Sisk Framework is an open-source web server and development framework written in C# for .NET 6+. It provides a simple, explicit, and performant alternative to ASP.NET for building RESTful APIs, WebSocket servers, file servers, and more.
+
+## Core Concepts
+
+- **HttpServer**: The main server class that listens for HTTP requests
+- **Router**: Routes incoming requests to handler methods
+- **HttpRequest**: Represents an incoming HTTP request with headers, body, query, and route parameters
+- **HttpResponse**: Represents an outgoing HTTP response with status, headers, and content
+- **ListeningHost**: Configures host bindings and ports for the server
+
+## Quick Start
+
+```csharp
+using Sisk.Core.Http;
+using Sisk.Core.Routing;
+
+var app = HttpServer.CreateBuilder()
+    .UseListeningPort(5000)
+    .Build();
+
+app.Router.MapGet("/", request => new HttpResponse()
+    .WithContent("Hello, World!"));
+
+app.Start();
+```
+
+## Routing
+
+### Basic Routes
+
+```csharp
+router.MapGet("/users", GetUsers);
+router.MapPost("/users", CreateUser);
+router.MapGet("/users/<id>", GetUserById);
+```
+
+### Route Parameters
+
+Route parameters use angle brackets `<paramName>`:
+- `/users/<id>` - captures as `request.RouteParameters["id"]`
+- `/files/<path:any>` - greedy match for path segments
+
+### Request Handlers
+
+Request handlers can be methods or lambdas that receive `HttpRequest` and return `HttpResponse`:
+
+```csharp
+static HttpResponse GetUsers(HttpRequest request)
+{
+    return new HttpResponse()
+        .WithStatus(200)
+        .WithContent(JsonContent.Create(users));
+}
+```
+
+## Request Handling
+
+### Reading Request Data
+
+```csharp
+// Route parameters
+string id = request.RouteParameters["id"].GetString();
+
+// Query parameters  
+string? filter = request.Query["filter"].GetString();
+
+// Headers
+string? auth = request.Headers["Authorization"];
+
+///// Body
+// gets the request body as an string, using the request encoding as the encoder
+string body = request.Body;
+// or gets it in an byte array
+byte[] bodyBytes = request.RawBody;
+// or get from JSON
+MyDto? dto = request.GetJsonContent<MyDto>();
+// or else, you can stream it.
+Stream requestStream = request.GetRequestStream();
+
+// Form data
+var form = request.GetFormContent();
+```
+
+### Response Building
+
+```csharp
+// Basic response
+new HttpResponse(200);
+
+// With content
+new HttpResponse() {
+    Status = 200,
+    Content = new StringContent("text content"),
+    //Content = JsonContent.Create(obj),
+    //Content = new FileContent("file.pdf"),
+    //Content = new StreamContent(fileStream),
+    //Content = new HtmlContent(html),
+    Headers = new() {
+        Location = "https://example.com",
+        ["X-Custom"] = "value"
+    }
+}
+```
+
+## Middleware (Request Handlers)
+
+Global request handlers execute before/after route handlers:
+
+```csharp
+router.GlobalRequestHandlers = new IRequestHandler[]
+{
+    new AuthenticationHandler(),
+    new LoggingHandler()
+};
+```
+
+Implement `IRequestHandler`:
+
+```csharp
+class AuthHandler : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode 
+        => RequestHandlerExecutionMode.BeforeResponse;
+    
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (!IsAuthenticated(request))
+            return new HttpResponse(401);
+        return null; // Continue to next handler
+    }
+}
+```
+
+## WebSockets
+
+```csharp
+router.MapGet("/connect", async (HttpRequest req) =>
+{
+    using var ws = await req.GetWebSocketAsync();
+    
+    while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
+    {
+        string msgText = receivedMessage.GetString();
+        Console.WriteLine("Received message: " + msgText);
+
+        await ws.SendAsync("Hello!");
+    }
+
+    return await ws.CloseAsync();
+});
+
+```
+
+## Configuration
+
+### Service Provider Pattern
+
+```csharp
+var app = HttpServer.CreateBuilder()
+    .UseListeningPort(5000)
+    .UseConfiguration(config =>
+    {
+        config.AccessLogsStream = LogStream.ConsoleOutput;
+        config.ThrowExceptions = true; // useful for debugging
+    })
+    .Build();
+```
+
+## Key Packages
+
+- **Sisk.Core**: Core HTTP server and routing
+- **Sisk.BasicAuth**: Basic authentication middleware
+- **Sisk.SslProxy**: SSL/TLS proxy support
+- **Sisk.Cadente**: Server-Sent Events (SSE) support
+
+## Important Notes
+
+- Sisk by default uses `HttpListener` internally (no Kestrel dependency)
+- Works with .NET 6, 7, 8+ and Native AOT
+- Cross-platform: Windows, Linux, macOS
+- No additional SDK packages required beyond base .NET
+- Thread-safe by default
+- Explicit behavior - no magic or hidden conventions
+
+## Documentation
+
+### Getting Started
+- Getting Started: https://docs.sisk-framework.org/docs/getting-started
+- Installing: https://docs.sisk-framework.org/docs/installing
+- Native AOT Support: https://docs.sisk-framework.org/docs/native-aot
+- Deploying: https://docs.sisk-framework.org/docs/deploying
+- Working with SSL: https://docs.sisk-framework.org/docs/ssl
+- Cadente: https://docs.sisk-framework.org/docs/cadente
+- Windows Setup: https://docs.sisk-framework.org/docs/registering-namespace
+- FAQ: https://docs.sisk-framework.org/docs/faq
+
+### Fundamentals
+- Routing: https://docs.sisk-framework.org/docs/fundamentals/routing
+- Request Handlers: https://docs.sisk-framework.org/docs/fundamentals/request-handlers
+- Requests: https://docs.sisk-framework.org/docs/fundamentals/requests
+- Responses: https://docs.sisk-framework.org/docs/fundamentals/responses
+
+### Features
+- Logging: https://docs.sisk-framework.org/docs/features/logging
+- Server Sent Events: https://docs.sisk-framework.org/docs/features/server-sent-events
+- Web Sockets: https://docs.sisk-framework.org/docs/features/websockets
+- Discard Syntax: https://docs.sisk-framework.org/docs/features/discard-syntax
+- Dependency Injection: https://docs.sisk-framework.org/docs/features/instancing
+- Content Streaming: https://docs.sisk-framework.org/docs/features/content-streaming
+- CORS: https://docs.sisk-framework.org/docs/features/cors
+- File Server: https://docs.sisk-framework.org/docs/features/file-server
+
+### Extensions
+- Model Context Protocol (MCP): https://docs.sisk-framework.org/docs/extensions/mcp
+- JSON-RPC: https://docs.sisk-framework.org/docs/extensions/json-rpc
+- SSL Proxy: https://docs.sisk-framework.org/docs/extensions/ssl-proxy
+- Basic Auth: https://docs.sisk-framework.org/docs/extensions/basic-auth
+- Service Providers: https://docs.sisk-framework.org/docs/extensions/service-providers
+- INI Configuration: https://docs.sisk-framework.org/docs/extensions/ini-configuration
+- API Documentation: https://docs.sisk-framework.org/docs/extensions/api-documentation
+
+### Advanced
+- Manual Setup: https://docs.sisk-framework.org/docs/advanced/manual-setup
+- Request Lifecycle: https://docs.sisk-framework.org/docs/advanced/request-lifecycle
+- Forwarding Resolvers: https://docs.sisk-framework.org/docs/advanced/forwarding-resolvers
+- HTTP Server Handlers: https://docs.sisk-framework.org/docs/advanced/http-server-handlers
+- Multi-host Setup: https://docs.sisk-framework.org/docs/advanced/multi-host-setup
+- HTTP Engines: https://docs.sisk-framework.org/docs/advanced/server-engines
+
+### API Reference
+- Full API Reference: https://docs.sisk-framework.org/api/
+
+## Links
+
+- Documentation: https://docs.sisk-framework.org/
+- GitHub: https://github.com/sisk-http/core
+- NuGet: https://www.nuget.org/packages/Sisk.HttpServer
