@@ -427,6 +427,102 @@ async function translateDocumentation(targetLanguageCode = null) {
 }
 
 // ============================================================================
+// Generated Pages
+// ============================================================================
+
+function parseTocYml(tocPath) {
+    const content = fs.readFileSync(tocPath, 'utf8');
+    const lines = content.split(/\r?\n/);
+    const entries = [];
+    let currentCategory = null;
+
+    for (let i = 0; i < lines.length; i++) {
+        const nameMatch = lines[i].match(/^- name:\s*(.+)$/);
+        if (!nameMatch) continue;
+
+        const name = nameMatch[1].trim();
+        const nextLine = (lines[i + 1] || '').trim();
+        const hrefMatch = nextLine.match(/^href:\s*(.+)$/);
+
+        if (hrefMatch) {
+            entries.push({ name, category: currentCategory, href: hrefMatch[1].trim() });
+            i++;
+        } else {
+            currentCategory = name;
+        }
+    }
+
+    return entries.filter(e => !e.href.endsWith('.g.md'));
+}
+
+function extractHeadings(content) {
+    const headings = [];
+    for (const line of content.split(/\r?\n/)) {
+        const match = line.match(/^(#{1,2})\s+(.+)$/);
+        if (match) {
+            headings.push({ level: match[1].length, text: match[2].trim() });
+        }
+    }
+    return headings;
+}
+
+function generateSummaryPage(docsDir, tocPath) {
+    const entries = parseTocYml(tocPath);
+    const lines = ['# Documentation Summary', ''];
+    let lastCategory = null;
+
+    for (const entry of entries) {
+        if (entry.category && entry.category !== lastCategory) {
+            lines.push(`## ${entry.category}`, '');
+            lastCategory = entry.category;
+        }
+
+        const filePath = path.join(docsDir, entry.href);
+        if (!fs.existsSync(filePath)) {
+            continue;
+        }
+
+        const content = fs.readFileSync(filePath, 'utf8');
+        const headings = extractHeadings(content);
+        const docTitle = headings.find(h => h.level === 1)?.text || entry.name;
+        const anchor = entry.href.replace(/\.md$/, '');
+
+        lines.push(`### [${docTitle}](/docs/${anchor})`, '');
+
+        const h2Items = headings.filter(h => h.level === 2);
+        if (h2Items.length > 0) {
+            for (const h2 of h2Items) {
+                const sectionAnchor = h2.text
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-');
+                lines.push(`- [${h2.text}](/docs/${anchor}#${sectionAnchor})`);
+            }
+            lines.push('');
+        }
+    }
+
+    return lines.join('\n');
+}
+
+async function generatePages() {
+    Logger.step('Generating Pages');
+
+    const docsDir = CONFIG.targetDir;
+    const tocPath = path.join(docsDir, 'toc.yml');
+
+    if (!fs.existsSync(tocPath)) {
+        Logger.warning('docs/toc.yml not found, skipping page generation');
+        return;
+    }
+
+    const summaryContent = generateSummaryPage(docsDir, tocPath);
+    const summaryPath = path.join(docsDir, 'summary.g.md');
+    fs.writeFileSync(summaryPath, summaryContent, 'utf8');
+    Logger.success('Generated summary.g.md');
+}
+
+// ============================================================================
 // Build System
 // ============================================================================
 
@@ -548,6 +644,7 @@ async function packJsonl() {
 }
 
 async function buildAll() {
+    await generatePages();
     await buildCss();
     await buildDocFx();
     await copyLlmsTxt();
@@ -646,6 +743,7 @@ if (require.main === module) {
 module.exports = {
     cleanTranslations,
     translateDocumentation,
+    generatePages,
     buildCss,
     buildDocFx,
     buildMetadata,

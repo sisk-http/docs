@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dokumentations&#252;bersicht | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Dokumentations&#252;bersicht | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/de/summary.g.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+                    <div class="actionbar-actions">
+                        <div id="language-wrapper">
+                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                        <img src="/assets/flag/usa.png">
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                        <img src="/assets/flag/russia.png">
+                                        Русский
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                        <img src="/assets/flag/brazil.png">
+                                        Português
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                        <img src="/assets/flag/spain.png">
+                                        Español
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                        <img src="/assets/flag/germany.png">
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                        <img src="/assets/flag/china.png">
+                                        中文 (简体)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                        <img src="/assets/flag/japan.png">
+                                        日本語
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="copy-article-wrapper">
+                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <div class="copy-dropdown" id="copy-dropdown">
+                                <button type="button" id="copy-text-btn">
+                                    <i class="bi bi-file-text"></i>
+                                    Copy as text
+                                </button>
+                                <button type="button" id="copy-markdown-btn">
+                                    <i class="bi bi-markdown"></i>
+                                    Copy as Markdown
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="dokumentationsübersicht">Dokumentationsübersicht</h1>
+
+<h2 id="willkommen">Willkommen</h2>
+<h3 id="erste-schritte"><a href="/docs/de/getting-started">Erste Schritte</a></h3>
+<ul>
+<li><a href="/docs/de/getting-started#first-steps">Erste Schritte</a></li>
+<li><a href="/docs/de/getting-started#creating-a-project">Erstellen eines Projekts</a></li>
+<li><a href="/docs/de/getting-started#building-the-http-server">Aufbau des HTTP-Servers</a></li>
+<li><a href="/docs/de/getting-started#manual-advanced-setup">Manuelle (erweiterte) Einrichtung</a></li>
+</ul>
+<h3 id="installation"><a href="/docs/de/installing">Installation</a></h3>
+<h3 id="native-aot-unterstützung"><a href="/docs/de/native-aot">Native AOT-Unterstützung</a></h3>
+<ul>
+<li><a href="/docs/de/native-aot#not-supported-features">Nicht unterstützte Funktionen</a></li>
+</ul>
+<h3 id="bereitstellung-ihrer-sisk-anwendung"><a href="/docs/de/deploying">Bereitstellung Ihrer Sisk-Anwendung</a></h3>
+<ul>
+<li><a href="/docs/de/deploying#publishing-your-app">Veröffentlichen Ihrer Anwendung</a></li>
+<li><a href="/docs/de/deploying#proxying-your-application">Proxy Ihrer Anwendung</a></li>
+<li><a href="/docs/de/deploying#creating-an-service">Erstellen eines Dienstes</a></li>
+</ul>
+<h3 id="arbeiten-mit-ssl"><a href="/docs/de/ssl">Arbeiten mit SSL</a></h3>
+<ul>
+<li><a href="/docs/de/ssl#through-the-siskcadentecoreengine">Über die Sisk.Cadente.CoreEngine</a></li>
+<li><a href="/docs/de/ssl#through-iis-on-windows">Über IIS unter Windows</a></li>
+<li><a href="/docs/de/ssl#through-mitmproxy">Über mitmproxy</a></li>
+<li><a href="/docs/de/ssl#through-sisksslproxy-package">Über das Sisk.SslProxy-Paket</a></li>
+</ul>
+<h3 id="cadente"><a href="/docs/de/cadente">Cadente</a></h3>
+<ul>
+<li><a href="/docs/de/cadente#overview">Übersicht</a></li>
+<li><a href="/docs/de/cadente#installation">Installation</a></li>
+<li><a href="/docs/de/cadente#using-with-sisk">Verwendung mit Sisk</a></li>
+<li><a href="/docs/de/cadente#standalone-usage">Eigenständige Nutzung</a></li>
+</ul>
+<h3 id="konfigurieren-von-namespace-reservierungen-unter-windows"><a href="/docs/de/registering-namespace">Konfigurieren von Namespace-Reservierungen unter Windows</a></h3>
+<h3 id="änderungsprotokolle"><a href="/docs/de/changelogs">Änderungsprotokolle</a></h3>
+<h3 id="häufig-gestellte-fragen"><a href="/docs/de/faq">Häufig gestellte Fragen</a></h3>
+<ul>
+<li><a href="/docs/de/faq#is-sisk-open-source">Ist Sisk Open-Source?</a></li>
+<li><a href="/docs/de/faq#are-contributions-accepted">Werden Beiträge akzeptiert?</a></li>
+<li><a href="/docs/de/faq#is-sisk-funded">Wird Sisk finanziert?</a></li>
+<li><a href="/docs/de/faq#can-i-use-sisk-in-production">Kann ich Sisk in der Produktion einsetzen?</a></li>
+<li><a href="/docs/de/faq#does-sisk-have-authentication-monitoring-and-database-services">Bietet Sisk Authentifizierung, Monitoring und Datenbankdienste?</a></li>
+<li><a href="/docs/de/faq#why-should-i-use-sisk-instead-of-framework">Warum sollte ich Sisk statt <framework> verwenden?</framework></a></li>
+<li><a href="/docs/de/faq#what-do-i-need-to-learn-sisk">Was muss ich lernen, um Sisk zu verwenden?</a></li>
+<li><a href="/docs/de/faq#can-i-develop-commercial-applications-with-sisk">Kann ich kommerzielle Anwendungen mit Sisk entwickeln?</a></li>
+</ul>
+<h2 id="grundlagen">Grundlagen</h2>
+<h3 id="routing"><a href="/docs/de/fundamentals/routing">Routing</a></h3>
+<ul>
+<li><a href="/docs/de/fundamentals/routing#matching-routes">Übereinstimmende Routen</a></li>
+<li><a href="/docs/de/fundamentals/routing#regex-routes">Regex-Routen</a></li>
+<li><a href="/docs/de/fundamentals/routing#prefixing-routes">Präfixieren von Routen</a></li>
+<li><a href="/docs/de/fundamentals/routing#routes-without-request-parameter">Routen ohne Anfrageparameter</a></li>
+<li><a href="/docs/de/fundamentals/routing#any-method-routes">Routen für beliebige Methoden</a></li>
+<li><a href="/docs/de/fundamentals/routing#any-path-routes">Routen für beliebige Pfade</a></li>
+<li><a href="/docs/de/fundamentals/routing#ignore-case-route-matching">Groß-/Kleinschreibung bei Routen ignorieren</a></li>
+<li><a href="/docs/de/fundamentals/routing#not-found-404-callback-handler">Nicht gefunden (404) Callback-Handler</a></li>
+<li><a href="/docs/de/fundamentals/routing#method-not-allowed-405-callback-handler">Methode nicht erlaubt (405) Callback-Handler</a></li>
+<li><a href="/docs/de/fundamentals/routing#internal-error-handler">Interner Fehler-Handler</a></li>
+</ul>
+<h3 id="anfrageverarbeitung"><a href="/docs/de/fundamentals/request-handlers">Anfrageverarbeitung</a></h3>
+<ul>
+<li><a href="/docs/de/fundamentals/request-handlers#creating-an-request-handler">Erstellen eines Anfrage-Handlers</a></li>
+<li><a href="/docs/de/fundamentals/request-handlers#associating-a-request-handler-with-a-single-route">Zuweisen eines Anfrage-Handlers zu einer einzelnen Route</a></li>
+<li><a href="/docs/de/fundamentals/request-handlers#associating-a-request-handler-with-a-router">Zuweisen eines Anfrage-Handlers zu einem Router</a></li>
+<li><a href="/docs/de/fundamentals/request-handlers#associating-a-request-handler-with-an-attribute">Zuweisen eines Anfrage-Handlers zu einem Attribut</a></li>
+<li><a href="/docs/de/fundamentals/request-handlers#bypassing-an-global-request-handler">Umgehen eines globalen Anfrage-Handlers</a></li>
+</ul>
+<h3 id="anfragen"><a href="/docs/de/fundamentals/requests">Anfragen</a></h3>
+<ul>
+<li><a href="/docs/de/fundamentals/requests#getting-the-request-method">Abrufen der Anfragemethode</a></li>
+<li><a href="/docs/de/fundamentals/requests#getting-request-url-components">Abrufen von URL-Komponenten der Anfrage</a></li>
+<li><a href="/docs/de/fundamentals/requests#getting-the-request-body">Abrufen des Anfragetextes</a></li>
+<li><a href="/docs/de/fundamentals/requests#getting-the-request-context">Abrufen des Anfragekontexts</a></li>
+<li><a href="/docs/de/fundamentals/requests#getting-form-data">Abrufen von Formulardaten</a></li>
+<li><a href="/docs/de/fundamentals/requests#getting-multipart-form-data">Abrufen von Multipart-Formulardaten</a></li>
+<li><a href="/docs/de/fundamentals/requests#detecting-client-disconnection">Erkennen von Client-Disconnects</a></li>
+<li><a href="/docs/de/fundamentals/requests#server-sent-events-support">Unterstützung von Server-Sent Events</a></li>
+<li><a href="/docs/de/fundamentals/requests#resolving-proxied-ips-and-hosts">Auflösen von proxied IPs und Hosts</a></li>
+<li><a href="/docs/de/fundamentals/requests#headers-encoding">Kodierung von Headern</a></li>
+</ul>
+<h3 id="antworten"><a href="/docs/de/fundamentals/responses">Antworten</a></h3>
+<ul>
+<li><a href="/docs/de/fundamentals/responses#setting-an-http-status">Setzen eines HTTP-Status</a></li>
+<li><a href="/docs/de/fundamentals/responses#body-and-content-type">Body und Content-Type</a></li>
+<li><a href="/docs/de/fundamentals/responses#response-headers">Antwort-Header</a></li>
+<li><a href="/docs/de/fundamentals/responses#sending-cookies">Senden von Cookies</a></li>
+<li><a href="/docs/de/fundamentals/responses#chunked-responses">Chunked-Antworten</a></li>
+<li><a href="/docs/de/fundamentals/responses#response-stream">Antwort-Stream</a></li>
+<li><a href="/docs/de/fundamentals/responses#gzip-deflate-and-brotli-compression">GZip-, Deflate- und Brotli-Kompression</a></li>
+<li><a href="/docs/de/fundamentals/responses#automatic-compression">Automatische Kompression</a></li>
+<li><a href="/docs/de/fundamentals/responses#implicit-response-types">Implizite Antworttypen</a></li>
+<li><a href="/docs/de/fundamentals/responses#note-on-enumerable-objects-and-arrays">Hinweis zu aufzählbaren Objekten und Arrays</a></li>
+</ul>
+<h2 id="funktionen">Funktionen</h2>
+<h3 id="logging"><a href="/docs/de/features/logging">Logging</a></h3>
+<ul>
+<li><a href="/docs/de/features/logging#file-based-access-logs">Dateibasierte Zugriffsprotokolle</a></li>
+<li><a href="/docs/de/features/logging#stream-based-logging">Stream-basierte Protokollierung</a></li>
+<li><a href="/docs/de/features/logging#access-log-formatting">Formatierung von Zugriffsprotokollen</a></li>
+<li><a href="/docs/de/features/logging#rotating-logs">Rotierende Protokolle</a></li>
+<li><a href="/docs/de/features/logging#error-logging">Fehlerprotokollierung</a></li>
+<li><a href="/docs/de/features/logging#other-logging-instances">Weitere Protokollierungsinstanzen</a></li>
+<li><a href="/docs/de/features/logging#extending-logstream">Erweitern von LogStream</a></li>
+</ul>
+<h3 id="server-sent-events"><a href="/docs/de/features/server-sent-events">Server Sent Events</a></h3>
+<ul>
+<li><a href="/docs/de/features/server-sent-events#creating-an-sse-connection">Erstellen einer SSE-Verbindung</a></li>
+<li><a href="/docs/de/features/server-sent-events#appending-headers">Anhängen von Headern</a></li>
+<li><a href="/docs/de/features/server-sent-events#wait-for-fail-connections">Wait-For-Fail-Verbindungen</a></li>
+<li><a href="/docs/de/features/server-sent-events#setup-connections-ping-policy">Einrichten der Ping-Policy für Verbindungen</a></li>
+<li><a href="/docs/de/features/server-sent-events#querying-connections">Abfragen von Verbindungen</a></li>
+</ul>
+<h3 id="websockets"><a href="/docs/de/features/websockets">WebSockets</a></h3>
+<ul>
+<li><a href="/docs/de/features/websockets#accepting-messages">Empfangen von Nachrichten</a></li>
+<li><a href="/docs/de/features/websockets#persistent-connection">Persistente Verbindung</a></li>
+<li><a href="/docs/de/features/websockets#ping-policy">Ping-Policy</a></li>
+</ul>
+<h3 id="discard-syntax"><a href="/docs/de/features/discard-syntax">Discard-Syntax</a></h3>
+<h3 id="dependency-injection"><a href="/docs/de/features/instancing">Dependency Injection</a></h3>
+<h3 id="streaming-inhalte"><a href="/docs/de/features/content-streaming">Streaming-Inhalte</a></h3>
+<ul>
+<li><a href="/docs/de/features/content-streaming#request-content-stream">Anfrage-Inhalts-Stream</a></li>
+<li><a href="/docs/de/features/content-streaming#response-content-stream">Antwort-Inhalts-Stream</a></li>
+</ul>
+<h3 id="aktivieren-von-cors-cross-origin-resource-sharing-in-sisk"><a href="/docs/de/features/cors">Aktivieren von CORS (Cross-Origin Resource Sharing) in Sisk</a></h3>
+<ul>
+<li><a href="/docs/de/features/cors#same-origin">Gleiche Herkunft</a></li>
+<li><a href="/docs/de/features/cors#enabling-cors">Aktivieren von CORS</a></li>
+<li><a href="/docs/de/features/cors#other-ways-to-apply-cors">Weitere Möglichkeiten, CORS anzuwenden</a></li>
+<li><a href="/docs/de/features/cors#disabling-cors-on-specific-routes">Deaktivieren von CORS für bestimmte Routen</a></li>
+<li><a href="/docs/de/features/cors#replacing-values-in-the-response">Ersetzen von Werten in der Antwort</a></li>
+<li><a href="/docs/de/features/cors#preflight-requests">Preflight-Anfragen</a></li>
+<li><a href="/docs/de/features/cors#disabling-cors-globally">Deaktivieren von CORS global</a></li>
+</ul>
+<h3 id="dateiserver"><a href="/docs/de/features/file-server">Dateiserver</a></h3>
+<ul>
+<li><a href="/docs/de/features/file-server#serving-static-files">Bereitstellen statischer Dateien</a></li>
+<li><a href="/docs/de/features/file-server#httpfileserverhandler">HttpFileServerHandler</a></li>
+<li><a href="/docs/de/features/file-server#directory-listing">Verzeichnisauflistung</a></li>
+<li><a href="/docs/de/features/file-server#file-converters">Dateikonverter</a></li>
+</ul>
+<h2 id="erweiterungen">Erweiterungen</h2>
+<h3 id="model-context-protocol"><a href="/docs/de/extensions/mcp">Model Context Protocol</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/mcp#getting-started-with-mcp">Erste Schritte mit MCP</a></li>
+<li><a href="/docs/de/extensions/mcp#creating-json-schemas-for-functions">Erstellen von JSON-Schemas für Funktionen</a></li>
+<li><a href="/docs/de/extensions/mcp#handling-function-calls">Verarbeiten von Funktionsaufrufen</a></li>
+<li><a href="/docs/de/extensions/mcp#function-results">Funktionsergebnisse</a></li>
+<li><a href="/docs/de/extensions/mcp#continuing-work">Fortsetzung der Arbeit</a></li>
+</ul>
+<h3 id="json-rpc-erweiterung"><a href="/docs/de/extensions/json-rpc">JSON-RPC-Erweiterung</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/json-rpc#transport-interface">Transport-Schnittstelle</a></li>
+<li><a href="/docs/de/extensions/json-rpc#json-rpc-methods">JSON-RPC-Methoden</a></li>
+<li><a href="/docs/de/extensions/json-rpc#customizing-the-serializer">Anpassen des Serialisierers</a></li>
+</ul>
+<h3 id="ssl-proxy"><a href="/docs/de/extensions/ssl-proxy">SSL-Proxy</a></h3>
+<h3 id="basic-auth"><a href="/docs/de/extensions/basic-auth">Basic Auth</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/basic-auth#installing">Installation</a></li>
+<li><a href="/docs/de/extensions/basic-auth#creating-your-auth-handler">Erstellen Ihres Auth-Handlers</a></li>
+<li><a href="/docs/de/extensions/basic-auth#remarks">Hinweise</a></li>
+</ul>
+<h3 id="service-provider"><a href="/docs/de/extensions/service-providers">Service Provider</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/service-providers#reading-configurations-from-a-json-file">Lesen von Konfigurationen aus einer JSON-Datei</a></li>
+<li><a href="/docs/de/extensions/service-providers#configuration-file-structure">Struktur der Konfigurationsdatei</a></li>
+</ul>
+<h3 id="ini-konfigurationsanbieter"><a href="/docs/de/extensions/ini-configuration">INI-Konfigurationsanbieter</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/ini-configuration#installing">Installation</a></li>
+<li><a href="/docs/de/extensions/ini-configuration#ini-flavor-and-syntax">INI-Variante und Syntax</a></li>
+<li><a href="/docs/de/extensions/ini-configuration#configuration-parameters">Konfigurationsparameter</a></li>
+</ul>
+<h3 id="api-dokumentation"><a href="/docs/de/extensions/api-documentation">API-Dokumentation</a></h3>
+<ul>
+<li><a href="/docs/de/extensions/api-documentation#type-handlers">Typ-Handler</a></li>
+<li><a href="/docs/de/extensions/api-documentation#exporters">Exporter</a></li>
+</ul>
+<h2 id="fortgeschritten">Fortgeschritten</h2>
+<h3 id="manuelle-erweiterte-einrichtung"><a href="/docs/de/advanced/manual-setup">Manuelle (erweiterte) Einrichtung</a></h3>
+<ul>
+<li><a href="/docs/de/advanced/manual-setup#routers">Router</a></li>
+<li><a href="/docs/de/advanced/manual-setup#listening-hosts-and-ports">Listening Hosts und Ports</a></li>
+<li><a href="/docs/de/advanced/manual-setup#server-configuration">Serverkonfiguration</a></li>
+</ul>
+<h3 id="anfrage-lebenszyklus"><a href="/docs/de/advanced/request-lifecycle">Anfrage-Lebenszyklus</a></h3>
+<h3 id="forwarding-resolver"><a href="/docs/de/advanced/forwarding-resolvers">Forwarding Resolver</a></h3>
+<ul>
+<li><a href="/docs/de/advanced/forwarding-resolvers#the-forwardingresolver-class">Die ForwardingResolver-Klasse</a></li>
+</ul>
+<h3 id="http-server-handler"><a href="/docs/de/advanced/http-server-handlers">HTTP-Server-Handler</a></h3>
+<h3 id="mehrere-listening-hosts-pro-server"><a href="/docs/de/advanced/multi-host-setup">Mehrere Listening Hosts pro Server</a></h3>
+<h3 id="http-server-engines"><a href="/docs/de/advanced/server-engines">HTTP-Server-Engines</a></h3>
+<ul>
+<li><a href="/docs/de/advanced/server-engines#implementing-an-http-engine-for-sisk">Implementieren einer HTTP-Engine für Sisk</a></li>
+<li><a href="/docs/de/advanced/server-engines#choosing-an-event-loop">Auswahl einer Event-Loop</a></li>
+<li><a href="/docs/de/advanced/server-engines#testing">Testen</a></li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/de/summary.g.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+                
+                (function() {
+                    const copyBtn = document.getElementById('copy-article-btn');
+                    const copyDropdown = document.getElementById('copy-dropdown');
+                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
+                    
+                    if (!copyBtn) return;
+                    
+                    copyBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyDropdown.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
+                            copyDropdown.classList.remove('show');
+                        }
+                    });
+                    
+                    function getArticleContent() {
+                        const article = document.querySelector('article');
+                        if (!article) return null;
+                        
+                        const clone = article.cloneNode(true);
+                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
+                        
+                        return clone;
+                    }
+                    
+                    copyTextBtn.addEventListener('click', function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        navigator.clipboard.writeText(article.innerText.trim());
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    copyMarkdownBtn.addEventListener('click', async function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        if (typeof TurndownService === 'undefined') {
+                            const script = document.createElement('script');
+                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
+                            script.onload = function() {
+                                convertAndCopy(article);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            convertAndCopy(article);
+                        }
+                        
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    function convertAndCopy(article) {
+                        const turndown = new TurndownService({
+                            headingStyle: 'atx',
+                            codeBlockStyle: 'fenced'
+                        });
+                        
+                        turndown.addRule('codeBlocks', {
+                            filter: ['pre'],
+                            replacement: function(content, node) {
+                                const code = node.querySelector('code');
+                                const langClass = code?.className.match(/lang-(\w+)/);
+                                const lang = langClass ? langClass[1] : '';
+                                const text = code?.textContent || content;
+                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
+                            }
+                        });
+                        
+                        const markdown = turndown.turndown(article.innerHTML);
+                        navigator.clipboard.writeText(markdown);
+                    }
+                })();
+            </script>
+        </footer>
+    </body>
+</html>

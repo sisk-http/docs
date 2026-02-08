@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ドキュメント概要 | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="ドキュメント概要 | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/jp/summary.g.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+                    <div class="actionbar-actions">
+                        <div id="language-wrapper">
+                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                        <img src="/assets/flag/usa.png">
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                        <img src="/assets/flag/russia.png">
+                                        Русский
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                        <img src="/assets/flag/brazil.png">
+                                        Português
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                        <img src="/assets/flag/spain.png">
+                                        Español
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                        <img src="/assets/flag/germany.png">
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                        <img src="/assets/flag/china.png">
+                                        中文 (简体)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                        <img src="/assets/flag/japan.png">
+                                        日本語
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="copy-article-wrapper">
+                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <div class="copy-dropdown" id="copy-dropdown">
+                                <button type="button" id="copy-text-btn">
+                                    <i class="bi bi-file-text"></i>
+                                    Copy as text
+                                </button>
+                                <button type="button" id="copy-markdown-btn">
+                                    <i class="bi bi-markdown"></i>
+                                    Copy as Markdown
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="ドキュメント概要">ドキュメント概要</h1>
+
+<h2 id="ようこそ">ようこそ</h2>
+<h3 id="はじめに"><a href="/docs/jp/getting-started">はじめに</a></h3>
+<ul>
+<li><a href="/docs/jp/getting-started#first-steps">最初のステップ</a></li>
+<li><a href="/docs/jp/getting-started#creating-a-project">プロジェクトの作成</a></li>
+<li><a href="/docs/jp/getting-started#building-the-http-server">HTTPサーバーの構築</a></li>
+<li><a href="/docs/jp/getting-started#manual-advanced-setup">手動（高度）設定</a></li>
+</ul>
+<h3 id="インストール"><a href="/docs/jp/installing">インストール</a></h3>
+<h3 id="native-aot-サポート"><a href="/docs/jp/native-aot">Native AOT サポート</a></h3>
+<ul>
+<li><a href="/docs/jp/native-aot#not-supported-features">サポートされていない機能</a></li>
+</ul>
+<h3 id="sisk-アプリケーションのデプロイ"><a href="/docs/jp/deploying">Sisk アプリケーションのデプロイ</a></h3>
+<ul>
+<li><a href="/docs/jp/deploying#publishing-your-app">アプリの公開</a></li>
+<li><a href="/docs/jp/deploying#proxying-your-application">アプリケーションのプロキシ</a></li>
+<li><a href="/docs/jp/deploying#creating-an-service">サービスの作成</a></li>
+</ul>
+<h3 id="ssl-の使用"><a href="/docs/jp/ssl">SSL の使用</a></h3>
+<ul>
+<li><a href="/docs/jp/ssl#through-the-siskcadentecoreengine">Sisk.Cadente.CoreEngine を介して</a></li>
+<li><a href="/docs/jp/ssl#through-iis-on-windows">Windows の IIS を介して</a></li>
+<li><a href="/docs/jp/ssl#through-mitmproxy">mitmproxy を介して</a></li>
+<li><a href="/docs/jp/ssl#through-sisksslproxy-package">Sisk.SslProxy パッケージを介して</a></li>
+</ul>
+<h3 id="cadente"><a href="/docs/jp/cadente">Cadente</a></h3>
+<ul>
+<li><a href="/docs/jp/cadente#overview">概要</a></li>
+<li><a href="/docs/jp/cadente#installation">インストール</a></li>
+<li><a href="/docs/jp/cadente#using-with-sisk">Sisk での使用</a></li>
+<li><a href="/docs/jp/cadente#standalone-usage">スタンドアロン使用</a></li>
+</ul>
+<h3 id="windows-での名前空間予約の構成"><a href="/docs/jp/registering-namespace">Windows での名前空間予約の構成</a></h3>
+<h3 id="変更履歴"><a href="/docs/jp/changelogs">変更履歴</a></h3>
+<h3 id="よくある質問"><a href="/docs/jp/faq">よくある質問</a></h3>
+<ul>
+<li><a href="/docs/jp/faq#is-sisk-open-source">Sisk はオープンソースですか？</a></li>
+<li><a href="/docs/jp/faq#are-contributions-accepted">貢献は受け入れられますか？</a></li>
+<li><a href="/docs/jp/faq#is-sisk-funded">Sisk は資金提供されていますか？</a></li>
+<li><a href="/docs/jp/faq#can-i-use-sisk-in-production">本番環境で Sisk を使用できますか？</a></li>
+<li><a href="/docs/jp/faq#does-sisk-have-authentication-monitoring-and-database-services">Sisk には認証、監視、データベースサービスがありますか？</a></li>
+<li><a href="/docs/jp/faq#why-should-i-use-sisk-instead-of-framework">なぜ <framework> の代わりに Sisk を使うべきですか？</framework></a></li>
+<li><a href="/docs/jp/faq#what-do-i-need-to-learn-sisk">Sisk を学ぶために何が必要ですか？</a></li>
+<li><a href="/docs/jp/faq#can-i-develop-commercial-applications-with-sisk">Sisk で商用アプリケーションを開発できますか？</a></li>
+</ul>
+<h2 id="基礎">基礎</h2>
+<h3 id="ルーティング"><a href="/docs/jp/fundamentals/routing">ルーティング</a></h3>
+<ul>
+<li><a href="/docs/jp/fundamentals/routing#matching-routes">ルートのマッチング</a></li>
+<li><a href="/docs/jp/fundamentals/routing#regex-routes">正規表現ルート</a></li>
+<li><a href="/docs/jp/fundamentals/routing#prefixing-routes">プレフィックス付きルート</a></li>
+<li><a href="/docs/jp/fundamentals/routing#routes-without-request-parameter">リクエストパラメータなしのルート</a></li>
+<li><a href="/docs/jp/fundamentals/routing#any-method-routes">任意のメソッドルート</a></li>
+<li><a href="/docs/jp/fundamentals/routing#any-path-routes">任意のパスルート</a></li>
+<li><a href="/docs/jp/fundamentals/routing#ignore-case-route-matching">大文字小文字を無視したルートマッチング</a></li>
+<li><a href="/docs/jp/fundamentals/routing#not-found-404-callback-handler">見つかりません (404) コールバックハンドラ</a></li>
+<li><a href="/docs/jp/fundamentals/routing#method-not-allowed-405-callback-handler">メソッド不許可 (405) コールバックハンドラ</a></li>
+<li><a href="/docs/jp/fundamentals/routing#internal-error-handler">内部エラーハンドラ</a></li>
+</ul>
+<h3 id="リクエスト処理"><a href="/docs/jp/fundamentals/request-handlers">リクエスト処理</a></h3>
+<ul>
+<li><a href="/docs/jp/fundamentals/request-handlers#creating-an-request-handler">リクエストハンドラの作成</a></li>
+<li><a href="/docs/jp/fundamentals/request-handlers#associating-a-request-handler-with-a-single-route">リクエストハンドラを単一ルートに関連付ける</a></li>
+<li><a href="/docs/jp/fundamentals/request-handlers#associating-a-request-handler-with-a-router">リクエストハンドラをルーターに関連付ける</a></li>
+<li><a href="/docs/jp/fundamentals/request-handlers#associating-a-request-handler-with-an-attribute">リクエストハンドラを属性に関連付ける</a></li>
+<li><a href="/docs/jp/fundamentals/request-handlers#bypassing-an-global-request-handler">グローバルリクエストハンドラをバイパスする</a></li>
+</ul>
+<h3 id="リクエスト"><a href="/docs/jp/fundamentals/requests">リクエスト</a></h3>
+<ul>
+<li><a href="/docs/jp/fundamentals/requests#getting-the-request-method">リクエストメソッドの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#getting-request-url-components">リクエスト URL コンポーネントの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#getting-the-request-body">リクエストボディの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#getting-the-request-context">リクエストコンテキストの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#getting-form-data">フォームデータの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#getting-multipart-form-data">マルチパートフォームデータの取得</a></li>
+<li><a href="/docs/jp/fundamentals/requests#detecting-client-disconnection">クライアント切断の検出</a></li>
+<li><a href="/docs/jp/fundamentals/requests#server-sent-events-support">サーバー送信イベントのサポート</a></li>
+<li><a href="/docs/jp/fundamentals/requests#resolving-proxied-ips-and-hosts">プロキシされた IP とホストの解決</a></li>
+<li><a href="/docs/jp/fundamentals/requests#headers-encoding">ヘッダーのエンコーディング</a></li>
+</ul>
+<h3 id="レスポンス"><a href="/docs/jp/fundamentals/responses">レスポンス</a></h3>
+<ul>
+<li><a href="/docs/jp/fundamentals/responses#setting-an-http-status">HTTP ステータスの設定</a></li>
+<li><a href="/docs/jp/fundamentals/responses#body-and-content-type">ボディとコンテンツタイプ</a></li>
+<li><a href="/docs/jp/fundamentals/responses#response-headers">レスポンスヘッダー</a></li>
+<li><a href="/docs/jp/fundamentals/responses#sending-cookies">クッキーの送信</a></li>
+<li><a href="/docs/jp/fundamentals/responses#chunked-responses">チャンク化レスポンス</a></li>
+<li><a href="/docs/jp/fundamentals/responses#response-stream">レスポンスストリーム</a></li>
+<li><a href="/docs/jp/fundamentals/responses#gzip-deflate-and-brotli-compression">GZip、Deflate、Brotli 圧縮</a></li>
+<li><a href="/docs/jp/fundamentals/responses#automatic-compression">自動圧縮</a></li>
+<li><a href="/docs/jp/fundamentals/responses#implicit-response-types">暗黙的レスポンスタイプ</a></li>
+<li><a href="/docs/jp/fundamentals/responses#note-on-enumerable-objects-and-arrays">列挙可能オブジェクトと配列に関する注意</a></li>
+</ul>
+<h2 id="機能">機能</h2>
+<h3 id="ロギング"><a href="/docs/jp/features/logging">ロギング</a></h3>
+<ul>
+<li><a href="/docs/jp/features/logging#file-based-access-logs">ファイルベースのアクセスログ</a></li>
+<li><a href="/docs/jp/features/logging#stream-based-logging">ストリームベースのロギング</a></li>
+<li><a href="/docs/jp/features/logging#access-log-formatting">アクセスログのフォーマット</a></li>
+<li><a href="/docs/jp/features/logging#rotating-logs">ログのローテーション</a></li>
+<li><a href="/docs/jp/features/logging#error-logging">エラーロギング</a></li>
+<li><a href="/docs/jp/features/logging#other-logging-instances">その他のロギングインスタンス</a></li>
+<li><a href="/docs/jp/features/logging#extending-logstream">LogStream の拡張</a></li>
+</ul>
+<h3 id="サーバー送信イベント"><a href="/docs/jp/features/server-sent-events">サーバー送信イベント</a></h3>
+<ul>
+<li><a href="/docs/jp/features/server-sent-events#creating-an-sse-connection">SSE 接続の作成</a></li>
+<li><a href="/docs/jp/features/server-sent-events#appending-headers">ヘッダーの追加</a></li>
+<li><a href="/docs/jp/features/server-sent-events#wait-for-fail-connections">Wait-For-Fail 接続</a></li>
+<li><a href="/docs/jp/features/server-sent-events#setup-connections-ping-policy">接続の ping ポリシー設定</a></li>
+<li><a href="/docs/jp/features/server-sent-events#querying-connections">接続のクエリ</a></li>
+</ul>
+<h3 id="web-ソケット"><a href="/docs/jp/features/websockets">Web ソケット</a></h3>
+<ul>
+<li><a href="/docs/jp/features/websockets#accepting-messages">メッセージの受信</a></li>
+<li><a href="/docs/jp/features/websockets#persistent-connection">永続的接続</a></li>
+<li><a href="/docs/jp/features/websockets#ping-policy">Ping ポリシー</a></li>
+</ul>
+<h3 id="discard-構文"><a href="/docs/jp/features/discard-syntax">Discard 構文</a></h3>
+<h3 id="依存性注入"><a href="/docs/jp/features/instancing">依存性注入</a></h3>
+<h3 id="ストリーミングコンテンツ"><a href="/docs/jp/features/content-streaming">ストリーミングコンテンツ</a></h3>
+<ul>
+<li><a href="/docs/jp/features/content-streaming#request-content-stream">リクエストコンテンツストリーム</a></li>
+<li><a href="/docs/jp/features/content-streaming#response-content-stream">レスポンスコンテンツストリーム</a></li>
+</ul>
+<h3 id="sisk-における-corsクロスオリジンリソースシェアリングの有効化"><a href="/docs/jp/features/cors">Sisk における CORS（クロスオリジンリソースシェアリング）の有効化</a></h3>
+<ul>
+<li><a href="/docs/jp/features/cors#same-origin">同一オリジン</a></li>
+<li><a href="/docs/jp/features/cors#enabling-cors">CORS の有効化</a></li>
+<li><a href="/docs/jp/features/cors#other-ways-to-apply-cors">CORS を適用するその他の方法</a></li>
+<li><a href="/docs/jp/features/cors#disabling-cors-on-specific-routes">特定ルートでの CORS 無効化</a></li>
+<li><a href="/docs/jp/features/cors#replacing-values-in-the-response">レスポンス内の値の置換</a></li>
+<li><a href="/docs/jp/features/cors#preflight-requests">プリフライトリクエスト</a></li>
+<li><a href="/docs/jp/features/cors#disabling-cors-globally">全体的な CORS 無効化</a></li>
+</ul>
+<h3 id="ファイルサーバー"><a href="/docs/jp/features/file-server">ファイルサーバー</a></h3>
+<ul>
+<li><a href="/docs/jp/features/file-server#serving-static-files">静的ファイルの提供</a></li>
+<li><a href="/docs/jp/features/file-server#httpfileserverhandler">HttpFileServerHandler</a></li>
+<li><a href="/docs/jp/features/file-server#directory-listing">ディレクトリ一覧</a></li>
+<li><a href="/docs/jp/features/file-server#file-converters">ファイルコンバータ</a></li>
+</ul>
+<h2 id="拡張機能">拡張機能</h2>
+<h3 id="モデルコンテキストプロトコル"><a href="/docs/jp/extensions/mcp">モデルコンテキストプロトコル</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/mcp#getting-started-with-mcp">MCP の開始</a></li>
+<li><a href="/docs/jp/extensions/mcp#creating-json-schemas-for-functions">関数用 JSON スキーマの作成</a></li>
+<li><a href="/docs/jp/extensions/mcp#handling-function-calls">関数呼び出しの処理</a></li>
+<li><a href="/docs/jp/extensions/mcp#function-results">関数結果</a></li>
+<li><a href="/docs/jp/extensions/mcp#continuing-work">作業の継続</a></li>
+</ul>
+<h3 id="json-rpc-拡張"><a href="/docs/jp/extensions/json-rpc">JSON-RPC 拡張</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/json-rpc#transport-interface">トランスポートインターフェース</a></li>
+<li><a href="/docs/jp/extensions/json-rpc#json-rpc-methods">JSON-RPC メソッド</a></li>
+<li><a href="/docs/jp/extensions/json-rpc#customizing-the-serializer">シリアライザのカスタマイズ</a></li>
+</ul>
+<h3 id="ssl-プロキシ"><a href="/docs/jp/extensions/ssl-proxy">SSL プロキシ</a></h3>
+<h3 id="ベーシック認証"><a href="/docs/jp/extensions/basic-auth">ベーシック認証</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/basic-auth#installing">インストール</a></li>
+<li><a href="/docs/jp/extensions/basic-auth#creating-your-auth-handler">認証ハンドラの作成</a></li>
+<li><a href="/docs/jp/extensions/basic-auth#remarks">備考</a></li>
+</ul>
+<h3 id="サービスプロバイダー"><a href="/docs/jp/extensions/service-providers">サービスプロバイダー</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/service-providers#reading-configurations-from-a-json-file">JSON ファイルから設定を読む</a></li>
+<li><a href="/docs/jp/extensions/service-providers#configuration-file-structure">設定ファイル構造</a></li>
+</ul>
+<h3 id="ini-設定プロバイダー"><a href="/docs/jp/extensions/ini-configuration">INI 設定プロバイダー</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/ini-configuration#installing">インストール</a></li>
+<li><a href="/docs/jp/extensions/ini-configuration#ini-flavor-and-syntax">INI のフレーバーと構文</a></li>
+<li><a href="/docs/jp/extensions/ini-configuration#configuration-parameters">設定パラメータ</a></li>
+</ul>
+<h3 id="api-ドキュメント"><a href="/docs/jp/extensions/api-documentation">API ドキュメント</a></h3>
+<ul>
+<li><a href="/docs/jp/extensions/api-documentation#type-handlers">タイプハンドラ</a></li>
+<li><a href="/docs/jp/extensions/api-documentation#exporters">エクスポーター</a></li>
+</ul>
+<h2 id="上級">上級</h2>
+<h3 id="手動高度設定"><a href="/docs/jp/advanced/manual-setup">手動（高度）設定</a></h3>
+<ul>
+<li><a href="/docs/jp/advanced/manual-setup#routers">ルーター</a></li>
+<li><a href="/docs/jp/advanced/manual-setup#listening-hosts-and-ports">リスニングホストとポート</a></li>
+<li><a href="/docs/jp/advanced/manual-setup#server-configuration">サーバー構成</a></li>
+</ul>
+<h3 id="リクエストライフサイクル"><a href="/docs/jp/advanced/request-lifecycle">リクエストライフサイクル</a></h3>
+<h3 id="転送リゾルバ"><a href="/docs/jp/advanced/forwarding-resolvers">転送リゾルバ</a></h3>
+<ul>
+<li><a href="/docs/jp/advanced/forwarding-resolvers#the-forwardingresolver-class">ForwardingResolver クラス</a></li>
+</ul>
+<h3 id="http-サーバーハンドラ"><a href="/docs/jp/advanced/http-server-handlers">HTTP サーバーハンドラ</a></h3>
+<h3 id="サーバーごとの複数リスニングホスト"><a href="/docs/jp/advanced/multi-host-setup">サーバーごとの複数リスニングホスト</a></h3>
+<h3 id="http-サーバーエンジン"><a href="/docs/jp/advanced/server-engines">HTTP サーバーエンジン</a></h3>
+<ul>
+<li><a href="/docs/jp/advanced/server-engines#implementing-an-http-engine-for-sisk">Sisk 用 HTTP エンジンの実装</a></li>
+<li><a href="/docs/jp/advanced/server-engines#choosing-an-event-loop">イベントループの選択</a></li>
+<li><a href="/docs/jp/advanced/server-engines#testing">テスト</a></li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/jp/summary.g.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+                
+                (function() {
+                    const copyBtn = document.getElementById('copy-article-btn');
+                    const copyDropdown = document.getElementById('copy-dropdown');
+                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
+                    
+                    if (!copyBtn) return;
+                    
+                    copyBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyDropdown.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
+                            copyDropdown.classList.remove('show');
+                        }
+                    });
+                    
+                    function getArticleContent() {
+                        const article = document.querySelector('article');
+                        if (!article) return null;
+                        
+                        const clone = article.cloneNode(true);
+                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
+                        
+                        return clone;
+                    }
+                    
+                    copyTextBtn.addEventListener('click', function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        navigator.clipboard.writeText(article.innerText.trim());
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    copyMarkdownBtn.addEventListener('click', async function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        if (typeof TurndownService === 'undefined') {
+                            const script = document.createElement('script');
+                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
+                            script.onload = function() {
+                                convertAndCopy(article);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            convertAndCopy(article);
+                        }
+                        
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    function convertAndCopy(article) {
+                        const turndown = new TurndownService({
+                            headingStyle: 'atx',
+                            codeBlockStyle: 'fenced'
+                        });
+                        
+                        turndown.addRule('codeBlocks', {
+                            filter: ['pre'],
+                            replacement: function(content, node) {
+                                const code = node.querySelector('code');
+                                const langClass = code?.className.match(/lang-(\w+)/);
+                                const lang = langClass ? langClass[1] : '';
+                                const text = code?.textContent || content;
+                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
+                            }
+                        });
+                        
+                        const markdown = turndown.turndown(article.innerHTML);
+                        navigator.clipboard.writeText(markdown);
+                    }
+                })();
+            </script>
+        </footer>
+    </body>
+</html>

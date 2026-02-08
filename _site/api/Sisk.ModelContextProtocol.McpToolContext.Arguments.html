@@ -101,55 +101,72 @@
                     </button>
 
                     <nav id="breadcrumb"></nav>
+                    <div class="actionbar-actions">
+                        <div id="language-wrapper">
+                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                        <img src="/assets/flag/usa.png">
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                        <img src="/assets/flag/russia.png">
+                                        Русский
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                        <img src="/assets/flag/brazil.png">
+                                        Português
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                        <img src="/assets/flag/spain.png">
+                                        Español
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                        <img src="/assets/flag/germany.png">
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                        <img src="/assets/flag/china.png">
+                                        中文 (简体)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                        <img src="/assets/flag/japan.png">
+                                        日本語
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div id="language-wrapper">
-                        <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
-                            <i class="bi bi-globe"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end language-dropdown">
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
-                                    <img src="/assets/flag/usa.png">
-                                    English
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
-                                    <img src="/assets/flag/russia.png">
-                                    Русский
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
-                                    <img src="/assets/flag/brazil.png">
-                                    Português
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
-                                    <img src="/assets/flag/spain.png">
-                                    Español
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
-                                    <img src="/assets/flag/germany.png">
-                                    Deutsch
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                    <img src="/assets/flag/china.png">
-                                    中文 (简体)
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
-                                    <img src="/assets/flag/japan.png">
-                                    日本語
-                                </a>
-                            </li>
-                        </ul>
+                        <div id="copy-article-wrapper">
+                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <div class="copy-dropdown" id="copy-dropdown">
+                                <button type="button" id="copy-text-btn">
+                                    <i class="bi bi-file-text"></i>
+                                    Copy as text
+                                </button>
+                                <button type="button" id="copy-markdown-btn">
+                                    <i class="bi bi-markdown"></i>
+                                    Copy as Markdown
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -362,6 +379,83 @@ Property Arguments
                 }
                 
                 runPostHljsFunctions();
+                
+                (function() {
+                    const copyBtn = document.getElementById('copy-article-btn');
+                    const copyDropdown = document.getElementById('copy-dropdown');
+                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
+                    
+                    if (!copyBtn) return;
+                    
+                    copyBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyDropdown.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
+                            copyDropdown.classList.remove('show');
+                        }
+                    });
+                    
+                    function getArticleContent() {
+                        const article = document.querySelector('article');
+                        if (!article) return null;
+                        
+                        const clone = article.cloneNode(true);
+                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
+                        
+                        return clone;
+                    }
+                    
+                    copyTextBtn.addEventListener('click', function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        navigator.clipboard.writeText(article.innerText.trim());
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    copyMarkdownBtn.addEventListener('click', async function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        if (typeof TurndownService === 'undefined') {
+                            const script = document.createElement('script');
+                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
+                            script.onload = function() {
+                                convertAndCopy(article);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            convertAndCopy(article);
+                        }
+                        
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    function convertAndCopy(article) {
+                        const turndown = new TurndownService({
+                            headingStyle: 'atx',
+                            codeBlockStyle: 'fenced'
+                        });
+                        
+                        turndown.addRule('codeBlocks', {
+                            filter: ['pre'],
+                            replacement: function(content, node) {
+                                const code = node.querySelector('code');
+                                const langClass = code?.className.match(/lang-(\w+)/);
+                                const lang = langClass ? langClass[1] : '';
+                                const text = code?.textContent || content;
+                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
+                            }
+                        });
+                        
+                        const markdown = turndown.turndown(article.innerHTML);
+                        navigator.clipboard.writeText(markdown);
+                    }
+                })();
             </script>
         </footer>
     </body>

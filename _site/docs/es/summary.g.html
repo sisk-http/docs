@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Resumen de la documentaci&#243;n | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Resumen de la documentaci&#243;n | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/es/summary.g.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+                    <div class="actionbar-actions">
+                        <div id="language-wrapper">
+                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                        <img src="/assets/flag/usa.png">
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                        <img src="/assets/flag/russia.png">
+                                        Русский
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                        <img src="/assets/flag/brazil.png">
+                                        Português
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                        <img src="/assets/flag/spain.png">
+                                        Español
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                        <img src="/assets/flag/germany.png">
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                        <img src="/assets/flag/china.png">
+                                        中文 (简体)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                        <img src="/assets/flag/japan.png">
+                                        日本語
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="copy-article-wrapper">
+                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <div class="copy-dropdown" id="copy-dropdown">
+                                <button type="button" id="copy-text-btn">
+                                    <i class="bi bi-file-text"></i>
+                                    Copy as text
+                                </button>
+                                <button type="button" id="copy-markdown-btn">
+                                    <i class="bi bi-markdown"></i>
+                                    Copy as Markdown
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="resumen-de-la-documentación">Resumen de la documentación</h1>
+
+<h2 id="bienvenida">Bienvenida</h2>
+<h3 id="comenzando"><a href="/docs/es/getting-started">Comenzando</a></h3>
+<ul>
+<li><a href="/docs/es/getting-started#first-steps">Primeros pasos</a></li>
+<li><a href="/docs/es/getting-started#creating-a-project">Creando un proyecto</a></li>
+<li><a href="/docs/es/getting-started#building-the-http-server">Construyendo el servidor HTTP</a></li>
+<li><a href="/docs/es/getting-started#manual-advanced-setup">Configuración manual (avanzada)</a></li>
+</ul>
+<h3 id="instalación"><a href="/docs/es/installing">Instalación</a></h3>
+<h3 id="compatibilidad-con-native-aot"><a href="/docs/es/native-aot">Compatibilidad con Native AOT</a></h3>
+<ul>
+<li><a href="/docs/es/native-aot#not-supported-features">Características no compatibles</a></li>
+</ul>
+<h3 id="desplegando-tu-aplicación-sisk"><a href="/docs/es/deploying">Desplegando tu aplicación Sisk</a></h3>
+<ul>
+<li><a href="/docs/es/deploying#publishing-your-app">Publicando tu aplicación</a></li>
+<li><a href="/docs/es/deploying#proxying-your-application">Proxy de tu aplicación</a></li>
+<li><a href="/docs/es/deploying#creating-an-service">Creando un servicio</a></li>
+</ul>
+<h3 id="trabajando-con-ssl"><a href="/docs/es/ssl">Trabajando con SSL</a></h3>
+<ul>
+<li><a href="/docs/es/ssl#through-the-siskcadentecoreengine">A través de Sisk.Cadente.CoreEngine</a></li>
+<li><a href="/docs/es/ssl#through-iis-on-windows">A través de IIS en Windows</a></li>
+<li><a href="/docs/es/ssl#through-mitmproxy">A través de mitmproxy</a></li>
+<li><a href="/docs/es/ssl#through-sisksslproxy-package">A través del paquete Sisk.SslProxy</a></li>
+</ul>
+<h3 id="cadente"><a href="/docs/es/cadente">Cadente</a></h3>
+<ul>
+<li><a href="/docs/es/cadente#overview">Visión general</a></li>
+<li><a href="/docs/es/cadente#installation">Instalación</a></li>
+<li><a href="/docs/es/cadente#using-with-sisk">Usando con Sisk</a></li>
+<li><a href="/docs/es/cadente#standalone-usage">Uso independiente</a></li>
+</ul>
+<h3 id="configurando-reservas-de-espacio-de-nombres-en-windows"><a href="/docs/es/registering-namespace">Configurando reservas de espacio de nombres en Windows</a></h3>
+<h3 id="registros-de-cambios"><a href="/docs/es/changelogs">Registros de cambios</a></h3>
+<h3 id="preguntas-frecuentes"><a href="/docs/es/faq">Preguntas frecuentes</a></h3>
+<ul>
+<li><a href="/docs/es/faq#is-sisk-open-source">¿Sisk es de código abierto?</a></li>
+<li><a href="/docs/es/faq#are-contributions-accepted">¿Se aceptan contribuciones?</a></li>
+<li><a href="/docs/es/faq#is-sisk-funded">¿Sisk está financiado?</a></li>
+<li><a href="/docs/es/faq#can-i-use-sisk-in-production">¿Puedo usar Sisk en producción?</a></li>
+<li><a href="/docs/es/faq#does-sisk-have-authentication-monitoring-and-database-services">¿Sisk tiene servicios de autenticación, monitoreo y bases de datos?</a></li>
+<li><a href="/docs/es/faq#why-should-i-use-sisk-instead-of-framework">¿Por qué debería usar Sisk en lugar de <framework>?</framework></a></li>
+<li><a href="/docs/es/faq#what-do-i-need-to-learn-sisk">¿Qué necesito para aprender Sisk?</a></li>
+<li><a href="/docs/es/faq#can-i-develop-commercial-applications-with-sisk">¿Puedo desarrollar aplicaciones comerciales con Sisk?</a></li>
+</ul>
+<h2 id="fundamentos">Fundamentos</h2>
+<h3 id="enrutamiento"><a href="/docs/es/fundamentals/routing">Enrutamiento</a></h3>
+<ul>
+<li><a href="/docs/es/fundamentals/routing#matching-routes">Coincidencia de rutas</a></li>
+<li><a href="/docs/es/fundamentals/routing#regex-routes">Rutas regex</a></li>
+<li><a href="/docs/es/fundamentals/routing#prefixing-routes">Prefijado de rutas</a></li>
+<li><a href="/docs/es/fundamentals/routing#routes-without-request-parameter">Rutas sin parámetro de solicitud</a></li>
+<li><a href="/docs/es/fundamentals/routing#any-method-routes">Rutas de cualquier método</a></li>
+<li><a href="/docs/es/fundamentals/routing#any-path-routes">Rutas de cualquier ruta</a></li>
+<li><a href="/docs/es/fundamentals/routing#ignore-case-route-matching">Coincidencia de rutas sin distinción de mayúsculas</a></li>
+<li><a href="/docs/es/fundamentals/routing#not-found-404-callback-handler">Manejador de devolución de llamada Not Found (404)</a></li>
+<li><a href="/docs/es/fundamentals/routing#method-not-allowed-405-callback-handler">Manejador de devolución de llamada Method not allowed (405)</a></li>
+<li><a href="/docs/es/fundamentals/routing#internal-error-handler">Manejador de error interno</a></li>
+</ul>
+<h3 id="manejo-de-solicitudes"><a href="/docs/es/fundamentals/request-handlers">Manejo de solicitudes</a></h3>
+<ul>
+<li><a href="/docs/es/fundamentals/request-handlers#creating-an-request-handler">Creando un manejador de solicitud</a></li>
+<li><a href="/docs/es/fundamentals/request-handlers#associating-a-request-handler-with-a-single-route">Asociando un manejador de solicitud con una única ruta</a></li>
+<li><a href="/docs/es/fundamentals/request-handlers#associating-a-request-handler-with-a-router">Asociando un manejador de solicitud con un router</a></li>
+<li><a href="/docs/es/fundamentals/request-handlers#associating-a-request-handler-with-an-attribute">Asociando un manejador de solicitud con un atributo</a></li>
+<li><a href="/docs/es/fundamentals/request-handlers#bypassing-an-global-request-handler">Evitando un manejador de solicitud global</a></li>
+</ul>
+<h3 id="solicitudes"><a href="/docs/es/fundamentals/requests">Solicitudes</a></h3>
+<ul>
+<li><a href="/docs/es/fundamentals/requests#getting-the-request-method">Obteniendo el método de la solicitud</a></li>
+<li><a href="/docs/es/fundamentals/requests#getting-request-url-components">Obteniendo componentes de la URL de la solicitud</a></li>
+<li><a href="/docs/es/fundamentals/requests#getting-the-request-body">Obteniendo el cuerpo de la solicitud</a></li>
+<li><a href="/docs/es/fundamentals/requests#getting-the-request-context">Obteniendo el contexto de la solicitud</a></li>
+<li><a href="/docs/es/fundamentals/requests#getting-form-data">Obteniendo datos del formulario</a></li>
+<li><a href="/docs/es/fundamentals/requests#getting-multipart-form-data">Obteniendo datos de formulario multipart</a></li>
+<li><a href="/docs/es/fundamentals/requests#detecting-client-disconnection">Detectando desconexión del cliente</a></li>
+<li><a href="/docs/es/fundamentals/requests#server-sent-events-support">Soporte de eventos enviados por el servidor</a></li>
+<li><a href="/docs/es/fundamentals/requests#resolving-proxied-ips-and-hosts">Resolviendo IPs y hosts proxy</a></li>
+<li><a href="/docs/es/fundamentals/requests#headers-encoding">Codificación de encabezados</a></li>
+</ul>
+<h3 id="respuestas"><a href="/docs/es/fundamentals/responses">Respuestas</a></h3>
+<ul>
+<li><a href="/docs/es/fundamentals/responses#setting-an-http-status">Estableciendo un estado HTTP</a></li>
+<li><a href="/docs/es/fundamentals/responses#body-and-content-type">Cuerpo y tipo de contenido</a></li>
+<li><a href="/docs/es/fundamentals/responses#response-headers">Encabezados de respuesta</a></li>
+<li><a href="/docs/es/fundamentals/responses#sending-cookies">Enviando cookies</a></li>
+<li><a href="/docs/es/fundamentals/responses#chunked-responses">Respuestas fragmentadas</a></li>
+<li><a href="/docs/es/fundamentals/responses#response-stream">Flujo de respuesta</a></li>
+<li><a href="/docs/es/fundamentals/responses#gzip-deflate-and-brotli-compression">Compresión GZip, Deflate y Brotli</a></li>
+<li><a href="/docs/es/fundamentals/responses#automatic-compression">Compresión automática</a></li>
+<li><a href="/docs/es/fundamentals/responses#implicit-response-types">Tipos de respuesta implícitos</a></li>
+<li><a href="/docs/es/fundamentals/responses#note-on-enumerable-objects-and-arrays">Nota sobre objetos y arreglos enumerables</a></li>
+</ul>
+<h2 id="características">Características</h2>
+<h3 id="registro"><a href="/docs/es/features/logging">Registro</a></h3>
+<ul>
+<li><a href="/docs/es/features/logging#file-based-access-logs">Registros de acceso basados en archivo</a></li>
+<li><a href="/docs/es/features/logging#stream-based-logging">Registro basado en flujo</a></li>
+<li><a href="/docs/es/features/logging#access-log-formatting">Formato de registro de acceso</a></li>
+<li><a href="/docs/es/features/logging#rotating-logs">Rotación de registros</a></li>
+<li><a href="/docs/es/features/logging#error-logging">Registro de errores</a></li>
+<li><a href="/docs/es/features/logging#other-logging-instances">Otras instancias de registro</a></li>
+<li><a href="/docs/es/features/logging#extending-logstream">Extendiendo LogStream</a></li>
+</ul>
+<h3 id="eventos-enviados-por-el-servidor"><a href="/docs/es/features/server-sent-events">Eventos enviados por el servidor</a></h3>
+<ul>
+<li><a href="/docs/es/features/server-sent-events#creating-an-sse-connection">Creando una conexión SSE</a></li>
+<li><a href="/docs/es/features/server-sent-events#appending-headers">Añadiendo encabezados</a></li>
+<li><a href="/docs/es/features/server-sent-events#wait-for-fail-connections">Conexiones Wait-For-Fail</a></li>
+<li><a href="/docs/es/features/server-sent-events#setup-connections-ping-policy">Configurar política de ping de conexiones</a></li>
+<li><a href="/docs/es/features/server-sent-events#querying-connections">Consultando conexiones</a></li>
+</ul>
+<h3 id="websockets"><a href="/docs/es/features/websockets">WebSockets</a></h3>
+<ul>
+<li><a href="/docs/es/features/websockets#accepting-messages">Aceptando mensajes</a></li>
+<li><a href="/docs/es/features/websockets#persistent-connection">Conexión persistente</a></li>
+<li><a href="/docs/es/features/websockets#ping-policy">Política de ping</a></li>
+</ul>
+<h3 id="sintaxis-de-descarte"><a href="/docs/es/features/discard-syntax">Sintaxis de descarte</a></h3>
+<h3 id="inyección-de-dependencias"><a href="/docs/es/features/instancing">Inyección de dependencias</a></h3>
+<h3 id="contenido-en-streaming"><a href="/docs/es/features/content-streaming">Contenido en streaming</a></h3>
+<ul>
+<li><a href="/docs/es/features/content-streaming#request-content-stream">Flujo de contenido de solicitud</a></li>
+<li><a href="/docs/es/features/content-streaming#response-content-stream">Flujo de contenido de respuesta</a></li>
+</ul>
+<h3 id="habilitando-cors-compartición-de-recursos-entre-orígenes-en-sisk"><a href="/docs/es/features/cors">Habilitando CORS (Compartición de Recursos entre Orígenes) en Sisk</a></h3>
+<ul>
+<li><a href="/docs/es/features/cors#same-origin">Mismo origen</a></li>
+<li><a href="/docs/es/features/cors#enabling-cors">Habilitando CORS</a></li>
+<li><a href="/docs/es/features/cors#other-ways-to-apply-cors">Otras formas de aplicar CORS</a></li>
+<li><a href="/docs/es/features/cors#disabling-cors-on-specific-routes">Deshabilitando CORS en rutas específicas</a></li>
+<li><a href="/docs/es/features/cors#replacing-values-in-the-response">Reemplazando valores en la respuesta</a></li>
+<li><a href="/docs/es/features/cors#preflight-requests">Solicitudes preflight</a></li>
+<li><a href="/docs/es/features/cors#disabling-cors-globally">Deshabilitando CORS globalmente</a></li>
+</ul>
+<h3 id="servidor-de-archivos"><a href="/docs/es/features/file-server">Servidor de archivos</a></h3>
+<ul>
+<li><a href="/docs/es/features/file-server#serving-static-files">Sirviendo archivos estáticos</a></li>
+<li><a href="/docs/es/features/file-server#httpfileserverhandler">HttpFileServerHandler</a></li>
+<li><a href="/docs/es/features/file-server#directory-listing">Listado de directorios</a></li>
+<li><a href="/docs/es/features/file-server#file-converters">Convertidores de archivos</a></li>
+</ul>
+<h2 id="extensiones">Extensiones</h2>
+<h3 id="protocolo-de-contexto-de-modelo"><a href="/docs/es/extensions/mcp">Protocolo de Contexto de Modelo</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/mcp#getting-started-with-mcp">Comenzando con MCP</a></li>
+<li><a href="/docs/es/extensions/mcp#creating-json-schemas-for-functions">Creando esquemas JSON para funciones</a></li>
+<li><a href="/docs/es/extensions/mcp#handling-function-calls">Manejando llamadas a funciones</a></li>
+<li><a href="/docs/es/extensions/mcp#function-results">Resultados de funciones</a></li>
+<li><a href="/docs/es/extensions/mcp#continuing-work">Continuando trabajo</a></li>
+</ul>
+<h3 id="extensión-json-rpc"><a href="/docs/es/extensions/json-rpc">Extensión JSON-RPC</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/json-rpc#transport-interface">Interfaz de transporte</a></li>
+<li><a href="/docs/es/extensions/json-rpc#json-rpc-methods">Métodos JSON-RPC</a></li>
+<li><a href="/docs/es/extensions/json-rpc#customizing-the-serializer">Personalizando el serializador</a></li>
+</ul>
+<h3 id="proxy-ssl"><a href="/docs/es/extensions/ssl-proxy">Proxy SSL</a></h3>
+<h3 id="autenticación-básica"><a href="/docs/es/extensions/basic-auth">Autenticación básica</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/basic-auth#installing">Instalación</a></li>
+<li><a href="/docs/es/extensions/basic-auth#creating-your-auth-handler">Creando tu manejador de autenticación</a></li>
+<li><a href="/docs/es/extensions/basic-auth#remarks">Observaciones</a></li>
+</ul>
+<h3 id="proveedores-de-servicios"><a href="/docs/es/extensions/service-providers">Proveedores de servicios</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/service-providers#reading-configurations-from-a-json-file">Leyendo configuraciones de un archivo JSON</a></li>
+<li><a href="/docs/es/extensions/service-providers#configuration-file-structure">Estructura del archivo de configuración</a></li>
+</ul>
+<h3 id="proveedor-de-configuración-ini"><a href="/docs/es/extensions/ini-configuration">Proveedor de configuración INI</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/ini-configuration#installing">Instalación</a></li>
+<li><a href="/docs/es/extensions/ini-configuration#ini-flavor-and-syntax">Sabor y sintaxis INI</a></li>
+<li><a href="/docs/es/extensions/ini-configuration#configuration-parameters">Parámetros de configuración</a></li>
+</ul>
+<h3 id="documentación-de-api"><a href="/docs/es/extensions/api-documentation">Documentación de API</a></h3>
+<ul>
+<li><a href="/docs/es/extensions/api-documentation#type-handlers">Manejadores de tipo</a></li>
+<li><a href="/docs/es/extensions/api-documentation#exporters">Exportadores</a></li>
+</ul>
+<h2 id="avanzado">Avanzado</h2>
+<h3 id="configuración-manual-avanzada"><a href="/docs/es/advanced/manual-setup">Configuración manual (avanzada)</a></h3>
+<ul>
+<li><a href="/docs/es/advanced/manual-setup#routers">Ruteadores</a></li>
+<li><a href="/docs/es/advanced/manual-setup#listening-hosts-and-ports">Hosts y puertos de escucha</a></li>
+<li><a href="/docs/es/advanced/manual-setup#server-configuration">Configuración del servidor</a></li>
+</ul>
+<h3 id="ciclo-de-vida-de-la-solicitud"><a href="/docs/es/advanced/request-lifecycle">Ciclo de vida de la solicitud</a></h3>
+<h3 id="resolutores-de-reenvío"><a href="/docs/es/advanced/forwarding-resolvers">Resolutores de reenvío</a></h3>
+<ul>
+<li><a href="/docs/es/advanced/forwarding-resolvers#the-forwardingresolver-class">La clase ForwardingResolver</a></li>
+</ul>
+<h3 id="manejadores-de-servidor-http"><a href="/docs/es/advanced/http-server-handlers">Manejadores de servidor HTTP</a></h3>
+<h3 id="múltiples-hosts-de-escucha-por-servidor"><a href="/docs/es/advanced/multi-host-setup">Múltiples hosts de escucha por servidor</a></h3>
+<h3 id="motores-de-servidor-http"><a href="/docs/es/advanced/server-engines">Motores de servidor HTTP</a></h3>
+<ul>
+<li><a href="/docs/es/advanced/server-engines#implementing-an-http-engine-for-sisk">Implementando un motor HTTP para Sisk</a></li>
+<li><a href="/docs/es/advanced/server-engines#choosing-an-event-loop">Eligiendo un bucle de eventos</a></li>
+<li><a href="/docs/es/advanced/server-engines#testing">Pruebas</a></li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/es/summary.g.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+                
+                (function() {
+                    const copyBtn = document.getElementById('copy-article-btn');
+                    const copyDropdown = document.getElementById('copy-dropdown');
+                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
+                    
+                    if (!copyBtn) return;
+                    
+                    copyBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyDropdown.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
+                            copyDropdown.classList.remove('show');
+                        }
+                    });
+                    
+                    function getArticleContent() {
+                        const article = document.querySelector('article');
+                        if (!article) return null;
+                        
+                        const clone = article.cloneNode(true);
+                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
+                        
+                        return clone;
+                    }
+                    
+                    copyTextBtn.addEventListener('click', function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        navigator.clipboard.writeText(article.innerText.trim());
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    copyMarkdownBtn.addEventListener('click', async function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        if (typeof TurndownService === 'undefined') {
+                            const script = document.createElement('script');
+                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
+                            script.onload = function() {
+                                convertAndCopy(article);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            convertAndCopy(article);
+                        }
+                        
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    function convertAndCopy(article) {
+                        const turndown = new TurndownService({
+                            headingStyle: 'atx',
+                            codeBlockStyle: 'fenced'
+                        });
+                        
+                        turndown.addRule('codeBlocks', {
+                            filter: ['pre'],
+                            replacement: function(content, node) {
+                                const code = node.querySelector('code');
+                                const langClass = code?.className.match(/lang-(\w+)/);
+                                const lang = langClass ? langClass[1] : '';
+                                const text = code?.textContent || content;
+                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
+                            }
+                        });
+                        
+                        const markdown = turndown.turndown(article.innerHTML);
+                        navigator.clipboard.writeText(markdown);
+                    }
+                })();
+            </script>
+        </footer>
+    </body>
+</html>

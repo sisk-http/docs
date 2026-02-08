@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>文档概览 | Sisk </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="文档概览 | Sisk ">
+
+
+        <link rel="icon" href="../../assets/img/favicon.ico">
+        <link rel="stylesheet" href="../../public/docfx.min.css">
+        <link rel="stylesheet" href="../../public/main.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+        <meta name="docfx:navrel" content="../../toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
+
+        <meta name="docfx:rel" content="../../">
+
+
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/cn/summary.g.md/#L1">
+        <meta name="loc:inThisArticle" content="In this article">
+        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+        <meta name="loc:tocFilter" content="Filter by title">
+        <meta name="loc:nextArticle" content="Next">
+        <meta name="loc:prevArticle" content="Previous">
+        <meta name="loc:themeLight" content="Light">
+        <meta name="loc:themeDark" content="Dark">
+        <meta name="loc:themeAuto" content="Auto">
+        <meta name="loc:changeTheme" content="Change theme">
+        <meta name="loc:copy" content="Copy">
+        <meta name="loc:downloadPdf" content="Download PDF">
+        
+        <script type="module" src="./../../public/docfx.min.js"></script>
+        <script>
+            const theme = localStorage.getItem('theme') || 'auto';
+            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+        </script>
+        
+        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
+        
+        <!-- GoatCounter -->
+        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <!-- End GoatCounter -->
+        
+        <script>            
+            function switchLanguage(lang) {
+                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
+                const newPath = lang + docPart;
+                window.location.href = window.location.origin + newPath;
+            }        
+        </script>
+        
+    </head>
+    
+    
+    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+        <header class="bg-body border-bottom">
+            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+                <div class="container-xxl flex-nowrap">
+                    <a class="navbar-brand" href="../../index.html">
+                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
+                        Sisk
+                    </a>
+                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navpanel">
+                        <div id="navbar">
+                            <form class="search" role="search" id="search">
+                                <i class="bi bi-search"></i>
+                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-xxl">
+            <div class="toc-offcanvas">
+                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="toc" id="toc"></nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="actionbar">
+                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <nav id="breadcrumb"></nav>
+                    <div class="actionbar-actions">
+                        <div id="language-wrapper">
+                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
+                                        <img src="/assets/flag/usa.png">
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
+                                        <img src="/assets/flag/russia.png">
+                                        Русский
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
+                                        <img src="/assets/flag/brazil.png">
+                                        Português
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
+                                        <img src="/assets/flag/spain.png">
+                                        Español
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
+                                        <img src="/assets/flag/germany.png">
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
+                                        <img src="/assets/flag/china.png">
+                                        中文 (简体)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
+                                        <img src="/assets/flag/japan.png">
+                                        日本語
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="copy-article-wrapper">
+                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <div class="copy-dropdown" id="copy-dropdown">
+                                <button type="button" id="copy-text-btn">
+                                    <i class="bi bi-file-text"></i>
+                                    Copy as text
+                                </button>
+                                <button type="button" id="copy-markdown-btn">
+                                    <i class="bi bi-markdown"></i>
+                                    Copy as Markdown
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article data-uid="">
+<h1 id="文档概览">文档概览</h1>
+
+<h2 id="欢迎">欢迎</h2>
+<h3 id="入门"><a href="/docs/cn/getting-started">入门</a></h3>
+<ul>
+<li><a href="/docs/cn/getting-started#first-steps">第一步</a></li>
+<li><a href="/docs/cn/getting-started#creating-a-project">创建项目</a></li>
+<li><a href="/docs/cn/getting-started#building-the-http-server">构建 HTTP 服务器</a></li>
+<li><a href="/docs/cn/getting-started#manual-advanced-setup">手动（高级）设置</a></li>
+</ul>
+<h3 id="安装"><a href="/docs/cn/installing">安装</a></h3>
+<h3 id="原生-aot-支持"><a href="/docs/cn/native-aot">原生 AOT 支持</a></h3>
+<ul>
+<li><a href="/docs/cn/native-aot#not-supported-features">不支持的功能</a></li>
+</ul>
+<h3 id="部署你的-sisk-应用"><a href="/docs/cn/deploying">部署你的 Sisk 应用</a></h3>
+<ul>
+<li><a href="/docs/cn/deploying#publishing-your-app">发布你的应用</a></li>
+<li><a href="/docs/cn/deploying#proxying-your-application">代理你的应用</a></li>
+<li><a href="/docs/cn/deploying#creating-an-service">创建服务</a></li>
+</ul>
+<h3 id="使用-ssl"><a href="/docs/cn/ssl">使用 SSL</a></h3>
+<ul>
+<li><a href="/docs/cn/ssl#through-the-siskcadentecoreengine">通过 Sisk.Cadente.CoreEngine</a></li>
+<li><a href="/docs/cn/ssl#through-iis-on-windows">通过 Windows 上的 IIS</a></li>
+<li><a href="/docs/cn/ssl#through-mitmproxy">通过 mitmproxy</a></li>
+<li><a href="/docs/cn/ssl#through-sisksslproxy-package">通过 Sisk.SslProxy 包</a></li>
+</ul>
+<h3 id="cadente"><a href="/docs/cn/cadente">Cadente</a></h3>
+<ul>
+<li><a href="/docs/cn/cadente#overview">概览</a></li>
+<li><a href="/docs/cn/cadente#installation">安装</a></li>
+<li><a href="/docs/cn/cadente#using-with-sisk">与 Sisk 一起使用</a></li>
+<li><a href="/docs/cn/cadente#standalone-usage">独立使用</a></li>
+</ul>
+<h3 id="在-windows-上配置命名空间预留"><a href="/docs/cn/registering-namespace">在 Windows 上配置命名空间预留</a></h3>
+<h3 id="更新日志"><a href="/docs/cn/changelogs">更新日志</a></h3>
+<h3 id="常见问题"><a href="/docs/cn/faq">常见问题</a></h3>
+<ul>
+<li><a href="/docs/cn/faq#is-sisk-open-source">Sisk 是开源的吗？</a></li>
+<li><a href="/docs/cn/faq#are-contributions-accepted">是否接受贡献？</a></li>
+<li><a href="/docs/cn/faq#is-sisk-funded">Sisk 有资金支持吗？</a></li>
+<li><a href="/docs/cn/faq#can-i-use-sisk-in-production">我可以在生产环境中使用 Sisk 吗？</a></li>
+<li><a href="/docs/cn/faq#does-sisk-have-authentication-monitoring-and-database-services">Sisk 是否提供身份验证、监控和数据库服务？</a></li>
+<li><a href="/docs/cn/faq#why-should-i-use-sisk-instead-of-framework">为什么我应该使用 Sisk 而不是 <framework>？</framework></a></li>
+<li><a href="/docs/cn/faq#what-do-i-need-to-learn-sisk">我需要学习什么才能使用 Sisk？</a></li>
+<li><a href="/docs/cn/faq#can-i-develop-commercial-applications-with-sisk">我可以使用 Sisk 开发商业应用吗？</a></li>
+</ul>
+<h2 id="基础">基础</h2>
+<h3 id="路由"><a href="/docs/cn/fundamentals/routing">路由</a></h3>
+<ul>
+<li><a href="/docs/cn/fundamentals/routing#matching-routes">匹配路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#regex-routes">正则路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#prefixing-routes">前缀路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#routes-without-request-parameter">无请求参数的路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#any-method-routes">任意方法路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#any-path-routes">任意路径路由</a></li>
+<li><a href="/docs/cn/fundamentals/routing#ignore-case-route-matching">忽略大小写的路由匹配</a></li>
+<li><a href="/docs/cn/fundamentals/routing#not-found-404-callback-handler">未找到 (404) 回调处理器</a></li>
+<li><a href="/docs/cn/fundamentals/routing#method-not-allowed-405-callback-handler">方法不允许 (405) 回调处理器</a></li>
+<li><a href="/docs/cn/fundamentals/routing#internal-error-handler">内部错误处理器</a></li>
+</ul>
+<h3 id="请求处理"><a href="/docs/cn/fundamentals/request-handlers">请求处理</a></h3>
+<ul>
+<li><a href="/docs/cn/fundamentals/request-handlers#creating-an-request-handler">创建请求处理器</a></li>
+<li><a href="/docs/cn/fundamentals/request-handlers#associating-a-request-handler-with-a-single-route">将请求处理器关联到单一路由</a></li>
+<li><a href="/docs/cn/fundamentals/request-handlers#associating-a-request-handler-with-a-router">将请求处理器关联到路由器</a></li>
+<li><a href="/docs/cn/fundamentals/request-handlers#associating-a-request-handler-with-an-attribute">将请求处理器关联到属性</a></li>
+<li><a href="/docs/cn/fundamentals/request-handlers#bypassing-an-global-request-handler">绕过全局请求处理器</a></li>
+</ul>
+<h3 id="请求"><a href="/docs/cn/fundamentals/requests">请求</a></h3>
+<ul>
+<li><a href="/docs/cn/fundamentals/requests#getting-the-request-method">获取请求方法</a></li>
+<li><a href="/docs/cn/fundamentals/requests#getting-request-url-components">获取请求 URL 组件</a></li>
+<li><a href="/docs/cn/fundamentals/requests#getting-the-request-body">获取请求体</a></li>
+<li><a href="/docs/cn/fundamentals/requests#getting-the-request-context">获取请求上下文</a></li>
+<li><a href="/docs/cn/fundamentals/requests#getting-form-data">获取表单数据</a></li>
+<li><a href="/docs/cn/fundamentals/requests#getting-multipart-form-data">获取多部分表单数据</a></li>
+<li><a href="/docs/cn/fundamentals/requests#detecting-client-disconnection">检测客户端断开</a></li>
+<li><a href="/docs/cn/fundamentals/requests#server-sent-events-support">服务器发送事件支持</a></li>
+<li><a href="/docs/cn/fundamentals/requests#resolving-proxied-ips-and-hosts">解析代理的 IP 和主机</a></li>
+<li><a href="/docs/cn/fundamentals/requests#headers-encoding">头部编码</a></li>
+</ul>
+<h3 id="响应"><a href="/docs/cn/fundamentals/responses">响应</a></h3>
+<ul>
+<li><a href="/docs/cn/fundamentals/responses#setting-an-http-status">设置 HTTP 状态码</a></li>
+<li><a href="/docs/cn/fundamentals/responses#body-and-content-type">正文和内容类型</a></li>
+<li><a href="/docs/cn/fundamentals/responses#response-headers">响应头部</a></li>
+<li><a href="/docs/cn/fundamentals/responses#sending-cookies">发送 Cookie</a></li>
+<li><a href="/docs/cn/fundamentals/responses#chunked-responses">分块响应</a></li>
+<li><a href="/docs/cn/fundamentals/responses#response-stream">响应流</a></li>
+<li><a href="/docs/cn/fundamentals/responses#gzip-deflate-and-brotli-compression">GZip、Deflate 和 Brotli 压缩</a></li>
+<li><a href="/docs/cn/fundamentals/responses#automatic-compression">自动压缩</a></li>
+<li><a href="/docs/cn/fundamentals/responses#implicit-response-types">隐式响应类型</a></li>
+<li><a href="/docs/cn/fundamentals/responses#note-on-enumerable-objects-and-arrays">关于可枚举对象和数组的说明</a></li>
+</ul>
+<h2 id="功能">功能</h2>
+<h3 id="日志记录"><a href="/docs/cn/features/logging">日志记录</a></h3>
+<ul>
+<li><a href="/docs/cn/features/logging#file-based-access-logs">基于文件的访问日志</a></li>
+<li><a href="/docs/cn/features/logging#stream-based-logging">基于流的日志记录</a></li>
+<li><a href="/docs/cn/features/logging#access-log-formatting">访问日志格式化</a></li>
+<li><a href="/docs/cn/features/logging#rotating-logs">日志轮转</a></li>
+<li><a href="/docs/cn/features/logging#error-logging">错误日志记录</a></li>
+<li><a href="/docs/cn/features/logging#other-logging-instances">其他日志实例</a></li>
+<li><a href="/docs/cn/features/logging#extending-logstream">扩展 LogStream</a></li>
+</ul>
+<h3 id="服务器发送事件"><a href="/docs/cn/features/server-sent-events">服务器发送事件</a></h3>
+<ul>
+<li><a href="/docs/cn/features/server-sent-events#creating-an-sse-connection">创建 SSE 连接</a></li>
+<li><a href="/docs/cn/features/server-sent-events#appending-headers">追加头部</a></li>
+<li><a href="/docs/cn/features/server-sent-events#wait-for-fail-connections">等待失败的连接</a></li>
+<li><a href="/docs/cn/features/server-sent-events#setup-connections-ping-policy">设置连接 ping 策略</a></li>
+<li><a href="/docs/cn/features/server-sent-events#querying-connections">查询连接</a></li>
+</ul>
+<h3 id="websocket"><a href="/docs/cn/features/websockets">WebSocket</a></h3>
+<ul>
+<li><a href="/docs/cn/features/websockets#accepting-messages">接受消息</a></li>
+<li><a href="/docs/cn/features/websockets#persistent-connection">持久连接</a></li>
+<li><a href="/docs/cn/features/websockets#ping-policy">Ping 策略</a></li>
+</ul>
+<h3 id="丢弃语法"><a href="/docs/cn/features/discard-syntax">丢弃语法</a></h3>
+<h3 id="依赖注入"><a href="/docs/cn/features/instancing">依赖注入</a></h3>
+<h3 id="流式内容"><a href="/docs/cn/features/content-streaming">流式内容</a></h3>
+<ul>
+<li><a href="/docs/cn/features/content-streaming#request-content-stream">请求内容流</a></li>
+<li><a href="/docs/cn/features/content-streaming#response-content-stream">响应内容流</a></li>
+</ul>
+<h3 id="在-sisk-中启用-cors跨域资源共享"><a href="/docs/cn/features/cors">在 Sisk 中启用 CORS（跨域资源共享）</a></h3>
+<ul>
+<li><a href="/docs/cn/features/cors#same-origin">相同来源</a></li>
+<li><a href="/docs/cn/features/cors#enabling-cors">启用 CORS</a></li>
+<li><a href="/docs/cn/features/cors#other-ways-to-apply-cors">应用 CORS 的其他方式</a></li>
+<li><a href="/docs/cn/features/cors#disabling-cors-on-specific-routes">在特定路由上禁用 CORS</a></li>
+<li><a href="/docs/cn/features/cors#replacing-values-in-the-response">在响应中替换值</a></li>
+<li><a href="/docs/cn/features/cors#preflight-requests">预检请求</a></li>
+<li><a href="/docs/cn/features/cors#disabling-cors-globally">全局禁用 CORS</a></li>
+</ul>
+<h3 id="文件服务器"><a href="/docs/cn/features/file-server">文件服务器</a></h3>
+<ul>
+<li><a href="/docs/cn/features/file-server#serving-static-files">提供静态文件</a></li>
+<li><a href="/docs/cn/features/file-server#httpfileserverhandler">HttpFileServerHandler</a></li>
+<li><a href="/docs/cn/features/file-server#directory-listing">目录列表</a></li>
+<li><a href="/docs/cn/features/file-server#file-converters">文件转换器</a></li>
+</ul>
+<h2 id="扩展">扩展</h2>
+<h3 id="模型上下文协议"><a href="/docs/cn/extensions/mcp">模型上下文协议</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/mcp#getting-started-with-mcp">MCP 入门</a></li>
+<li><a href="/docs/cn/extensions/mcp#creating-json-schemas-for-functions">为函数创建 JSON 架构</a></li>
+<li><a href="/docs/cn/extensions/mcp#handling-function-calls">处理函数调用</a></li>
+<li><a href="/docs/cn/extensions/mcp#function-results">函数结果</a></li>
+<li><a href="/docs/cn/extensions/mcp#continuing-work">继续工作</a></li>
+</ul>
+<h3 id="json-rpc-扩展"><a href="/docs/cn/extensions/json-rpc">JSON-RPC 扩展</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/json-rpc#transport-interface">传输接口</a></li>
+<li><a href="/docs/cn/extensions/json-rpc#json-rpc-methods">JSON-RPC 方法</a></li>
+<li><a href="/docs/cn/extensions/json-rpc#customizing-the-serializer">自定义序列化器</a></li>
+</ul>
+<h3 id="ssl-代理"><a href="/docs/cn/extensions/ssl-proxy">SSL 代理</a></h3>
+<h3 id="基础认证"><a href="/docs/cn/extensions/basic-auth">基础认证</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/basic-auth#installing">安装</a></li>
+<li><a href="/docs/cn/extensions/basic-auth#creating-your-auth-handler">创建你的认证处理器</a></li>
+<li><a href="/docs/cn/extensions/basic-auth#remarks">备注</a></li>
+</ul>
+<h3 id="服务提供者"><a href="/docs/cn/extensions/service-providers">服务提供者</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/service-providers#reading-configurations-from-a-json-file">从 JSON 文件读取配置</a></li>
+<li><a href="/docs/cn/extensions/service-providers#configuration-file-structure">配置文件结构</a></li>
+</ul>
+<h3 id="ini-配置提供者"><a href="/docs/cn/extensions/ini-configuration">INI 配置提供者</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/ini-configuration#installing">安装</a></li>
+<li><a href="/docs/cn/extensions/ini-configuration#ini-flavor-and-syntax">INI 风格和语法</a></li>
+<li><a href="/docs/cn/extensions/ini-configuration#configuration-parameters">配置参数</a></li>
+</ul>
+<h3 id="api-文档"><a href="/docs/cn/extensions/api-documentation">API 文档</a></h3>
+<ul>
+<li><a href="/docs/cn/extensions/api-documentation#type-handlers">类型处理器</a></li>
+<li><a href="/docs/cn/extensions/api-documentation#exporters">导出器</a></li>
+</ul>
+<h2 id="高级">高级</h2>
+<h3 id="手动高级设置"><a href="/docs/cn/advanced/manual-setup">手动（高级）设置</a></h3>
+<ul>
+<li><a href="/docs/cn/advanced/manual-setup#routers">路由器</a></li>
+<li><a href="/docs/cn/advanced/manual-setup#listening-hosts-and-ports">监听主机和端口</a></li>
+<li><a href="/docs/cn/advanced/manual-setup#server-configuration">服务器配置</a></li>
+</ul>
+<h3 id="请求生命周期"><a href="/docs/cn/advanced/request-lifecycle">请求生命周期</a></h3>
+<h3 id="转发解析器"><a href="/docs/cn/advanced/forwarding-resolvers">转发解析器</a></h3>
+<ul>
+<li><a href="/docs/cn/advanced/forwarding-resolvers#the-forwardingresolver-class">ForwardingResolver 类</a></li>
+</ul>
+<h3 id="http-服务器处理器"><a href="/docs/cn/advanced/http-server-handlers">HTTP 服务器处理器</a></h3>
+<h3 id="每个服务器的多个监听主机"><a href="/docs/cn/advanced/multi-host-setup">每个服务器的多个监听主机</a></h3>
+<h3 id="http-服务器引擎"><a href="/docs/cn/advanced/server-engines">HTTP 服务器引擎</a></h3>
+<ul>
+<li><a href="/docs/cn/advanced/server-engines#implementing-an-http-engine-for-sisk">为 Sisk 实现 HTTP 引擎</a></li>
+<li><a href="/docs/cn/advanced/server-engines#choosing-an-event-loop">选择事件循环</a></li>
+<li><a href="/docs/cn/advanced/server-engines#testing">测试</a></li>
+</ul>
+
+</article>
+
+                <div class="contribution d-print-none">
+                    <a href="https://github.com/sisk-http/docs/blob/master/docs/cn/summary.g.md/#L1" class="edit-link">Edit this page</a>
+                </div>
+
+                <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+            </div>
+
+            <div class="affix">
+                <nav id="affix"></nav>
+            </div>
+        </main>
+
+        <div class="container-xxl search-results" id="search-results"></div>
+
+        <footer class="border-top text-secondary">
+            <div class="container-xxl">
+                <div class="flex-fill">
+                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+                </div>
+            </div>
+            <script>
+                if (window.location.pathname.startsWith('/docs/')) {
+                    document.getElementById('language-wrapper').style.display = 'block';
+                }
+                
+                function splitText(text, words) {
+                    if (!Array.isArray(words)) return [];
+                    const escapedWords = words.map(word =>
+                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
+                        
+                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
+                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
+                    const splitResult = text.split(pattern);
+                    const cleanedResult = splitResult.filter(segment => segment !== '');
+                    return cleanedResult;
+                }
+                
+                function runPostHljsFunctions() {
+                    if (!document.querySelector("pre>code")) {
+                        return;
+                    }
+                    if (!document.querySelector(".hljs")) {
+                        setTimeout(runPostHljsFunctions, 100);
+                        return;
+                    }
+                    
+                    function highlightMissingCodeTokens(pre) {
+                        const tokenClasses = [
+                            "HttpResponse", "HttpRequest", "File", "Task",
+                            "Router", "Route", "StringContent", "StreamContent",
+                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
+                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
+                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
+                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
+                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
+                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
+                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
+                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
+                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
+                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
+                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
+                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
+                            "CadenteHttpServerEngine", "CertificateHelper"
+                        ];
+                        const tokenValues = [
+                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
+                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
+                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
+                        ];
+                        const tokenInterfaces = [
+                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
+                        ];
+                        
+                        function runStyles(node) {
+                            if (node.nodeType === 3) {
+                                applyStyles(node);
+                                
+                            } else if (node.nodeType === 1) {
+                                
+                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
+                                
+                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
+                                    for(const child of node.childNodes) {
+                                        runStyles(child);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        function applyStyles(textNode) {
+                            const text = textNode.textContent;
+                            const fragment = [];
+                            
+                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
+                                if (tokenClasses.includes(token)) {
+                                    fragment.push(el("span.hljs-meta", token));
+                                    
+                                } else if (tokenValues.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-value", token));
+                                    
+                                } else if (tokenInterfaces.includes(token)) {
+                                    fragment.push(el("span.hljs-meta-interface", token));
+                                    
+                                } else {
+                                    fragment.push(token);
+                                }
+                            }
+                            
+                            textNode.replaceWith(el.fragment(...fragment));
+                        }
+                        
+                        const code = pre.querySelector("code");
+                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
+                            runStyles(code);
+                        }
+                    }
+                    
+                    function addLineNumbers(pre) {
+                        const code = pre.querySelector("code");
+                        if (!code) return;
+                        
+                        var lines = (code.textContent.match(/\n/g) || []).length;
+                        
+                        if (lines <= 1) {
+                            return;
+                        }
+                        
+                        const lineElements = [];
+                        for (let i = 1; i <= lines; i++) {
+                            lineElements.push(el("span.hljs-line-number", i + "\n"));
+                        }
+                        
+                        code.prepend(el("div.line-numbers", ...lineElements));
+                        code.classList.add("has-line-numbers");
+                    }
+                                        
+                    document.querySelectorAll("pre").forEach(pre => {
+                        highlightMissingCodeTokens(pre);
+                        addLineNumbers(pre);
+                    });
+                }
+                
+                runPostHljsFunctions();
+                
+                (function() {
+                    const copyBtn = document.getElementById('copy-article-btn');
+                    const copyDropdown = document.getElementById('copy-dropdown');
+                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
+                    
+                    if (!copyBtn) return;
+                    
+                    copyBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyDropdown.classList.toggle('show');
+                    });
+                    
+                    document.addEventListener('click', function(e) {
+                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
+                            copyDropdown.classList.remove('show');
+                        }
+                    });
+                    
+                    function getArticleContent() {
+                        const article = document.querySelector('article');
+                        if (!article) return null;
+                        
+                        const clone = article.cloneNode(true);
+                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
+                        
+                        return clone;
+                    }
+                    
+                    copyTextBtn.addEventListener('click', function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        navigator.clipboard.writeText(article.innerText.trim());
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    copyMarkdownBtn.addEventListener('click', async function() {
+                        const article = getArticleContent();
+                        if (!article) return;
+                        
+                        if (typeof TurndownService === 'undefined') {
+                            const script = document.createElement('script');
+                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
+                            script.onload = function() {
+                                convertAndCopy(article);
+                            };
+                            document.head.appendChild(script);
+                        } else {
+                            convertAndCopy(article);
+                        }
+                        
+                        copyDropdown.classList.remove('show');
+                    });
+                    
+                    function convertAndCopy(article) {
+                        const turndown = new TurndownService({
+                            headingStyle: 'atx',
+                            codeBlockStyle: 'fenced'
+                        });
+                        
+                        turndown.addRule('codeBlocks', {
+                            filter: ['pre'],
+                            replacement: function(content, node) {
+                                const code = node.querySelector('code');
+                                const langClass = code?.className.match(/lang-(\w+)/);
+                                const lang = langClass ? langClass[1] : '';
+                                const text = code?.textContent || content;
+                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
+                            }
+                        });
+                        
+                        const markdown = turndown.turndown(article.innerHTML);
+                        navigator.clipboard.writeText(markdown);
+                    }
+                })();
+            </script>
+        </footer>
+    </body>
+</html>
