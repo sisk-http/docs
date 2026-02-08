@@ -157,9 +157,9 @@
                                 <i class="bi bi-copy"></i>
                             </a>
                             <div class="copy-dropdown" id="copy-dropdown">
-                                <button type="button" id="copy-text-btn">
-                                    <i class="bi bi-file-text"></i>
-                                    Copy as text
+                                <button type="button" id="copy-link-btn">
+                                    <i class="bi bi-link-45deg"></i>
+                                    Copy link
                                 </button>
                                 <button type="button" id="copy-markdown-btn">
                                     <i class="bi bi-markdown"></i>
@@ -495,7 +495,7 @@ Method WithStatus
                 (function() {
                     const copyBtn = document.getElementById('copy-article-btn');
                     const copyDropdown = document.getElementById('copy-dropdown');
-                    const copyTextBtn = document.getElementById('copy-text-btn');
+                    const copyLinkBtn = document.getElementById('copy-link-btn');
                     const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
                     
                     if (!copyBtn) return;
@@ -521,11 +521,8 @@ Method WithStatus
                         return clone;
                     }
                     
-                    copyTextBtn.addEventListener('click', function() {
-                        const article = getArticleContent();
-                        if (!article) return;
-                        
-                        navigator.clipboard.writeText(article.innerText.trim());
+                    copyLinkBtn.addEventListener('click', function() {
+                        navigator.clipboard.writeText(window.location.href);
                         copyDropdown.classList.remove('show');
                     });
                     
