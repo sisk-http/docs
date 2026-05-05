@@ -451,6 +451,18 @@ mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
     };
 };
 </code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<p>Exceptions can be thrown within a request lifecycle, which spans from the pre-execution request handler, through the router action, to the post-execution request handlers and value handlers. These exceptions are managed by the mechanism:</p>
+<ul>
+<li>If <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> is <code>true</code>, exceptions will be thrown normally and will not be caught by Sisk, and the HTTP server may be interrupted if the exception is not caught.</li>
+<li>If <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> is <code>false</code>, exceptions will be caught and handled by Sisk. After that, if <code>Router.CallbackErrorHandler</code> is defined, it will be called with the caught exception and the request context, and it <strong>will not</strong> be forwarded to the standard error output. If <code>Router.CallbackErrorHandler</code> is not defined, the exception will be forwarded to the standard error output, and the client will receive an HTTP 500 error response. If the standard error output is not defined, the error will be silently ignored.</li>
+</ul>
+<p>Note: within <code>Router.CallbackErrorHandler</code>, you can set the log mode for errors, access log, both, or none, and alter the default log writing behavior:</p>
+<pre><code class="lang-csharp">router.CallbackErrorHandler = (ex, ctx) =&gt;
+{
+    ctx.LogMode = LogOutput.Both; // override log mode to log the error in both access and error logs
+}
+</code></pre>
 <h2 id="internal-error-handler">Internal error handler</h2>
 <p>Route callbacks can throw errors during server execution. If not handled correctly, the overall functioning of the HTTP server can be terminated. The router has a callback for when a route callback fails and prevents service interruption.</p>
 <p>This method is only reacheable when <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> is set to false.</p>

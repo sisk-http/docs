@@ -248,6 +248,44 @@ r.RegisterValueHandler<object>(fallback =>
 });
 ```
 
+## Deferred Actions
+
+When a request reaches the router, it first passes through the [request handlers](/docs/fundamentals/request-handlers), is processed in the router action, and then by the post-execution request handlers. The result of the router action is what is passed to the value handlers, and the result of the value handler is what is sent to the client as a response.
+
+This lifecycle occurs within an asynchronous context. This asynchronous context exposes variables that the user can add to the [HttpContext Bag](/api/Sisk.Core.Http.HttpContext) to share data between handlers and the router action. The value returned by the router action is added to this asynchronous context and can be accessed by the value handlers.
+
+Deferred actions are actions that will always execute at the end of the cycle, after delivering the response to the client, but still within the same asynchronous context. These actions can be used to execute long-running tasks that do not need to be completed to send a response to the client, such as saving logs, updating the database, sending emails, etc.
+
+Exceptions are still caught in deferred actions and will be handled in the same way as an exception thrown anywhere in the request lifecycle. The difference is that the client will already have a response, so the exception is handled by the default error handling.
+
+Defer the execution of an action using the [HttpContext.EnqueueDeferredAction](/api/Sisk.Core.Http.HttpContext.EnqueueDeferredAction) method. The method receives an asynchronous function that represents the action to be executed and an optional timeout to limit the execution time of the action. If the action is not completed within the time limit, it will be canceled.
+
+```csharp
+[RoutePost("/send-mail")]
+public HttpResponse SendMail(HttpRequest request)
+{
+    string to = request.Query["to"].GetString();
+    string subject = request.Query["subject"].GetString();
+    string body = request.Query["body"].GetString();
+    if (string.IsNullOrWhiteSpace(to) || string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(body))
+    {
+        throw new ApiException("Missing required parameters.");
+    }
+
+    // schedules a long-running action that will be executed after sending the response to the client, but still within the same asynchronous context of the request
+    request.Context.EnqueueDeferredAction(async (ct) =>
+    {
+        await EmailService.SendEmailAsync(to, subject, body);
+    }, timeout: TimeSpan.FromSeconds(30));
+
+    return new HttpResponse()
+    {
+        Status = 200,
+        Content = new StringContent("Sending the email...")
+    };
+}
+```
+
 ## Note on enumerable objects and arrays
 
 Implicit response objects that implement [IEnumerable](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0) are read into memory through the `ToArray()` method before being converted through a defined value handler. For this to occur, the `IEnumerable` object is converted to an array of objects, and the response converter will always receive an `Object[]` instead of the original type.

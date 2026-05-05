@@ -63,6 +63,7 @@
 - [Ignore case route matching](/docs/fundamentals/routing#ignore-case-route-matching)
 - [Not Found (404) callback handler](/docs/fundamentals/routing#not-found-404-callback-handler)
 - [Method not allowed (405) callback handler](/docs/fundamentals/routing#method-not-allowed-405-callback-handler)
+- [Error Handling](/docs/fundamentals/routing#error-handling)
 - [Internal error handler](/docs/fundamentals/routing#internal-error-handler)
 
 ### [Request handling](/docs/fundamentals/request-handlers)
@@ -97,6 +98,7 @@
 - [GZip, Deflate and Brotli compression](/docs/fundamentals/responses#gzip-deflate-and-brotli-compression)
 - [Automatic compression](/docs/fundamentals/responses#automatic-compression)
 - [Implicit response types](/docs/fundamentals/responses#implicit-response-types)
+- [Deferred Actions](/docs/fundamentals/responses#deferred-actions)
 - [Note on enumerable objects and arrays](/docs/fundamentals/responses#note-on-enumerable-objects-and-arrays)
 
 ## Features

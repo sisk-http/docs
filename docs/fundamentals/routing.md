@@ -360,6 +360,22 @@ mainRouter.MethodNotAllowedErrorHandler = (context) =>
 };
 ```
 
+## Error Handling
+
+Exceptions can be thrown within a request lifecycle, which spans from the pre-execution request handler, through the router action, to the post-execution request handlers and value handlers. These exceptions are managed by the mechanism:
+
+- If [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) is `true`, exceptions will be thrown normally and will not be caught by Sisk, and the HTTP server may be interrupted if the exception is not caught.
+- If [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) is `false`, exceptions will be caught and handled by Sisk. After that, if `Router.CallbackErrorHandler` is defined, it will be called with the caught exception and the request context, and it **will not** be forwarded to the standard error output. If `Router.CallbackErrorHandler` is not defined, the exception will be forwarded to the standard error output, and the client will receive an HTTP 500 error response. If the standard error output is not defined, the error will be silently ignored.
+
+Note: within `Router.CallbackErrorHandler`, you can set the log mode for errors, access log, both, or none, and alter the default log writing behavior:
+
+```csharp
+router.CallbackErrorHandler = (ex, ctx) =>
+{
+    ctx.LogMode = LogOutput.Both; // override log mode to log the error in both access and error logs
+}
+```
+
 ## Internal error handler
 
 Route callbacks can throw errors during server execution. If not handled correctly, the overall functioning of the HTTP server can be terminated. The router has a callback for when a route callback fails and prevents service interruption.
