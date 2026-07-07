@@ -78,7 +78,9 @@
 
 - [Getting the request method](/docs/fundamentals/requests#getting-the-request-method)
 - [Getting request url components](/docs/fundamentals/requests#getting-request-url-components)
+- [Request metadata and cancellation](/docs/fundamentals/requests#request-metadata-and-cancellation)
 - [Getting the request body](/docs/fundamentals/requests#getting-the-request-body)
+- [Reading JSON requests](/docs/fundamentals/requests#reading-json-requests)
 - [Getting the request context](/docs/fundamentals/requests#getting-the-request-context)
 - [Getting form data](/docs/fundamentals/requests#getting-form-data)
 - [Getting multipart form data](/docs/fundamentals/requests#getting-multipart-form-data)
@@ -126,6 +128,7 @@
 - [Accepting messages](/docs/features/websockets#accepting-messages)
 - [Persistent connection](/docs/features/websockets#persistent-connection)
 - [Ping Policy](/docs/features/websockets#ping-policy)
+- [Managed connections](/docs/features/websockets#managed-connections)
 
 ### [Discard syntax](/docs/features/discard-syntax)
 

@@ -173,11 +173,11 @@
                 <article data-uid="">
 <h1 id="web-ソケット">Web ソケット</h1>
 
-<p>Sisk では Web ソケットもサポートしており、クライアントへのメッセージの受信と送信が可能です。</p>
-<p>この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github に報告してください。</p>
+<p>Sisk は Web ソケットもサポートしており、クライアントとのメッセージの受信・送信が可能です。</p>
+<p>この機能はほとんどのブラウザで問題なく動作しますが、Sisk ではまだ実験的な段階です。バグを見つけた場合は、GitHub で報告してください。</p>
 <h2 id="メッセージの受信">メッセージの受信</h2>
-<p>WebSocket メッセージは順番に受信され、<code>ReceiveMessageAsync</code> によって処理されるまでキューに保管されます。このメソッドは、タイムアウトが達成されたとき、操作がキャンセルされたとき、またはクライアントが切断されたときにはメッセージを返しません。</p>
-<p>同時に読み取りと書き込みの操作が 1 つしか行えないため、<code>ReceiveMessageAsync</code> でメッセージを待っている間に、接続されたクライアントに書き込むことはできません。</p>
+<p>WebSocket のメッセージは順番通りに受信され、<code>ReceiveMessageAsync</code> によって処理されるまでキューに保持されます。このメソッドは、タイムアウトに達したとき、操作がキャンセルされたとき、またはクライアントが切断されたときにメッセージを返しません。</p>
+<p>同時に読み取りと書き込みの操作は一つしか行えないため、<code>ReceiveMessageAsync</code> でメッセージを待機している間は、接続されたクライアントへ書き込むことはできません。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -185,23 +185,23 @@
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine(&quot;メッセージを受信しました: &quot; + msgText);
+        Console.WriteLine(&quot;Received message: &quot; + msgText);
 
-        await ws.SendAsync(&quot;こんにちは!&quot;);
+        await ws.SendAsync(&quot;Hello!&quot;);
     }
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="持続的な接続">持続的な接続</h2>
-<p>以下の例には、メッセージを受信し、処理し、ソケットの使用を終了する方法が含まれています。</p>
+<h2 id="永続的接続">永続的接続</h2>
+<p>以下の例は、メッセージを受信し処理した後にソケットを終了する、永続的な WebSocket 接続の使い方を示しています。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;あなたの名前は何ですか?&quot;);
+    await ws.SendAsync(&quot;What is your name?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -211,12 +211,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;名前を入力してください!&quot;);
+        await ws.SendAsync(&quot;Please, insert your name!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;あなたの年齢は?&quot;);
+    await ws.SendAsync(&quot;And your age?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -224,21 +224,55 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;有効な数字を入力してください&quot;);
+        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;あなたは {name} さんで、{age} 歳です.&quot;);
+    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
 <h2 id="ping-ポリシー">Ping ポリシー</h2>
-<p>サーバー側イベントの Ping ポリシーと同様に、TCP 接続を維持するために Ping ポリシーを設定できます。</p>
+<p>Server Side Events の Ping ポリシーと同様に、非アクティブ時に TCP 接続を維持するための Ping ポリシーを設定できます。</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
-    dataMessage: &quot;ping-メッセージ&quot;,
+    dataMessage: &quot;ping-message&quot;,
     interval: TimeSpan.FromSeconds(10));
 </code></pre>
+<h2 id="管理された接続">管理された接続</h2>
+<p>WebSocket を受け入れる際に識別子を指定できます。識別子付きソケットは <a href="/api/Sisk.Core.Http.HttpServer.WebSockets">HttpServer.WebSockets</a> に登録され、受け入れたルート以外からでもサーバーがアクティブな接続を検索できるようになります。</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect/&lt;userId&gt;&quot;, async (HttpRequest req) =&gt;
+{
+    string userId = req.RouteParameters[&quot;userId&quot;].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $&quot;user:{userId}&quot;);
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: &quot;ping&quot;,
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync(&quot;Received: &quot; + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+</code></pre>
+<p>アプリケーションの別の部分から、識別子または述語でコレクションを検索します。</p>
+<pre><code class="lang-cs">HttpWebSocket? socket = server.WebSockets.GetByIdentifier(&quot;user:42&quot;);
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync(&quot;Your report is ready.&quot;);
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id =&gt; id.StartsWith(&quot;user:&quot;)))
+{
+    await activeSocket.SendAsync(&quot;Broadcast message&quot;);
+}
+</code></pre>
+<p>各 <code>HttpWebSocket</code> は <code>Identifier</code>、<code>State</code>、<code>IsClosed</code>、<code>PingPolicy</code> を公開します。コレクションは <code>All()</code>、<code>Find(...)</code>、<code>GetByIdentifier(...)</code>、<code>ActiveConnections</code>、<code>DropAll()</code> も提供し、サーバー管理型接続戦略をサポートします。</p>
 
 </article>
 

@@ -1,14 +1,14 @@
 # Web Sockets
 
-Sisk suporta web sockets também, como receber e enviar mensagens para seus clientes.
+Sisk também oferece suporte a web sockets, permitindo receber e enviar mensagens ao cliente.
 
-Esta funcionalidade funciona bem na maioria dos navegadores, mas no Sisk ainda é experimental. Por favor, se você encontrar algum bug, relate-o no github.
+Esse recurso funciona bem na maioria dos navegadores, mas no Sisk ainda está experimental. Por favor, se encontrar algum bug, reporte no GitHub.
 
 ## Aceitando mensagens
 
-Mensagens WebSocket são recebidas em ordem, enfileiradas até serem processadas por `ReceiveMessageAsync`. Este método não retorna nenhuma mensagem quando o tempo limite é alcançado, quando a operação é cancelada ou quando o cliente é desconectado.
+As mensagens WebSocket são recebidas em ordem, enfileiradas até serem processadas por `ReceiveMessageAsync`. Esse método não retorna mensagem quando o tempo limite é atingido, quando a operação é cancelada ou quando o cliente está desconectado.
 
-Apenas uma operação de leitura e escrita pode ocorrer simultaneamente, portanto, enquanto você está esperando por uma mensagem com `ReceiveMessageAsync`, não é possível escrever no cliente conectado.
+Só pode haver uma operação de leitura e escrita simultaneamente; portanto, enquanto você aguarda uma mensagem com `ReceiveMessageAsync`, não é possível escrever para o cliente conectado.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -29,7 +29,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
 
 ## Conexão persistente
 
-O exemplo abaixo contém uma forma de você usar uma conexão websocket persistente, onde você recebe as mensagens, lida com elas e finaliza usando o socket.
+O exemplo abaixo mostra como usar uma conexão websocket persistente, onde você recebe as mensagens, as trata e finaliza o uso do socket.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -65,18 +65,60 @@ askAge:
         goto askAge;
     }
 
-    await ws.SendAsync($"Você é {name}, e você tem {age} anos.");
+    await ws.SendAsync($"Você é {name}, e tem {age} anos.");
 
     return await ws.CloseAsync();
 });
 ```
 
-## Política de Ping
+## Ping Policy
 
-Semelhante à política de ping em Server Side Events, você também pode configurar uma política de ping para manter a conexão TCP aberta se houver inatividade nela.
+Semelhante à política de ping em Server Side Events, você também pode configurar uma política de ping para manter a conexão TCP aberta caso haja inatividade.
 
 ```cs
 ws.PingPolicy.Start(
-    dataMessage: "ping-message",
+    dataMessage: "ping-mensagem",
     interval: TimeSpan.FromSeconds(10));
 ```
+
+## Conexões gerenciadas
+
+Ao aceitar um WebSocket, você pode fornecer um identificador. Sockets identificados são registrados em [HttpServer.WebSockets](/api/Sisk.Core.Http.HttpServer.WebSockets), permitindo que o servidor encontre conexões ativas fora da rota que as aceitou.
+
+```cs
+router.MapGet("/connect/<userId>", async (HttpRequest req) =>
+{
+    string userId = req.RouteParameters["userId"].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $"user:{userId}");
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: "ping",
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync("Recebido: " + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+De outra parte da aplicação, consulte a coleção por identificador ou predicado:
+
+```cs
+HttpWebSocket? socket = server.WebSockets.GetByIdentifier("user:42");
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync("Seu relatório está pronto.");
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id => id.StartsWith("user:")))
+{
+    await activeSocket.SendAsync("Mensagem de broadcast");
+}
+```
+
+Cada `HttpWebSocket` expõe `Identifier`, `State`, `IsClosed` e `PingPolicy`. A coleção também expõe `All()`, `Find(...)`, `GetByIdentifier(...)`, `ActiveConnections` e `DropAll()` para estratégias de conexão gerenciadas pelo servidor.

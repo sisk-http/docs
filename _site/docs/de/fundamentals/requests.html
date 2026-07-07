@@ -173,24 +173,24 @@
                 <article data-uid="">
 <h1 id="anfragen">Anfragen</h1>
 
-<p>Anfragen sind Strukturen, die eine HTTP-Anfrage-Nachricht darstellen. Das <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>-Objekt enthält nützliche Funktionen für die Verarbeitung von HTTP-Nachrichten in Ihrer gesamten Anwendung.</p>
-<p>Eine HTTP-Anfrage besteht aus der Methode, dem Pfad, der Version, den Headern und dem Body.</p>
-<p>In diesem Dokument werden wir Ihnen zeigen, wie Sie jedes dieser Elemente abrufen.</p>
+<p>Anfragen sind Strukturen, die eine HTTP-Anforderungsnachricht darstellen. Das <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a>-Objekt enthält nützliche Funktionen zum Umgang mit HTTP-Nachrichten in Ihrer Anwendung.</p>
+<p>Eine HTTP-Anfrage besteht aus Methode, Pfad, Version, Headern und Body.</p>
+<p>In diesem Dokument zeigen wir Ihnen, wie Sie jedes dieser Elemente erhalten.</p>
 <h2 id="abrufen-der-anfragemethode">Abrufen der Anfragemethode</h2>
-<p>Um die Methode der erhaltenen Anfrage zu erhalten, können Sie die Methode-Eigenschaft verwenden:</p>
+<p>Um die Methode der empfangenen Anfrage zu erhalten, können Sie die Property <strong>Method</strong> verwenden:</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     HttpMethod requestMethod = request.Method;
     ...
 }
 </code></pre>
-<p>Diese Eigenschaft gibt die Anfragemethode als <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>-Objekt zurück.</p>
+<p>Diese Eigenschaft gibt die Methode der Anfrage zurück, dargestellt durch ein <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a>-Objekt.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Im Gegensatz zu Routenmethoden unterstützt diese Eigenschaft nicht das <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>-Element. Stattdessen gibt sie die tatsächliche Anfragemethode zurück.</p>
+<p>Im Gegensatz zu Routemethoden dient diese Eigenschaft nicht dem <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a>-Element. Stattdessen gibt sie die tatsächliche Anfragemethode zurück.</p>
 </div>
-<h2 id="abrufen-von-url-komponenten">Abrufen von URL-Komponenten</h2>
-<p>Sie können verschiedene Komponenten aus einer URL über bestimmte Eigenschaften einer Anfrage abrufen. Betrachten wir beispielsweise die folgende URL:</p>
+<h2 id="abrufen-von-url-komponenten-der-anfrage">Abrufen von URL-Komponenten der Anfrage</h2>
+<p>Sie können verschiedene Komponenten einer URL über bestimmte Eigenschaften einer Anfrage erhalten. Für dieses Beispiel betrachten wir die URL:</p>
 <pre><code>http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
@@ -204,38 +204,38 @@
 <tbody>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
-<td>Ruft den Anfragepfad ab.</td>
+<td>Gibt den Anforderungspfad zurück.</td>
 <td><code>/user/login</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
-<td>Ruft den Anfragepfad und die Abfragezeichenfolge ab.</td>
+<td>Gibt den Anforderungspfad und die Abfragezeichenfolge zurück.</td>
 <td><code>/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
-<td>Ruft die gesamte URL-Anfragezeichenfolge ab.</td>
+<td>Gibt die gesamte URL-Anforderungszeichenfolge zurück.</td>
 <td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
-<td>Ruft den Anfragehost ab.</td>
+<td>Gibt den Host der Anfrage zurück.</td>
 <td><code>localhost</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
-<td>Ruft den Anfragehost und den Port ab.</td>
+<td>Gibt den Host und Port der Anfrage zurück.</td>
 <td><code>localhost:5000</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
-<td>Ruft die Anfrageabfrage ab.</td>
+<td>Gibt die Abfrage der Anfrage zurück.</td>
 <td><code>?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
-<td>Ruft die Anfrageabfrage als benannte Wertesammlung ab.</td>
-<td><code>{StringValueCollection-Objekt}</code></td>
+<td>Gibt die Abfrage der Anfrage in einer benannten Wertsammlung zurück.</td>
+<td><code>{StringValueCollection object}</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
@@ -244,41 +244,129 @@
 </tr>
 </tbody>
 </table>
-<p>Sie können auch die <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a>-Eigenschaft verwenden, die alle oben genannten Elemente in einem Objekt enthält.</p>
-<h2 id="abrufen-des-anfragebodies">Abrufen des Anfragebodies</h2>
-<p>Einige Anfragen enthalten einen Body, wie z. B. Formulare, Dateien oder API-Transaktionen. Sie können den Body einer Anfrage aus der folgenden Eigenschaft abrufen:</p>
-<pre><code class="lang-cs">// Ruft den Anfragebody als Zeichenfolge ab, wobei die Anfragecodierung als Codierer verwendet wird
+<p>Sie können auch die Property <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> verwenden, die alles oben Genannte in einem Objekt enthält.</p>
+<h2 id="anforderungs-metadaten-und-abbruch">Anforderungs-Metadaten und Abbruch</h2>
+<p>Sisk fügt jeder Anfrage außerdem betriebliche Metadaten hinzu. Diese Eigenschaften sind nützlich für Protokolle, Tracing, Lokalisierung, Diagnose und langlaufende Vorgänge:</p>
+<table>
+<thead>
+<tr>
+<th>Eigenschaft oder Methode</th>
+<th>Verwendung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestId">RequestId</a></td>
+<td>Ein eindeutiger Bezeichner für die Anfrage. Aktivieren Sie <a href="/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader">IncludeRequestIdHeader</a>, um ihn als <code>X-Request-Id</code> zurückzugeben.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestedAt">RequestedAt</a></td>
+<td>Der Zeitpunkt, zu dem Sisk das Anforderungsobjekt erstellt hat.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RemoteAddress">RemoteAddress</a></td>
+<td>Die vom Verbindungsaufbau ermittelte Clientadresse oder aus Ihrem <a href="/docs/de/advanced/forwarding-resolvers">ForwardingResolver</a>.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Culture">Culture</a></td>
+<td>Die am besten aus <code>Accept-Language</code> ermittelte Kultur, mit Rückfall zur aktuellen Kultur.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">DisconnectToken</a></td>
+<td>Ein Abbruch-Token, das ausgelöst wird, wenn der Client die Verbindung trennt, sofern vom konfigurierten HTTP-Engine unterstützt.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Bag">Bag</a></td>
+<td>Ein typisierter Schlüssel/Wert‑Speicher, der über Anforderungs‑Handler und die Routinenaktion hinweg geteilt wird.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest">GetRawHttpRequest</a></td>
+<td>Eine Textdarstellung der Anfrage für Diagnosezwecke.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="abrufen-des-anfragetextes">Abrufen des Anfragetextes</h2>
+<p>Einige Anfragen enthalten einen Body, z. B. Formulare, Dateien oder API‑Transaktionen. Sie können den Body einer Anfrage über die Property erhalten:</p>
+<pre><code class="lang-cs">// Holt den Anforderungstext als Zeichenkette, wobei die Anforderungs‑Codierung als Encoder verwendet wird
 string body = request.Body;
 
-// Oder ruft ihn als Byte-Array ab
+// oder holt ihn als Byte‑Array
 byte[] bodyBytes = request.RawBody;
 
-// Oder Sie können ihn streamen.
+// alternativ kann er gestreamt werden.
 Stream requestStream = request.GetRequestStream();
+
+// oder den Body asynchron lesen
+Memory&lt;byte&gt; bodyMemory = await request.GetBodyContentsAsync();
 </code></pre>
-<p>Es ist auch möglich, zu bestimmen, ob es einen Body in der Anfrage gibt und ob er geladen ist, mit den Eigenschaften <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, die bestimmt, ob die Anfrage Inhalte enthält, und <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>, die angibt, dass der HTTP-Server den Inhalt vollständig vom Remote-Punkt empfangen hat.</p>
-<p>Es ist nicht möglich, den Anfrageinhalt über <code>GetRequestStream</code> mehr als einmal zu lesen. Wenn Sie mit dieser Methode lesen, sind die Werte in <code>RawBody</code> und <code>Body</code> nicht mehr verfügbar. Es ist nicht notwendig, den Anfragestream im Kontext der Anfrage zu entsorgen, da er am Ende der HTTP-Sitzung, in der er erstellt wird, entsorgt wird. Sie können auch die <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a>-Eigenschaft verwenden, um die beste Codierung zu erhalten, um die Anfrage manuell zu decodieren.</p>
-<p>Der Server hat Einschränkungen für das Lesen des Anfrageinhalts, die sowohl für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> als auch für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a> gelten. Diese Eigenschaften kopieren den gesamten Eingabestream in einen lokalen Puffer der gleichen Größe wie <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
-<p>Eine Antwort mit dem Status 413 Inhalt zu groß wird an den Client zurückgegeben, wenn der gesendete Inhalt größer ist als <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, wie in der Benutzerkonfiguration definiert. Zusätzlich wird, wenn es keine konfigurierte Einschränkung gibt oder wenn sie zu groß ist, der Server eine <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> auslösen, wenn der vom Client gesendete Inhalt <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) überschreitet und wenn der Inhalt über eine der oben genannten Eigenschaften abgerufen wird. Sie können den Inhalt immer noch über das Streamen abrufen.</p>
+<p>Es ist außerdem möglich zu bestimmen, ob ein Body vorhanden ist und ob er geladen wurde, über die Properties <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> (bestimmt, ob die Anfrage Inhalte hat) und <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> (zeigt an, dass der HTTP‑Server den Inhalt vollständig vom Remote‑Endpunkt erhalten hat).</p>
+<p>Es ist nicht möglich, den Anforderungsinhalt über <code>GetRequestStream</code> mehr als einmal zu lesen. Wenn Sie diese Methode verwenden, stehen die Werte in <code>RawBody</code> und <code>Body</code> ebenfalls nicht mehr zur Verfügung. Es ist nicht nötig, den Request‑Stream im Kontext der Anfrage zu disposen, da er am Ende der HTTP‑Sitzung, in der er erstellt wurde, automatisch freigegeben wird. Außerdem können Sie die Property <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> nutzen, um die beste Codierung zum manuellen Dekodieren der Anfrage zu erhalten.</p>
+<p>Der Server hat Beschränkungen beim Lesen des Anforderungsinhalts, die sowohl für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> als auch für <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a> gelten. Diese Eigenschaften kopieren den gesamten Eingabestream in einen lokalen Puffer der Größe von <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
+<p>Eine Antwort mit dem Status <strong>413 Content Too Large</strong> wird an den Client gesendet, wenn der gesendete Inhalt größer ist als <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a>, das in der Benutzerkonfiguration definiert ist. Zusätzlich, wenn kein Limit konfiguriert ist oder es zu groß ist, wirft der Server eine <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a>, sobald der vom Client gesendete Inhalt <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) überschreitet und wenn versucht wird, über eine der oben genannten Properties darauf zuzugreifen. Sie können den Inhalt weiterhin über Streaming verarbeiten.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Obwohl Sisk dies zulässt, ist es immer eine gute Idee, HTTP-Semantik zu befolgen, um Ihre Anwendung zu erstellen und nicht Inhalte in Methoden abzurufen oder zu liefern, die dies nicht zulassen. Lesen Sie über <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP-Semantik&quot;</a>.</p>
+<p>Obwohl Sisk dies erlaubt, ist es stets ratsam, den HTTP‑Semantiken zu folgen, um Ihre Anwendung zu erstellen und Inhalte nicht in Methoden zu erhalten oder zu liefern, die dies nicht zulassen. Lesen Sie mehr über <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 „HTTP Semantics“</a>.</p>
 </div>
-<h2 id="abrufen-des-anfragekontexts">Abrufen des Anfragekontexts</h2>
-<p>Der HTTP-Kontext ist ein exklusives Sisk-Objekt, das Informationen über den HTTP-Server, die Route, den Router und den Anfragehandler speichert. Sie können es verwenden, um sich in einer Umgebung zu organisieren, in der diese Objekte schwer zu organisieren sind.</p>
-<p>Sie können den aktuellen <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> mithilfe der statischen Methode <code>HttpContext.GetCurrentContext()</code> abrufen. Diese Methode gibt den Kontext der aktuellen Anfrage zurück, die im aktuellen Thread verarbeitet wird.</p>
+<h2 id="lesen-von-json-anfragen">Lesen von JSON-Anfragen</h2>
+<p>Für JSON‑APIs sollten Sie die integrierten JSON‑Hilfsfunktionen verwenden, anstatt <code>Body</code> zu lesen und manuell zu deserialisieren. Sie nutzen <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json">System.Text.Json</a> und greifen standardmäßig auf <a href="/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions">HttpRequest.DefaultJsonSerializerOptions</a> zurück.</p>
+<pre><code class="lang-cs">public record CreateUserRequest(string Name, string Email);
+
+router.MapPost(&quot;/users&quot;, (HttpRequest request) =&gt;
+{
+    CreateUserRequest? body = request.GetJsonContent&lt;CreateUserRequest&gt;();
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+</code></pre>
+<p>Verwenden Sie die asynchrone Überladung, wenn Sie bereits in einer asynchronen Route sind oder die Anfragenabbruch‑Funktion zum Stoppen der Deserialisierung nutzen möchten:</p>
+<pre><code class="lang-cs">router.MapPost(&quot;/users&quot;, async (HttpRequest request) =&gt;
+{
+    CreateUserRequest? body =
+        await request.GetJsonContentAsync&lt;CreateUserRequest&gt;(request.DisconnectToken);
+
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+</code></pre>
+<p>Sie können benutzerdefinierte <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> für einen bestimmten Endpunkt übergeben:</p>
+<pre><code class="lang-cs">var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    PropertyNameCaseInsensitive = true
+};
+
+UserDto? user = request.GetJsonContent&lt;UserDto&gt;(options);
+</code></pre>
+<p>Für Native‑AOT‑ oder trim‑sensible Anwendungen verwenden Sie die <code>JsonTypeInfo&lt;T&gt;</code>‑Überladung, die von einem <code>JsonSerializerContext</code> erzeugt wird:</p>
+<pre><code class="lang-cs">[JsonSerializable(typeof(CreateUserRequest))]
+public partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+
+CreateUserRequest? body =
+    await request.GetJsonContentAsync(
+        AppJsonSerializerContext.Default.CreateUserRequest,
+        request.DisconnectToken);
+</code></pre>
+<p>Die gleiche „einmal‑lesen“-Regel gilt für JSON‑Hilfen: Nachdem Sisk den Request‑Stream über <code>GetJsonContent</code>, <code>GetJsonContentAsync</code>, <code>Body</code> oder <code>RawBody</code> gelesen hat, können Sie den gleichen Body später nicht mehr über <code>GetRequestStream()</code> konsumieren.</p>
+<h2 id="abrufen-des-anforderungskontexts">Abrufen des Anforderungskontexts</h2>
+<p>Der HTTP‑Context ist ein exklusives Sisk‑Objekt, das Informationen über HTTP‑Server, Route, Router und Request‑Handler speichert. Sie können ihn nutzen, um sich in einer Umgebung zu organisieren, in der diese Objekte schwer zu handhaben sind.</p>
+<p>Sie können den aktuell ausgeführten <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> über die statische Methode <code>HttpContext.GetCurrentContext()</code> erhalten. Diese Methode gibt den Kontext der gerade in dem aktuellen Thread verarbeiteten Anfrage zurück.</p>
 <pre><code class="lang-cs">HttpContext context = HttpContext.GetCurrentContext();
 </code></pre>
 <h3 id="protokollmodus">Protokollmodus</h3>
-<p>Die <a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a>-Eigenschaft ermöglicht es Ihnen, das Protokollverhalten für die aktuelle Anfrage zu steuern. Sie können die Protokollierung für bestimmte Anfragen aktivieren oder deaktivieren und die Standardserverkonfiguration überschreiben.</p>
-<pre><code class="lang-cs">// Deaktiviert die Protokollierung für diese Anfrage
+<p>Die Property <a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a> ermöglicht es Ihnen, das Logging‑Verhalten für die aktuelle Anfrage zu steuern. Sie können das Logging für bestimmte Anfragen aktivieren oder deaktivieren und damit die Standard‑Serverkonfiguration überschreiben.</p>
+<pre><code class="lang-cs">// Logging für diese Anfrage deaktivieren
 context.LogMode = LogOutputMode.None;
 </code></pre>
-<h3 id="anfragebeutel">Anfragebeutel</h3>
-<p>Das <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a>-Objekt enthält gespeicherte Informationen, die von einem Anfragehandler an einen anderen Punkt übergeben werden und am Endziel verbraucht werden können. Dieses Objekt kann auch von Anfragehandlern verwendet werden, die nach dem Routenrückruf ausgeführt werden.</p>
+<h3 id="anforderungsbeutel">Anforderungsbeutel</h3>
+<p>Das <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a>-Objekt enthält gespeicherte Informationen, die von einem Request‑Handler an einen anderen Punkt weitergegeben werden und am Zielort konsumiert werden können. Dieses Objekt kann auch von Request‑Handlern verwendet werden, die nach dem Routinen‑Callback ausgeführt werden.</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>Diese Eigenschaft ist auch über die <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a>-Eigenschaft zugänglich.</p>
+<p>Diese Property ist ebenfalls über die Property <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> zugänglich.</p>
 </div>
 <div class="script-header">
     <span>
@@ -307,7 +395,7 @@ context.LogMode = LogOutputMode.None;
     }
 }
 </code></pre>
-<p>Der obige Anfragehandler wird <code>AuthenticatedUser</code> im Anfragebeutel definieren und kann später im Endrückruf verbraucht werden:</p>
+<p>Der obige Request‑Handler legt <code>AuthenticatedUser</code> im Request‑Bag ab und kann später im finalen Callback konsumiert werden:</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -325,13 +413,13 @@ context.LogMode = LogOutputMode.None;
         User authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
         
         return new HttpResponse() {
-            Content = new StringContent($&quot;Hallo, {authUser.Name}!&quot;)
+            Content = new StringContent($&quot;Hello, {authUser.Name}!&quot;)
         };
     }
 }
 </code></pre>
-<p>Sie können auch die <code>Bag.Set()</code>- und <code>Bag.Get()</code>-Hilfsmethoden verwenden, um Objekte nach ihrem Typ abzurufen oder zu setzen.</p>
-<p>Die <code>TypedValueDictionary</code>-Klasse bietet auch <code>GetValue</code>- und <code>SetValue</code>-Methoden für eine bessere Kontrolle.</p>
+<p>Sie können außerdem die Hilfsmethoden <code>Bag.Set()</code> und <code>Bag.Get()</code> verwenden, um Objekte anhand ihrer Typ‑Singletons zu setzen bzw. zu holen.</p>
+<p>Die Klasse <code>TypedValueDictionary</code> stellt zudem die Methoden <code>GetValue</code> und <code>SetValue</code> für mehr Kontrolle bereit.</p>
 <div class="script-header">
     <span>
         Middleware/Authenticate.cs
@@ -365,7 +453,7 @@ public static HttpResponse GetUser(HttpRequest request)
 }
 </code></pre>
 <h2 id="abrufen-von-formulardaten">Abrufen von Formulardaten</h2>
-<p>Sie können die Werte von Formulardaten in einer <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> mit dem folgenden Beispiel abrufen:</p>
+<p>Sie können Formulardatenwerte in einer <a href="/api/Sisk.Core.Entity.StringKeyStoreCollection">StringKeyStoreCollection</a> mit dem untenstehenden Beispiel erhalten:</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -388,8 +476,11 @@ public HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<h2 id="abrufen-von-multipart-formulardaten">Abrufen von Multipart-Formulardaten</h2>
-<p>Sisks HTTP-Anfrage ermöglicht es Ihnen, hochgeladene Multipart-Inhalte abzurufen, wie z. B. Dateien, Formulare oder binäre Inhalte.</p>
+<p>Die asynchrone Version ist nützlich, wenn der Request‑Body groß sein kann oder Sie eine Abbruch‑Unterstützung benötigen:</p>
+<pre><code class="lang-cs">var form = await request.GetFormContentAsync(request.DisconnectToken);
+</code></pre>
+<h2 id="abrufen-von-multipart-formulardaten">Abrufen von multipart-Formulardaten</h2>
+<p>Sisk‑HTTP‑Requests ermöglichen das Abrufen hochgeladener multipart‑Inhalte, wie Dateien, Formulardaten oder beliebiger Binärdaten.</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -401,34 +492,39 @@ public HttpResponse Index(HttpRequest request)
 <pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
 public HttpResponse Index(HttpRequest request)
 {
-    // Die folgende Methode liest die gesamte Anfrageeingabe in ein
-    // Array von Multipart-Objekten
+    // Die folgende Methode liest die gesamte Anforderungs‑Eingabe in ein
+    // Array von MultipartObjects ein
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // Der Name der Datei, die durch die Multipart-Formulardaten bereitgestellt wird.
+        // Der Name der Datei, die durch Multipart‑Formulardaten bereitgestellt wird.
         // Null wird zurückgegeben, wenn das Objekt keine Datei ist.
-        Console.WriteLine(&quot;Dateiname       : &quot; + uploadedObject.Filename);
+        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
 
-        // Der Name des Multipart-Formulardaten-Felds.
-        Console.WriteLine(&quot;Feldname      : &quot; + uploadedObject.Name);
+        // Der Feldname des Multipart‑Formulardatenobjekts.
+        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
 
-        // Die Länge des Multipart-Formulardateninhalts.
-        Console.WriteLine(&quot;Inhaltslänge  : &quot; + uploadedObject.ContentLength);
+        // Die Inhaltslänge des Multipart‑Formulardatenobjekts.
+        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
 
-        // Bestimmt das Dateiformat basierend auf dem Dateikopf für jedes
-        // bekannte Inhaltsformat. Wenn der Inhalt kein anerkanntes gängiges Dateiformat ist, gibt diese Methode MultipartObjectCommonFormat.Unknown zurück
-        Console.WriteLine(&quot;Gängiges Format   : &quot; + uploadedObject.GetCommonFileFormat());
+        // Bestimmt das Bildformat basierend auf dem Dateikopf für jeden
+        // bekannten Inhaltstyp. Wenn der Inhalt kein erkanntes gängiges Dateiformat ist,
+        // gibt diese Methode MultipartObjectCommonFormat.Unknown zurück
+        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>Sie können mehr über Sisks <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart-Formulardatenobjekte</a> und ihre Methoden, Eigenschaften und Funktionen erfahren.</p>
-<h2 id="erkennen-von-client-verbindungsabbrüchen">Erkennen von Client-Verbindungsabbrüchen</h2>
-<p>Ab Version v1.15 von Sisk bietet das Framework einen CancellationToken, der ausgelöst wird, wenn die Verbindung zwischen Client und Server vor dem Empfangen der Antwort vorzeitig geschlossen wird. Dieser Token kann nützlich sein, um zu erkennen, wenn der Client die Antwort nicht mehr wünscht und um lange laufende Operationen abzubrechen.</p>
-<pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
+<p>Verwenden Sie <a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync">GetMultipartFormContentAsync</a>, wenn die Route asynchron ist:</p>
+<pre><code class="lang-cs">var multipartFormDataObjects =
+    await request.GetMultipartFormContentAsync(request.DisconnectToken);
+</code></pre>
+<p>Weitere Informationen zu Sisk‑<a href="/api/Sisk.Core.Entity.MultipartObject">Multipart‑Form‑Objects</a> sowie zu deren Methoden, Eigenschaften und Funktionalitäten finden Sie in der Dokumentation.</p>
+<h2 id="erkennen-von-client-disconnects">Erkennen von Client-Disconnects</h2>
+<p>Seit Version v1.15 von Sisk stellt das Framework über <a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">HttpRequest.DisconnectToken</a> ein Abbruch‑Token bereit. Wenn die konfigurierte HTTP‑Engine die Erkennung von Disconnects unterstützt, wird dieses Token abgebrochen, sobald die Client‑Verbindung geschlossen wird, bevor die Antwort abgeschlossen ist. Das ist nützlich, um langlaufende Vorgänge zu stoppen, wenn der Client nicht mehr auf das Ergebnis wartet.</p>
+<pre><code class="lang-csharp">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
-    // Ruft den Trennungstoken aus der Anfrage ab
+    // Holt das Disconnect‑Token aus der Anfrage
     var dc = req.DisconnectToken;
 
     await LongOperationAsync(dc);
@@ -436,15 +532,17 @@ public HttpResponse Index(HttpRequest request)
     return new HttpResponse();
 });
 </code></pre>
-<p>Dieser Token ist nicht mit allen HTTP-Engines kompatibel und erfordert eine eigene Implementierung.</p>
-<h2 id="unterstützung-von-server-sent-events">Unterstützung von Server-sent-Events</h2>
-<p>Sisk unterstützt <a href="https://developer.mozilla.org/en-US/docs/de/Web/API/Server-sent_events">Server-sent-Events</a>, die es ermöglichen, Daten als Stream zu senden und die Verbindung zwischen Server und Client aufrechtzuerhalten.</p>
-<p>Durch den Aufruf der <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a>-Methode wird die HTTP-Anfrage in ihren Zuhörerzustand versetzt. Von diesem Zeitpunkt an erwartet der Kontext dieser HTTP-Anfrage keine HTTP-Antwort mehr, da sie die Pakete überschneidet, die von Server-seitigen Ereignissen gesendet werden.</p>
-<p>Nach dem Senden aller Pakete muss die Rückrufmethode die <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a>-Methode zurückgeben, die die endgültige Antwort an den Server sendet und anzeigt, dass der Streaming-Vorgang beendet ist.</p>
-<p>Es ist nicht möglich, die Gesamtlänge aller Pakete vorherzusagen, die gesendet werden, sodass es nicht möglich ist, das Ende der Verbindung mit dem <code>Content-Length</code>-Header zu bestimmen.</p>
-<p>In den meisten Browsern wird standardmäßig kein Server-seitiges Ereignis unterstützt, das HTTP-Header oder Methoden anderen als der GET-Methode sendet. Daher sollten Sie vorsichtig sein, wenn Sie Anfragehandler mit Ereignisquellen-Anfragen verwenden, die bestimmte Header in der Anfrage erfordern, da sie wahrscheinlich nicht vorhanden sind.</p>
-<p>Außerdem starten die meisten Browser Streams erneut, wenn die <a href="https://developer.mozilla.org/en-US/docs/de/Web/API/EventSource/close">EventSource.close</a>-Methode auf der Client-Seite nicht aufgerufen wird, nachdem alle Pakete empfangen wurden, was zu einer unendlichen zusätzlichen Verarbeitung auf der Server-Seite führt. Um dieses Problem zu vermeiden, ist es üblich, ein letztes Paket zu senden, das anzeigt, dass die Ereignisquelle alle Pakete gesendet hat.</p>
-<p>Das folgende Beispiel zeigt, wie der Browser mit einem Server kommunizieren kann, der Server-seitige Ereignisse unterstützt.</p>
+<p>Dieses Token ist nicht mit allen HTTP‑Engines kompatibel, und jede erfordert eine eigene Implementierung.</p>
+<p>Die Standard‑Sisk‑Engine, basierend auf <code>System.Net.HttpListener</code>, unterstützt keine Client‑Disconnect‑Erkennung. Wenn Ihre Anwendung die Standard‑Engine nutzt, ist <code>DisconnectToken</code> gleich <code>CancellationToken.None</code>; praktisch handelt es sich um ein nicht‑abbrechbares Token, das als nicht verfügbar behandelt werden sollte.</p>
+<p>Die <a href="/docs/de/cadente">Cadente‑Engine</a> unterstützt <code>DisconnectToken</code>. Wenn Ihre Route von einer disconnect‑bewussten Abbruch‑Logik abhängt, verwenden Sie Cadente oder eine andere Engine, die dieses Verhalten explizit implementiert. Selbst bei einer unterstützten Engine ist das Abbrechen kooperativ: Geben Sie das Token an asynchrone APIs weiter und prüfen Sie es in Ihrer eigenen langlaufenden Arbeit.</p>
+<h2 id="unterstützung-von-serversent-events">Unterstützung von Server‑Sent Events</h2>
+<p>Sisk unterstützt <a href="https://developer.mozilla.org/en-US/docs/de/Web/API/Server-sent_events">Server‑Sent Events</a>, wodurch Datenblöcke als Stream gesendet und die Verbindung zwischen Server und Client aufrecht erhalten werden kann.</p>
+<p>Der Aufruf der Methode <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> versetzt das HttpRequest in einen Listener‑Zustand. Dadurch erwartet der Kontext dieser HTTP‑Anfrage keine HttpResponse, da sie die von Server‑Side‑Events gesendeten Pakete überlagern würde.</p>
+<p>Nach dem Senden aller Pakete muss der Callback die Methode <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> zurückgeben, die die finale Antwort an den Server sendet und das Ende des Streamings signalisiert.</p>
+<p>Es ist nicht möglich, die Gesamtlänge aller zu sendenden Pakete vorherzusagen, sodass das Ende der Verbindung nicht über den Header <code>Content‑Length</code> bestimmt werden kann.</p>
+<p>Nach den Standardeinstellungen der meisten Browser unterstützen Server‑Side‑Events das Senden von HTTP‑Headern oder anderen Methoden als GET nicht. Seien Sie daher vorsichtig, wenn Sie Request‑Handler mit Event‑Source‑Anfragen verwenden, die spezifische Header benötigen, da diese wahrscheinlich nicht vorhanden sind.</p>
+<p>Außerdem starten die meisten Browser Streams neu, wenn die Methode <a href="https://developer.mozilla.org/en-US/docs/de/Web/API/EventSource/close">EventSource.close</a> auf der Client‑Seite nach dem Empfang aller Pakete nicht aufgerufen wird, was zu einer unendlichen zusätzlichen Verarbeitung auf der Server‑Seite führt. Um dieses Problem zu vermeiden, ist es üblich, ein finales Paket zu senden, das anzeigt, dass die Event‑Source das Senden aller Pakete abgeschlossen hat.</p>
+<p>Das folgende Beispiel zeigt, wie der Browser mit einem Server kommunizieren kann, der Server‑Side‑Events unterstützt.</p>
 <div class="script-header">
     <span>
         sse-example.html
@@ -455,7 +553,7 @@ public HttpResponse Index(HttpRequest request)
 </div>
 <pre><code class="lang-html">&lt;html&gt;
     &lt;body&gt;
-        &lt;b&gt;Früchte:&lt;/b&gt;
+        &lt;b&gt;Fruits:&lt;/b&gt;
         &lt;ul&gt;&lt;/ul&gt;
     &lt;/body&gt;
     &lt;script&gt;
@@ -465,17 +563,17 @@ public HttpResponse Index(HttpRequest request)
         evtSource.onmessage = (e) =&gt; {
             const newElement = document.createElement(&quot;li&quot;);
 
-            newElement.textContent = `Nachricht: ${e.data}`;
+            newElement.textContent = `message: ${e.data}`;
             eventList.appendChild(newElement);
 
-            if (e.data == &quot;Tomate&quot;) {
+            if (e.data == &quot;Tomato&quot;) {
                 evtSource.close();
             }
         }
     &lt;/script&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Und sendet die Nachrichten schrittweise an den Client:</p>
+<p>Und die Nachrichten schrittweise an den Client senden:</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -489,28 +587,28 @@ public HttpResponse Index(HttpRequest request)
     [RouteGet(&quot;/event-source&quot;)]
     public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
     {
-        var sse = await request.GetEventSourceAsync ();
+        var serverEvents = await request.GetEventSourceAsync ();
         
-        string[] fruechte = new[] { &quot;Apfel&quot;, &quot;Banane&quot;, &quot;Wassermelone&quot;, &quot;Tomate&quot; };
+        string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
         
-        foreach (string frucht in fruechte)
+        foreach (string fruit in fruits)
         {
-            await serverEvents.SendAsync(frucht);
+            await serverEvents.SendAsync(fruit);
             await Task.Delay(1500);
         }
 
-        return serverEvents.Close();
+        return await serverEvents.CloseAsync();
     }
 }
 </code></pre>
-<p>Wenn Sie diesen Code ausführen, erwarten wir ein Ergebnis, das diesem ähnelt:</p>
+<p>Beim Ausführen dieses Codes erwarten wir ein Ergebnis, das dem Folgenden ähnelt:</p>
 <img src="/assets/img/server side events demo.gif">
 <h2 id="auflösen-von-proxied-ips-und-hosts">Auflösen von proxied IPs und Hosts</h2>
-<p>Sisk kann mit Proxys verwendet werden und daher können IP-Adressen durch den Proxy-Endpunkt im Transaktionsverlauf von einem Client zu einem Proxy ersetzt werden.</p>
-<p>Sie können Ihre eigenen Auflöser in Sisk mit <a href="/docs/de/advanced/forwarding-resolvers">Forwarding-Resolvery</a> definieren.</p>
+<p>Sisk kann mit Proxies verwendet werden, sodass IP‑Adressen im Austausch zwischen Client und Proxy durch den Proxy‑Endpunkt ersetzt werden können.</p>
+<p>Sie können eigene Resolver in Sisk mit <a href="/docs/de/advanced/forwarding-resolvers">forwarding resolvers</a> definieren.</p>
 <h2 id="header-codierung">Header-Codierung</h2>
-<p>Header-Codierung kann ein Problem für einige Implementierungen darstellen. Unter Windows werden UTF-8-Header nicht unterstützt, sodass ASCII verwendet wird. Sisk verfügt über einen integrierten Codierungskonverter, der nützlich sein kann, um falsch codierte Header zu decodieren.</p>
-<p>Dieser Vorgang ist kostspielig und standardmäßig deaktiviert, kann aber unter der <a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a>-Flag aktiviert werden.</p>
+<p>Header‑Codierung kann bei manchen Implementierungen problematisch sein. Unter Windows werden UTF‑8‑Header nicht unterstützt, daher wird ASCII verwendet. Sisk verfügt über einen eingebauten Codierungs‑Konverter, der beim Dekodieren falsch codierter Header nützlich sein kann.</p>
+<p>Dieser Vorgang ist kostenintensiv und standardmäßig deaktiviert, kann jedoch über <a href="/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings">HttpServerConfiguration.NormalizeHeadersEncodings</a> aktiviert werden.</p>
 
 </article>
 

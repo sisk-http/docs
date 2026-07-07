@@ -15,7 +15,7 @@ A practical example of using HttpServerHandler is to automatically dispose a dat
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
@@ -31,12 +31,9 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // allows the user to create an dbcontext from an http request
-    // and store it in its request bag
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag<DbContext>(db);
+        return request.Bag.GetOrAdd(() => new DbContext());
     }
 }
 ```
@@ -56,7 +53,7 @@ class Program
             .UseHandler<DatabaseConnectionHandler>()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
@@ -84,7 +81,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue<int>("id");
+        int userId = request.RouteParameters["id"].GetInteger();
         var user = db.Users.FirstOrDefault(u => u.Id == userId);
 
         return JsonOk(user);
@@ -94,7 +91,7 @@ public class UserController : ApiController
     public async Task<HttpResponse> Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize<User>(request.Body);
+        var user = await request.GetJsonContentAsync<User>();
 
         ArgumentNullException.ThrowIfNull(user);
 

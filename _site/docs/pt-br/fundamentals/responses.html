@@ -173,30 +173,30 @@
                 <article data-uid="">
 <h1 id="respostas">Respostas</h1>
 
-<p>Respostas representam objetos que são respostas HTTP para solicitações HTTP. Elas são enviadas pelo servidor para o cliente como uma indicação da solicitação de um recurso, página, documento, arquivo ou outro objeto.</p>
-<p>Uma resposta HTTP é formada por status, cabeçalhos e conteúdo.</p>
-<p>Neste documento, vamos ensinar como arquitetar respostas HTTP com Sisk.</p>
+<p>Respostas representam objetos que são respostas HTTP a requisições HTTP. Elas são enviadas pelo servidor ao cliente como uma indicação da solicitação de um recurso, página, documento, arquivo ou outro objeto.</p>
+<p>Uma resposta HTTP é composta por status, cabeçalhos e conteúdo.</p>
+<p>Neste documento, ensinaremos como arquitetar respostas HTTP com o Sisk.</p>
 <h2 id="definindo-um-status-http">Definindo um status HTTP</h2>
-<p>A lista de status HTTP é a mesma desde o HTTP/1.0, e Sisk suporta todos eles.</p>
+<p>A lista de status HTTP é a mesma desde o HTTP/1.0, e o Sisk suporta todos eles.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = System.Net.HttpStatusCode.Accepted; // 202
 </code></pre>
 <p>Ou com Sintaxe Fluent:</p>
 <pre><code class="lang-cs">new HttpResponse()
-    .WithStatus(200) // ou
-    .WithStatus(HttpStatusCode.Ok) // ou
+    .WithStatus(200) // or
+    .WithStatus(HttpStatusCode.Ok) // or
     .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
 <p>Você pode ver a lista completa de HttpStatusCode disponíveis <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">aqui</a>. Você também pode fornecer seu próprio código de status usando a estrutura <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a>.</p>
-<h2 id="corpo-e-tipo-de-conteúdo">Corpo e tipo de conteúdo</h2>
-<p>Sisk suporta objetos de conteúdo nativos do .NET para enviar corpo em respostas. Você pode usar a classe <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> para enviar uma resposta JSON, por exemplo:</p>
+<h2 id="corpo-e-content-type">Corpo e content-type</h2>
+<p>Sisk suporta objetos de conteúdo nativos do .NET para enviar corpo nas respostas. Você pode usar a classe <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> para enviar uma resposta JSON, por exemplo:</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>O servidor sempre tentará calcular o <code>Content-Length</code> a partir do que você definiu no conteúdo, se você não o definir explicitamente em um cabeçalho. Se o servidor não puder obter implicitamente o cabeçalho <code>Content-Length</code> do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
+<p>O servidor sempre tentará calcular o <code>Content-Length</code> a partir do que você definiu no conteúdo se você não o definiu explicitamente em um cabeçalho. Se o servidor não conseguir obter implicitamente o cabeçalho Content-Length do conteúdo da resposta, a resposta será enviada com Chunked-Encoding.</p>
 <p>Você também pode transmitir a resposta enviando um <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> ou usando o método <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a>.</p>
 <h2 id="cabeçalhos-de-resposta">Cabeçalhos de resposta</h2>
-<p>Você pode adicionar, editar ou remover cabeçalhos que estão sendo enviados na resposta. O exemplo abaixo mostra como enviar uma resposta de redirecionamento para o cliente.</p>
+<p>Você pode adicionar, editar ou remover cabeçalhos que está enviando na resposta. O exemplo abaixo mostra como enviar uma resposta de redirecionamento ao cliente.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = HttpStatusCode.Moved;
 res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
@@ -205,13 +205,13 @@ res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
-<p>Quando você usa o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> de HttpHeaderCollection, você está adicionando um cabeçalho à solicitação sem alterar os que já foram enviados. O método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> substitui os cabeçalhos com o mesmo nome pelo valor instruído. O indexador de HttpHeaderCollection internamente chama o método Set para substituir os cabeçalhos.</p>
-<p>Você também pode recuperar valores de cabeçalho usando o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue">GetHeaderValue</a>. Este método ajuda a obter valores de ambos os cabeçalhos de resposta e os cabeçalhos de conteúdo (se algum conteúdo for definido).</p>
-<pre><code class="lang-cs">// Retorna o valor do cabeçalho &quot;Content-Type&quot;, verificando ambos response.Headers e response.Content.Headers
+<p>Quando você usa o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> de HttpHeaderCollection, está adicionando um cabeçalho à requisição sem alterar os que já foram enviados. O método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> substitui os cabeçalhos com o mesmo nome pelo valor indicado. O indexador de HttpHeaderCollection chama internamente o método Set para substituir os cabeçalhos.</p>
+<p>Você também pode recuperar valores de cabeçalhos usando o método <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue">GetHeaderValue</a>. Esse método ajuda a obter valores tanto dos cabeçalhos da resposta quanto dos cabeçalhos de conteúdo (se houver conteúdo definido).</p>
+<pre><code class="lang-cs">// Retorna o valor do cabeçalho &quot;Content-Type&quot;, verificando tanto response.Headers quanto response.Content.Headers
 string? contentType = response.GetHeaderValue(&quot;Content-Type&quot;);
 </code></pre>
 <h2 id="enviando-cookies">Enviando cookies</h2>
-<p>Sisk tem métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método já estão codificados por URL e atendem ao padrão RFC-6265.</p>
+<p>O Sisk possui métodos que facilitam a definição de cookies no cliente. Cookies definidos por este método já são codificados em URL e atendem ao padrão RFC-6265.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 </code></pre>
@@ -219,22 +219,22 @@ res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>Há outras <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">versões mais completas</a> do mesmo método.</p>
-<h2 id="respostas-em-chunk">Respostas em chunk</h2>
-<p>Você pode definir o encoding de transferência como chunked para enviar respostas grandes.</p>
+<p>Existem outras <a href="/api/Sisk.Core.Helpers.CookieHelper.SetCookie">versões mais completas</a> do mesmo método.</p>
+<h2 id="respostas-em-chunked">Respostas em chunked</h2>
+<p>Você pode definir o transfer encoding como chunked para enviar respostas grandes.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 </code></pre>
-<p>Ao usar chunked-encoding, o cabeçalho Content-Length é automaticamente omitido.</p>
+<p>Ao usar chunked-encoding, o cabeçalho Content-Length é omitido automaticamente.</p>
 <h2 id="stream-de-resposta">Stream de resposta</h2>
-<p>Streams de resposta são uma maneira gerenciada de enviar respostas de forma segmentada. É uma operação de nível mais baixo do que usar objetos HttpResponse, pois exigem que você envie os cabeçalhos e o conteúdo manualmente e, em seguida, feche a conexão.</p>
-<p>Este exemplo abre um stream de leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.</p>
+<p>Streams de resposta são uma forma gerenciada que permite enviar respostas de maneira segmentada. É uma operação de nível mais baixo que usar objetos HttpResponse, pois requer que você envie os cabeçalhos e o conteúdo manualmente, e então feche a conexão.</p>
+<p>Este exemplo abre um stream somente leitura para o arquivo, copia o stream para o stream de saída da resposta e não carrega o arquivo inteiro na memória. Isso pode ser útil para servir arquivos médios ou grandes.</p>
 <pre><code class="lang-cs">// obtém o stream de saída da resposta
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
-// define o encoding de resposta para usar chunked-encoding
-// também você não deve enviar o cabeçalho content-length quando usar
+// define a codificação da resposta para usar chunked-encoding
+// também você não deve enviar o cabeçalho content-length ao usar
 // chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
@@ -246,8 +246,8 @@ fileStream.CopyTo(responseStream.ResponseStream);
 // fecha o stream
 return responseStream.Close();
 </code></pre>
-<h2 id="compactação-gzip-deflate-e-brotli">Compactação GZip, Deflate e Brotli</h2>
-<p>Você pode enviar respostas com conteúdo compactado em Sisk compactando conteúdos HTTP. Primeiramente, encapsule seu objeto <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> dentro de um dos compactadores abaixo para enviar a resposta compactada para o cliente.</p>
+<h2 id="compressão-gzip-deflate-e-brotli">Compressão GZip, Deflate e Brotli</h2>
+<p>Você pode enviar respostas com conteúdo comprimido no Sisk comprimindo conteúdos HTTP. Primeiro, encapsule seu <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> em um dos compressores abaixo para enviar a resposta comprimida ao cliente.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
     string myHtml = &quot;...&quot;;
     
@@ -258,7 +258,7 @@ return responseStream.Close();
     };
 });
 </code></pre>
-<p>Você também pode usar esses conteúdos compactados com streams.</p>
+<p>Você também pode usar esses conteúdos comprimidos com streams.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
     
     // não aplique &quot;using&quot; aqui. o HttpServer descartará seu conteúdo
@@ -271,21 +271,21 @@ return responseStream.Close();
 });
 </code></pre>
 <p>Os cabeçalhos Content-Encoding são definidos automaticamente ao usar esses conteúdos.</p>
-<h2 id="compactação-automática">Compactação automática</h2>
-<p>É possível compactar respostas HTTP automaticamente com a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a>. Essa propriedade encapsula automaticamente o conteúdo da resposta do roteador em um conteúdo compactável que é aceito pela solicitação, desde que a resposta não seja herdada de um <a href="/api/Sisk.Core.Http.CompressedContent">CompressedContent</a>.</p>
-<p>Apenas um conteúdo compactável é escolhido para uma solicitação, escolhido de acordo com o cabeçalho Accept-Encoding, que segue a ordem:</p>
+<h2 id="compressão-automática">Compressão automática</h2>
+<p>É possível comprimir automaticamente respostas HTTP com a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a>. Essa propriedade encapsula automaticamente o conteúdo da resposta do roteador em um conteúdo compressível que é aceito pela requisição, desde que a resposta não herde de um <a href="/api/Sisk.Core.Http.CompressedContent">CompressedContent</a>.</p>
+<p>Apenas um conteúdo compressível é escolhido para uma requisição, escolhido de acordo com o cabeçalho Accept-Encoding, que segue a ordem:</p>
 <ul>
 <li><a href="/api/Sisk.Core.Http.BrotliContent">BrotliContent</a> (br)</li>
 <li><a href="/api/Sisk.Core.Http.GZipContent">GZipContent</a> (gzip)</li>
 <li><a href="/api/Sisk.Core.Http.DeflateContent">DeflateContent</a> (deflate)</li>
 </ul>
-<p>Se a solicitação especificar que aceita algum desses métodos de compactação, a resposta será compactada automaticamente.</p>
+<p>Se a requisição especificar que aceita qualquer um desses métodos de compressão, a resposta será comprimida automaticamente.</p>
 <h2 id="tipos-de-resposta-implícitos">Tipos de resposta implícitos</h2>
-<p>Você pode usar outros tipos de retorno além de HttpResponse, mas é necessário configurar o roteador para lidar com cada tipo de objeto.</p>
-<p>O conceito é sempre retornar um tipo de referência e convertê-lo em um objeto HttpResponse válido. Rotas que retornam HttpResponse não passam por nenhuma conversão.</p>
-<p>Tipos de valor (estruturas) não podem ser usados como tipo de retorno porque não são compatíveis com o <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, então devem ser encapsulados em um ValueResult para serem usados em manipuladores.</p>
-<p>Considere o seguinte exemplo de um módulo de roteador que não usa HttpResponse no tipo de retorno:</p>
-<pre><code class="lang-csharp">[RoutePrefix(&quot;/users&quot;)]
+<p>Você pode usar outros tipos de retorno além de HttpResponse, mas é necessário configurar o roteador sobre como ele lidará com cada tipo de objeto.</p>
+<p>O conceito é sempre retornar um tipo de referência e transformá-lo em um objeto HttpResponse válido. Rotas que retornam HttpResponse não passam por nenhuma conversão.</p>
+<p>Tipos de valor (structures) não podem ser usados como tipo de retorno porque não são compatíveis com o <a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a>, portanto devem ser encapsulados em um ValueResult para poderem ser usados em manipuladores.</p>
+<p>Considere o exemplo a seguir de um módulo de roteador que não usa HttpResponse no tipo de retorno:</p>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
 public class UsersController : RouterModule
 {
     public List&lt;User&gt; Users = new List&lt;User&gt;();
@@ -308,7 +308,7 @@ public class UsersController : RouterModule
     [RoutePost]
     public ValueResult&lt;bool&gt; Create(HttpRequest request)
     {
-        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        User fromBody = request.GetJsonContent&lt;User&gt;()!;
         Users.Add(fromBody);
         
         return true;
@@ -316,11 +316,11 @@ public class UsersController : RouterModule
 }
 </code></pre>
 <p>Com isso, agora é necessário definir no roteador como ele lidará com cada tipo de objeto. Objetos são sempre o primeiro argumento do manipulador e o tipo de saída deve ser um HttpResponse válido. Além disso, os objetos de saída de uma rota nunca devem ser nulos.</p>
-<p>Para tipos ValueResult, não é necessário indicar que o objeto de entrada é um ValueResult e apenas T, pois ValueResult é um objeto refletido a partir de seu componente original.</p>
+<p>Para tipos ValueResult não é necessário indicar que o objeto de entrada é um ValueResult e apenas T, já que ValueResult é um objeto refletido de seu componente original.</p>
 <p>A associação de tipos não compara o que foi registrado com o tipo do objeto retornado do callback do roteador. Em vez disso, verifica se o tipo do resultado do roteador é atribuível ao tipo registrado.</p>
-<p>Registrar um manipulador de tipo Object fará com que todos os tipos anteriores sejam ignorados. A ordem de inserção dos manipuladores de valor também é importante, então registrar um manipulador Object ignorará todos os outros manipuladores específicos de tipo. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.</p>
-<pre><code class="lang-csharp">Router r = new Router();
-r.SetObject(new UsersController());
+<p>Registrar um manipulador do tipo Object será um fallback para todos os tipos previamente não validados. A ordem de inserção dos manipuladores de valor também importa, portanto registrar um manipulador Object ignorará todos os outros manipuladores específicos de tipo. Sempre registre manipuladores de valor específicos primeiro para garantir a ordem.</p>
+<pre><code class="lang-cs">Router r = new Router();
+r.MapInstance(new UsersController());
 
 r.RegisterValueHandler&lt;ApiResult&gt;(apiResult =&gt;
 {
@@ -341,8 +341,8 @@ r.RegisterValueHandler&lt;IEnumerable&lt;object&gt;&gt;(enumerableValue =&gt;
     return new HttpResponse(string.Join(&quot;\n&quot;, enumerableValue));
 });
 
-// registrando um manipulador de valor de objeto deve ser o último
-// manipulador de valor que será usado como fallback
+// registering an value handler of object must be the last
+// value handler which will be used as an fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {
     return new HttpResponse() {
@@ -351,8 +351,38 @@ r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
     };
 });
 </code></pre>
-<h2 id="nota-sobre-objetos-enumeráveis-e-matrizes">Nota sobre objetos enumeráveis e matrizes</h2>
-<p>Objetos de resposta implícitos que implementam <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0">IEnumerable</a> são lidos na memória por meio do método <code>ToArray()</code> antes de serem convertidos por um manipulador de valor definido. Para que isso ocorra, o objeto <code>IEnumerable</code> é convertido em uma matriz de objetos, e o conversor de resposta sempre receberá um <code>Object[]</code> em vez do tipo original.</p>
+<h2 id="ações-diferidas">Ações Diferidas</h2>
+<p>Quando uma requisição chega ao roteador, ela primeiro passa pelos <a href="/docs/pt-br/fundamentals/request-handlers">request handlers</a>, é processada na ação do roteador e depois pelos manipuladores de requisição pós-execução. O resultado da ação do roteador é o que é passado para os manipuladores de valor, e o resultado do manipulador de valor é o que é enviado ao cliente como resposta.</p>
+<p>Esse ciclo de vida ocorre dentro de um contexto assíncrono. Esse contexto assíncrono expõe variáveis que o usuário pode adicionar ao <a href="/api/Sisk.Core.Http.HttpContext">HttpContext Bag</a> para compartilhar dados entre manipuladores e a ação do roteador. O valor retornado pela ação do roteador é adicionado a esse contexto assíncrono e pode ser acessado pelos manipuladores de valor.</p>
+<p>Ações diferidas são ações que sempre serão executadas ao final do ciclo, após entregar a resposta ao cliente, mas ainda dentro do mesmo contexto assíncrono. Essas ações podem ser usadas para executar tarefas de longa duração que não precisam ser concluídas para enviar uma resposta ao cliente, como salvar logs, atualizar o banco de dados, enviar e‑mails, etc.</p>
+<p>Exceções ainda são capturadas em ações diferidas e serão tratadas da mesma forma que uma exceção lançada em qualquer ponto do ciclo de vida da requisição. A diferença é que o cliente já terá uma resposta, portanto a exceção é tratada pelo tratamento de erro padrão.</p>
+<p>Adie a execução de uma ação usando o método <a href="/api/Sisk.Core.Http.HttpContext.EnqueueDeferredAction">HttpContext.EnqueueDeferredAction</a>. O método recebe uma função assíncrona que representa a ação a ser executada e um timeout opcional para limitar o tempo de execução da ação. Se a ação não for concluída dentro do limite de tempo, ela será cancelada.</p>
+<pre><code class="lang-csharp">[RoutePost(&quot;/send-mail&quot;)]
+public HttpResponse SendMail(HttpRequest request)
+{
+    string to = request.Query[&quot;to&quot;].GetString();
+    string subject = request.Query[&quot;subject&quot;].GetString();
+    string body = request.Query[&quot;body&quot;].GetString();
+    if (string.IsNullOrWhiteSpace(to) || string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(body))
+    {
+        throw new ApiException(&quot;Missing required parameters.&quot;);
+    }
+
+    // agenda uma ação de longa duração que será executada após enviar a resposta ao cliente, mas ainda dentro do mesmo contexto assíncrono da requisição
+    request.Context.EnqueueDeferredAction(async (ct) =&gt;
+    {
+        await EmailService.SendEmailAsync(to, subject, body);
+    }, timeout: TimeSpan.FromSeconds(30));
+
+    return new HttpResponse()
+    {
+        Status = 200,
+        Content = new StringContent(&quot;Sending the email...&quot;)
+    };
+}
+</code></pre>
+<h2 id="observação-sobre-objetos-enumeráveis-e-arrays">Observação sobre objetos enumeráveis e arrays</h2>
+<p>Objetos de resposta implícitos que implementam <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0">IEnumerable</a> são lidos na memória através do método <code>ToArray()</code> antes de serem convertidos por um manipulador de valor definido. Para que isso ocorra, o objeto <code>IEnumerable</code> é convertido em um array de objetos, e o conversor de resposta sempre receberá um <code>Object[]</code> em vez do tipo original.</p>
 <p>Considere o seguinte cenário:</p>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder(12300)
     .UseRouter(r =&gt;
@@ -372,9 +402,9 @@ r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
     })
     .Build();
 </code></pre>
-<p>No exemplo acima, o conversor <code>IEnumerable&lt;string&gt;</code> <strong>nunca será chamado</strong>, porque o objeto de entrada sempre será um <code>Object[]</code> e não é conversível em um <code>IEnumerable&lt;string&gt;</code>. No entanto, o conversor abaixo que recebe um <code>IEnumerable&lt;object&gt;</code> receberá sua entrada, pois seu valor é compatível.</p>
-<p>Se você precisar realmente lidar com o tipo do objeto que será enumerado, você precisará usar reflexão para obter o tipo do elemento da coleção. Todos os objetos enumeráveis (listas, matrizes e coleções) são convertidos em uma matriz de objetos pelo conversor de resposta HTTP.</p>
-<p>Valores que implementam <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> são tratados automaticamente pelo servidor se a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> for habilitada, semelhante ao que acontece com <code>IEnumerable</code>. Uma enumeração assíncrona é convertida em um enumerador bloqueante e, em seguida, convertida em uma matriz de objetos síncrona.</p>
+<p>No exemplo acima, o conversor <code>IEnumerable&lt;string&gt;</code> <strong>nunca será chamado</strong>, porque o objeto de entrada será sempre um <code>Object[]</code> e não é convertível para <code>IEnumerable&lt;string&gt;</code>. No entanto, o conversor abaixo que recebe um <code>IEnumerable&lt;object&gt;</code> receberá sua entrada, já que seu valor é compatível.</p>
+<p>Se você precisar realmente lidar com o tipo do objeto que será enumerado, precisará usar reflexão para obter o tipo do elemento da coleção. Todos os objetos enumeráveis (listas, arrays e coleções) são convertidos em um array de objetos pelo conversor de resposta HTTP.</p>
+<p>Valores que implementam <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> são tratados automaticamente pelo servidor se a propriedade <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> estiver habilitada, similar ao que acontece com <code>IEnumerable</code>. Essa opção está habilitada por padrão em <code>HttpServerConfiguration</code>; uma enumeração assíncrona é convertida em um enumerador bloqueante e então convertida em um array síncrono de objetos. Desative-a somente quando você fornecer seu próprio manipulador de valor ou estratégia de resposta em streaming para sequências assíncronas.</p>
 
 </article>
 

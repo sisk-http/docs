@@ -180,9 +180,10 @@
 </div>
 <p>Since this package is not yet available on NuGet, you must incorporate the source code directly into your project or reference it as a project dependency. You can access the source code <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting">here</a>.</p>
 <p>To use <code>Sisk.Documenting</code>, you need to register it in your application builder and decorate your route handlers with documentation attributes.</p>
-<h3 id="registering-the-middleware">Registering the Middleware</h3>
-<p>Use the <code>UseApiDocumentation</code> extension method on your <code>HttpServerBuilder</code> to enable API documentation.</p>
+<h3 id="registering-documentation-generation">Registering documentation generation</h3>
+<p>Use the <code>UseApiDocumentation</code> extension method on your <code>HttpServerHostContextBuilder</code> to expose generated API documentation from the same router that serves your application.</p>
 <pre><code class="lang-csharp">using Sisk.Documenting;
+using Sisk.Documenting.Exporters;
 
 // ...
 
@@ -191,7 +192,7 @@ host.UseApiDocumentation(
     {
         ApplicationName = &quot;My Application&quot;,
         ApplicationDescription = &quot;Description of my application.&quot;,
-        Version = &quot;1.0.0&quot;
+        ApplicationVersion = &quot;1.0.0&quot;
     },
     routerPath: &quot;/api/docs&quot;,
     exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] });
@@ -268,7 +269,7 @@ public HttpResponse Index(HttpRequest request) { ... }
 <li><strong>Description</strong> (string, required in constructor): A description of the request body.</li>
 <li><strong>Example</strong> (string): A raw string containing an example of the request body.</li>
 <li><strong>ExampleLanguage</strong> (string): The language of the example (e.g., &quot;json&quot;, &quot;xml&quot;).</li>
-<li><strong>ExampleType</strong> (Type): If set, the example will be generated automatically from this type (if supported by the context).</li>
+<li><strong>PayloadType</strong> (Type): If set, the example and schema will be generated automatically from this type when the configured context handlers support it.</li>
 </ul>
 <h3 id="apiresponse"><code>ApiResponse</code></h3>
 <p>Describes a possible response from the endpoint.</p>
@@ -277,28 +278,33 @@ public HttpResponse Index(HttpRequest request) { ... }
 <li><strong>Description</strong> (string): Describes the condition for this response.</li>
 <li><strong>Example</strong> (string): A raw string containing an example of the response body.</li>
 <li><strong>ExampleLanguage</strong> (string): The language of the example.</li>
-<li><strong>ExampleType</strong> (Type): If set, the example will be generated automatically from this type.</li>
+<li><strong>PayloadType</strong> (Type): If set, the example and schema will be generated automatically from this type when the configured context handlers support it.</li>
 </ul>
 <h2 id="type-handlers">Type Handlers</h2>
 <p>Type handlers are responsible for converting your .NET types (classes, enums, etc.) into documentation examples. This is particularly useful for generating automatic request and response body examples based on your data models.</p>
 <p>These handlers are configured within the <code>ApiGenerationContext</code>.</p>
-<pre><code class="lang-csharp">var context = new ApiGenerationContext()
+<pre><code class="lang-csharp">using Sisk.Documenting.Content;
+
+var context = new ApiGenerationContext()
 {
     // ...
-    BodyExampleTypeHandler = new JsonExampleTypeHandler(),
-    ParameterExampleTypeHandler = new JsonExampleTypeHandler()
+    BodyExampleTypeHandler = new JsonContentTypeHandler(),
+    ParameterExampleTypeHandler = new JsonContentTypeHandler(),
+    ContentSchemaTypeHandler = new JsonContentTypeHandler()
 };
 </code></pre>
-<h3 id="jsonexampletypehandler">JsonExampleTypeHandler</h3>
-<p>The <code>JsonExampleTypeHandler</code> is a built-in handler that generates JSON examples. It implements both <code>IExampleBodyTypeHandler</code> and <code>IExampleParameterTypeHandler</code>.</p>
+<h3 id="jsoncontenttypehandler">JsonContentTypeHandler</h3>
+<p>The <code>JsonContentTypeHandler</code> is a built-in handler that generates JSON examples, parameter examples, and JSON schemas. It implements <code>IExampleBodyTypeHandler</code>, <code>IExampleParameterTypeHandler</code>, and <code>IContentSchemaTypeHandler</code>.</p>
 <p>It can be customized with specific <code>JsonSerializerOptions</code> or <code>IJsonTypeInfoResolver</code> to match your application's serialization logic.</p>
-<pre><code class="lang-csharp">var jsonHandler = new JsonExampleTypeHandler(new JsonSerializerOptions
+<pre><code class="lang-csharp">var jsonHandler = new JsonContentTypeHandler(new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     WriteIndented = true
 });
 
 context.BodyExampleTypeHandler = jsonHandler;
+context.ParameterExampleTypeHandler = jsonHandler;
+context.ContentSchemaTypeHandler = jsonHandler;
 </code></pre>
 <h3 id="custom-type-handlers">Custom Type Handlers</h3>
 <p>You can implement your own handlers to support other formats (like XML) or to customize how examples are generated.</p>
@@ -398,6 +404,7 @@ using Sisk.Core.Http;
 using Sisk.Core.Routing;
 using Sisk.Documenting;
 using Sisk.Documenting.Annotations;
+using Sisk.Documenting.Exporters;
 
 using var host = HttpServer.CreateBuilder(5555)
     .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
@@ -411,7 +418,7 @@ using var host = HttpServer.CreateBuilder(5555)
         exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] })
     .UseRouter(router =&gt;
     {
-        router.SetObject(new MyController());
+        router.MapInstance(new MyController());
     })
     .Build();
 

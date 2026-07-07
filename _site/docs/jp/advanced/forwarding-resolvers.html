@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>フォワーディング リゾルバー | Sisk </title>
+        <title>フォワーディングリゾルバ | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="フォワーディング リゾルバー | Sisk ">
+        <meta name="title" content="フォワーディングリゾルバ | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,24 +171,24 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="フォワーディング-リゾルバー">フォワーディング リゾルバー</h1>
+<h1 id="フォワーディングリゾルバ">フォワーディングリゾルバ</h1>
 
-<p>フォワーディング リゾルバーは、クライアントを識別する情報を、リクエスト、プロキシ、CDN、またはロード バランサーを介してデコードするためのヘルパーです。Sisk サービスがリバース プロキシまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前に、この情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。</p>
-<p>現在、<a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a> クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サービスごとに異なるセキュリティ上の理由により、標準的なヘッダーをデコードするための実装はサーバーにありません。</p>
-<p>例えば、<code>X-Forwarded-For</code> ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって最終的なサービスに情報の連鎖を運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP を含みます。問題は、クライアントのリモート IP を識別するのが難しい場合があり、ヘッダーを識別するための特定のルールがないことです。以下に実装するヘッダーのドキュメントを読むことを強くお勧めします。</p>
+<p>フォワーディングリゾルバは、リクエスト、プロキシ、CDN、ロードバランサーを通じてクライアントを識別する情報をデコードするのに役立つヘルパーです。Sisk サービスがリバースプロキシまたはフォワードプロキシを介して実行される場合、クライアントの IP アドレス、ホスト、プロトコルは元のリクエストとは異なることがあります。これは、あるサービスから別のサービスへ転送されるためです。この Sisk の機能により、リクエストを処理する前にこの情報を制御・解決できます。これらのプロキシは通常、クライアントを識別するための有用なヘッダーを提供します。</p>
+<p>現在、<a href="/api/Sisk.Core.Http.ForwardingResolver">ForwardingResolver</a> クラスを使用すると、クライアントの IP アドレス、ホスト、使用された HTTP プロトコルを解決することが可能です。Sisk のバージョン 1.0 以降、サーバーはサービスごとに異なるセキュリティ上の理由から、これらのヘッダーをデコードする標準実装を提供しなくなりました。</p>
+<p>たとえば、<code>X-Forwarded-For</code> ヘッダーにはリクエストを転送した IP アドレスの情報が含まれます。このヘッダーはプロキシが情報のチェーンを最終サービスへ渡すために使用され、使用されたすべてのプロキシの IP とクライアントの実際のアドレスが含まれます。問題は、クライアントのリモート IP を特定するのが難しいことがあり、このヘッダーを識別するための具体的なルールが存在しない点です。以下のヘッダーに関するドキュメントを必ずお読みください。</p>
 <ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns"><code>X-Forwarded-For</code> ヘッダー</a> についてこちらを参照してください。</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host"><code>X-Forwarded-Host</code> ヘッダー</a> についてこちらを参照してください。</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto"><code>X-Forwarded-Proto</code> ヘッダー</a> についてこちらを参照してください。</li>
+<li><code>X-Forwarded-For</code> ヘッダーについては<a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns">こちら</a>をご参照ください。</li>
+<li><code>X-Forwarded-Host</code> ヘッダーについては<a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host">こちら</a>をご参照ください。</li>
+<li><code>X-Forwarded-Proto</code> ヘッダーについては<a href="https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto">こちら</a>をご参照ください。</li>
 </ul>
 <h2 id="forwardingresolver-クラス">ForwardingResolver クラス</h2>
-<p>このクラスには、各サービスに最も適した実装を可能にする 3 つの仮想メソッドがあります。各メソッドは、プロキシを介したリクエストから情報を解決する責任があります。クライアントの IP アドレス、リクエストのホスト、および使用されるセキュリティ プロトコルです。デフォルトでは、Sisk は常に元のリクエストの情報を使用し、ヘッダーを解決しません。</p>
-<p>以下の例は、この実装を使用する方法を示しています。この例では、<code>X-Forwarded-For</code> ヘッダーを介してクライアントの IP を解決し、リクエストで複数の IP がフォワードされた場合にエラーをスローします。</p>
+<p>このクラスには、各サービスに最適な実装を可能にする 3 つの仮想メソッドが用意されています。各メソッドは、プロキシを介したリクエストから情報を解決する役割を担い、クライアントの IP アドレス、リクエストのホスト、使用されたセキュリティプロトコルを取得します。デフォルトでは、Sisk はヘッダーを解決せず、元のリクエストに含まれる情報を常に使用します。</p>
+<p>以下の例は、この実装の使用方法を示しています。この例では <code>X-Forwarded-For</code> ヘッダーを使ってクライアントの IP を解決し、リクエストに複数の IP が転送されている場合はエラーをスローします。</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>この例は、プロダクション コードで使用しないでください。実装が使用するために適切であることを常に確認してください。実装する前にヘッダーのドキュメントを読んでください。</p>
+<p>本例を本番コードで使用しないでください。実装が使用に適切かどうか必ず確認し、実装前にヘッダーのドキュメントを読んでください。</p>
 </div>
-<pre><code class="lang-csharp">class Program
+<pre><code class="lang-cs">class Program
 {
     static void Main(string[] args)
     {
@@ -197,9 +197,9 @@
             .UseListeningPort(5555)
             .Build();
 
-        host.Router.SetRoute(RouteMethod.Any, Route.AnyPath, request =&gt;
+        host.Router.MapAny(Route.AnyPath, request =&gt;
             new HttpResponse(&quot;Hello, world!!!&quot;));
-
+ 
         host.Start();
     }
 

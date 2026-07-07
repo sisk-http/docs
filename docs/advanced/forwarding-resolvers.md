@@ -29,7 +29,7 @@ class Program
             .UseListeningPort(5555)
             .Build();
 
-        host.Router.SetRoute(RouteMethod.Any, Route.AnyPath, request =>
+        host.Router.MapAny(Route.AnyPath, request =>
             new HttpResponse("Hello, world!!!"));
 
         host.Start();

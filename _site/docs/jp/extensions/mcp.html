@@ -173,16 +173,16 @@
                 <article data-uid="">
 <h1 id="モデルコンテキストプロトコル">モデルコンテキストプロトコル</h1>
 
-<p>大規模な言語モデル（LLM）を使用してエージェントモデルにコンテキストを提供するアプリケーションを構築することが可能です。<a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a> パッケージを使用することで、MCP サーバーを構築できます。</p>
-<pre><code>dotnet add package Sisk.ModelContextProtocol
+<p>大規模言語モデル（LLM）を使用してエージェントモデルにコンテキストを提供するアプリケーションを、<a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a> パッケージで構築できます。</p>
+<pre><code class="lang-bash">dotnet add package Sisk.ModelContextProtocol
 </code></pre>
-<p>このパッケージでは、<a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a> 上で動作する MCP サーバーを構築するための便利なクラスとメソッドが公開されています。</p>
+<p>このパッケージは、<a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a> 上で動作する MCP サーバーを構築するための便利なクラスとメソッドを公開します。現在の実装はプロトコルバージョン <code>2025-06-18</code> のツールをサポートしています。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>開始する前に、このパッケージは開発中であり、仕様に準拠していない動作を示す可能性があることを注意してください。<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">パッケージの詳細</a> を読んで、開発中の機能と未実装の機能を確認してください。</p>
+<p>開始する前に、このパッケージは開発中であり、仕様に準拠しない動作を示す可能性があることに注意してください。開発中の内容やまだ動作しない部分については、<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">パッケージの詳細</a> を参照してください。</p>
 </div>
 <h2 id="mcp-の開始">MCP の開始</h2>
-<p><a href="/api/Sisk.ModelContextProtocol.McpProvider">McpProvider</a> クラスは、MCP サーバーを定義するためのエントリーポイントです。抽象クラスであり、どこにでも定義できます。Sisk アプリケーションには、1 つ以上の MCP プロバイダーを含めることができます。</p>
+<p><code>[McpProvider](/api/Sisk.ModelContextProtocol.McpProvider)</code> クラスは MCP サーバーを定義するエントリーポイントです。シールドされたプロバイダーオブジェクトで、起動時に構成できます。Sisk アプリケーションは 1 つまたは複数の MCP プロバイダーを持つことができます。</p>
 <pre><code class="lang-csharp">McpProvider mcp = new McpProvider(
     serverName: &quot;math-server&quot;,
     serverTitle: &quot;数学サーバー&quot;,
@@ -190,7 +190,7 @@
 
 mcp.Tools.Add(new McpTool(
     name: &quot;math_sum&quot;,
-    description: &quot;1 つ以上の数字の合計を計算します。&quot;,
+    description: &quot;1 つ以上の数値を合計します。&quot;,
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary&lt;string, JsonSchema&gt;()
         {
@@ -198,7 +198,7 @@ mcp.Tools.Add(new McpTool(
                 JsonSchema.CreateArraySchema(
                     itemsSchema: JsonSchema.CreateNumberSchema(),
                     minItems: 1,
-                    description: &quot;合計する数字。&quot;)
+                    description: &quot;合計する数値。&quot;)
             }
         },
         requiredProperties: [&quot;numbers&quot;]),
@@ -220,7 +220,7 @@ mcp.Tools.Add(new McpTool(
 
             mcp.Tools.Add(new McpTool(
                 name: &quot;math_sum&quot;,
-                description: &quot;1 つ以上の数字の合計を計算します。&quot;,
+                description: &quot;1 つ以上の数値を合計します。&quot;,
                 schema: JsonSchema.CreateObjectSchema(
                     properties: new Dictionary&lt;string, JsonSchema&gt;()
                     {
@@ -228,7 +228,7 @@ mcp.Tools.Add(new McpTool(
                             JsonSchema.CreateArraySchema(
                                 itemsSchema: JsonSchema.CreateNumberSchema(),
                                 minItems: 1,
-                                description: &quot;合計する数字。&quot;)
+                                description: &quot;合計する数値。&quot;)
                         }
                     },
                     requiredProperties: [&quot;numbers&quot;]),
@@ -243,7 +243,7 @@ mcp.Tools.Add(new McpTool(
         {
             router.MapAny(&quot;/mcp&quot;, async (HttpRequest req) =&gt;
             {
-                await req.HandleMcpRequestAsync();
+                return await req.HandleMcpRequestAsync();
             });
         })
         .Build();
@@ -251,8 +251,16 @@ mcp.Tools.Add(new McpTool(
     host.Start();
 }
 </code></pre>
-<h2 id="json-スキーマの作成">JSON スキーマの作成</h2>
-<p>[Sisk.ModelContextProtocol] ライブラリでは、JSON と JSON スキーマの操作に <a href="https://github.com/CypherPotato/LightJson">LightJson</a> のフォークが使用されています。この実装では、さまざまなオブジェクトのためのフルー JSON スキーマ ビルダーが提供されます。</p>
+<p>エンドポイントは <code>GET</code> と <code>POST</code> の両方のリクエストを受け付ける必要があるため、<code>MapAny</code> が最もシンプルなルートマッピングです。<code>HandleMcpRequestAsync</code> は <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> を返し、ルートはそれを返す必要があります。アプリ内で複数のプロバイダーが必要な場合は、シングルトンをスキップし、各ルートから直接 <a href="/api/Sisk.ModelContextProtocol.McpProvider.HandleRequestAsync">McpProvider.HandleRequestAsync</a> を呼び出してください。</p>
+<pre><code class="lang-csharp">var mathProvider = new McpProvider(&quot;math-server&quot;, &quot;数学サーバー&quot;, new Version(1, 0));
+
+router.MapAny(&quot;/mcp/math&quot;, async request =&gt;
+{
+    return await mathProvider.HandleRequestAsync(request);
+});
+</code></pre>
+<h2 id="関数用-json-スキーマの作成">関数用 JSON スキーマの作成</h2>
+<p><code>[Sisk.ModelContextProtocol]</code> ライブラリは JSON と JSON スキーマ操作のために <a href="https://github.com/CypherPotato/LightJson">LightJson</a> のフォークを使用しています。この実装はさまざまなオブジェクト向けに流暢な JSON Schema ビルダーを提供します。</p>
 <ul>
 <li>JsonSchema.CreateObjectSchema</li>
 <li>JsonSchema.CreateArraySchema</li>
@@ -261,7 +269,7 @@ mcp.Tools.Add(new McpTool(
 <li>JsonSchema.CreateStringSchema</li>
 <li>JsonSchema.Empty</li>
 </ul>
-<p>例：</p>
+<p>例:</p>
 <pre><code class="lang-csharp">JsonSchema.CreateObjectSchema(
     properties: new Dictionary&lt;string, JsonSchema&gt;()
     {
@@ -269,12 +277,12 @@ mcp.Tools.Add(new McpTool(
             JsonSchema.CreateArraySchema(
                 itemsSchema: JsonSchema.CreateNumberSchema(),
                 minItems: 1,
-                description: &quot;合計する数字。&quot;)
+                description: &quot;合計する数値。&quot;)
         }
     },
     requiredProperties: [&quot;numbers&quot;]);
 </code></pre>
-<p>以下のスキーマを生成します。</p>
+<p>次のスキーマが生成されます:</p>
 <pre><code class="lang-json">{
   &quot;type&quot;: &quot;object&quot;,
   &quot;properties&quot;: {
@@ -284,17 +292,17 @@ mcp.Tools.Add(new McpTool(
         &quot;type&quot;: &quot;number&quot;
       },
       &quot;minItems&quot;: 1,
-      &quot;description&quot;: &quot;合計する数字。&quot;
+      &quot;description&quot;: &quot;The numbers to sum.&quot;
     }
   },
   &quot;required&quot;: [&quot;numbers&quot;]
 }
 </code></pre>
 <h2 id="関数呼び出しの処理">関数呼び出しの処理</h2>
-<p><a href="/api/Sisk.ModelContextProtocol.McpTool">McpTool</a> の <code>executionHandler</code> パラメーターで定義された関数では、呼び出し引数を含む JsonObject が提供されます。この JsonObject はフルーに読み取ることができます。</p>
+<p><code>[McpTool](/api/Sisk.ModelContextProtocol.McpTool)</code> の <code>executionHandler</code> パラメーターで定義された関数は、呼び出し引数を含む <code>JsonObject</code> を提供し、流暢に読み取ることができます。</p>
 <pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
     name: &quot;browser_do_action&quot;,
-    description: &quot;ブラウザのアクションを実行します。スクロール、リフレッシュ、ナビゲーションなど。&quot;,
+    description: &quot;スクロール、リフレッシュ、ナビゲーションなどのブラウザーアクションを実行します。&quot;,
     schema: JsonSchema.CreateObjectSchema(
         properties: new Dictionary&lt;string, JsonSchema&gt;()
         {
@@ -305,31 +313,32 @@ mcp.Tools.Add(new McpTool(
             },
             { &quot;action_data&quot;,
                 JsonSchema.CreateStringSchema(
-                    description: &quot;アクションのパラメーター。&quot;)
-            }
+                    description: &quot;アクションパラメーター。&quot;
+                ) }
         },
         requiredProperties: [&quot;action_name&quot;]),
     executionHandler: async (McpToolContext context) =&gt;
     {
-        // アクション名を読み取ります。null または明示的な文字列でない場合は例外がスローされます。
+        // アクション名を読み取ります。null または明示的な文字列でない場合は例外がスローされます
         string actionName = context.Arguments[&quot;action_name&quot;].GetString();
         
-        // action_data は必須ではありません。したがって、ここでは null になる可能性があります。
+        // action_data は必須ではないため、ここで null になる可能性があります
         string? actionData = context.Arguments[&quot;action_data&quot;].MaybeNull()?.GetString();
         
-        // アクション名に基づいてブラウザのアクションを処理します。
+        // actionName に基づいてブラウザーアクションを処理します
         return await Task.FromResult(
-            McpToolResult.CreateText($&quot;ブラウザのアクションを実行しました: {actionName}&quot;));
+            McpToolResult.CreateText($&quot;実行されたブラウザーアクション: {actionName}&quot;));
     }));
 </code></pre>
+<p>ツール引数はハンドラが実行される前にスキーマに対して検証されます。検証に失敗した場合、プロバイダーはエラー結果を MCP クライアントに返し、ツールハンドラは呼び出されません。</p>
 <h2 id="関数の結果">関数の結果</h2>
-<p><a href="/api/Sisk.ModelContextProtocol.McpToolResult">McpToolResult</a> オブジェクトでは、MCP クライアントへのツール応答の内容を作成するための 3 つのメソッドが提供されます。</p>
+<p><code>[McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult)</code> オブジェクトは、ツールレスポンス用のコンテンツを作成するための 3 つのメソッドを提供します。</p>
 <ul>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio">CreateAudio(ReadOnlySpan<byte>, string)</byte></a>: オーディオベースの応答を作成します。</li>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage">CreateImage(ReadOnlySpan<byte>, string)</byte></a>: 画像ベースの応答を作成します。</li>
-<li><a href="/api/Sisk.ModelContextProtocol.McpToolResult.CreateText">CreateText(string)</a>: テキストベースの応答 (デフォルト) を作成します。</li>
+<li><code>[CreateAudio(ReadOnlySpan&lt;byte&gt;, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio)</code>: MCP クライアント向けの音声ベースのレスポンスを作成します。</li>
+<li><code>[CreateImage(ReadOnlySpan&lt;byte&gt;, string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage)</code>: MCP クライアント向けの画像ベースのレスポンスを作成します。</li>
+<li><code>[CreateText(string)](/api/Sisk.ModelContextProtocol.McpToolResult.CreateText)</code>: テキストベースのレスポンス（デフォルト）を作成します。</li>
 </ul>
-<p>さらに、複数の異なる内容を 1 つの JSON ツール応答に結合することもできます。</p>
+<p>さらに、複数の異なるコンテンツを単一の JSON ツールレスポンスに結合することも可能です。</p>
 <pre><code class="lang-csharp">mcp.Tools.Add(new McpTool(
     ...
     executionHandler: async (McpToolContext context) =&gt;
@@ -339,15 +348,16 @@ mcp.Tools.Add(new McpTool(
         byte[] browserScreenshot = await browser.ScreenshotAsync();
         
         return McpToolResult.Combine(
-            McpToolResult.CreateText(&quot;ブラウザのスクリーンショットです:&quot;),
+            McpToolResult.CreateText(&quot;ブラウザーのスクリーンショットです:&quot;),
             McpToolResult.CreateImage(browserScreenshot, &quot;image/png&quot;)
-        )
+        );
     }));
 </code></pre>
-<h2 id="作業の継続">作業の継続</h2>
-<p>モデルコンテキストプロトコルは、エージェントモデルとコンテンツを提供するアプリケーションとの間の通信プロトコルです。このプロトコルは新しく、仕様が頻繁に更新されるため、非推奨、新機能、破壊的な変更が発生することがあります。</p>
-<p><a href="https://modelcontextprotocol.io/docs/jp/getting-started/intro">MCP</a> が解決する問題を理解することが、エージェントアプリケーションの構築を開始する前に重要です。</p>
-<p>また、<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">Sisk.ModelContextProtocol</a> パッケージの仕様を読んで、進捗状況、ステータス、および使用可能な機能を理解する必要があります。</p>
+<p>プロバイダーは現在、初期化、<code>tools/list</code>、<code>tools/call</code>、<code>ping</code>、および <code>notifications/*</code> を処理します。サポートされていない JSON-RPC メソッドは JSON-RPC エラー応答を返します。</p>
+<h2 id="今後の作業">今後の作業</h2>
+<p>モデルコンテキストプロトコルは、エージェントモデルとそれらにコンテンツを提供するアプリケーション間の通信プロトコルです。新しいプロトコルであるため、仕様は非推奨項目や新機能、破壊的変更を伴って頻繁に更新されます。</p>
+<p>エージェントアプリケーションの構築を開始する前に、<a href="https://modelcontextprotocol.io/docs/jp/getting-started/intro">Model Context Protocol</a> が解決する課題を理解することが重要です。</p>
+<p>また、<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">Sisk.ModelContextProtocol</a> パッケージの仕様を読んで、進捗、ステータス、そして何ができるかを把握してください。</p>
 
 </article>
 

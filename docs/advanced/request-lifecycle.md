@@ -64,4 +64,4 @@ Below is explained the entire life cycle of a request through an example of an H
     - If an exception was thrown on the server, the `OnException` event is invoked for all configured HTTP server handlers.
     - If the route allows access-logging and [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) is not null, a log line is written to the log output.
     - If the route allows error-logging, there is an exception, and [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) is not null, a log line is written to the error log output.
-    - If the server is waiting for a request through [HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext), the mutex is released and the context becomes available to the user.
+    - If the server is waiting for a request through [HttpServer.WaitNext](/api/Sisk.Core.Http.HttpServer.WaitNext), the mutex is released and the context becomes available to the user.

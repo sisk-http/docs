@@ -173,16 +173,17 @@
                 <article data-uid="">
 <h1 id="api-ドキュメント">API ドキュメント</h1>
 
-<p><code>Sisk.Documenting</code> 拡張機能を使用すると、Sisk アプリケーションの API ドキュメントを自動的に生成できます。コード構造と属性を利用して、包括的なドキュメント サイトを作成し、Open API (Swagger) 形式へのエクスポートをサポートします。</p>
+<p><code>Sisk.Documenting</code> 拡張機能を使用すると、Sisk アプリケーションの API ドキュメントを自動的に生成できます。コード構造や属性を利用して包括的なドキュメントサイトを作成し、Open API（Swagger）形式へのエクスポートをサポートします。</p>
 <div class="WARNING">
 <h5>Warning</h5>
-<p>このパッケージは現在開発中であり、まだ公開されていません。動作と API は将来の更新で変更される可能性があります。</p>
+<p>このパッケージは現在開発中で、まだ公開されていません。動作や API は今後のアップデートで変更される可能性があります。</p>
 </div>
-<p>このパッケージはまだ NuGet で利用できないため、ソース コードを直接プロジェクトに組み込むか、プロジェクト依存関係として参照する必要があります。ソース コードは <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting">ここ</a> でアクセスできます。</p>
-<p><code>Sisk.Documenting</code> を使用するには、アプリケーション ビルダーに登録し、ルート ハンドラーをドキュメント属性で装飾する必要があります。</p>
-<h3 id="ミドルウェアの登録">ミドルウェアの登録</h3>
-<p><code>HttpServerBuilder</code> の <code>UseApiDocumentation</code> 拡張メソッドを使用して、API ドキュメントを有効にします。</p>
+<p>このパッケージは NuGet で入手できないため、ソースコードをプロジェクトに直接組み込むか、プロジェクト依存として参照する必要があります。ソースコードは<a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting">こちら</a>から取得できます。</p>
+<p><code>Sisk.Documenting</code> を使用するには、アプリケーション ビルダーに登録し、ルートハンドラにドキュメント属性を付与します。</p>
+<h3 id="ドキュメント生成の登録">ドキュメント生成の登録</h3>
+<p><code>HttpServerHostContextBuilder</code> の <code>UseApiDocumentation</code> 拡張メソッドを使用して、アプリケーションを提供するルーターと同じルーターから生成された API ドキュメントを公開します。</p>
 <pre><code class="lang-csharp">using Sisk.Documenting;
+using Sisk.Documenting.Exporters;
 
 // ...
 
@@ -191,124 +192,129 @@ host.UseApiDocumentation(
     {
         ApplicationName = &quot;My Application&quot;,
         ApplicationDescription = &quot;Description of my application.&quot;,
-        Version = &quot;1.0.0&quot;
+        ApplicationVersion = &quot;1.0.0&quot;
     },
     routerPath: &quot;/api/docs&quot;,
     exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] });
 </code></pre>
 <ul>
-<li><strong>context</strong>: アプリケーションのメタデータ (名前、説明、バージョンなど) を定義します。</li>
-<li><strong>routerPath</strong>: ドキュメント ユーザー インターフェイス (または JSON) がアクセス可能な URL パスです。</li>
-<li><strong>exporter</strong>: ドキュメントのエクスポート方法を構成します。<code>OpenApiExporter</code> は Open API (Swagger) サポートを有効にします。</li>
+<li><strong>context</strong>: アプリケーション名、説明、バージョンなどのメタデータを定義します。</li>
+<li><strong>routerPath</strong>: ドキュメントのユーザーインターフェイス（または JSON）がアクセス可能になる URL パスです。</li>
+<li><strong>exporter</strong>: ドキュメントのエクスポート方法を構成します。<code>OpenApiExporter</code> は Open API（Swagger）サポートを有効にします。</li>
 </ul>
 <h3 id="エンドポイントのドキュメント化">エンドポイントのドキュメント化</h3>
-<p>エンドポイントを <code>[ApiEndpoint]</code> と <code>[ApiQueryParameter]</code> 属性を使用して説明できます。</p>
+<p>ルートハンドラ メソッドに <code>[ApiEndpoint]</code> と <code>[ApiQueryParameter]</code> 属性を付与して、エンドポイントを記述できます。</p>
 <h3 id="apiendpoint"><code>ApiEndpoint</code></h3>
-<p><code>[ApiEndpoint]</code> 属性を使用してエンドポイントの説明を提供できます。</p>
+<p><code>[ApiEndpoint]</code> 属性でエンドポイントの説明を提供できます。</p>
 <pre><code class="lang-csharp">[ApiEndpoint(Description = &quot;Returns a greeting message.&quot;)]
 public HttpResponse Index(HttpRequest request) { ... }
 </code></pre>
 <h3 id="apiqueryparameter"><code>ApiQueryParameter</code></h3>
-<p><code>[ApiQueryParameter]</code> 属性を使用してエンドポイントが受け付けるクエリ文字列パラメーターをドキュメント化できます。</p>
+<p><code>[ApiQueryParameter]</code> 属性は、エンドポイントが受け取るクエリ文字列パラメータを文書化します。</p>
 <pre><code class="lang-csharp">[ApiQueryParameter(name: &quot;name&quot;, IsRequired = false, Description = &quot;The name of the person to greet.&quot;, Type = &quot;string&quot;)]
 public HttpResponse Index(HttpRequest request) { ... }
 </code></pre>
 <ul>
-<li><strong>name</strong>: クエリ パラメーターの名前です。</li>
-<li><strong>IsRequired</strong>: パラメーターが必須かどうかを指定します。</li>
-<li><strong>Description</strong>: パラメーターの人間が読みやすい説明です。</li>
-<li><strong>Type</strong>: 期待されるデータ型 (例: &quot;string&quot;, &quot;int&quot;) です。</li>
+<li><strong>name</strong>: クエリ パラメータの名前。</li>
+<li><strong>IsRequired</strong>: パラメータが必須かどうかを指定します。</li>
+<li><strong>Description</strong>: パラメータの人間可読な説明。</li>
+<li><strong>Type</strong>: 期待されるデータ型（例: <code>&quot;string&quot;</code>、<code>&quot;int&quot;</code>）。</li>
 </ul>
 <h3 id="apiendpoint-1"><code>ApiEndpoint</code></h3>
-<p>エンドポイントに一般的な情報を付加します。</p>
+<p>エンドポイントに一般情報を付与します。</p>
 <ul>
-<li><strong>Name</strong> (string, required in constructor): API エンドポイントの名前です。</li>
-<li><strong>Description</strong> (string): エンドポイントの簡単な説明です。</li>
-<li><strong>Group</strong> (string): エンドポイントをグループ化するために使用されます (例: コントローラーまたはモジュールごとに)。</li>
-<li><strong>InheritDescriptionFromXmlDocumentation</strong> (bool, default: <code>true</code>): <code>true</code> の場合、<code>Description</code> が設定されていない場合、メソッドの XML ドキュメントの概要を使用します。</li>
+<li><strong>Name</strong> (string, required in constructor): API エンドポイントの名前。</li>
+<li><strong>Description</strong> (string): エンドポイントの簡潔な説明。</li>
+<li><strong>Group</strong> (string): エンドポイントをグループ化するために使用します（例: コントローラやモジュール単位）。</li>
+<li><strong>InheritDescriptionFromXmlDocumentation</strong> (bool, default: <code>true</code>): <code>true</code> の場合、<code>Description</code> が設定されていないときにメソッドの XML ドキュメント要約を使用しようとします。</li>
 </ul>
 <h3 id="apiheader"><code>ApiHeader</code></h3>
-<p>エンドポイントが期待または使用する特定の HTTP ヘッダーをドキュメント化します。</p>
+<p>エンドポイントが期待または使用する特定の HTTP ヘッダーを文書化します。</p>
 <ul>
-<li><strong>HeaderName</strong> (string, required in constructor): ヘッダーのキー (例: &quot;Authorization&quot;) です。</li>
+<li><strong>HeaderName</strong> (string, required in constructor): ヘッダーのキー（例: <code>&quot;Authorization&quot;</code>）。</li>
 <li><strong>Description</strong> (string): ヘッダーの目的を説明します。</li>
-<li><strong>IsRequired</strong> (bool): ヘッダーがリクエストに必須かどうかを示します。</li>
+<li><strong>IsRequired</strong> (bool): リクエストに対してヘッダーが必須かどうかを示します。</li>
 </ul>
 <h3 id="apiparameter"><code>ApiParameter</code></h3>
-<p>エンドポイントの汎用パラメーターを定義します。通常、フォーム フィールドまたは他の属性でカバーされていないボディ パラメーターに使用されます。</p>
+<p>フォーム フィールドやボディ パラメータなど、他の属性でカバーされない汎用パラメータを定義します。</p>
 <ul>
-<li><strong>Name</strong> (string, required in constructor): パラメーターの名前です。</li>
-<li><strong>TypeName</strong> (string, required in constructor): パラメーターのデータ型 (例: &quot;string&quot;, &quot;int&quot;) です。</li>
-<li><strong>Description</strong> (string): パラメーターの説明です。</li>
-<li><strong>IsRequired</strong> (bool): パラメーターが必須かどうかを示します。</li>
+<li><strong>Name</strong> (string, required in constructor): パラメータの名前。</li>
+<li><strong>TypeName</strong> (string, required in constructor): パラメータのデータ型（例: <code>&quot;string&quot;</code>、<code>&quot;int&quot;</code>）。</li>
+<li><strong>Description</strong> (string): パラメータの説明。</li>
+<li><strong>IsRequired</strong> (bool): パラメータが必須かどうかを示します。</li>
 </ul>
 <h3 id="apiparametersfrom"><code>ApiParametersFrom</code></h3>
-<p>指定されたクラスまたは型のプロパティからパラメーターのドキュメントを自動的に生成します。</p>
+<p>指定したクラスまたは型のプロパティから自動的にパラメータ文書を生成します。</p>
 <ul>
-<li><strong>Type</strong> (Type, required in constructor): プロパティを反映するクラスの <code>Type</code> です。</li>
+<li><strong>Type</strong> (Type, required in constructor): プロパティを反映させるクラス <code>Type</code>。</li>
 </ul>
 <h3 id="apipathparameter"><code>ApiPathParameter</code></h3>
-<p>パス変数 (例: <code>/users/{id}</code>) をドキュメント化します。</p>
+<p>パス変数（例: <code>/users/{id}</code>）を文書化します。</p>
 <ul>
-<li><strong>Name</strong> (string, required in constructor): パス パラメーターの名前です。</li>
-<li><strong>Description</strong> (string): パラメーターが表すものを説明します。</li>
-<li><strong>Type</strong> (string): 期待されるデータ型です。</li>
+<li><strong>Name</strong> (string, required in constructor): パス パラメータの名前。</li>
+<li><strong>Description</strong> (string): パラメータが何を表すかを説明します。</li>
+<li><strong>Type</strong> (string): 期待されるデータ型。</li>
 </ul>
 <h3 id="apiqueryparameter-1"><code>ApiQueryParameter</code></h3>
-<p>クエリ文字列パラメーター (例: <code>?page=1</code>) をドキュメント化します。</p>
+<p>クエリ文字列パラメータ（例: <code>?page=1</code>）を文書化します。</p>
 <ul>
-<li><strong>Name</strong> (string, required in constructor): クエリ パラメーターの名前です。</li>
-<li><strong>Description</strong> (string): パラメーターの説明です。</li>
-<li><strong>Type</strong> (string): 期待されるデータ型です。</li>
-<li><strong>IsRequired</strong> (bool): クエリ パラメーターが必須かどうかを示します。</li>
+<li><strong>Name</strong> (string, required in constructor): クエリ パラメータのキー。</li>
+<li><strong>Description</strong> (string): パラメータの説明。</li>
+<li><strong>Type</strong> (string): 期待されるデータ型。</li>
+<li><strong>IsRequired</strong> (bool): クエリ パラメータが必須かどうかを示します。</li>
 </ul>
 <h3 id="apirequest"><code>ApiRequest</code></h3>
-<p>期待されるリクエスト ボディを説明します。</p>
+<p>期待されるリクエスト ボディを記述します。</p>
 <ul>
-<li><strong>Description</strong> (string, required in constructor): リクエスト ボディの説明です。</li>
-<li><strong>Example</strong> (string): リクエスト ボディの例を含む生の文字列です。</li>
-<li><strong>ExampleLanguage</strong> (string): 例の言語です (例: &quot;json&quot;, &quot;xml&quot;)。</li>
-<li><strong>ExampleType</strong> (Type): 設定されている場合、例はこの型から自動的に生成されます (コンテキストによってサポートされている場合)。</li>
+<li><strong>Description</strong> (string, required in constructor): リクエスト ボディの説明。</li>
+<li><strong>Example</strong> (string): リクエスト ボディの例を含む生文字列。</li>
+<li><strong>ExampleLanguage</strong> (string): 例の言語（例: <code>&quot;json&quot;</code>、<code>&quot;xml&quot;</code>）。</li>
+<li><strong>PayloadType</strong> (Type): 設定されている場合、構成されたコンテキスト ハンドラがサポートしていれば、この型から自動的に例とスキーマが生成されます。</li>
 </ul>
 <h3 id="apiresponse"><code>ApiResponse</code></h3>
-<p>エンドポイントからの可能なレスポンスを説明します。</p>
+<p>エンドポイントからの可能なレスポンスを記述します。</p>
 <ul>
-<li><strong>StatusCode</strong> (HttpStatusCode, required in constructor): 返される HTTP ステータス コード (例: <code>HttpStatusCode.OK</code>) です。</li>
+<li><strong>StatusCode</strong> (HttpStatusCode, required in constructor): 返される HTTP ステータスコード（例: <code>HttpStatusCode.OK</code>）。</li>
 <li><strong>Description</strong> (string): このレスポンスの条件を説明します。</li>
-<li><strong>Example</strong> (string): レスポンス ボディの例を含む生の文字列です。</li>
-<li><strong>ExampleLanguage</strong> (string): 例の言語です。</li>
-<li><strong>ExampleType</strong> (Type): 設定されている場合、例はこの型から自動的に生成されます。</li>
+<li><strong>Example</strong> (string): レスポンス ボディの例を含む生文字列。</li>
+<li><strong>ExampleLanguage</strong> (string): 例の言語。</li>
+<li><strong>PayloadType</strong> (Type): 設定されている場合、構成されたコンテキスト ハンドラがサポートしていれば、この型から自動的に例とスキーマが生成されます。</li>
 </ul>
-<h2 id="タイプ-ハンドラー">タイプ ハンドラー</h2>
-<p>タイプ ハンドラーは、.NET タイプ (クラス、列挙型など) をドキュメントの例に変換する責任を持ちます。これは、データ モデルに基づいて自動的にリクエストおよびレスポンス ボディの例を生成するために特に役立ちます。</p>
-<p>これらのハンドラーは、<code>ApiGenerationContext</code> 内で構成されます。</p>
-<pre><code class="lang-csharp">var context = new ApiGenerationContext()
+<h2 id="タイプハンドラ">タイプハンドラ</h2>
+<p>タイプハンドラは、.NET の型（クラス、列挙型など）をドキュメント例に変換する役割を担います。データモデルに基づくリクエストやレスポンス ボディの自動例生成に特に有用です。</p>
+<p>これらのハンドラは <code>ApiGenerationContext</code> 内で構成します。</p>
+<pre><code class="lang-csharp">using Sisk.Documenting.Content;
+
+var context = new ApiGenerationContext()
 {
     // ...
-    BodyExampleTypeHandler = new JsonExampleTypeHandler(),
-    ParameterExampleTypeHandler = new JsonExampleTypeHandler()
+    BodyExampleTypeHandler = new JsonContentTypeHandler(),
+    ParameterExampleTypeHandler = new JsonContentTypeHandler(),
+    ContentSchemaTypeHandler = new JsonContentTypeHandler()
 };
 </code></pre>
-<h3 id="jsonexampletypehandler">JsonExampleTypeHandler</h3>
-<p><code>JsonExampleTypeHandler</code> は、JSON の例を生成する組み込みハンドラーです。<code>IExampleBodyTypeHandler</code> と <code>IExampleParameterTypeHandler</code> の両方を実装しています。</p>
-<p>アプリケーションのシリアル化 ロジックに合わせて、特定の <code>JsonSerializerOptions</code> または <code>IJsonTypeInfoResolver</code> でカスタマイズできます。</p>
-<pre><code class="lang-csharp">var jsonHandler = new JsonExampleTypeHandler(new JsonSerializerOptions
+<h3 id="jsoncontenttypehandler">JsonContentTypeHandler</h3>
+<p><code>JsonContentTypeHandler</code> は組み込みハンドラで、JSON の例、パラメータ例、JSON スキーマを生成します。<code>IExampleBodyTypeHandler</code>、<code>IExampleParameterTypeHandler</code>、<code>IContentSchemaTypeHandler</code> を実装しています。</p>
+<p>アプリケーションのシリアライズ ロジックに合わせて、特定の <code>JsonSerializerOptions</code> や <code>IJsonTypeInfoResolver</code> でカスタマイズできます。</p>
+<pre><code class="lang-csharp">var jsonHandler = new JsonContentTypeHandler(new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     WriteIndented = true
 });
 
 context.BodyExampleTypeHandler = jsonHandler;
+context.ParameterExampleTypeHandler = jsonHandler;
+context.ContentSchemaTypeHandler = jsonHandler;
 </code></pre>
-<h3 id="カスタム-タイプ-ハンドラー">カスタム タイプ ハンドラー</h3>
-<p>他の形式 (例: XML) をサポートするか、例の生成方法をカスタマイズするために、独自のハンドラーを実装できます。</p>
+<h3 id="カスタムタイプハンドラ">カスタムタイプハンドラ</h3>
+<p>XML など他のフォーマットをサポートしたり、例の生成方法をカスタマイズしたりするために、独自のハンドラを実装できます。</p>
 <h4 id="iexamplebodytypehandler">IExampleBodyTypeHandler</h4>
-<p>リクエストおよびレスポンス タイプのボディの例を生成するために、このインターフェイスを実装します。</p>
+<p>リクエストおよびレスポンス型のボディ例を生成するためにこのインターフェイスを実装します。</p>
 <pre><code class="lang-csharp">public class XmlExampleTypeHandler : IExampleBodyTypeHandler
 {
     public BodyExampleResult? GetBodyExampleForType(Type type)
     {
-        // タイプの XML 文字列を生成します
+        // Generate XML string for the type
         string xmlContent = MyXmlGenerator.Generate(type);
 
         return new BodyExampleResult(xmlContent, &quot;xml&quot;);
@@ -316,7 +322,7 @@ context.BodyExampleTypeHandler = jsonHandler;
 }
 </code></pre>
 <h4 id="iexampleparametertypehandler">IExampleParameterTypeHandler</h4>
-<p>タイプからパラメーターの詳細な説明を生成するために (<code>[ApiParametersFrom]</code> で使用されます) このインターフェイスを実装します。</p>
+<p><code>[ApiParametersFrom]</code> で使用される、型から詳細なパラメータ説明を生成するためにこのインターフェイスを実装します。</p>
 <pre><code class="lang-csharp">public class CustomParameterHandler : IExampleParameterTypeHandler
 {
     public ParameterExampleResult[] GetParameterExamplesForType(Type type)
@@ -339,9 +345,9 @@ context.BodyExampleTypeHandler = jsonHandler;
 }
 </code></pre>
 <h2 id="エクスポーター">エクスポーター</h2>
-<p>エクスポーターは、収集された API ドキュメント メタデータを、他のツールで消費できるか、ユーザーに表示できる特定の形式に変換する責任を持ちます。</p>
+<p>エクスポーターは、収集された API ドキュメント メタデータを、他のツールが利用できる形式やユーザーに表示できる形式に変換する役割を担います。</p>
 <h3 id="openapiexporter">OpenApiExporter</h3>
-<p>提供されるデフォルトのエクスポーターは <code>OpenApiExporter</code> であり、<a href="https://spec.openapis.org/oas/v3.0.0">OpenAPI仕様 3.0.0</a> に従った JSON ファイルを生成します。</p>
+<p>デフォルトで提供されるエクスポーターは <code>OpenApiExporter</code> で、<a href="https://spec.openapis.org/oas/v3.0.0">OpenAPI Specification 3.0.0</a> に従った JSON ファイルを生成します。</p>
 <pre><code class="lang-csharp">new OpenApiExporter()
 {
     OpenApiVersion = &quot;3.0.0&quot;,
@@ -360,9 +366,9 @@ context.BodyExampleTypeHandler = jsonHandler;
     TermsOfService = &quot;https://example.com/terms&quot;
 }
 </code></pre>
-<h3 id="カスタム-エクスポーターの作成">カスタム エクスポーターの作成</h3>
-<p>独自のエクスポーターを作成するには、<code>IApiDocumentationExporter</code> インターフェイスを実装します。これにより、Markdown、HTML、Postman コレクション、またはその他のカスタム形式でのドキュメントの出力を生成できます。</p>
-<p>インターフェイスでは、単一のメソッド <code>ExportDocumentationContent</code> を実装する必要があります。</p>
+<h3 id="カスタムエクスポーターの作成">カスタムエクスポーターの作成</h3>
+<p><code>IApiDocumentationExporter</code> インターフェイスを実装して独自のエクスポーターを作成できます。これにより、Markdown、HTML、Postman Collection、または任意のカスタム形式でドキュメントを出力できます。</p>
+<p>インターフェイスは単一メソッド <code>ExportDocumentationContent</code> の実装を要求します。</p>
 <pre><code class="lang-csharp">using Sisk.Core.Http;
 using Sisk.Documenting;
 
@@ -370,7 +376,7 @@ public class MyCustomExporter : IApiDocumentationExporter
 {
     public HttpContent ExportDocumentationContent(ApiDocumentation documentation)
     {
-        // 1. ドキュメント オブジェクトを処理します
+        // 1. Process the documentation object
         var sb = new StringBuilder();
         sb.AppendLine($&quot;# {documentation.ApplicationName}&quot;);
 
@@ -380,24 +386,25 @@ public class MyCustomExporter : IApiDocumentationExporter
             sb.AppendLine(endpoint.Description);
         }
 
-        // 2. コンテンツを HttpContent として返します
+        // 2. Return the content as an HttpContent
         return new StringContent(sb.ToString(), Encoding.UTF8, &quot;text/markdown&quot;);
     }
 }
 </code></pre>
-<p>次に、構成でそれを使用します。</p>
+<p>その後、設定で単に使用します：</p>
 <pre><code class="lang-csharp">host.UseApiDocumentation(
     // ...
     exporter: new MyCustomExporter()
 );
 </code></pre>
 <h3 id="完全な例">完全な例</h3>
-<p>以下は、<code>Sisk.Documenting</code> を設定し、シンプルなコントローラーをドキュメント化する方法を示す完全な例です。</p>
+<p>以下は <code>Sisk.Documenting</code> を設定し、シンプルなコントローラをドキュメント化する完全な例です。</p>
 <pre><code class="lang-csharp">using Sisk.Core.Entity;
 using Sisk.Core.Http;
 using Sisk.Core.Routing;
 using Sisk.Documenting;
 using Sisk.Documenting.Annotations;
+using Sisk.Documenting.Exporters;
 
 using var host = HttpServer.CreateBuilder(5555)
     .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
@@ -411,7 +418,7 @@ using var host = HttpServer.CreateBuilder(5555)
         exporter: new OpenApiExporter() { ServerUrls = [&quot;http://localhost:5555/&quot;] })
     .UseRouter(router =&gt;
     {
-        router.SetObject(new MyController());
+        router.MapInstance(new MyController());
     })
     .Build();
 
@@ -429,7 +436,7 @@ class MyController
     }
 }
 </code></pre>
-<p>この例では、<code>/api/docs</code> にアクセスすると、&quot;My application&quot; API の生成されたドキュメントが提供され、<code>GET /</code> エンドポイントとその <code>name</code> パラメーターが説明されます。</p>
+<p>この例では、<code>/api/docs</code> にアクセスすると「My application」API の生成されたドキュメントが提供され、<code>GET /</code> エンドポイントとその <code>name</code> パラメータが記述されます。</p>
 
 </article>
 

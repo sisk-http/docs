@@ -1,25 +1,25 @@
-# Tratamento de requisições
+# Manipulação de requisições
 
-Os tratadores de requisições, também conhecidos como "middlewares", são funções que são executadas antes ou após uma requisição ser executada no roteador. Eles podem ser definidos por rota ou por roteador.
+Manipuladores de requisição, também conhecidos como "middlewares", são funções que são executadas antes ou depois que uma requisição é processada no roteador. Eles podem ser definidos por rota ou por roteador.
 
-Existem dois tipos de tratadores de requisições:
+Existem dois tipos de manipuladores de requisição:
 
-- **BeforeResponse**: define que o tratador de requisição será executado antes de chamar a ação do roteador.
-- **AfterResponse**: define que o tratador de requisição será executado após chamar a ação do roteador. Enviar uma resposta HTTP neste contexto substituirá a resposta da ação do roteador.
+- **BeforeResponse**: define que o manipulador de requisição será executado antes de chamar a ação do roteador.
+- **AfterResponse**: define que o manipulador de requisição será executado após chamar a ação do roteador. Enviar uma resposta HTTP neste contexto sobrescreverá a resposta da ação do roteador.
 
-Ambos os tratadores de requisições podem substituir a resposta da função de callback real do roteador. Além disso, os tratadores de requisições podem ser úteis para validar uma requisição, como autenticação, conteúdo ou qualquer outra informação, como armazenar informações, logs ou outras etapas que podem ser realizadas antes ou após uma resposta.
+Ambos os manipuladores de requisição podem sobrescrever a resposta da função de callback real do roteador. Além disso, manipuladores de requisição podem ser úteis para validar uma requisição, como autenticação, conteúdo ou qualquer outra informação, como armazenar dados, logs ou outras etapas que podem ser realizadas antes ou depois de uma resposta.
 
 ![](/assets/img/requesthandlers1.png)
 
-Dessa forma, um tratador de requisição pode interromper toda a execução e retornar uma resposta antes de finalizar o ciclo, descartando tudo o mais no processo.
+Dessa forma, um manipulador de requisição pode interromper toda essa execução e retornar uma resposta antes de concluir o ciclo, descartando todo o resto no processo.
 
-Exemplo: suponha que um tratador de requisição de autenticação de usuário não autentique o usuário. Isso impedirá que o ciclo de requisição continue e ficará pendente. Se isso acontecer no tratador de requisição na posição dois, o terceiro e subsequentes não serão avaliados.
+Exemplo: suponha que um manipulador de requisição de autenticação de usuário não o autentique. Ele impedirá que o ciclo de requisição continue e ficará pendente. Se isso acontecer no manipulador de requisição na posição dois, o terceiro e os subsequentes não serão avaliados.
 
 ![](/assets/img/requesthandlers2.png)
 
-## Criando um tratador de requisição
+## Criando um manipulador de requisição
 
-Para criar um tratador de requisição, podemos criar uma classe que herda a interface [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler), no seguinte formato:
+Para criar um manipulador de requisição, podemos criar uma classe que herda a interface [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler), no seguinte formato:
 
 <div class="script-header">
     <span>
@@ -30,7 +30,7 @@ Para criar um tratador de requisição, podemos criar uma classe que herda a int
     </span>
 </div>
 
-```csharp
+```cs
 public class AuthenticateUserRequestHandler : IRequestHandler
 {
     public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
@@ -39,25 +39,69 @@ public class AuthenticateUserRequestHandler : IRequestHandler
     {
         if (request.Headers.Authorization != null)
         {
-            // Retornar null indica que o ciclo de requisição pode continuar
+            // Retornar null indica que o ciclo da requisição pode continuar
             return null;
         }
         else
         {
-            // Retornar um objeto HttpResponse indica que essa resposta substituirá as respostas adjacentes.
+            // Retornar um objeto HttpResponse indica que esta resposta sobrescreverá respostas adjacentes.
             return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
 ```
 
-No exemplo acima, indicamos que, se o cabeçalho `Authorization` estiver presente na requisição, deve continuar e chamar o próximo tratador de requisição ou a callback do roteador, dependendo do que vier a seguir. Se um tratador de requisição for executado após a resposta por sua propriedade [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) e retornar um valor não nulo, ele substituirá a resposta do roteador.
+No exemplo acima, indicamos que se o cabeçalho `Authorization` estiver presente na requisição, ela deve continuar e o próximo manipulador de requisição ou o callback do roteador deve ser chamado, seja qual for o próximo. Se um manipulador de requisição for executado após a resposta por sua propriedade [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) e retornar um valor não nulo, ele sobrescreverá a resposta do roteador.
 
-Sempre que um tratador de requisição retorna `null`, indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.
+Sempre que um manipulador de requisição retorna `null`, isso indica que a requisição deve continuar e o próximo objeto deve ser chamado ou o ciclo deve terminar com a resposta do roteador.
 
-## Associando um tratador de requisição a uma rota única
+Se você herdar da classe incorporada [RequestHandler](/api/Sisk.Core.Routing.RequestHandler), pode retornar `Next()` para tornar essa intenção explícita:
 
-Você pode definir um ou mais tratadores de requisição para uma rota.
+```cs
+public class AuthenticateUserRequestHandler : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+Para manipuladores que precisam de I/O, herde de [AsyncRequestHandler](/api/Sisk.Core.Routing.AsyncRequestHandler):
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+Pequenos manipuladores inline também podem ser criados com `RequestHandler.Create` ou `AsyncRequestHandler.Create`:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
+});
+```
+
+## Associando um manipulador de requisição a uma única rota
+
+Você pode definir um ou mais manipuladores de requisição para uma rota.
 
 <div class="script-header">
     <span>
@@ -68,13 +112,13 @@ Você pode definir um ou mais tratadores de requisição para uma rota.
     </span>
 </div>
 
-```csharp
-mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
+```cs
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
 {
-    new AuthenticateUserRequestHandler(),     // antes do tratador de requisição
-    new ValidateJsonContentRequestHandler(),  // antes do tratador de requisição
-    //                                        -- método IndexPage será executado aqui
-    new WriteToLogRequestHandler()            // após o tratador de requisição
+    new AuthenticateUserRequestHandler(),     // before request handler
+    new ValidateJsonContentRequestHandler(),  // before request handler
+    //                                        -- method IndexPage will be executed here
+    new WriteToLogRequestHandler()            // after request handler
 });
 ```
 
@@ -89,18 +133,18 @@ Ou criando um objeto [Route](/api/Sisk.Core.Routing.Route):
     </span>
 </div>
 
-```csharp
-Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
+```cs
+Route indexRoute = Route.Get("/", IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 ```
 
-## Associando um tratador de requisição a um roteador
+## Associando um manipulador de requisição a um roteador
 
-Você pode definir um tratador de requisição global que será executado em todas as rotas de um roteador.
+Você pode definir um manipulador de requisição global que será executado em todas as rotas de um roteador.
 
 <div class="script-header">
     <span>
@@ -111,16 +155,16 @@ Você pode definir um tratador de requisição global que será executado em tod
     </span>
 </div>
 
-```csharp
+```cs
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
 ```
 
-## Associando um tratador de requisição a um atributo
+## Associando um manipulador de requisição a um atributo
 
-Você pode definir um tratador de requisição em um atributo de método junto com um atributo de rota.
+Você pode definir um manipulador de requisição em um atributo de método junto com um atributo de rota.
 
 <div class="script-header">
     <span>
@@ -131,7 +175,7 @@ Você pode definir um tratador de requisição em um atributo de método junto c
     </span>
 </div>
 
-```csharp
+```cs
 public class MyController
 {
     [RouteGet("/")]
@@ -139,13 +183,13 @@ public class MyController
     static HttpResponse Index(HttpRequest request)
     {
         return new HttpResponse() {
-            Content = new StringContent("Olá, mundo!")
+            Content = new StringContent("Hello world!")
         };
     }
 }
 ```
 
-Observe que é necessário passar o tipo de tratador de requisição desejado e não uma instância do objeto. Dessa forma, o tratador de requisição será instanciado pelo analisador do roteador. Você pode passar argumentos no construtor da classe com a propriedade [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments).
+Observe que é necessário passar o tipo desejado do manipulador de requisição e não uma instância de objeto. Dessa forma, o manipulador de requisição será instanciado pelo analisador do roteador. Você pode passar argumentos no construtor da classe com a propriedade [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments).
 
 Exemplo:
 
@@ -158,12 +202,12 @@ Exemplo:
     </span>
 </div>
 
-```csharp
+```cs
 [RequestHandler<AuthenticateUserRequestHandler>("arg1", 123, ...)]
 public HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent("Olá, mundo!")
+        Content = new StringContent("Hello world!")
     };
 }
 ```
@@ -179,7 +223,7 @@ Você também pode criar seu próprio atributo que implementa RequestHandler:
     </span>
 </div>
 
-```csharp
+```cs
 public class AuthenticateAttribute : RequestHandlerAttribute
 {
     public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { "arg1", 123, ... })
@@ -189,7 +233,7 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 }
 ```
 
-E usá-lo como:
+E usá-lo assim:
 
 <div class="script-header">
     <span>
@@ -200,19 +244,19 @@ E usá-lo como:
     </span>
 </div>
 
-```csharp
+```cs
 [Authenticate]
 static HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent("Olá, mundo!")
+        Content = new StringContent("Hello world!")
     };
 }
 ```
 
-## Ignorando um tratador de requisição global
+## Ignorando um manipulador de requisição global
 
-Depois de definir um tratador de requisição global em uma rota, você pode ignorá-lo em rotas específicas.
+Depois de definir um manipulador de requisição global em uma rota, você pode ignorar esse manipulador de requisição em rotas específicas.
 
 <div class="script-header">
     <span>
@@ -223,22 +267,23 @@ Depois de definir um tratador de requisição global em uma rota, você pode ign
     </span>
 </div>
 
-```csharp
+```cs
 var myRequestHandler = new AuthenticateUserRequestHandler();
 mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 {
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "Minha rota", IndexPage, null)
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ok: a mesma instância do que está nos tratadores de requisição globais
-        new AuthenticateUserRequestHandler() // errado: não ignorará o tratador de requisição global
-    }
-});
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
 ```
 
 > [!NOTE]
-> Se você estiver ignorando um tratador de requisição, é necessário usar a mesma referência do que foi instanciada anteriormente para ignorar. Criar outra instância do tratador de requisição não ignorará o tratador de requisição global, pois sua referência será alterada. Lembre-se de usar a mesma referência do tratador de requisição usada em ambos os GlobalRequestHandlers e BypassGlobalRequestHandlers.
+> Se você estiver ignorando um manipulador de requisição, deve usar a mesma referência da instância criada anteriormente para pular. Criar outra instância de manipulador de requisição não ignorará o manipulador global, pois sua referência mudará. Lembre-se de usar a mesma referência de manipulador de requisição usada tanto em GlobalRequestHandlers quanto em BypassGlobalRequestHandlers.

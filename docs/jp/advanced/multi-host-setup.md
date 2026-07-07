@@ -1,43 +1,43 @@
-# 複数のリスニングホストをサーバーごとに
+# サーバーあたり複数のリスニングホスト
 
-Sisk Frameworkは、常に1つのサーバーに複数のホストを使用することをサポートしています。つまり、単一のHTTPサーバーは複数のポートをリスニングし、各ポートには独自のルーターとサービスが実行されます。
+Sisk Framework は常にサーバーあたり複数のホストの使用をサポートしており、つまり単一の HTTP サーバーが複数のポートでリッスンでき、各ポートはそれぞれ独自のルーターとサービスを実行します。
 
-この方法により、責任を簡単に分離し、Siskを使用した単一のHTTPサーバーでサービスを管理できます。以下の例は、2つのListeningHostsの作成を示しており、各ホストは異なるポートをリスニングし、異なるルーターとアクションを実行しています。
+このように、Sisk を使用すると単一の HTTP サーバー上で責務を分離し、サービスを管理することが容易になります。以下の例は、異なるポートでリッスンする 2 つの ListeningHost を作成し、異なるルーターとアクションを持たせる方法を示しています。
 
-[アプリの手動作成](/v1/getting-started.md#manually-creating-your-app)を読んで、この抽象化の詳細を理解してください。
+[アプリを手動で作成する](/v1/getting-started.md#manually-creating-your-app) を参照してください。
 
 ```cs
 static void Main(string[] args)
 {
-    // 2つのリスニングホストを作成します。各ホストには独自のルーターと
-    // 独自のポートがあります
+    // 2 つのリスニングホストを作成し、それぞれが独自のルーターを持ち
+    // 各自のポートでリッスンします
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("ホストAからこんにちは！"));
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("ホストBからこんにちは！"));
-
-    // サーバー構成を作成し、両方の
-    // リスニングホストを追加します
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
+ 
+    // サーバー構成を作成し、両方のリスニングホストを追加します
+    // それにリスニングホストを設定します
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // 指定された構成を使用するHTTPサーバーを作成します
+    // 指定された構成を使用する HTTP サーバーを作成します
     //
     HttpServer server = new HttpServer(configuration);
 
-    // サーバーを起動します
+    // サーバーを開始します
     server.Start();
 
-    Console.WriteLine("ホストAに{0}でアクセスしてみてください", server.ListeningPrefixes[0]);
-    Console.WriteLine("ホストBに{0}でアクセスしてみてください", server.ListeningPrefixes[1]);
+    Console.WriteLine("Try to reach host A in {0}", server.ListeningPrefixes[0]);
+    Console.WriteLine("Try to reach host B in {0}", server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

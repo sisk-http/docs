@@ -1,25 +1,25 @@
-# Anfragebehandlung
+# Anfrageverarbeitung
 
-Anfragebehandler, auch bekannt als "Middleware", sind Funktionen, die vor oder nach der Ausführung einer Anfrage auf dem Router ausgeführt werden. Sie können pro Route oder pro Router definiert werden.
+Request-Handler, auch als „Middlewares“ bezeichnet, sind Funktionen, die vor oder nach der Ausführung einer Anfrage im Router laufen. Sie können pro Route oder pro Router definiert werden.
 
-Es gibt zwei Arten von Anfragebehandlern:
+Es gibt zwei Arten von Request-Handlern:
 
-- **BeforeResponse**: definiert, dass der Anfragebehandler vor dem Aufruf der Router-Aktion ausgeführt wird.
-- **AfterResponse**: definiert, dass der Anfragebehandler nach dem Aufruf der Router-Aktion ausgeführt wird. Das Senden einer HTTP-Antwort in diesem Kontext überschreibt die Router-Aktionsantwort.
+- **BeforeResponse**: definiert, dass der Request-Handler vor dem Aufruf der Router-Aktion ausgeführt wird.
+- **AfterResponse**: definiert, dass der Request-Handler nach dem Aufruf der Router-Aktion ausgeführt wird. Das Senden einer HTTP-Antwort in diesem Kontext überschreibt die Antwort der Router-Aktion.
 
-Beide Anfragebehandler können die tatsächliche Router-Rückruf-Funktion überschreiben. Außerdem können Anfragebehandler nützlich sein, um eine Anfrage zu validieren, wie z.B. Authentifizierung, Inhalt oder andere Informationen, wie z.B. das Speichern von Informationen, Protokollen oder anderen Schritten, die vor oder nach einer Antwort durchgeführt werden können.
+Beide Request-Handler können die eigentliche Rückgabe der Router-Callback-Funktion überschreiben. Übrigens können Request-Handler nützlich sein, um eine Anfrage zu validieren, z. B. Authentifizierung, Inhalt oder andere Informationen, wie das Speichern von Daten, Protokolle oder weitere Schritte, die vor oder nach einer Antwort durchgeführt werden können.
 
 ![](/assets/img/requesthandlers1.png)
 
-Auf diese Weise kann ein Anfragebehandler die gesamte Ausführung unterbrechen und eine Antwort zurückgeben, bevor der Zyklus beendet ist, und alles andere im Prozess verwerfen.
+Auf diese Weise kann ein Request-Handler die gesamte Ausführung unterbrechen und eine Antwort zurückgeben, bevor der Zyklus abgeschlossen ist, wobei alles andere im Prozess verworfen wird.
 
-Beispiel: Nehmen wir an, dass ein Benutzer-Authentifizierungsanfragebehandler den Benutzer nicht authentifiziert. Er wird den Anfragelebenszyklus nicht fortsetzen und hängen bleiben. Wenn dies im Anfragebehandler an Position zwei passiert, werden die dritte und folgenden nicht ausgewertet.
+Beispiel: Angenommen, ein Request-Handler zur Benutzer-Authentifizierung authentifiziert den Benutzer nicht. Er verhindert, dass der Anfrage-Lebenszyklus fortgesetzt wird, und lässt ihn hängen. Wenn dies im Request-Handler an Position zwei geschieht, werden der dritte und alle folgenden nicht mehr ausgewertet.
 
 ![](/assets/img/requesthandlers2.png)
 
-## Erstellen eines Anfragebehandlers
+## Erstellen eines Request-Handlers
 
-Um einen Anfragebehandler zu erstellen, können wir eine Klasse erstellen, die die [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Schnittstelle erbt, in diesem Format:
+Um einen Request-Handler zu erstellen, können wir eine Klasse erzeugen, die das [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler)-Interface erbt, in folgendem Format:
 
 <div class="script-header">
     <span>
@@ -44,41 +44,64 @@ public class AuthenticateUserRequestHandler : IRequestHandler
         }
         else
         {
-            // Rückgabe eines HttpResponse-Objekts bedeutet, dass diese Antwort die benachbarten Antworten überschreibt.
+            // Rückgabe eines HttpResponse-Objekts bedeutet, dass diese Antwort benachbarte Antworten überschreibt.
             return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
 ```
 
-Im obigen Beispiel haben wir angegeben, dass, wenn der `Authorization`-Header in der Anfrage vorhanden ist, er fortgesetzt werden soll und der nächste Anfragebehandler oder die Router-Rückruf-Funktion aufgerufen werden soll, je nachdem, was zuerst kommt. Wenn ein Anfragebehandler nach der Antwort durch seine Eigenschaft [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) ausgeführt wird und einen nicht-leeren Wert zurückgibt, überschreibt er die Router-Antwort.
+Im obigen Beispiel haben wir angegeben, dass wenn der `Authorization`-Header in der Anfrage vorhanden ist, die Verarbeitung fortgesetzt werden soll und der nächste Request-Handler oder der Router-Callback aufgerufen wird, je nachdem, was als Nächstes kommt. Wird ein Request-Handler nach der Antwort ausgeführt, indem seine Eigenschaft [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) auf AfterResponse gesetzt ist und ein Nicht-Null-Wert zurückgegeben wird, überschreibt er die Antwort des Routers.
 
-Wenn ein Anfragebehandler `null` zurückgibt, bedeutet dies, dass die Anfrage fortgesetzt werden muss und das nächste Objekt aufgerufen werden muss oder der Zyklus mit der Router-Antwort enden muss.
+Immer wenn ein Request-Handler `null` zurückgibt, bedeutet das, dass die Anfrage fortgesetzt werden muss und das nächste Objekt aufgerufen wird bzw. der Zyklus mit der Antwort des Routers endet.
 
-## Zuordnen eines Anfragebehandlers zu einer einzelnen Route
-
-Sie können einen oder mehrere Anfragebehandler für eine Route definieren.
-
-<div class="script-header">
-    <span>
-        Router.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
+Wenn Sie von der integrierten Klasse [RequestHandler](/api/Sisk.Core.Routing.RequestHandler) erben, können Sie `Next()` zurückgeben, um diese Absicht explizit zu machen:
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
+public class AuthenticateUserRequestHandler : RequestHandler
 {
-    new AuthenticateUserRequestHandler(),     // vorheriger Anfragebehandler
-    new ValidateJsonContentRequestHandler(),  // vorheriger Anfragebehandler
-    //                                        -- Methode IndexPage wird hier ausgeführt
-    new WriteToLogRequestHandler()            // nachfolgender Anfragebehandler
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+Für Handler, die I/O benötigen, erben Sie von [AsyncRequestHandler](/api/Sisk.Core.Routing.AsyncRequestHandler):
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+Kleine Inline-Handler können ebenfalls mit `RequestHandler.Create` oder `AsyncRequestHandler.Create` erstellt werden:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
 });
 ```
 
-Oder durch Erstellen eines [Route](/api/Sisk.Core.Routing.Route)-Objekts:
+## Zuordnen eines Request-Handlers zu einer einzelnen Route
+
+Sie können einen oder mehrere Request-Handler für eine Route definieren.
 
 <div class="script-header">
     <span>
@@ -90,17 +113,38 @@ Oder durch Erstellen eines [Route](/api/Sisk.Core.Routing.Route)-Objekts:
 </div>
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler(),     // before request handler
+    new ValidateJsonContentRequestHandler(),  // before request handler
+    //                                        -- method IndexPage will be executed here
+    new WriteToLogRequestHandler()            // after request handler
+});
+```
+
+Oder ein [Route](/api/Sisk.Core.Routing.Route)-Objekt erstellen:
+
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```cs
+Route indexRoute = Route.Get("/", IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 ```
 
-## Zuordnen eines Anfragebehandlers zu einem Router
+## Zuordnen eines Request-Handlers zu einem Router
 
-Sie können einen globalen Anfragebehandler definieren, der auf allen Routen eines Routers ausgeführt wird.
+Sie können einen globalen Request-Handler definieren, der auf allen Routen eines Routers ausgeführt wird.
 
 <div class="script-header">
     <span>
@@ -118,9 +162,9 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 };
 ```
 
-## Zuordnen eines Anfragebehandlers zu einem Attribut
+## Zuordnen eines Request-Handlers zu einem Attribut
 
-Sie können einen Anfragebehandler auf einem Methoden-Attribut zusammen mit einem Route-Attribut definieren.
+Sie können einen Request-Handler als Method-Attribut zusammen mit einem Route-Attribut definieren.
 
 <div class="script-header">
     <span>
@@ -139,13 +183,13 @@ public class MyController
     static HttpResponse Index(HttpRequest request)
     {
         return new HttpResponse() {
-            Content = new StringContent("Hallo Welt!")
+            Content = new StringContent("Hello world!")
         };
     }
 }
 ```
 
-Beachten Sie, dass es notwendig ist, den gewünschten Anfragebehandlertyp und nicht eine Objektinstanz zu übergeben. Auf diese Weise wird der Anfragebehandler durch den Router-Parser instanziert. Sie können Argumente im Klassenkonstruktor mit der [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments)-Eigenschaft übergeben.
+Beachten Sie, dass der gewünschte Request-Handler-Typ und nicht eine Objektinstanz übergeben werden muss. Auf diese Weise wird der Request-Handler vom Router-Parser instanziiert. Sie können Argumente im Klassenkonstruktor über die Eigenschaft [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments) übergeben.
 
 Beispiel:
 
@@ -163,7 +207,7 @@ Beispiel:
 public HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent("Hallo Welt!")
+        Content = new StringContent("Hello world!")
     };
 }
 ```
@@ -189,7 +233,7 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 }
 ```
 
-Und es wie folgt verwenden:
+Und verwenden Sie es wie folgt:
 
 <div class="script-header">
     <span>
@@ -205,14 +249,14 @@ Und es wie folgt verwenden:
 static HttpResponse Index(HttpRequest request)
 {
     return res = new HttpResponse() {
-        Content = new StringContent("Hallo Welt!")
+        Content = new StringContent("Hello world!")
     };
 }
 ```
 
-## Umgehen eines globalen Anfragebehandlers
+## Umgehen eines globalen Request-Handlers
 
-Nachdem Sie einen globalen Anfragebehandler auf einer Route definiert haben, können Sie diesen Anfragebehandler auf bestimmten Routen ignorieren.
+Nachdem Sie einen globalen Request-Handler für eine Route definiert haben, können Sie diesen Request-Handler für bestimmte Routen ignorieren.
 
 <div class="script-header">
     <span>
@@ -230,15 +274,16 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "Meine Route", IndexPage, null)
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ok: dieselbe Instanz wie in den globalen Anfragebehandlern
-        new AuthenticateUserRequestHandler() // falsch: wird den globalen Anfragebehandler nicht überspringen
-    }
-});
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
 ```
 
-> [!HINWEIS]
-> Wenn Sie einen Anfragebehandler umgehen, müssen Sie dieselbe Referenz verwenden, die Sie zuvor instanziert haben, um ihn zu überspringen. Das Erstellen einer anderen Anfragebehandler-Instanz wird den globalen Anfragebehandler nicht überspringen, da sich die Referenz ändert. Beachten Sie, dass Sie dieselbe Anfragebehandler-Referenz verwenden müssen, die in beiden GlobalRequestHandlers und BypassGlobalRequestHandlers verwendet wird.
+> [!NOTE]
+> Wenn Sie einen Request-Handler umgehen, müssen Sie dieselbe Referenz verwenden, die Sie zuvor instanziiert haben, um ihn zu überspringen. Das Erstellen einer anderen Request-Handler-Instanz wird den globalen Request-Handler nicht überspringen, da sich die Referenz ändert. Denken Sie daran, dieselbe Request-Handler-Referenz zu verwenden, die sowohl in GlobalRequestHandlers als auch in BypassGlobalRequestHandlers verwendet wird.

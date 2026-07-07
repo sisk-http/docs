@@ -1,25 +1,26 @@
-# Обработчики HTTP-сервера
+# Http server handlers
 
-В версии Sisk 0.16 мы ввели класс `HttpServerHandler`, целью которого является расширение общего поведения Sisk и предоставление дополнительных обработчиков событий для Sisk, таких как обработка запросов HTTP, маршрутизаторы, контекстные сумки и многое другое.
+В версии Sisk 0.16 мы представили класс `HttpServerHandler`, который предназначен для расширения общего поведения Sisk и предоставления дополнительных обработчиков событий, таких как обработка HTTP‑запросов, маршрутизаторов, контекстных мешков и многое другое.
 
-Этот класс концентрирует события, которые происходят во время существования всего HTTP-сервера и каждого запроса. Протокол HTTP не имеет сессий, и поэтому невозможно сохранить информацию от одного запроса к другому. Sisk в настоящее время предоставляет способ реализации сессий, контекстов, подключений к базе данных и других полезных провайдеров, чтобы помочь вашей работе.
+Класс концентрирует события, происходящие в течение жизни всего HTTP‑сервера, а также отдельного запроса. Протокол HTTP не имеет сессий, поэтому невозможно сохранять информацию от одного запроса к другому. Сейчас Sisk предоставляет способ реализовать сессии, контексты, соединения с базой данных и другие полезные провайдеры, помогающие в работе.
 
-Пожалуйста, обратитесь к [этой странице](/api/Sisk.Core.Http.Handlers.HttpServerHandler), чтобы прочитать, где каждое событие вызывается и какова его цель. Вы также можете просмотреть [жизненный цикл запроса HTTP](/v1/advanced/request-lifecycle), чтобы понять, что происходит с запросом и где события вызываются. HTTP-сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события является синхронным, то есть он будет блокировать текущий поток для каждого запроса или контекста, пока все обработчики, связанные с этой функцией, не будут выполнены и завершены.
+Смотрите [эту страницу](/api/Sisk.Core.Http.Handlers.HttpServerHandler), чтобы узнать, где каждый событие вызывается и какова его цель. Вы также можете посмотреть [жизненный цикл HTTP‑запроса](/v1/advanced/request-lifecycle), чтобы понять, что происходит с запросом и где генерируются события. HTTP‑сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события синхронный, то есть он блокирует текущий поток для каждого запроса или контекста, пока все обработчики, связанные с этой функцией, не будут выполнены и завершены.
 
-В отличие от RequestHandlers, они не могут быть применены к определенным группам маршрутов или конкретным маршрутам. Вместо этого они применяются к всему HTTP-серверу. Вы можете применять условия внутри своего обработчика HTTP-сервера. Кроме того, синглтоны каждого HttpServerHandler определяются для каждого приложения Sisk, поэтому существует только один экземпляр на `HttpServerHandler`.
+В отличие от RequestHandlers, их нельзя применять к отдельным группам маршрутов или конкретным маршрутам. Вместо этого они применяются ко всему HTTP‑серверу. Вы можете задавать условия внутри вашего Http Server Handler. Кроме того, для каждого `HttpServerHandler` в приложении Sisk определяется единственный экземпляр (singleton), то есть существует только один объект `HttpServerHandler`.
 
-Практический пример использования HttpServerHandler - автоматическое освобождение подключения к базе данных в конце запроса.
+Практический пример использования HttpServerHandler — автоматическое освобождение соединения с базой данных в конце запроса.
 
 ```cs
 // DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // проверяет, определено ли DbContext в контекстной сумке запроса
+        // проверяет, определён ли в запросе DbContext
+        // в его контекстном мешке
         if (requestBag.IsSet<DbContext>())
         {
             var db = requestBag.Get<DbContext>();
@@ -30,19 +31,16 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // позволяет пользователю создать контекст базы данных из запроса HTTP
-    // и сохранить его в контекстной сумке
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag<DbContext>(db);
+        return request.Bag.GetOrAdd(() => new DbContext());
     }
 }
 ```
 
-С помощью кода выше, расширение `GetDbContext` позволяет создать контекст подключения直接 из объекта HttpRequest. Неподключенное подключение может вызвать проблемы при работе с базой данных, поэтому оно завершается в `OnHttpRequestClose`.
+С помощью кода выше расширение `GetDbContext` позволяет создать контекст соединения непосредственно из объекта `HttpRequest`. Неосвобождённое соединение может вызвать проблемы при работе с базой данных, поэтому оно закрывается в `OnHttpRequestClose`.
 
-Вы можете зарегистрировать обработчик на HTTP-сервере в вашем построителе или直接 с помощью [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler).
+Вы можете зарегистрировать обработчик на HTTP‑сервере в вашем билдере или напрямую через [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler).
 
 ```cs
 // Program.cs
@@ -55,13 +53,13 @@ class Program
             .UseHandler<DatabaseConnectionHandler>()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
 ```
 
-С помощью этого, класс `UsersController` может использовать контекст базы данных следующим образом:
+Таким образом, класс `UsersController` может использовать контекст базы данных следующим образом:
 
 ```cs
 // UserController.cs
@@ -83,7 +81,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue<int>("id");
+        int userId = request.RouteParameters["id"].GetInteger();
         var user = db.Users.FirstOrDefault(u => u.Id == userId);
 
         return JsonOk(user);
@@ -93,19 +91,19 @@ public class UserController : ApiController
     public async Task<HttpResponse> Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize<User>(request.Body);
+        var user = await request.GetJsonContentAsync<User>();
 
         ArgumentNullException.ThrowIfNull(user);
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage("Пользователь добавлен.");
+        return JsonMessage("User added.");
     }
 }
 ```
 
-Код выше использует методы, такие как `JsonOk` и `JsonMessage`, которые встроены в `ApiController`, который наследуется от `RouterController`:
+В приведённом коде используются методы `JsonOk` и `JsonMessage`, встроенные в `ApiController`, который наследуется от `RouterController`:
 
 ```cs
 // ApiController.cs
@@ -132,6 +130,6 @@ public class ApiController : RouterModule
 }
 ```
 
-Разработчики могут реализовать сессии, контексты и подключения к базе данных, используя этот класс. Предоставленный код демонстрирует практический пример с DatabaseConnectionHandler, автоматизирующий освобождение подключения к базе данных в конце каждого запроса.
+Разработчики могут реализовывать сессии, контексты и соединения с базой данных, используя этот класс. Приведённый пример демонстрирует практическое применение `DatabaseConnectionHandler`, автоматизирующее освобождение соединения с базой данных в конце каждого запроса.
 
-Интеграция проста, с обработчиками, зарегистрированными во время настройки сервера. Класс HttpServerHandler предлагает мощный набор инструментов для управления ресурсами и расширения поведения Sisk в приложениях HTTP.
+Интеграция проста: обработчики регистрируются во время настройки сервера. Класс `HttpServerHandler` предоставляет мощный набор инструментов для управления ресурсами и расширения поведения Sisk в HTTP‑приложениях.

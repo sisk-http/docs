@@ -444,7 +444,7 @@ appMessages.WriteLine(&quot;Application started at {0}&quot;, DateTime.Now);
             host.UseHandler&lt;JsonMessageHandler&gt;();
         });
 
-        app.Router += new Route(RouteMethod.Any, &quot;/json&quot;, request =&gt;
+        app.Router.MapAny(&quot;/json&quot;, request =&gt;
         {
             return new HttpResponse()
                 .WithContent(JsonContent.Create(new

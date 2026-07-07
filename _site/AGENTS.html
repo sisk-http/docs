@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Extens&#227;o JSON-RPC | Sisk </title>
+        <title>Sisk DocFX Documentation Guidelines | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Extens&#227;o JSON-RPC | Sisk ">
+        <meta name="title" content="Sisk DocFX Documentation Guidelines | Sisk ">
 
-
-        <link rel="icon" href="../../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../../public/main.css">
+        <meta name="description" content="Use when editing the Sisk DocFX documentation repository, including docs, TOC files, DocFX configuration, templates, assets, and build scripts. Covers generated API files, translations, and validation commands.">
+        <link rel="icon" href="assets/img/favicon.ico">
+        <link rel="stylesheet" href="public/docfx.min.css">
+        <link rel="stylesheet" href="public/main.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-        <meta name="docfx:navrel" content="../../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
+        <meta name="docfx:navrel" content="toc.html">
+        <meta name="docfx:tocrel" content="toc.html">
 
-        <meta name="docfx:rel" content="../../../">
+        <meta name="docfx:rel" content="">
 
 
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/pt-br/extensions/json-rpc.md/#L1">
+        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/AGENTS.md/#L1">
         <meta name="loc:inThisArticle" content="In this article">
         <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
         <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -35,7 +35,7 @@
         <meta name="loc:copy" content="Copy">
         <meta name="loc:downloadPdf" content="Download PDF">
         
-        <script type="module" src="./../../../public/docfx.min.js"></script>
+        <script type="module" src="./public/docfx.min.js"></script>
         <script>
             const theme = localStorage.getItem('theme') || 'auto';
             document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
@@ -62,8 +62,8 @@
         <header class="bg-body border-bottom">
             <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
                 <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../../index.html">
-                        <img id="logo" class="svg" src="../../../assets/img/Icon.png" alt="Sisk">
+                    <a class="navbar-brand" href="index.html">
+                        <img id="logo" class="svg" src="assets/img/Icon.png" alt="Sisk">
                         Sisk
                     </a>
                     <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,23 +82,9 @@
         </header>
 
         <main class="container-xxl">
-            <div class="toc-offcanvas">
-                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <nav class="toc" id="toc"></nav>
-                    </div>
-                </div>
-            </div>
 
             <div class="content">
                 <div class="actionbar">
-                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-                        <i class="bi bi-list"></i>
-                    </button>
 
                     <nav id="breadcrumb"></nav>
                     <div class="actionbar-actions">
@@ -171,156 +157,23 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="extensão-json-rpc">Extensão JSON-RPC</h1>
+<h1 id="sisk-docfx-documentation-guidelines">Sisk DocFX Documentation Guidelines</h1>
 
-<p>Sisk possui um módulo experimental para uma API <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a>, que permite criar aplicações ainda mais simples. Esta extensão implementa estritamente a interface de transporte JSON-RPC 2.0 e oferece transporte via requisições HTTP GET, POST, e também web-sockets com Sisk.</p>
-<p>Você pode instalar a extensão via Nuget com o comando abaixo. Observe que, em versões experimentais/beta, você deve habilitar a opção de buscar pacotes pré‑lançamento no Visual Studio.</p>
-<pre><code class="lang-bash">dotnet add package Sisk.JsonRpc
-</code></pre>
-<h2 id="interface-de-transporte">Interface de Transporte</h2>
-<p>JSON-RPC é um protocolo de chamada de procedimento remoto (RPC) assíncrono e sem estado que usa JSON para comunicação de dados. Uma requisição JSON-RPC é tipicamente identificada por um ID, e uma resposta é entregue com o mesmo ID que foi enviado na requisição. Nem todas as requisições exigem uma resposta, sendo chamadas de &quot;notificações&quot;.</p>
-<p>A <a href="https://www.jsonrpc.org/specification">especificação JSON-RPC 2.0</a> explica em detalhes como o transporte funciona. Esse transporte é agnóstico quanto ao local onde será usado. Sisk implementa esse protocolo via HTTP, seguindo as conformidades de <a href="https://www.jsonrpc.org/historical/json-rpc-over-http.html">JSON-RPC over HTTP</a>, que suporta parcialmente requisições GET, mas suporta completamente requisições POST. Web-sockets também são suportados, fornecendo comunicação assíncrona de mensagens.</p>
-<p>Uma requisição JSON-RPC se parece com:</p>
-<pre><code class="lang-json">{
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;method&quot;: &quot;Sum&quot;,
-    &quot;params&quot;: [1, 2, 4],
-    &quot;id&quot;: 1
-}
-</code></pre>
-<p>E uma resposta bem‑sucedida se parece com:</p>
-<pre><code class="lang-json">{
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;result&quot;: 7,
-    &quot;id&quot;: 1
-}
-</code></pre>
-<h2 id="métodos-json-rpc">Métodos JSON-RPC</h2>
-<p>O exemplo a seguir mostra como criar uma API JSON-RPC usando Sisk. Uma classe de operações matemáticas executa as operações remotas e entrega a resposta serializada ao cliente.</p>
-<div class="script-header">
-    <span>
-        Program.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-csharp">using var app = HttpServer.CreateBuilder(port: 5555)
-    .UseJsonRPC((sender, args) =&gt;
-    {
-        // adiciona todos os métodos marcados com WebMethod ao manipulador JSON-RPC
-        args.Handler.Methods.AddMethodsFromType(new MathOperations());
-        
-        // mapeia a rota /service para lidar com requisições JSON-RPC POST e GET
-        args.Router.MapPost(&quot;/service&quot;, args.Handler.Transport.HttpPost);
-        args.Router.MapGet(&quot;/service&quot;, args.Handler.Transport.HttpGet);
-        
-        // mapeia o transporte JSON-RPC WebSocket em GET /ws
-        args.Router.MapGet(&quot;/ws&quot;, args.Handler.Transport.WebSocket);
-    })
-    .Build();
-
-await app.StartAsync();
-</code></pre>
-<div class="script-header">
-    <span>
-        MathOperations.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-csharp">public class MathOperations
-{
-    [WebMethod]
-    public float Sum(float a, float b)
-    {
-        return a + b;
-    }
-    
-    [WebMethod]
-    public double Sqrt(float a)
-    {
-        return Math.Sqrt(a);
-    }
-}
-</code></pre>
-<p>O exemplo acima mapeará os métodos <code>Sum</code> e <code>Sqrt</code> para o manipulador JSON-RPC, e esses métodos estarão disponíveis em <code>GET /service</code>, <code>POST /service</code> e <code>GET /ws</code>. Os nomes dos métodos não diferenciam maiúsculas de minúsculas.</p>
-<p>Os parâmetros dos métodos são automaticamente desserializados para seus tipos específicos. O uso de uma requisição com parâmetros nomeados também é suportado. A serialização JSON é feita pela biblioteca <a href="https://github.com/CypherPotato/LightJson">LightJson</a>. Quando um tipo não é desserializado corretamente, você pode criar um <a href="https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters">conversor JSON</a> específico para esse tipo e associá‑lo a <a href="/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions">JsonRpcHandler.JsonSerializerOptions</a>.</p>
-<p>Você também pode obter o objeto bruto <code>$.params</code> da requisição JSON-RPC diretamente no seu método.</p>
-<div class="script-header">
-    <span>
-        MathOperations.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-csharp">[WebMethod]
-public float Sum(JsonArray|JsonObject @params)
-{
-    ...
-}
-</code></pre>
-<p>Para que isso ocorra, <code>@params</code> deve ser o <strong>único</strong> parâmetro do seu método, com exatamente o nome <code>params</code> (em C#, o <code>@</code> é necessário para escapar esse nome de parâmetro).</p>
-<p>A desserialização de parâmetros ocorre tanto para objetos nomeados quanto para arrays posicionais. Por exemplo, o método a seguir pode ser chamado remotamente por ambas as requisições:</p>
-<pre><code class="lang-csharp">[WebMethod]
-public float AddUserToStore(string apiKey, User user, UserStore store)
-{
-    ...
-}
-</code></pre>
-<p>Para um array, a ordem dos parâmetros deve ser respeitada.</p>
-<pre><code class="lang-json">{
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;method&quot;: &quot;AddUserToStore&quot;,
-    &quot;params&quot;: [
-        &quot;1234567890&quot;,
-        {
-            &quot;name&quot;: &quot;John Doe&quot;,
-            &quot;email&quot;: &quot;john@example.com&quot;
-        },
-        {
-            &quot;name&quot;: &quot;My Store&quot;
-        }
-    ],
-    &quot;id&quot;: 1
-
-}
-</code></pre>
-<h2 id="personalizando-o-serializador">Personalizando o serializador</h2>
-<p>Você pode personalizar o serializador JSON na propriedade <a href="/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions">JsonRpcHandler.JsonSerializerOptions</a>. Nessa propriedade, você pode habilitar o uso de <a href="https://json5.org/">JSON5</a> para desserializar mensagens. Embora não seja uma conformidade com JSON-RPC 2.0, JSON5 é uma extensão do JSON que permite uma escrita mais legível e compreensível.</p>
-<div class="script-header">
-    <span>
-        Program.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder ( 5556 )
-    .UseJsonRPC ( ( o, e ) =&gt; {
-
-        // usa um comparador de nomes sanitizado. este comparador compara apenas letras
-        // e dígitos em um nome, e descarta outros símbolos. ex:
-        // foo_bar10 == FooBar10
-        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ( );
-
-        // habilita JSON5 para o interpretador JSON. mesmo ativando isso, JSON puro ainda é permitido
-        e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
-
-        // mapeia a rota POST /service para o manipulador JSON RPC
-        e.Router.MapPost ( &quot;/service&quot;, e.Handler.Transport.HttpPost );
-    } )
-    .Build ( );
-
-host.Start ( );
-</code></pre>
+<ul>
+<li>Treat this workspace as the source for the Sisk documentation site built with DocFX, Bun, and the custom <code>build.js</code> script.</li>
+<li>Prefer editing the English source documentation under <code>docs/</code> and root documentation files. Do not manually edit localized documentation under <code>docs/ru/</code>, <code>docs/pt-br/</code>, <code>docs/cn/</code>, <code>docs/es/</code>, <code>docs/de/</code>, or <code>docs/jp/</code>; those files are generated by the translation flow.</li>
+<li>Do not manually edit generated API/reference output such as <code>api/*.yml</code>, <code>_site/**</code>, <code>_md/**</code>, or <code>_pack/**</code>. For API documentation changes, update the upstream source/XML docs in the framework repository instead of patching generated files here.</li>
+<li>Keep DocFX navigation changes in the relevant <code>toc.yml</code> files and make links relative and stable for the static documentation site.</li>
+<li>Use the existing Bun scripts in <code>package.json</code>: <code>bun run build:docs</code> for documentation build validation, <code>bun run pack</code> only when the full clean/translate/build flow is needed, and <code>bun run clean</code> or <code>bun run translate</code> for their specific tasks.</li>
+<li>Avoid running translation or AI-backed flows unless the user asks for them, because they can modify many generated localized files and may depend on external services.</li>
+<li>Preserve the repository's simple JavaScript style in <code>build.js</code>: CommonJS modules, direct Node APIs, and small focused changes instead of introducing TypeScript or extra build tooling.</li>
+<li>For documentation text, use clear, task-oriented explanations with accurate Sisk terminology, practical examples, and cross-references when they help the reader choose the next step.</li>
+</ul>
 
 </article>
 
                 <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/pt-br/extensions/json-rpc.md/#L1" class="edit-link">Edit this page</a>
+                    <a href="https://github.com/sisk-http/docs/blob/master/AGENTS.md/#L1" class="edit-link">Edit this page</a>
                 </div>
 
                 <div class="next-article d-print-none border-top" id="nextArticle"></div>

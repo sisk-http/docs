@@ -1,55 +1,55 @@
 # Erste Schritte
 
-Willkommen in der Sisk-Dokumentation!
+Willkommen zur Sisk-Dokumentation!
 
-Schließlich, was ist das Sisk-Framework? Es ist eine Open-Source-Bibliothek, die mit .NET erstellt wurde, um minimalistisch, flexibel und abstrakt zu sein. Sie ermöglicht es Entwicklern, Internetdienste schnell zu erstellen, mit wenig oder keiner notwendigen Konfiguration. Sisk ermöglicht es Ihrer bestehenden Anwendung, ein verwaltetes HTTP-Modul zu haben, das vollständig und entsorgbar ist.
+Sisk ist ein quelloffenes leichtgewichtiges HTTP‑Framework für .NET. Du kannst es verwenden, um einen eigenständigen Web‑Service zu erstellen, ein HTTP‑Modul in eine bestehende Anwendung einzubetten oder einen Service hinter einem Reverse‑Proxy mit nur der benötigten Konfiguration zu betreiben.
 
-Die Werte von Sisk umfassen Code-Transparenz, Modularität, Leistung und Skalierbarkeit und können verschiedene Arten von Anwendungen verarbeiten, wie z.B. Restful, JSON-RPC, Web-Sockets und mehr.
+Die Werte von Sisk umfassen Code‑Transparenz, Modularität, Leistung und Skalierbarkeit. Es kann verschiedene Anwendungsstile handhaben, darunter RESTful‑APIs, JSON‑RPC‑Dienste, WebSockets, Server‑Sent‑Events und das Bereitstellen statischer Dateien.
 
-Die wichtigsten Funktionen umfassen:
+Seine Hauptfunktionen umfassen:
 
 | Ressource | Beschreibung |
-| ------- | --------- |
-| [Routing](/docs/de/fundamentals/routing) | Ein Pfad-Router, der Präfixe, benutzerdefinierte Methoden, Pfadvariablen, Wertkonverter und mehr unterstützt. |
-| [Anfrage-Handler](/docs/de/fundamentals/request-handlers) | Auch bekannt als *Middleware*, bietet eine Schnittstelle, um eigene Anfrage-Handler zu erstellen, die mit der Anfrage vor oder nach einer Aktion arbeiten. |
-| [Komprimierung](/docs/de/fundamentals/responses#gzip-deflate-and-brotli-compression) | Komprimieren Sie den Inhalt Ihrer Antwort einfach mit Sisk. |
-| [Web-Sockets](/docs/de/features/websockets) | Bietet Routen, die vollständige Web-Sockets akzeptieren, für das Lesen und Schreiben an den Client. |
-| [Server-gesendete Ereignisse](/docs/de/features/server-sent-events) | Bietet das Senden von Server-Ereignissen an Clients, die das SSE-Protokoll unterstützen. |
-| [Protokollierung](/docs/de/features/logging) | Vereinfachte Protokollierung. Protokollieren Sie Fehler, Zugriffe, definieren Sie rotierende Protokolle nach Größe, mehrere Ausgabeströme für das gleiche Protokoll und mehr. |
-| [Mehrere Hosts](/docs/de/advanced/multi-host-setup) | Haben Sie einen HTTP-Server für mehrere Ports, und jeden Port mit seinem eigenen Router, und jeden Router mit seiner eigenen Anwendung. |
-| [Server-Handler](/docs/de/advanced/http-server-handlers) | Erweitern Sie Ihre eigene Implementierung des HTTP-Servers. Anpassen Sie mit Erweiterungen, Verbesserungen und neuen Funktionen.
+| --------- | ------------ |
+| [Routing](/docs/de/fundamentals/routing) | Ein Pfadrouter, der Präfixe, benutzerdefinierte Methoden, Pfadvariablen, Wertkonverter und mehr unterstützt. |
+| [Request Handlers](/docs/de/fundamentals/request-handlers) | Auch bekannt als *Middlewares*, bietet eine Schnittstelle zum Erstellen eigener Request‑Handler, die vor oder nach einer Aktion mit der Anfrage arbeiten. |
+| [Compression](/docs/de/fundamentals/responses#gzip-deflate-and-brotli-compression) | Komprimiere deine Antwortinhalte einfach mit Sisk. |
+| [Web sockets](/docs/de/features/websockets) | Stellt Routen bereit, die vollständige WebSockets akzeptieren, zum Lesen und Schreiben zum Client. |
+| [Server-sent events](/docs/de/features/server-sent-events) | Ermöglicht das Senden von Serverereignissen an Clients, die das SSE‑Protokoll unterstützen. |
+| [Logging](/docs/de/features/logging) | Vereinfachtes Logging. Protokolliere Fehler, Zugriffe, definiere rotierende Logs nach Größe, mehrere Ausgabeströme für dasselbe Log und mehr. |
+| [Multi-host](/docs/de/advanced/multi-host-setup) | Betreibe einen HTTP‑Server für mehrere Ports, wobei jeder Port seinen eigenen Router und jeder Router seine eigene Anwendung hat. |
+| [Server handlers](/docs/de/advanced/http-server-handlers) | Erweitere deine eigene Implementierung des HTTP‑Servers. Passe ihn mit Erweiterungen, Verbesserungen und neuen Funktionen an. |
 
 ## Erste Schritte
 
-Sisk kann in jeder .NET-Umgebung ausgeführt werden. In diesem Leitfaden werden wir Ihnen zeigen, wie Sie eine Sisk-Anwendung mit .NET erstellen. Wenn Sie es noch nicht installiert haben, laden Sie bitte das SDK von [hier](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) herunter.
+Sisk kann in jeder .NET‑Umgebung ausgeführt werden. In diesem Leitfaden zeigen wir dir, wie du eine Sisk‑Anwendung mit .NET erstellst. Falls du das SDK noch nicht installiert hast, lade es bitte von [hier](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) herunter.
 
-In diesem Tutorial werden wir zeigen, wie Sie eine Projektstruktur erstellen, eine Anfrage empfangen, einen URL-Parameter abrufen und eine Antwort senden. Dieser Leitfaden konzentriert sich auf den Aufbau eines einfachen Servers mit C#. Sie können auch Ihre bevorzugte Programmiersprache verwenden.
+In diesem Tutorial behandeln wir, wie man eine Projektstruktur erstellt, eine Anfrage empfängt, einen URL‑Parameter erhält und eine Antwort sendet. Dieser Leitfaden konzentriert sich darauf, einen einfachen Server mit C# zu bauen. Du kannst jedoch auch deine bevorzugte Programmiersprache verwenden.
 
 > [!NOTE]
-> Sie könnten an einem Quickstart-Projekt interessiert sein. Überprüfen Sie [dieses Repository](https://github.com/sisk-http/quickstart) für weitere Informationen.
+> Vielleicht bist du an einem Quick‑Start‑Projekt interessiert. Sieh dir [dieses Repository](https://github.com/sisk-http/quickstart) für weitere Informationen an.
 
 ## Erstellen eines Projekts
 
-Nennen wir unser Projekt "Meine Sisk-Anwendung". Sobald Sie .NET eingerichtet haben, können Sie Ihr Projekt mit dem folgenden Befehl erstellen:
+Nennen wir unser Projekt „My Sisk Application“. Sobald .NET eingerichtet ist, kannst du dein Projekt mit dem folgenden Befehl erstellen:
 
 ```bash
-dotnet new console -n meine-sisk-anwendung
+dotnet new console -n my-sisk-application
 ```
 
-Navigieren Sie als Nächstes zu Ihrem Projektverzeichnis und installieren Sie Sisk mit dem .NET-Utility-Tool:
+Navigiere anschließend in dein Projektverzeichnis und installiere Sisk mit dem .NET‑Utility‑Tool:
 
 ```bash
-cd meine-sisk-anwendung
+cd my-sisk-application
 dotnet add package Sisk.HttpServer
 ```
 
-Sie können weitere Möglichkeiten finden, Sisk in Ihrem Projekt zu installieren, [hier](https://www.nuget.org/packages/Sisk.HttpServer/).
+Weitere Installationsmöglichkeiten für Sisk in deinem Projekt findest du [hier](https://www.nuget.org/packages/Sisk.HttpServer/).
 
-Lassen Sie uns nun eine Instanz unseres HTTP-Servers erstellen. Für dieses Beispiel werden wir ihn so konfigurieren, dass er auf Port 5000 hört.
+Jetzt erstellen wir eine Instanz unseres HTTP‑Servers. In diesem Beispiel konfigurieren wir ihn, um auf Port 5000 zu lauschen.
 
-## Erstellen des HTTP-Servers
+## Aufbau des HTTP‑Servers
 
-Sisk ermöglicht es Ihnen, Ihre Anwendung Schritt für Schritt manuell aufzubauen, da sie auf das HttpServer-Objekt routet. Dies kann jedoch für die meisten Projekte nicht sehr bequem sein. Daher können wir die Builder-Methode verwenden, die es einfacher macht, unsere Anwendung in Betrieb zu nehmen.
+Sisk ermöglicht es dir, deine Anwendung Schritt für Schritt manuell zu bauen, da es zum HttpServer‑Objekt routet. Das ist jedoch für die meisten Projekte nicht sehr praktisch. Daher können wir die Builder‑Methode verwenden, die das Aufsetzen unserer App erleichtert.
 
 <div class="script-header">
     <span>
@@ -74,7 +74,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Hallo, Welt!")
+                Content = new StringContent("Hello, world!")
             };
         });
         
@@ -83,8 +83,8 @@ class Program
 }
 ```
 
-Es ist wichtig, jedes wichtige Komponente von Sisk zu verstehen. Später in diesem Dokument werden Sie mehr über die Funktionsweise von Sisk erfahren.
+Es ist wichtig, jede wesentliche Komponente von Sisk zu verstehen. Später in diesem Dokument erfährst du mehr darüber, wie Sisk funktioniert.
 
 ## Manuelle (erweiterte) Einrichtung
 
-Sie können erfahren, wie jedes Sisk-Mechanismus funktioniert, in [diesem Abschnitt](/docs/de/advanced/manual-setup) der Dokumentation, der das Verhalten und die Beziehungen zwischen dem HttpServer, Router, ListeningPort und anderen Komponenten erklärt.
+Du kannst lernen, wie jeder Sisk‑Mechanismus funktioniert, in [diesem Abschnitt](/docs/de/advanced/manual-setup) der Dokumentation, der das Verhalten und die Beziehungen zwischen HttpServer, Router, ListeningPort und anderen Komponenten erklärt.

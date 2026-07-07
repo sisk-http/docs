@@ -173,8 +173,8 @@
                 <article data-uid="">
 <h1 id="configuración-manual-avanzada">Configuración manual (avanzada)</h1>
 
-<p>En esta sección, crearemos nuestro servidor HTTP sin ningún estándar predefinido, de una manera completamente abstracta. Aquí, puedes construir manualmente cómo funcionará tu servidor HTTP. Cada ListeningHost tiene un enrutador, y un servidor HTTP puede tener múltiples ListeningHosts, cada uno apuntando a un host diferente en un puerto diferente.</p>
-<p>Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: para cada solicitud, debe haber una respuesta. Sisk sigue este principio también. Creemos un método que responda con un mensaje &quot;Hola, mundo&quot; en HTML, especificando el código de estado y los encabezados.</p>
+<p>Utilice la configuración manual cuando necesite ensamblar los componentes del servidor usted mismo, como cuando un proceso debe exponer varios hosts, puertos, routers o una configuración de servidor personalizada. Para la mayoría de las aplicaciones, la API del constructor es más corta y debe ser preferida. La configuración manual es útil cuando desea control directo sobre los cuatro componentes principales: un <code>Router</code>, uno o más objetos <code>ListeningHost</code>, una <code>HttpServerConfiguration</code> y el <code>HttpServer</code> final.</p>
+<p>Primero, necesitamos entender el concepto de solicitud/respuesta. Es bastante simple: por cada solicitud, debe haber una respuesta. Sisk sigue también este principio. Creemos un método que responda con un mensaje &quot;Hello, World!&quot; en HTML, especificando el código de estado y los encabezados.</p>
 <pre><code class="lang-csharp">// Program.cs
 using Sisk.Core.Http;
 using Sisk.Core.Routing;
@@ -187,7 +187,7 @@ static HttpResponse IndexPage(HttpRequest request)
         Content = new HtmlContent(@&quot;
             &lt;html&gt;
                 &lt;body&gt;
-                    &lt;h1&gt;Hola, mundo!&lt;/h1&gt;
+                    &lt;h1&gt;Hello, world!&lt;/h1&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
         &quot;)
@@ -198,42 +198,132 @@ static HttpResponse IndexPage(HttpRequest request)
 </code></pre>
 <p>El siguiente paso es asociar este método con una ruta HTTP.</p>
 <h2 id="enrutadores">Enrutadores</h2>
-<p>Los enrutadores son abstracciones de rutas de solicitud y sirven como el puente entre solicitudes y respuestas para el servicio. Los enrutadores administran rutas de servicio, funciones y errores.</p>
-<p>Un enrutador puede tener varias rutas, y cada ruta puede realizar diferentes operaciones en esa ruta, como ejecutar una función, servir una página o proporcionar un recurso desde el servidor.</p>
+<p>Los enrutadores son abstracciones de rutas de solicitud y sirven como puente entre solicitudes y respuestas para el servicio. Los enrutadores gestionan rutas del servicio, funciones y errores.</p>
+<p>Un enrutador puede tener varias rutas, y cada ruta puede realizar diferentes operaciones en esa ruta, como ejecutar una función, servir una página o proporcionar un recurso del servidor.</p>
 <p>Creemos nuestro primer enrutador y asociemos nuestro método <code>IndexPage</code> con la ruta de índice.</p>
-<pre><code class="lang-csharp">Router mainRouter = new Router();
+<pre><code class="lang-csharp">Router mainRouter = new Router;
 
-// SetRoute asociará todas las rutas de índice con nuestro método.
-mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
+mainRouter.MapGet(&quot;/&quot;, IndexPage);
 </code></pre>
-<p>Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, <code>mainRouter</code> no está vinculado a un host o servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.</p>
-<h2 id="hosts-y-puertos-de-escucha">Hosts y puertos de escucha</h2>
-<p>Un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> puede hospedar un enrutador y varios puertos de escucha para el mismo enrutador. Un <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> es un prefijo donde el servidor HTTP escuchará.</p>
+<p>Ahora nuestro enrutador puede recibir solicitudes y enviar respuestas. Sin embargo, <code>mainRouter</code> no está vinculado a un host o a un servidor, por lo que no funcionará por sí solo. El siguiente paso es crear nuestro ListeningHost.</p>
+<h2 id="hosts-de-escucha-y-puertos">Hosts de escucha y puertos</h2>
+<p>Un <a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> puede alojar un enrutador y varios puertos de escucha para el mismo enrutador. Un <a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> es un prefijo donde el servidor HTTP escuchará.</p>
 <p>Aquí, podemos crear un <code>ListeningHost</code> que apunte a dos puntos finales para nuestro enrutador:</p>
 <pre><code class="lang-csharp">ListeningHost myHost = new ListeningHost
 {
-    Router = new Router(),
+    Router = mainRouter,
     Ports = new ListeningPort[]
     {
         new ListeningPort(&quot;http://localhost:5000/&quot;)
     }
 };
 </code></pre>
-<p>Ahora nuestro servidor HTTP escuchará en los puntos finales especificados y redirigirá sus solicitudes a nuestro enrutador.</p>
+<p>Ahora nuestro servidor HTTP escuchará los puntos finales especificados y redirigirá sus solicitudes a nuestro enrutador.</p>
 <h2 id="configuración-del-servidor">Configuración del servidor</h2>
-<p>La configuración del servidor es responsable de la mayoría del comportamiento del servidor HTTP en sí. En esta configuración, podemos asociar <code>ListeningHosts</code> con nuestro servidor.</p>
+<p>La configuración del servidor es responsable de la mayor parte del comportamiento del propio servidor HTTP. En esta configuración, podemos asociar <code>ListeningHosts</code> con nuestro servidor.</p>
 <pre><code class="lang-csharp">HttpServerConfiguration config = new HttpServerConfiguration();
-config.ListeningHosts.Add(myHost); // Agregue nuestro ListeningHost a esta configuración del servidor
+config.ListeningHosts.Add(myHost); // Agregar nuestro ListeningHost a esta configuración del servidor
 </code></pre>
+<p>Opciones comunes de configuración del servidor:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Predeterminado</th>
+<th>Usar cuando</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">RemoteRequestsAction</a></td>
+<td><code>RequestListenAction.Accept</code></td>
+<td>El servicio debe rechazar solicitudes no locales a menos que provengan de un proxy inverso confiable.</td>
+<td>Establézcalo en <code>Drop</code> solo cuando la topología de despliegue sea clara.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader">IncludeRequestIdHeader</a></td>
+<td><code>false</code></td>
+<td>Los clientes o proxies necesitan el ID de solicitud de Sisk en el encabezado de respuesta <code>X-Request-Id</code>.</td>
+<td>Combínelo con registros que incluyan <code>HttpRequest.RequestId</code>.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout">IdleConnectionTimeout</a></td>
+<td><code>120</code> seconds</td>
+<td>Las conexiones keep-alive inactivas deben cerrarse tarde o temprano.</td>
+<td>Esto lo aplica el motor HTTP.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a></td>
+<td><code>false</code></td>
+<td>Recibe encabezados con una discordancia de codificación.</td>
+<td>Esto tiene un costo de procesamiento; déjelo deshabilitado a menos que sea necesario.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader">SendSiskHeader</a></td>
+<td><code>true</code></td>
+<td>Desea ocultar o exponer el encabezado <code>X-Powered-By</code> de Sisk.</td>
+<td>Desactívelo para políticas de encabezados de producción más estrictas.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode">OptionsLogMode</a></td>
+<td><code>LogOutput.Both</code></td>
+<td>Desea reducir o redirigir los registros generados por el manejo automático de <code>OPTIONS</code>.</td>
+<td>Utiliza los mismos valores de modo de registro que las rutas.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing">AsyncRequestProcessing</a></td>
+<td><code>true</code></td>
+<td>Necesita procesamiento determinista de una sola solicitud para diagnóstico.</td>
+<td>Desactivarlo limita el rendimiento.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">DisposeDisposableContextValues</a></td>
+<td><code>true</code></td>
+<td>Los valores del contenedor de solicitud que implementan <code>IDisposable</code> deben disponerse automáticamente.</td>
+<td>Manténgalo habilitado a menos que la propiedad se gestione en otro lugar.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a></td>
+<td><code>true</code></td>
+<td>Los manejadores de valores deben recibir enumerables asíncronos como valores enumerables bloqueantes.</td>
+<td>Desactívelo cuando implemente su propio manejo de flujos asíncronos.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.KeepAlive">KeepAlive</a></td>
+<td><code>true</code></td>
+<td>Las conexiones deben permanecer reutilizables después de las respuestas.</td>
+<td>Desactívelo para clientes o intermediarios que no manejan bien las conexiones persistentes.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">ForceTrailingSlash</a></td>
+<td><code>false</code></td>
+<td>Las rutas GET deben redirigir a una URL con barra diagonal final.</td>
+<td>Se aplica solo a rutas que no son expresiones regulares.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">MaximumContentLength</a></td>
+<td><code>0</code></td>
+<td>Los cuerpos de solicitud necesitan un límite de tamaño.</td>
+<td><code>0</code> significa ilimitado hasta que se alcancen los límites del framework o de la memoria.</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a></td>
+<td><code>false</code></td>
+<td>Las respuestas deben comprimirse automáticamente cuando el cliente lo soporta.</td>
+<td>Las respuestas <code>CompressedContent</code> existentes no se comprimen de nuevo.</td>
+</tr>
+</tbody>
+</table>
 <p>A continuación, podemos crear nuestro servidor HTTP:</p>
 <pre><code class="lang-csharp">HttpServer server = new HttpServer(config);
 server.Start();    // Inicia el servidor
-Console.ReadKey(); // Evita que la aplicación se cierre
+Console.ReadKey(); // Evita que la aplicación salga
 </code></pre>
 <p>Ahora podemos compilar nuestro ejecutable y ejecutar nuestro servidor HTTP con el comando:</p>
 <pre><code class="lang-bash">dotnet watch
 </code></pre>
-<p>En tiempo de ejecución, abre tu navegador y navega a la ruta del servidor, y deberías ver:</p>
+<p>En tiempo de ejecución, abra su navegador y navegue a la ruta del servidor, y debería ver:</p>
 <img src="/assets/img/localhost.png">
 
 </article>

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ファイルサーバー | Sisk </title>
+        <title>File Server | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="ファイルサーバー | Sisk ">
+        <meta name="title" content="File Server | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,79 +171,82 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="ファイルサーバー">ファイルサーバー</h1>
+<h1 id="file-server">File Server</h1>
 
-<p>Sisk では、<code>Sisk.Http.FileSystem</code> 名前空間が提供され、静的ファイルの提供、ディレクトリのリスト表示、ファイルの変換などのツールが含まれています。この機能により、ローカル ディレクトリからのファイルの提供が可能になり、範囲要求 (オーディオ/ビデオ ストリーミング) とカスタム ファイル処理がサポートされます。</p>
-<h2 id="静的ファイルの提供">静的ファイルの提供</h2>
-<p>静的ファイルを提供する最も簡単な方法は、<code>HttpFileServer.CreateServingRoute</code> を使用することです。このメソッドは、URL プレフィックスをディスク上のディレクトリにマップするルートを作成します。</p>
+<p>Sisk は <code>Sisk.Http.FileSystem</code> 名前空間を提供し、静的ファイルの配信、ディレクトリ一覧表示、ファイル変換のツールが含まれます。この機能により、ローカルディレクトリからファイルを配信でき、レンジリクエスト（音声/動画ストリーミング）やカスタムファイル処理をサポートします。</p>
+<h2 id="静的ファイルの配信">静的ファイルの配信</h2>
+<p>静的ファイルを配信する最も簡単な方法は <a href="/api/Sisk.Core.Routing.Router.MapFileSystem">Router.MapFileSystem</a> です。このメソッドは URL プレフィックスをディスク上のディレクトリにマッピングします。</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
-// サーバーのルートを現在のディレクトリにマップします
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/&quot;, Directory.GetCurrentDirectory()));
+// サーバーのルートを現在のディレクトリにマップ
+mainRouter.MapFileSystem(&quot;/&quot;, Directory.GetCurrentDirectory());
 
-// /assets を &quot;public/assets&quot; フォルダーにマップします
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/assets&quot;, Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;)));
+// /assets を &quot;public/assets&quot; フォルダーにマップ
+mainRouter.MapFileSystem(
+    &quot;/assets&quot;,
+    Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;));
 </code></pre>
-<p>ルート プレフィックスに一致する要求が発生すると、<code>HttpFileServerHandler</code> は指定されたディレクトリ内でファイルを検索します。ファイルが見つかると、ファイルを提供します。そうでない場合は、404 応答 (またはアクセスが拒否された場合は 403 応答) を返します。</p>
+<p>リクエストがルートプレフィックスにマッチすると、<code>HttpFileServerHandler</code> は指定されたディレクトリ内のファイルを探します。見つかればそのファイルを配信し、見つからなければ 404 応答（アクセスが拒否された場合は 403）を返します。</p>
+<p><code>HttpFileServer.CreateServingRoute</code> は <code>Route</code> オブジェクトを明示的に作成したいときにまだ利用可能ですが、<code>MapFileSystem</code> がアプリケーションコードにとって最も直接的なオプションです。</p>
 <h2 id="httpfileserverhandler">HttpFileServerHandler</h2>
-<p>ファイルの提供方法をより細かく制御するには、<code>HttpFileServerHandler</code> を手動でインスタンス化して構成できます。</p>
+<p>ファイルの配信方法をより細かく制御したい場合は、<code>HttpFileServerHandler</code> を手動でインスタンス化して設定できます。</p>
 <pre><code class="lang-cs">var fileHandler = new HttpFileServerHandler(&quot;/var/www/html&quot;);
 
-// ディレクトリのリスト表示を有効にします (デフォルトでは無効)
+// ディレクトリ一覧表示を有効化（デフォルトは無効）
 fileHandler.AllowDirectoryListing = true;
 
-// カスタム ルート プレフィックスを設定します (このプレフィックスは、ファイルを解決するときに要求パスからトリミングされます)
+// カスタムルートプレフィックスを設定（リクエストパスからこの部分が除去されます）
 fileHandler.RoutePrefix = &quot;/public&quot;;
 
-// ハンドラー アクションを登録します
-mainRouter.SetRoute(RouteMethod.Get, &quot;/public/.*&quot;, fileHandler.HandleRequest);
+// /public 配下にハンドラを登録
+mainRouter.MapFileSystem(&quot;/public&quot;, fileHandler);
 </code></pre>
-<h3 id="構成">構成</h3>
+<h3 id="設定">設定</h3>
 <table>
 <thead>
 <tr>
-<th>プロパティ</th>
-<th>説明</th>
+<th>Property</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>RootDirectoryPath</code></td>
-<td>ファイルを提供するためのルート ディレクトリへの絶対パスまたは相対パス。</td>
+<td>ファイルを配信するルートディレクトリへの絶対パスまたは相対パス。</td>
 </tr>
 <tr>
 <td><code>RoutePrefix</code></td>
-<td>要求パスからトリミングされるルート プレフィックス。デフォルトは <code>/</code>。</td>
+<td>ファイル解決時にリクエストパスから除去されるルートプレフィックス。デフォルトは <code>/</code>。</td>
 </tr>
 <tr>
 <td><code>AllowDirectoryListing</code></td>
-<td>true に設定すると、ディレクトリが要求され、インデックス ファイルが見つからない場合にディレクトリのリスト表示を有効にします。デフォルトは false。</td>
+<td><code>true</code> に設定すると、ディレクトリが要求されインデックスファイルが見つからない場合にディレクトリ一覧を表示します。デフォルトは <code>false</code>。</td>
 </tr>
 <tr>
 <td><code>FileConverters</code></td>
-<td>ファイルを提供する前に変換するために使用される <code>HttpFileServerFileConverter</code> のリスト。</td>
+<td>配信前にファイルを変換するために使用される <code>HttpFileServerFileConverter</code> のリスト。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="ディレクトリのリスト表示">ディレクトリのリスト表示</h2>
-<p><code>AllowDirectoryListing</code> が有効になっている場合、ユーザーがディレクトリ パスを要求すると、Sisk はそのディレクトリの内容をリストする HTML ページを生成します。</p>
-<p>ディレクトリのリストには、次のものが含まれます。</p>
+<h2 id="ディレクトリ一覧表示">ディレクトリ一覧表示</h2>
+<p><code>AllowDirectoryListing</code> が有効で、ユーザーがディレクトリパスを要求した場合、Sisk はそのディレクトリの内容を一覧表示する HTML ページを生成します。</p>
+<p>ディレクトリ一覧には以下が含まれます：</p>
 <ul>
-<li>親ディレクトリ (<code>..</code>) へのナビゲーション。</li>
-<li>サブディレクトリのリスト。</li>
-<li>サイズと最終変更日付を含むファイルのリスト。</li>
+<li>親ディレクトリへのナビゲーション（<code>..</code>）。</li>
+<li>サブディレクトリの一覧。</li>
+<li>ファイルの一覧（サイズと最終更新日付き）。</li>
 </ul>
-<h2 id="ファイル-コンバーター">ファイル コンバーター</h2>
-<p>ファイル コンバーターを使用すると、特定のファイル タイプをインターセプトして、異なる方法で処理できます。たとえば、画像をトランスコードしたり、ファイルを圧縮したり、範囲要求 (Range 要求) を使用してファイルを提供したりすることができます。</p>
-<p>Sisk には、メディア ストリーミング用の 2 つの組み込み コンバーターが含まれています。</p>
+<h2 id="ファイルコンバータ">ファイルコンバータ</h2>
+<p>ファイルコンバータを使用すると、特定のファイルタイプをインターセプトして別の方法で処理できます。たとえば、画像をトランスコードしたり、ファイルをオンザフライで圧縮したり、部分コンテンツ（Range リクエスト）で配信したりできます。</p>
+<p>Sisk にはメディアストリーミング用の組み込みコンバータが 2 つ含まれています：</p>
 <ul>
-<li><code>HttpFileAudioConverter</code>: <code>.mp3</code>, <code>.ogg</code>, <code>.wav</code>, <code>.flac</code>, <code>.ogv</code> を処理します。</li>
-<li><code>HttpFileVideoConverter</code>: <code>.webm</code>, <code>.avi</code>, <code>.mkv</code>, <code>.mpg</code>, <code>.mpeg</code>, <code>.wmv</code>, <code>.mov</code>, <code>.mp4</code> を処理します。</li>
+<li><code>HttpFileAudioConverter</code>: <code>.mp3</code>, <code>.ogg</code>, <code>.wav</code>, <code>.flac</code>, <code>.ogv</code> を処理。</li>
+<li><code>HttpFileVideoConverter</code>: <code>.webm</code>, <code>.avi</code>, <code>.mkv</code>, <code>.mpg</code>, <code>.mpeg</code>, <code>.wmv</code>, <code>.mov</code>, <code>.mp4</code> を処理。</li>
 </ul>
-<p>これらのコンバーターにより、<strong>HTTP Range 要求</strong> のサポートが可能になり、クライアントはオーディオとビデオ ファイルをシークできます。</p>
-<h3 id="カスタム-コンバーターの作成">カスタム コンバーターの作成</h3>
-<p>カスタム ファイル コンバーターを作成するには、<code>HttpFileServerFileConverter</code> を継承し、<code>CanConvert</code> と <code>Convert</code> を実装します。</p>
+<p>これらのコンバータは <strong>HTTP Range Requests</strong> をサポートし、クライアントが音声・動画ファイルをシークできるようにします。</p>
+<h3 id="カスタムコンバータの作成">カスタムコンバータの作成</h3>
+<p>カスタムファイルコンバータを作成するには、<code>HttpFileServerFileConverter</code> を継承し、<code>CanConvert</code> と <code>Convert</code> を実装します。</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
@@ -259,7 +262,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     {
         string content = File.ReadAllText(file.FullName);
         
-        // テキスト コンテンツをすべて大文字に変換
+        // すべてのテキストを大文字に変換
         return new HttpResponse(200)
         {
             Content = new StringContent(content.ToUpper())
@@ -267,7 +270,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     }
 }
 </code></pre>
-<p>次に、ハンドラーに追加します。</p>
+<p>次にハンドラに追加します：</p>
 <pre><code class="lang-cs">var handler = new HttpFileServerHandler(&quot;./files&quot;);
 handler.FileConverters.Add(new MyTextConverter());
 </code></pre>

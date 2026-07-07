@@ -194,7 +194,7 @@ class Program
             host.UseHandler<JsonMessageHandler>();
         });
 
-        app.Router += new Route(RouteMethod.Any, "/json", request =>
+        app.Router.MapAny("/json", request =>
         {
             return new HttpResponse()
                 .WithContent(JsonContent.Create(new

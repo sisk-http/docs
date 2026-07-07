@@ -1,55 +1,55 @@
-# Introdução
+# Começando
 
 Bem-vindo à documentação do Sisk!
 
-Finalmente, o que é o Sisk Framework? É uma biblioteca leve de código aberto construída com .NET, projetada para ser minimalista, flexível e abstrata. Ela permite que os desenvolvedores criem serviços de internet rapidamente, com pouca ou nenhuma configuração necessária. O Sisk torna possível que seu aplicativo existente tenha um módulo HTTP gerenciado, completo e descartável.
+Sisk é um framework HTTP leve e de código aberto para .NET. Você pode usá-lo para criar um serviço web independente, incorporar um módulo HTTP dentro de uma aplicação existente ou executar um serviço atrás de um proxy reverso com apenas a configuração que você precisa.
 
-Os valores do Sisk incluem transparência de código, modularidade, desempenho e escalabilidade, e podem lidar com vários tipos de aplicativos, como Restful, JSON-RPC, Web-sockets e mais.
+Os valores do Sisk incluem transparência de código, modularidade, desempenho e escalabilidade. Ele pode lidar com diferentes estilos de aplicação, incluindo APIs RESTful, serviços JSON‑RPC, WebSockets, Server‑Sent Events e serviço de arquivos estáticos.
 
-Seus principais recursos incluem:
+Suas principais funcionalidades incluem:
 
 | Recurso | Descrição |
 | ------- | --------- |
-| [Routing](/docs/pt-br/fundamentals/routing) | Um roteador de caminhos que suporta prefixos, métodos personalizados, variáveis de caminho, conversores de valor e mais. |
-| [Manipuladores de Requisição](/docs/pt-br/fundamentals/request-handlers) | Também conhecidos como *middlewares*, fornecem uma interface para construir seus próprios manipuladores de requisição que funcionam com a requisição antes ou após uma ação. |
-| [Compressão](/docs/pt-br/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima o conteúdo de suas respostas facilmente com o Sisk. |
-| [Web sockets](/docs/pt-br/features/websockets) | Fornece rotas que aceitam web-sockets completos, para leitura e escrita no cliente. |
-| [Eventos enviados pelo servidor](/docs/pt-br/features/server-sent-events) | Fornece o envio de eventos do servidor para clientes que suportam o protocolo SSE. |
-| [Registro de logs](/docs/pt-br/features/logging) | Registro de logs simplificado. Registre erros, acesso, defina logs rotativos por tamanho, múltiplos fluxos de saída para o mesmo log e mais. |
-| [Multi-hospedagem](/docs/pt-br/advanced/multi-host-setup) | Tenha um servidor HTTP para várias portas, e cada porta com seu próprio roteador, e cada roteador com seu próprio aplicativo. |
-| [Manipuladores de servidor](/docs/pt-br/advanced/http-server-handlers) | Estenda sua própria implementação do servidor HTTP. Personalize com extensões, melhorias e novos recursos.
+| [Routing](/docs/pt-br/fundamentals/routing) | Um roteador de caminhos que suporta prefixos, métodos personalizados, variáveis de caminho, conversores de valores e mais. |
+| [Request Handlers](/docs/pt-br/fundamentals/request-handlers) | Também conhecido como *middlewares*, fornece uma interface para criar seus próprios manipuladores de requisição que atuam antes ou depois de uma ação. |
+| [Compression](/docs/pt-br/fundamentals/responses#gzip-deflate-and-brotli-compression) | Comprima facilmente o conteúdo das respostas com o Sisk. |
+| [Web sockets](/docs/pt-br/features/websockets) | Fornece rotas que aceitam web‑sockets completos, para leitura e escrita no cliente. |
+| [Server-sent events](/docs/pt-br/features/server-sent-events) | Fornece o envio de eventos do servidor para clientes que suportam o protocolo SSE. |
+| [Logging](/docs/pt-br/features/logging) | Log simplificado. Registre erros, acessos, defina rotação de logs por tamanho, múltiplos fluxos de saída para o mesmo log, e mais. |
+| [Multi-host](/docs/pt-br/advanced/multi-host-setup) | Tenha um servidor HTTP para múltiplas portas, e cada porta com seu próprio roteador, e cada roteador com sua própria aplicação. |
+| [Server handlers](/docs/pt-br/advanced/http-server-handlers) | Estenda sua própria implementação do servidor HTTP. Personalize com extensões, melhorias e novos recursos. |
 
 ## Primeiros passos
 
-O Sisk pode ser executado em qualquer ambiente .NET. Neste guia, vamos ensinar como criar um aplicativo Sisk usando .NET. Se você ainda não o instalou, por favor, baixe o SDK [aqui](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+Sisk pode ser executado em qualquer ambiente .NET. Neste guia, ensinaremos como criar uma aplicação Sisk usando .NET. Se ainda não o instalou, por favor baixe o SDK [aqui](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 
-Neste tutorial, vamos cobrir como criar uma estrutura de projeto, receber uma requisição, obter um parâmetro de URL e enviar uma resposta. Este guia se concentrará em construir um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
+Neste tutorial, abordaremos como criar uma estrutura de projeto, receber uma requisição, obter um parâmetro de URL e enviar uma resposta. Este guia focará na construção de um servidor simples usando C#. Você também pode usar sua linguagem de programação favorita.
 
 > [!NOTE]
-> Você pode estar interessado em um projeto de início rápido. Verifique [este repositório](https://github.com/sisk-http/quickstart) para obter mais informações.
+> Você pode estar interessado em um projeto de início rápido. Confira [este repositório](https://github.com/sisk-http/quickstart) para mais informações.
 
 ## Criando um Projeto
 
-Vamos nomear nosso projeto "Meu Aplicativo Sisk". Uma vez que você tenha o .NET configurado, você pode criar seu projeto com o seguinte comando:
+Vamos chamar nosso projeto de "My Sisk Application". Depois de configurar o .NET, você pode criar seu projeto com o seguinte comando:
 
 ```bash
-dotnet new console -n meu-aplicativo-sisk
+dotnet new console -n my-sisk-application
 ```
 
-Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário .NET:
+Em seguida, navegue até o diretório do seu projeto e instale o Sisk usando a ferramenta de utilitário do .NET:
 
 ```bash
-cd meu-aplicativo-sisk
+cd my-sisk-application
 dotnet add package Sisk.HttpServer
 ```
 
 Você pode encontrar maneiras adicionais de instalar o Sisk em seu projeto [aqui](https://www.nuget.org/packages/Sisk.HttpServer/).
 
-Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para ouvir na porta 5000.
+Agora, vamos criar uma instância do nosso servidor HTTP. Para este exemplo, vamos configurá-lo para escutar na porta 5000.
 
 ## Construindo o Servidor HTTP
 
-O Sisk permite que você construa seu aplicativo passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método de construtor, que torna mais fácil colocar nosso aplicativo em execução.
+Sisk permite que você construa sua aplicação passo a passo manualmente, pois ele roteia para o objeto HttpServer. No entanto, isso pode não ser muito conveniente para a maioria dos projetos. Portanto, podemos usar o método builder, que facilita colocar nossa aplicação em funcionamento.
 
 <div class="script-header">
     <span>
@@ -74,7 +74,7 @@ class Program
             return new HttpResponse()
             {
                 Status = 200,
-                Content = new StringContent("Olá, mundo!")
+                Content = new StringContent("Hello, world!")
             };
         });
         
@@ -83,8 +83,8 @@ class Program
 }
 ```
 
-É importante entender cada componente vital do Sisk. Mais tarde, neste documento, você aprenderá mais sobre como o Sisk funciona.
+É importante entender cada componente vital do Sisk. Mais adiante neste documento, você aprenderá mais sobre como o Sisk funciona.
 
-## Configuração manual (avançada)
+## Configuração Manual (avançada)
 
-Você pode aprender como cada mecanismo do Sisk funciona [nesta seção](/docs/pt-br/advanced/manual-setup) da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.
+Você pode aprender como cada mecanismo do Sisk funciona nesta [seção](/docs/pt-br/advanced/manual-setup) da documentação, que explica o comportamento e as relações entre o HttpServer, Router, ListeningPort e outros componentes.

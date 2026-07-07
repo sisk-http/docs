@@ -1,19 +1,19 @@
 # サーバー送信イベント
 
-Sisk では、サーバー送信イベントを使用してメッセージを送信することができます。使用可能な接続と永続的な接続を作成し、実行時に接続を取得して使用することができます。
+Sisk は、Server Sent Events を使用したメッセージ送信を標準でサポートしています。使い捨ておよび永続的な接続を作成でき、実行時に接続を取得して使用することができます。
 
-この機能には、ブラウザによって課せられた制限があります。たとえば、テキスト メッセージのみを送信でき、接続を永久に閉じることができません。サーバー側で接続を閉じると、クライアントは 5 秒ごと (一部のブラウザでは 3 秒ごと) に再接続を試みます。
+この機能には、ブラウザーが課すいくつかの制限があります。たとえば、テキストメッセージのみ送信でき、接続を永続的に閉じることができません。サーバー側で接続が閉じられた場合、クライアントは 5 秒ごと（ブラウザーによっては 3 秒ごと）に再接続を試みます。
 
-これらの接続は、クライアントが情報を毎回要求することなく、サーバーからクライアントにイベントを送信するのに役立ちます。
+これらの接続は、クライアントが毎回情報を要求することなく、サーバーからクライアントへイベントを送信するのに便利です。
 
 ## SSE 接続の作成
 
-SSE 接続は、通常の HTTP リクエストと同様に機能しますが、レスポンスを送信してすぐに接続を閉じるのではなく、メッセージを送信するために接続を開いたままにします。
+SSE 接続は通常の HTTP リクエストと同様に動作しますが、レスポンスを送信してすぐに接続を閉じるのではなく、メッセージを送信できるように接続を開いたままにします。
 
-[HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEventSource) メソッドを呼び出すと、リクエストは待機状態になり、SSE インスタンスが作成されます。
+[HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEventSource) メソッドを呼び出すと、SSE インスタンスが作成される間、リクエストは待機状態になります。
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource();
 
@@ -23,19 +23,19 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 });
 ```
 
-上記のコードでは、SSE 接続を作成し、「Hello, world」メッセージを送信し、次にサーバー側で SSE 接続を閉じます。
+上記のコードでは、SSE 接続を作成し、"Hello, world" メッセージを送信し、サーバー側から SSE 接続を閉じています。
 
 > [!NOTE]
-> サーバー側で接続を閉じると、クライアントはデフォルトで再接続を試み、接続が再開され、メソッドが再実行されます。
+> サーバー側の接続を閉じると、デフォルトではクライアントは再度接続しようとし、接続が再開されてメソッドが永遠に再実行されます。
 >
-> サーバー側で接続を閉じたときに、クライアントに終了メッセージを送信することが一般的です。そうすることで、クライアントが再接続を試みるのを防ぐことができます。
+> 接続がサーバー側で閉じられた際に、クライアントが再接続しようとしないように、サーバーから終了メッセージを転送するのが一般的です。
 
 ## ヘッダーの追加
 
-ヘッダーを送信する必要がある場合は、[HttpRequestEventSource.AppendHeader](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader) メソッドを使用できます。
+ヘッダーを送信する必要がある場合は、メッセージを送信する前に [HttpRequestEventSource.AppendHeader](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader) メソッドを使用できます。
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource();
     sse.AppendHeader("Header-Key", "Header-value");
@@ -46,58 +46,58 @@ r += new Route(RouteMethod.Get, "/", (req) =>
 });
 ```
 
-ヘッダーを送信する前に、ヘッダーを追加する必要があります。
+ヘッダーはメッセージを送信する前に送信する必要があることに注意してください。
 
 ## Wait-For-Fail 接続
 
-接続は通常、サーバーがメッセージを送信できなくなったとき (クライアント側の切断など) に終了されます。その場合、接続は自動的に終了され、クラスのインスタンスは破棄されます。
+接続は、クライアント側の切断が原因でサーバーがメッセージを送信できなくなると通常は終了します。この場合、接続は自動的に終了し、クラスのインスタンスは破棄されます。
 
-再接続しても、クラスのインスタンスは機能しません。クラスのインスタンスは以前の接続にリンクされているためです。場合によっては、ルートのコールバック メソッドを介して接続を管理することなく、後でこの接続を使用する必要がある場合があります。
+再接続が行われても、クラスのインスタンスは前の接続に紐付いているため機能しません。状況によっては、後でこの接続が必要になることがあり、ルートのコールバックメソッドで管理したくない場合があります。
 
-そのためには、SSE 接続に識別子を割り当てて、後でそれを使用して接続を取得できます。さらに、[WaitForFail](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail) を使用して、ルートを終了させずに接続を自動的に終了させないようにします。
+そのため、SSE 接続に識別子を付けて後で取得できるようにし、ルートのコールバック外でも使用できます。また、接続を [WaitForFail](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail) でマークすることで、ルートを終了させずに接続を自動的に終了させません。
 
-KeepAlive の SSE 接続は、送信エラー (切断によって発生) が発生するまで待機します。タイムアウトを設定することもできます。タイムアウト時間が経過すると、メッセージが送信されていない場合、接続は終了され、実行が再開されます。
+`WaitForFail` 状態の SSE 接続は、切断による送信エラーまたは設定されたアイドル許容時間が経過するのを待ち、ルートが再開されて接続が閉じられます。
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource("my-index-connection");
 
-    sse.WaitForFail(TimeSpan.FromSeconds(15)); // 15 秒間メッセージが送信されない場合、接続を終了する
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // メッセージが無い状態で 15 秒待機し、接続を終了する前に待ちます
 
     return sse.Close();
 });
 ```
 
-上記のメソッドは、接続を作成し、接続を処理し、切断またはエラーを待機します。
+上記のメソッドは接続を作成し、処理を行い、切断またはエラーを待ちます。
 
 ```cs
 HttpRequestEventSource? evs = server.EventSources.GetByIdentifier("my-index-connection");
 if (evs != null)
 {
-    // 接続はまだアクティブです
+    // 接続はまだ生きています
     evs.Send("Hello again!");
 }
 ```
 
-上記のスニペットは、作成された接続を検索し、存在する場合はメッセージを送信します。
+上記のスニペットは新しく作成された接続を探し、存在すればメッセージを送信します。
 
-すべてのアクティブなサーバー接続は、[HttpServer.EventSources](/api/Sisk.Core.Http.HttpServer.EventSources) コレクションに格納されます。このコレクションには、有効で識別可能な接続のみが格納されます。終了した接続はコレクションから削除されます。
+識別されたすべてのアクティブなサーバー接続はコレクション [HttpServer.EventSources](/api/Sisk.Core.Http.HttpServer.EventSources) で利用可能です。このコレクションはアクティブで識別された接続のみを保持し、閉じられた接続はコレクションから削除されます。
 
 > [!NOTE]
-> KeepAlive には、Sisk に接続されている可能性のある Web プロキシ、HTTP カーネル、またはネットワーク ドライバーなどのコンポーネントによって制限が課せられることがあります。これらのコンポーネントは、一定期間後にアイドル接続を閉じることがあります。
+> keep-alive には、Web プロキシや HTTP カーネル、ネットワークドライバーなど、制御できない形で Sisk に接続するコンポーネントが設定する制限があり、一定時間アイドル状態が続くと接続が閉じられることに注意が必要です。
 >
-> したがって、接続を維持するために、周期的な ping メッセージを送信するか、接続が閉じられるまでの最大時間を延長することが重要です。周期的な ping メッセージの送信について詳しく知るには、次のセクションを参照してください。
+> したがって、定期的に ping を送信するか、接続が閉じられるまでの最大時間を延長して接続を開いたままにすることが重要です。次のセクションで定期的な ping の送信について詳しく説明します。
 
-## 接続の ping ポリシーの設定
+## 接続 ping ポリシーの設定
 
-ping ポリシーは、クライアントに周期的なメッセージを送信する自動化された方法です。この機能により、サーバーは接続を維持することなく、クライアントが切断されたことを検出できます。
+Ping ポリシーは、クライアントに定期的なメッセージを自動的に送信する方法です。この機能により、サーバーは接続を無期限に開いたままにせず、クライアントが切断したことを検知できます。
 
 ```cs
 [RouteGet("/sse")]
-public HttpResponse Events(HttpRequest request)
+public async Task<HttpResponse> Events(HttpRequest request)
 {
-    using var sse = request.GetEventSource();
+    using var sse = await request.GetEventSourceAsync("user-events");
     sse.WithPing(ping =>
     {
         ping.DataMessage = "ping-message";
@@ -105,22 +105,24 @@ public HttpResponse Events(HttpRequest request)
         ping.Start();
     });
     
-    sse.KeepAlive();
-    return sse.Close();
+    await sse.WaitForFailAsync(TimeSpan.FromMinutes(10));
+    return await sse.CloseAsync();
 }
 ```
 
-上記のコードでは、5 秒ごとに ping メッセージがクライアントに送信され、TCP 接続が維持され、アイドル状態によって閉じられるのを防ぎます。さらに、メッセージの送信に失敗すると、接続は自動的に閉じられ、接続で使用されるリソースが解放されます。
+上記のコードでは、5 秒ごとに新しい ping メッセージがクライアントに送信されます。これにより TCP 接続が維持され、アイドル状態による切断を防止します。また、メッセージの送信に失敗した場合、接続は自動的に閉じられ、接続で使用されていたリソースが解放されます。
 
-## 接続の検索
+非同期ルートでは [SendAsync](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.SendAsync) と [CloseAsync](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.CloseAsync) を使用してください。閉じる前にキューに入ったイベントを破棄する必要がある場合は [Cancel](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.Cancel) を呼び出します。
 
-接続識別子に基づいて、有効な接続を検索できます。たとえば、ブロードキャストを行う場合などに使用できます。
+## 接続のクエリ
+
+たとえばブロードキャストを行うために、接続識別子に対する述語を使用してアクティブな接続を検索できます。
 
 ```cs
 HttpRequestEventSource[] evs = server.EventSources.Find(es => es.StartsWith("my-connection-"));
 foreach (HttpRequestEventSource e in evs)
 {
-    e.Send("すべてのイベント ソースにブロードキャストします (my-connection- で始まる)");
+    e.Send("Broadcasting to all event sources that starts with 'my-connection-'");
 }
 ```
 

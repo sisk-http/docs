@@ -4,20 +4,24 @@ Sisk provides the `Sisk.Http.FileSystem` namespace, which contains tools for ser
 
 ## Serving static files
 
-The easiest way to serve static files is using `HttpFileServer.CreateServingRoute`. This method creates a route that maps a URL prefix to a directory on the disk.
+The easiest way to serve static files is [Router.MapFileSystem](/api/Sisk.Core.Routing.Router.MapFileSystem). This method maps a URL prefix to a directory on disk.
 
 ```cs
 using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
 // maps the root of the server to the current directory
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute("/", Directory.GetCurrentDirectory()));
+mainRouter.MapFileSystem("/", Directory.GetCurrentDirectory());
 
 // maps /assets to the "public/assets" folder
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute("/assets", Path.Combine(Directory.GetCurrentDirectory(), "public", "assets")));
+mainRouter.MapFileSystem(
+    "/assets",
+    Path.Combine(Directory.GetCurrentDirectory(), "public", "assets"));
 ```
 
 When a request matches the route prefix, the `HttpFileServerHandler` will look for a file in the specified directory. If found, it will serve the file; otherwise, it will return a 404 response (or 403 if access is denied).
+
+`HttpFileServer.CreateServingRoute` is still available when you need to create a `Route` object explicitly, but `MapFileSystem` is the most direct option for application code.
 
 ## HttpFileServerHandler
 
@@ -32,8 +36,8 @@ fileHandler.AllowDirectoryListing = true;
 // set a custom route prefix (this will be trimmed from the request path)
 fileHandler.RoutePrefix = "/public";
 
-// register the handler action
-mainRouter.SetRoute(RouteMethod.Get, "/public/.*", fileHandler.HandleRequest);
+// register the handler under /public
+mainRouter.MapFileSystem("/public", fileHandler);
 ```
 
 ### Configuration

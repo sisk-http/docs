@@ -1,14 +1,14 @@
 # Web Sockets
 
-Sisk admite web sockets también, como recibir y enviar mensajes a sus clientes.
+Sisk también soporta websockets, como recibir y enviar mensajes a su cliente.
 
-Esta característica funciona bien en la mayoría de los navegadores, pero en Sisk todavía es experimental. Por favor, si encuentra algún error, repórtelo en github.
+Esta característica funciona bien en la mayoría de los navegadores, pero en Sisk sigue siendo experimental. Por favor, si encuentras algún error, repórtalo en GitHub.
 
 ## Aceptar mensajes
 
-Los mensajes de WebSocket se reciben en orden, encolados hasta que se procesan con `ReceiveMessageAsync`. Este método no devuelve ningún mensaje cuando se alcanza el tiempo de espera, cuando se cancela la operación o cuando el cliente se desconecta.
+Los mensajes WebSocket se reciben en orden, encolados hasta que los procesa `ReceiveMessageAsync`. Este método no devuelve ningún mensaje cuando se alcanza el tiempo de espera, cuando la operación se cancela o cuando el cliente se desconecta.
 
-Solo se puede realizar una operación de lectura y escritura simultáneamente, por lo tanto, mientras espera un mensaje con `ReceiveMessageAsync`, no es posible escribir en el cliente conectado.
+Solo puede ocurrir una operación de lectura y escritura simultáneamente, por lo tanto, mientras esperas un mensaje con `ReceiveMessageAsync`, no es posible escribir al cliente conectado.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -29,7 +29,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
 
 ## Conexión persistente
 
-El ejemplo a continuación contiene una forma de utilizar una conexión de websocket persistente, donde recibe los mensajes, los maneja y termina utilizando el socket.
+El siguiente ejemplo muestra cómo usar una conexión websocket persistente, donde recibes los mensajes, los procesas y finalizas el uso del socket.
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -38,7 +38,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync("¿Cuál es su nombre?");
+    await ws.SendAsync("What is your name?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -48,12 +48,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync("Por favor, inserte su nombre!");
+        await ws.SendAsync("Please, insert your name!");
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync("¿Y su edad?");
+    await ws.SendAsync("And your age?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -61,22 +61,64 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync("Por favor, inserte un número válido");
+        await ws.SendAsync("Please, insert an valid number");
         goto askAge;
     }
 
-    await ws.SendAsync($"Usted es {name}, y tiene {age} años.");
+    await ws.SendAsync($"You're {name}, and you are {age} old.");
 
     return await ws.CloseAsync();
 });
 ```
 
-## Política de ping
+## Política de Ping
 
-Similar a cómo funciona la política de ping en Server Side Events, también puede configurar una política de ping para mantener la conexión TCP abierta si hay inactividad en ella.
+Similar a cómo funciona la política de ping en Server Side Events, también puedes configurar una política de ping para mantener la conexión TCP abierta si hay inactividad.
 
 ```cs
 ws.PingPolicy.Start(
     dataMessage: "ping-message",
     interval: TimeSpan.FromSeconds(10));
 ```
+
+## Conexiones gestionadas
+
+Al aceptar un WebSocket, puedes proporcionar un identificador. Los sockets identificados se registran en [HttpServer.WebSockets](/api/Sisk.Core.Http.HttpServer.WebSockets), lo que permite al servidor encontrar conexiones activas fuera de la ruta que los aceptó.
+
+```cs
+router.MapGet("/connect/<userId>", async (HttpRequest req) =>
+{
+    string userId = req.RouteParameters["userId"].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $"user:{userId}");
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: "ping",
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync("Received: " + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+Desde otra parte de la aplicación, consulta la colección por identificador o predicado:
+
+```cs
+HttpWebSocket? socket = server.WebSockets.GetByIdentifier("user:42");
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync("Your report is ready.");
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id => id.StartsWith("user:")))
+{
+    await activeSocket.SendAsync("Broadcast message");
+}
+```
+
+Cada `HttpWebSocket` expone `Identifier`, `State`, `IsClosed` y `PingPolicy`. La colección también expone `All()`, `Find(...)`, `GetByIdentifier(...)`, `ActiveConnections` y `DropAll()` para estrategias de conexión gestionadas por el servidor.

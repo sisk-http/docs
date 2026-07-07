@@ -10,7 +10,7 @@ dotnet add package Sisk.JsonRpc
 
 ## Transport Interface
 
-JSON-RPC is a stateless, asynchronous remote procedure execution (RDP) protocol that uses JSON for unilateral data communication. A JSON-RPC request is typically identified by an ID, and a response is delivered by the same ID that was sent in the request. Not all requests require a response, which are called "notifications".
+JSON-RPC is a stateless, asynchronous remote procedure call (RPC) protocol that uses JSON for data communication. A JSON-RPC request is typically identified by an ID, and a response is delivered by the same ID that was sent in the request. Not all requests require a response, which are called "notifications".
 
 The [JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification) explains in detail how the transport works. This transport is agnostic of where it will be used. Sisk implements this protocol through HTTP, following the conformities of [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), which partially supports GET requests, but completely supports POST requests. Web-sockets are also supported, providing asynchronous message communication.
 
@@ -60,15 +60,8 @@ using var app = HttpServer.CreateBuilder(port: 5555)
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
-        // creates an websocket handler on GET /ws
-        args.Router.MapGet("/ws", request =>
-        {
-            var ws = request.GetWebSocket();
-            ws.OnReceive += args.Handler.Transport.WebSocket;
-
-            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
-            return ws.Close();
-        });
+        // maps the JSON-RPC WebSocket transport on GET /ws
+        args.Router.MapGet("/ws", args.Handler.Transport.WebSocket);
     })
     .Build();
 
@@ -103,7 +96,7 @@ public class MathOperations
 
 The above example will map the `Sum` and `Sqrt` methods to the JSON-RPC handler, and these methods will be available at `GET /service`, `POST /service` and `GET /ws`. Method names are case-insensitive.
 
-Method parameters are automatically deserialized to their specific types. Using a request with named parameters is also supported. JSON serialization is done by the [LightJson](https://github.com/CypherPotato/LightJson) library. When a type is not correctly deserialized, you can create a specific [JSON converter](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) for that type and associate it with your [JsonSerializerOptions](?) later.
+Method parameters are automatically deserialized to their specific types. Using a request with named parameters is also supported. JSON serialization is done by the [LightJson](https://github.com/CypherPotato/LightJson) library. When a type is not correctly deserialized, you can create a specific [JSON converter](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) for that type and associate it with [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions).
 
 You can also get the `$.params` raw object from the JSON-RPC request directly in your method.
 

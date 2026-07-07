@@ -1,14 +1,14 @@
 # Protokollierung
 
-Sie können Sisk so konfigurieren, dass es automatisch Zugriffs- und Fehlerprotokolle schreibt. Es ist möglich, Protokollrotation, Erweiterungen und Häufigkeit zu definieren.
+Sie können Sisk so konfigurieren, dass Zugriffs- und Fehlermeldungen automatisch geschrieben werden. Es ist möglich, Log‑Rotation, Erweiterungen und Häufigkeit zu definieren.
 
-Die [LogStream](/api/Sisk.Core.Http.LogStream)-Klasse bietet eine asynchrone Möglichkeit, Protokolle zu schreiben und sie in einer wartbaren Warteschlange zu halten. Die `LogStream`-Klasse implementiert `IAsyncDisposable`, um sicherzustellen, dass alle ausstehenden Protokolle geschrieben werden, bevor der Stream geschlossen wird.
+Die [LogStream](/api/Sisk.Core.Http.LogStream)-Klasse bietet eine asynchrone Methode zum Schreiben von Logs und hält sie in einer await‑fähigen Schreibwarteschlange. Die `LogStream`‑Klasse implementiert `IAsyncDisposable` und stellt sicher, dass alle ausstehenden Logs geschrieben werden, bevor der Stream geschlossen wird.
 
 In diesem Artikel zeigen wir Ihnen, wie Sie die Protokollierung für Ihre Anwendung konfigurieren.
 
 ## Dateibasierte Zugriffsprotokolle
 
-Protokolle in Dateien öffnen die Datei, schreiben den Text der Zeile und schließen die Datei für jede geschriebene Zeile. Dieses Verfahren wurde beibehalten, um die Schreibreaktion in den Protokollen aufrechtzuerhalten.
+Logs zu Dateien öffnen die Datei, schreiben den Zeilentext und schließen die Datei anschließend für jede geschriebene Zeile. Dieses Verfahren wurde übernommen, um die Schreib‑Reaktionsfähigkeit in den Logs zu erhalten.
 
 <div class="script-header">
     <span>
@@ -37,11 +37,11 @@ class Program
 }
 ```
 
-Der obige Code schreibt alle eingehenden Anfragen in die Datei `logs/access.log`. Beachten Sie, dass die Datei automatisch erstellt wird, wenn sie nicht existiert, jedoch nicht das Verzeichnis davor. Es ist nicht notwendig, das Verzeichnis `logs/` zu erstellen, da die `LogStream`-Klasse es automatisch erstellt.
+Der obige Code schreibt alle eingehenden Anfragen in die Datei `logs/access.log`. Beachten Sie, dass die Datei automatisch erstellt wird, falls sie nicht existiert, das übergeordnete Verzeichnis jedoch nicht. Es ist nicht nötig, das Verzeichnis `logs/` manuell anzulegen, da die LogStream‑Klasse es automatisch erstellt.
 
 ## Stream-basierte Protokollierung
 
-Sie können Protokolldateien an `TextWriter`-Objekte wie `Console.Out` schreiben, indem Sie ein `TextWriter`-Objekt im Konstruktor übergeben:
+Sie können Log‑Dateien in Instanzen von `TextWriter`‑Objekten schreiben, z. B. `Console.Out`, indem Sie ein `TextWriter`‑Objekt im Konstruktor übergeben:
 
 <div class="script-header">
     <span>
@@ -60,59 +60,59 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-Für jede in der stream-basierten Protokollierung geschriebene Nachricht wird die `TextWriter.Flush()`-Methode aufgerufen.
+Für jede im stream‑basierten Log geschriebene Nachricht wird die Methode `TextWriter.Flush()` aufgerufen.
 
-## Zugriffsprotokollformat
+## Formatierung des Zugriffsprotokolls
 
-Sie können das Zugriffsprotokollformat durch vordefinierte Variablen anpassen. Betrachten Sie die folgende Zeile:
+Sie können das Zugriffsprotokollformat mit vordefinierten Variablen anpassen. Betrachten Sie die folgende Zeile:
 
 ```cs
 config.AccessLogsFormat = "%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -> %lou in %lmsms [%{user-agent}]";
 ```
 
-Sie schreibt eine Nachricht wie:
+Sie wird eine Meldung wie folgt schreiben:
 
-    29/märz/2023 15:21:47 -0300 Ausgeführt ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+    29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
 
-Sie können das Protokollformat durch die im folgenden Tabelle beschriebenen Werte anpassen:
+Sie können Ihre Log‑Datei nach dem in der Tabelle beschriebenen Format formatieren:
 
-| Wert  | Was es darstellt                                                                 | Beispiel                               |
-|--------|-----------------------------------------------------------------------------------|---------------------------------------|
-| %dd    | Tag des Monats (als zwei Ziffern formatiert)                                        | 05                                    |
-| %dmmm  | Vollständiger Name des Monats                                                            | März                                  |
-| %dmm   | Abgekürzter Name des Monats (drei Buchstaben)                                  | Mär                                  |
-| %dm    | Monat (als zwei Ziffern formatiert)                                          | 03                                    |
-| %dy    | Jahr (als vier Ziffern formatiert)                                                 | 2023                                 |
-| %th    | Stunde im 12-Stunden-Format                                                          | 03                                    |
-| %tH    | Stunde im 24-Stunden-Format (HH)                                                    | 15                                    |
-| %ti    | Minuten (als zwei Ziffern formatiert)                                               | 30                                    |
-| %ts    | Sekunden (als zwei Ziffern formatiert)                                               | 45                                    |
-| %tm    | Millisekunden (als drei Ziffern formatiert)                                        | 123                                   |
-| %tz    | Zeitzone (gesamte Stunden in UTC)                                         | +03:00                               |
-| %ri    | Client-IP-Adresse                                                                       | 192.168.1.100                        |
-| %rm    | HTTP-Methode (in Großbuchstaben)                                                          | GET                                   |
-| %rs    | URI-Schema (http/https)                                                          | https                                |
-| %ra    | URI-Autorität (Domain)                                                           | example.com                          |
-| %rh    | Host der Anfrage                                                             | www.example.com                       |
-| %rp    | Port der Anfrage                                                             | 443                                  |
-| %rz    | Pfad der Anfrage                                                             | /path/to/resource                    |
-| %rq    | Abfragezeichenfolge                                                                    | ?key=value&another=123               |
-| %sc    | HTTP-Antwortstatuscode                                                      | 200                                  |
-| %sd    | HTTP-Antwortstatusbeschreibung                                              | OK                                   |
-| %lin   | Menschlich lesbare Größe der Anfrage                                             | 1,2 KB                               |
-| %linr  | Rohgröße der Anfrage (Bytes)                                                | 1234                                |
-| %lou   | Menschlich lesbare Größe der Antwort                                            | 2,5 KB                               |
-| %lour  | Rohgröße der Antwort (Bytes)                                               | 2560                                |
-| %lms   | Verstrichene Zeit in Millisekunden                                                   | 120                                  |
-| %ls    | Ausführungsstatus                                                                | Ausgeführt                |
-| %{header-name}    | Stellt den `header-name`-Header der Anfrage dar.                                                                | `Mozilla/5.0 (platform; rv:gecko [...]`                |
-| %{:header-name}    | Stellt den `header-name`-Header der Antwort dar. | `application/json` |
+| Wert               | Was es darstellt                                                            | Beispiel                               |
+|--------------------|------------------------------------------------------------------------------|----------------------------------------|
+| %dd                | Tag des Monats (zweistellig formatiert)                                      | 05                                     |
+| %dmmm              | Vollständiger Name des Monats                                                | July                                   |
+| %dmm               | Abgekürzter Name des Monats (drei Buchstaben)                               | Jul                                    |
+| %dm                | Monatszahl (zweistellig formatiert)                                         | 07                                     |
+| %dy                | Jahr (vierstellig formatiert)                                               | 2023                                   |
+| %th                | Stunde im 12‑Stunden‑Format                                                 | 03                                     |
+| %tH                | Stunde im 24‑Stunden‑Format (HH)                                            | 15                                     |
+| %ti                | Minuten (zweistellig formatiert)                                            | 30                                     |
+| %ts                | Sekunden (zweistellig formatiert)                                           | 45                                     |
+| %tm                | Millisekunden (dreistellig formatiert)                                      | 123                                    |
+| %tz                | Zeitzonenoffset (Gesamtstunden in UTC)                                      | +03:00                                 |
+| %ri                | Remote‑IP‑Adresse des Clients                                                | 192.168.1.100                          |
+| %rm                | HTTP‑Methode (Großschreibung)                                               | GET                                    |
+| %rs                | URI‑Schema (http/https)                                                     | https                                  |
+| %ra                | URI‑Authority (Domain)                                                      | example.com                            |
+| %rh                | Host der Anfrage                                                             | www.example.com                        |
+| %rp                | Port der Anfrage                                                             | 443                                    |
+| %rz                | Pfad der Anfrage                                                             | /path/to/resource                      |
+| %rq                | Abfragezeichenfolge                                                          | ?key=value&another=123                 |
+| %sc                | HTTP‑Antwortstatuscode                                                       | 200                                    |
+| %sd                | Beschreibung des HTTP‑Antwortstatus                                          | OK                                     |
+| %lin               | Menschlich lesbare Größe der Anfrage                                         | 1.2 KB                                 |
+| %linr              | Rohgröße der Anfrage (Bytes)                                                | 1234                                   |
+| %lou               | Menschlich lesbare Größe der Antwort                                         | 2.5 KB                                 |
+| %lour              | Rohgröße der Antwort (Bytes)                                                | 2560                                   |
+| %lms               | Verstrichene Zeit in Millisekunden                                           | 120                                    |
+| %ls                | Ausführungsstatus                                                            | Executed                               |
+| %{header-name}    | Stellt den Header `header-name` der Anfrage dar.                             | `Mozilla/5.0 (platform; rv:gecko [...]` |
+| %{:header-name}   | Stellt den Header `header-name` der Antwort dar.                             | `application/json`                     |
 
-Sie können auch `HttpServerConfiguration.DefaultAccessLogFormat` verwenden, um das Standard-Zugriffsprotokollformat zu verwenden.
+Sie können außerdem `HttpServerConfiguration.DefaultAccessLogFormat` verwenden, um das Standard‑Zugriffsprotokollformat zu nutzen.
 
 ## Rotierende Protokolle
 
-Sie können den HTTP-Server so konfigurieren, dass er die Protokolldateien in eine komprimierte .gz-Datei umwandelt, wenn sie eine bestimmte Größe erreichen. Die Größe wird regelmäßig durch den von Ihnen definierten Schwellenwert überprüft.
+Sie können den HTTP‑Server so konfigurieren, dass Log‑Dateien zu einer komprimierten .gz‑Datei rotiert werden, sobald sie eine bestimmte Größe erreichen. Die Größe wird periodisch anhand der von Ihnen definierten Schwelle geprüft.
 
 ```cs
 LogStream errorLog = new LogStream("logs/error.log")
@@ -121,37 +121,37 @@ LogStream errorLog = new LogStream("logs/error.log")
         dueTime: TimeSpan.FromHours(6));
 ```
 
-Der obige Code überprüft alle sechs Stunden, ob die Datei des `LogStream` die 64-MB-Grenze erreicht hat. Wenn ja, wird die Datei in eine .gz-Datei komprimiert und die `access.log`-Datei wird gelöscht.
+Der obige Code prüft alle sechs Stunden, ob die Datei des LogStreams sein 64 MB‑Limit erreicht hat. Falls ja, wird die Datei zu einer .gz‑Datei komprimiert und anschließend `access.log` bereinigt.
 
-Während dieses Prozesses wird das Schreiben in die Datei gesperrt, bis die Datei komprimiert und gelöscht ist. Alle Zeilen, die in diesem Zeitraum geschrieben werden sollen, werden in einer Warteschlange gespeichert, bis die Komprimierung abgeschlossen ist.
+Während dieses Vorgangs ist das Schreiben in die Datei gesperrt, bis die Datei komprimiert und bereinigt ist. Alle Zeilen, die in diesem Zeitraum geschrieben werden sollen, befinden sich in einer Warteschlange, die auf das Ende der Kompression wartet.
 
-Diese Funktion funktioniert nur mit dateibasierten `LogStream`-Objekten.
+Diese Funktion arbeitet nur mit dateibasierten LogStreams.
 
 ## Fehlerprotokollierung
 
-Wenn ein Server keine Fehler an den Debugger weiterleitet, leitet er Fehler an die Protokollierung weiter, wenn Fehler auftreten. Sie können die Fehlerprotokollierung mit konfigurieren:
+Wenn ein Server keine Fehler an den Debugger wirft, leitet er die Fehler zum Log‑Schreiben weiter, sofern welche vorhanden sind. Sie können das Fehler‑Schreiben konfigurieren mit:
 
 ```cs
 config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream("error.log");
 ```
 
-Diese Eigenschaft schreibt nur dann etwas in das Protokoll, wenn der Fehler nicht durch den Rückruf oder die [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft abgefangen wird.
+Diese Eigenschaft schreibt nur dann etwas in das Log, wenn der Fehler nicht vom Callback oder der [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler)-Eigenschaft erfasst wird.
 
-Der Fehler, der vom Server geschrieben wird, schreibt immer das Datum und die Uhrzeit, die Anfrageheader (nicht den Anfragebody), die Fehlerstapelverfolgung und die innere Ausnahme-Stapelverfolgung, wenn vorhanden.
+Der vom Server geschriebene Fehler protokolliert stets Datum und Uhrzeit, die Anforderungs‑Header (nicht den Body), den Fehler‑Stacktrace und, falls vorhanden, den Stacktrace der inneren Ausnahme.
 
 ## Andere Protokollierungsinstanzen
 
-Ihre Anwendung kann null oder mehrere `LogStream`-Objekte haben, es gibt keine Begrenzung für die Anzahl der Protokollkanäle, die sie haben kann. Es ist daher möglich, die Protokolle Ihrer Anwendung in eine andere Datei als die Standard-`AccessLog`- oder `ErrorLog`-Datei umzuleiten.
+Ihre Anwendung kann null oder mehrere LogStreams besitzen; es gibt keine Begrenzung, wie viele Log‑Kanäle sie haben kann. Daher ist es möglich, das Log Ihrer Anwendung in eine andere Datei als das Standard‑AccessLog oder ErrorLog zu leiten.
 
 ```cs
 LogStream appMessages = new LogStream("messages.log");
-appMessages.WriteLine("Anwendung gestartet am {0}", DateTime.Now);
+appMessages.WriteLine("Application started at {0}", DateTime.Now);
 ```
 
 ## Erweiterung von LogStream
 
-Sie können die `LogStream`-Klasse erweitern, um benutzerdefinierte Formate zu schreiben, die mit dem aktuellen Sisk-Protokollmotor kompatibel sind. Das folgende Beispiel ermöglicht es, farbige Nachrichten in der Konsole über die Spectre.Console-Bibliothek zu schreiben:
+Sie können die `LogStream`‑Klasse erweitern, um benutzerdefinierte Formate zu schreiben, die mit der aktuellen Sisk‑Log‑Engine kompatibel sind. Das nachstehende Beispiel ermöglicht das Schreiben farbiger Meldungen in die Konsole über die Spectre.Console‑Bibliothek:
 
 <div class="script-header">
     <span>
@@ -172,7 +172,7 @@ public class CustomLogStream : LogStream
 }
 ```
 
-Eine weitere Möglichkeit, automatisch benutzerdefinierte Protokolle für jede Anfrage/Antwort zu schreiben, besteht darin, einen [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler) zu erstellen. Das folgende Beispiel ist ein wenig umfassender. Es schreibt den Body der Anfrage und Antwort in JSON in die Konsole. Es kann für die allgemeine Fehlersuche nützlich sein. Dieses Beispiel verwendet ContextBag und HttpServerHandler.
+Eine weitere Möglichkeit, automatisch benutzerdefinierte Logs für jede Anfrage/Antwort zu schreiben, besteht darin, einen [HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler) zu erstellen. Das nachstehende Beispiel ist etwas umfangreicher. Es schreibt den Body von Anfrage und Antwort als JSON in die Konsole. Es kann allgemein beim Debuggen von Anfragen nützlich sein. Dieses Beispiel nutzt ContextBag und HttpServerHandler.
 
 <div class="script-header">
     <span>
@@ -194,14 +194,14 @@ class Program
             host.UseHandler<JsonMessageHandler>();
         });
 
-        app.Router += new Route(RouteMethod.Any, "/json", request =>
+        app.Router.MapAny("/json", request =>
         {
             return new HttpResponse()
                 .WithContent(JsonContent.Create(new
                 {
                     method = request.Method.Method,
                     path = request.Path,
-                    specialMessage = "Hallo, Welt!!"
+                    specialMessage = "Hello, world!!"
                 }));
         });
 
@@ -227,14 +227,14 @@ class JsonMessageHandler : HttpServerHandler
         if (request.Method != HttpMethod.Get && request.Headers["Content-Type"]?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
         {
             // Zu diesem Zeitpunkt ist die Verbindung geöffnet und der Client hat den Header gesendet, der angibt,
-            // dass der Inhalt JSON ist. Die folgende Zeile liest den Inhalt und speichert ihn im Anfrageobjekt.
+            // dass der Inhalt JSON ist. Die nachfolgende Zeile liest den Inhalt und lässt ihn in der Anfrage gespeichert.
             //
-            // Wenn der Inhalt nicht im Anfragevorgang gelesen wird, wird der Inhalt möglicherweise nach dem Senden der Antwort an den Client
-            // durch den Garbage Collector gesammelt, sodass der Inhalt möglicherweise nicht mehr verfügbar ist, nachdem die Antwort geschlossen wurde.
+            // Wenn der Inhalt nicht in der Anforderungsaktion gelesen wird, kann die GC den Inhalt wahrscheinlich sammeln,
+            // nachdem die Antwort an den Client gesendet wurde, sodass der Inhalt nach dem Schließen der Antwort nicht mehr verfügbar ist.
             //
             _ = request.RawBody;
 
-            // Fügen Sie einen Hinweis im Kontext hinzu, um anzugeben, dass diese Anfrage einen JSON-Body enthält
+            // Hinweis im Kontext hinzufügen, dass diese Anfrage einen JSON-Body enthält
             request.Bag.Add("IsJsonRequest", true);
         }
     }
@@ -247,7 +247,7 @@ class JsonMessageHandler : HttpServerHandler
 
         if (result.Request.Bag.ContainsKey("IsJsonRequest"))
         {
-            // Reformuliert das JSON mithilfe der CypherPotato.LightJson-Bibliothek
+            // Formatiert das JSON mithilfe der CypherPotato.LightJson-Bibliothek neu
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
@@ -258,7 +258,7 @@ class JsonMessageHandler : HttpServerHandler
             responseMessage = $"{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}";
             
             if (content is HttpContent httpContent &&
-                // Überprüfen, ob die Antwort JSON ist
+                // prüfen, ob die Antwort JSON ist
                 httpContent.Headers.ContentType?.MediaType?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -267,7 +267,7 @@ class JsonMessageHandler : HttpServerHandler
         }
         else
         {
-            // Ruft den internen Server-Verarbeitungsstatus ab
+            // holt den internen Serververarbeitungsstatus
             responseMessage = result.Status.ToString();
         }
         

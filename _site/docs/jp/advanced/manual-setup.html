@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>マニュアル（高度な）設定 | Sisk </title>
+        <title>手動（上級）セットアップ | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="マニュアル（高度な）設定 | Sisk ">
+        <meta name="title" content="手動（上級）セットアップ | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,10 +171,10 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="マニュアル高度な設定">マニュアル（高度な）設定</h1>
+<h1 id="手動上級セットアップ">手動（上級）セットアップ</h1>
 
-<p>このセクションでは、事前に定義された標準なしで、完全に抽象的な方法でHTTPサーバーを作成します。ここでは、HTTPサーバーがどのように機能するかを手動で構築できます。各ListeningHostにはルーターがあり、HTTPサーバーには複数のListeningHostsを持ち、それぞれが異なるホストと異なるポートを指すことができます。</p>
-<p>まず、リクエスト/レスポンスの概念を理解する必要があります。非常にシンプルです。各リクエストにはレスポンスが必要です。Siskもこの原則に従います。&quot;Hello, World!&quot;メッセージをHTMLで返すメソッドを作成しましょう。ステータスコードとヘッダーを指定します。</p>
+<p>サーバーの部品を自分で組み立てる必要がある場合、たとえば 1 つのプロセスが複数のホスト、ポート、ルーター、またはカスタムサーバー構成を公開しなければならない場合に手動設定を使用します。ほとんどのアプリケーションでは、ビルダー API の方が短く、優先すべきです。手動設定は、<code>Router</code>、1 つ以上の <code>ListeningHost</code> オブジェクト、<code>HttpServerConfiguration</code>、最終的な <code>HttpServer</code> の 4 つのコア部品を直接制御したいときに便利です。</p>
+<p>まず、リクエスト/レスポンスの概念を理解する必要があります。これは非常にシンプルです。すべてのリクエストに対してレスポンスが必要です。Sisk もこの原則に従います。ステータスコードとヘッダーを指定した、HTML の「Hello, World!」メッセージで応答するメソッドを作成しましょう。</p>
 <pre><code class="lang-csharp">// Program.cs
 using Sisk.Core.Http;
 using Sisk.Core.Routing;
@@ -196,44 +196,134 @@ static HttpResponse IndexPage(HttpRequest request)
     return indexResponse;
 }
 </code></pre>
-<p>次のステップは、このメソッドをHTTPルートに関連付けることです。</p>
+<p>次のステップは、このメソッドを HTTP ルートに関連付けることです。</p>
 <h2 id="ルーター">ルーター</h2>
-<p>ルーターは、リクエストルートの抽象化であり、サービスに対するリクエストとレスポンスの橋渡しとなります。ルーターは、サービスルート、関数、エラーを管理します。</p>
-<p>ルーターには複数のルートを持ち、それぞれのルートは異なる操作を実行できます。たとえば、関数の実行、ページの提供、サーバーからのリソースの提供などです。</p>
-<p>最初のルーターを作成し、<code>IndexPage</code>メソッドをインデックスパスに関連付けましょう。</p>
-<pre><code class="lang-csharp">Router mainRouter = new Router();
+<p>ルーターはリクエストルートの抽象化であり、サービスのリクエストとレスポンスの橋渡しを行います。ルーターはサービスルート、関数、エラーを管理します。</p>
+<p>ルーターは複数のルートを持つことができ、各ルートは関数の実行、ページの提供、サーバーからのリソース提供など、パスに対してさまざまな操作を実行できます。</p>
+<p>最初のルーターを作成し、<code>IndexPage</code> メソッドをインデックスパスに関連付けましょう。</p>
+<pre><code class="lang-csharp">Router mainRouter = new Router;
 
-// SetRouteはすべてのインデックスルートをメソッドに関連付けます。
-mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage);
+mainRouter.MapGet(&quot;/&quot;, IndexPage);
 </code></pre>
-<p>今、ルーターはリクエストを受け取り、レスポンスを送信できます。しかし、<code>mainRouter</code>はホストまたはサーバーに結び付けられていないため、単独では機能しません。次のステップは、ListeningHostを作成することです。</p>
+<p>これでルーターはリクエストを受け取りレスポンスを返すことができます。ただし、<code>mainRouter</code> はホストやサーバーに紐付いていないため、単体では機能しません。次のステップは <code>ListeningHost</code> を作成することです。</p>
 <h2 id="リスニングホストとポート">リスニングホストとポート</h2>
-<p>リスニングホストはルーターをホストし、同じルーターの複数のリスニングポートを持ちます。リスニングポートは、HTTPサーバーがリッスンするプレフィックスです。</p>
-<p>ここで、ルーターを指す2つのエンドポイントを持つリスニングホストを作成できます。</p>
+<p><a href="/api/Sisk.Core.Http.ListeningHost">ListeningHost</a> はルーターと同じルーター用の複数のリスニングポートをホストできます。<a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> は HTTP サーバーがリッスンするプレフィックスです。</p>
+<p>ここでは、ルーターに対して 2 つのエンドポイントを指す <code>ListeningHost</code> を作成します。</p>
 <pre><code class="lang-csharp">ListeningHost myHost = new ListeningHost
 {
-    Router = new Router(),
+    Router = mainRouter,
     Ports = new ListeningPort[]
     {
         new ListeningPort(&quot;http://localhost:5000/&quot;)
     }
 };
 </code></pre>
-<p>今、HTTPサーバーは指定されたエンドポイントをリッスンし、リクエストをルーターに転送します。</p>
+<p>これで HTTP サーバーは指定されたエンドポイントでリッスンし、リクエストをルーターに転送します。</p>
 <h2 id="サーバー構成">サーバー構成</h2>
-<p>サーバー構成は、HTTPサーバー自身の動作のほとんどを担当します。この構成では、リスニングホストをサーバーに関連付けることができます。</p>
+<p>サーバー構成は HTTP サーバー自体の動作の大部分を担当します。この構成では <code>ListeningHost</code> をサーバーに関連付けることができます。</p>
 <pre><code class="lang-csharp">HttpServerConfiguration config = new HttpServerConfiguration();
-config.ListeningHosts.Add(myHost); // リスニングホストをサーバー構成に追加
+config.ListeningHosts.Add(myHost); // このサーバー構成に ListeningHost を追加します
 </code></pre>
-<p>次に、HTTPサーバーを作成できます。</p>
+<p>一般的なサーバー構成オプション:</p>
+<table>
+<thead>
+<tr>
+<th>プロパティ</th>
+<th>デフォルト</th>
+<th>使用シーン</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction">RemoteRequestsAction</a></td>
+<td><code>RequestListenAction.Accept</code></td>
+<td>サービスは、信頼できるリバースプロキシ経由でない限り、ローカル以外のリクエストを拒否すべきです。</td>
+<td><code>Drop</code> に設定するのは、デプロイトポロジーが明確な場合のみです。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader">IncludeRequestIdHeader</a></td>
+<td><code>false</code></td>
+<td>クライアントまたはプロキシが <code>X-Request-Id</code> 応答ヘッダーに Sisk のリクエスト ID を必要とする場合。</td>
+<td><code>HttpRequest.RequestId</code> を含むログと組み合わせて使用してください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout">IdleConnectionTimeout</a></td>
+<td><code>120</code> seconds</td>
+<td>アイデル状態の Keep-Alive 接続は、遅かれ早かれ閉じるべきです。</td>
+<td>これは HTTP エンジンによって適用されます。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a></td>
+<td><code>false</code></td>
+<td>ヘッダーのエンコーディングが一致しない場合。</td>
+<td>処理コストがかかります。必要なければ無効のままにしてください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader">SendSiskHeader</a></td>
+<td><code>true</code></td>
+<td><code>X-Powered-By</code> Sisk ヘッダーを隠すか公開したい場合。</td>
+<td>本番環境でより厳格なヘッダー方針が必要な場合は無効にしてください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode">OptionsLogMode</a></td>
+<td><code>LogOutput.Both</code></td>
+<td>自動 <code>OPTIONS</code> 処理で生成されるログを削減またはリダイレクトしたい場合。</td>
+<td>ルートと同じログモードの値を使用します。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing">AsyncRequestProcessing</a></td>
+<td><code>true</code></td>
+<td>診断のために決定的な単一リクエスト処理が必要な場合。</td>
+<td>無効にするとスループットが制限されます。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues">DisposeDisposableContextValues</a></td>
+<td><code>true</code></td>
+<td><code>IDisposable</code> を実装するリクエストバッグの値を自動的に破棄すべき場合。</td>
+<td>所有権が他で管理されていない限り、有効のままにしてください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a></td>
+<td><code>true</code></td>
+<td>値ハンドラが非同期列挙可能をブロッキング列挙可能として受け取るべき場合。</td>
+<td>独自の非同期ストリーム処理を実装する場合は無効にしてください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.KeepAlive">KeepAlive</a></td>
+<td><code>true</code></td>
+<td>レスポンス後も接続を再利用可能にすべき場合。</td>
+<td>永続接続をうまく扱えないクライアントや中間サーバーの場合は無効にしてください。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">ForceTrailingSlash</a></td>
+<td><code>false</code></td>
+<td>GET ルートを末尾スラッシュ付き URL にリダイレクトすべき場合。</td>
+<td>正規表現以外のルートにのみ適用されます。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">MaximumContentLength</a></td>
+<td><code>0</code></td>
+<td>リクエストボディにサイズ上限が必要な場合。</td>
+<td><code>0</code> はフレームワークまたはメモリ上限に達するまで無制限を意味します。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a></td>
+<td><code>false</code></td>
+<td>クライアントがサポートしている場合、レスポンスを自動的に圧縮すべき場合。</td>
+<td>既存の <code>CompressedContent</code> レスポンスは再度圧縮されません。</td>
+</tr>
+</tbody>
+</table>
+<p>次に、HTTP サーバーを作成します。</p>
 <pre><code class="lang-csharp">HttpServer server = new HttpServer(config);
-server.Start();    // サーバーを起動
-Console.ReadKey(); // アプリケーションが終了しないようにする
+server.Start();    // サーバーを起動します
+Console.ReadKey(); // アプリケーションが終了しないようにします
 </code></pre>
-<p>今、実行可能ファイルをコンパイルし、HTTPサーバーを次のコマンドで実行できます。</p>
+<p>これで実行ファイルをコンパイルし、次のコマンドで HTTP サーバーを起動できます。</p>
 <pre><code class="lang-bash">dotnet watch
 </code></pre>
-<p>実行時に、ブラウザを開き、サーバーパスに移動すると、次のようになります。</p>
+<p>実行時にブラウザを開きサーバーパスへアクセスすると、以下のように表示されます。</p>
 <img src="/assets/img/localhost.png">
 
 </article>

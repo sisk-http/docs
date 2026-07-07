@@ -219,7 +219,7 @@ res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>There are other <a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">more complete versions</a> of the same method.</p>
+<p>There are other <a href="/api/Sisk.Core.Helpers.CookieHelper.SetCookie">more complete versions</a> of the same method.</p>
 <h2 id="chunked-responses">Chunked responses</h2>
 <p>You can set the transfer encoding to chunked to send large responses.</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
@@ -308,7 +308,7 @@ public class UsersController : RouterModule
     [RoutePost]
     public ValueResult&lt;bool&gt; Create(HttpRequest request)
     {
-        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        User fromBody = request.GetJsonContent&lt;User&gt;()!;
         Users.Add(fromBody);
         
         return true;
@@ -320,7 +320,7 @@ public class UsersController : RouterModule
 <p>The association of types does not compare what was registered with the type of the object returned from the router callback. Instead, it checks whether the type of the router result is assignable to the registered type.</p>
 <p>Registering a handler of type Object will fallback to all previously unvalidated types. The inserting order of the value handlers also matters, so registering an Object handler will ignore all other type-specific handlers. Always register specific value handlers first to ensure order.</p>
 <pre><code class="lang-cs">Router r = new Router();
-r.SetObject(new UsersController());
+r.MapInstance(new UsersController());
 
 r.RegisterValueHandler&lt;ApiResult&gt;(apiResult =&gt;
 {
@@ -404,7 +404,7 @@ public HttpResponse SendMail(HttpRequest request)
 </code></pre>
 <p>In the above example, the <code>IEnumerable&lt;string&gt;</code> converter <strong>will never be called</strong>, because the input object will always be an <code>Object[]</code> and it is not convertible to an <code>IEnumerable&lt;string&gt;</code>. However, the converter below that receives an <code>IEnumerable&lt;object&gt;</code> will receive its input, since its value is compatible.</p>
 <p>If you need to actually handle the type of the object that will be enumerated, you will need to use reflection to get the type of the collection element. All enumerable objects (lists, arrays, and collections) are converted to an array of objects by the HTTP response converter.</p>
-<p>Values that implements <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> are handled automatically by the server if the <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> property is enabled, similar to what happens with <code>IEnumerable</code>. An asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects.</p>
+<p>Values that implements <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> are handled automatically by the server if the <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> property is enabled, similar to what happens with <code>IEnumerable</code>. This option is enabled by default in <code>HttpServerConfiguration</code>; an asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects. Disable it only when you provide your own value handler or streaming response strategy for asynchronous sequences.</p>
 
 </article>
 

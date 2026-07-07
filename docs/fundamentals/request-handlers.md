@@ -55,6 +55,50 @@ In the above example, we indicated that if the `Authorization` header is present
 
 Whenever a request handler returns `null`, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.
 
+If you inherit from the built-in [RequestHandler](/api/Sisk.Core.Routing.RequestHandler) class, you can return `Next()` to make that intent explicit:
+
+```cs
+public class AuthenticateUserRequestHandler : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+For handlers that need I/O, inherit from [AsyncRequestHandler](/api/Sisk.Core.Routing.AsyncRequestHandler):
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+Small inline handlers can also be created with `RequestHandler.Create` or `AsyncRequestHandler.Create`:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
+});
+```
+
 ## Associating a request handler with a single route
 
 You can define one or more request handlers for a route.
@@ -69,7 +113,7 @@ You can define one or more request handlers for a route.
 </div>
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler(),     // before request handler
     new ValidateJsonContentRequestHandler(),  // before request handler
@@ -90,12 +134,12 @@ Or creating an [Route](/api/Sisk.Core.Routing.Route) object:
 </div>
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
+Route indexRoute = Route.Get("/", IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 ```
 
 ## Associating a request handler with a router
@@ -230,14 +274,15 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "My route", IndexPage, null)
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ok: the same instance of what is in the global request handlers
-        new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
-    }
-});
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
 ```
 
 > [!NOTE]

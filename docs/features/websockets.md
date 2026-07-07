@@ -80,3 +80,45 @@ ws.PingPolicy.Start(
     dataMessage: "ping-message",
     interval: TimeSpan.FromSeconds(10));
 ```
+
+## Managed connections
+
+When accepting a WebSocket, you can provide an identifier. Identified sockets are registered in [HttpServer.WebSockets](/api/Sisk.Core.Http.HttpServer.WebSockets), which lets the server find active connections outside the route that accepted them.
+
+```cs
+router.MapGet("/connect/<userId>", async (HttpRequest req) =>
+{
+    string userId = req.RouteParameters["userId"].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $"user:{userId}");
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: "ping",
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync("Received: " + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+From another part of the application, query the collection by identifier or predicate:
+
+```cs
+HttpWebSocket? socket = server.WebSockets.GetByIdentifier("user:42");
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync("Your report is ready.");
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id => id.StartsWith("user:")))
+{
+    await activeSocket.SendAsync("Broadcast message");
+}
+```
+
+Each `HttpWebSocket` exposes `Identifier`, `State`, `IsClosed`, and `PingPolicy`. The collection also exposes `All()`, `Find(...)`, `GetByIdentifier(...)`, `ActiveConnections`, and `DropAll()` for server-managed connection strategies.

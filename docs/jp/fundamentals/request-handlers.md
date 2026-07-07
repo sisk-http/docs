@@ -1,25 +1,25 @@
 # リクエストハンドリング
 
-リクエストハンドラー、別名「ミドルウェア」は、ルーターでリクエストが実行される前または後に実行される関数です。ルートごとまたはルーターごとに定義できます。
+リクエストハンドラは、"ミドルウェア" とも呼ばれ、ルーターでリクエストが実行される前後に実行される関数です。ルート単位またはルーター単位で定義できます。
 
-リクエストハンドラーには2つの種類があります。
+リクエストハンドラには2種類あります：
 
-- **BeforeResponse**: リクエストハンドラーがルーター アクションを呼び出す前に実行されることを定義します。
-- **AfterResponse**: リクエストハンドラーがルーター アクションを呼び出した後に実行されることを定義します。このコンテキストでHTTPレスポンスを送信すると、ルーターのアクションレスポンスが上書きされます。
+- **BeforeResponse**: ルーターアクションを呼び出す前にリクエストハンドラが実行されることを示します。
+- **AfterResponse**: ルーターアクションを呼び出した後にリクエストハンドラが実行されることを示します。このコンテキストで HTTP レスポンスを送信すると、ルーターのアクションレスポンスが上書きされます。
 
-両方のリクエストハンドラーは、実際のルーター コールバック関数のレスポンスを上書きできます。さらに、リクエストハンドラーは、認証、コンテンツ、またはその他の情報の検証に役立ちます。ストレージ、ログ、またはレスポンスの前にまたは後に実行できる他のステップもあります。
+両方のリクエストハンドラは、実際のルーターコールバック関数のレスポンスを上書きできます。なお、リクエストハンドラは、認証やコンテンツなどのリクエストの検証、情報の保存、ログ記録、またはレスポンスの前後に実行できるその他の処理に役立ちます。
 
 ![](/assets/img/requesthandlers1.png)
 
-このように、リクエストハンドラーは実行を中断し、サイクルを終了する前にレスポンスを返すことができます。その他のプロセスは破棄されます。
+このように、リクエストハンドラは実行のすべてを中断し、サイクルが完了する前にレスポンスを返すことで、途中の処理をすべて破棄できます。
 
-例: ユーザー認証リクエストハンドラーがユーザーを認証しないとします。リクエストライフサイクルは続行されず、ハングします。リクエストハンドラーが2番目の位置にある場合、3番目以降のハンドラーは評価されません。
+例: ユーザー認証リクエストハンドラが認証に失敗したとします。この場合、リクエストのライフサイクルは継続できず、処理が停止します。もしこのハンドラが2番目の位置にある場合、3番目以降は評価されません。
 
 ![](/assets/img/requesthandlers2.png)
 
-## リクエストハンドラーの作成
+## リクエストハンドラの作成
 
-リクエストハンドラーを作成するには、[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インターフェイスを継承するクラスを作成できます。
+リクエストハンドラを作成するには、[IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) インターフェイスを継承したクラスを以下の形式で作成します：
 
 <div class="script-header">
     <span>
@@ -39,25 +39,69 @@ public class AuthenticateUserRequestHandler : IRequestHandler
     {
         if (request.Headers.Authorization != null)
         {
-            // nullを返すと、リクエストサイクルが続行されます
+            // null を返すと、リクエストサイクルを継続できることを示します
             return null;
         }
         else
         {
-            // HttpResponseオブジェクトを返すと、隣接するレスポンスが上書きされます
+            // HttpResponse オブジェクトを返すと、このレスポンスが隣接するレスポンスを上書きすることを示します
             return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
 ```
 
-上記の例では、`Authorization` ヘッダーがリクエストに存在する場合、続行し、次のリクエストハンドラーまたはルーター コールバックが呼び出されることを示しています。リクエストハンドラーがレスポンスの後に実行され、null以外の値を返すと、ルーターのレスポンスが上書きされます。
+上記の例では、リクエストに `Authorization` ヘッダーが存在する場合は処理を継続し、次のリクエストハンドラまたはルーターコールバックが呼び出されることを示しています。プロパティ [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) によりレスポンス後に実行されるリクエストハンドラが非 null の値を返すと、ルーターのレスポンスを上書きします。
 
-リクエストハンドラーが `null` を返すと、リクエストが続行され、次のオブジェクトが呼び出されるか、サイクルがルーターのレスポンスで終了します。
+リクエストハンドラが `null` を返す場合、リクエストは継続され、次のオブジェクトが呼び出されるか、ルーターのレスポンスでサイクルが終了することを示します。
 
-## ルートへのリクエストハンドラーの関連付け
+組み込みの [RequestHandler](/api/Sisk.Core.Routing.RequestHandler) クラスを継承すると、`Next()` を返すことで意図を明示できます:
 
-ルートに1つまたは複数のリクエストハンドラーを定義できます。
+```cs
+public class AuthenticateUserRequestHandler : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+I/O が必要なハンドラは、[AsyncRequestHandler](/api/Sisk.Core.Routing.AsyncRequestHandler) を継承します:
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+小規模なインラインハンドラは `RequestHandler.Create` または `AsyncRequestHandler.Create` でも作成できます:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
+});
+```
+
+## 単一ルートにリクエストハンドラを関連付ける
+
+ルートに対して 1 つ以上のリクエストハンドラを定義できます。
 
 <div class="script-header">
     <span>
@@ -69,7 +113,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 </div>
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler(),     // before request handler
     new ValidateJsonContentRequestHandler(),  // before request handler
@@ -78,7 +122,7 @@ mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 });
 ```
 
-または、[Route](/api/Sisk.Core.Routing.Route) オブジェクトを作成します。
+または [Route](/api/Sisk.Core.Routing.Route) オブジェクトを作成する場合：
 
 <div class="script-header">
     <span>
@@ -90,17 +134,17 @@ mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 </div>
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
+Route indexRoute = Route.Get("/", IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 ```
 
-## ルーターへのリクエストハンドラーの関連付け
+## ルーターにリクエストハンドラを関連付ける
 
-ルーター全体で実行されるグローバル リクエストハンドラーを定義できます。
+ルーター上のすべてのルートで実行されるグローバルリクエストハンドラを定義できます。
 
 <div class="script-header">
     <span>
@@ -118,9 +162,9 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 };
 ```
 
-## 属性へのリクエストハンドラーの関連付け
+## 属性にリクエストハンドラを関連付ける
 
-ルート属性とともにメソッド属性にリクエストハンドラーを定義できます。
+メソッド属性とルート属性と一緒に、リクエストハンドラを属性として定義できます。
 
 <div class="script-header">
     <span>
@@ -145,9 +189,9 @@ public class MyController
 }
 ```
 
-リクエストハンドラーのタイプを渡す必要があります。インスタンスではありません。そうすると、リクエストハンドラーはルーター パーサーによってインスタンス化されます。コンストラクタ引数を [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments) プロパティで渡すことができます。
+注意点として、オブジェクトインスタンスではなく、目的のリクエストハンドラ型を渡す必要があります。これにより、ルーターパースャーがリクエストハンドラをインスタンス化します。クラスコンストラクタの引数は [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments) プロパティで渡すことができます。
 
-例:
+例：
 
 <div class="script-header">
     <span>
@@ -168,7 +212,7 @@ public HttpResponse Index(HttpRequest request)
 }
 ```
 
-リクエストハンドラーを実装する独自の属性を作成することもできます。
+RequestHandler を実装した独自の属性も作成できます：
 
 <div class="script-header">
     <span>
@@ -189,7 +233,7 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 }
 ```
 
-そして、次のように使用します。
+そして次のように使用します：
 
 <div class="script-header">
     <span>
@@ -210,9 +254,9 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-## グローバル リクエストハンドラーのバイパス
+## グローバルリクエストハンドラをバイパスする
 
-ルートでグローバル リクエストハンドラーを定義した後、特定のルートでそれを無視できます。
+ルートにグローバルリクエストハンドラを定義した後、特定のルートでそのハンドラを無視できます。
 
 <div class="script-header">
     <span>
@@ -230,15 +274,16 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "My route", IndexPage, null)
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ok: グローバル リクエストハンドラーと同じインスタンス
-        new AuthenticateUserRequestHandler() // wrong: グローバル リクエストハンドラーはスキップされません
-    }
-});
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
 ```
 
 > [!NOTE]
-> リクエストハンドラーをバイパスする場合、スキップするために使用したのと同じ参照を使用する必要があります。別のリクエストハンドラー インスタンスを作成すると、グローバル リクエストハンドラーはスキップされません。グローバル リクエストハンドラーと BypassGlobalRequestHandlers で使用するのと同じリクエストハンドラー参照を使用することを覚えておいてください。
+> リクエストハンドラをバイパスする場合、以前にインスタンス化したものと同じ参照を使用しなければなりません。別のリクエストハンドラインスタンスを作成しても、参照が変わるためグローバルリクエストハンドラはバイパスされません。GlobalRequestHandlers と BypassGlobalRequestHandlers の両方で同じリクエストハンドラ参照を使用することを忘れないでください。

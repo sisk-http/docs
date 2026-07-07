@@ -1,25 +1,25 @@
-# フォワーディング リゾルバー
+# フォワーディングリゾルバ
 
-フォワーディング リゾルバーは、クライアントを識別する情報を、リクエスト、プロキシ、CDN、またはロード バランサーを介してデコードするためのヘルパーです。Sisk サービスがリバース プロキシまたはフォワード プロキシを介して実行される場合、クライアントの IP アドレス、ホスト、およびプロトコルは、元のリクエストとは異なる場合があります。これは、サービス間のフォワーディングであるためです。この Sisk 機能により、リクエストを処理する前に、この情報を解決して制御できます。これらのプロキシは、クライアントを識別するために役立つヘッダーを提供します。
+フォワーディングリゾルバは、リクエスト、プロキシ、CDN、ロードバランサーを通じてクライアントを識別する情報をデコードするのに役立つヘルパーです。Sisk サービスがリバースプロキシまたはフォワードプロキシを介して実行される場合、クライアントの IP アドレス、ホスト、プロトコルは元のリクエストとは異なることがあります。これは、あるサービスから別のサービスへ転送されるためです。この Sisk の機能により、リクエストを処理する前にこの情報を制御・解決できます。これらのプロキシは通常、クライアントを識別するための有用なヘッダーを提供します。
 
-現在、[ForwardingResolver](/api/Sisk.Core.Http.ForwardingResolver) クラスを使用すると、クライアントの IP アドレス、ホスト、および使用される HTTP プロトコルを解決できます。Sisk のバージョン 1.0 以降、サービスごとに異なるセキュリティ上の理由により、標準的なヘッダーをデコードするための実装はサーバーにありません。
+現在、[ForwardingResolver](/api/Sisk.Core.Http.ForwardingResolver) クラスを使用すると、クライアントの IP アドレス、ホスト、使用された HTTP プロトコルを解決することが可能です。Sisk のバージョン 1.0 以降、サーバーはサービスごとに異なるセキュリティ上の理由から、これらのヘッダーをデコードする標準実装を提供しなくなりました。
 
-例えば、`X-Forwarded-For` ヘッダーには、リクエストをフォワードした IP アドレスに関する情報が含まれます。このヘッダーは、プロキシによって最終的なサービスに情報の連鎖を運ぶために使用され、クライアントの実際のアドレスを含むすべてのプロキシの IP を含みます。問題は、クライアントのリモート IP を識別するのが難しい場合があり、ヘッダーを識別するための特定のルールがないことです。以下に実装するヘッダーのドキュメントを読むことを強くお勧めします。
+たとえば、`X-Forwarded-For` ヘッダーにはリクエストを転送した IP アドレスの情報が含まれます。このヘッダーはプロキシが情報のチェーンを最終サービスへ渡すために使用され、使用されたすべてのプロキシの IP とクライアントの実際のアドレスが含まれます。問題は、クライアントのリモート IP を特定するのが難しいことがあり、このヘッダーを識別するための具体的なルールが存在しない点です。以下のヘッダーに関するドキュメントを必ずお読みください。
 
-- [`X-Forwarded-For` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns) についてこちらを参照してください。
-- [`X-Forwarded-Host` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host) についてこちらを参照してください。
-- [`X-Forwarded-Proto` ヘッダー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto) についてこちらを参照してください。
+- `X-Forwarded-For` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns)をご参照ください。
+- `X-Forwarded-Host` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host)をご参照ください。
+- `X-Forwarded-Proto` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto)をご参照ください。
 
 ## ForwardingResolver クラス
 
-このクラスには、各サービスに最も適した実装を可能にする 3 つの仮想メソッドがあります。各メソッドは、プロキシを介したリクエストから情報を解決する責任があります。クライアントの IP アドレス、リクエストのホスト、および使用されるセキュリティ プロトコルです。デフォルトでは、Sisk は常に元のリクエストの情報を使用し、ヘッダーを解決しません。
+このクラスには、各サービスに最適な実装を可能にする 3 つの仮想メソッドが用意されています。各メソッドは、プロキシを介したリクエストから情報を解決する役割を担い、クライアントの IP アドレス、リクエストのホスト、使用されたセキュリティプロトコルを取得します。デフォルトでは、Sisk はヘッダーを解決せず、元のリクエストに含まれる情報を常に使用します。
 
-以下の例は、この実装を使用する方法を示しています。この例では、`X-Forwarded-For` ヘッダーを介してクライアントの IP を解決し、リクエストで複数の IP がフォワードされた場合にエラーをスローします。
+以下の例は、この実装の使用方法を示しています。この例では `X-Forwarded-For` ヘッダーを使ってクライアントの IP を解決し、リクエストに複数の IP が転送されている場合はエラーをスローします。
 
 > [!IMPORTANT]
-> この例は、プロダクション コードで使用しないでください。実装が使用するために適切であることを常に確認してください。実装する前にヘッダーのドキュメントを読んでください。
+> 本例を本番コードで使用しないでください。実装が使用に適切かどうか必ず確認し、実装前にヘッダーのドキュメントを読んでください。
 
-```csharp
+```cs
 class Program
 {
     static void Main(string[] args)
@@ -29,9 +29,9 @@ class Program
             .UseListeningPort(5555)
             .Build();
 
-        host.Router.SetRoute(RouteMethod.Any, Route.AnyPath, request =>
+        host.Router.MapAny(Route.AnyPath, request =>
             new HttpResponse("Hello, world!!!"));
-
+ 
         host.Start();
     }
 

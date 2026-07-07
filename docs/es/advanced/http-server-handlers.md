@@ -1,25 +1,25 @@
-# Controladores de servidor HTTP
+# Manejadores del servidor Http
 
-En la versión 0.16 de Sisk, se ha introducido la clase `HttpServerHandler`, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar controladores de eventos adicionales a Sisk, como el manejo de solicitudes HTTP, enrutadores, bolsas de contexto y más.
+En la versión 0.16 de Sisk, hemos introducido la clase `HttpServerHandler`, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar manejadores de eventos adicionales a Sisk, como el manejo de solicitudes Http, routers, bolsas de contexto y más.
 
-La clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo HTTP no tiene sesiones, y por lo tanto no es posible conservar información de una solicitud a otra. Sisk proporciona por ahora una forma de implementar sesiones, contextos, conexiones de base de datos y otros proveedores útiles para ayudar en su trabajo.
+Esta clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo Http no tiene sesiones, por lo que no es posible conservar información de una solicitud a otra. Por ahora, Sisk ofrece una forma de que implementes sesiones, contextos, conexiones a bases de datos y otros proveedores útiles para ayudar en tu trabajo.
 
-Consulte [esta página](/api/Sisk.Core.Http.Handlers.HttpServerHandler) para leer dónde se dispara cada evento y cuál es su propósito. También puede ver el [ciclo de vida de una solicitud HTTP](/v1/advanced/request-lifecycle) para entender qué sucede con una solicitud y dónde se disparan los eventos. El servidor HTTP permite utilizar varios controladores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el subproceso actual para cada solicitud o contexto hasta que se ejecuten y completen todos los controladores asociados con esa función.
+Por favor, consulta [esta página](/api/Sisk.Core.Http.Handlers.HttpServerHandler) para leer dónde se dispara cada evento y cuál es su propósito. También puedes ver el [ciclo de vida de una solicitud HTTP](/v1/advanced/request-lifecycle) para entender qué ocurre con una solicitud y dónde se disparan los eventos. El servidor HTTP permite usar varios manejadores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el hilo actual para cada solicitud o contexto hasta que todos los manejadores asociados a esa función se ejecuten y completen.
 
-A diferencia de los controladores de solicitudes, no se pueden aplicar a grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puede aplicar condiciones dentro de su controlador de servidor HTTP. Además, se definen singletones de cada `HttpServerHandler` para cada aplicación Sisk, por lo que solo se define una instancia por `HttpServerHandler`.
+A diferencia de los RequestHandlers, no pueden aplicarse a algunos grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puedes aplicar condiciones dentro de tu Http Server Handler. Además, los singletons de cada HttpServerHandler se definen para cada aplicación Sisk, de modo que solo existe una instancia por `HttpServerHandler`.
 
-Un ejemplo práctico de uso de `HttpServerHandler` es para desechar automáticamente una conexión de base de datos al final de la solicitud.
+Un ejemplo práctico de uso de HttpServerHandler es disponer automáticamente una conexión a la base de datos al final de la solicitud.
 
 ```cs
 // DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // comprueba si la solicitud ha definido un DbContext
+        // verifica si la solicitud ha definido un DbContext
         // en su bolsa de contexto
         if (requestBag.IsSet<DbContext>())
         {
@@ -31,19 +31,16 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // permite al usuario crear un contexto de base de datos a partir de una solicitud HTTP
-    // y almacenarlo en su bolsa de contexto
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag<DbContext>(db);
+        return request.Bag.GetOrAdd(() => new DbContext());
     }
 }
 ```
 
-Con el código anterior, la extensión `GetDbContext` permite crear un contexto de conexión directamente desde el objeto `HttpRequest`. Una conexión no desechar puede causar problemas al ejecutar con la base de datos, por lo que se termina en `OnHttpRequestClose`.
+Con el código anterior, la extensión `GetDbContext` permite crear un contexto de conexión directamente desde el objeto HttpRequest. Una conexión no liberada puede causar problemas al trabajar con la base de datos, por lo que se termina en `OnHttpRequestClose`.
 
-Puede registrar un controlador en un servidor HTTP en su constructor o directamente con [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler).
+Puedes registrar un manejador en un servidor Http en tu constructor o directamente con [HttpServer.RegisterHandler](/api/Sisk.Core.Http.HttpServer.RegisterHandler).
 
 ```cs
 // Program.cs
@@ -56,13 +53,13 @@ class Program
             .UseHandler<DatabaseConnectionHandler>()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
 ```
 
-Con esto, la clase `UsersController` puede utilizar el contexto de base de datos como:
+Con esto, la clase `UsersController` puede utilizar el contexto de base de datos de la siguiente manera:
 
 ```cs
 // UserController.cs
@@ -84,7 +81,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue<int>("id");
+        int userId = request.RouteParameters["id"].GetInteger();
         var user = db.Users.FirstOrDefault(u => u.Id == userId);
 
         return JsonOk(user);
@@ -94,19 +91,19 @@ public class UserController : ApiController
     public async Task<HttpResponse> Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize<User>(request.Body);
+        var user = await request.GetJsonContentAsync<User>();
 
         ArgumentNullException.ThrowIfNull(user);
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage("Usuario agregado.");
+        return JsonMessage("User added.");
     }
 }
 ```
 
-El código anterior utiliza métodos como `JsonOk` y `JsonMessage` que están integrados en `ApiController`, que hereda de `RouterController`:
+El código anterior utiliza métodos como `JsonOk` y `JsonMessage` que están incorporados en `ApiController`, el cual hereda de un `RouterController`:
 
 ```cs
 // ApiController.cs
@@ -133,6 +130,6 @@ public class ApiController : RouterModule
 }
 ```
 
-Los desarrolladores pueden implementar sesiones, contextos y conexiones de base de datos utilizando esta clase. El código proporcionado muestra un ejemplo práctico con el `DatabaseConnectionHandler`, automatizando el descarte de la conexión de base de datos al final de cada solicitud.
+Los desarrolladores pueden implementar sesiones, contextos y conexiones a bases de datos usando esta clase. El código proporcionado muestra un ejemplo práctico con el DatabaseConnectionHandler, automatizando la liberación de la conexión a la base de datos al final de cada solicitud.
 
-La integración es sencilla, con controladores registrados durante la configuración del servidor. La clase `HttpServerHandler` ofrece un conjunto de herramientas poderosas para administrar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.
+La integración es sencilla, con los manejadores registrados durante la configuración del servidor. La clase HttpServerHandler ofrece un conjunto de herramientas potente para gestionar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.

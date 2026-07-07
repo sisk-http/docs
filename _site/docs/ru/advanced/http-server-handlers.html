@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Обработчики HTTP-сервера | Sisk </title>
+        <title>Http server handlers | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Обработчики HTTP-сервера | Sisk ">
+        <meta name="title" content="Http server handlers | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,22 +171,23 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="обработчики-http-сервера">Обработчики HTTP-сервера</h1>
+<h1 id="http-server-handlers">Http server handlers</h1>
 
-<p>В версии Sisk 0.16 мы ввели класс <code>HttpServerHandler</code>, целью которого является расширение общего поведения Sisk и предоставление дополнительных обработчиков событий для Sisk, таких как обработка запросов HTTP, маршрутизаторы, контекстные сумки и многое другое.</p>
-<p>Этот класс концентрирует события, которые происходят во время существования всего HTTP-сервера и каждого запроса. Протокол HTTP не имеет сессий, и поэтому невозможно сохранить информацию от одного запроса к другому. Sisk в настоящее время предоставляет способ реализации сессий, контекстов, подключений к базе данных и других полезных провайдеров, чтобы помочь вашей работе.</p>
-<p>Пожалуйста, обратитесь к <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">этой странице</a>, чтобы прочитать, где каждое событие вызывается и какова его цель. Вы также можете просмотреть <a href="/v1/advanced/request-lifecycle">жизненный цикл запроса HTTP</a>, чтобы понять, что происходит с запросом и где события вызываются. HTTP-сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события является синхронным, то есть он будет блокировать текущий поток для каждого запроса или контекста, пока все обработчики, связанные с этой функцией, не будут выполнены и завершены.</p>
-<p>В отличие от RequestHandlers, они не могут быть применены к определенным группам маршрутов или конкретным маршрутам. Вместо этого они применяются к всему HTTP-серверу. Вы можете применять условия внутри своего обработчика HTTP-сервера. Кроме того, синглтоны каждого HttpServerHandler определяются для каждого приложения Sisk, поэтому существует только один экземпляр на <code>HttpServerHandler</code>.</p>
-<p>Практический пример использования HttpServerHandler - автоматическое освобождение подключения к базе данных в конце запроса.</p>
+<p>В версии Sisk 0.16 мы представили класс <code>HttpServerHandler</code>, который предназначен для расширения общего поведения Sisk и предоставления дополнительных обработчиков событий, таких как обработка HTTP‑запросов, маршрутизаторов, контекстных мешков и многое другое.</p>
+<p>Класс концентрирует события, происходящие в течение жизни всего HTTP‑сервера, а также отдельного запроса. Протокол HTTP не имеет сессий, поэтому невозможно сохранять информацию от одного запроса к другому. Сейчас Sisk предоставляет способ реализовать сессии, контексты, соединения с базой данных и другие полезные провайдеры, помогающие в работе.</p>
+<p>Смотрите <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">эту страницу</a>, чтобы узнать, где каждый событие вызывается и какова его цель. Вы также можете посмотреть <a href="/v1/advanced/request-lifecycle">жизненный цикл HTTP‑запроса</a>, чтобы понять, что происходит с запросом и где генерируются события. HTTP‑сервер позволяет использовать несколько обработчиков одновременно. Каждый вызов события синхронный, то есть он блокирует текущий поток для каждого запроса или контекста, пока все обработчики, связанные с этой функцией, не будут выполнены и завершены.</p>
+<p>В отличие от RequestHandlers, их нельзя применять к отдельным группам маршрутов или конкретным маршрутам. Вместо этого они применяются ко всему HTTP‑серверу. Вы можете задавать условия внутри вашего Http Server Handler. Кроме того, для каждого <code>HttpServerHandler</code> в приложении Sisk определяется единственный экземпляр (singleton), то есть существует только один объект <code>HttpServerHandler</code>.</p>
+<p>Практический пример использования HttpServerHandler — автоматическое освобождение соединения с базой данных в конце запроса.</p>
 <pre><code class="lang-cs">// DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // проверяет, определено ли DbContext в контекстной сумке запроса
+        // проверяет, определён ли в запросе DbContext
+        // в его контекстном мешке
         if (requestBag.IsSet&lt;DbContext&gt;())
         {
             var db = requestBag.Get&lt;DbContext&gt;();
@@ -197,17 +198,14 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // позволяет пользователю создать контекст базы данных из запроса HTTP
-    // и сохранить его в контекстной сумке
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag&lt;DbContext&gt;(db);
+        return request.Bag.GetOrAdd(() =&gt; new DbContext());
     }
 }
 </code></pre>
-<p>С помощью кода выше, расширение <code>GetDbContext</code> позволяет создать контекст подключения直接 из объекта HttpRequest. Неподключенное подключение может вызвать проблемы при работе с базой данных, поэтому оно завершается в <code>OnHttpRequestClose</code>.</p>
-<p>Вы можете зарегистрировать обработчик на HTTP-сервере в вашем построителе или直接 с помощью <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
+<p>С помощью кода выше расширение <code>GetDbContext</code> позволяет создать контекст соединения непосредственно из объекта <code>HttpRequest</code>. Неосвобождённое соединение может вызвать проблемы при работе с базой данных, поэтому оно закрывается в <code>OnHttpRequestClose</code>.</p>
+<p>Вы можете зарегистрировать обработчик на HTTP‑сервере в вашем билдере или напрямую через <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
 <pre><code class="lang-cs">// Program.cs
 
 class Program
@@ -218,12 +216,12 @@ class Program
             .UseHandler&lt;DatabaseConnectionHandler&gt;()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
 </code></pre>
-<p>С помощью этого, класс <code>UsersController</code> может использовать контекст базы данных следующим образом:</p>
+<p>Таким образом, класс <code>UsersController</code> может использовать контекст базы данных следующим образом:</p>
 <pre><code class="lang-cs">// UserController.cs
 
 [RoutePrefix(&quot;/users&quot;)]
@@ -243,7 +241,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        int userId = request.RouteParameters[&quot;id&quot;].GetInteger();
         var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
 
         return JsonOk(user);
@@ -253,18 +251,18 @@ public class UserController : ApiController
     public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+        var user = await request.GetJsonContentAsync&lt;User&gt;();
 
         ArgumentNullException.ThrowIfNull(user);
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage(&quot;Пользователь добавлен.&quot;);
+        return JsonMessage(&quot;User added.&quot;);
     }
 }
 </code></pre>
-<p>Код выше использует методы, такие как <code>JsonOk</code> и <code>JsonMessage</code>, которые встроены в <code>ApiController</code>, который наследуется от <code>RouterController</code>:</p>
+<p>В приведённом коде используются методы <code>JsonOk</code> и <code>JsonMessage</code>, встроенные в <code>ApiController</code>, который наследуется от <code>RouterController</code>:</p>
 <pre><code class="lang-cs">// ApiController.cs
 
 public class ApiController : RouterModule
@@ -288,8 +286,8 @@ public class ApiController : RouterModule
     }
 }
 </code></pre>
-<p>Разработчики могут реализовать сессии, контексты и подключения к базе данных, используя этот класс. Предоставленный код демонстрирует практический пример с DatabaseConnectionHandler, автоматизирующий освобождение подключения к базе данных в конце каждого запроса.</p>
-<p>Интеграция проста, с обработчиками, зарегистрированными во время настройки сервера. Класс HttpServerHandler предлагает мощный набор инструментов для управления ресурсами и расширения поведения Sisk в приложениях HTTP.</p>
+<p>Разработчики могут реализовывать сессии, контексты и соединения с базой данных, используя этот класс. Приведённый пример демонстрирует практическое применение <code>DatabaseConnectionHandler</code>, автоматизирующее освобождение соединения с базой данных в конце каждого запроса.</p>
+<p>Интеграция проста: обработчики регистрируются во время настройки сервера. Класс <code>HttpServerHandler</code> предоставляет мощный набор инструментов для управления ресурсами и расширения поведения Sisk в HTTP‑приложениях.</p>
 
 </article>
 

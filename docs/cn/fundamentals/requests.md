@@ -1,8 +1,8 @@
 # 请求
 
-请求是代表 HTTP 请求消息的结构。 [HttpRequest](/api/Sisk.Core.Http.HttpRequest) 对象包含处理 HTTP 消息的有用函数，用于整个应用程序。
+请求是表示 HTTP 请求消息的结构体。[HttpRequest](/api/Sisk.Core.Http.HttpRequest) 对象包含了在整个应用程序中处理 HTTP 消息的实用函数。
 
-HTTP 请求由方法、路径、版本、头部和正文组成。
+一个 HTTP 请求由方法、路径、版本、头部和正文组成。
 
 在本文档中，我们将教您如何获取这些元素。
 
@@ -18,16 +18,16 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-此属性返回请求的方法，表示为 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象。
+此属性返回由 [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) 对象表示的请求方法。
 
 > [!NOTE]
-> 与路由方法不同，此属性不提供 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回实际的请求方法。
+> 与路由方法不同，此属性不提供 [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod) 项。相反，它返回真实的请求方法。
 
 ## 获取请求 URL 组件
 
-您可以通过请求的某些属性从 URL 中获取各种组件。对于此示例，让我们考虑以下 URL：
+您可以通过请求的某些属性获取 URL 的各种组件。以下示例使用的 URL 为：
 
-``` 
+```
 http://localhost:5000/user/login?email=foo@bar.com
 ```
 
@@ -35,46 +35,122 @@ http://localhost:5000/user/login?email=foo@bar.com
 | --- | --- | --- |
 | [Path](/api/Sisk.Core.Http.HttpRequest.Path) | 获取请求路径。 | `/user/login` |
 | [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | 获取请求路径和查询字符串。 | `/user/login?email=foo@bar.com` |
-| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | 获取整个 URL 请求字符串。 | `http://localhost:5000/user/login?email=foo@bar.com` |
+| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | 获取完整的 URL 请求字符串。 | `http://localhost:5000/user/login?email=foo@bar.com` |
 | [Host](/api/Sisk.Core.Http.HttpRequest.Host) | 获取请求主机。 | `localhost` |
 | [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | 获取请求主机和端口。 | `localhost:5000` |
-| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | 获取请求查询。 | `?email=foo@bar.com` |
-| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | 获取请求查询，以命名值集合形式。 | `{StringValueCollection 对象}` |
-| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | 确定请求是否使用 SSL（true）或不使用（false）。 | `false` |
+| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | 获取请求查询字符串。 | `?email=foo@bar.com` |
+| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | 以命名值集合的形式获取请求查询。 | `{StringValueCollection object}` |
+| [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | 判断请求是否使用 SSL（true）或未使用（false）。 | `false` |
 
-您也可以使用 [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri) 属性，该属性包含上述所有内容。
+您也可以使用 [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri) 属性，它将上述所有信息合并在一个对象中。
+
+## 请求元数据和取消
+
+Sisk 还会为每个请求附加操作元数据。这些属性对日志、追踪、本地化、诊断以及长时间运行的操作非常有用：
+
+| 属性或方法 | 用途 |
+| --- | --- |
+| [RequestId](/api/Sisk.Core.Http.HttpRequest.RequestId) | 请求的唯一标识符。启用 [IncludeRequestIdHeader](/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader) 可将其作为 `X-Request-Id` 返回。 |
+| [RequestedAt](/api/Sisk.Core.Http.HttpRequest.RequestedAt) | Sisk 创建请求对象的时间点。 |
+| [RemoteAddress](/api/Sisk.Core.Http.HttpRequest.RemoteAddress) | 从连接解析得到的客户端地址，或来自您的 [ForwardingResolver](/docs/cn/advanced/forwarding-resolvers)。 |
+| [Culture](/api/Sisk.Core.Http.HttpRequest.Culture) | 从 `Accept-Language` 解析得到的最佳语言区域，若未匹配则回退到当前语言区域。 |
+| [DisconnectToken](/api/Sisk.Core.Http.HttpRequest.DisconnectToken) | 当客户端断开连接时（如果配置的 HTTP 引擎支持）发出的取消令牌。 |
+| [Bag](/api/Sisk.Core.Http.HttpRequest.Bag) | 在请求处理程序和路由操作之间共享的键/值存储。 |
+| [GetRawHttpRequest](/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest) | 用于诊断的请求文本表示。 |
 
 ## 获取请求正文
 
-一些请求包含正文，例如表单、文件或 API 事务。您可以从以下属性获取请求正文：
+某些请求包含正文，例如表单、文件或 API 事务。您可以通过以下属性获取请求正文：
 
 ```cs
-// 以字符串形式获取请求正文，使用请求编码作为编码器
+// 将请求正文作为字符串获取，使用请求的编码作为解码器
 string body = request.Body;
 
-// 或以字节数组形式获取
+// 或者获取字节数组
 byte[] bodyBytes = request.RawBody;
 
-// 或者，您可以流式传输它。
+// 或者直接流式读取
 Stream requestStream = request.GetRequestStream();
+
+// 或者异步读取正文
+Memory<byte> bodyMemory = await request.GetBodyContentsAsync();
 ```
 
-还可以使用 [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) 和 [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) 属性确定请求是否包含正文以及是否已加载。
+也可以通过属性 [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) 判断请求是否有正文，以及通过 [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) 判断 HTTP 服务器是否已完整接收远端的内容。
 
-无法多次通过 `GetRequestStream` 读取请求内容。如果使用此方法读取，则 `RawBody` 和 `Body` 的值也将不可用。在请求的上下文中，不需要处理请求流，因为它将在创建的 HTTP 会话结束时处理。另外，您可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取解码请求的最佳编码。
+`GetRequestStream` 只能读取一次。如果使用此方法读取，`RawBody` 和 `Body` 的值也将不可用。请求流在请求上下文结束时会自动释放，无需手动 `Dispose`。此外，您可以使用 [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) 属性获取用于手动解码请求的最佳编码。
 
-服务器对读取请求内容有限制，这适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性将整个输入流复制到一个与 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength) 相同大小的本地缓冲区中。
+服务器对读取请求内容有大小限制，这同样适用于 [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body) 和 [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body)。这些属性会将整个输入流复制到本地缓冲区，大小等同于 [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength)。
 
-如果客户端发送的内容大于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)（在用户配置中定义），则返回状态代码 413 的响应给客户端。另外，如果没有配置限制或限制太大，服务器将在客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（2 GB）时抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)，并尝试通过上述属性之一访问内容。您仍然可以通过流式处理来处理内容。
+如果发送的内容超过用户配置的 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)，服务器会返回 413 Content Too Large 响应。若未配置限制或限制过大，当客户端发送的内容超过 [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（约 2 GB）且尝试通过上述属性访问时，服务器会抛出 [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0)。此时仍可通过流式方式处理内容。
 
 > [!NOTE]
-> 虽然 Sisk 允许这样做，但为了创建您的应用程序，始终遵循 HTTP 语义并避免在不允许的方法中获取或提供内容是一个好主意。请阅读 [RFC 9110“HTTP 语义”](https://httpwg.org/spec/rfc9110.html)。
+> 虽然 Sisk 允许这样做，但始终建议遵循 HTTP 语义，在不允许的请求方法中不要获取或提供内容。请阅读 [RFC 9110 “HTTP Semantics”](https://httpwg.org/spec/rfc9110.html)。
+
+## 读取 JSON 请求
+
+对于 JSON API，建议使用内置的 JSON 辅助方法，而不是手动读取 `Body` 并反序列化。它们使用 [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/api/system.text.json) 并默认使用 [HttpRequest.DefaultJsonSerializerOptions](/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions)。
+
+```cs
+public record CreateUserRequest(string Name, string Email);
+
+router.MapPost("/users", (HttpRequest request) =>
+{
+    CreateUserRequest? body = request.GetJsonContent<CreateUserRequest>();
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+在已经是异步路由或希望在取消时停止反序列化的情况下，使用异步重载：
+
+```cs
+router.MapPost("/users", async (HttpRequest request) =>
+{
+    CreateUserRequest? body =
+        await request.GetJsonContentAsync<CreateUserRequest>(request.DisconnectToken);
+
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+您可以为特定端点传入自定义的 [JsonSerializerOptions](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions)：
+
+```cs
+var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    PropertyNameCaseInsensitive = true
+};
+
+UserDto? user = request.GetJsonContent<UserDto>(options);
+```
+
+对于 Native AOT 或对裁剪敏感的应用程序，使用由 `JsonSerializerContext` 生成的 `JsonTypeInfo<T>` 重载：
+
+```cs
+[JsonSerializable(typeof(CreateUserRequest))]
+public partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+
+CreateUserRequest? body =
+    await request.GetJsonContentAsync(
+        AppJsonSerializerContext.Default.CreateUserRequest,
+        request.DisconnectToken);
+```
+
+JSON 辅助方法同样遵循“一次读取”规则：在 Sisk 通过 `GetJsonContent`、`GetJsonContentAsync`、`Body` 或 `RawBody` 读取请求流后，您不能再通过 `GetRequestStream()` 读取相同的正文。
 
 ## 获取请求上下文
 
-HTTP 上下文是 Sisk 的一个独特对象，存储 HTTP 服务器、路由、路由器和请求处理程序信息。您可以使用它来组织自己在这些对象难以组织的环境中。
+HTTP Context 是 Sisk 专有的对象，用于存储 HTTP 服务器、路由、路由器和请求处理程序的信息。它可以帮助您在对象难以组织的环境中保持清晰。
 
-您可以使用静态方法 `HttpContext.GetCurrentContext()` 获取当前执行的 [HttpContext](/api/Sisk.Core.Http.HttpContext)。此方法返回当前线程中处理的请求的上下文。
+您可以使用静态方法 `HttpContext.GetCurrentContext()` 获取当前正在执行的 [HttpContext](/api/Sisk.Core.Http.HttpContext)。该方法返回当前线程正在处理的请求的上下文。
 
 ```cs
 HttpContext context = HttpContext.GetCurrentContext();
@@ -82,19 +158,19 @@ HttpContext context = HttpContext.GetCurrentContext();
 
 ### 日志模式
 
-[HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) 属性允许您控制当前请求的日志记录行为。您可以为特定请求启用或禁用日志记录，覆盖默认服务器配置。
+[HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) 属性允许您控制当前请求的日志行为。您可以为特定请求启用或禁用日志，覆盖默认的服务器配置。
 
 ```cs
-// 禁用此请求的日志记录
+// 为此请求禁用日志
 context.LogMode = LogOutputMode.None;
 ```
 
 ### 请求包
 
-[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象包含存储的信息，该信息从一个请求处理程序传递到另一个点，并可以在最终目的地消耗。该对象也可以由在路由回调之后运行的请求处理程序使用。
+[RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) 对象保存了从一个请求处理程序传递到另一个点的信息，并可在最终目的地消费。该对象也可被在路由回调之后运行的请求处理程序使用。
 
 > [!TIP]
-> 此属性也可以通过 [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) 属性访问。
+> 此属性也可以通过 [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag) 访问。
 
 <div class="script-header">
     <span>
@@ -126,7 +202,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-上面的请求处理程序将在请求包中定义 `AuthenticatedUser`，并可以稍后在最终回调中使用：
+上述请求处理程序会在请求包中定义 `AuthenticatedUser`，随后可在最终回调中使用：
 
 <div class="script-header">
     <span>
@@ -153,9 +229,9 @@ public class MyController
 }
 ```
 
-您还可以使用 `Bag.Set()` 和 `Bag.Get()` 帮助器方法按类型单例获取或设置对象。
+您也可以使用 `Bag.Set()` 与 `Bag.Get()` 辅助方法按类型单例获取或设置对象。
 
-`TypedValueDictionary` 类还提供 `GetValue` 和 `SetValue` 方法以获得更多控制。
+`TypedValueDictionary` 类同样提供 `GetValue` 与 `SetValue` 方法以获得更细粒度的控制。
 
 <div class="script-header">
     <span>
@@ -197,7 +273,7 @@ public static HttpResponse GetUser(HttpRequest request)
 
 ## 获取表单数据
 
-您可以在 [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) 中获取表单数据的值，方法如下：
+您可以使用下面的示例将表单数据获取为 [StringKeyStoreCollection](/api/Sisk.Core.Entity.StringKeyStoreCollection)：
 
 <div class="script-header">
     <span>
@@ -224,9 +300,15 @@ public HttpResponse Index(HttpRequest request)
 }
 ```
 
-## 获取多部分表单数据
+当请求正文可能较大或需要取消支持时，使用异步版本：
 
-Sisk 的 HTTP 请求允许您获取上传的多部分内容，例如文件、表单字段或任何二进制内容。
+```cs
+var form = await request.GetFormContentAsync(request.DisconnectToken);
+```
+
+## 获取 multipart 表单数据
+
+Sisk 的 HTTP 请求允许您获取上传的 multipart 内容，例如文件、表单字段或任何二进制内容。
 
 <div class="script-header">
     <span>
@@ -241,38 +323,47 @@ Sisk 的 HTTP 请求允许您获取上传的多部分内容，例如文件、表
 [RoutePost("/upload-contents")]
 public HttpResponse Index(HttpRequest request)
 {
-    // 以下方法将整个请求输入读入 MultipartObject 数组
+    // 以下方法将整个请求输入读取为
+    // MultipartObject 数组
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // 多部分表单数据对象的文件名。
-        // 如果对象不是文件，则返回 null。
-        Console.WriteLine("文件名       : " + uploadedObject.Filename);
+        // Multipart 表单数据提供的文件名。
+        // 若对象不是文件则返回 null。
+        Console.WriteLine("File name       : " + uploadedObject.Filename);
 
-        // 多部分表单数据对象的字段名。
-        Console.WriteLine("字段名      : " + uploadedObject.Name);
+        // multipart 表单数据对象的字段名。
+        Console.WriteLine("Field name      : " + uploadedObject.Name);
 
-        // 多部分表单数据内容长度。
-        Console.WriteLine("内容长度  : " + uploadedObject.ContentLength);
+        // multipart 表单数据的内容长度。
+        Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
 
-        // 根据每个已知内容类型的文件头确定图像格式。
-        // 如果内容不是公认的常见文件格式，则此方法将返回 MultipartObjectCommonFormat.Unknown
-        Console.WriteLine("常见格式   : " + uploadedObject.GetCommonFileFormat());
+        // 根据文件头部判断图像格式（针对已知的内容类型）。
+        // 若内容不是已识别的常见文件格式，则此方法返回
+        // MultipartObjectCommonFormat.Unknown
+        Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
 
-您可以阅读更多关于 Sisk [多部分表单对象](/api/Sisk.Core.Entity.MultipartObject)及其方法、属性和功能的信息。
+在异步路由中使用 [GetMultipartFormContentAsync](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync)：
 
-## 检测客户端断开连接
+```cs
+var multipartFormDataObjects =
+    await request.GetMultipartFormContentAsync(request.DisconnectToken);
+```
 
-从 Sisk v1.15 开始，框架提供了一个在客户端和服务器之间的连接在接收到响应之前过早关闭时抛出的 CancellationToken。此令牌可用于检测客户端是否不再需要响应并取消长时间运行的操作。
+您可以进一步阅读 Sisk 的 [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) 以及其方法、属性和功能。
+
+## 检测客户端断开
+
+自 Sisk v1.15 起，框架通过 [HttpRequest.DisconnectToken](/api/Sisk.Core.Http.HttpRequest.DisconnectToken) 提供取消令牌。当配置的 HTTP 引擎支持断开检测时，若客户端在响应完成前关闭连接，该令牌会被取消。这对于在客户端不再等待结果时停止长时间运行的操作非常有用。
 
 ```csharp
 router.MapGet("/connect", async (HttpRequest req) =>
 {
-    // 从请求中获取断开连接令牌
+    // 从请求获取断开令牌
     var dc = req.DisconnectToken;
 
     await LongOperationAsync(dc);
@@ -281,23 +372,27 @@ router.MapGet("/connect", async (HttpRequest req) =>
 });
 ```
 
-此令牌与所有 HTTP 引擎不兼容，每个引擎都需要实现。
+该令牌并非所有 HTTP 引擎都兼容，每个引擎都需要相应实现。
 
-## 服务器发送事件支持
+默认的基于 `System.Net.HttpListener` 的 Sisk 引擎不支持客户端断开检测。使用默认引擎时，`DisconnectToken` 为 `CancellationToken.None`；实际上它是一个不可取消的令牌，应视为不可用。
 
-Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/cn/Web/API/Server-sent_events)，允许将块作为流发送并保持服务器和客户端之间的连接。
+[Cadente 引擎](/docs/cn/cadente) 支持 `DisconnectToken`。如果您的路由依赖断开感知的取消，请使用 Cadente 或其他明确实现此行为的引擎。即使使用支持的引擎，取消也是协作式的：将令牌传递给异步 API 并在自己的长时间运行工作中检查它。
 
-调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法将使 HttpRequest 进入其监听状态。从此，当前 HTTP 请求的上下文将不再期望 HttpResponse，因为服务器发送的事件将覆盖服务器发送的数据包。
+## Server‑sent events 支持
 
-发送所有数据包后，回调必须返回 [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) 方法，该方法将发送最终响应到服务器并指示流媒体已结束。
+Sisk 支持 [Server‑sent events](https://developer.mozilla.org/en-US/docs/cn/Web/API/Server-sent_events)，允许以流的方式发送块并保持服务器与客户端之间的连接。
 
-由于无法预测将发送的所有数据包的总长度，因此无法使用 `Content-Length` 标头确定连接的末尾。
+调用 [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) 方法会将 HttpRequest 置于监听状态。此时该 HTTP 请求的上下文不再期待 HttpResponse，因为它会与服务器端事件发送的包交叉。
 
-大多数浏览器的默认设置不支持服务器发送事件发送 HTTP 标头或除 GET 方法以外的方法。因此，在使用需要特定请求标头的请求处理程序的事件源请求时要小心，因为它们可能没有这些标头。
+发送完所有包后，回调必须返回 [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close) 方法，以向服务器发送最终响应并指示流已结束。
 
-此外，大多数浏览器如果客户端没有在接收到所有数据包后调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/cn/Web/API/EventSource/close) 方法，则会重新启动流，这将导致服务器端无限增加处理。为了避免此类问题，通常会发送一个最终数据包，指示事件源已完成发送所有数据包。
+无法预知所有将要发送的包的总长度，因此无法使用 `Content‑Length` 头部来确定连接结束。
 
-以下示例显示浏览器如何与支持服务器发送事件的服务器进行通信。
+大多数浏览器默认情况下，服务器端事件不支持发送除 GET 方法之外的 HTTP 头或方法。因此，在使用需要特定请求头的 event‑source 请求时需格外小心，因为它们可能不会携带这些头。
+
+此外，大多数浏览器在客户端未调用 [EventSource.close](https://developer.mozilla.org/en-US/docs/cn/Web/API/EventSource/close) 方法时会重新启动流，这会导致服务器端产生无限的额外处理。为避免此类问题，通常会发送一个最终包，指示事件源已完成所有包的发送。
+
+下面的示例展示了浏览器如何与支持 Server‑side events 的服务器通信。
 
 <div class="script-header">
     <span>
@@ -311,7 +406,7 @@ Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/cn/
 ```html
 <html>
     <body>
-        <b>水果:</b>
+        <b>Fruits:</b>
         <ul></ul>
     </body>
     <script>
@@ -332,7 +427,7 @@ Sisk 支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/cn/
 </html>
 ```
 
-并逐渐将消息发送给客户端：
+随后逐步向客户端发送消息：
 
 <div class="script-header">
     <span>
@@ -349,7 +444,7 @@ public class MyController
     [RouteGet("/event-source")]
     public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
     {
-        var sse = await request.GetEventSourceAsync ();
+        var serverEvents = await request.GetEventSourceAsync ();
         
         string[] fruits = new[] { "Apple", "Banana", "Watermelon", "Tomato" };
         
@@ -359,23 +454,23 @@ public class MyController
             await Task.Delay(1500);
         }
 
-        return serverEvents.Close();
+        return await serverEvents.CloseAsync();
     }
 }
 ```
 
-运行此代码时，我们期望得到类似以下的结果：
+运行此代码时，预期得到类似下图的结果：
 
 <img src="/assets/img/server side events demo.gif" />
 
-## 解析代理 IP 和主机
+## 解析代理的 IP 与主机
 
-Sisk 可以与代理一起使用，因此 IP 地址可以在客户端到代理的交易中由代理端点替换。
+Sisk 可与代理一起使用，因此在客户端到代理的事务中，IP 地址可能会被代理端点替换。
 
-您可以在 Sisk 中使用 [转发解析器](/docs/cn/advanced/forwarding-resolvers) 定义自己的解析器。
+您可以在 Sisk 中使用 [forwarding resolvers](/docs/cn/advanced/forwarding-resolvers) 定义自己的解析器。
 
-## 标头编码
+## 头部编码
 
-标头编码可能是某些实现的问题。在 Windows 上，不支持 UTF-8 标头，因此使用 ASCII。Sisk 具有内置的编码转换器，可以用于解码不正确编码的标头。
+某些实现的头部编码可能会出现问题。在 Windows 上不支持 UTF‑8 头部，因而使用 ASCII。Sisk 内置了编码转换器，可用于解码错误编码的头部。
 
-此操作代价高昂，默认情况下禁用，但可以在 [NormalizeHeadersEncodings](/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings) 标志下启用。
+此操作成本较高，默认情况下已禁用，可通过 [HttpServerConfiguration.NormalizeHeadersEncodings](/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings) 启用。

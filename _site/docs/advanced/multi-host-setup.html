@@ -184,12 +184,12 @@
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host A!&quot;));
+    hostA.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host A!&quot;));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host B!&quot;));
+    hostB.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host B!&quot;));
 
     // create an server configuration and adds both
     // listening hosts on it

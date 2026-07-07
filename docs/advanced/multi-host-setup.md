@@ -15,12 +15,12 @@ static void Main(string[] args)
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Hello from the host A!"));
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Hello from the host B!"));
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
 
     // create an server configuration and adds both
     // listening hosts on it

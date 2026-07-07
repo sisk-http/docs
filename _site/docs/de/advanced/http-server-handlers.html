@@ -173,21 +173,21 @@
                 <article data-uid="">
 <h1 id="http-server-handler">Http-Server-Handler</h1>
 
-<p>In Sisk-Version 0.16 haben wir die <code>HttpServerHandler</code>-Klasse eingeführt, die darauf abzielt, das Gesamtverhalten von Sisk zu erweitern und zusätzliche Ereignishandler für Sisk bereitzustellen, wie z.B. das Handling von Http-Anfragen, Routern, Kontextbeuteln und mehr.</p>
-<p>Die Klasse konzentriert Ereignisse, die während der Lebensdauer des gesamten HTTP-Servers und auch einer Anfrage auftreten. Das Http-Protokoll hat keine Sitzungen, und daher ist es nicht möglich, Informationen von einer Anfrage zu einer anderen zu erhalten. Sisk bietet derzeit eine Möglichkeit, Sitzungen, Kontexte, Datenbankverbindungen und andere nützliche Anbieter zu implementieren, um Ihre Arbeit zu unterstützen.</p>
-<p>Bitte besuchen Sie <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">diese Seite</a>, um zu lesen, wo jedes Ereignis ausgelöst wird und welchen Zweck es hat. Sie können auch den <a href="/v1/advanced/request-lifecycle">Lebenszyklus einer HTTP-Anfrage</a> anzeigen, um zu verstehen, was mit einer Anfrage passiert und wo Ereignisse ausgelöst werden. Der HTTP-Server ermöglicht es, mehrere Handler gleichzeitig zu verwenden. Jeder Ereignisanruf ist synchron, d.h. er blockiert den aktuellen Thread für jede Anfrage oder jeden Kontext, bis alle zugehörigen Handler ausgeführt und abgeschlossen sind.</p>
-<p>Im Gegensatz zu RequestHandlern können sie nicht auf bestimmte Route-Gruppen oder bestimmte Routen angewendet werden. Stattdessen werden sie auf den gesamten HTTP-Server angewendet. Sie können Bedingungen innerhalb Ihres Http-Server-Handlers anwenden. Darüber hinaus werden Singleton-Instanzen jedes HttpServerHandlers für jede Sisk-Anwendung definiert, so dass nur eine Instanz pro <code>HttpServerHandler</code> definiert ist.</p>
-<p>Ein praktisches Beispiel für die Verwendung von HttpServerHandler ist die automatische Entsorgung einer Datenbankverbindung am Ende der Anfrage.</p>
+<p>In Sisk Version 0.16 haben wir die Klasse <code>HttpServerHandler</code> eingeführt, die das übergeordnete Verhalten von Sisk erweitern und zusätzliche Ereignis‑Handler bereitstellen soll, wie das Verarbeiten von Http‑Anfragen, Routern, Kontextbeuteln und mehr.</p>
+<p>Die Klasse bündelt Ereignisse, die während der Lebensdauer des gesamten HTTP‑Servers und auch einer einzelnen Anfrage auftreten. Das Http‑Protokoll besitzt keine Sitzungen, sodass es nicht möglich ist, Informationen von einer Anfrage zur nächsten zu erhalten. Sisk bietet derzeit eine Möglichkeit, Sitzungen, Kontexte, Datenbankverbindungen und andere nützliche Provider zu implementieren, um Ihre Arbeit zu erleichtern.</p>
+<p>Bitte beachten Sie <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">diese Seite</a>, um zu lesen, wann jedes Ereignis ausgelöst wird und welchen Zweck es hat. Sie können auch den <a href="/v1/advanced/request-lifecycle">Lebenszyklus einer HTTP‑Anfrage</a> einsehen, um zu verstehen, was bei einer Anfrage passiert und wo Ereignisse ausgelöst werden. Der HTTP‑Server erlaubt die gleichzeitige Verwendung mehrerer Handler. Jeder Ereignisaufruf ist synchron, das heißt, er blockiert den aktuellen Thread für jede Anfrage oder jeden Kontext, bis alle mit dieser Funktion verbundenen Handler ausgeführt und abgeschlossen sind.</p>
+<p>Im Gegensatz zu RequestHandlers können sie nicht auf bestimmte Routen‑Gruppen oder einzelne Routen angewendet werden. Stattdessen gelten sie für den gesamten HTTP‑Server. Sie können Bedingungen innerhalb Ihres Http‑Server‑Handlers festlegen. Darüber hinaus wird für jede Sisk‑Anwendung ein Singleton jedes <code>HttpServerHandler</code> definiert, sodass pro <code>HttpServerHandler</code> nur eine Instanz existiert.</p>
+<p>Ein praktisches Beispiel für die Verwendung von <code>HttpServerHandler</code> ist das automatische Freigeben einer Datenbankverbindung am Ende einer Anfrage.</p>
 <pre><code class="lang-cs">// DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // prüft, ob die Anfrage einen DbContext
-        // in ihrem Kontextbeutel definiert hat
+        // prüft, ob die Anfrage einen DbContext definiert hat
+        // in ihrem Kontextbeutel
         if (requestBag.IsSet&lt;DbContext&gt;())
         {
             var db = requestBag.Get&lt;DbContext&gt;();
@@ -198,17 +198,14 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // ermöglicht es dem Benutzer, einen DbContext aus einer Http-Anfrage zu erstellen
-    // und ihn in seinem Kontextbeutel zu speichern
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag&lt;DbContext&gt;(db);
+        return request.Bag.GetOrAdd(() =&gt; new DbContext());
     }
 }
 </code></pre>
-<p>Mit dem obigen Code ermöglicht die <code>GetDbContext</code>-Erweiterung die Erstellung eines Kontexts direkt aus dem HttpRequest-Objekt. Eine nicht entsorgte Verbindung kann Probleme verursachen, wenn sie mit der Datenbank ausgeführt wird, daher wird sie in <code>OnHttpRequestClose</code> beendet.</p>
-<p>Sie können einen Handler auf einem Http-Server in Ihrem Builder oder direkt mit <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a> registrieren.</p>
+<p>Mit dem obigen Code ermöglicht die Erweiterung <code>GetDbContext</code> das Erstellen eines Verbindungs‑Contexts direkt aus dem <code>HttpRequest</code>‑Objekt. Eine nicht freigegebene Verbindung kann beim Betrieb mit der Datenbank Probleme verursachen, daher wird sie in <code>OnHttpRequestClose</code> beendet.</p>
+<p>Sie können einen Handler auf einem Http‑Server in Ihrem Builder oder direkt mit <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a> registrieren.</p>
 <pre><code class="lang-cs">// Program.cs
 
 class Program
@@ -219,12 +216,12 @@ class Program
             .UseHandler&lt;DatabaseConnectionHandler&gt;()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
 </code></pre>
-<p>Mit diesem Code kann die <code>UsersController</code>-Klasse den Datenbankkontext wie folgt verwenden:</p>
+<p>Damit kann die Klasse <code>UsersController</code> den Datenbank‑Context wie folgt nutzen:</p>
 <pre><code class="lang-cs">// UserController.cs
 
 [RoutePrefix(&quot;/users&quot;)]
@@ -244,7 +241,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        int userId = request.RouteParameters[&quot;id&quot;].GetInteger();
         var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
 
         return JsonOk(user);
@@ -254,18 +251,18 @@ public class UserController : ApiController
     public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+        var user = await request.GetJsonContentAsync&lt;User&gt;();
 
         ArgumentNullException.ThrowIfNull(user);
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage(&quot;Benutzer hinzugefügt.&quot;);
+        return JsonMessage(&quot;User added.&quot;);
     }
 }
 </code></pre>
-<p>Der obige Code verwendet Methoden wie <code>JsonOk</code> und <code>JsonMessage</code>, die in <code>ApiController</code> integriert sind, die von <code>RouterController</code> abgeleitet ist:</p>
+<p>Der obige Code verwendet Methoden wie <code>JsonOk</code> und <code>JsonMessage</code>, die in <code>ApiController</code> eingebaut sind und von einem <code>RouterController</code> erben:</p>
 <pre><code class="lang-cs">// ApiController.cs
 
 public class ApiController : RouterModule
@@ -289,8 +286,8 @@ public class ApiController : RouterModule
     }
 }
 </code></pre>
-<p>Entwickler können Sitzungen, Kontexte und Datenbankverbindungen mithilfe dieser Klasse implementieren. Der bereitgestellte Code zeigt ein praktisches Beispiel mit dem DatabaseConnectionHandler, der die automatische Entsorgung von Datenbankverbindungen am Ende jeder Anfrage ermöglicht.</p>
-<p>Die Integration ist einfach, da Handler während der Servereinrichtung registriert werden. Die HttpServerHandler-Klasse bietet ein leistungsfähiges Werkzeugset für die Verwaltung von Ressourcen und die Erweiterung des Sisk-Verhaltens in HTTP-Anwendungen.</p>
+<p>Entwickler können mit dieser Klasse Sitzungen, Kontexte und Datenbankverbindungen implementieren. Der bereitgestellte Code zeigt ein praktisches Beispiel mit dem <code>DatabaseConnectionHandler</code>, das die Freigabe der Datenbankverbindung am Ende jeder Anfrage automatisiert.</p>
+<p>Die Integration ist unkompliziert, da die Handler während der Server‑Einrichtung registriert werden. Die Klasse <code>HttpServerHandler</code> bietet ein leistungsstarkes Werkzeugset zum Ressourcen‑Management und zur Erweiterung des Sisk‑Verhaltens in HTTP‑Anwendungen.</p>
 
 </article>
 

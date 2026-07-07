@@ -1,25 +1,25 @@
 # Обработка запросов
 
-Обработчики запросов, также известные как "посредники", являются функциями, которые выполняются до или после выполнения запроса на маршрутизаторе. Они могут быть определены для каждого маршрута или для всего маршрутизатора.
+Обработчики запросов, также известные как «middleware», — это функции, которые выполняются до или после выполнения запроса роутером. Их можно определять для отдельного маршрута или для роутера.
 
 Существует два типа обработчиков запросов:
 
-- **BeforeResponse**: определяет, что обработчик запроса будет выполнен до вызова действия маршрутизатора.
-- **AfterResponse**: определяет, что обработчик запроса будет выполнен после вызова действия маршрутизатора. Отправка ответа HTTP в этом контексте перезапишет ответ действия маршрутизатора.
+- **BeforeResponse**: определяет, что обработчик запроса будет выполнен до вызова действия роутера.
+- **AfterResponse**: определяет, что обработчик запроса будет выполнен после вызова действия роутера. Отправка HTTP‑ответа в этом контексте перезапишет ответ действия роутера.
 
-Оба обработчика запросов могут переопределить фактическую функцию ответа маршрутизатора. Кроме того, обработчики запросов могут быть полезны для проверки запроса, такой как аутентификация, содержимое или любая другая информация, такая как хранение информации, журналов или других шагов, которые можно выполнить до или после ответа.
+Оба обработчика запросов могут переопределять фактический ответ функции обратного вызова роутера. Кстати, обработчики запросов могут быть полезны для проверки запроса, например аутентификации, содержимого или любой другой информации, такой как сохранение данных, журналирование или другие шаги, которые могут быть выполнены до или после ответа.
 
 ![](/assets/img/requesthandlers1.png)
 
-Таким образом, обработчик запроса может прервать все это выполнение и вернуть ответ до завершения цикла, отбрасывая все остальное в процессе.
+Таким образом, обработчик запроса может прервать всё это выполнение и вернуть ответ до завершения цикла, отбрасывая всё остальное в процессе.
 
-Пример: предположим, что обработчик запроса аутентификации пользователя не аутентифицирует его. Это предотвратит продолжение жизненного цикла запроса и зависнет. Если это происходит в обработчике запроса на второй позиции, третий и последующие не будут оценены.
+Пример: предположим, что обработчик запроса аутентификации пользователя не аутентифицирует его. Он предотвратит продолжение жизненного цикла запроса и «зависнет». Если это происходит в обработчике запроса на второй позиции, третий и последующие не будут оцениваться.
 
 ![](/assets/img/requesthandlers2.png)
 
 ## Создание обработчика запроса
 
-Чтобы создать обработчик запроса, мы можем создать класс, который наследует интерфейс [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler), в следующем формате:
+Чтобы создать обработчик запроса, можно создать класс, наследующий интерфейс [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler), в следующем формате:
 
 <div class="script-header">
     <span>
@@ -39,46 +39,69 @@ public class AuthenticateUserRequestHandler : IRequestHandler
     {
         if (request.Headers.Authorization != null)
         {
-            // Возвращение null указывает на то, что цикл запроса может быть продолжен
+            // Возврат null указывает, что цикл запроса может продолжаться
             return null;
         }
         else
         {
-            // Возвращение объекта HttpResponse указывает на то, что этот ответ перезапишет соседние ответы.
+            // Возврат объекта HttpResponse указывает, что этот ответ перезапишет соседние ответы.
             return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }
 ```
 
-В приведенном выше примере мы указали, что если заголовок `Authorization` присутствует в запросе, он должен продолжаться, и следующий обработчик запроса или callback маршрутизатора должен быть вызван, в зависимости от того, что происходит дальше. Если обработчик запроса выполняется после ответа по свойству [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) и возвращает не-null значение, он перезапишет ответ маршрутизатора.
+В приведённом выше примере мы указали, что если заголовок `Authorization` присутствует в запросе, выполнение должно продолжаться и будет вызван следующий обработчик запроса или обратный вызов роутера, в зависимости от того, что следует дальше. Если обработчик запроса выполняется после ответа благодаря свойству [ExecutionMode](/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode) и возвращает ненулевое значение, он перезапишет ответ роутера.
 
-Когда обработчик запроса возвращает `null`, это указывает на то, что запрос должен продолжаться, и следующий объект должен быть вызван, или цикл должен завершиться ответом маршрутизатора.
+Когда обработчик запроса возвращает `null`, это указывает, что запрос должен продолжаться, и следует вызвать следующий объект, либо цикл завершится ответом роутера.
 
-## Связывание обработчика запроса с одним маршрутом
-
-Вы можете определить один или несколько обработчиков запросов для маршрута.
-
-<div class="script-header">
-    <span>
-        Router.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
+Если вы наследуете встроенный класс [RequestHandler](/api/Sisk.Core.Routing.RequestHandler), вы можете вернуть `Next()`, чтобы явно указать это намерение:
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
+public class AuthenticateUserRequestHandler : RequestHandler
 {
-    new AuthenticateUserRequestHandler(),     // до запроса обработчик
-    new ValidateJsonContentRequestHandler(),  // до запроса обработчик
-    //                                        -- метод IndexPage будет выполнен здесь
-    new WriteToLogRequestHandler()            // после запроса обработчик
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+Для обработчиков, которым требуется ввод‑вывод, наследуйтесь от [AsyncRequestHandler](/api/Sisk.Core.Routing.AsyncRequestHandler):
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+Небольшие встроенные обработчики также можно создать с помощью `RequestHandler.Create` или `AsyncRequestHandler.Create`:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
 });
 ```
 
-Или создавая объект [Route](/api/Sisk.Core.Routing.Route):
+## Привязка обработчика запроса к отдельному маршруту
+
+Для маршрута можно определить один или несколько обработчиков запросов.
 
 <div class="script-header">
     <span>
@@ -90,17 +113,38 @@ mainRouter.SetRoute(RouteMethod.Get, "/", IndexPage, "", new IRequestHandler[]
 </div>
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, "/", "", IndexPage, null);
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler(),     // обработчик до запроса
+    new ValidateJsonContentRequestHandler(),  // обработчик до запроса
+    //                                        -- метод IndexPage будет выполнен здесь
+    new WriteToLogRequestHandler()            // обработчик после запроса
+});
+```
+
+Или создание объекта [Route](/api/Sisk.Core.Routing.Route):
+
+<div class="script-header">
+    <span>
+        Router.cs
+    </span>
+    <span>
+        C#
+    </span>
+</div>
+
+```cs
+Route indexRoute = Route.Get("/", IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 ```
 
-## Связывание обработчика запроса с маршрутизатором
+## Привязка обработчика запроса к роутеру
 
-Вы можете определить глобальный обработчик запроса, который будет выполняться для всех маршрутов на маршрутизаторе.
+Можно определить глобальный обработчик запроса, который будет выполняться на всех маршрутах роутера.
 
 <div class="script-header">
     <span>
@@ -118,9 +162,9 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
 };
 ```
 
-## Связывание обработчика запроса с атрибутом
+## Привязка обработчика запроса к атрибуту
 
-Вы можете определить обработчик запроса на методе атрибута вместе с атрибутом маршрута.
+Можно определить обработчик запроса в атрибуте метода вместе с атрибутом маршрута.
 
 <div class="script-header">
     <span>
@@ -145,7 +189,7 @@ public class MyController
 }
 ```
 
-Обратите внимание, что необходимо передать желаемый тип обработчика запроса, а не экземпляр объекта. Таким образом, обработчик запроса будет создан парсером маршрутизатора. Вы можете передать аргументы в конструктор класса с помощью свойства [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments).
+Обратите внимание, что необходимо передавать тип требуемого обработчика запроса, а не экземпляр объекта. Таким образом, обработчик запроса будет создан парсером роутера. Вы можете передать аргументы в конструктор класса с помощью свойства [ConstructorArguments](/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments).
 
 Пример:
 
@@ -168,7 +212,7 @@ public HttpResponse Index(HttpRequest request)
 }
 ```
 
-Вы также можете создать собственный атрибут, который реализует RequestHandler:
+Вы также можете создать собственный атрибут, реализующий RequestHandler:
 
 <div class="script-header">
     <span>
@@ -189,7 +233,7 @@ public class AuthenticateAttribute : RequestHandlerAttribute
 }
 ```
 
-И использовать его как:
+И использовать его так:
 
 <div class="script-header">
     <span>
@@ -210,9 +254,9 @@ static HttpResponse Index(HttpRequest request)
 }
 ```
 
-## Пропуск глобального обработчика запроса
+## Обход глобального обработчика запроса
 
-После определения глобального обработчика запроса на маршруте вы можете игнорировать этот обработчик запроса на конкретных маршрутах.
+После определения глобального обработчика запроса на маршруте, вы можете игнорировать этот обработчик на конкретных маршрутах.
 
 <div class="script-header">
     <span>
@@ -230,15 +274,16 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, "/", "My route", IndexPage, null)
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ок: тот же экземпляр, что и в глобальных обработчиках запросов
-        new AuthenticateUserRequestHandler() // неправильно: не пропустит глобальный обработчик запроса
-    }
-});
+    myRequestHandler,                    // ok: тот же экземпляр, что и в глобальных обработчиках запросов
+    new AuthenticateUserRequestHandler() // неверно: не пропустит глобальный обработчик запроса
+};
+
+mainRouter.Map(publicRoute);
 ```
 
 > [!NOTE]
-> Если вы пропускаете обработчик запроса, вы должны использовать тот же ссылочный экземпляр, который был создан ранее, чтобы пропустить. Создание другого экземпляра обработчика запроса не пропустит глобальный обработчик запроса, поскольку его ссылка изменится. Помните, что необходимо использовать тот же ссылочный экземпляр обработчика запроса, который используется в обоих GlobalRequestHandlers и BypassGlobalRequestHandlers.
+> Если вы обходите обработчик запроса, необходимо использовать тот же экземпляр, который был создан ранее, чтобы пропустить его. Создание другого экземпляра обработчика запроса не пропустит глобальный обработчик, поскольку ссылка изменится. Помните, что следует использовать одну и ту же ссылку на обработчик запроса как в GlobalRequestHandlers, так и в BypassGlobalRequestHandlers.

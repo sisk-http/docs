@@ -81,7 +81,7 @@ new HttpResponse(301)
     .WithCookie("cookie-name", "cookie-value", expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 ```
 
-There are other [more complete versions](/api/Sisk.Core.Http.CookieHelper.SetCookie) of the same method.
+There are other [more complete versions](/api/Sisk.Core.Helpers.CookieHelper.SetCookie) of the same method.
 
 ## Chunked responses
 
@@ -198,7 +198,7 @@ public class UsersController : RouterModule
     [RoutePost]
     public ValueResult<bool> Create(HttpRequest request)
     {
-        User fromBody = JsonSerializer.Deserialize<User>(request.Body)!;
+        User fromBody = request.GetJsonContent<User>()!;
         Users.Add(fromBody);
         
         return true;
@@ -216,7 +216,7 @@ Registering a handler of type Object will fallback to all previously unvalidated
 
 ```cs
 Router r = new Router();
-r.SetObject(new UsersController());
+r.MapInstance(new UsersController());
 
 r.RegisterValueHandler<ApiResult>(apiResult =>
 {
@@ -316,4 +316,4 @@ In the above example, the `IEnumerable<string>` converter **will never be called
 
 If you need to actually handle the type of the object that will be enumerated, you will need to use reflection to get the type of the collection element. All enumerable objects (lists, arrays, and collections) are converted to an array of objects by the HTTP response converter.
 
-Values that implements [IAsyncEnumerable](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0) are handled automatically by the server if the [ConvertIAsyncEnumerableIntoEnumerable](/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable) property is enabled, similar to what happens with `IEnumerable`. An asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects.
+Values that implements [IAsyncEnumerable](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0) are handled automatically by the server if the [ConvertIAsyncEnumerableIntoEnumerable](/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable) property is enabled, similar to what happens with `IEnumerable`. This option is enabled by default in `HttpServerConfiguration`; an asynchronous enumeration is converted to a blocking enumerator, and then converted to a synchronous array of objects. Disable it only when you provide your own value handler or streaming response strategy for asynchronous sequences.

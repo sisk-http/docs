@@ -9,12 +9,13 @@ Since this package is not yet available on NuGet, you must incorporate the sourc
 
 To use `Sisk.Documenting`, you need to register it in your application builder and decorate your route handlers with documentation attributes.
 
-### Registering the Middleware
+### Registering documentation generation
 
-Use the `UseApiDocumentation` extension method on your `HttpServerBuilder` to enable API documentation.
+Use the `UseApiDocumentation` extension method on your `HttpServerHostContextBuilder` to expose generated API documentation from the same router that serves your application.
 
 ```csharp
 using Sisk.Documenting;
+using Sisk.Documenting.Exporters;
 
 // ...
 
@@ -23,7 +24,7 @@ host.UseApiDocumentation(
     {
         ApplicationName = "My Application",
         ApplicationDescription = "Description of my application.",
-        Version = "1.0.0"
+        ApplicationVersion = "1.0.0"
     },
     routerPath: "/api/docs",
     exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] });
@@ -116,7 +117,7 @@ Describes the expected request body.
 *   **Description** (string, required in constructor): A description of the request body.
 *   **Example** (string): A raw string containing an example of the request body.
 *   **ExampleLanguage** (string): The language of the example (e.g., "json", "xml").
-*   **ExampleType** (Type): If set, the example will be generated automatically from this type (if supported by the context).
+*   **PayloadType** (Type): If set, the example and schema will be generated automatically from this type when the configured context handlers support it.
 
 ### `ApiResponse`
 
@@ -126,7 +127,7 @@ Describes a possible response from the endpoint.
 *   **Description** (string): Describes the condition for this response.
 *   **Example** (string): A raw string containing an example of the response body.
 *   **ExampleLanguage** (string): The language of the example.
-*   **ExampleType** (Type): If set, the example will be generated automatically from this type.
+*   **PayloadType** (Type): If set, the example and schema will be generated automatically from this type when the configured context handlers support it.
 
 ## Type Handlers
 
@@ -135,28 +136,33 @@ Type handlers are responsible for converting your .NET types (classes, enums, et
 These handlers are configured within the `ApiGenerationContext`.
 
 ```csharp
+using Sisk.Documenting.Content;
+
 var context = new ApiGenerationContext()
 {
     // ...
-    BodyExampleTypeHandler = new JsonExampleTypeHandler(),
-    ParameterExampleTypeHandler = new JsonExampleTypeHandler()
+    BodyExampleTypeHandler = new JsonContentTypeHandler(),
+    ParameterExampleTypeHandler = new JsonContentTypeHandler(),
+    ContentSchemaTypeHandler = new JsonContentTypeHandler()
 };
 ```
 
-### JsonExampleTypeHandler
+### JsonContentTypeHandler
 
-The `JsonExampleTypeHandler` is a built-in handler that generates JSON examples. It implements both `IExampleBodyTypeHandler` and `IExampleParameterTypeHandler`.
+The `JsonContentTypeHandler` is a built-in handler that generates JSON examples, parameter examples, and JSON schemas. It implements `IExampleBodyTypeHandler`, `IExampleParameterTypeHandler`, and `IContentSchemaTypeHandler`.
 
 It can be customized with specific `JsonSerializerOptions` or `IJsonTypeInfoResolver` to match your application's serialization logic.
 
 ```csharp
-var jsonHandler = new JsonExampleTypeHandler(new JsonSerializerOptions
+var jsonHandler = new JsonContentTypeHandler(new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     WriteIndented = true
 });
 
 context.BodyExampleTypeHandler = jsonHandler;
+context.ParameterExampleTypeHandler = jsonHandler;
+context.ContentSchemaTypeHandler = jsonHandler;
 ```
 
 ### Custom Type Handlers
@@ -284,6 +290,7 @@ using Sisk.Core.Http;
 using Sisk.Core.Routing;
 using Sisk.Documenting;
 using Sisk.Documenting.Annotations;
+using Sisk.Documenting.Exporters;
 
 using var host = HttpServer.CreateBuilder(5555)
     .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
@@ -297,7 +304,7 @@ using var host = HttpServer.CreateBuilder(5555)
         exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] })
     .UseRouter(router =>
     {
-        router.SetObject(new MyController());
+        router.MapInstance(new MyController());
     })
     .Build();
 

@@ -1,44 +1,44 @@
 # Múltiplos hosts de escuta por servidor
 
-O Sisk Framework sempre suportou o uso de mais de um host por servidor, ou seja, um único servidor HTTP pode escutar em múltiplas portas e cada porta tem seu próprio roteador e seu próprio serviço executando nela.
+O Sisk Framework sempre suportou o uso de mais de um host por servidor, ou seja, um único servidor HTTP pode escutar em várias portas e cada porta tem seu próprio roteador e seu próprio serviço em execução.
 
-Dessa forma, é fácil separar responsabilidades e gerenciar serviços em um único servidor HTTP com o Sisk. O exemplo abaixo mostra a criação de dois ListeningHosts, cada um escutando em uma porta diferente, com roteadores e ações diferentes.
+Dessa forma, é fácil separar responsabilidades e gerenciar serviços em um único servidor HTTP com o Sisk. O exemplo abaixo mostra a criação de dois ListeningHosts, cada um escutando em uma porta diferente, com roteadores e ações distintas.
 
-Leia [criando seu aplicativo manualmente](/v1/getting-started.md#manually-creating-your-app) para entender os detalhes sobre essa abstração.
+Leia [manually creating your app](/v1/getting-started.md#manually-creating-your-app) para entender os detalhes sobre essa abstração.
 
 ```cs
 static void Main(string[] args)
 {
-    // criar dois hosts de escuta, cada um com seu próprio roteador e
-    // escutando em sua própria porta
+    // cria dois hosts de escuta, cada um com seu próprio roteador e
+    // escuta em sua própria porta
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Olá do host A!"));
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Olá do host B!"));
-
-    // criar uma configuração de servidor e adicionar ambos
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
+ 
+    // cria uma configuração de servidor e adiciona ambos
     // os hosts de escuta nela
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // criar um servidor HTTP que usa a configuração
-    // especificada
+    // cria um servidor HTTP que usa a
+    // configuração especificada
     //
     HttpServer server = new HttpServer(configuration);
 
-    // iniciar o servidor
+    // inicia o servidor
     server.Start();
 
-    Console.WriteLine("Tente alcançar o host A em {0}", server.ListeningPrefixes[0]);
-    Console.WriteLine("Tente alcançar o host B em {0}", server.ListeningPrefixes[1]);
+    Console.WriteLine("Try to reach host A in {0}", server.ListeningPrefixes[0]);
+    Console.WriteLine("Try to reach host B in {0}", server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

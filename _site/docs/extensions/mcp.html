@@ -176,13 +176,13 @@
 <p>It is possible to build applications that provide context to agent models using large language models (LLMs) using the <a href="https://www.nuget.org/packages/Sisk.ModelContextProtocol/">Sisk.ModelContextProtocol</a> package:</p>
 <pre><code>dotnet add package Sisk.ModelContextProtocol
 </code></pre>
-<p>This package exposes useful classes and methods for building MCP servers that work over <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a>.</p>
+<p>This package exposes useful classes and methods for building MCP servers that work over <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http">Streamable HTTP</a>. The current implementation supports tools over protocol version <code>2025-06-18</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Before you start, note that this package is under development and may exhibit behaviors that do not conform to the specification. Read the <a href="https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol">package details</a> to learn what is under development and what does not work yet.</p>
 </div>
 <h2 id="getting-started-with-mcp">Getting Started with MCP</h2>
-<p>The <a href="/api/Sisk.ModelContextProtocol.McpProvider">McpProvider</a> class is the entry point for defining an MCP server. It is abstract and can be defined anywhere. Your Sisk application can have one or more MCP providers.</p>
+<p>The <a href="/api/Sisk.ModelContextProtocol.McpProvider">McpProvider</a> class is the entry point for defining an MCP server. It is a sealed provider object that can be configured at startup. Your Sisk application can have one or more MCP providers.</p>
 <pre><code class="lang-csharp">McpProvider mcp = new McpProvider(
     serverName: &quot;math-server&quot;,
     serverTitle: &quot;Mathematics server&quot;,
@@ -243,13 +243,21 @@ mcp.Tools.Add(new McpTool(
         {
             router.MapAny(&quot;/mcp&quot;, async (HttpRequest req) =&gt;
             {
-                await req.HandleMcpRequestAsync();
+                return await req.HandleMcpRequestAsync();
             });
         })
         .Build();
 
     host.Start();
 }
+</code></pre>
+<p>The endpoint must accept both <code>GET</code> and <code>POST</code> requests, so <code>MapAny</code> is the simplest route mapping. <code>HandleMcpRequestAsync</code> returns an <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a>, and your route must return it. If you need multiple providers in one app, skip the singleton and call <a href="/api/Sisk.ModelContextProtocol.McpProvider.HandleRequestAsync">McpProvider.HandleRequestAsync</a> directly from each route:</p>
+<pre><code class="lang-csharp">var mathProvider = new McpProvider(&quot;math-server&quot;, &quot;Mathematics server&quot;, new Version(1, 0));
+
+router.MapAny(&quot;/mcp/math&quot;, async request =&gt;
+{
+    return await mathProvider.HandleRequestAsync(request);
+});
 </code></pre>
 <h2 id="creating-json-schemas-for-functions">Creating JSON Schemas for Functions</h2>
 <p>The [Sisk.ModelContextProtocol] library uses a fork of <a href="https://github.com/CypherPotato/LightJson">LightJson</a> for JSON and JSON schema manipulation. This implementation provides a fluent JSON Schema builder for various objects:</p>
@@ -322,6 +330,7 @@ mcp.Tools.Add(new McpTool(
             McpToolResult.CreateText($&quot;Performed browser action: {actionName}&quot;));
     }));
 </code></pre>
+<p>Tool arguments are validated against the schema before your handler runs. If validation fails, the provider returns an error result to the MCP client and does not invoke the tool handler.</p>
 <h2 id="function-results">Function Results</h2>
 <p>The <a href="/api/Sisk.ModelContextProtocol.McpToolResult">McpToolResult</a> object provides three methods for creating content for a tool response:</p>
 <ul>
@@ -344,6 +353,7 @@ mcp.Tools.Add(new McpTool(
         )
     }));
 </code></pre>
+<p>The provider currently handles initialization, <code>tools/list</code>, <code>tools/call</code>, <code>ping</code>, and <code>notifications/*</code>. Unsupported JSON-RPC methods return a JSON-RPC error response.</p>
 <h2 id="continuing-work">Continuing Work</h2>
 <p>The Model Context Protocol is a communication protocol for agent models and applications that provide content to them. It is a new protocol, so it is common for its specification to be constantly updated with deprecations, new features, and breaking changes.</p>
 <p>It is crucial to understand the problems that the <a href="https://modelcontextprotocol.io/docs/getting-started/intro">Model Context Protocol</a> solves before starting to build agent applications.</p>

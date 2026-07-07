@@ -1,48 +1,49 @@
 # Документация API
 
-Расширение `Sisk.Documenting` позволяет автоматически генерировать документацию API для вашего приложения Sisk. Оно использует структуру вашего кода и атрибуты для создания полной документации, поддерживающей экспорт в формат Open API (Swagger).
+Расширение `Sisk.Documenting` позволяет автоматически генерировать документацию API для вашего приложения Sisk. Оно использует структуру вашего кода и атрибуты для создания полноценного сайта документации, поддерживая экспорт в формат Open API (Swagger).
 
 > [!WARNING]
-> Этот пакет в настоящее время находится в разработке и еще не опубликован. Его поведение и API могут измениться в будущих обновлениях.
+> Этот пакет находится в разработке и ещё не опубликован. Его поведение и API могут измениться в будущих обновлениях.
 
-Поскольку этот пакет еще не доступен в NuGet, вам необходимо включить исходный код напрямую в ваш проект или ссылаться на него как на зависимость проекта. Исходный код можно найти [здесь](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting).
+Поскольку пакет ещё недоступен в NuGet, вам необходимо включить исходный код напрямую в ваш проект или добавить его как зависимость проекта. Исходный код можно найти [здесь](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting).
 
-Чтобы использовать `Sisk.Documenting`, вам необходимо зарегистрировать его в вашем приложении и украсить ваши обработчики маршрутов атрибутами документации.
+Чтобы использовать `Sisk.Documenting`, нужно зарегистрировать его в построителе приложения и пометить обработчики маршрутов атрибутами документации.
 
-### Регистрация Middleware
+### Регистрация генерации документации
 
-Используйте метод расширения `UseApiDocumentation` на вашем `HttpServerBuilder`, чтобы включить документацию API.
+Используйте метод расширения `UseApiDocumentation` на вашем `HttpServerHostContextBuilder`, чтобы предоставить сгенерированную документацию API из того же роутера, который обслуживает приложение.
 
 ```csharp
 using Sisk.Documenting;
+using Sisk.Documenting.Exporters;
 
 // ...
 
 host.UseApiDocumentation(
     context: new ApiGenerationContext()
     {
-        ApplicationName = "Мое приложение",
-        ApplicationDescription = "Описание моего приложения.",
-        Version = "1.0.0"
+        ApplicationName = "My Application",
+        ApplicationDescription = "Description of my application.",
+        ApplicationVersion = "1.0.0"
     },
     routerPath: "/api/docs",
     exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] });
 ```
 
 - **context**: Определяет метаданные о вашем приложении, такие как имя, описание и версия.
-- **routerPath**: URL-путь, где будет доступен интерфейс документации (или JSON).
-- **exporter**: Настройка экспорта документации. `OpenApiExporter` включает поддержку Open API (Swagger).
+- **routerPath**: URL‑путь, по которому будет доступен пользовательский интерфейс документации (или JSON).
+- **exporter**: Настраивает способ экспорта документации. `OpenApiExporter` включает поддержку Open API (Swagger).
 
 ### Документирование конечных точек
 
-Вы можете описать свои конечные точки, используя атрибуты `[ApiEndpoint]` и `[ApiQueryParameter]` на ваших методах обработчиков маршрутов.
+Вы можете описывать свои конечные точки с помощью атрибутов `[ApiEndpoint]` и `[ApiQueryParameter]` на методах обработчиков маршрутов.
 
 ### `ApiEndpoint`
 
-Атрибут `[ApiEndpoint]` позволяет предоставить описание для конечной точки.
+Атрибут `[ApiEndpoint]` позволяет задать описание для конечной точки.
 
 ```csharp
-[ApiEndpoint(Description = "Возвращает сообщение приветствия.")]
+[ApiEndpoint(Description = "Returns a greeting message.")]
 public HttpResponse Index(HttpRequest request) { ... }
 ```
 
@@ -51,53 +52,53 @@ public HttpResponse Index(HttpRequest request) { ... }
 Атрибут `[ApiQueryParameter]` документирует параметры строки запроса, которые принимает конечная точка.
 
 ```csharp
-[ApiQueryParameter(name: "name", IsRequired = false, Description = "Имя человека, которого нужно приветствовать.", Type = "string")]
+[ApiQueryParameter(name: "name", IsRequired = false, Description = "The name of the person to greet.", Type = "string")]
 public HttpResponse Index(HttpRequest request) { ... }
 ```
 
 - **name**: Имя параметра запроса.
-- **IsRequired**: Указывает, является ли параметр обязательным.
+- **IsRequired**: Указывает, обязателен ли параметр.
 - **Description**: Человекочитаемое описание параметра.
-- **Type**: Ожидаемый тип данных (например, "string", "int").
+- **Type**: Ожидаемый тип данных (например, `"string"`, `"int"`).
 
 ### `ApiEndpoint`
 
-Украшает конечную точку общей информацией.
+Аннотирует конечную точку общей информацией.
 
-*   **Name** (string, required in constructor): Имя конечной точки API.
+*   **Name** (string, required in constructor): Имя API‑конечной точки.
 *   **Description** (string): Краткое описание того, что делает конечная точка.
 *   **Group** (string): Позволяет группировать конечные точки (например, по контроллеру или модулю).
-*   **InheritDescriptionFromXmlDocumentation** (bool, default: `true`): Если `true`, попытается использовать сводку XML-документации метода, если `Description` не задано.
+*   **InheritDescriptionFromXmlDocumentation** (bool, default: `true`): Если `true`, пытается использовать сводку XML‑документации метода, если `Description` не задано.
 
 ### `ApiHeader`
 
-Документирует конкретный HTTP-заголовок, который ожидает или использует конечная точка.
+Документирует конкретный HTTP‑заголовок, который ожидает или использует конечная точка.
 
-*   **HeaderName** (string, required in constructor): Ключ заголовка (например, "Authorization").
-*   **Description** (string): Описывает цель заголовка.
-*   **IsRequired** (bool): Указывает, является ли заголовок обязательным для запроса.
+*   **HeaderName** (string, required in constructor): Ключ заголовка (например, `"Authorization"`).
+*   **Description** (string): Описывает назначение заголовка.
+*   **IsRequired** (bool): Указывает, обязателен ли заголовок для запроса.
 
 ### `ApiParameter`
 
-Определяет общий параметр для конечной точки, часто используемый для полей формы или параметров тела, не охваченных другими атрибутами.
+Определяет общий параметр для конечной точки, часто используемый для полей формы или параметров тела, не покрытых другими атрибутами.
 
 *   **Name** (string, required in constructor): Имя параметра.
-*   **TypeName** (string, required in constructor): Тип данных параметра (например, "string", "int").
+*   **TypeName** (string, required in constructor): Тип данных параметра (например, `"string"`, `"int"`).
 *   **Description** (string): Описание параметра.
-*   **IsRequired** (bool): Указывает, является ли параметр обязательным.
+*   **IsRequired** (bool): Указывает, обязателен ли параметр.
 
 ### `ApiParametersFrom`
 
 Автоматически генерирует документацию параметров из свойств указанного класса или типа.
 
-*   **Type** (Type, required in constructor): Тип класса, свойства которого необходимо отразить.
+*   **Type** (Type, required in constructor): Класс `Type`, свойства которого следует отразить.
 
 ### `ApiPathParameter`
 
 Документирует переменную пути (например, в `/users/{id}`).
 
 *   **Name** (string, required in constructor): Имя параметра пути.
-*   **Description** (string): Описывает, что представляет параметр.
+*   **Description** (string): Описывает, что представляет собой параметр.
 *   **Type** (string): Ожидаемый тип данных.
 
 ### `ApiQueryParameter`
@@ -105,74 +106,79 @@ public HttpResponse Index(HttpRequest request) { ... }
 Документирует параметр строки запроса (например, `?page=1`).
 
 *   **Name** (string, required in constructor): Ключ параметра запроса.
-*   **Description** (string): Описывает параметр.
+*   **Description** (string): Описание параметра.
 *   **Type** (string): Ожидаемый тип данных.
-*   **IsRequired** (bool): Указывает, должен ли присутствовать параметр запроса.
+*   **IsRequired** (bool): Указывает, должен ли параметр присутствовать.
 
 ### `ApiRequest`
 
 Описывает ожидаемое тело запроса.
 
 *   **Description** (string, required in constructor): Описание тела запроса.
-*   **Example** (string): Строка, содержащая пример тела запроса.
-*   **ExampleLanguage** (string): Язык примера (например, "json", "xml").
-*   **ExampleType** (Type): Если задано, пример будет сгенерирован автоматически из этого типа (если поддерживается контекстом).
+*   **Example** (string): Необработанная строка с примером тела запроса.
+*   **ExampleLanguage** (string): Язык примера (например, `"json"`, `"xml"`).
+*   **PayloadType** (Type): Если задан, пример и схема будут сгенерированы автоматически из этого типа, когда поддерживаемые обработчики контекста позволяют это.
 
 ### `ApiResponse`
 
 Описывает возможный ответ от конечной точки.
 
-*   **StatusCode** (HttpStatusCode, required in constructor): Код состояния HTTP, возвращаемый (например, `HttpStatusCode.OK`).
-*   **Description** (string): Описывает условие для этого ответа.
-*   **Example** (string): Строка, содержащая пример тела ответа.
+*   **StatusCode** (HttpStatusCode, required in constructor): Возвращаемый HTTP‑статус (например, `HttpStatusCode.OK`).
+*   **Description** (string): Описание условия для этого ответа.
+*   **Example** (string): Необработанная строка с примером тела ответа.
 *   **ExampleLanguage** (string): Язык примера.
-*   **ExampleType** (Type): Если задано, пример будет сгенерирован автоматически из этого типа.
+*   **PayloadType** (Type): Если задан, пример и схема будут сгенерированы автоматически из этого типа, когда поддерживаемые обработчики контекста позволяют это.
 
 ## Обработчики типов
 
-Обработчики типов отвечают за преобразование ваших типов .NET (классов, перечислений и т. д.) в примеры документации. Это особенно полезно для генерации автоматических примеров тела запроса и ответа на основе ваших моделей данных.
+Обработчики типов отвечают за преобразование ваших .NET‑типов (классов, перечислений и т.д.) в примеры документации. Это особенно полезно для автоматической генерации примеров запросов и ответов на основе ваших моделей данных.
 
 Эти обработчики настраиваются в `ApiGenerationContext`.
 
 ```csharp
+using Sisk.Documenting.Content;
+
 var context = new ApiGenerationContext()
 {
     // ...
-    BodyExampleTypeHandler = new JsonExampleTypeHandler(),
-    ParameterExampleTypeHandler = new JsonExampleTypeHandler()
+    BodyExampleTypeHandler = new JsonContentTypeHandler(),
+    ParameterExampleTypeHandler = new JsonContentTypeHandler(),
+    ContentSchemaTypeHandler = new JsonContentTypeHandler()
 };
 ```
 
-### JsonExampleTypeHandler
+### JsonContentTypeHandler
 
-`JsonExampleTypeHandler` — это встроенный обработчик, который генерирует примеры JSON. Он реализует как `IExampleBodyTypeHandler`, так и `IExampleParameterTypeHandler`.
+`JsonContentTypeHandler` — встроенный обработчик, который генерирует JSON‑примеры, примеры параметров и JSON‑схемы. Он реализует `IExampleBodyTypeHandler`, `IExampleParameterTypeHandler` и `IContentSchemaTypeHandler`.
 
-Он может быть настроен с помощью конкретных `JsonSerializerOptions` или `IJsonTypeInfoResolver`, чтобы соответствовать логике сериализации вашего приложения.
+Его можно настроить с помощью конкретных `JsonSerializerOptions` или `IJsonTypeInfoResolver`, чтобы соответствовать логике сериализации вашего приложения.
 
 ```csharp
-var jsonHandler = new JsonExampleTypeHandler(new JsonSerializerOptions
+var jsonHandler = new JsonContentTypeHandler(new JsonSerializerOptions
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     WriteIndented = true
 });
 
 context.BodyExampleTypeHandler = jsonHandler;
+context.ParameterExampleTypeHandler = jsonHandler;
+context.ContentSchemaTypeHandler = jsonHandler;
 ```
 
 ### Пользовательские обработчики типов
 
-Вы можете реализовать свои собственные обработчики, чтобы поддерживать другие форматы (например, XML) или настраивать, как генерируются примеры.
+Вы можете реализовать собственные обработчики для поддержки других форматов (например, XML) или для настройки генерации примеров.
 
 #### IExampleBodyTypeHandler
 
-Реализуйте этот интерфейс, чтобы сгенерировать примеры тела для типов запроса и ответа.
+Реализуйте этот интерфейс, чтобы генерировать примеры тела для типов запросов и ответов.
 
 ```csharp
 public class XmlExampleTypeHandler : IExampleBodyTypeHandler
 {
     public BodyExampleResult? GetBodyExampleForType(Type type)
     {
-        // Сгенерируйте строку XML для типа
+        // Generate XML string for the type
         string xmlContent = MyXmlGenerator.Generate(type);
 
         return new BodyExampleResult(xmlContent, "xml");
@@ -182,7 +188,7 @@ public class XmlExampleTypeHandler : IExampleBodyTypeHandler
 
 #### IExampleParameterTypeHandler
 
-Реализуйте этот интерфейс, чтобы сгенерировать подробные описания параметров из типа (используется атрибутом `[ApiParametersFrom]`).
+Реализуйте этот интерфейс, чтобы генерировать подробные описания параметров из типа (используется `[ApiParametersFrom]`).
 
 ```csharp
 public class CustomParameterHandler : IExampleParameterTypeHandler
@@ -198,7 +204,7 @@ public class CustomParameterHandler : IExampleParameterTypeHandler
                 name: prop.Name,
                 typeName: prop.PropertyType.Name,
                 isRequired: true,
-                description: "Сгенерированное описание"
+                description: "Generated description"
             ));
         }
 
@@ -209,11 +215,11 @@ public class CustomParameterHandler : IExampleParameterTypeHandler
 
 ## Экспортеры
 
-Экспортеры отвечают за преобразование собранных метаданных документации API в конкретный формат, который может быть потреблен другими инструментами или отображен пользователю.
+Экспортеры отвечают за преобразование собранных метаданных документации API в конкретный формат, который может быть использован другими инструментами или отображён пользователю.
 
 ### OpenApiExporter
 
-Экспортер по умолчанию — `OpenApiExporter`, который генерирует файл JSON, соответствующий [спецификации OpenAPI 3.0.0](https://spec.openapis.org/oas/v3.0.0).
+Экспортёр по умолчанию — `OpenApiExporter`, который генерирует JSON‑файл в соответствии со [Спецификацией OpenAPI 3.0.0](https://spec.openapis.org/oas/v3.0.0).
 
 ```csharp
 new OpenApiExporter()
@@ -222,7 +228,7 @@ new OpenApiExporter()
     ServerUrls = new[] { "http://localhost:5555" },
     Contact = new OpenApiContact()
     {
-        Name = "Поддержка",
+        Name = "Support",
         Email = "support@example.com",
         Url = "https://example.com/support"
     },
@@ -235,11 +241,11 @@ new OpenApiExporter()
 }
 ```
 
-### Создание пользовательского экспортера
+### Создание собственного экспортёра
 
-Вы можете создать свой собственный экспортер, реализовав интерфейс `IApiDocumentationExporter`. Это позволяет выводить документацию в форматах, таких как Markdown, HTML, Postman Collection или любой другой пользовательский формат.
+Вы можете создать собственный экспортёр, реализовав интерфейс `IApiDocumentationExporter`. Это позволит выводить документацию в форматах, таких как Markdown, HTML, коллекция Postman или любой другой пользовательский формат.
 
-Интерфейс требует реализации одного метода: `ExportDocumentationContent`.
+Интерфейс требует реализации единственного метода: `ExportDocumentationContent`.
 
 ```csharp
 using Sisk.Core.Http;
@@ -249,7 +255,7 @@ public class MyCustomExporter : IApiDocumentationExporter
 {
     public HttpContent ExportDocumentationContent(ApiDocumentation documentation)
     {
-        // 1. Обработайте объект документации
+        // 1. Process the documentation object
         var sb = new StringBuilder();
         sb.AppendLine($"# {documentation.ApplicationName}");
 
@@ -259,13 +265,13 @@ public class MyCustomExporter : IApiDocumentationExporter
             sb.AppendLine(endpoint.Description);
         }
 
-        // 2. Верните содержимое как HttpContent
+        // 2. Return the content as an HttpContent
         return new StringContent(sb.ToString(), Encoding.UTF8, "text/markdown");
     }
 }
 ```
 
-Затем просто используйте его в вашей конфигурации:
+Затем просто используйте его в конфигурации:
 
 ```csharp
 host.UseApiDocumentation(
@@ -276,7 +282,7 @@ host.UseApiDocumentation(
 
 ### Полный пример
 
-Ниже приведен полный пример, демонстрирующий, как настроить `Sisk.Documenting` и задокументировать простой контроллер.
+Ниже приведён полный пример, демонстрирующий настройку `Sisk.Documenting` и документирование простого контроллера.
 
 ```csharp
 using Sisk.Core.Entity;
@@ -284,20 +290,21 @@ using Sisk.Core.Http;
 using Sisk.Core.Routing;
 using Sisk.Documenting;
 using Sisk.Documenting.Annotations;
+using Sisk.Documenting.Exporters;
 
 using var host = HttpServer.CreateBuilder(5555)
     .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
     .UseApiDocumentation(
         context: new ApiGenerationContext()
         {
-            ApplicationName = "Мое приложение",
-            ApplicationDescription = "Оно приветствует кого-то."
+            ApplicationName = "My application",
+            ApplicationDescription = "It greets someone."
         },
         routerPath: "/api/docs",
         exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] })
     .UseRouter(router =>
     {
-        router.SetObject(new MyController());
+        router.MapInstance(new MyController());
     })
     .Build();
 
@@ -306,14 +313,14 @@ await host.StartAsync();
 class MyController
 {
     [RouteGet]
-    [ApiEndpoint(Description = "Возвращает сообщение приветствия.")]
-    [ApiQueryParameter(name: "name", IsRequired = false, Description = "Имя человека, которого нужно приветствовать.", Type = "string")]
+    [ApiEndpoint(Description = "Returns a greeting message.")]
+    [ApiQueryParameter(name: "name", IsRequired = false, Description = "The name of the person to greet.", Type = "string")]
     public HttpResponse Index(HttpRequest request)
     {
-        string? name = request.Query["name"].MaybeNullOrEmpty() ?? "мир";
-        return new HttpResponse($"Привет, {name}!");
+        string? name = request.Query["name"].MaybeNullOrEmpty() ?? "world";
+        return new HttpResponse($"Hello, {name}!");
     }
 }
 ```
 
-В этом примере доступ к `/api/docs` предоставит сгенерированную документацию для API "Мое приложение", описывающую конечную точку `GET /` и ее параметр `name`.
+В этом примере обращение к `/api/docs` будет отдавать сгенерированную документацию для API «My application», описывающую эндпоинт `GET /` и его параметр `name`.

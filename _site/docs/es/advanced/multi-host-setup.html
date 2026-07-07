@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Varios hosts de escucha por servidor | Sisk </title>
+        <title>M&#250;ltiples hosts de escucha por servidor | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Varios hosts de escucha por servidor | Sisk ">
+        <meta name="title" content="M&#250;ltiples hosts de escucha por servidor | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,43 +171,43 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="varios-hosts-de-escucha-por-servidor">Varios hosts de escucha por servidor</h1>
+<h1 id="múltiples-hosts-de-escucha-por-servidor">Múltiples hosts de escucha por servidor</h1>
 
-<p>El Framework Sisk siempre ha soportado el uso de más de un host por servidor, es decir, un solo servidor HTTP puede escuchar en múltiples puertos y cada puerto tiene su own enrutador y su propio servicio en ejecución.</p>
-<p>De esta manera, es fácil separar responsabilidades y gestionar servicios en un solo servidor HTTP con Sisk. El ejemplo a continuación muestra la creación de dos ListeningHosts, cada uno escuchando en un puerto diferente, con diferentes enrutadores y acciones.</p>
-<p>Lea <a href="/v1/getting-started.md#manually-creating-your-app">creación manual de su aplicación</a> para entender los detalles sobre esta abstracción.</p>
+<p>El Sisk Framework siempre ha soportado el uso de más de un host por servidor, es decir, un único servidor HTTP puede escuchar en varios puertos y cada puerto tiene su propio router y su propio servicio ejecutándose en él.</p>
+<p>De esta manera, es fácil separar responsabilidades y gestionar servicios en un único servidor HTTP con Sisk. El ejemplo a continuación muestra la creación de dos ListeningHosts, cada uno escuchando en un puerto diferente, con routers y acciones distintas.</p>
+<p>Lea <a href="/v1/getting-started.md#manually-creating-your-app">creación manual de su aplicación</a> para entender los detalles de esta abstracción.</p>
 <pre><code class="lang-cs">static void Main(string[] args)
 {
-    // crea dos hosts de escucha, cada uno con su own enrutador y
-    // escuchando en su own puerto
+    // crear dos hosts de escucha, cada uno con su propio router y
+    // escucha en su propio puerto
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hola desde el host A!&quot;));
+    hostA.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host A!&quot;));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hola desde el host B!&quot;));
-
-    // crea una configuración de servidor y agrega ambos
+    hostB.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host B!&quot;));
+ 
+    // crear una configuración de servidor y agregar ambos
     // hosts de escucha en ella
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // crea un servidor HTTP que utiliza la configuración
-    // especificada
+    // crear un servidor http que usa la
+    // configuración especificada
     //
     HttpServer server = new HttpServer(configuration);
 
-    // inicia el servidor
+    // iniciar el servidor
     server.Start();
 
-    Console.WriteLine(&quot;Intente llegar al host A en {0}&quot;, server.ListeningPrefixes[0]);
-    Console.WriteLine(&quot;Intente llegar al host B en {0}&quot;, server.ListeningPrefixes[1]);
+    Console.WriteLine(&quot;Try to reach host A in {0}&quot;, server.ListeningPrefixes[0]);
+    Console.WriteLine(&quot;Try to reach host B in {0}&quot;, server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

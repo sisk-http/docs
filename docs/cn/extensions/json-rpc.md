@@ -1,8 +1,8 @@
 # JSON-RPC 扩展
 
-Sisk 有一个实验性的 JSON-RPC 2.0 API 模块，允许您创建更简单的应用程序。该扩展严格实现了 JSON-RPC 2.0 传输接口，并提供通过 HTTP GET、POST 请求和 WebSockets 的传输。
+Sisk 提供了一个实验性的 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) API 模块，帮助你创建更简洁的应用程序。此扩展严格实现 JSON-RPC 2.0 传输接口，并提供通过 HTTP GET、POST 请求以及 Sisk 的 WebSocket 进行传输。
 
-您可以通过 Nuget 安装该扩展，使用以下命令。请注意，在实验/测试版本中，您需要在 Visual Studio 中启用搜索预发布包的选项。
+你可以使用下面的命令通过 Nuget 安装此扩展。请注意，在实验/测试版中，需要在 Visual Studio 中启用搜索预发布包的选项。
 
 ```bash
 dotnet add package Sisk.JsonRpc
@@ -10,11 +10,11 @@ dotnet add package Sisk.JsonRpc
 
 ## 传输接口
 
-JSON-RPC 是一种无状态、异步的远程过程调用（RDP）协议，使用 JSON 进行单向数据通信。JSON-RPC 请求通常由一个 ID 标识，响应由相同的 ID 发送。并非所有请求都需要响应，这些被称为“通知”。
+JSON-RPC 是一种无状态、异步的远程过程调用（RPC）协议，使用 JSON 进行数据通信。JSON-RPC 请求通常通过 ID 标识，响应则使用相同的 ID 返回。并非所有请求都需要响应，这类请求称为“通知”。
 
-[JSON-RPC 2.0 规范](https://www.jsonrpc.org/specification) 详细解释了传输的工作原理。该传输与其使用位置无关。Sisk 通过 HTTP 实现了该协议，遵循 [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) 的规定，部分支持 GET 请求，完全支持 POST 请求。WebSockets 也被支持，提供异步消息通信。
+[JSON-RPC 2.0 规范](https://www.jsonrpc.org/specification) 详细说明了传输的工作方式。该传输方式与使用场景无关。Sisk 通过 HTTP 实现此协议，遵循 [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) 的规范，部分支持 GET 请求，完全支持 POST 请求。WebSocket 也得到支持，提供异步消息通信。
 
-JSON-RPC 请求类似于：
+JSON-RPC 请求示例：
 
 ```json
 {
@@ -25,7 +25,7 @@ JSON-RPC 请求类似于：
 }
 ```
 
-成功的响应类似于：
+成功响应示例：
 
 ```json
 {
@@ -37,7 +37,7 @@ JSON-RPC 请求类似于：
 
 ## JSON-RPC 方法
 
-以下示例显示如何使用 Sisk 创建 JSON-RPC API。一个数学运算类执行远程操作并将序列化的响应发送给客户端。
+下面的示例展示了如何使用 Sisk 创建 JSON-RPC API。一个数学运算类执行远程操作并将序列化后的响应返回给客户端。
 
 <div class="script-header">
     <span>
@@ -48,26 +48,20 @@ JSON-RPC 请求类似于：
     </span>
 </div>
 
+
 ```csharp
 using var app = HttpServer.CreateBuilder(port: 5555)
     .UseJsonRPC((sender, args) =>
     {
-        // 添加所有标记为 WebMethod 的方法到 JSON-RPC 处理器
+        // 将所有标记了 WebMethod 的方法添加到 JSON-RPC 处理器
         args.Handler.Methods.AddMethodsFromType(new MathOperations());
         
-        // 将 /service 路由映射到处理 JSON-RPC POST 和 GET 请求
+        // 将 /service 路由映射为处理 JSON-RPC POST 与 GET 请求
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
-        // 在 GET /ws 创建一个 WebSocket 处理器
-        args.Router.MapGet("/ws", request =>
-        {
-            var ws = request.GetWebSocket();
-            ws.OnReceive += args.Handler.Transport.WebSocket;
-
-            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
-            return ws.Close();
-        });
+        // 将 JSON-RPC WebSocket 传输映射到 GET /ws
+        args.Router.MapGet("/ws", args.Handler.Transport.WebSocket);
     })
     .Build();
 
@@ -100,11 +94,11 @@ public class MathOperations
 }
 ```
 
-上述示例将 `Sum` 和 `Sqrt` 方法映射到 JSON-RPC 处理器，这些方法将在 `GET /service`、`POST /service` 和 `GET /ws` 中可用。方法名称不区分大小写。
+上述示例会将 `Sum` 和 `Sqrt` 方法映射到 JSON-RPC 处理器，这些方法可通过 `GET /service`、`POST /service` 和 `GET /ws` 访问。方法名不区分大小写。
 
-方法参数将自动反序列化为其特定类型。支持使用命名参数的请求。JSON 序列化由 [LightJson](https://github.com/CypherPotato/LightJson) 库执行。当类型不能正确反序列化时，您可以为该类型创建一个特定的 [JSON 转换器](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) 并稍后将其与 [JsonSerializerOptions](?) 关联起来。
+方法参数会自动反序列化为对应的类型。也支持使用具名参数的请求。JSON 序列化由 [LightJson](https://github.com/CypherPotato/LightJson) 库完成。当类型未能正确反序列化时，你可以为该类型创建特定的 [JSON 转换器](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters)，并将其关联到 [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions)。
 
-您还可以直接在方法中获取 JSON-RPC 请求的 `$.params` 原始对象。
+你还可以直接在方法中获取 JSON-RPC 请求的 `$.params` 原始对象。
 
 <div class="script-header">
     <span>
@@ -115,6 +109,7 @@ public class MathOperations
     </span>
 </div>
 
+
 ```csharp
 [WebMethod]
 public float Sum(JsonArray|JsonObject @params)
@@ -123,9 +118,9 @@ public float Sum(JsonArray|JsonObject @params)
 }
 ```
 
-为了实现这一点，`@params` 必须是方法中唯一的参数，且其名称必须为 `params`（在 C# 中，`@` 符号用于转义此参数名称）。
+为实现上述功能，`@params` 必须是方法中的 **唯一** 参数，且名称必须恰好为 `params`（在 C# 中，需要使用 `@` 来转义该参数名）。
 
-参数反序列化适用于命名对象和位置数组。例如，以下方法可以通过以下两种请求远程调用：
+参数反序列化同时支持具名对象和位置数组。例如，下面的方法可以通过两种请求方式远程调用：
 
 ```csharp
 [WebMethod]
@@ -135,7 +130,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 }
 ```
 
-对于数组，参数的顺序必须遵循。
+对于数组请求，必须遵循参数顺序。
 
 ```json
 {
@@ -158,7 +153,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 
 ## 自定义序列化器
 
-您可以在 [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) 属性中自定义 JSON 序列化器。在此属性中，您可以启用 [JSON5](https://json5.org/) 以用于反序列化消息。虽然这不是 JSON-RPC 2.0 的一部分，但 JSON5 是 JSON 的一个扩展，允许更易读和更具可读性的写法。
+你可以在 [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) 属性中自定义 JSON 序列化器。通过该属性可以启用使用 [JSON5](https://json5.org/) 进行消息反序列化。虽然这并非 JSON-RPC 2.0 的规范要求，JSON5 作为 JSON 的扩展，允许更易读、书写更友好的格式。
 
 <div class="script-header">
     <span>
@@ -169,21 +164,22 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
     </span>
 </div>
 
+
 ```csharp
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 
-        // 使用一个标准化的名称比较器。该比较器仅比较名称中的字母和数字，忽略其他符号。例如：
+        // 使用已清理的名称比较器。该比较器仅比较名称中的字母和数字，忽略其他符号。例如：
         // foo_bar10 == FooBar10
-        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
+        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ( );
 
-        // 启用 JSON5 用于 JSON 解释器。即使激活此选项，普通 JSON 仍然被允许
+        // 为 JSON 解释器启用 JSON5。即使启用此功能，仍然支持普通 JSON
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // 将 POST /service 路由映射到 JSON-RPC 处理器
+        // 将 POST /service 路由映射到 JSON RPC 处理器
         e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
     } )
-    .Build ();
+    .Build ( );
 
-host.Start ();
+host.Start ( );
 ```

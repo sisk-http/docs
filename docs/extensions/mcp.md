@@ -4,7 +4,7 @@ It is possible to build applications that provide context to agent models using 
 
     dotnet add package Sisk.ModelContextProtocol
 
-This package exposes useful classes and methods for building MCP servers that work over [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http).
+This package exposes useful classes and methods for building MCP servers that work over [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http). The current implementation supports tools over protocol version `2025-06-18`.
 
 > [!NOTE]
 >
@@ -12,7 +12,7 @@ This package exposes useful classes and methods for building MCP servers that wo
 
 ## Getting Started with MCP
 
-The [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) class is the entry point for defining an MCP server. It is abstract and can be defined anywhere. Your Sisk application can have one or more MCP providers.
+The [McpProvider](/api/Sisk.ModelContextProtocol.McpProvider) class is the entry point for defining an MCP server. It is a sealed provider object that can be configured at startup. Your Sisk application can have one or more MCP providers.
 
 ```csharp
 McpProvider mcp = new McpProvider(
@@ -78,13 +78,24 @@ static void Main(string[] args)
         {
             router.MapAny("/mcp", async (HttpRequest req) =>
             {
-                await req.HandleMcpRequestAsync();
+                return await req.HandleMcpRequestAsync();
             });
         })
         .Build();
 
     host.Start();
 }
+```
+
+The endpoint must accept both `GET` and `POST` requests, so `MapAny` is the simplest route mapping. `HandleMcpRequestAsync` returns an [HttpResponse](/api/Sisk.Core.Http.HttpResponse), and your route must return it. If you need multiple providers in one app, skip the singleton and call [McpProvider.HandleRequestAsync](/api/Sisk.ModelContextProtocol.McpProvider.HandleRequestAsync) directly from each route:
+
+```csharp
+var mathProvider = new McpProvider("math-server", "Mathematics server", new Version(1, 0));
+
+router.MapAny("/mcp/math", async request =>
+{
+    return await mathProvider.HandleRequestAsync(request);
+});
 ```
 
 ## Creating JSON Schemas for Functions
@@ -169,6 +180,8 @@ mcp.Tools.Add(new McpTool(
     }));
 ```
 
+Tool arguments are validated against the schema before your handler runs. If validation fails, the provider returns an error result to the MCP client and does not invoke the tool handler.
+
 ## Function Results
 
 The [McpToolResult](/api/Sisk.ModelContextProtocol.McpToolResult) object provides three methods for creating content for a tool response:
@@ -194,6 +207,8 @@ mcp.Tools.Add(new McpTool(
         )
     }));
 ```
+
+The provider currently handles initialization, `tools/list`, `tools/call`, `ping`, and `notifications/*`. Unsupported JSON-RPC methods return a JSON-RPC error response.
 
 ## Continuing Work
 

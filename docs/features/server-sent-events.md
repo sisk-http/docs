@@ -13,7 +13,7 @@ A SSE connection works like a regular HTTP request, but instead of sending a res
 Calling the [HttpRequest.GetEventSource()](/api/Sisk.Core.Http.HttpRequest.GetEventSource) method, the request is put in a waiting state while the SSE instance is created.
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource();
 
@@ -35,7 +35,7 @@ In the above code, we create an SSE connection and send a "Hello, world" message
 If you need to send headers, you can use the [HttpRequestEventSource.AppendHeader](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader) method before sending any messages.
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource();
     sse.AppendHeader("Header-Key", "Header-value");
@@ -56,10 +56,10 @@ Even with a reconnection, the instance of the class will not work, as it is link
 
 For this, we can identify the SSE connections with an identifier and get them using it later, even outside the callback of the route. In addition, we mark the connection with [WaitForFail](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail) so as not to terminate the route and terminate the connection automatically.
 
-An SSE connection in KeepAlive will wait for a send error (caused by disconnection) to resume method execution. It is also possible to set a Timeout for this. After the time, if no message has been sent, the connection is terminated and execution resumes.
+An SSE connection in `WaitForFail` waits for a send error caused by disconnection, or for the configured idle tolerance to elapse, before the route resumes and closes the connection.
 
 ```cs
-r += new Route(RouteMethod.Get, "/", (req) =>
+r.MapGet("/", (req) =>
 {
     using var sse = req.GetEventSource("my-index-connection");
 
@@ -95,9 +95,9 @@ Ping Policy is an automated way of sending periodic messages to your client. Thi
 
 ```cs
 [RouteGet("/sse")]
-public HttpResponse Events(HttpRequest request)
+public async Task<HttpResponse> Events(HttpRequest request)
 {
-    using var sse = request.GetEventSource();
+    using var sse = await request.GetEventSourceAsync("user-events");
     sse.WithPing(ping =>
     {
         ping.DataMessage = "ping-message";
@@ -105,12 +105,14 @@ public HttpResponse Events(HttpRequest request)
         ping.Start();
     });
     
-    sse.KeepAlive();
-    return sse.Close();
+    await sse.WaitForFailAsync(TimeSpan.FromMinutes(10));
+    return await sse.CloseAsync();
 }
 ```
 
 In the code above, every 5 seconds, a new ping message will be sent to the client. This will keep the TCP connection alive and prevent it from being closed due to inactivity. Also, when a message fails to be sent, the connection is automatically closed, freeing up the resources used by the connection.
+
+Use [SendAsync](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.SendAsync) and [CloseAsync](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.CloseAsync) in asynchronous routes. If you need to discard queued events before closing, call [Cancel](/api/Sisk.Core.Http.Streams.HttpRequestEventSource.Cancel).
 
 ## Querying connections
 

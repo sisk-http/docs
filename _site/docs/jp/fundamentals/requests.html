@@ -173,11 +173,11 @@
                 <article data-uid="">
 <h1 id="リクエスト">リクエスト</h1>
 
-<p>リクエストは、HTTP リクエスト メッセージを表す構造体です。<a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> オブジェクトには、HTTP メッセージをアプリケーション全体で処理するための便利な関数が含まれています。</p>
+<p>リクエストは HTTP リクエストメッセージを表す構造体です。 <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> オブジェクトには、アプリケーション全体で HTTP メッセージを処理するための便利な機能が含まれています。</p>
 <p>HTTP リクエストは、メソッド、パス、バージョン、ヘッダー、ボディで構成されます。</p>
-<p>このドキュメントでは、これらの要素を取得する方法について説明します。</p>
-<h2 id="リクエスト-メソッドの取得">リクエスト メソッドの取得</h2>
-<p>受信したリクエストのメソッドを取得するには、Method プロパティを使用できます。</p>
+<p>このドキュメントでは、これらの要素を取得する方法を解説します。</p>
+<h2 id="リクエストメソッドの取得">リクエストメソッドの取得</h2>
+<p>受信したリクエストのメソッドを取得するには、<code>Method</code> プロパティを使用します。</p>
 <pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
 {
     HttpMethod requestMethod = request.Method;
@@ -187,10 +187,10 @@
 <p>このプロパティは、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> オブジェクトで表されるリクエストのメソッドを返します。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>ルート メソッドとは異なり、このプロパティは <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> アイテムを提供しません。代わりに、実際のリクエスト メソッドを返します。</p>
+<p>ルートメソッドとは異なり、このプロパティは <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> を返しません。代わりに実際のリクエストメソッドを返します。</p>
 </div>
-<h2 id="リクエスト-url-コンポーネントの取得">リクエスト URL コンポーネントの取得</h2>
-<p>リクエストの特定のプロパティを使用して、URL からさまざまなコンポーネントを取得できます。例として、次の URL を考えてみましょう。</p>
+<h2 id="リクエスト-url-の各コンポーネント取得">リクエスト URL の各コンポーネント取得</h2>
+<p>リクエストの特定のプロパティを使用して、URL のさまざまなコンポーネントを取得できます。例として、次の URL を考えます。</p>
 <pre><code>http://localhost:5000/user/login?email=foo@bar.com
 </code></pre>
 <table>
@@ -204,81 +204,169 @@
 <tbody>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
-<td>リクエスト パスを取得します。</td>
+<td>リクエストパスを取得します。</td>
 <td><code>/user/login</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
-<td>リクエスト パスとクエリ文字列を取得します。</td>
+<td>パスとクエリ文字列を取得します。</td>
 <td><code>/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
-<td>リクエストの完全な URL 文字列を取得します。</td>
+<td>完全な URL 文字列を取得します。</td>
 <td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
-<td>リクエスト ホストを取得します。</td>
+<td>リクエストのホストを取得します。</td>
 <td><code>localhost</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
-<td>リクエスト ホストとポートを取得します。</td>
+<td>ホストとポートを取得します。</td>
 <td><code>localhost:5000</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
-<td>リクエストのクエリを取得します。</td>
+<td>クエリ文字列を取得します。</td>
 <td><code>?email=foo@bar.com</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
-<td>リクエストのクエリを名前付き値コレクションで取得します。</td>
+<td>名前付き値コレクションとしてクエリを取得します。</td>
 <td><code>{StringValueCollection object}</code></td>
 </tr>
 <tr>
 <td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
-<td>リクエストが SSL (true) を使用しているかどうかを判断します。</td>
+<td>SSL が使用されているか (true) どうか (false) を判定します。</td>
 <td><code>false</code></td>
 </tr>
 </tbody>
 </table>
-<p>また、<a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> プロパティを使用して、上記のすべての情報を 1 つのオブジェクトで取得することもできます。</p>
-<h2 id="リクエスト-ボディの取得">リクエスト ボディの取得</h2>
-<p>一部のリクエストには、フォーム、ファイル、または API トランザクションなどのボディが含まれています。リクエストのボディを取得するには、次のプロパティを使用できます。</p>
-<pre><code class="lang-cs">// リクエスト ボディを文字列として取得します (リクエストのエンコードを使用)。
+<p>また、上記すべてを 1 つのオブジェクトとして取得できる <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> プロパティを使用することもできます。</p>
+<h2 id="リクエストメタデータとキャンセル">リクエストメタデータとキャンセル</h2>
+<p>Sisk は各リクエストに運用メタデータを付与します。これらのプロパティは、ログ、トレース、ローカリゼーション、診断、長時間実行される操作に役立ちます。</p>
+<table>
+<thead>
+<tr>
+<th>プロパティまたはメソッド</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestId">RequestId</a></td>
+<td>リクエストの一意識別子。<code>IncludeRequestIdHeader</code> を有効にすると <code>X-Request-Id</code> ヘッダーとして返されます。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestedAt">RequestedAt</a></td>
+<td>Sisk がリクエストオブジェクトを作成した瞬間。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.RemoteAddress">RemoteAddress</a></td>
+<td>接続から解決されたクライアントアドレス、または <a href="/docs/jp/advanced/forwarding-resolvers">ForwardingResolver</a> から取得されたもの。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Culture">Culture</a></td>
+<td><code>Accept-Language</code> から解決された最適なカルチャ。フォールバックは現在のカルチャです。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">DisconnectToken</a></td>
+<td>クライアントが切断されたときにシグナルが送られるキャンセルトークン（設定された HTTP エンジンがサポートしている場合）。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.Bag">Bag</a></td>
+<td>リクエストハンドラ間やルートアクションで共有される型安全なキー/バリュー ストア。</td>
+</tr>
+<tr>
+<td><a href="/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest">GetRawHttpRequest</a></td>
+<td>診断用のリクエストテキスト表現。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="リクエストボディの取得">リクエストボディの取得</h2>
+<p>フォーム、ファイル、API 取引など、ボディを含むリクエストがあります。ボディは次のプロパティで取得できます。</p>
+<pre><code class="lang-cs">// リクエストのエンコーディングを使用して文字列として取得
 string body = request.Body;
 
-// または、バイト配列として取得します。
+// バイト配列として取得
 byte[] bodyBytes = request.RawBody;
 
-// または、ストリームとして取得します。
+// ストリームとして取得
 Stream requestStream = request.GetRequestStream();
+
+// 非同期にボディを取得
+Memory&lt;byte&gt; bodyMemory = await request.GetBodyContentsAsync();
 </code></pre>
-<p>また、リクエストにボディが含まれているか、またボディが読み込まれているかどうかを判断するために、<a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a> プロパティと <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> プロパティを使用することもできます。</p>
-<p><code>GetRequestStream</code> メソッドを使用してリクエスト コンテンツを読み取ることは 1 回のみ可能です。如果この方法で読み取ると、<code>RawBody</code> と <code>Body</code> の値も使用できなくなります。リクエストのコンテキストでは、リクエスト ストリームを破棄する必要はありません。HTTP セッションの終了時に自動的に破棄されます。また、<a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> プロパティを使用して、リクエストを手動でデコードするための最適なエンコードを取得することもできます。</p>
-<p>サーバーには、<a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> と <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a> の両方に適用される、リクエスト コンテンツの読み取りに制限があります。これらのプロパティは、入力ストリームのコンテンツを同じサイズのローカル バッファーにコピーします。</p>
-<p>クライアントが <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> で定義された制限を超えるコンテンツを送信した場合、サーバーはクライアントに 413 コンテンツが大きすぎるというステータスのレスポンスを返します。さらに、制限が設定されていない場合、または制限が大きすぎる場合、サーバーはクライアントが <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) を超えるコンテンツを送信しようとした場合に <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> をスローします。ただし、プロパティを使用してコンテンツにアクセスする代わりに、ストリーミングを使用してコンテンツを処理することはできます。</p>
+<p>リクエストにボディが存在するか、ロード済みかは、<a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>（コンテンツの有無）と <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a>（サーバーがリモートからコンテンツを完全に受信したか）で判定できます。</p>
+<p><code>GetRequestStream</code> を複数回呼び出すことはできません。このメソッドで読み込むと、<code>RawBody</code> と <code>Body</code> の値も利用できなくなります。リクエストストリームはリクエストコンテキストの終了時に自動的に破棄されるため、明示的に Dispose する必要はありません。また、<code>HttpRequest.RequestEncoding</code> プロパティで手動デコードに最適なエンコーディングを取得できます。</p>
+<p>サーバーはリクエストコンテンツの読み取りに上限を設けており、これは <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> と <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a> の両方に適用されます。これらのプロパティは、<a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a> と同サイズのローカルバッファへ全入力ストリームをコピーします。</p>
+<p>クライアントが送信したコンテンツが <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> を超えると、ステータス 413 Content Too Large が返されます。設定された上限が無い、または非常に大きい場合、クライアント送信サイズが <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a>（約 2 GB）を超えると、上記プロパティのいずれかにアクセスした時点で <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> がスローされます。ストリーミングでの処理は引き続き可能です。</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Sisk では許可されている場合でも、HTTP セマンティクスに従ってアプリケーションを作成し、コンテンツを取得または提供するために許可されていないメソッドを使用しないことが常に良い考えです。<a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP セマンティクス&quot;</a> について読みます。</p>
+<p>Sisk が許可していても、HTTP セマンティクスに従ってアプリケーションを構築し、メソッドが許可しないコンテンツの取得や提供は行わない方が常に安全です。詳細は <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP Semantics&quot;</a> を参照してください。</p>
 </div>
-<h2 id="リクエスト-コンテキストの取得">リクエスト コンテキストの取得</h2>
-<p>HTTP コンテキストは、Sisk の独自オブジェクトであり、HTTP サーバー、ルート、ルーター、およびリクエスト ハンドラーの情報を格納します。このコンテキストを使用して、これらのオブジェクトが難しい環境で自分自身を整理することができます。</p>
-<p>現在実行中の <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> を取得するには、静的メソッド <code>HttpContext.GetCurrentContext()</code> を使用できます。このメソッドは、現在処理中のリクエストのコンテキストを返します。</p>
+<h2 id="json-リクエストの読み取り">JSON リクエストの読み取り</h2>
+<p>JSON API では、<code>Body</code> を手動で読み取ってデシリアライズする代わりに、組み込みの JSON ヘルパーを使用してください。これらは <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json">System.Text.Json</a> を利用し、デフォルトで <a href="/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions">HttpRequest.DefaultJsonSerializerOptions</a> が適用されます。</p>
+<pre><code class="lang-cs">public record CreateUserRequest(string Name, string Email);
+
+router.MapPost(&quot;/users&quot;, (HttpRequest request) =&gt;
+{
+    CreateUserRequest? body = request.GetJsonContent&lt;CreateUserRequest&gt;();
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+</code></pre>
+<p>非同期ルートやキャンセルでデシリアライズを中止したい場合は、非同期オーバーロードを使用します。</p>
+<pre><code class="lang-cs">router.MapPost(&quot;/users&quot;, async (HttpRequest request) =&gt;
+{
+    CreateUserRequest? body =
+        await request.GetJsonContentAsync&lt;CreateUserRequest&gt;(request.DisconnectToken);
+
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+</code></pre>
+<p>エンドポイントごとにカスタムの <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> を指定することもできます。</p>
+<pre><code class="lang-cs">var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    PropertyNameCaseInsensitive = true
+};
+
+UserDto? user = request.GetJsonContent&lt;UserDto&gt;(options);
+</code></pre>
+<p>Native AOT やトリミングに敏感なアプリケーションでは、<code>JsonSerializerContext</code> が生成する <code>JsonTypeInfo&lt;T&gt;</code> オーバーロードを使用します。</p>
+<pre><code class="lang-cs">[JsonSerializable(typeof(CreateUserRequest))]
+public partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+
+CreateUserRequest? body =
+    await request.GetJsonContentAsync(
+        AppJsonSerializerContext.Default.CreateUserRequest,
+        request.DisconnectToken);
+</code></pre>
+<p>JSON ヘルパーにも「一度だけ読み取る」ルールが適用されます。<code>GetJsonContent</code>、<code>GetJsonContentAsync</code>、<code>Body</code>、<code>RawBody</code> のいずれかでストリームを読み取った後は、<code>GetRequestStream()</code> で同じボディを再度取得することはできません。</p>
+<h2 id="リクエストコンテキストの取得">リクエストコンテキストの取得</h2>
+<p>HTTP コンテキストは、HTTP サーバー、ルート、ルータ、リクエストハンドラ情報を格納する Sisk 固有のオブジェクトです。これにより、散在しがちなオブジェクトを整理しやすくなります。</p>
+<p>現在実行中の <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> は、静的メソッド <code>HttpContext.GetCurrentContext()</code> で取得できます。このメソッドは、現在のスレッドで処理中のリクエストのコンテキストを返します。</p>
 <pre><code class="lang-cs">HttpContext context = HttpContext.GetCurrentContext();
 </code></pre>
-<h3 id="ログ-モード">ログ モード</h3>
-<p><a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a> プロパティを使用して、現在のリクエストのログ記録動作を制御できます。特定のリクエストに対してログ記録を有効または無効にし、サーバーの既定の構成をオーバーライドできます。</p>
-<pre><code class="lang-cs">// このリクエストのログ記録を無効にします。
+<h3 id="ログモード">ログモード</h3>
+<p><a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a> プロパティで、現在のリクエストに対するロギング動作を制御できます。特定のリクエストだけロギングを有効化・無効化し、サーバーのデフォルト設定を上書きできます。</p>
+<pre><code class="lang-cs">// このリクエストのロギングを無効化
 context.LogMode = LogOutputMode.None;
 </code></pre>
-<h3 id="リクエスト-バッグ">リクエスト バッグ</h3>
-<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> オブジェクトには、リクエスト ハンドラーから別のポイントに渡される情報が格納され、最終的な宛先で使用できます。このオブジェクトは、ルート コールバックの後に実行されるリクエスト ハンドラーによっても使用できます。</p>
+<h3 id="request-bag">Request Bag</h3>
+<p><a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> オブジェクトは、リクエストハンドラ間で情報を受け渡すためのストレージで、最終的なコールバックで消費できます。ルートコールバックの後に実行されるハンドラでも利用可能です。</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>このプロパティは、<a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> プロパティでもアクセスできます。</p>
+<p>このプロパティは <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> からもアクセスできます。</p>
 </div>
 <div class="script-header">
     <span>
@@ -307,7 +395,7 @@ context.LogMode = LogOutputMode.None;
     }
 }
 </code></pre>
-<p>上記のリクエスト ハンドラーは、リクエスト バッグに <code>AuthenticatedUser</code> を定義し、後で最終的なコールバックで使用できます。</p>
+<p>上記ハンドラは <code>AuthenticatedUser</code> をリクエストバッグに設定し、最終コールバックで取得できます。</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -330,8 +418,8 @@ context.LogMode = LogOutputMode.None;
     }
 }
 </code></pre>
-<p>また、<code>Bag.Set()</code> および <code>Bag.Get()</code> ヘルパー メソッドを使用して、オブジェクトをそのタイプのシングルトンで取得または設定することもできます。</p>
-<p><code>TypedValueDictionary</code> クラスも、より詳細な制御のために <code>GetValue</code> および <code>SetValue</code> メソッドを提供します。</p>
+<p><code>Bag.Set()</code> と <code>Bag.Get()</code> ヘルパーで型シングルトン単位の取得・設定も可能です。</p>
+<p><code>TypedValueDictionary</code> クラスは <code>GetValue</code> と <code>SetValue</code> メソッドも提供しています。</p>
 <div class="script-header">
     <span>
         Middleware/Authenticate.cs
@@ -364,8 +452,8 @@ public static HttpResponse GetUser(HttpRequest request)
     ...
 }
 </code></pre>
-<h2 id="フォーム-データの取得">フォーム データの取得</h2>
-<p>フォーム データの値を <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection">NameValueCollection</a> で取得できます。</p>
+<h2 id="フォームデータの取得">フォームデータの取得</h2>
+<p>以下の例のように、<a href="/api/Sisk.Core.Entity.StringKeyStoreCollection">StringKeyStoreCollection</a> でフォームデータの値を取得できます。</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -388,8 +476,11 @@ public HttpResponse Index(HttpRequest request)
     }
 }
 </code></pre>
-<h2 id="マルチパート-フォーム-データの取得">マルチパート フォーム データの取得</h2>
-<p>Sisk の HTTP リクエストでは、マルチパート コンテンツ (ファイル、フォーム フィールド、バイナリ コンテンツなど) を取得できます。</p>
+<p>リクエストボディが大きい場合やキャンセル対応が必要な場合は、非同期バージョンを使用します。</p>
+<pre><code class="lang-cs">var form = await request.GetFormContentAsync(request.DisconnectToken);
+</code></pre>
+<h2 id="マルチパートフォームデータの取得">マルチパートフォームデータの取得</h2>
+<p>Sisk の HTTP リクエストでは、ファイルやフォームフィールド、任意のバイナリコンテンツなど、アップロードされたマルチパートコンテンツを取得できます。</p>
 <div class="script-header">
     <span>
         Controller/Auth.cs
@@ -401,33 +492,39 @@ public HttpResponse Index(HttpRequest request)
 <pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
 public HttpResponse Index(HttpRequest request)
 {
-    // 次のメソッドは、リクエストの入力全体を MultipartObject の配列に読み取ります。
+    // 以下のメソッドはリクエスト入力全体を
+    // MultipartObject の配列に読み込みます
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // マルチパート フォーム データで提供されたファイル名。
-        // ファイルでない場合は null が返されます。
+        // Multipart フォームデータで提供されたファイル名。
+        // ファイルでない場合は null が返ります。
         Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
 
-        // マルチパート フォーム データのフィールド名。
+        // フィールド名
         Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
 
-        // マルチパート フォーム データのコンテンツの長さ。
+        // コンテンツ長
         Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
 
-        // 各ファイルのヘッダーに基づいて、ファイル形式を一般的なファイル形式で判断します。
-        // 認識できないファイル形式の場合は、MultipartObjectCommonFormat.Unknown が返されます。
+        // ファイルヘッダーに基づく画像形式の判定。
+        // 既知のコンテンツタイプで認識できない場合は
+        // MultipartObjectCommonFormat.Unknown が返ります。
         Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
     }
 }
 </code></pre>
-<p>Sisk の <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> とそのメソッド、プロパティ、機能についてさらに詳しく知ることができます。</p>
-<h2 id="クライアントの切断の検出">クライアントの切断の検出</h2>
-<p>Sisk のバージョン v1.15 以降、フレームワークは、クライアントとサーバーの接続がレスポンスの受信前に予期せず切断された場合にスローされるトークンを提供します。このトークンは、クライアントがもうレスポンスを必要としない場合に長時間実行される操作をキャンセルするために役立ちます。</p>
+<p>ルートが非同期の場合は、<a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync">GetMultipartFormContentAsync</a> を使用してください。</p>
+<pre><code class="lang-cs">var multipartFormDataObjects =
+    await request.GetMultipartFormContentAsync(request.DisconnectToken);
+</code></pre>
+<p>Sisk の <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> とそのメソッド、プロパティ、機能の詳細はドキュメントをご参照ください。</p>
+<h2 id="クライアント切断の検出">クライアント切断の検出</h2>
+<p>Sisk v1.15 以降、<a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">HttpRequest.DisconnectToken</a> によるキャンセルトークンが提供されます。設定された HTTP エンジンが切断検出をサポートしている場合、クライアント接続がレスポンス完了前に閉じられるとこのトークンがキャンセルされます。長時間実行される処理を、クライアントが待機していないときに停止させるのに便利です。</p>
 <pre><code class="lang-csharp">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
-    // リクエストから切断トークンを取得します。
+    // リクエストから切断トークンを取得
     var dc = req.DisconnectToken;
 
     await LongOperationAsync(dc);
@@ -435,15 +532,17 @@ public HttpResponse Index(HttpRequest request)
     return new HttpResponse();
 });
 </code></pre>
-<p>このトークンは、すべての HTTP エンジンで互換性があるわけではありません。各エンジンには独自の実装が必要です。</p>
-<h2 id="サーバー送信イベントのサポート">サーバー送信イベントのサポート</h2>
-<p>Sisk では、<a href="https://developer.mozilla.org/en-US/docs/jp/Web/API/Server-sent_events">サーバー送信イベント</a>をサポートしており、チャンクをストリームとして送信し、サーバーとクライアントの接続を維持できます。</p>
-<p><a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> メソッドを呼び出すと、HttpRequest がリスナー状態になり、HTTP リクエストのコンテキストは、サーバー送信イベントによって送信されるパケットと干渉する可能性があるため、HttpResponse を期待しません。</p>
-<p>すべてのパケットを送信した後、コールバックは <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> メソッドを返す必要があります。これにより、サーバーは最終的なレスポンスを送信し、ストリーミングが終了したことを示します。</p>
-<p>送信されるパケットの合計長は予測できないため、<code>Content-Length</code> ヘッダーで接続の終了を判断することはできません。</p>
-<p>ほとんどのブラウザーの既定では、サーバー側のイベントは GET メソッド以外の HTTP ヘッダーまたはメソッドをサポートしていません。したがって、特定のヘッダーがリクエストに含まれていることを要求するリクエスト ハンドラーを使用する場合、イベント ソース リクエストでそれらが含まれている可能性は低いです。</p>
-<p>また、クライアント側で <a href="https://developer.mozilla.org/en-US/docs/jp/Web/API/EventSource/close">EventSource.close</a> メソッドが呼び出されない場合、ブラウザーはストリームを再開し、サーバー側で無限の追加処理が発生する可能性があります。この問題を避けるために、イベント ソースがすべてのパケットの送信を完了したことを示す最終的なパケットを送信することが一般的です。</p>
-<p>以下の例は、ブラウザーがサーバー送信イベントをサポートするサーバーと通信する方法を示しています。</p>
+<p>このトークンはすべての HTTP エンジンでサポートされているわけではなく、エンジンごとに実装が必要です。</p>
+<p>デフォルトの Sisk エンジン（<code>System.Net.HttpListener</code> ベース）はクライアント切断検出をサポートしていません。その場合 <code>DisconnectToken</code> は <code>CancellationToken.None</code> となり、実質的にキャンセル不可能なトークンとして扱われます。</p>
+<p><a href="/docs/jp/cadente">Cadente エンジン</a> は <code>DisconnectToken</code> をサポートしています。切断感知型のキャンセルが必要な場合は Cadente もしくは同様の機能を実装したエンジンを使用してください。サポートエンジンでもキャンセルは協調的であり、トークンを非同期 API に渡し、独自の長時間処理内でトークンをチェックする必要があります。</p>
+<h2 id="サーバー送信イベントsseサポート">サーバー送信イベント（SSE）サポート</h2>
+<p>Sisk は <a href="https://developer.mozilla.org/en-US/docs/jp/Web/API/Server-sent_events">Server-sent events</a> をサポートしており、ストリームとしてチャンクを送信し、サーバーとクライアント間の接続を維持できます。</p>
+<p><code>HttpRequest.GetEventSource</code> メソッドを呼び出すと、<code>HttpRequest</code> がリスナ状態になります。この状態では、サーバー側イベントによって送信されるパケットが <code>HttpResponse</code> と重複しないよう、HTTP リクエストは <code>HttpResponse</code> を期待しません。</p>
+<p>すべてのパケット送信後、コールバックは <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> メソッドを返す必要があります。これにより最終レスポンスがサーバーに送信され、ストリーミングが終了したことが示されます。</p>
+<p><code>Content‑Length</code> ヘッダーで接続終了を予測できないため、全パケットの総長さを事前に決めることはできません。</p>
+<p>ほとんどのブラウザはデフォルトで GET 以外のヘッダーやメソッドの送信をサポートしないため、イベントソースリクエストで特定ヘッダーが必要な場合は注意が必要です。</p>
+<p>また、クライアント側で <code>EventSource.close</code> が呼び出されない限り、ほとんどのブラウザはストリームを再開し続け、サーバー側で無限に処理が走り続ける可能性があります。そのため、すべてのパケット送信完了後に「完了」パケットを送るのが一般的です。</p>
+<p>以下は、ブラウザ側がサーバー送信イベントを受信する例です。</p>
 <div class="script-header">
     <span>
         sse-example.html
@@ -474,7 +573,7 @@ public HttpResponse Index(HttpRequest request)
     &lt;/script&gt;
 &lt;/html&gt;
 </code></pre>
-<p>そして、サーバーはクライアントにメッセージを逐次的に送信します。</p>
+<p>サーバー側で順次メッセージを送信する例です。</p>
 <div class="script-header">
     <span>
         Controller/MyController.cs
@@ -488,7 +587,7 @@ public HttpResponse Index(HttpRequest request)
     [RouteGet(&quot;/event-source&quot;)]
     public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
     {
-        var sse = await request.GetEventSourceAsync ();
+        var serverEvents = await request.GetEventSourceAsync ();
         
         string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
         
@@ -498,18 +597,18 @@ public HttpResponse Index(HttpRequest request)
             await Task.Delay(1500);
         }
 
-        return serverEvents.Close();
+        return await serverEvents.CloseAsync();
     }
 }
 </code></pre>
-<p>このコードを実行すると、次の結果が期待されます。</p>
+<p>このコードを実行すると、以下のような結果が得られます。</p>
 <img src="/assets/img/server side events demo.gif">
-<h2 id="プロキシ-ip-とホストの解決">プロキシ IP とホストの解決</h2>
-<p>Sisk はプロキシと使用できます。したがって、クライアントからプロキシへのトランザクションでは、IP アドレスがプロキシ エンドポイントに置き換えられる可能性があります。</p>
-<p>Sisk では、<a href="/docs/jp/advanced/forwarding-resolvers">フォワーディング リゾルバー</a>を使用して独自のリゾルバーを定義できます。</p>
-<h2 id="ヘッダーのエンコード">ヘッダーのエンコード</h2>
-<p>ヘッダーのエンコードは、一部の実装では問題になる可能性があります。Windows では、UTF-8 ヘッダーはサポートされていないため、ASCII が使用されます。Sisk には、不正にエンコードされたヘッダーをデコードするための組み込みのエンコード コンバーターがあります。</p>
-<p>この操作はコストがかかるため、既定では無効になっていますが、<a href="/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings">NormalizeHeadersEncodings</a> フラグで有効にすることができます。</p>
+<h2 id="プロキシされた-ip-とホストの解決">プロキシされた IP とホストの解決</h2>
+<p>Sisk はプロキシ環境でも使用でき、クライアントからプロキシへの取引において IP アドレスがプロキシエンドポイントに置き換えられることがあります。</p>
+<p><a href="/docs/jp/advanced/forwarding-resolvers">forwarding resolvers</a> を使用して、独自のリゾルバを定義できます。</p>
+<h2 id="ヘッダーのエンコーディング">ヘッダーのエンコーディング</h2>
+<p>一部の実装ではヘッダーのエンコーディングが問題になることがあります。Windows では UTF‑8 ヘッダーがサポートされていないため、ASCII が使用されます。Sisk には誤ってエンコードされたヘッダーをデコードするための組み込みエンコーディングコンバータがあります。</p>
+<p>この機能はコストが高く、デフォルトでは無効化されていますが、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings">HttpServerConfiguration.NormalizeHeadersEncodings</a> で有効化できます。</p>
 
 </article>
 

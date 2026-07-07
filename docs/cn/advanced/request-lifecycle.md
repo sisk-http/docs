@@ -1,67 +1,67 @@
 # 请求生命周期
-以下是通过一个 HTTP 请求示例解释整个请求的生命周期。
+下面通过一个 HTTP 请求的示例解释请求的完整生命周期。
 
-- **接收请求：** 每个请求都会在请求本身和将要发送给客户端的响应之间创建一个 HTTP 上下文。这个上下文来自 Sisk 中的内置监听器，可以是 [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)、[Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0) 或 [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/)。
-    - 外部请求验证：验证 [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction) 的请求。
-        - 如果请求是外部的，并且该属性是 `Drop`，则在不向客户端发送响应的情况下关闭连接，`HttpServerExecutionStatus = RemoteRequestDropped`。
-    - 转发解析器配置：如果配置了 [ForwardingResolver](/docs/cn/advanced/forwarding-resolvers)，则会在请求的原始主机上调用 [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) 方法。
-    - DNS 匹配：在解析主机并配置了多个 [ListeningHost](/api/Sisk.Core.Http.ListeningHost)的情况下，服务器将查找对应于请求的主机。
-        - 如果没有 ListeningHost 匹配，则向客户端返回 400 Bad Request 响应，并向 HTTP 上下文返回 `HttpServerExecutionStatus = DnsUnknownHost` 状态。
-        - 如果 ListeningHost 匹配，但其 [Router](/api/Sisk.Core.Http.ListeningHost.Router) 尚未初始化，则向客户端返回 503 Service Unavailable 响应，并向 HTTP 上下文返回 `HttpServerExecutionStatus = ListeningHostNotReady` 状态。
-    - 路由器绑定：将对应的 ListeningHost 的路由器与接收到的 HTTP 服务器关联。
-        - 如果路由器已经与另一个 HTTP 服务器关联，这是不允许的，因为路由器正在使用服务器的配置资源，则抛出 `InvalidOperationException`。这只发生在 HTTP 服务器初始化期间，而不是在创建 HTTP 上下文期间。
+- **接收请求：** 每个请求在请求本身和将要发送给客户端的响应之间创建一个 HTTP 上下文。该上下文来自 Sisk 内置的监听器，可以是 [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)、[Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0) 或 [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/)。
+    - 外部请求验证：对请求进行 [HttpServerConfiguration.RemoteRequestsAction](/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction) 的验证。
+        - 如果请求是外部的且属性为 `Drop`，则在不向客户端返回响应的情况下关闭连接，`HttpServerExecutionStatus = RemoteRequestDropped`。
+    - 转发解析器配置：如果配置了 [ForwardingResolver](/docs/cn/advanced/forwarding-resolvers)，它将在请求的原始主机上调用 [OnResolveRequestHost](/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost) 方法。
+    - DNS 匹配：在解析出主机且配置了多个 [ListeningHost](/api/Sisk.Core.Http.ListeningHost) 时，服务器会为请求查找相应的主机。
+        - 如果没有匹配的 ListeningHost，服务器返回 400 Bad Request 响应给客户端，并向 HTTP 上下文返回 `HttpServerExecutionStatus = DnsUnknownHost` 状态。
+        - 如果匹配到 ListeningHost，但其 [Router](/api/Sisk.Core.Http.ListeningHost.Router) 尚未初始化，服务器返回 503 Service Unavailable 响应给客户端，并向 HTTP 上下文返回 `HttpServerExecutionStatus = ListeningHostNotReady` 状态。
+    - 路由绑定：将相应 ListeningHost 的路由器与接收到的 HTTP 服务器关联。
+        - 如果路由器已经关联到另一个 HTTP 服务器，则会抛出 `InvalidOperationException`，因为路由器会主动使用服务器的配置资源，这在 HTTP 服务器初始化期间才会发生，而不会在创建 HTTP 上下文时发生。
     - 预定义头部：
-        - 如果配置了，则在响应中预定义 `X-Request-Id` 头部。
-        - 如果配置了，则在响应中预定义 `X-Powered-By` 头部。
-    - 内容大小验证：验证请求内容是否小于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)，仅当其大于零时。
-        - 如果请求发送的 `Content-Length` 大于配置的，则向客户端返回 413 Payload Too Large 响应，并向 HTTP 上下文返回 `HttpServerExecutionStatus = ContentTooLarge` 状态。
-    - 为所有配置的 HTTP 服务器处理程序调用 `OnHttpRequestOpen` 事件。
+        - 如果已配置，则在响应中预定义 `X-Request-Id` 头部。
+        - 如果已配置，则在响应中预定义 `X-Powered-By` 头部。
+    - 内容大小验证：仅当配置值大于零时，验证请求内容是否小于 [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength)。
+        - 如果请求发送的 `Content-Length` 大于配置的值，服务器返回 413 Payload Too Large 响应给客户端，并向 HTTP 上下文返回 `HttpServerExecutionStatus = ContentTooLarge` 状态。
+    - `OnHttpRequestOpen` 事件会对所有已配置的 HTTP 服务器处理程序触发。
 - **路由操作：** 服务器为接收到的请求调用路由器。
-    - 如果路由器找不到匹配请求的路由：
-        - 如果 [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) 属性配置了，则调用该操作，并将操作的响应转发给 HTTP 客户端。
-        - 如果前面的属性为 null，则向客户端返回默认的 404 Not Found 响应。
-    - 如果路由器找到匹配的路由，但路由的方法不匹配请求的方法：
-        - 如果 [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) 属性配置了，则调用该操作，并将操作的响应转发给 HTTP 客户端。
-        - 如果前面的属性为 null，则向客户端返回默认的 405 Method Not Allowed 响应。
-    - 如果请求的方法是 `OPTIONS`：
-        - 路由器仅当没有路由匹配请求方法（路由的方法不是显式 [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)）时，才向客户端返回 200 Ok 响应。
-    - 如果 [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash) 属性启用，匹配的路由不是正则表达式，请求路径不以 `/` 结尾，并且请求方法是 `GET`：
-        - 向客户端返回 307 Temporary Redirect HTTP 响应，`Location` 头部包含路径和查询到相同位置的 `/`。
-    - 为所有配置的 HTTP 服务器处理程序调用 `OnContextBagCreated` 事件。
-    - 执行所有全局 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例，具有 `BeforeResponse` 标志。
-        - 如果任何处理程序返回非 null 响应，则该响应转发给 HTTP 客户端，并关闭上下文。
-        - 如果此步骤中抛出错误，并且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 禁用：
-            - 如果 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性启用，则调用它，并将结果响应返回给客户端。
-            - 如果前面的属性未定义，则返回空响应给服务器，服务器根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
-    - 执行所有在路由中定义的 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例，具有 `BeforeResponse` 标志。
-        - 如果任何处理程序返回非 null 响应，则该响应转发给 HTTP 客户端，并关闭上下文。
-        - 如果此步骤中抛出错误，并且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 禁用：
-            - 如果 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性启用，则调用它，并将结果响应返回给客户端。
-            - 如果前面的属性未定义，则返回空响应给服务器，服务器根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
+    - 如果路由器未找到匹配请求的路由：
+        - 如果已配置 [Router.NotFoundErrorHandler](/api/Sisk.Core.Routing.Router.NotFoundErrorHandler) 属性，则调用该操作，并将操作的响应转发给 HTTP 客户端。
+        - 如果该属性为 null，则返回默认的 404 Not Found 响应给客户端。
+    - 如果路由器找到匹配的路由，但该路由的方法与请求的方法不匹配：
+        - 如果已配置 [Router.MethodNotAllowedErrorHandler](/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler) 属性，则调用该操作，并将操作的响应转发给 HTTP 客户端。
+        - 如果该属性为 null，则返回默认的 405 Method Not Allowed 响应给客户端。
+    - 如果请求使用 `OPTIONS` 方法：
+        - 仅当没有路由匹配请求方法（路由的方法未显式标记为 [RouteMethod.Options](/api/Sisk.Core.Routing.RouteMethod)）时，路由器才返回 200 Ok 响应给客户端。
+    - 如果启用了 [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash) 属性，且匹配的路由不是正则表达式，请求路径未以 `/` 结尾，并且请求方法为 `GET`：
+        - 服务器返回 307 Temporary Redirect HTTP 响应，`Location` 头部指向相同路径并在末尾添加 `/`，返回给客户端。
+    - `OnContextBagCreated` 事件会对所有已配置的 HTTP 服务器处理程序触发。
+    - 执行所有全局的带有 `BeforeResponse` 标记的 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例。
+        - 如果任意处理程序返回非 null 响应，则将该响应转发给 HTTP 客户端并关闭上下文。
+        - 如果此步骤抛出错误且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 被禁用：
+            - 如果已启用 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性，则调用它并将产生的响应返回给客户端。
+            - 如果未定义该属性，则返回空响应给服务器，服务器会根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
+    - 执行路由中定义的且带有 `BeforeResponse` 标记的所有 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例。
+        - 如果任意处理程序返回非 null 响应，则将该响应转发给 HTTP 客户端并关闭上下文。
+        - 如果此步骤抛出错误且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 被禁用：
+            - 如果已启用 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性，则调用它并将产生的响应返回给客户端。
+            - 如果未定义该属性，则返回空响应给服务器，服务器会根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
     - 调用路由器的操作并将其转换为 HTTP 响应。
-        - 如果此步骤中抛出错误，并且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 禁用：
-            - 如果 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性启用，则调用它，并将结果响应返回给客户端。
-            - 如果前面的属性未定义，则返回空响应给服务器，服务器根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
-    - 执行所有全局 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例，具有 `AfterResponse` 标志。
-        - 如果任何处理程序返回非 null 响应，则处理程序的响应替换前一个响应，并立即转发给 HTTP 客户端。
-        - 如果此步骤中抛出错误，并且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 禁用：
-            - 如果 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性启用，则调用它，并将结果响应返回给客户端。
-            - 如果前面的属性未定义，则返回空响应给服务器，服务器根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
-    - 执行所有在路由中定义的 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例，具有 `AfterResponse` 标志。
-        - 如果任何处理程序返回非 null 响应，则处理程序的响应替换前一个响应，并立即转发给 HTTP 客户端。
-        - 如果此步骤中抛出错误，并且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 禁用：
-            - 如果 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性启用，则调用它，并将结果响应返回给客户端。
-            - 如果前面的属性未定义，则返回空响应给服务器，服务器根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
-- **处理响应：** 响应准备好后，服务器为发送给客户端做准备。
-    - 根据 [ListeningHost.CrossOriginResourceSharingPolicy](/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy) 的配置，在响应中定义跨源资源共享（CORS）头部。
-    - 将响应的状态代码和头部发送给客户端。
+        - 如果此步骤抛出错误且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 被禁用：
+            - 如果已启用 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性，则调用它并将产生的响应返回给客户端。
+            - 如果未定义该属性，则返回空响应给服务器，服务器会根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
+    - 执行所有全局的带有 `AfterResponse` 标记的 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例。
+        - 如果任意处理程序返回非 null 响应，则该处理程序的响应替换之前的响应并立即转发给 HTTP 客户端。
+        - 如果此步骤抛出错误且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 被禁用：
+            - 如果已启用 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性，则调用它并将产生的响应返回给客户端。
+            - 如果未定义该属性，则返回空响应给服务器，服务器会根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
+    - 执行路由中定义的且带有 `AfterResponse` 标记的所有 [IRequestHandler](/api/Sisk.Core.Routing.IRequestHandler) 实例。
+        - 如果任意处理程序返回非 null 响应，则该处理程序的响应替换之前的响应并立即转发给 HTTP 客户端。
+        - 如果此步骤抛出错误且 [HttpServerConfiguration.ThrowExceptions](/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions) 被禁用：
+            - 如果已启用 [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) 属性，则调用它并将产生的响应返回给客户端。
+            - 如果未定义该属性，则返回空响应给服务器，服务器会根据抛出的异常类型转发响应，通常为 500 Internal Server Error。
+- **处理响应：** 当响应准备好后，服务器会为发送给客户端做准备。
+    - 根据当前 [ListeningHost.CrossOriginResourceSharingPolicy](/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy) 的配置，在响应中定义跨域资源共享策略（CORS）头部。
+    - 将响应的状态码和头部发送给客户端。
     - 将响应内容发送给客户端：
-        - 如果响应内容是 [ByteArrayContent](/en-us/dotnet/api/system.net.http.bytearraycontent) 的后代，则直接将响应字节复制到响应输出流中。
-        - 如果前面的条件不满足，则将响应序列化为流并复制到响应输出流中。
+        - 如果响应内容是 [ByteArrayContent](/en-us/dotnet/api/system.net.http.bytearraycontent) 的子类，则直接将响应字节复制到响应输出流。
+        - 如果不满足前述条件，则将响应序列化为流并复制到响应输出流。
     - 关闭流并丢弃响应内容。
-    - 如果 [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues) 启用，则丢弃所有在请求上下文中定义的继承自 [IDisposable](/en-us/dotnet/api/system.idisposable) 的对象。
-    - 为所有配置的 HTTP 服务器处理程序调用 `OnHttpRequestClose` 事件。
-    - 如果服务器抛出异常，则为所有配置的 HTTP 服务器处理程序调用 `OnException` 事件。
-    - 如果路由允许访问日志记录，并且 [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) 不为 null，则向日志输出写入一行日志。
-    - 如果路由允许错误日志记录，并且存在异常，并且 [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) 不为 null，则向错误日志输出写入一行日志。
-    - 如果服务器通过 [HttpServer.WaitNext](/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext) 等待请求，则释放互斥锁，且上下文可供用户使用。
+    - 如果启用了 [HttpServerConfiguration.DisposeDisposableContextValues](/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues)，则会丢弃请求上下文中所有继承自 [IDisposable](/en-us/dotnet/api/system.idisposable) 的对象。
+    - `OnHttpRequestClose` 事件会对所有已配置的 HTTP 服务器处理程序触发。
+    - 如果服务器抛出异常，则 `OnException` 事件会对所有已配置的 HTTP 服务器处理程序触发。
+    - 如果路由允许访问日志且 [HttpServerConfiguration.AccessLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream) 不为 null，则会向日志输出写入一行日志。
+    - 如果路由允许错误日志、出现异常且 [HttpServerConfiguration.ErrorsLogsStream](/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream) 不为 null，则会向错误日志输出写入一行日志。
+    - 如果服务器正通过 [HttpServer.WaitNext](/api/Sisk.Core.Http.HttpServer.WaitNext) 等待请求，则释放互斥锁并使上下文对用户可用。

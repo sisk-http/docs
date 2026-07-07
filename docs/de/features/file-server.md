@@ -1,68 +1,72 @@
 # Dateiserver
 
-Sisk bietet den `Sisk.Http.FileSystem`-Namespace, der Tools für die Bereitstellung statischer Dateien, Verzeichnisaufzeichnungen und Dateikonvertierung enthält. Diese Funktion ermöglicht es Ihnen, Dateien aus einem lokalen Verzeichnis bereitzustellen, mit Unterstützung für Bereichsanfragen (Audio-/Video-Streaming) und benutzerdefinierte Dateiverarbeitung.
+Sisk stellt den Namespace `Sisk.Http.FileSystem` bereit, der Werkzeuge zum Bereitstellen statischer Dateien, zur Verzeichnisauflistung und zur Dateikonvertierung enthält. Diese Funktion ermöglicht das Bereitstellen von Dateien aus einem lokalen Verzeichnis, mit Unterstützung für Bereichsanfragen (Audio-/Video-Streaming) und benutzerdefinierte Dateiverarbeitung.
 
-## Bereitstellung statischer Dateien
+## Bereitstellen statischer Dateien
 
-Der einfachste Weg, um statische Dateien bereitzustellen, besteht darin, `HttpFileServer.CreateServingRoute` zu verwenden. Diese Methode erstellt eine Route, die einen URL-Präfix einem Verzeichnis auf der Festplatte zuordnet.
+Der einfachste Weg, statische Dateien bereitzustellen, ist [Router.MapFileSystem](/api/Sisk.Core.Routing.Router.MapFileSystem). Diese Methode ordnet ein URL-Präfix einem Verzeichnis auf dem Datenträger zu.
 
 ```cs
 using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
 // ordnet die Wurzel des Servers dem aktuellen Verzeichnis zu
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute("/", Directory.GetCurrentDirectory()));
+mainRouter.MapFileSystem("/", Directory.GetCurrentDirectory());
 
-// ordnet /assets dem "public/assets"-Verzeichnis zu
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute("/assets", Path.Combine(Directory.GetCurrentDirectory(), "public", "assets")));
+// ordnet /assets dem Ordner "public/assets" zu
+mainRouter.MapFileSystem(
+    "/assets",
+    Path.Combine(Directory.GetCurrentDirectory(), "public", "assets"));
 ```
 
-Wenn eine Anfrage dem Routen-Präfix entspricht, sucht der `HttpFileServerHandler` nach einer Datei im angegebenen Verzeichnis. Wenn diese gefunden wird, wird die Datei bereitgestellt; andernfalls wird eine 404-Antwort (oder 403, wenn der Zugriff verweigert wird) zurückgegeben.
+Wenn eine Anfrage dem Routen-Präfix entspricht, sucht der `HttpFileServerHandler` nach einer Datei im angegebenen Verzeichnis. Wird sie gefunden, wird die Datei bereitgestellt; andernfalls wird eine 404-Antwort zurückgegeben (oder 403, wenn der Zugriff verweigert wird).
+
+`HttpFileServer.CreateServingRoute` ist weiterhin verfügbar, wenn Sie ein `Route`-Objekt explizit erstellen müssen, aber `MapFileSystem` ist die direkteste Option für Anwendungscode.
 
 ## HttpFileServerHandler
 
-Für eine bessere Kontrolle über die Bereitstellung von Dateien können Sie den `HttpFileServerHandler` manuell instanziieren und konfigurieren.
+Für mehr Kontrolle darüber, wie Dateien bereitgestellt werden, können Sie `HttpFileServerHandler` manuell instanziieren und konfigurieren.
 
 ```cs
 var fileHandler = new HttpFileServerHandler("/var/www/html");
 
-// aktiviert die Verzeichnisaufzeichnung (standardmäßig deaktiviert)
+// aktiviert die Verzeichnisauflistung (standardmäßig deaktiviert)
 fileHandler.AllowDirectoryListing = true;
 
-// setzt einen benutzerdefinierten Routen-Präfix (dieser wird vom Anfragepfad entfernt)
+// legt ein benutzerdefiniertes Routen-Präfix fest (dies wird vom Anforderungspfad entfernt)
 fileHandler.RoutePrefix = "/public";
 
-// registriert die Handler-Aktion
-mainRouter.SetRoute(RouteMethod.Get, "/public/.*", fileHandler.HandleRequest);
+// registriert den Handler unter /public
+mainRouter.MapFileSystem("/public", fileHandler);
 ```
 
 ### Konfiguration
 
 | Eigenschaft | Beschreibung |
 |---|---|
-| `RootDirectoryPath` | Der absolute oder relative Pfad zum Wurzelverzeichnis, aus dem Dateien bereitgestellt werden. |
-| `RoutePrefix` | Der Routen-Präfix, der vom Anfragepfad entfernt wird, wenn Dateien aufgelöst werden. Standardmäßig `/`. |
-| `AllowDirectoryListing` | Wenn auf `true` gesetzt, aktiviert die Verzeichnisaufzeichnung, wenn ein Verzeichnis angefordert wird und keine Index-Datei gefunden wird. Standardmäßig `false`. |
-| `FileConverters` | Eine Liste von `HttpFileServerFileConverter`, die verwendet werden, um Dateien vor der Bereitstellung zu transformieren. |
+| `RootDirectoryPath` | Der absolute oder relative Pfad zum Stammverzeichnis, aus dem Dateien bereitgestellt werden. |
+| `RoutePrefix` | Das Routen-Präfix, das beim Auflösen von Dateien vom Anforderungspfad entfernt wird. Standard ist `/`. |
+| `AllowDirectoryListing` | Wenn auf `true` gesetzt, aktiviert die Verzeichnisauflistung, wenn ein Verzeichnis angefordert wird und keine Indexdatei gefunden wird. Standard ist `false`. |
+| `FileConverters` | Eine Liste von `HttpFileServerFileConverter`, die verwendet werden, um Dateien vor dem Bereitstellen zu transformieren. |
 
-## Verzeichnisaufzeichnung
+## Verzeichnisauflistung
 
-Wenn `AllowDirectoryListing` aktiviert ist und der Benutzer einen Verzeichnispfad anfordert, generiert Sisk eine HTML-Seite, die den Inhalt dieses Verzeichnisses auflistet.
+Wenn `AllowDirectoryListing` aktiviert ist und der Benutzer einen Verzeichnispfad anfordert, erzeugt Sisk eine HTML-Seite, die den Inhalt dieses Verzeichnisses auflistet.
 
-Die Verzeichnisaufzeichnung umfasst:
+Die Verzeichnisauflistung enthält:
 - Navigation zum übergeordneten Verzeichnis (`..`).
-- Liste von Unterverzeichnissen.
-- Liste von Dateien mit Größe und letztem Änderungsdatum.
+- Liste der Unterverzeichnisse.
+- Liste der Dateien mit Größe und letztem Änderungsdatum.
 
 ## Dateikonverter
 
-Dateikonverter ermöglichen es Ihnen, bestimmte Dateitypen zu erfassen und anders zu behandeln. Zum Beispiel möchten Sie möglicherweise ein Bild transkodieren, eine Datei auf dem Fly komprimieren oder eine Datei mithilfe von Teilinhalten (Bereichsanfragen) bereitstellen.
+Dateikonverter ermöglichen es Ihnen, bestimmte Dateitypen abzufangen und anders zu verarbeiten. Beispielsweise könnten Sie ein Bild transkodieren, eine Datei on-the-fly komprimieren oder eine Datei mit Teilinhalt (Range-Anfragen) bereitstellen.
 
-Sisk enthält zwei integrierte Konverter für Medien-Streaming:
-- `HttpFileAudioConverter`: Behandelt `.mp3`, `.ogg`, `.wav`, `.flac`, `.ogv`.
-- `HttpFileVideoConverter`: Behandelt `.webm`, `.avi`, `.mkv`, `.mpg`, `.mpeg`, `.wmv`, `.mov`, `.mp4`.
+Sisk enthält zwei integrierte Konverter für Media-Streaming:
+- `HttpFileAudioConverter`: Unterstützt `.mp3`, `.ogg`, `.wav`, `.flac`, `.ogv`.
+- `HttpFileVideoConverter`: Unterstützt `.webm`, `.avi`, `.mkv`, `.mpg`, `.mpeg`, `.wmv`, `.mov`, `.mp4`.
 
-Diese Konverter ermöglichen die Unterstützung von **HTTP-Bereichsanfragen**, die es Clients ermöglichen, durch Audio- und Video-Dateien zu suchen.
+Diese Konverter ermöglichen die Unterstützung von **HTTP Range Requests**, sodass Clients in Audio- und Videodateien vorspulen können.
 
 ### Erstellen eines benutzerdefinierten Konverters
 
@@ -76,7 +80,7 @@ public class MyTextConverter : HttpFileServerFileConverter
 {
     public override bool CanConvert(FileInfo file)
     {
-        // wird nur auf .txt-Dateien angewendet
+        // nur auf .txt-Dateien anwenden
         return file.Extension.Equals(".txt", StringComparison.OrdinalIgnoreCase);
     }
 
@@ -84,7 +88,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     {
         string content = File.ReadAllText(file.FullName);
         
-        // wandelt den gesamten Textinhalt in Großbuchstaben um
+        // gesamten Textinhalt in Großbuchstaben umwandeln
         return new HttpResponse(200)
         {
             Content = new StringContent(content.ToUpper())
@@ -93,7 +97,7 @@ public class MyTextConverter : HttpFileServerFileConverter
 }
 ```
 
-Fügen Sie ihn dann Ihrem Handler hinzu:
+Dann fügen Sie ihn zu Ihrem Handler hinzu:
 
 ```cs
 var handler = new HttpFileServerHandler("./files");

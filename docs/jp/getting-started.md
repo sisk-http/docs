@@ -1,55 +1,55 @@
-# はじめに
+# Getting started
 
-Sisk ドキュメントへようこそ！
+Welcome to the Sisk documentation!
 
-最後に、Sisk フレームワークとは何か？Sisk フレームワークは、.NET で構築されたオープンソースの軽量ライブラリです。ミニマリスト、柔軟性、抽象性を設計目標としています。開発者が、迅速にインターネットサービスを作成できるようにします。ほとんどの設定は不要です。Sisk では、既存のアプリケーションに、管理された HTTP モジュールを追加できます。
+Sisk is an open-source lightweight HTTP framework for .NET. You can use it to build a standalone web service, embed an HTTP module inside an existing application, or run a service behind a reverse proxy with only the configuration you need.
 
-Sisk の価値観には、コードの透明性、モジュラー性、パフォーマンス、スケーラビリティがあり、Restful、JSON-RPC、Web-sockets などのさまざまなタイプのアプリケーションを処理できます。
+Sisk's values include code transparency, modularity, performance, and scalability. It can handle different application styles, including RESTful APIs, JSON-RPC services, WebSockets, Server-Sent Events, and static file serving.
 
-主な機能には以下のものがあります：
+It's main features includes：
 
 | リソース | 説明 |
 | ------- | --------- |
-| [ルーティング](/docs/jp/fundamentals/routing) | プレフィックス、カスタム メソッド、パス変数、値コンバーターなどをサポートするパス ルーター。 |
-| [リクエスト ハンドラー](/docs/jp/fundamentals/request-handlers) | ミドルウェアとしても知られており、リクエストの前または後に動作する独自のリクエスト ハンドラーを構築するためのインターフェイスを提供します。 |
-| [圧縮](/docs/jp/fundamentals/responses#gzip-deflate-and-brotli-compression) | Sisk を使用して、レスポンス コンテンツを簡単に圧縮します。 |
-| [Web ソケット](/docs/jp/features/websockets) | 完全な Web ソケットを受け入れるルートを提供し、クライアントへの読み取りと書き込みが可能です。 |
-| [サーバー送信イベント](/docs/jp/features/server-sent-events) | SSE プロトコルをサポートするクライアントにサーバー イベントを送信する機能を提供します。 |
-| [ログ](/docs/jp/features/logging) | ログの簡素化。エラー、ログ、アクセスをログに記録し、サイズによるローテーション ログ、同じログの複数の出力ストリームなどを定義します。 |
-| [マルチ ホスト](/docs/jp/advanced/multi-host-setup) | HTTP サーバーを複数のポートで実行し、各ポートに独自のルーターを持ち、各ルーターに独自のアプリケーションを設定します。 |
-| [サーバー ハンドラー](/docs/jp/advanced/http-server-handlers) | HTTP サーバーの独自の実装を拡張します。拡張機能、改善、ニューフィーチャーを追加します。
+| [Routing](/docs/jp/fundamentals/routing) | プレフィックス、カスタムメソッド、パス変数、値コンバータなどをサポートするパスルーターです。 |
+| [Request Handlers](/docs/jp/fundamentals/request-handlers) | *ミドルウェア* とも呼ばれ、アクションの前後でリクエストと連携する独自のリクエストハンドラを構築するためのインターフェースを提供します。 |
+| [Compression](/docs/jp/fundamentals/responses#gzip-deflate-and-brotli-compression) | Sisk を使ってレスポンス内容を簡単に圧縮できます。 |
+| [Web sockets](/docs/jp/features/websockets) | クライアントとの読み書きが可能な完全な WebSocket を受け入れるルートを提供します。 |
+| [Server-sent events](/docs/jp/features/server-sent-events) | SSE プロトコルをサポートするクライアントへサーバーイベントを送信する機能を提供します。 |
+| [Logging](/docs/jp/features/logging) | シンプルなロギング。エラーやアクセスのログ、サイズでローテーションするログ、同一ログへの複数出力ストリームなどを定義できます。 |
+| [Multi-host](/docs/jp/advanced/multi-host-setup) | 複数ポート用の HTTP サーバーを持ち、各ポートが独自のルーターを、各ルーターが独自のアプリケーションを持ちます。 |
+| [Server handlers](/docs/jp/advanced/http-server-handlers) | HTTP サーバーの独自実装を拡張します。拡張機能や改善、新機能でカスタマイズできます。 |
 
 ## 最初のステップ
 
-Sisk は、任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を説明します。まだインストールしていない場合は、[こちら](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)から SDK をダウンロードしてください。
+Sisk は任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を説明します。まだインストールしていない場合は、[こちら](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)から SDK をダウンロードしてください。
 
-このチュートリアルでは、プロジェクト構造の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信について説明します。このガイドでは、C# を使用してシンプルなサーバーを構築することに焦点を当てています。好みのプログラミング言語を使用することもできます。
+このチュートリアルでは、プロジェクト構成の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信方法を扱います。このガイドは C# を使用したシンプルなサーバー構築に焦点を当てています。好きなプログラミング言語でも使用できます。
 
 > [!NOTE]
-> クイックスタート プロジェクトに興味がある場合は、[このリポジトリ](https://github.com/sisk-http/quickstart)を参照してください。
+> クイックスタートプロジェクトに興味があるかもしれません。詳細は [このリポジトリ](https://github.com/sisk-http/quickstart) をご確認ください。
 
 ## プロジェクトの作成
 
-プロジェクト名を "My Sisk Application" とします。.NET を設定したら、次のコマンドを使用してプロジェクトを作成できます。
+プロジェクト名を「My Sisk Application」にしましょう。.NET の環境が整ったら、次のコマンドでプロジェクトを作成できます：
 
 ```bash
 dotnet new console -n my-sisk-application
 ```
 
-次に、プロジェクト ディレクトリに移動し、.NET ユーティリティ ツールを使用して Sisk をインストールします。
+次に、プロジェクトディレクトリへ移動し、.NET ユーティリティツールで Sisk をインストールします：
 
 ```bash
 cd my-sisk-application
 dotnet add package Sisk.HttpServer
 ```
 
-Sisk をプロジェクトにインストールするその他の方法については、[こちら](https://www.nuget.org/packages/Sisk.HttpServer/)を参照してください。
+プロジェクトに Sisk をインストールする他の方法は、[こちら](https://www.nuget.org/packages/Sisk.HttpServer/) にあります。
 
-さて、HTTP サーバーのインスタンスを作成しましょう。この例では、ポート 5000 でリッスンするように構成します。
+それでは、HTTP サーバーのインスタンスを作成しましょう。この例ではポート 5000 でリッスンするように設定します。
 
 ## HTTP サーバーの構築
 
-Sisk では、HttpServer オブジェクトにルーティングすることで、アプリケーションを手動で段階的に構築できます。ただし、ほとんどのプロジェクトではこれは便利ではありません。したがって、ビルダー メソッドを使用して、アプリケーションを簡単に起動できます。
+Sisk は HttpServer オブジェクトへルーティングする形で、手動でステップバイステップにアプリケーションを構築できますが、ほとんどのプロジェクトではあまり便利ではありません。そのため、ビルダー メソッドを使用すれば、アプリを簡単に起動できます。
 
 <div class="script-header">
     <span>
@@ -83,8 +83,8 @@ class Program
 }
 ```
 
-Sisk の各重要なコンポーネントを理解することが重要です。このドキュメントの後の方では、Sisk のしくみについてさらに詳しく説明します。
+Sisk の重要なコンポーネントを理解することが重要です。このドキュメントの後半で、Sisk の仕組みについてさらに学べます。
 
-## 手動 (高度な) 設定
+## 手動（高度）設定
 
-Sisk の各メカニズムの動作と、HttpServer、Router、ListeningPort、他のコンポーネント間の関係については、[このセクション](/docs/jp/advanced/manual-setup)のドキュメントを参照してください。
+ドキュメントの [このセクション](/docs/jp/advanced/manual-setup) では、HttpServer、Router、ListeningPort など各コンポーネントの動作と関係性について学べます。

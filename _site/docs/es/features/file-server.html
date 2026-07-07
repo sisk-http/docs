@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Servidor de archivos | Sisk </title>
+        <title>Servidor de Archivos | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Servidor de archivos | Sisk ">
+        <meta name="title" content="Servidor de Archivos | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,77 +171,80 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="servidor-de-archivos">Servidor de archivos</h1>
+<h1 id="servidor-de-archivos">Servidor de Archivos</h1>
 
-<p>Sisk proporciona el espacio de nombres <code>Sisk.Http.FileSystem</code>, que contiene herramientas para servir archivos estáticos, listado de directorios y conversión de archivos. Esta característica le permite servir archivos desde un directorio local, con soporte para solicitudes de rango (transmisión de audio y video) y procesamiento de archivos personalizado.</p>
+<p>Sisk proporciona el espacio de nombres <code>Sisk.Http.FileSystem</code>, que contiene herramientas para servir archivos estáticos, listado de directorios y conversión de archivos. Esta característica le permite servir archivos desde un directorio local, con soporte para solicitudes de rango (transmisión de audio/video) y procesamiento personalizado de archivos.</p>
 <h2 id="servir-archivos-estáticos">Servir archivos estáticos</h2>
-<p>La forma más sencilla de servir archivos estáticos es utilizando <code>HttpFileServer.CreateServingRoute</code>. Este método crea una ruta que asigna un prefijo de URL a un directorio en el disco.</p>
+<p>La forma más sencilla de servir archivos estáticos es <a href="/api/Sisk.Core.Routing.Router.MapFileSystem">Router.MapFileSystem</a>. Este método asigna un prefijo de URL a un directorio en el disco.</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
-// asigna la raíz del servidor al directorio actual
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/&quot;, Directory.GetCurrentDirectory()));
+// maps the root of the server to the current directory
+mainRouter.MapFileSystem(&quot;/&quot;, Directory.GetCurrentDirectory());
 
-// asigna /assets al folder &quot;public/assets&quot;
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/assets&quot;, Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;)));
+// maps /assets to the &quot;public/assets&quot; folder
+mainRouter.MapFileSystem(
+    &quot;/assets&quot;,
+    Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;));
 </code></pre>
-<p>Cuando una solicitud coincide con el prefijo de la ruta, el <code>HttpFileServerHandler</code> buscará un archivo en el directorio especificado. Si se encuentra, servirá el archivo; de lo contrario, devolverá una respuesta 404 (o 403 si se deniega el acceso).</p>
+<p>Cuando una solicitud coincide con el prefijo de ruta, el <code>HttpFileServerHandler</code> buscará un archivo en el directorio especificado. Si lo encuentra, servirá el archivo; de lo contrario, devolverá una respuesta 404 (o 403 si se niega el acceso).</p>
+<p><code>HttpFileServer.CreateServingRoute</code> sigue estando disponible cuando necesita crear un objeto <code>Route</code> explícitamente, pero <code>MapFileSystem</code> es la opción más directa para el código de la aplicación.</p>
 <h2 id="httpfileserverhandler">HttpFileServerHandler</h2>
 <p>Para tener más control sobre cómo se sirven los archivos, puede instanciar y configurar <code>HttpFileServerHandler</code> manualmente.</p>
 <pre><code class="lang-cs">var fileHandler = new HttpFileServerHandler(&quot;/var/www/html&quot;);
 
-// habilita el listado de directorios (desactivado por defecto)
+// enable directory listing (disabled by default)
 fileHandler.AllowDirectoryListing = true;
 
-// establece un prefijo de ruta personalizado (esto se recortará de la ruta de la solicitud)
+// set a custom route prefix (this will be trimmed from the request path)
 fileHandler.RoutePrefix = &quot;/public&quot;;
 
-// registra la acción del controlador
-mainRouter.SetRoute(RouteMethod.Get, &quot;/public/.*&quot;, fileHandler.HandleRequest);
+// register the handler under /public
+mainRouter.MapFileSystem(&quot;/public&quot;, fileHandler);
 </code></pre>
 <h3 id="configuración">Configuración</h3>
 <table>
 <thead>
 <tr>
-<th>Propiedad</th>
-<th>Descripción</th>
+<th>Property</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>RootDirectoryPath</code></td>
-<td>La ruta absoluta o relativa al directorio raíz desde el que se sirven los archivos.</td>
+<td>La ruta absoluta o relativa al directorio raíz desde el cual se sirven los archivos.</td>
 </tr>
 <tr>
 <td><code>RoutePrefix</code></td>
-<td>El prefijo de ruta que se recortará de la ruta de la solicitud al resolver archivos. Por defecto es <code>/</code>.</td>
+<td>El prefijo de ruta que se recortará del camino de la solicitud al resolver archivos. El valor predeterminado es <code>/</code>.</td>
 </tr>
 <tr>
 <td><code>AllowDirectoryListing</code></td>
-<td>Si se establece en <code>true</code>, habilita el listado de directorios cuando se solicita un directorio y no se encuentra un archivo índice. Por defecto es <code>false</code>.</td>
+<td>Si se establece en <code>true</code>, habilita el listado de directorios cuando se solicita un directorio y no se encuentra un archivo índice. El valor predeterminado es <code>false</code>.</td>
 </tr>
 <tr>
 <td><code>FileConverters</code></td>
-<td>Una lista de <code>HttpFileServerFileConverter</code> utilizados para transformar archivos antes de servirlos.</td>
+<td>Una lista de <code>HttpFileServerFileConverter</code> utilizada para transformar archivos antes de servirlos.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="listado-de-directorios">Listado de directorios</h2>
-<p>Cuando <code>AllowDirectoryListing</code> está habilitado, y el usuario solicita una ruta de directorio, Sisk generará una página HTML que lista el contenido de ese directorio.</p>
+<h2 id="listado-de-directorios">Listado de Directorios</h2>
+<p>Cuando <code>AllowDirectoryListing</code> está habilitado y el usuario solicita una ruta de directorio, Sisk generará una página HTML que enumera el contenido de ese directorio.</p>
 <p>El listado de directorios incluye:</p>
 <ul>
 <li>Navegación al directorio padre (<code>..</code>).</li>
 <li>Lista de subdirectorios.</li>
 <li>Lista de archivos con tamaño y fecha de última modificación.</li>
 </ul>
-<h2 id="convertidores-de-archivos">Convertidores de archivos</h2>
-<p>Los convertidores de archivos le permiten interceptar tipos de archivos específicos y manejarlos de manera diferente. Por ejemplo, puede que desee transcodificar una imagen, comprimir un archivo en tiempo real o servir un archivo utilizando contenido parcial (solicitudes de rango).</p>
-<p>Sisk incluye dos convertidores integrados para transmisión de medios:</p>
+<h2 id="convertidores-de-archivos">Convertidores de Archivos</h2>
+<p>Los convertidores de archivos le permiten interceptar tipos de archivo específicos y manejarlos de manera diferente. Por ejemplo, podría querer transcodificar una imagen, comprimir un archivo al vuelo, o servir un archivo usando contenido parcial (solicitudes de rango).</p>
+<p>Sisk incluye dos convertidores incorporados para transmisión de medios:</p>
 <ul>
 <li><code>HttpFileAudioConverter</code>: Maneja <code>.mp3</code>, <code>.ogg</code>, <code>.wav</code>, <code>.flac</code>, <code>.ogv</code>.</li>
 <li><code>HttpFileVideoConverter</code>: Maneja <code>.webm</code>, <code>.avi</code>, <code>.mkv</code>, <code>.mpg</code>, <code>.mpeg</code>, <code>.wmv</code>, <code>.mov</code>, <code>.mp4</code>.</li>
 </ul>
-<p>Estos convertidores habilitan el soporte para <strong>solicitudes de rango HTTP</strong>, lo que permite a los clientes buscar a través de archivos de audio y video.</p>
+<p>Estos convertidores habilitan el soporte para <strong>solicitudes de rango HTTP</strong>, permitiendo a los clientes buscar dentro de archivos de audio y video.</p>
 <h3 id="crear-un-convertidor-personalizado">Crear un convertidor personalizado</h3>
 <p>Para crear un convertidor de archivo personalizado, herede de <code>HttpFileServerFileConverter</code> e implemente <code>CanConvert</code> y <code>Convert</code>.</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
@@ -251,7 +254,7 @@ public class MyTextConverter : HttpFileServerFileConverter
 {
     public override bool CanConvert(FileInfo file)
     {
-        // aplica solo a archivos .txt
+        // apply only to .txt files
         return file.Extension.Equals(&quot;.txt&quot;, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -259,7 +262,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     {
         string content = File.ReadAllText(file.FullName);
         
-        // convierte todo el contenido de texto a mayúsculas
+        // uppercase all text content
         return new HttpResponse(200)
         {
             Content = new StringContent(content.ToUpper())
@@ -267,7 +270,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     }
 }
 </code></pre>
-<p>Luego, agréguelo a su controlador:</p>
+<p>Luego, agréguelo a su manejador:</p>
 <pre><code class="lang-cs">var handler = new HttpFileServerHandler(&quot;./files&quot;);
 handler.FileConverters.Add(new MyTextConverter());
 </code></pre>

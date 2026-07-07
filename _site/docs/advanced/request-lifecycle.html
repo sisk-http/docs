@@ -305,7 +305,7 @@
 <li>If an exception was thrown on the server, the <code>OnException</code> event is invoked for all configured HTTP server handlers.</li>
 <li>If the route allows access-logging and <a href="/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream">HttpServerConfiguration.AccessLogsStream</a> is not null, a log line is written to the log output.</li>
 <li>If the route allows error-logging, there is an exception, and <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream">HttpServerConfiguration.ErrorsLogsStream</a> is not null, a log line is written to the error log output.</li>
-<li>If the server is waiting for a request through <a href="/api/Sisk.Core.Http.Streams.HttpWebSocket.WaitNext">HttpServer.WaitNext</a>, the mutex is released and the context becomes available to the user.</li>
+<li>If the server is waiting for a request through <a href="/api/Sisk.Core.Http.HttpServer.WaitNext">HttpServer.WaitNext</a>, the mutex is released and the context becomes available to the user.</li>
 </ul>
 </li>
 </ul>

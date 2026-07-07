@@ -2,9 +2,9 @@
 
 Welcome to the Sisk documentation!
 
-Finally, what is the Sisk Framework? It is an open-source lightweight library built with .NET, designed to be minimalist, flexible, and abstract. It allows developers to create internet services quickly, with little or no necessary configuration. Sisk makes it possible for your existing application to have a managed HTTP module, complete and disposable or complete.
+Sisk is an open-source lightweight HTTP framework for .NET. You can use it to build a standalone web service, embed an HTTP module inside an existing application, or run a service behind a reverse proxy with only the configuration you need.
 
-Sisk's values include code transparency, modularity, performance, and scalability, and can handle various types of applications, such as Restful, JSON-RPC, Web-sockets, and more.
+Sisk's values include code transparency, modularity, performance, and scalability. It can handle different application styles, including RESTful APIs, JSON-RPC services, WebSockets, Server-Sent Events, and static file serving.
 
 It's main features includes:
 
@@ -17,7 +17,7 @@ It's main features includes:
 | [Server-sent events](/docs/features/server-sent-events) | Provides the sending of server events to clients that support the SSE protocol. |
 | [Logging](/docs/features/logging) | Simplified logging. Log errors, access, define rotating logs by size, multiple output streams for the same log, and more. |
 | [Multi-host](/docs/advanced/multi-host-setup) | Have an HTTP server for multiple ports, and each port with its own router, and each router with its own application. |
-| [Server handlers](/docs/advanced/http-server-handlers) | Extend your own implementation of the HTTP server. Customize with extensions, improvements, and new features.
+| [Server handlers](/docs/advanced/http-server-handlers) | Extend your own implementation of the HTTP server. Customize with extensions, improvements, and new features. |
 
 ## First steps
 

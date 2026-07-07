@@ -29,25 +29,24 @@ Sisk checks for the possibility of route collisions to avoid these problems. Whe
 
 ### Creating routes using path patterns
 
-You can define routes using various `SetRoute` methods.
+For new applications, prefer the `Map*` methods. They keep the HTTP method visible at the call site and match the current `Router` API. The older `SetRoute` methods still exist as compatibility wrappers, but new examples should use `Map`, `MapGet`, `MapPost`, `MapPut`, `MapDelete`, `MapPatch`, `MapAny`, `MapOptions`, or `MapHead`.
 
 ```cs
-// SetRoute way
-mainRouter.SetRoute(RouteMethod.Get, "/hey/<name>", (request) =>
+// Map* methods are the usual way to define method-specific routes.
+mainRouter.MapGet("/hey/<name>", (request) =>
 {
     string name = request.RouteParameters["name"].GetString();
     return new HttpResponse($"Hello, {name}");
 });
 
-// Map* way
-mainRouter.MapGet("/form", (request) =>
+mainRouter.MapPost("/form", (request) =>
 {
-    var formData = request.GetFormData();
+    var formData = request.GetFormContent();
     return new HttpResponse(); // empty 200 ok
 });
 
-// Route.* helper methods
-mainRouter += Route.Get("/image.png", (request) =>
+// Map can also receive a Route instance when you need route options.
+mainRouter.Map(Route.Get("/image.png", (request) =>
 {
     var imageStream = File.OpenRead("image.png");
     
@@ -58,7 +57,7 @@ mainRouter += Route.Get("/image.png", (request) =>
         // the response.
         Content = new StreamContent(imageStream)
     };
-});
+}));
 
 // multiple parameters
 mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
@@ -70,7 +69,7 @@ mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
 });
 ```
 
-The [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) property of HttpResponse contains all the information about the path variables of the received request.
+The [RouteParameters](/api/Sisk.Core.Http.HttpRequest.RouteParameters) property of HttpRequest contains all the information about the path variables of the received request.
 
 Every path received by the server is normalized before the path pattern test is executed, following these rules:
 
@@ -82,22 +81,23 @@ The [Query](/api/Sisk.Core.Http.HttpRequest.Query) and [RouteParameters](/api/Si
 The example below reads the route parameter "id" and obtains a `Guid` from it. If the parameter is not a valid Guid, an exception is thrown, and a 500 error is returned to the client if the server is not handling [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler).
 
 ```cs
-mainRouter.SetRoute(RouteMethod.Get, "/user/<id>", (request) =>
+mainRouter.MapGet("/user/<id>", (request) =>
 {
     Guid id = request.RouteParameters["id"].GetGuid();
+    return new HttpResponse($"User id: {id}");
 });
 ```
 
 > [!NOTE]
 > Paths have their trailing `/` ignored in both request and route path, that is, if you try to access a route defined as `/index/page` you'll be able to access using `/index/page/` too.
 >
-> You can also force URLs to terminate with `/` enabling the [ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerFlags.ForceTrailingSlash) flag.
+> You can also force URLs to terminate with `/` by enabling [HttpServerConfiguration.ForceTrailingSlash](/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash).
 
 ### Creating routes using class instances
 
 You can also define routes dynamically using reflection with the attribute [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute). This way, the instance of a class in which its methods implement this attribute will have their routes defined in the target router.
 
-For a method to be defined as a route, it must be marked with a [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute), such as the attribute itself or a [RouteGetAttribute](/api/Sisk.Core.Routing.RouteGetAttribute). The method can be static, instance, public, or private. When the method `SetObject(type)` or `SetObject<TType>()` is used, instance methods are ignored.
+For a method to be defined as a route, it must be marked with a [RouteAttribute](/api/Sisk.Core.Routing.RouteAttribute), such as the attribute itself or a [RouteGetAttribute](/api/Sisk.Core.Routing.RouteGetAttribute). The method can be static, instance, public, or private. Use `MapInstance` when you want to map instance and static route methods from an object. Use `MapType` when you want to map only static route methods from a type.
 
 <div class="script-header">
     <span>
@@ -135,7 +135,13 @@ The line below will define both the `Index` and `Hello` methods of `MyController
 
 ```cs
 var myController = new MyController();
-mainRouter.SetObject(myController);
+mainRouter.MapInstance(myController);
+```
+
+To map only static route methods from a type, use:
+
+```cs
+mainRouter.MapType<MyController>();
 ```
 
 Since Sisk version 0.16, it is possible to enable AutoScan, which will search for user-defined classes that implement `RouterModule` and will automatically associate it with the router. This is not supported with AOT compilation.
@@ -144,22 +150,21 @@ Since Sisk version 0.16, it is possible to enable AutoScan, which will search fo
 mainRouter.AutoScanModules<ApiController>();
 ```
 
-The above instruction will search for all types which implements `ApiController` but not the type itself. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be defined.
+The above instruction will search for all types which implements `ApiController` but **not the type itself**. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be defined.
 
 ## Regex routes
 
 Instead of using the default HTTP path matching methods, you can mark a route to be interpreted with Regex.
 
 ```cs
-Route indexRoute = new Route(RouteMethod.Get, @"\/[a-z]+\/", "My route", IndexPage, null);
-indexRoute.UseRegex = true;
-mainRouter.SetRoute(indexRoute);
+Route indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", IndexPage);
+mainRouter.Map(indexRoute);
 ```
 
 Or with [RegexRoute](/api/Sisk.Core.Routing.RegexRoute) class:
 
 ```cs
-mainRouter.SetRoute(new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =>
+mainRouter.Map(new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =>
 {
     return new HttpResponse("hello, world");
 }));
@@ -207,14 +212,14 @@ See the example below using the BREAD architecture (Browse, Read, Edit, Add and 
 [RoutePrefix("/api/users")]
 public class UsersController
 {
-    // GET /api/users/<id>
+    // GET /api/users
     [RouteGet]
     public async Task<HttpResponse> Browse()
     {
         ...
     }
     
-    // GET /api/users
+    // GET /api/users/<id>
     [RouteGet("/<id>")]
     public async Task<HttpResponse> Read()
     {
@@ -290,7 +295,7 @@ public class UsersController : ControllerBase
     public async Task<HttpResponse> Create()
     {
         // reads the JSON data from the current request
-        UserCreationDto? user = JsonSerializer.DeserializeAsync<UserCreationDto>(Request.Body);
+        UserCreationDto? user = await Request.GetJsonContentAsync<UserCreationDto>();
         ...
         Database.Users.Add(user);
         
@@ -307,7 +312,7 @@ You can define a route to be matched only by its path and skip the HTTP method. 
 
 ```cs
 // will match / on any HTTP method
-mainRouter.SetRoute(RouteMethod.Any, "/", callbackFunction);
+mainRouter.MapAny("/", callbackFunction);
 ```
 
 ## Any path routes
@@ -316,7 +321,7 @@ Any path routes test for any path received by the HTTP server, subject to the ro
 
 ```cs
 // the following route will match all POST requests
-mainRouter.SetRoute(RouteMethod.Post, Route.AnyPath, callbackFunction);
+mainRouter.Map(RouteMethod.Post, Route.AnyPath, callbackFunction);
 ```
 
 ## Ignore case route matching

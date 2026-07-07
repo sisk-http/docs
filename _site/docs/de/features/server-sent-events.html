@@ -173,96 +173,97 @@
                 <article data-uid="">
 <h1 id="server-sent-events">Server Sent Events</h1>
 
-<p>Sisk unterstützt das Senden von Nachrichten über Server Sent Events direkt. Sie können verwerfbare und beständige Verbindungen erstellen, die Verbindungen während der Laufzeit abrufen und diese verwenden.</p>
-<p>Diese Funktion hat einige durch Browser auferlegte Einschränkungen, wie z. B. das Senden nur von Textnachrichten und die Unfähigkeit, eine Verbindung dauerhaft zu schließen. Eine serverseitig geschlossene Verbindung wird dazu führen, dass der Client alle 5 Sekunden (bei einigen Browsern alle 3 Sekunden) versucht, erneut zu verbinden.</p>
-<p>Diese Verbindungen sind nützlich für das Senden von Ereignissen vom Server an den Client, ohne dass der Client die Informationen jedes Mal anfordern muss.</p>
+<p>Sisk unterstützt das Senden von Nachrichten über Server Sent Events von Haus aus. Sie können flüchtige und dauerhafte Verbindungen erstellen, die Verbindungen zur Laufzeit abrufen und verwenden.</p>
+<p>Diese Funktion hat einige von Browsern auferlegte Einschränkungen, wie das Senden nur von Textnachrichten und die Unfähigkeit, eine Verbindung dauerhaft zu schließen. Eine serverseitig geschlossene Verbindung führt dazu, dass der Client alle 5 Sekunden (bei manchen Browsern 3 Sekunden) periodisch versucht, die Verbindung wiederherzustellen.</p>
+<p>Diese Verbindungen sind nützlich, um Ereignisse vom Server zum Client zu senden, ohne dass der Client die Informationen jedes Mal anfordern muss.</p>
 <h2 id="erstellen-einer-sse-verbindung">Erstellen einer SSE-Verbindung</h2>
-<p>Eine SSE-Verbindung funktioniert wie eine reguläre HTTP-Anfrage, aber anstelle des Sendens einer Antwort und des sofortigen Schließens der Verbindung, wird die Verbindung geöffnet, um Nachrichten zu senden.</p>
-<p>Durch den Aufruf der <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a>-Methode wird die Anfrage in einen Wartezustand versetzt, während die SSE-Instanz erstellt wird.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<p>Eine SSE-Verbindung funktioniert wie eine reguläre HTTP-Anfrage, jedoch wird die Verbindung, anstatt nach dem Senden einer Antwort sofort zu schließen, offen gehalten, um Nachrichten zu senden.</p>
+<p>Durch Aufrufen der Methode <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a> wird die Anfrage in einen Wartezustand versetzt, während die SSE-Instanz erstellt wird.</p>
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
     using var sse = req.GetEventSource();
 
-    sse.Send(&quot;Hallo, Welt!&quot;);
+    sse.Send(&quot;Hello, world!&quot;);
 
     return sse.Close();
 });
 </code></pre>
-<p>Im obigen Code erstellen wir eine SSE-Verbindung und senden eine &quot;Hallo, Welt&quot;-Nachricht, dann schließen wir die SSE-Verbindung vom Server aus.</p>
+<p>Im obigen Code erstellen wir eine SSE-Verbindung und senden eine „Hello, world“-Nachricht, anschließend schließen wir die SSE-Verbindung serverseitig.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Wenn eine serverseitige Verbindung geschlossen wird, wird der Client standardmäßig versuchen, erneut zu verbinden, und die Verbindung wird neu gestartet, indem die Methode erneut ausgeführt wird, für immer.</p>
-<p>Es ist üblich, eine Beendigungsnachricht vom Server zu senden, wenn die Verbindung vom Server aus geschlossen wird, um zu verhindern, dass der Client erneut versucht, eine Verbindung herzustellen.</p>
+<p>Beim Schließen einer serverseitigen Verbindung versucht der Client standardmäßig, erneut zu verbinden, und die Verbindung wird neu gestartet, wobei die Methode endlos erneut ausgeführt wird.</p>
+<p>Es ist üblich, vom Server aus eine Beendigungsnachricht zu senden, sobald die Verbindung vom Server geschlossen wird, um zu verhindern, dass der Client erneut versucht, sich zu verbinden.</p>
 </div>
-<h2 id="anfügen-von-headern">Anfügen von Headern</h2>
-<p>Wenn Sie Header senden müssen, können Sie die <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a>-Methode verwenden, bevor Sie Nachrichten senden.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<h2 id="anhängen-von-headern">Anhängen von Headern</h2>
+<p>Falls Sie Header senden müssen, können Sie die Methode <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a> verwenden, bevor Sie Nachrichten senden.</p>
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
     using var sse = req.GetEventSource();
-    sse.AppendHeader(&quot;Header-Schlüssel&quot;, &quot;Header-Wert&quot;);
+    sse.AppendHeader(&quot;Header-Key&quot;, &quot;Header-value&quot;);
 
-    sse.Send(&quot;Hallo!&quot;);
+    sse.Send(&quot;Hello!&quot;);
 
     return sse.Close();
 });
 </code></pre>
-<p>Es ist notwendig, die Header vor dem Senden von Nachrichten zu senden.</p>
+<p>Beachten Sie, dass die Header vor dem Senden von Nachrichten gesendet werden müssen.</p>
 <h2 id="wait-for-fail-verbindungen">Wait-For-Fail-Verbindungen</h2>
-<p>Verbindungen werden normalerweise beendet, wenn der Server nicht mehr in der Lage ist, Nachrichten zu senden, aufgrund einer möglichen Client-seitigen Trennung. Durch diese Trennung wird die Verbindung automatisch beendet und die Instanz der Klasse wird verworfen.</p>
-<p>Sogar bei einer erneuten Verbindung wird die Instanz der Klasse nicht funktionieren, da sie mit der vorherigen Verbindung verknüpft ist. In einigen Situationen können Sie diese Verbindung später benötigen und möchten sie nicht über die Rückrufmethode der Route verwalten.</p>
-<p>Dafür können wir die SSE-Verbindungen mit einem Identifikator kennzeichnen und sie später mithilfe dieses Identifikators abrufen, auch außerhalb der Rückrufmethode der Route. Zusätzlich markieren wir die Verbindung mit <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a>, um die Route nicht zu beenden und die Verbindung automatisch zu beenden.</p>
-<p>Eine SSE-Verbindung in KeepAlive wird warten, bis ein Sendeerror (verursacht durch eine Trennung) auftritt, um die Methode erneut auszuführen. Es ist auch möglich, eine Zeitüberschreitung für diese zu setzen. Nach Ablauf der Zeit wird die Verbindung beendet, wenn keine Nachricht gesendet wurde, und die Ausführung wird fortgesetzt.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<p>Verbindungen werden normalerweise beendet, wenn der Server aufgrund einer möglichen clientseitigen Trennung keine Nachrichten mehr senden kann. In diesem Fall wird die Verbindung automatisch beendet und die Instanz der Klasse verworfen.</p>
+<p>Selbst bei einer erneuten Verbindung funktioniert die Instanz der Klasse nicht mehr, da sie mit der vorherigen Verbindung verknüpft ist. In manchen Situationen benötigen Sie diese Verbindung später und möchten sie nicht über die Callback‑Methode der Route verwalten.</p>
+<p>Dafür können wir die SSE-Verbindungen mit einem Bezeichner identifizieren und später, auch außerhalb des Callback der Route, abrufen. Zusätzlich markieren wir die Verbindung mit <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a>, um die Route nicht zu beenden und die Verbindung automatisch zu schließen.</p>
+<p>Eine SSE-Verbindung im <code>WaitForFail</code> wartet auf einen Sendefehler, der durch eine Trennung verursacht wurde, oder darauf, dass die konfigurierte Leerlauftoleranz abläuft, bevor die Route fortgesetzt und die Verbindung geschlossen wird.</p>
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
-    using var sse = req.GetEventSource(&quot;meine-Verbindungs-Id&quot;);
+    using var sse = req.GetEventSource(&quot;my-index-connection&quot;);
 
-    sse.WaitForFail(TimeSpan.FromSeconds(15)); // warte 15 Sekunden ohne Nachricht, bevor die Verbindung beendet wird
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // wait for 15 seconds without any message before terminating the connection
 
     return sse.Close();
 });
 </code></pre>
-<p>Die obige Methode wird die Verbindung erstellen, verwalten und auf eine Trennung oder einen Fehler warten.</p>
-<pre><code class="lang-cs">HttpRequestEventSource? evs = server.EventSources.GetByIdentifier(&quot;meine-Verbindungs-Id&quot;);
+<p>Die obige Methode erstellt die Verbindung, verwaltet sie und wartet auf eine Trennung oder einen Fehler.</p>
+<pre><code class="lang-cs">HttpRequestEventSource? evs = server.EventSources.GetByIdentifier(&quot;my-index-connection&quot;);
 if (evs != null)
 {
-    // die Verbindung ist noch aktiv
-    evs.Send(&quot;Hallo nochmal!&quot;);
+    // the connection is still alive
+    evs.Send(&quot;Hello again!&quot;);
 }
 </code></pre>
-<p>Und der obige Codeabschnitt wird versuchen, die neu erstellte Verbindung zu finden, und wenn sie existiert, wird er eine Nachricht an sie senden.</p>
-<p>Alle aktiven Serververbindungen, die identifiziert werden, sind in der Sammlung <a href="/api/Sisk.Core.Http.HttpServer.EventSources">HttpServer.EventSources</a> verfügbar. Diese Sammlung speichert nur aktive und identifizierte Verbindungen. Geschlossene Verbindungen werden aus der Sammlung entfernt.</p>
+<p>Und das obige Snippet versucht, die neu erstellte Verbindung zu finden, und falls sie existiert, wird eine Nachricht an sie gesendet.</p>
+<p>Alle aktiven, identifizierten Serververbindungen sind in der Sammlung <a href="/api/Sisk.Core.Http.HttpServer.EventSources">HttpServer.EventSources</a> verfügbar. Diese Sammlung speichert nur aktive und identifizierte Verbindungen. Geschlossene Verbindungen werden aus der Sammlung entfernt.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Es ist wichtig zu beachten, dass KeepAlive eine durch Komponenten, die möglicherweise auf unkontrollierbare Weise mit Sisk verbunden sind, wie z. B. ein Web-Proxy, ein HTTP-Kernel oder ein Netzwerktreiber, festgelegte Grenze hat, und diese Komponenten inaktive Verbindungen nach einer bestimmten Zeit schließen.</p>
-<p>Es ist daher wichtig, die Verbindung durch das Senden periodischer Pings oder durch Verlängern der maximalen Zeit, bevor die Verbindung geschlossen wird, offen zu halten. Lesen Sie den nächsten Abschnitt, um besser zu verstehen, wie periodische Pings gesendet werden.</p>
+<p>Es ist wichtig zu beachten, dass Keep‑Alive ein von Komponenten festgelegtes Limit hat, die in unkontrollierbarer Weise mit Sisk verbunden sein können, wie ein Web‑Proxy, ein HTTP‑Kernel oder ein Netzwerktreiber, und diese schließen Leerlaufverbindungen nach einer bestimmten Zeit.</p>
+<p>Daher ist es wichtig, die Verbindung offen zu halten, indem periodische Pings gesendet oder die maximale Zeit bis zum Schließen der Verbindung verlängert wird. Lesen Sie den nächsten Abschnitt, um das Senden periodischer Pings besser zu verstehen.</p>
 </div>
-<h2 id="einrichten-der-verbindungs-ping-richtlinie">Einrichten der Verbindungs-Ping-Richtlinie</h2>
-<p>Die Ping-Richtlinie ist eine automatisierte Möglichkeit, periodische Nachrichten an Ihren Client zu senden. Diese Funktion ermöglicht es dem Server, zu verstehen, wenn der Client von dieser Verbindung getrennt wurde, ohne dass die Verbindung unendlich lange geöffnet bleiben muss.</p>
+<h2 id="einrichtung-der-ping-policy-für-verbindungen">Einrichtung der Ping-Policy für Verbindungen</h2>
+<p>Die Ping-Policy ist ein automatisierter Weg, periodische Nachrichten an Ihren Client zu senden. Diese Funktion ermöglicht es dem Server zu erkennen, wann der Client die Verbindung getrennt hat, ohne die Verbindung unbegrenzt offen halten zu müssen.</p>
 <pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
-public HttpResponse Events(HttpRequest request)
+public async Task&lt;HttpResponse&gt; Events(HttpRequest request)
 {
-    using var sse = request.GetEventSource();
+    using var sse = await request.GetEventSourceAsync(&quot;user-events&quot;);
     sse.WithPing(ping =&gt;
     {
-        ping.DataMessage = &quot;ping-Nachricht&quot;;
+        ping.DataMessage = &quot;ping-message&quot;;
         ping.Interval = TimeSpan.FromSeconds(5);
         ping.Start();
     });
     
-    sse.KeepAlive();
-    return sse.Close();
+    await sse.WaitForFailAsync(TimeSpan.FromMinutes(10));
+    return await sse.CloseAsync();
 }
 </code></pre>
-<p>Im obigen Code wird alle 5 Sekunden eine neue Ping-Nachricht an den Client gesendet. Dies hält die TCP-Verbindung aktiv und verhindert, dass sie aufgrund von Inaktivität geschlossen wird. Wenn auch eine Nachricht nicht gesendet werden kann, wird die Verbindung automatisch geschlossen, und die durch die Verbindung verwendeten Ressourcen werden freigegeben.</p>
+<p>Im obigen Code wird alle 5 Sekunden eine neue Ping-Nachricht an den Client gesendet. Dadurch bleibt die TCP-Verbindung aktiv und wird nicht wegen Inaktivität geschlossen. Außerdem wird die Verbindung automatisch geschlossen, wenn das Senden einer Nachricht fehlschlägt, wodurch die genutzten Ressourcen freigegeben werden.</p>
+<p>Verwenden Sie <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.SendAsync">SendAsync</a> und <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.CloseAsync">CloseAsync</a> in asynchronen Routen. Wenn Sie vor dem Schließen ausstehende Ereignisse verwerfen müssen, rufen Sie <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.Cancel">Cancel</a> auf.</p>
 <h2 id="abfragen-von-verbindungen">Abfragen von Verbindungen</h2>
-<p>Sie können nach aktiven Verbindungen suchen, indem Sie einen Prädikaten auf den Verbindungs-Identifikator anwenden, um beispielsweise eine Rundsendung durchzuführen.</p>
-<pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;meine-Verbindungs-&quot;));
+<p>Sie können nach aktiven Verbindungen suchen, indem Sie ein Prädikat auf den Verbindungsbezeichner anwenden, um beispielsweise zu broadcasten.</p>
+<pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;my-connection-&quot;));
 foreach (HttpRequestEventSource e in evs)
 {
-    e.Send(&quot;Rundsenden an alle Ereignisquellen, die mit 'meine-Verbindungs-' beginnen&quot;);
+    e.Send(&quot;Broadcasting to all event sources that starts with 'my-connection-'&quot;);
 }
 </code></pre>
-<p>Sie können auch die <a href="/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All">All</a>-Methode verwenden, um alle aktiven SSE-Verbindungen abzurufen.</p>
+<p>Sie können auch die Methode <a href="/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All">All</a> verwenden, um alle aktiven SSE-Verbindungen zu erhalten.</p>
 
 </article>
 

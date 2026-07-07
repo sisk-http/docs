@@ -1,44 +1,44 @@
 # Несколько прослушивающих хостов на сервере
 
-Sisk Framework всегда поддерживал использование более одного хоста на сервер, то есть один HTTP-сервер может прослушивать несколько портов, и каждый порт имеет свой собственный маршрутизатор и свою службу, работающую на нем.
+Фреймворк Sisk всегда поддерживал использование более одного хоста на сервере, то есть один HTTP‑сервер может прослушивать несколько портов, и каждый порт имеет свой собственный роутер и собственный сервис, работающий на нём.
 
-Таким образом, легко разделить обязанности и управлять службами на одном HTTP-сервере с Sisk. Пример ниже показывает создание двух ListeningHosts, каждый из которых прослушивает разный порт, с разными маршрутизаторами и действиями.
+Таким образом, легко разделять обязанности и управлять сервисами на одном HTTP‑сервере с помощью Sisk. Пример ниже показывает создание двух ListeningHost, каждый из которых прослушивает свой порт, имеет отдельный роутер и действия.
 
-Прочитайте [создание приложения вручную](/v1/getting-started.md#manually-creating-your-app), чтобы понять детали об этом абстрактном типе.
+Читайте [manually creating your app](/v1/getting-started.md#manually-creating-your-app), чтобы понять детали этой абстракции.
 
 ```cs
 static void Main(string[] args)
 {
-    // создать два прослушивающих хоста, каждый из которых имеет свой собственный маршрутизатор и
-    // прослушивает свой собственный порт
+    // создаём два прослушивающих хоста, каждый из которых имеет свой роутер
+    // и прослушивает свой порт
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Привет от хоста А!"));
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Привет от хоста Б!"));
-
-    // создать конфигурацию сервера и добавить оба
-    // прослушивающих хоста в нее
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
+    
+    // создаём конфигурацию сервера и добавляем в неё оба
+    // прослушивающих хоста
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);
     configuration.ListeningHosts.Add(hostB);
 
-    // создать HTTP-сервер, который использует указанную
+    // создаём HTTP‑сервер, использующий указанную
     // конфигурацию
     //
     HttpServer server = new HttpServer(configuration);
 
-    // запустить сервер
+    // запускаем сервер
     server.Start();
 
-    Console.WriteLine("Попробуйте обратиться к хосту А по {0}", server.ListeningPrefixes[0]);
-    Console.WriteLine("Попробуйте обратиться к хосту Б по {0}", server.ListeningPrefixes[1]);
+    Console.WriteLine("Попробуйте обратиться к хосту A по адресу {0}", server.ListeningPrefixes[0]);
+    Console.WriteLine("Попробуйте обратиться к хосту B по адресу {0}", server.ListeningPrefixes[1]);
 
     Thread.Sleep(-1);
 }

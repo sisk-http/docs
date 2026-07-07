@@ -1,29 +1,29 @@
-# Mehrere Lauscher-Hosts pro Server
+# Mehrere Listening-Hosts pro Server
 
-Das Sisk Framework unterstützt seit jeher die Verwendung von mehr als einem Host pro Server, d. h. ein einzelner HTTP-Server kann auf mehreren Ports hören und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.
+Das Sisk Framework hat schon immer die Verwendung von mehr als einem Host pro Server unterstützt, das heißt, ein einzelner HTTP-Server kann auf mehreren Ports lauschen und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.
 
-Auf diese Weise ist es einfach, Verantwortlichkeiten zu trennen und Dienste auf einem einzelnen HTTP-Server mit Sisk zu verwalten. Das folgende Beispiel zeigt die Erstellung von zwei ListeningHosts, von denen jeder auf einem anderen Port hört, mit unterschiedlichen Routern und Aktionen.
+Auf diese Weise ist es einfach, Verantwortlichkeiten zu trennen und Dienste auf einem einzelnen HTTP-Server mit Sisk zu verwalten. Das nachstehende Beispiel zeigt die Erstellung von zwei ListeningHosts, die jeweils auf einem anderen Port lauschen, mit unterschiedlichen Routern und Aktionen.
 
-Lesen Sie [manuell Ihre App erstellen](/v1/getting-started.md#manuell-erstellen-sie-ihre-app), um die Details über diese Abstraktion zu verstehen.
+Lesen Sie [manually creating your app](/v1/getting-started.md#manually-creating-your-app), um die Details zu dieser Abstraktion zu verstehen.
 
 ```cs
 static void Main(string[] args)
 {
-    // Erstellt zwei Lauscher-Hosts, von denen jeder seinen eigenen Router hat und
-    // auf seinem eigenen Port hört
+    // Erstelle zwei Listening-Hosts, von denen jeder seinen eigenen Router hat und
+    // auf seinem eigenen Port lauscht
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Hallo vom Host A!"));
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, "/", request => new HttpResponse().WithContent("Hallo vom Host B!"));
-
-    // Erstellt eine Server-Konfiguration und fügt beide
-    // Lauscher-Hosts hinzu
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
+ 
+    // Erstelle eine Serverkonfiguration und füge beide
+    // Listening-Hosts hinzu
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);

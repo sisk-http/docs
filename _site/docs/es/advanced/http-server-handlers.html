@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Controladores de servidor HTTP | Sisk </title>
+        <title>Manejadores del servidor Http | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Controladores de servidor HTTP | Sisk ">
+        <meta name="title" content="Manejadores del servidor Http | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,22 +171,22 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="controladores-de-servidor-http">Controladores de servidor HTTP</h1>
+<h1 id="manejadores-del-servidor-http">Manejadores del servidor Http</h1>
 
-<p>En la versión 0.16 de Sisk, se ha introducido la clase <code>HttpServerHandler</code>, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar controladores de eventos adicionales a Sisk, como el manejo de solicitudes HTTP, enrutadores, bolsas de contexto y más.</p>
-<p>La clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo HTTP no tiene sesiones, y por lo tanto no es posible conservar información de una solicitud a otra. Sisk proporciona por ahora una forma de implementar sesiones, contextos, conexiones de base de datos y otros proveedores útiles para ayudar en su trabajo.</p>
-<p>Consulte <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">esta página</a> para leer dónde se dispara cada evento y cuál es su propósito. También puede ver el <a href="/v1/advanced/request-lifecycle">ciclo de vida de una solicitud HTTP</a> para entender qué sucede con una solicitud y dónde se disparan los eventos. El servidor HTTP permite utilizar varios controladores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el subproceso actual para cada solicitud o contexto hasta que se ejecuten y completen todos los controladores asociados con esa función.</p>
-<p>A diferencia de los controladores de solicitudes, no se pueden aplicar a grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puede aplicar condiciones dentro de su controlador de servidor HTTP. Además, se definen singletones de cada <code>HttpServerHandler</code> para cada aplicación Sisk, por lo que solo se define una instancia por <code>HttpServerHandler</code>.</p>
-<p>Un ejemplo práctico de uso de <code>HttpServerHandler</code> es para desechar automáticamente una conexión de base de datos al final de la solicitud.</p>
+<p>En la versión 0.16 de Sisk, hemos introducido la clase <code>HttpServerHandler</code>, que tiene como objetivo ampliar el comportamiento general de Sisk y proporcionar manejadores de eventos adicionales a Sisk, como el manejo de solicitudes Http, routers, bolsas de contexto y más.</p>
+<p>Esta clase concentra los eventos que ocurren durante la vida útil de todo el servidor HTTP y también de una solicitud. El protocolo Http no tiene sesiones, por lo que no es posible conservar información de una solicitud a otra. Por ahora, Sisk ofrece una forma de que implementes sesiones, contextos, conexiones a bases de datos y otros proveedores útiles para ayudar en tu trabajo.</p>
+<p>Por favor, consulta <a href="/api/Sisk.Core.Http.Handlers.HttpServerHandler">esta página</a> para leer dónde se dispara cada evento y cuál es su propósito. También puedes ver el <a href="/v1/advanced/request-lifecycle">ciclo de vida de una solicitud HTTP</a> para entender qué ocurre con una solicitud y dónde se disparan los eventos. El servidor HTTP permite usar varios manejadores al mismo tiempo. Cada llamada a un evento es síncrona, es decir, bloqueará el hilo actual para cada solicitud o contexto hasta que todos los manejadores asociados a esa función se ejecuten y completen.</p>
+<p>A diferencia de los RequestHandlers, no pueden aplicarse a algunos grupos de rutas o rutas específicas. En su lugar, se aplican a todo el servidor HTTP. Puedes aplicar condiciones dentro de tu Http Server Handler. Además, los singletons de cada HttpServerHandler se definen para cada aplicación Sisk, de modo que solo existe una instancia por <code>HttpServerHandler</code>.</p>
+<p>Un ejemplo práctico de uso de HttpServerHandler es disponer automáticamente una conexión a la base de datos al final de la solicitud.</p>
 <pre><code class="lang-cs">// DatabaseConnectionHandler.cs
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
-        // comprueba si la solicitud ha definido un DbContext
+        // verifica si la solicitud ha definido un DbContext
         // en su bolsa de contexto
         if (requestBag.IsSet&lt;DbContext&gt;())
         {
@@ -198,17 +198,14 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // permite al usuario crear un contexto de base de datos a partir de una solicitud HTTP
-    // y almacenarlo en su bolsa de contexto
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag&lt;DbContext&gt;(db);
+        return request.Bag.GetOrAdd(() =&gt; new DbContext());
     }
 }
 </code></pre>
-<p>Con el código anterior, la extensión <code>GetDbContext</code> permite crear un contexto de conexión directamente desde el objeto <code>HttpRequest</code>. Una conexión no desechar puede causar problemas al ejecutar con la base de datos, por lo que se termina en <code>OnHttpRequestClose</code>.</p>
-<p>Puede registrar un controlador en un servidor HTTP en su constructor o directamente con <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
+<p>Con el código anterior, la extensión <code>GetDbContext</code> permite crear un contexto de conexión directamente desde el objeto HttpRequest. Una conexión no liberada puede causar problemas al trabajar con la base de datos, por lo que se termina en <code>OnHttpRequestClose</code>.</p>
+<p>Puedes registrar un manejador en un servidor Http en tu constructor o directamente con <a href="/api/Sisk.Core.Http.HttpServer.RegisterHandler">HttpServer.RegisterHandler</a>.</p>
 <pre><code class="lang-cs">// Program.cs
 
 class Program
@@ -219,12 +216,12 @@ class Program
             .UseHandler&lt;DatabaseConnectionHandler&gt;()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
 </code></pre>
-<p>Con esto, la clase <code>UsersController</code> puede utilizar el contexto de base de datos como:</p>
+<p>Con esto, la clase <code>UsersController</code> puede utilizar el contexto de base de datos de la siguiente manera:</p>
 <pre><code class="lang-cs">// UserController.cs
 
 [RoutePrefix(&quot;/users&quot;)]
@@ -244,7 +241,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        int userId = request.RouteParameters[&quot;id&quot;].GetInteger();
         var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
 
         return JsonOk(user);
@@ -254,18 +251,18 @@ public class UserController : ApiController
     public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+        var user = await request.GetJsonContentAsync&lt;User&gt;();
 
         ArgumentNullException.ThrowIfNull(user);
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
 
-        return JsonMessage(&quot;Usuario agregado.&quot;);
+        return JsonMessage(&quot;User added.&quot;);
     }
 }
 </code></pre>
-<p>El código anterior utiliza métodos como <code>JsonOk</code> y <code>JsonMessage</code> que están integrados en <code>ApiController</code>, que hereda de <code>RouterController</code>:</p>
+<p>El código anterior utiliza métodos como <code>JsonOk</code> y <code>JsonMessage</code> que están incorporados en <code>ApiController</code>, el cual hereda de un <code>RouterController</code>:</p>
 <pre><code class="lang-cs">// ApiController.cs
 
 public class ApiController : RouterModule
@@ -289,8 +286,8 @@ public class ApiController : RouterModule
     }
 }
 </code></pre>
-<p>Los desarrolladores pueden implementar sesiones, contextos y conexiones de base de datos utilizando esta clase. El código proporcionado muestra un ejemplo práctico con el <code>DatabaseConnectionHandler</code>, automatizando el descarte de la conexión de base de datos al final de cada solicitud.</p>
-<p>La integración es sencilla, con controladores registrados durante la configuración del servidor. La clase <code>HttpServerHandler</code> ofrece un conjunto de herramientas poderosas para administrar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.</p>
+<p>Los desarrolladores pueden implementar sesiones, contextos y conexiones a bases de datos usando esta clase. El código proporcionado muestra un ejemplo práctico con el DatabaseConnectionHandler, automatizando la liberación de la conexión a la base de datos al final de cada solicitud.</p>
+<p>La integración es sencilla, con los manejadores registrados durante la configuración del servidor. La clase HttpServerHandler ofrece un conjunto de herramientas potente para gestionar recursos y ampliar el comportamiento de Sisk en aplicaciones HTTP.</p>
 
 </article>
 

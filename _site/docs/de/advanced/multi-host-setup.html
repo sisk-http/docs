@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Mehrere Lauscher-Hosts pro Server | Sisk </title>
+        <title>Mehrere Listening-Hosts pro Server | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Mehrere Lauscher-Hosts pro Server | Sisk ">
+        <meta name="title" content="Mehrere Listening-Hosts pro Server | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,28 +171,28 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="mehrere-lauscher-hosts-pro-server">Mehrere Lauscher-Hosts pro Server</h1>
+<h1 id="mehrere-listening-hosts-pro-server">Mehrere Listening-Hosts pro Server</h1>
 
-<p>Das Sisk Framework unterstützt seit jeher die Verwendung von mehr als einem Host pro Server, d. h. ein einzelner HTTP-Server kann auf mehreren Ports hören und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.</p>
-<p>Auf diese Weise ist es einfach, Verantwortlichkeiten zu trennen und Dienste auf einem einzelnen HTTP-Server mit Sisk zu verwalten. Das folgende Beispiel zeigt die Erstellung von zwei ListeningHosts, von denen jeder auf einem anderen Port hört, mit unterschiedlichen Routern und Aktionen.</p>
-<p>Lesen Sie <a href="/v1/getting-started.md#manuell-erstellen-sie-ihre-app">manuell Ihre App erstellen</a>, um die Details über diese Abstraktion zu verstehen.</p>
+<p>Das Sisk Framework hat schon immer die Verwendung von mehr als einem Host pro Server unterstützt, das heißt, ein einzelner HTTP-Server kann auf mehreren Ports lauschen und jeder Port hat seinen eigenen Router und seinen eigenen Dienst, der darauf läuft.</p>
+<p>Auf diese Weise ist es einfach, Verantwortlichkeiten zu trennen und Dienste auf einem einzelnen HTTP-Server mit Sisk zu verwalten. Das nachstehende Beispiel zeigt die Erstellung von zwei ListeningHosts, die jeweils auf einem anderen Port lauschen, mit unterschiedlichen Routern und Aktionen.</p>
+<p>Lesen Sie <a href="/v1/getting-started.md#manually-creating-your-app">manually creating your app</a>, um die Details zu dieser Abstraktion zu verstehen.</p>
 <pre><code class="lang-cs">static void Main(string[] args)
 {
-    // Erstellt zwei Lauscher-Hosts, von denen jeder seinen eigenen Router hat und
-    // auf seinem eigenen Port hört
+    // Erstelle zwei Listening-Hosts, von denen jeder seinen eigenen Router hat und
+    // auf seinem eigenen Port lauscht
     //
     ListeningHost hostA = new ListeningHost();
     hostA.Ports = [new ListeningPort(12000)];
     hostA.Router = new Router();
-    hostA.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hallo vom Host A!&quot;));
+    hostA.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host A!&quot;));
 
     ListeningHost hostB = new ListeningHost();
     hostB.Ports = [new ListeningPort(12001)];
     hostB.Router = new Router();
-    hostB.Router.SetRoute(RouteMethod.Get, &quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hallo vom Host B!&quot;));
-
-    // Erstellt eine Server-Konfiguration und fügt beide
-    // Lauscher-Hosts hinzu
+    hostB.Router.MapGet(&quot;/&quot;, request =&gt; new HttpResponse().WithContent(&quot;Hello from the host B!&quot;));
+ 
+    // Erstelle eine Serverkonfiguration und füge beide
+    // Listening-Hosts hinzu
     //
     HttpServerConfiguration configuration = new HttpServerConfiguration();
     configuration.ListeningHosts.Add(hostA);

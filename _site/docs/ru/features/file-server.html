@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Сервер файлов | Sisk </title>
+        <title>File Server | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Сервер файлов | Sisk ">
+        <meta name="title" content="File Server | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,79 +171,82 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="сервер-файлов">Сервер файлов</h1>
+<h1 id="file-server">File Server</h1>
 
-<p>Sisk предоставляет namespace <code>Sisk.Http.FileSystem</code>, который содержит инструменты для обслуживания статических файлов, списка директорий и преобразования файлов. Эта функция позволяет вам обслуживать файлы из локальной директории, с поддержкой запросов диапазона (аудио/видео потоковое вещание) и настраиваемой обработки файлов.</p>
-<h2 id="обслуживание-статических-файлов">Обслуживание статических файлов</h2>
-<p>Самый простой способ обслуживать статические файлы - использовать <code>HttpFileServer.CreateServingRoute</code>. Этот метод создает маршрут, который сопоставляет префикс URL с директорией на диске.</p>
+<p>Sisk предоставляет пространство имён <code>Sisk.Http.FileSystem</code>, которое содержит инструменты для обслуживания статических файлов, отображения содержимого каталогов и конвертации файлов. Эта возможность позволяет обслуживать файлы из локального каталога, поддерживая запросы диапазонов (стриминг аудио/видео) и пользовательскую обработку файлов.</p>
+<h2 id="serving-static-files">Serving static files</h2>
+<p>Самый простой способ обслуживать статические файлы — <a href="/api/Sisk.Core.Routing.Router.MapFileSystem">Router.MapFileSystem</a>. Этот метод сопоставляет префикс URL с каталогом на диске.</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
-// сопоставляет корень сервера с текущей директорией
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/&quot;, Directory.GetCurrentDirectory()));
+// сопоставляет корень сервера с текущим каталогом
+mainRouter.MapFileSystem(&quot;/&quot;, Directory.GetCurrentDirectory());
 
 // сопоставляет /assets с папкой &quot;public/assets&quot;
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/assets&quot;, Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;)));
+mainRouter.MapFileSystem(
+    &quot;/assets&quot;,
+    Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;));
 </code></pre>
-<p>Когда запрос соответствует префиксу маршрута, <code>HttpFileServerHandler</code> будет искать файл в указанной директории. Если найден, он будет обслуживать файл; в противном случае, он вернет ответ 404 (или 403, если доступ запрещен).</p>
+<p>Когда запрос совпадает с префиксом маршрута, <code>HttpFileServerHandler</code> будет искать файл в указанном каталоге. Если файл найден, он будет отдан клиенту; иначе будет возвращён ответ 404 (или 403, если доступ запрещён).</p>
+<p><code>HttpFileServer.CreateServingRoute</code> по‑прежнему доступен, когда необходимо явно создать объект <code>Route</code>, но <code>MapFileSystem</code> является самым прямым вариантом для кода приложения.</p>
 <h2 id="httpfileserverhandler">HttpFileServerHandler</h2>
-<p>Для более детального контроля над тем, как обслуживаются файлы, вы можете создать и настроить <code>HttpFileServerHandler</code> вручную.</p>
+<p>Для более тонкого контроля над тем, как обслуживаются файлы, вы можете вручную создать и настроить <code>HttpFileServerHandler</code>.</p>
 <pre><code class="lang-cs">var fileHandler = new HttpFileServerHandler(&quot;/var/www/html&quot;);
 
-// включает список директорий (отключен по умолчанию)
+// включить отображение каталога (по умолчанию отключено)
 fileHandler.AllowDirectoryListing = true;
 
-// устанавливает пользовательский префикс маршрута (он будет обрезан из пути запроса)
+// задать пользовательский префикс маршрута (он будет удалён из пути запроса)
 fileHandler.RoutePrefix = &quot;/public&quot;;
 
-// регистрирует действие обработчика
-mainRouter.SetRoute(RouteMethod.Get, &quot;/public/.*&quot;, fileHandler.HandleRequest);
+// зарегистрировать обработчик по пути /public
+mainRouter.MapFileSystem(&quot;/public&quot;, fileHandler);
 </code></pre>
-<h3 id="настройка">Настройка</h3>
+<h3 id="configuration">Configuration</h3>
 <table>
 <thead>
 <tr>
 <th>Property</th>
-<th>Описание</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>RootDirectoryPath</code></td>
-<td>Абсолютный или относительный путь к корневой директории, из которой обслуживаются файлы.</td>
+<td>Абсолютный или относительный путь к корневому каталогу, из которого обслуживаются файлы.</td>
 </tr>
 <tr>
 <td><code>RoutePrefix</code></td>
-<td>Префикс маршрута, который будет обрезан из пути запроса при разрешении файлов. По умолчанию - <code>/</code>.</td>
+<td>Префикс маршрута, который будет удалён из пути запроса при разрешении файлов. По умолчанию <code>/</code>.</td>
 </tr>
 <tr>
 <td><code>AllowDirectoryListing</code></td>
-<td>Если установлено в <code>true</code>, включает список директорий, когда запрошена директория и не найден индексный файл. По умолчанию - <code>false</code>.</td>
+<td>Если установлено <code>true</code>, включается отображение содержимого каталога, когда запрашивается каталог и не найден файл индекса. По умолчанию <code>false</code>.</td>
 </tr>
 <tr>
 <td><code>FileConverters</code></td>
-<td>Список <code>HttpFileServerFileConverter</code>, используемых для преобразования файлов перед их обслуживанием.</td>
+<td>Список <code>HttpFileServerFileConverter</code>, используемых для преобразования файлов перед их отдачей.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="список-директорий">Список директорий</h2>
-<p>Когда <code>AllowDirectoryListing</code> включен, и пользователь запрашивает путь директории, Sisk сгенерирует HTML-страницу, перечисляющую содержимое этой директории.</p>
-<p>Список директорий включает:</p>
+<h2 id="directory-listing">Directory Listing</h2>
+<p>Когда <code>AllowDirectoryListing</code> включён, и пользователь запрашивает путь к каталогу, Sisk генерирует HTML‑страницу со списком содержимого этого каталога.</p>
+<p>Отображение каталога включает:</p>
 <ul>
-<li>Навигацию к родительской директории (<code>..</code>).</li>
-<li>Список поддиректорий.</li>
-<li>Список файлов с размером и датой последнего изменения.</li>
+<li>Навигацию к родительскому каталогу (<code>..</code>).</li>
+<li>Список подкаталогов.</li>
+<li>Список файлов с указанием размера и даты последнего изменения.</li>
 </ul>
-<h2 id="преобразователи-файлов">Преобразователи файлов</h2>
-<p>Преобразователи файлов позволяют вам перехватывать определенные типы файлов и обрабатывать их по-разному. Например, вы можете захотеть перекодировать изображение, сжать файл на лету или обслужить файл, используя частичное содержимое (Запросы диапазона).</p>
-<p>Sisk включает два встроенных преобразователя для потокового вещания мультимедиа:</p>
+<h2 id="file-converters">File Converters</h2>
+<p>Конвертеры файлов позволяют перехватывать определённые типы файлов и обрабатывать их иначе. Например, вы можете перекодировать изображение, сжимать файл «на лету» или отдавать файл частично (запросы Range).</p>
+<p>Sisk включает два встроенных конвертера для медиа‑стриминга:</p>
 <ul>
 <li><code>HttpFileAudioConverter</code>: Обрабатывает <code>.mp3</code>, <code>.ogg</code>, <code>.wav</code>, <code>.flac</code>, <code>.ogv</code>.</li>
 <li><code>HttpFileVideoConverter</code>: Обрабатывает <code>.webm</code>, <code>.avi</code>, <code>.mkv</code>, <code>.mpg</code>, <code>.mpeg</code>, <code>.wmv</code>, <code>.mov</code>, <code>.mp4</code>.</li>
 </ul>
-<p>Эти преобразователи включают поддержку <strong>HTTP-запросов диапазона</strong>, позволяя клиентам искать через аудио- и видеофайлы.</p>
-<h3 id="создание-пользовательского-преобразователя">Создание пользовательского преобразователя</h3>
-<p>Чтобы создать пользовательский преобразователь файлов, унаследуйте от <code>HttpFileServerFileConverter</code> и реализуйте <code>CanConvert</code> и <code>Convert</code>.</p>
+<p>Эти конвертеры обеспечивают поддержку <strong>HTTP Range Requests</strong>, позволяя клиентам перемещаться по аудио‑ и видеофайлам.</p>
+<h3 id="creating-a-custom-converter">Creating a custom converter</h3>
+<p>Чтобы создать собственный конвертер файлов, наследуйте <code>HttpFileServerFileConverter</code> и реализуйте <code>CanConvert</code> и <code>Convert</code>.</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
@@ -259,7 +262,7 @@ public class MyTextConverter : HttpFileServerFileConverter
     {
         string content = File.ReadAllText(file.FullName);
         
-        // преобразовать все текстовое содержимое в верхний регистр
+        // преобразовать весь текст в верхний регистр
         return new HttpResponse(200)
         {
             Content = new StringContent(content.ToUpper())

@@ -1,14 +1,14 @@
 # Web ソケット
 
-Sisk では Web ソケットもサポートしており、クライアントへのメッセージの受信と送信が可能です。
+Sisk は Web ソケットもサポートしており、クライアントとのメッセージの受信・送信が可能です。
 
-この機能はほとんどのブラウザで正常に動作しますが、Sisk ではまだ実験的な段階です。もしバグを見つけた場合は、github に報告してください。
+この機能はほとんどのブラウザで問題なく動作しますが、Sisk ではまだ実験的な段階です。バグを見つけた場合は、GitHub で報告してください。
 
 ## メッセージの受信
 
-WebSocket メッセージは順番に受信され、`ReceiveMessageAsync` によって処理されるまでキューに保管されます。このメソッドは、タイムアウトが達成されたとき、操作がキャンセルされたとき、またはクライアントが切断されたときにはメッセージを返しません。
+WebSocket のメッセージは順番通りに受信され、`ReceiveMessageAsync` によって処理されるまでキューに保持されます。このメソッドは、タイムアウトに達したとき、操作がキャンセルされたとき、またはクライアントが切断されたときにメッセージを返しません。
 
-同時に読み取りと書き込みの操作が 1 つしか行えないため、`ReceiveMessageAsync` でメッセージを待っている間に、接続されたクライアントに書き込むことはできません。
+同時に読み取りと書き込みの操作は一つしか行えないため、`ReceiveMessageAsync` でメッセージを待機している間は、接続されたクライアントへ書き込むことはできません。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -18,18 +18,18 @@ router.MapGet("/connect", async (HttpRequest req) =>
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine("メッセージを受信しました: " + msgText);
+        Console.WriteLine("Received message: " + msgText);
 
-        await ws.SendAsync("こんにちは!");
+        await ws.SendAsync("Hello!");
     }
 
     return await ws.CloseAsync();
 });
 ```
 
-## 持続的な接続
+## 永続的接続
 
-以下の例には、メッセージを受信し、処理し、ソケットの使用を終了する方法が含まれています。
+以下の例は、メッセージを受信し処理した後にソケットを終了する、永続的な WebSocket 接続の使い方を示しています。
 
 ```cs
 router.MapGet("/connect", async (HttpRequest req) =>
@@ -38,7 +38,7 @@ router.MapGet("/connect", async (HttpRequest req) =>
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync("あなたの名前は何ですか?");
+    await ws.SendAsync("What is your name?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -48,12 +48,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync("名前を入力してください!");
+        await ws.SendAsync("Please, insert your name!");
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync("あなたの年齢は?");
+    await ws.SendAsync("And your age?");
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -61,11 +61,11 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync("有効な数字を入力してください");
+        await ws.SendAsync("Please, insert an valid number");
         goto askAge;
     }
 
-    await ws.SendAsync($"あなたは {name} さんで、{age} 歳です.");
+    await ws.SendAsync($"You're {name}, and you are {age} old.");
 
     return await ws.CloseAsync();
 });
@@ -73,10 +73,52 @@ askAge:
 
 ## Ping ポリシー
 
-サーバー側イベントの Ping ポリシーと同様に、TCP 接続を維持するために Ping ポリシーを設定できます。
+Server Side Events の Ping ポリシーと同様に、非アクティブ時に TCP 接続を維持するための Ping ポリシーを設定できます。
 
 ```cs
 ws.PingPolicy.Start(
-    dataMessage: "ping-メッセージ",
+    dataMessage: "ping-message",
     interval: TimeSpan.FromSeconds(10));
 ```
+
+## 管理された接続
+
+WebSocket を受け入れる際に識別子を指定できます。識別子付きソケットは [HttpServer.WebSockets](/api/Sisk.Core.Http.HttpServer.WebSockets) に登録され、受け入れたルート以外からでもサーバーがアクティブな接続を検索できるようになります。
+
+```cs
+router.MapGet("/connect/<userId>", async (HttpRequest req) =>
+{
+    string userId = req.RouteParameters["userId"].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $"user:{userId}");
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: "ping",
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync("Received: " + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+アプリケーションの別の部分から、識別子または述語でコレクションを検索します。
+
+```cs
+HttpWebSocket? socket = server.WebSockets.GetByIdentifier("user:42");
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync("Your report is ready.");
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id => id.StartsWith("user:")))
+{
+    await activeSocket.SendAsync("Broadcast message");
+}
+```
+
+各 `HttpWebSocket` は `Identifier`、`State`、`IsClosed`、`PingPolicy` を公開します。コレクションは `All()`、`Find(...)`、`GetByIdentifier(...)`、`ActiveConnections`、`DropAll()` も提供し、サーバー管理型接続戦略をサポートします。

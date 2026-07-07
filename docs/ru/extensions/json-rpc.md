@@ -1,20 +1,20 @@
 # Расширение JSON-RPC
 
-Sisk имеет экспериментальный модуль для API [JSON-RPC 2.0](https://www.jsonrpc.org/specification), который позволяет создавать еще более простые приложения. Это расширение строго реализует транспортный интерфейс JSON-RPC 2.0 и предлагает транспорт через HTTP GET, POST-запросы и также веб-сокеты с Sisk.
+Sisk имеет экспериментальный модуль для API [JSON-RPC 2.0](https://www.jsonrpc.org/specification), который позволяет создавать ещё более простые приложения. Это расширение строго реализует транспортный интерфейс JSON-RPC 2.0 и предлагает транспорт через HTTP GET, POST запросы, а также веб‑сокеты с Sisk.
 
-Вы можете установить расширение через Nuget с помощью команды ниже. Обратите внимание, что в экспериментальных/бета-версиях необходимо включить опцию поиска предварительных пакетов в Visual Studio.
+Вы можете установить расширение через NuGet с помощью команды ниже. Обратите внимание, что в экспериментальных/бета‑версиях следует включить опцию поиска предрелизных пакетов в Visual Studio.
 
 ```bash
 dotnet add package Sisk.JsonRpc
 ```
 
-## Транспортный Интерфейс
+## Транспортный интерфейс
 
-JSON-RPC - это бесстаточный, асинхронный протокол удаленного выполнения процедур (RDP), который использует JSON для односторонней передачи данных. Запрос JSON-RPC обычно идентифицируется по ID, и ответ доставляется с тем же ID, который был отправлен в запросе. Не все запросы требуют ответа, которые называются "уведомлениями".
+JSON-RPC — это безсостояний, асинхронный протокол удалённого вызова процедур (RPC), использующий JSON для передачи данных. Запрос JSON‑RPC обычно идентифицируется по ID, а ответ возвращается с тем же ID, который был отправлен в запросе. Не все запросы требуют ответа; такие запросы называются «уведомлениями».
 
-[Спецификация JSON-RPC 2.0](https://www.jsonrpc.org/specification) подробно объясняет, как работает транспорт. Этот транспорт независим от места его использования. Sisk реализует этот протокол через HTTP, следуя соответствиям [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), который частично поддерживает GET-запросы, но полностью поддерживает POST-запросы. Также поддерживаются веб-сокеты, обеспечивающие асинхронную передачу сообщений.
+Спецификация [JSON-RPC 2.0](https://www.jsonrpc.org/specification) подробно объясняет, как работает транспорт. Этот транспорт не зависит от места применения. Sisk реализует протокол через HTTP, следуя требованиям [JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html), который частично поддерживает GET‑запросы, но полностью поддерживает POST‑запросы. Веб‑сокеты также поддерживаются, обеспечивая асинхронную передачу сообщений.
 
-Запрос JSON-RPC выглядит примерно так:
+Запрос JSON‑RPC выглядит примерно так:
 
 ```json
 {
@@ -25,7 +25,7 @@ JSON-RPC - это бесстаточный, асинхронный проток�
 }
 ```
 
-И успешный ответ выглядит примерно так:
+А успешный ответ выглядит примерно так:
 
 ```json
 {
@@ -37,7 +37,7 @@ JSON-RPC - это бесстаточный, асинхронный проток�
 
 ## Методы JSON-RPC
 
-Следующий пример показывает, как создать API JSON-RPC с помощью Sisk. Класс математических операций выполняет удаленные операции и доставляет сериализированный ответ клиенту.
+В следующем примере показано, как создать API JSON‑RPC с помощью Sisk. Класс математических операций выполняет удалённые операции и возвращает сериализованный ответ клиенту.
 
 <div class="script-header">
     <span>
@@ -48,26 +48,20 @@ JSON-RPC - это бесстаточный, асинхронный проток�
     </span>
 </div>
 
+
 ```csharp
 using var app = HttpServer.CreateBuilder(port: 5555)
     .UseJsonRPC((sender, args) =>
     {
-        // добавляет все методы, помеченные как WebMethod, в обработчик JSON-RPC
+        // добавить все методы, помеченные атрибутом WebMethod, в обработчик JSON‑RPC
         args.Handler.Methods.AddMethodsFromType(new MathOperations());
         
-        // сопоставляет маршрут /service с обработчиком JSON-RPC POST и GET запросов
+        // сопоставляет маршрут /service для обработки JSON‑RPC POST и GET запросов
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
-        // создает обработчик веб-сокета на GET /ws
-        args.Router.MapGet("/ws", request =>
-        {
-            var ws = request.GetWebSocket();
-            ws.OnReceive += args.Handler.Transport.WebSocket;
-
-            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
-            return ws.Close();
-        });
+        // сопоставляет транспорт JSON‑RPC WebSocket на GET /ws
+        args.Router.MapGet("/ws", args.Handler.Transport.WebSocket);
     })
     .Build();
 
@@ -100,11 +94,11 @@ public class MathOperations
 }
 ```
 
-Вышеуказанный пример сопоставит методы `Sum` и `Sqrt` с обработчиком JSON-RPC, и эти методы будут доступны по `GET /service`, `POST /service` и `GET /ws`. Имена методов регистронезависимы.
+Приведённый пример сопоставит методы `Sum` и `Sqrt` с обработчиком JSON‑RPC, и эти методы будут доступны по `GET /service`, `POST /service` и `GET /ws`. Имена методов нечувствительны к регистру.
 
-Параметры методов автоматически десериализуются в свои конкретные типы. Также поддерживается использование запросов с именованными параметрами. Сериализация JSON выполняется библиотекой [LightJson](https://github.com/CypherPotato/LightJson). Если тип не десериализуется правильно, вы можете создать специальный [конвертер JSON](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) для этого типа и связать его с вашими [JsonSerializerOptions](?) позже.
+Параметры методов автоматически десериализуются в их конкретные типы. Также поддерживается запрос с именованными параметрами. Сериализация JSON выполняется библиотекой [LightJson](https://github.com/CypherPotato/LightJson). Если тип десериализуется некорректно, вы можете создать специальный [JSON‑конвертер](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) для этого типа и связать его с [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions).
 
-Вы также можете получить объект `$.params` напрямую из запроса JSON-RPC в вашем методе.
+Вы также можете получить необработанный объект `$.params` из запроса JSON‑RPC непосредственно в вашем методе.
 
 <div class="script-header">
     <span>
@@ -115,6 +109,7 @@ public class MathOperations
     </span>
 </div>
 
+
 ```csharp
 [WebMethod]
 public float Sum(JsonArray|JsonObject @params)
@@ -123,9 +118,9 @@ public float Sum(JsonArray|JsonObject @params)
 }
 ```
 
-Для этого `@params` должен быть единственным параметром в вашем методе, с точным именем `params` (в C#, символ `@` необходим для экранирования этого имени параметра).
+Для этого `@params` должен быть **единственным** параметром вашего метода и иметь точно имя `params` (в C# символ `@` необходим для экранирования этого имени параметра).
 
-Десериализация параметров происходит как для именованных объектов, так и для позиционных массивов. Например, следующий метод можно вызвать удаленно как с помощью запроса с именованными параметрами, так и с помощью запроса с позиционными параметрами.
+Десериализация параметров происходит как для именованных объектов, так и для позиционных массивов. Например, следующий метод можно вызвать удалённо обоими типами запросов:
 
 ```csharp
 [WebMethod]
@@ -135,7 +130,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 }
 ```
 
-Для массива порядок параметров должен быть соблюден.
+Для массива порядок параметров должен соблюдаться.
 
 ```json
 {
@@ -158,7 +153,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 
 ## Настройка сериализатора
 
-Вы можете настроить сериализатор JSON в свойстве [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions). В этом свойстве вы можете включить использование [JSON5](https://json5.org/) для десериализации сообщений. Хотя это не соответствует спецификации JSON-RPC 2.0, JSON5 является расширением JSON, которое позволяет более人間но-читаемую и понятную запись.
+Вы можете настроить JSON‑сериализатор в свойстве [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions). В этом свойстве можно включить использование [JSON5](https://json5.org/) для десериализации сообщений. Хотя это не соответствует спецификации JSON‑RPC 2.0, JSON5 является расширением JSON, позволяющим писать более человекочитаемый и удобный код.
 
 <div class="script-header">
     <span>
@@ -169,19 +164,20 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
     </span>
 </div>
 
+
 ```csharp
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 
-        // использует санитарный компаратор имен. этот компаратор сравнивает только буквы
-        // и цифры в имени, и игнорирует другие символы. например:
+        // использует сравниватель имён с очисткой. этот сравниватель сравнивает только буквы
+        // и цифры в имени, игнорируя другие символы. пример:
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // включает JSON5 для интерпретатора JSON. даже активируя это, обычный JSON по-прежнему разрешен
+        // включает поддержку JSON5 для JSON‑интерпретатора. даже при включении этого, обычный JSON по‑прежнему разрешён
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // сопоставляет маршрут POST /service с обработчиком JSON-RPC
+        // сопоставляет маршрут POST /service с обработчиком JSON RPC
         e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
     } )
     .Build ();

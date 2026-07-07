@@ -1,14 +1,14 @@
 # ロギング
 
-Sisk を構成して、アクセスおよびエラー ログを自動的に書き込むことができます。ログのローテーション、拡張子、および頻度を定義することができます。
+Sisk を構成して、アクセスログとエラーログを自動的に書き込むことができます。ログのローテーション、拡張子、頻度を定義することが可能です。
 
-[LogStream](/api/Sisk.Core.Http.LogStream) クラスは、ログを書き込むための非同期方式を提供し、待機可能な書き込みキューにログを保持します。`LogStream` クラスは `IAsyncDisposable` を実装しており、ストリームを閉じる前にすべての保留中のログを書き込むことを保証します。
+[LogStream](/api/Sisk.Core.Http.LogStream) クラスは、非同期的にログを書き込み、await 可能な書き込みキューに保持する方法を提供します。`LogStream` クラスは `IAsyncDisposable` を実装しており、ストリームが閉じられる前に保留中のすべてのログが書き込まれることを保証します。
 
-この記事では、アプリケーション用のロギングを構成する方法を示します。
+この記事では、アプリケーションのロギングを構成する方法を示します。
 
 ## ファイルベースのアクセスログ
 
-ログはファイルを開き、テキスト行を書き込み、そして各行の書き込みごとにファイルを閉じます。この手順は、ログの書き込みレスポンスを維持するために採用されました。
+ファイルへのログは、ファイルを開き、行テキストを書き込み、書き込まれた各行ごとにファイルを閉じます。この手順は、ログの書き込み応答性を維持するために採用されました。
 
 <div class="script-header">
     <span>
@@ -37,11 +37,11 @@ class Program
 }
 ```
 
-上記のコードは、すべての受信リクエストを `logs/access.log` ファイルに書き込みます。ファイルが存在しない場合は自動的に作成されますが、ファイルの前のフォルダーは作成されません。`logs/` ディレクトリを作成する必要はありません。`LogStream` クラスが自動的に作成します。
+上記のコードは、すべての受信リクエストを `logs/access.log` ファイルに書き込みます。ファイルが存在しない場合は自動的に作成されますが、フォルダーは作成されません。`LogStream` クラスが自動的にフォルダーを作成するため、`logs/` ディレクトリを手動で作成する必要はありません。
 
 ## ストリームベースのロギング
 
-`TextWriter` オブジェクトのインスタンス (例: `Console.Out`) をコンストラクターに渡すことで、ログ ファイルを `TextWriter` オブジェクトに書き込むことができます。
+コンストラクターに `TextWriter` オブジェクトを渡すことで、`Console.Out` などの `TextWriter` インスタンスにログファイルを書き込むことができます。
 
 <div class="script-header">
     <span>
@@ -60,59 +60,61 @@ using var app = HttpServer.CreateBuilder()
     .Build();
 ```
 
-ストリームベースのログの各メッセージについて、`TextWriter.Flush()` メソッドが呼び出されます。
+ストリームベースのログに書き込まれる各メッセージについて、`TextWriter.Flush()` メソッドが呼び出されます。
 
 ## アクセスログのフォーマット
 
-事前に定義された変数を使用して、アクセス ログのフォーマットをカスタマイズできます。次の行を考えてみましょう。
+事前定義された変数でアクセスログのフォーマットをカスタマイズできます。次の行を考えてみてください。
 
 ```cs
 config.AccessLogsFormat = "%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -> %lou in %lmsms [%{user-agent}]";
 ```
 
-これにより、次のようなメッセージが書き込まれます。
+次のようなメッセージが書き込まれます。
 
-    29/3/2023 15:21:47 -0300 実行 ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+```
+    29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+```
 
-次の表に従って、ログ ファイルのフォーマットを指定できます。
+以下の表に記載されたフォーマットでログファイルを整形できます。
 
-| 値  | 什么を表す | 例 |
-|--------|-----------------------------------------------------------------------------------|---------------------------------------|
-| %dd    | 月の日 (2 桁で表記) | 05 |
-| %dmmm  | 月の完全な名前 | 7月 |
-| %dmm   | 月の略称 (3 文字) | 7月 |
-| %dm    | 月 (2 桁で表記) | 07 |
-| %dy    | 年 (4 桁で表記) | 2023 |
-| %th    | 時間 (12 時間制) | 03 |
-| %tH    | 時間 (24 時間制) | 15 |
-| %ti    | 分 (2 桁で表記) | 30 |
-| %ts    | 秒 (2 桁で表記) | 45 |
-| %tm    | ミリ秒 (3 桁で表記) | 123 |
-| %tz    | 時間帯オフセット (UTC との差) | +03:00 |
-| %ri    | クライアントのリモート IP アドレス | 192.168.1.100 |
-| %rm    | HTTP メソッド (大文字) | GET |
-| %rs    | URI スキーム (http/https) | https |
-| %ra    | URI の権威 (ドメイン) | example.com |
-| %rh    | リクエストのホスト | www.example.com |
-| %rp    | リクエストのポート | 443 |
-| %rz    | リクエストのパス | /path/to/resource |
-| %rq    | クエリ文字列 | ?key=value&another=123 |
-| %sc    | HTTP 応答ステータス コード | 200 |
-| %sd    | HTTP 応答ステータス説明 | OK |
-| %lin   | リクエストのサイズ (人間が読みやすい形式) | 1.2 KB |
-| %linr  | リクエストのサイズ (バイト) | 1234 |
-| %lou   | 応答のサイズ (人間が読みやすい形式) | 2.5 KB |
-| %lour  | 応答のサイズ (バイト) | 2560 |
-| %lms   | 経過時間 (ミリ秒) | 120 |
-| %ls    | 実行ステータス | 実行 |
-| %{header-name} | リクエストのヘッダー `header-name` | `Mozilla/5.0 (platform; rv:gecko [...` |
-| %{:header-name} | 応答のヘッダー `header-name` | `application/json` |
+| Value  | What it represents                                            | Example                               |
+|--------|---------------------------------------------------------------|---------------------------------------|
+| %dd    | 月の日（2桁でフォーマット）                                    | 05                                    |
+| %dmmm  | 月のフルネーム                                                | July                                  |
+| %dmm   | 月の省略名（3文字）                                            | Jul                                   |
+| %dm    | 月番号（2桁でフォーマット）                                    | 07                                    |
+| %dy    | 年（4桁でフォーマット）                                        | 2023                                  |
+| %th    | 12時間制の時間                                                | 03                                    |
+| %tH    | 24時間制の時間（HH）                                          | 15                                    |
+| %ti    | 分（2桁でフォーマット）                                        | 30                                    |
+| %ts    | 秒（2桁でフォーマット）                                        | 45                                    |
+| %tm    | ミリ秒（3桁でフォーマット）                                    | 123                                   |
+| %tz    | タイムゾーンオフセット（UTCの合計時間）                        | +03:00                                |
+| %ri    | クライアントのリモートIPアドレス                               | 192.168.1.100                         |
+| %rm    | HTTPメソッド（大文字）                                        | GET                                   |
+| %rs    | URIスキーム（http/https）                                    | https                                 |
+| %ra    | URIオーソリティ（ドメイン）                                   | example.com                           |
+| %rh    | リクエストのホスト                                            | www.example.com                       |
+| %rp    | リクエストのポート                                            | 443                                   |
+| %rz    | リクエストのパス                                              | /path/to/resource                     |
+| %rq    | クエリ文字列                                                  | ?key=value&another=123                |
+| %sc    | HTTPレスポンスステータスコード                                 | 200                                   |
+| %sd    | HTTPレスポンスステータスの説明                               | OK                                    |
+| %lin   | リクエストの人間可読サイズ                                    | 1.2 KB                                |
+| %linr  | リクエストの生サイズ（バイト）                                 | 1234                                  |
+| %lou   | レスポンスの人間可読サイズ                                    | 2.5 KB                                |
+| %lour  | レスポンスの生サイズ（バイト）                                 | 2560                                  |
+| %lms   | 経過時間（ミリ秒）                                            | 120                                   |
+| %ls    | 実行ステータス                                                | Executed                              |
+| %{header-name}    | リクエストの `header-name` ヘッダーを表す。                     | `Mozilla/5.0 (platform; rv:gecko [...]` |
+| %{:header-name}    | レスポンスの `header-name` ヘッダーを表す。                     | `application/json`                    |
 
-また、`HttpServerConfiguration.DefaultAccessLogFormat` を使用して、デフォルトのアクセス ログ フォーマットを使用することもできます。
+`HttpServerConfiguration.DefaultAccessLogFormat` を使用して、デフォルトのアクセスログフォーマットを利用することもできます。
 
 ## ログのローテーション
 
-HTTP サーバーを構成して、ログ ファイルを特定のサイズに達したときに圧縮された .gz ファイルにローテーションすることができます。サイズは、定義したしきい値ごとに周期的にチェックされます。
+HTTP サーバーを構成して、ログファイルが一定サイズに達したときに圧縮された .gz ファイルにローテーションさせることができます。サイズは、定義したしきい値で定期的にチェックされます。
 
 ```cs
 LogStream errorLog = new LogStream("logs/error.log")
@@ -121,37 +123,37 @@ LogStream errorLog = new LogStream("logs/error.log")
         dueTime: TimeSpan.FromHours(6));
 ```
 
-上記のコードは、6 時間ごとに LogStream のファイルが 64MB の制限に達したかどうかをチェックします。制限に達した場合、ファイルは圧縮された .gz ファイルに変換され、`access.log` はクリーンアップされます。
+上記のコードは、6 時間ごとに LogStream のファイルが 64 MB の上限に達しているかをチェックします。上限に達していれば、ファイルは .gz に圧縮され、その後 `access.log` が削除されます。
 
-このプロセス中、ファイルへの書き込みはロックされ、圧縮とクリーンアップが完了するまで待機します。書き込みキューに蓄積されたすべての行は、圧縮とクリーンアップが完了するまで待機します。
+この処理中は、ファイルが圧縮・削除されるまで書き込みがロックされます。この期間に書き込まれようとしたすべての行は、圧縮完了を待つキューに入れられます。
 
-この機能は、ファイルベースの LogStreams でのみ機能します。
+この機能はファイルベースの LogStream のみで動作します。
 
 ## エラーロギング
 
-サーバーがデバッガーにエラーをスローしない場合、エラーはログに書き込まれます。エラーの書き込みを構成するには、次のようになります。
+サーバーがデバッガーにエラーを送出しない場合、エラーが存在すればログ書き込みに転送されます。エラー書き込みは次のように構成できます。
 
 ```cs
 config.ThrowExceptions = false;
 config.ErrorsLogsStream = new LogStream("error.log");
 ```
 
-このプロパティは、エラーがコールバックまたは [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティによってキャッチされていない場合にのみ、ログに書き込みます。
+このプロパティは、エラーがコールバックまたは [Router.CallbackErrorHandler](/api/Sisk.Core.Routing.Router.CallbackErrorHandler) プロパティで捕捉されていない場合にのみ、ログに何かを書き込みます。
 
-サーバーによって書き込まれたエラーには、常に日付と時刻、リクエスト ヘッダー (本文は除く)、エラー トレース、および内部例外トレース (存在する場合) が含まれます。
+サーバーが書き込むエラーは常に日時、リクエストヘッダー（ボディは除く）、エラートレース、そして内部例外トレース（存在する場合）を記録します。
 
-## その他のログ インスタンス
+## その他のロギングインスタンス
 
-アプリケーションには、0 個または複数の LogStreams が存在できます。LogStreams の数に制限はありません。したがって、アプリケーションのログをデフォルトのアクセス ログまたはエラー ログ以外のファイルにリダイレクトすることができます。
+アプリケーションはゼロ個または複数の LogStream を持つことができ、ログチャンネルの数に制限はありません。したがって、デフォルトの AccessLog や ErrorLog 以外のファイルにアプリケーションのログを出力することも可能です。
 
 ```cs
 LogStream appMessages = new LogStream("messages.log");
-appMessages.WriteLine("アプリケーションが {0} に開始されました", DateTime.Now);
+appMessages.WriteLine("Application started at {0}", DateTime.Now);
 ```
 
 ## LogStream の拡張
 
-`LogStream` クラスを拡張して、カスタム フォーマットを書き込むことができます。Sisk のログ エンジンと互換性があります。以下の例では、Spectre.Console ライブラリを使用して、コンソールにカラフルなメッセージを書き込みます。
+`LogStream` クラスを拡張して、現在の Sisk ログエンジンと互換性のあるカスタムフォーマットを書き込むことができます。以下の例は、Spectre.Console ライブラリを通じてコンソールにカラフルなメッセージを書き込む方法を示しています。
 
 <div class="script-header">
     <span>
@@ -172,7 +174,7 @@ public class CustomLogStream : LogStream
 }
 ```
 
-また、`HttpServerHandler` を作成することで、各リクエスト/応答についてカスタム ログを自動的に書き込むことができます。以下の例は、リクエストと応答の本文を JSON でコンソールに書き込みます。ContextBag と HttpServerHandler を使用します。
+各リクエスト/レスポンスごとにカスタムログを自動的に書き込む別の方法は、[HttpServerHandler](/api/Sisk.Core.Http.Handlers.HttpServerHandler) を作成することです。以下の例はやや完全な形です。リクエストとレスポンスの本文を JSON 形式でコンソールに書き込みます。リクエスト全体のデバッグに役立ちます。この例は ContextBag と HttpServerHandler を使用しています。
 
 <div class="script-header">
     <span>
@@ -194,7 +196,7 @@ class Program
             host.UseHandler<JsonMessageHandler>();
         });
 
-        app.Router += new Route(RouteMethod.Any, "/json", request =>
+        app.Router.MapAny("/json", request =>
         {
             return new HttpResponse()
                 .WithContent(JsonContent.Create(new
@@ -226,15 +228,15 @@ class JsonMessageHandler : HttpServerHandler
     {
         if (request.Method != HttpMethod.Get && request.Headers["Content-Type"]?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
         {
-            // この時点で、接続は開かれており、クライアントはヘッダーを送信してコンテンツが JSON であることを指定しています。
-            // 次の行では、コンテンツを読み取り、リクエストに保存します。
+            // この時点で接続はオープンしており、クライアントはコンテンツが JSON であることを示すヘッダーを送信しています。
+            // 以下の行はコンテンツを読み取り、リクエストに保持させます。
             //
-            // リクエスト アクションでコンテンツを読み取らない場合、コンテンツはクライアントに応答を送信した後、ガベージ コレクションによって収集される可能性があります。
-            // したがって、応答を閉じた後にはコンテンツが利用できない可能性があります。
+            // リクエスト処理でコンテンツが読み取られない場合、GC がレスポンス送信後にコンテンツを回収する可能性があり、
+            // レスポンスが閉じられた後にコンテンツが利用できなくなることがあります。
             //
             _ = request.RawBody;
 
-            // このリクエストには JSON 本文があることを示すヒントをコンテキストに追加します。
+            // コンテキストにヒントを追加し、このリクエストが JSON ボディを持つことを示します
             request.Bag.Add("IsJsonRequest", true);
         }
     }
@@ -247,7 +249,7 @@ class JsonMessageHandler : HttpServerHandler
 
         if (result.Request.Bag.ContainsKey("IsJsonRequest"))
         {
-            // CypherPotato.LightJson ライブラリを使用して JSON を整形します。
+            // CypherPotato.LightJson ライブラリを使用して JSON を整形します
             var content = result.Request.Body;
             requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
         }
@@ -258,7 +260,7 @@ class JsonMessageHandler : HttpServerHandler
             responseMessage = $"{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}";
             
             if (content is HttpContent httpContent &&
-                // 応答が JSON であることを確認します。
+                // レスポンスが JSON かどうかをチェック
                 httpContent.Headers.ContentType?.MediaType?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
             {
                 string json = await httpContent.ReadAsStringAsync();
@@ -267,7 +269,7 @@ class JsonMessageHandler : HttpServerHandler
         }
         else
         {
-            // 内部サーバー処理のステータスを取得します。
+            // 内部サーバー処理ステータスを取得
             responseMessage = result.Status.ToString();
         }
         

@@ -197,7 +197,7 @@
             .UseListeningPort(5555)
             .Build();
 
-        host.Router.SetRoute(RouteMethod.Any, Route.AnyPath, request =&gt;
+        host.Router.MapAny(Route.AnyPath, request =&gt;
             new HttpResponse(&quot;Hello, world!!!&quot;));
 
         host.Start();

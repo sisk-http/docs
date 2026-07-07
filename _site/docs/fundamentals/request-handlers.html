@@ -215,6 +215,41 @@
 </code></pre>
 <p>In the above example, we indicated that if the <code>Authorization</code> header is present in the request, it should continue and the next request handler or the router callback should be called, whichever comes next. If it's a request handler is executed after the response by their property <a href="/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode">ExecutionMode</a> and return an non-null value, it will overwrite the router's response.</p>
 <p>Whenever a request handler returns <code>null</code>, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.</p>
+<p>If you inherit from the built-in <a href="/api/Sisk.Core.Routing.RequestHandler">RequestHandler</a> class, you can return <code>Next()</code> to make that intent explicit:</p>
+<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+</code></pre>
+<p>For handlers that need I/O, inherit from <a href="/api/Sisk.Core.Routing.AsyncRequestHandler">AsyncRequestHandler</a>:</p>
+<pre><code class="lang-cs">public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task&lt;HttpResponse?&gt; ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+</code></pre>
+<p>Small inline handlers can also be created with <code>RequestHandler.Create</code> or <code>AsyncRequestHandler.Create</code>:</p>
+<pre><code class="lang-cs">var requireJson = RequestHandler.Create((request, context) =&gt;
+{
+    if (request.Headers.ContentType?.Contains(&quot;application/json&quot;) == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
+});
+</code></pre>
 <h2 id="associating-a-request-handler-with-a-single-route">Associating a request handler with a single route</h2>
 <p>You can define one or more request handlers for a route.</p>
 <div class="script-header">
@@ -225,7 +260,7 @@
         C#
     </span>
 </div>
-<pre><code class="lang-cs">mainRouter.SetRoute(RouteMethod.Get, &quot;/&quot;, IndexPage, &quot;&quot;, new IRequestHandler[]
+<pre><code class="lang-cs">mainRouter.Map(RouteMethod.Get, &quot;/&quot;, IndexPage, new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler(),     // before request handler
     new ValidateJsonContentRequestHandler(),  // before request handler
@@ -242,12 +277,12 @@
         C#
     </span>
 </div>
-<pre><code class="lang-cs">Route indexRoute = new Route(RouteMethod.Get, &quot;/&quot;, &quot;&quot;, IndexPage, null);
+<pre><code class="lang-cs">Route indexRoute = Route.Get(&quot;/&quot;, IndexPage);
 indexRoute.RequestHandlers = new IRequestHandler[]
 {
     new AuthenticateUserRequestHandler()
 };
-mainRouter.SetRoute(indexRoute);
+mainRouter.Map(indexRoute);
 </code></pre>
 <h2 id="associating-a-request-handler-with-a-router">Associating a request handler with a router</h2>
 <p>You can define a global request handler that will runned on all routes on a router.</p>
@@ -354,14 +389,15 @@ mainRouter.GlobalRequestHandlers = new IRequestHandler[]
     myRequestHandler
 };
 
-mainRouter.SetRoute(new Route(RouteMethod.Get, &quot;/&quot;, &quot;My route&quot;, IndexPage, null)
+Route publicRoute = Route.Get(&quot;/&quot;, IndexPage);
+publicRoute.Name = &quot;My route&quot;;
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
 {
-    BypassGlobalRequestHandlers = new IRequestHandler[]
-    {
-        myRequestHandler,                    // ok: the same instance of what is in the global request handlers
-        new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
-    }
-});
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>

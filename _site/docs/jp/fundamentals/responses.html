@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>応答 | Sisk </title>
+        <title>Responses | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="応答 | Sisk ">
+        <meta name="title" content="Responses | Sisk ">
 
 
         <link rel="icon" href="../../../assets/img/favicon.ico">
@@ -171,82 +171,83 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="応答">応答</h1>
+<h1 id="responses">Responses</h1>
 
-<p>応答は、HTTP リクエストに対する HTTP 応答を表すオブジェクトです。サーバーは、リソース、ページ、ドキュメント、ファイル、その他のオブジェクトのリクエストに対する応答として、クライアントにこれらの応答を送信します。</p>
-<p>HTTP 応答は、ステータス、ヘッダー、コンテンツで構成されます。</p>
-<p>このドキュメントでは、Sisk を使用して HTTP 応答を設計する方法について説明します。</p>
-<h2 id="http-ステータスの設定">HTTP ステータスの設定</h2>
-<p>HTTP ステータスの一覧は、HTTP/1.0 以来同じであり、Sisk ではすべてのステータスがサポートされています。</p>
+<p>Responses は HTTP リクエストに対する HTTP レスポンスのオブジェクトを表します。サーバーはリソース、ページ、ドキュメント、ファイル、またはその他のオブジェクトへの要求の結果として、クライアントに送信します。</p>
+<p>HTTP レスポンスはステータス、ヘッダー、コンテンツで構成されます。</p>
+<p>このドキュメントでは、Sisk で HTTP レスポンスを設計する方法を解説します。</p>
+<h2 id="setting-an-http-status">Setting an HTTP status</h2>
+<p>HTTP ステータス一覧は HTTP/1.0 以来同じで、Sisk はすべてをサポートしています。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = System.Net.HttpStatusCode.Accepted; // 202
 </code></pre>
-<p>または、Fluent 構文を使用することもできます。</p>
+<p>または Fluent Syntax を使用して:</p>
 <pre><code class="lang-cs">new HttpResponse()
     .WithStatus(200) // or
     .WithStatus(HttpStatusCode.Ok) // or
     .WithStatus(HttpStatusInformation.Ok);
 </code></pre>
-<p>利用可能な HttpStatusCode の完全な一覧は、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">こちら</a>を参照してください。また、<a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 構造体を使用して、独自のステータス コードを指定することもできます。</p>
-<h2 id="ボディとコンテンツ-タイプ">ボディとコンテンツ タイプ</h2>
-<p>Sisk では、ネイティブの .NET コンテンツ オブジェクトを使用して、応答のボディを送信できます。たとえば、JSON 応答を送信するには、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> クラスを使用できます。</p>
+<p>利用可能な <code>HttpStatusCode</code> の完全な一覧は<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode">こちら</a>で確認できます。独自のステータスコードは <a href="/api/Sisk.Core.Http.HttpStatusInformation">HttpStatusInformation</a> 構造体を使用して指定することもできます。</p>
+<h2 id="body-and-content-type">Body and content-type</h2>
+<p>Sisk は .NET のネイティブコンテンツオブジェクトをサポートしており、レスポンスのボディを送信できます。たとえば JSON レスポンスを送る場合は <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent">StringContent</a> クラスを使用します。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Content = new StringContent(myJson, Encoding.UTF8, &quot;application/json&quot;);
 </code></pre>
-<p>サーバーは、ヘッダーに明示的に定義されていない場合、コンテンツから <code>Content-Length</code> を自動的に計算します。サーバーがコンテンツから <code>Content-Length</code> ヘッダーを暗黙的に取得できない場合、応答はチャンク エンコードで送信されます。</p>
-<p>また、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> を送信するか、<a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a> メソッドを使用して、応答をストリーミングできます。</p>
-<h2 id="応答ヘッダー">応答ヘッダー</h2>
-<p>応答で送信するヘッダーを追加、編集、または削除できます。以下の例では、クライアントにリダイレクト応答を送信する方法を示します。</p>
+<p>サーバーはヘッダーで明示的に <code>Content-Length</code> を定義していない限り、コンテンツから自動的に <code>Content-Length</code> を算出しようとします。サーバーがレスポンスコンテンツから暗黙的に <code>Content-Length</code> ヘッダーを取得できない場合、レスポンスは Chunked-Encoding で送信されます。</p>
+<p>また、<a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent">StreamContent</a> を送信したり、メソッド <a href="/api/Sisk.Core.Http.HttpRequest.GetResponseStream">GetResponseStream</a> を使用してストリームでレスポンスを返すこともできます。</p>
+<h2 id="response-headers">Response headers</h2>
+<p>レスポンスで送信するヘッダーは追加、編集、削除が可能です。以下の例はクライアントへリダイレクトレスポンスを送る方法を示しています。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.Status = HttpStatusCode.Moved;
 res.Headers.Add(HttpKnownHeaderNames.Location, &quot;/login&quot;);
 </code></pre>
-<p>または、Fluent 構文を使用することもできます。</p>
+<p>または Fluent Syntax を使用して:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithHeader(&quot;Location&quot;, &quot;/login&quot;);
 </code></pre>
-<p><a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> メソッドを使用すると、既存のヘッダーを変更せずにヘッダーを追加できます。<a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> メソッドを使用すると、同じ名前のヘッダーを指定された値に置き換えることができます。HttpHeaderCollection のインデクサーは内部的に Set メソッドを呼び出してヘッダーを置き換えます。</p>
-<p>また、<a href="/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue">GetHeaderValue</a> メソッドを使用して、ヘッダー値を取得することもできます。このメソッドは、応答ヘッダーとコンテンツ ヘッダー (コンテンツが設定されている場合) の両方から値を取得するのに役立ちます。</p>
-<pre><code class="lang-cs">// &quot;Content-Type&quot; ヘッダーの値を、応答ヘッダーとコンテンツ ヘッダー (コンテンツが設定されている場合) の両方から取得します。
+<p><code>HttpHeaderCollection</code> の <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Add">Add</a> メソッドは、既に送信されているヘッダーを変更せずにヘッダーを追加します。<a href="/api/Sisk.Core.Entity.HttpHeaderCollection.Set">Set</a> メソッドは同名のヘッダーを指定した値で置き換えます。<code>HttpHeaderCollection</code> のインデクサは内部的に Set メソッドを呼び出してヘッダーを置き換えます。</p>
+<p>ヘッダー値は <a href="/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue">GetHeaderValue</a> メソッドで取得できます。このメソッドはレスポンスヘッダーとコンテンツヘッダー（コンテンツが設定されている場合）の両方から値を取得するのに役立ちます。</p>
+<pre><code class="lang-cs">// Returns the value of the &quot;Content-Type&quot; header, checking both response.Headers and response.Content.Headers
 string? contentType = response.GetHeaderValue(&quot;Content-Type&quot;);
 </code></pre>
-<h2 id="クッキーの送信">クッキーの送信</h2>
-<p>Sisk には、クライアントにクッキーを定義することを容易にするメソッドが用意されています。クッキーは、RFC-6265 標準に従って URL エンコードされます。</p>
+<h2 id="sending-cookies">Sending cookies</h2>
+<p>Sisk にはクライアント側のクッキー定義を簡素化するメソッドがあります。このメソッドで設定されたクッキーはすでに URL エンコードされており、RFC-6265 標準に準拠しています。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SetCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;);
 </code></pre>
-<p>または、Fluent 構文を使用することもできます。</p>
+<p>または Fluent Syntax を使用して:</p>
 <pre><code class="lang-cs">new HttpResponse(301)
     .WithCookie(&quot;cookie-name&quot;, &quot;cookie-value&quot;, expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
 </code></pre>
-<p>このメソッドのより包括的なバージョンについては、<a href="/api/Sisk.Core.Http.CookieHelper.SetCookie">こちら</a>を参照してください。</p>
-<h2 id="チャンク応答">チャンク応答</h2>
-<p>大きな応答を送信するために、転送エンコードをチャンクに設定できます。</p>
+<p>同じメソッドの<a href="/api/Sisk.Core.Helpers.CookieHelper.SetCookie">より完全なバージョン</a>も用意されています。</p>
+<h2 id="chunked-responses">Chunked responses</h2>
+<p>大きなレスポンスを送信する場合は、転送エンコーディングを chunked に設定できます。</p>
 <pre><code class="lang-cs">HttpResponse res = new HttpResponse();
 res.SendChunked = true;
 </code></pre>
-<p>チャンク エンコードを使用すると、<code>Content-Length</code> ヘッダーが自動的に省略されます。</p>
-<h2 id="応答ストリーム">応答ストリーム</h2>
-<p>応答ストリームは、セグメント化された方法で応答を送信するための管理された方法です。これは、HttpResponse オブジェクトを使用するよりも低レベルの操作であり、ヘッダーとコンテンツを手動で送信し、接続を閉じる必要があります。</p>
-<p>以下の例では、ファイルの読み取り専用ストリームを開き、ストリームを応答の出力ストリームにコピーし、ファイル全体をメモリに読み込まずにファイルを提供する方法を示します。</p>
-<pre><code class="lang-cs">// 応答の出力ストリームを取得します。
+<p>chunked-encoding を使用すると、<code>Content-Length</code> ヘッダーは自動的に省略されます。</p>
+<h2 id="response-stream">Response stream</h2>
+<p>レスポンスストリームは、レスポンスを分割して送信できる管理された方法です。<code>HttpResponse</code> オブジェクトを使用するより低レベルの操作で、ヘッダーとコンテンツを手動で送信し、最後に接続を閉じる必要があります。</p>
+<p>この例はファイルの読み取り専用ストリームを開き、ストリームをレスポンス出力ストリームにコピーし、メモリにファイル全体をロードしません。中規模から大規模なファイルの配信に有用です。</p>
+<pre><code class="lang-cs">// gets the response output stream
 using var fileStream = File.OpenRead(&quot;my-big-file.zip&quot;);
 var responseStream = request.GetResponseStream();
 
-// 応答のエンコードをチャンク エンコードに設定します。
-// チャンク エンコードを使用する場合は、コンテンツの長さヘッダーを送信しないでください。
+// sets the response encoding to use chunked-encoding
+// also you shouldn't send content-length header when using
+// chunked encoding
 responseStream.SendChunked = true;
 responseStream.SetStatus(200);
 responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
 
-// ファイル ストリームを応答の出力ストリームにコピーします。
+// copies the file stream to the response output stream
 fileStream.CopyTo(responseStream.ResponseStream);
 
-// ストリームを閉じます。
+// closes the stream
 return responseStream.Close();
 </code></pre>
-<h2 id="gzipdeflatebrotli-圧縮">GZip、Deflate、Brotli 圧縮</h2>
-<p>Sisk では、HTTP コンテンツを圧縮して、圧縮されたコンテンツで応答を送信できます。まず、<a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent">HttpContent</a> オブジェクトを以下の圧縮器のいずれかにラップして、圧縮された応答をクライアントに送信します。</p>
+<h2 id="gzip-deflate-and-brotli-compression">GZip, Deflate and Brotli compression</h2>
+<p>Sisk では HTTP コンテンツを圧縮してレスポンスを送信できます。まず、<code>HttpContent</code> オブジェクトを以下のいずれかの圧縮クラスでラップし、圧縮されたレスポンスをクライアントに送ります。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/hello.html&quot;, request =&gt; {
     string myHtml = &quot;...&quot;;
     
@@ -257,10 +258,11 @@ return responseStream.Close();
     };
 });
 </code></pre>
-<p>また、ストリームと組み合わせてこれらの圧縮コンテンツを使用することもできます。</p>
+<p>ストリームでも同様の圧縮コンテンツを使用できます。</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/archive.zip&quot;, request =&gt; {
     
-    // ここでは &quot;using&quot; を適用しないでください。HttpServer は、応答を送信した後、コンテンツを破棄します。
+    // do not apply &quot;using&quot; here. the HttpServer will discard your content
+    // after sending the response.
     var archive = File.OpenRead(&quot;/path/to/big-file.zip&quot;);
     
     return new HttpResponse () {
@@ -268,22 +270,22 @@ return responseStream.Close();
     }
 });
 </code></pre>
-<p>Content-Encoding ヘッダーは、圧縮コンテンツを使用すると自動的に設定されます。</p>
-<h2 id="自動圧縮">自動圧縮</h2>
-<p><a href="/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression">EnableAutomaticResponseCompression</a> プロパティを使用すると、HTTP 応答を自動的に圧縮できます。このプロパティは、ルーターの応答コンテンツを、リクエストで受け入れられる圧縮可能なコンテンツでラップします。ただし、応答が <a href="/api/Sisk.Core.Http.CompressedContent">CompressedContent</a> から派生していない場合に限ります。</p>
-<p>圧縮可能なコンテンツは、Accept-Encoding ヘッダーに従って選択され、以下の順序で選択されます。</p>
+<p><code>Content-Encoding</code> ヘッダーはこれらのコンテンツを使用すると自動的に設定されます。</p>
+<h2 id="automatic-compression">Automatic compression</h2>
+<p><code>[EnableAutomaticResponseCompression](/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression)</code> プロパティを使用すると、HTTP レスポンスを自動的に圧縮できます。このプロパティは、レスポンスが <code>[CompressedContent](/api/Sisk.Core.Http.CompressedContent)</code> から継承されていない限り、ルーターからのレスポンスコンテンツをリクエストが受け入れ可能な圧縮コンテンツに自動的にラップします。</p>
+<p>リクエストごとに選択される圧縮コンテンツは <code>Accept-Encoding</code> ヘッダーに従い、以下の順序で決定されます。</p>
 <ul>
 <li><a href="/api/Sisk.Core.Http.BrotliContent">BrotliContent</a> (br)</li>
 <li><a href="/api/Sisk.Core.Http.GZipContent">GZipContent</a> (gzip)</li>
 <li><a href="/api/Sisk.Core.Http.DeflateContent">DeflateContent</a> (deflate)</li>
 </ul>
-<p>リクエストがこれらの圧縮方法のいずれかを受け入れることを指定した場合、応答は自動的に圧縮されます。</p>
-<h2 id="暗黙的な応答タイプ">暗黙的な応答タイプ</h2>
-<p>HttpResponse 以外の戻り値の型を使用することもできますが、ルーターが各型のオブジェクトをどのように処理するかを構成する必要があります。</p>
-<p>基本的な概念は、常に参照型を返し、それを有効な HttpResponse オブジェクトに変換することです。HttpResponse を返すルートは、変換を経験しません。</p>
-<p>構造体 (値型) は、<a href="/api/Sisk.Core.Routing.RouterCallback">RouterCallback</a> と互換性がないため、ValueResult でラップしてハンドラーで使用する必要があります。</p>
-<p>以下の例は、HttpResponse を返さない戻り値の型を使用するルーター モジュールからです。</p>
-<pre><code class="lang-csharp">[RoutePrefix(&quot;/users&quot;)]
+<p>リクエストがこれらの圧縮方式のいずれかを受け入れることを示すと、レスポンスは自動的に圧縮されます。</p>
+<h2 id="implicit-response-types">Implicit response types</h2>
+<p><code>HttpResponse</code> 以外の戻り値型も使用できますが、ルーターに各オブジェクト型の取り扱い方法を設定する必要があります。</p>
+<p>概念としては、常に参照型を返し、それを有効な <code>HttpResponse</code> オブジェクトに変換します。<code>HttpResponse</code> を返すルートは変換が行われません。</p>
+<p>値型（構造体）は <code>[RouterCallback](/api/Sisk.Core.Routing.RouterCallback)</code> と互換性がないため、ハンドラで使用するには <code>ValueResult</code> にラップする必要があります。</p>
+<p>以下は <code>HttpResponse</code> を戻り値に使用しないルーターモジュールの例です。</p>
+<pre><code class="lang-cs">[RoutePrefix(&quot;/users&quot;)]
 public class UsersController : RouterModule
 {
     public List&lt;User&gt; Users = new List&lt;User&gt;();
@@ -306,19 +308,19 @@ public class UsersController : RouterModule
     [RoutePost]
     public ValueResult&lt;bool&gt; Create(HttpRequest request)
     {
-        User fromBody = JsonSerializer.Deserialize&lt;User&gt;(request.Body)!;
+        User fromBody = request.GetJsonContent&lt;User&gt;()!;
         Users.Add(fromBody);
         
         return true;
     }
 }
 </code></pre>
-<p>ここで、ルーターが各型のオブジェクトをどのように処理するかを定義する必要があります。オブジェクトは常にハンドラーの最初の引数であり、出力型は有効な HttpResponse でなければなりません。また、ルートの出力オブジェクトは、決して null にしてはなりません。</p>
-<p>ValueResult 型の場合、入力オブジェクトが ValueResult であることを示す必要はなく、代わりに T を使用します。ValueResult は、元のコンポーネントから反映されたオブジェクトです。</p>
-<p>型の関連付けでは、登録された型とルーター コールバックから返されたオブジェクトの型を比較しません。代わりに、ルーターの結果の型が登録された型に割り当て可能かどうかを確認します。</p>
-<p>オブジェクトのハンドラーを登録すると、以前に検証されていないすべての型に対してフォールバックとして機能します。値ハンドラーの登録順序も重要です。オブジェクト ハンドラーを登録すると、他のすべての型固有のハンドラーが無視されます。順序を確保するために、特定の値ハンドラーを最初に登録する必要があります。</p>
+<p>これにより、ルーター側で各オブジェクト型の処理方法を定義する必要があります。ハンドラの最初の引数は常にオブジェクトで、出力型は有効な <code>HttpResponse</code> でなければなりません。また、ルートの出力オブジェクトは <code>null</code> にすべきではありません。</p>
+<p><code>ValueResult</code> 型の場合、入力オブジェクトが <code>ValueResult</code> であることや <code>T</code> だけを示す必要はありません。<code>ValueResult</code> は元のコンポーネントから反映されたオブジェクトです。</p>
+<p>型の関連付けは、ルーターコールバックから返されたオブジェクトの型と登録された型を比較するのではなく、ルーター結果の型が登録型に代入可能かどうかをチェックします。</p>
+<p><code>Object</code> 型のハンドラを登録すると、以前に検証されていないすべての型のフォールバックとして機能します。値ハンドラの挿入順序も重要で、<code>Object</code> ハンドラを登録すると他の型固有ハンドラが無視されます。順序を保証するため、常に具体的な値ハンドラを先に登録してください。</p>
 <pre><code class="lang-cs">Router r = new Router();
-r.SetObject(new UsersController());
+r.MapInstance(new UsersController());
 
 r.RegisterValueHandler&lt;ApiResult&gt;(apiResult =&gt;
 {
@@ -339,8 +341,8 @@ r.RegisterValueHandler&lt;IEnumerable&lt;object&gt;&gt;(enumerableValue =&gt;
     return new HttpResponse(string.Join(&quot;\n&quot;, enumerableValue));
 });
 
-// オブジェクトの値ハンドラーは最後に登録する必要があります。
-// これは、他のすべてのハンドラーのフォールバックとして機能します。
+// registering an value handler of object must be the last
+// value handler which will be used as an fallback
 r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
 {
     return new HttpResponse() {
@@ -349,8 +351,38 @@ r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
     };
 });
 </code></pre>
-<h2 id="列挙可能なオブジェクトと配列に関する注意">列挙可能なオブジェクトと配列に関する注意</h2>
-<p>暗黙的な応答オブジェクトが <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.ienumerable?view=net-8.0">IEnumerable</a> を実装する場合、<code>ToArray()</code> メソッドを使用してメモリに読み込まれる前に、定義された値ハンドラーを使用して変換されます。<code>IEnumerable</code> オブジェクトは、オブジェクトの配列に変換され、応答コンバーターは常に <code>Object[]</code> を受け取り、元の型を受け取ることはありません。</p>
+<h2 id="deferred-actions">Deferred Actions</h2>
+<p>リクエストがルーターに到達すると、まず <a href="/docs/jp/fundamentals/request-handlers">request handlers</a> を通過し、ルーターアクションで処理され、続いてポスト実行リクエストハンドラが実行されます。ルーターアクションの結果は値ハンドラに渡され、値ハンドラの結果がクライアントへのレスポンスとして送信されます。</p>
+<p>このライフサイクルは非同期コンテキスト内で行われます。非同期コンテキストは、ハンドラ間やルーターアクション間でデータを共有するためにユーザーが <code>[HttpContext Bag](/api/Sisk.Core.Http.HttpContext)</code> に追加できる変数を公開します。ルーターアクションの戻り値はこの非同期コンテキストに追加され、値ハンドラからアクセス可能です。</p>
+<p>Deferred actions は、クライアントへのレスポンス配信後、同じ非同期コンテキスト内でサイクルの最後に必ず実行されるアクションです。これらは、ログ保存、データベース更新、メール送信など、レスポンス送信に必須でない長時間タスクの実行に利用できます。</p>
+<p>例外は Deferred actions 内でも捕捉され、リクエストライフサイクルの他の場所でスローされた場合と同様に処理されます。違いはクライアントがすでにレスポンスを受け取っている点で、例外はデフォルトのエラーハンドリングで処理されます。</p>
+<p><code>[HttpContext.EnqueueDeferredAction](/api/Sisk.Core.Http.HttpContext.EnqueueDeferredAction)</code> メソッドでアクションの実行を遅延させます。このメソッドは、実行すべき非同期関数と、オプションで実行時間の上限を表すタイムアウトを受け取ります。タイムアウト内に完了しない場合はキャンセルされます。</p>
+<pre><code class="lang-csharp">[RoutePost(&quot;/send-mail&quot;)]
+public HttpResponse SendMail(HttpRequest request)
+{
+    string to = request.Query[&quot;to&quot;].GetString();
+    string subject = request.Query[&quot;subject&quot;].GetString();
+    string body = request.Query[&quot;body&quot;].GetString();
+    if (string.IsNullOrWhiteSpace(to) || string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(body))
+    {
+        throw new ApiException(&quot;Missing required parameters.&quot;);
+    }
+
+    // schedules a long-running action that will be executed after sending the response to the client, but still within the same asynchronous context of the request
+    request.Context.EnqueueDeferredAction(async (ct) =&gt;
+    {
+        await EmailService.SendEmailAsync(to, subject, body);
+    }, timeout: TimeSpan.FromSeconds(30));
+
+    return new HttpResponse()
+    {
+        Status = 200,
+        Content = new StringContent(&quot;Sending the email...&quot;)
+    };
+}
+</code></pre>
+<h2 id="note-on-enumerable-objects-and-arrays">Note on enumerable objects and arrays</h2>
+<p><code>IEnumerable</code> を実装した暗黙的なレスポンスオブジェクトは、定義された値ハンドラを通す前に <code>ToArray()</code> メソッドでメモリ上に読み込まれます。この際、<code>IEnumerable</code> オブジェクトはオブジェクト配列に変換され、レスポンスコンバータは常に <code>Object[]</code> を受け取ります。</p>
 <p>以下のシナリオを考えてみましょう。</p>
 <pre><code class="lang-csharp">using var host = HttpServer.CreateBuilder(12300)
     .UseRouter(r =&gt;
@@ -370,9 +402,9 @@ r.RegisterValueHandler&lt;object&gt;(fallback =&gt;
     })
     .Build();
 </code></pre>
-<p>上記の例では、<code>IEnumerable&lt;string&gt;</code> コンバーターは <strong>呼び出されることはありません</strong>。入力オブジェクトは常に <code>Object[]</code> であるため、<code>IEnumerable&lt;string&gt;</code> に割り当てられません。ただし、<code>IEnumerable&lt;object&gt;</code> を受け取るコンバーターは入力を受け取ります。なぜなら、その値は互換性があるからです。</p>
-<p>実際に列挙されるオブジェクトの型を処理する必要がある場合は、反射を使用してコレクション要素の型を取得する必要があります。リスト、配列、コレクションを含むすべての列挙可能なオブジェクトは、HTTP 応答コンバーターによってオブジェクトの配列に変換されます。</p>
-<p><a href="https://learn.microsoft.com/pt-br/dotnet/api/system.collections.generic.iasyncenumerable-1?view=net-8.0">IAsyncEnumerable</a> を実装する値は、<a href="/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable">ConvertIAsyncEnumerableIntoEnumerable</a> プロパティが有効な場合、サーバーによって自動的に処理されます。同期的な列挙と同様に、非同期的な列挙はブロッキングの列挙に変換され、次に同期的なオブジェクトの配列に変換されます。</p>
+<p>上記例では、<code>IEnumerable&lt;string&gt;</code> コンバータは <strong>決して呼び出されません</strong>。入力オブジェクトは常に <code>Object[]</code> となり、<code>IEnumerable&lt;string&gt;</code> に変換できないためです。一方、<code>IEnumerable&lt;object&gt;</code> を受け取るコンバータは入力を受け取ります。これはその型が互換性を持つためです。</p>
+<p>列挙可能なオブジェクトの型そのものを扱う必要がある場合は、コレクション要素の型を取得するためにリフレクションを使用する必要があります。すべての列挙可能オブジェクト（リスト、配列、コレクション）は HTTP レスポンスコンバータによってオブジェクト配列に変換されます。</p>
+<p><code>IAsyncEnumerable</code> を実装した値は、<code>[ConvertIAsyncEnumerableIntoEnumerable](/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable)</code> プロパティが有効になっている場合、サーバーが自動的に処理します。これは <code>IEnumerable</code> と同様の動作で、デフォルトで <code>HttpServerConfiguration</code> に有効化されています。非同期列挙はブロッキング列挙子に変換され、さらに同期的なオブジェクト配列に変換されます。独自の値ハンドラや非同期シーケンス用のストリーミングレスポンス戦略を提供する場合にのみ、無効化してください。</p>
 
 </article>
 

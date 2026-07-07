@@ -173,11 +173,11 @@
                 <article data-uid="">
 <h1 id="веб-сокеты">Веб-сокеты</h1>
 
-<p>Sisk поддерживает веб-сокеты, такие как получение и отправка сообщений клиенту.</p>
-<p>Эта функция работает хорошо в большинстве браузеров, но в Sisk она еще экспериментальная. Пожалуйста, если вы найдете какие-либо ошибки, сообщите об этом на github.</p>
-<h2 id="принятие-сообщений">Принятие сообщений</h2>
-<p>Сообщения веб-сокетов получаются в порядке, помещаются в очередь до тех пор, пока они не будут обработаны методом <code>ReceiveMessageAsync</code>. Этот метод не возвращает сообщение, когда истекает время ожидания, когда операция отменяется или когда клиент отключается.</p>
-<p>Только одна операция чтения и записи может происходить одновременно, поэтому, пока вы ждете сообщения с помощью <code>ReceiveMessageAsync</code>, невозможно записать в подключенный клиент.</p>
+<p>Sisk также поддерживает веб‑сокеты, позволяя получать и отправлять сообщения клиенту.</p>
+<p>Эта функция работает во всех основных браузерах, но в Sisk она всё ещё экспериментальная. Пожалуйста, если вы обнаружите ошибки, сообщите о них на GitHub.</p>
+<h2 id="приём-сообщений">Приём сообщений</h2>
+<p>Сообщения WebSocket получаются в порядке их отправки и ставятся в очередь до обработки методом <code>ReceiveMessageAsync</code>. Этот метод не возвращает сообщение, если истек тайм‑аут, операция была отменена или клиент отключился.</p>
+<p>Одновременно может выполняться только одна операция чтения или записи, поэтому, пока вы ждёте сообщение с помощью <code>ReceiveMessageAsync</code>, запись клиенту невозможна.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
@@ -185,23 +185,23 @@
     while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
     {
         string msgText = receivedMessage.GetString();
-        Console.WriteLine(&quot;Получено сообщение: &quot; + msgText);
+        Console.WriteLine(&quot;Received message: &quot; + msgText);
 
-        await ws.SendAsync(&quot;Привет!&quot;);
+        await ws.SendAsync(&quot;Hello!&quot;);
     }
 
     return await ws.CloseAsync();
 });
 </code></pre>
 <h2 id="постоянное-соединение">Постоянное соединение</h2>
-<p>Пример ниже содержит способ использования постоянного соединения веб-сокета, где вы получаете сообщения, обрабатываете их и завершаете использование сокета.</p>
+<p>Пример ниже показывает, как использовать постоянное соединение WebSocket: получать сообщения, обрабатывать их и завершать работу с сокетом.</p>
 <pre><code class="lang-cs">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
 {
     using var ws = await req.GetWebSocketAsync();
     WebSocketMessage? msg;
 
 askName:
-    await ws.SendAsync(&quot;Как вас зовут?&quot;);
+    await ws.SendAsync(&quot;What is your name?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -211,12 +211,12 @@ askName:
 
     if (string.IsNullOrEmpty(name))
     {
-        await ws.SendAsync(&quot;Пожалуйста, введите ваше имя!&quot;);
+        await ws.SendAsync(&quot;Please, insert your name!&quot;);
         goto askName;
     }
 
 askAge:
-    await ws.SendAsync(&quot;А ваш возраст?&quot;);
+    await ws.SendAsync(&quot;And your age?&quot;);
     msg = await ws.ReceiveMessageAsync();
 
     if (msg is null)
@@ -224,21 +224,55 @@ askAge:
 
     if (!Int32.TryParse(msg?.GetString(), out int age))
     {
-        await ws.SendAsync(&quot;Пожалуйста, введите действительное число&quot;);
+        await ws.SendAsync(&quot;Please, insert an valid number&quot;);
         goto askAge;
     }
 
-    await ws.SendAsync($&quot;Вы {name}, и вам {age} лет.&quot;);
+    await ws.SendAsync($&quot;You're {name}, and you are {age} old.&quot;);
 
     return await ws.CloseAsync();
 });
 </code></pre>
-<h2 id="политика-пинга">Политика пинга</h2>
-<p>Аналогично тому, как работает политика пинга в Server Side Events, вы также можете настроить политику пинга, чтобы поддерживать TCP-соединение открытым, если в нем нет активности.</p>
+<h2 id="политика-ping">Политика ping</h2>
+<p>Подобно политике ping в Server Side Events, вы также можете настроить политику ping, чтобы поддерживать TCP‑соединение открытым при отсутствии активности в нём.</p>
 <pre><code class="lang-cs">ws.PingPolicy.Start(
     dataMessage: &quot;ping-message&quot;,
     interval: TimeSpan.FromSeconds(10));
 </code></pre>
+<h2 id="управляемые-соединения">Управляемые соединения</h2>
+<p>При принятии WebSocket вы можете указать идентификатор. Идентифицированные сокеты регистрируются в <a href="/api/Sisk.Core.Http.HttpServer.WebSockets">HttpServer.WebSockets</a>, что позволяет серверу находить активные соединения вне маршрута, принявшего их.</p>
+<pre><code class="lang-cs">router.MapGet(&quot;/connect/&lt;userId&gt;&quot;, async (HttpRequest req) =&gt;
+{
+    string userId = req.RouteParameters[&quot;userId&quot;].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $&quot;user:{userId}&quot;);
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: &quot;ping&quot;,
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync(&quot;Received: &quot; + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+</code></pre>
+<p>Из другой части приложения можно запросить коллекцию по идентификатору или предикату:</p>
+<pre><code class="lang-cs">HttpWebSocket? socket = server.WebSockets.GetByIdentifier(&quot;user:42&quot;);
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync(&quot;Your report is ready.&quot;);
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id =&gt; id.StartsWith(&quot;user:&quot;)))
+{
+    await activeSocket.SendAsync(&quot;Broadcast message&quot;);
+}
+</code></pre>
+<p>Каждый <code>HttpWebSocket</code> предоставляет свойства <code>Identifier</code>, <code>State</code>, <code>IsClosed</code> и <code>PingPolicy</code>. Коллекция также предоставляет методы <code>All()</code>, <code>Find(...)</code>, <code>GetByIdentifier(...)</code>, <code>ActiveConnections</code> и <code>DropAll()</code> для стратегий управляемых сервером соединений.</p>
 
 </article>
 

@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Начало работы | Sisk </title>
+        <title>Getting started | Sisk </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Начало работы | Sisk ">
+        <meta name="title" content="Getting started | Sisk ">
 
 
         <link rel="icon" href="../../assets/img/favicon.ico">
@@ -171,73 +171,73 @@
                 </div>
 
                 <article data-uid="">
-<h1 id="начало-работы">Начало работы</h1>
+<h1 id="getting-started">Getting started</h1>
 
-<p>Добро пожаловать в документацию Sisk!</p>
-<p>Наконец, что такое Sisk Framework? Это открытая библиотека, построенная на основе .NET, предназначенная для того, чтобы быть минимальной, гибкой и абстрактной. Она позволяет разработчикам создавать интернет-сервисы быстро, с минимальной или без необходимой конфигурации. Sisk позволяет вашему существующему приложению иметь управляемый HTTP-модуль, полный и утилизируемый или полный.</p>
-<p>Ценности Sisk включают прозрачность кода, модульность, производительность и масштабируемость, и могут обрабатывать различные типы приложений, такие как Restful, JSON-RPC, Web-sockets и многое другое.</p>
-<p>Его основные функции включают:</p>
+<p>Welcome to the Sisk documentation!</p>
+<p>Sisk is an open-source lightweight HTTP framework for .NET. You can use it to build a standalone web service, embed an HTTP module inside an existing application, or run a service behind a reverse proxy with only the configuration you need.</p>
+<p>Sisk's values include code transparency, modularity, performance, and scalability. It can handle different application styles, including RESTful APIs, JSON-RPC services, WebSockets, Server-Sent Events, and static file serving.</p>
+<p>It's main features includes:</p>
 <table>
 <thead>
 <tr>
-<th>Ресурс</th>
-<th>Описание</th>
+<th>Resource</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="/docs/ru/fundamentals/routing">Routing</a></td>
-<td>Маршрутизатор, поддерживающий префиксы, пользовательские методы, переменные пути, конвертеры значений и многое другое.</td>
+<td>Маршрутизатор путей, поддерживающий префиксы, пользовательские методы, переменные пути, конвертеры значений и многое другое.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/fundamentals/request-handlers">Request Handlers</a></td>
-<td>Также известные как <em>посредники</em>, предоставляют интерфейс для создания собственных обработчиков запросов, которые работают с запросом до или после действия.</td>
+<td>Также известные как <em>middlewares</em>, предоставляют интерфейс для создания собственных обработчиков запросов, работающих до или после действия.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/fundamentals/responses#gzip-deflate-and-brotli-compression">Compression</a></td>
-<td>Сжимайте содержимое ответа легко с помощью Sisk.</td>
+<td>Легко сжимайте содержимое ответов с помощью Sisk.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/features/websockets">Web sockets</a></td>
-<td>Предоставляет маршруты, которые принимают полные веб-сокеты, для чтения и записи на клиент.</td>
+<td>Предоставляет маршруты, принимающие полноценные веб‑сокеты для чтения и записи клиенту.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/features/server-sent-events">Server-sent events</a></td>
-<td>Предоставляет отправку событий сервера клиентам, поддерживающим протокол SSE.</td>
+<td>Обеспечивает отправку серверных событий клиентам, поддерживающим протокол SSE.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/features/logging">Logging</a></td>
-<td>Упрощенное ведение журнала. Ведите журнал ошибок, доступа, определяйте вращающиеся журналы по размеру, несколько потоков вывода для одного и того же журнала и многое другое.</td>
+<td>Упрощённое логирование. Записывайте ошибки, доступ, определяйте ротацию логов по размеру, несколько потоков вывода для одного лога и многое другое.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/advanced/multi-host-setup">Multi-host</a></td>
-<td>Имеете HTTP-сервер для нескольких портов, и каждый порт со своим маршрутизатором, и каждый маршрутизатор со своим приложением.</td>
+<td>Позволяет иметь HTTP‑сервер для нескольких портов, каждый из которых со своим маршрутизатором и приложением.</td>
 </tr>
 <tr>
 <td><a href="/docs/ru/advanced/http-server-handlers">Server handlers</a></td>
-<td>Расширяйте свою собственную реализацию HTTP-сервера. Настройте с помощью расширений, улучшений и новых функций.</td>
+<td>Расширяйте собственную реализацию HTTP‑сервера. Настраивайте с помощью расширений, улучшений и новых функций.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="первые-шаги">Первые шаги</h2>
-<p>Sisk может работать в любой среде .NET. В этом руководстве мы научим вас, как создать приложение Sisk с помощью .NET. Если вы еще не установили его, пожалуйста, скачайте SDK с <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">сюда</a>.</p>
-<p>В этом учебнике мы расскажем, как создать структуру проекта, получить запрос, получить параметр URL и отправить ответ. Это руководство будет сосредоточено на построении простого сервера с помощью C#. Вы также можете использовать свой любимый язык программирования.</p>
+<h2 id="first-steps">First steps</h2>
+<p>Sisk can run in any .NET environment. In this guide, we will teach you how to create a Sisk application using .NET. If you haven't installed it yet, please download the SDK from <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">here</a>.</p>
+<p>In this tutorial, we will cover how to create a project structure, receive a request, obtain a URL parameter, and send a response. This guide will focus on building a simple server using C#. You can also use your favorite programming language.</p>
 <div class="NOTE">
 <h5>Note</h5>
-<p>Вам может быть интересно быстрое начало проекта. Проверьте <a href="https://github.com/sisk-http/quickstart">этот репозиторий</a> для получения дополнительной информации.</p>
+<p>Возможно, вам будет интересен проект quickstart. Смотрите <a href="https://github.com/sisk-http/quickstart">this repository</a> для получения дополнительной информации.</p>
 </div>
-<h2 id="создание-проекта">Создание проекта</h2>
-<p>Давайте назовем наш проект &quot;Мое приложение Sisk&quot;. Как только вы настроите .NET, вы можете создать свой проект с помощью следующей команды:</p>
+<h2 id="creating-a-project">Creating a Project</h2>
+<p>Let's name our project &quot;My Sisk Application.&quot; Once you have .NET set up, you can create your project with the following command:</p>
 <pre><code class="lang-bash">dotnet new console -n my-sisk-application
 </code></pre>
-<p>Далее перейдите в каталог вашего проекта и установите Sisk с помощью утилиты .NET:</p>
+<p>Next, navigate to your project directory and install Sisk using the .NET utility tool:</p>
 <pre><code class="lang-bash">cd my-sisk-application
 dotnet add package Sisk.HttpServer
 </code></pre>
-<p>Вы можете найти дополнительные способы установки Sisk в вашем проекте <a href="https://www.nuget.org/packages/Sisk.HttpServer/">здесь</a>.</p>
-<p>Теперь давайте создадим экземпляр нашего HTTP-сервера. Для этого примера мы настроим его на прослушивание порта 5000.</p>
-<h2 id="построение-http-сервера">Построение HTTP-сервера</h2>
-<p>Sisk позволяет вам строить свое приложение шаг за шагом вручную, поскольку оно маршрутизируется к объекту HttpServer. Однако это может быть не очень удобно для большинства проектов. Поэтому мы можем использовать метод построения, который делает его проще получить наше приложение в работу.</p>
+<p>You can find additional ways to install Sisk in your project <a href="https://www.nuget.org/packages/Sisk.HttpServer/">here</a>.</p>
+<p>Now, let's create an instance of our HTTP server. For this example, we will configure it to listen on port 5000.</p>
+<h2 id="building-the-http-server">Building the HTTP Server</h2>
+<p>Sisk allows you to build your application step by step manually, as it routes to the HttpServer object. However, this may not be very convenient for most projects. Therefore, we can use the builder method, which makes it easier to get our app up and running.</p>
 <div class="script-header">
     <span>
         Program.cs
@@ -267,9 +267,9 @@ dotnet add package Sisk.HttpServer
     }
 }
 </code></pre>
-<p>Важно понять каждый важный компонент Sisk. Позже в этой документации вы узнаете больше о том, как работает Sisk.</p>
-<h2 id="ручная-расширенная-настройка">Ручная (расширенная) настройка</h2>
-<p>Вы можете узнать, как работает каждый механизм Sisk в <a href="/docs/ru/advanced/manual-setup">этом разделе</a> документации, который объясняет поведение и отношения между HttpServer, Router, ListeningPort и другими компонентами.</p>
+<p>It's important to understand each vital component of Sisk. Later in this document, you will learn more about how Sisk works.</p>
+<h2 id="manual-advanced-setup">Manual (advanced) setup</h2>
+<p>You can learn how each Sisk mechanism works in <a href="/docs/ru/advanced/manual-setup">this section</a> of the documentation, which explains the behavior and relationships between the HttpServer, Router, ListeningPort, and other components.</p>
 
 </article>
 

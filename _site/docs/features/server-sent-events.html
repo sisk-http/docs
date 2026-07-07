@@ -179,7 +179,7 @@
 <h2 id="creating-an-sse-connection">Creating an SSE connection</h2>
 <p>A SSE connection works like a regular HTTP request, but instead of sending a response and immediately closing the connection, the connection is kept open to send messages.</p>
 <p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource()</a> method, the request is put in a waiting state while the SSE instance is created.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
     using var sse = req.GetEventSource();
 
@@ -196,7 +196,7 @@
 </div>
 <h2 id="appending-headers">Appending headers</h2>
 <p>If you need to send headers, you can use the <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader">HttpRequestEventSource.AppendHeader</a> method before sending any messages.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
     using var sse = req.GetEventSource();
     sse.AppendHeader(&quot;Header-Key&quot;, &quot;Header-value&quot;);
@@ -211,8 +211,8 @@
 <p>Connections are normally terminated when the server is no longer able to send messages due to an possible client-side disconnection. With that, the connection is automatically terminated and the instance of the class is discarded.</p>
 <p>Even with a reconnection, the instance of the class will not work, as it is linked to the previous connection. In some situations, you may need this connection later and you don't want to manage it via the callback method of the route.</p>
 <p>For this, we can identify the SSE connections with an identifier and get them using it later, even outside the callback of the route. In addition, we mark the connection with <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail">WaitForFail</a> so as not to terminate the route and terminate the connection automatically.</p>
-<p>An SSE connection in KeepAlive will wait for a send error (caused by disconnection) to resume method execution. It is also possible to set a Timeout for this. After the time, if no message has been sent, the connection is terminated and execution resumes.</p>
-<pre><code class="lang-cs">r += new Route(RouteMethod.Get, &quot;/&quot;, (req) =&gt;
+<p>An SSE connection in <code>WaitForFail</code> waits for a send error caused by disconnection, or for the configured idle tolerance to elapse, before the route resumes and closes the connection.</p>
+<pre><code class="lang-cs">r.MapGet(&quot;/&quot;, (req) =&gt;
 {
     using var sse = req.GetEventSource(&quot;my-index-connection&quot;);
 
@@ -239,9 +239,9 @@ if (evs != null)
 <h2 id="setup-connections-ping-policy">Setup connections ping policy</h2>
 <p>Ping Policy is an automated way of sending periodic messages to your client. This function allows the server to understand when the client has disconnected from that connection without having to keep the connection open indefinitely.</p>
 <pre><code class="lang-cs">[RouteGet(&quot;/sse&quot;)]
-public HttpResponse Events(HttpRequest request)
+public async Task&lt;HttpResponse&gt; Events(HttpRequest request)
 {
-    using var sse = request.GetEventSource();
+    using var sse = await request.GetEventSourceAsync(&quot;user-events&quot;);
     sse.WithPing(ping =&gt;
     {
         ping.DataMessage = &quot;ping-message&quot;;
@@ -249,11 +249,12 @@ public HttpResponse Events(HttpRequest request)
         ping.Start();
     });
     
-    sse.KeepAlive();
-    return sse.Close();
+    await sse.WaitForFailAsync(TimeSpan.FromMinutes(10));
+    return await sse.CloseAsync();
 }
 </code></pre>
 <p>In the code above, every 5 seconds, a new ping message will be sent to the client. This will keep the TCP connection alive and prevent it from being closed due to inactivity. Also, when a message fails to be sent, the connection is automatically closed, freeing up the resources used by the connection.</p>
+<p>Use <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.SendAsync">SendAsync</a> and <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.CloseAsync">CloseAsync</a> in asynchronous routes. If you need to discard queued events before closing, call <a href="/api/Sisk.Core.Http.Streams.HttpRequestEventSource.Cancel">Cancel</a>.</p>
 <h2 id="querying-connections">Querying connections</h2>
 <p>You can search for active connections using a predicate on the connection identifier, to be able to broadcast, for example.</p>
 <pre><code class="lang-cs">HttpRequestEventSource[] evs = server.EventSources.Find(es =&gt; es.StartsWith(&quot;my-connection-&quot;));

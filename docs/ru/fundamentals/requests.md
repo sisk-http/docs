@@ -1,14 +1,14 @@
 # Запросы
 
-Запросы представляют собой структуры, которые представляют сообщение HTTP-запроса. Объект [HttpRequest](/api/Sisk.Core.Http.HttpRequest) содержит полезные функции для обработки HTTP-сообщений на протяжении всего вашего приложения.
+Запросы — это структуры, представляющие сообщение HTTP‑запроса. Объект [HttpRequest](/api/Sisk.Core.Http.HttpRequest) содержит полезные функции для обработки HTTP‑сообщений в вашем приложении.
 
-HTTP-запрос формируется методом, путем, версией, заголовками и телом.
+HTTP‑запрос состоит из метода, пути, версии, заголовков и тела.
 
-В этом документе мы научим вас, как получить каждый из этих элементов.
+В этом документе мы расскажем, как получить каждый из этих элементов.
 
 ## Получение метода запроса
 
-Чтобы получить метод полученного запроса, вы можете использовать свойство Method:
+Чтобы получить метод полученного запроса, используйте свойство `Method`:
 
 ```cs
 static HttpResponse Index(HttpRequest request)
@@ -21,77 +21,153 @@ static HttpResponse Index(HttpRequest request)
 Это свойство возвращает метод запроса, представленный объектом [HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod).
 
 > [!NOTE]
-> В отличие от методов маршрутизации, это свойство не обслуживает элемент [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod). Вместо этого оно возвращает фактический метод запроса.
+> В отличие от методов маршрута, это свойство не обслуживает элемент [RouteMethod.Any](/api/Sisk.Core.Routing.RouteMethod). Вместо этого оно возвращает реальный метод запроса.
 
-## Получение компонентов URL
+## Получение компонентов URL запроса
 
-Вы можете получить различные компоненты из URL через определенные свойства запроса. Для этого примера давайте рассмотрим URL:
+Вы можете получить различные компоненты URL через определённые свойства запроса. Для примера возьмём URL:
 
-``` 
+```
 http://localhost:5000/user/login?email=foo@bar.com
 ```
 
-| Название компонента | Описание | Значение компонента |
+| Имя компонента | Описание | Значение компонента |
 | --- | --- | --- |
-| [Path](/api/Sisk.Core.Http.HttpRequest.Path) | Получает путь запроса. | `/user/login` |
-| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | Получает путь запроса и строку запроса. | `/user/login?email=foo@bar.com` |
-| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | Получает всю строку URL запроса. | `http://localhost:5000/user/login?email=foo@bar.com` |
-| [Host](/api/Sisk.Core.Http.HttpRequest.Host) | Получает хост запроса. | `localhost` |
-| [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | Получает хост и порт запроса. | `localhost:5000` |
-| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | Получает запрос запроса. | `?email=foo@bar.com` |
-| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | Получает запрос запроса в виде коллекции именованных значений. | `{StringValueCollection object}` |
+| [Path](/api/Sisk.Core.Http.HttpRequest.Path) | Возвращает путь запроса. | `/user/login` |
+| [FullPath](/api/Sisk.Core.Http.HttpRequest.FullPath) | Возвращает путь запроса и строку запроса. | `/user/login?email=foo@bar.com` |
+| [FullUrl](/api/Sisk.Core.Http.HttpRequest.FullUrl) | Возвращает полную строку URL запроса. | `http://localhost:5000/user/login?email=foo@bar.com` |
+| [Host](/api/Sisk.Core.Http.HttpRequest.Host) | Возвращает хост запроса. | `localhost` |
+| [Authority](/api/Sisk.Core.Http.HttpRequest.Authority) | Возвращает хост и порт запроса. | `localhost:5000` |
+| [QueryString](/api/Sisk.Core.Http.HttpRequest.QueryString) | Возвращает строку запроса. | `?email=foo@bar.com` |
+| [Query](/api/Sisk.Core.Http.HttpRequest.Query) | Возвращает запрос в виде именованной коллекции значений. | `{StringValueCollection object}` |
 | [IsSecure](/api/Sisk.Core.Http.HttpRequest.IsSecure) | Определяет, использует ли запрос SSL (true) или нет (false). | `false` |
 
-Вы также можете использовать свойство [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri), которое включает все вышеперечисленное в один объект.
+Вы также можете воспользоваться свойством [HttpRequest.Uri](/api/Sisk.Core.Http.HttpRequest.Uri), которое включает всё перечисленное в одном объекте.
+
+## Метаданные запроса и отмена
+
+Sisk также прикрепляет к каждому запросу оперативные метаданные. Эти свойства полезны для журналов, трассировки, локализации, диагностики и длительных операций:
+
+| Свойство или метод | Назначение |
+| --- | --- |
+| [RequestId](/api/Sisk.Core.Http.HttpRequest.RequestId) | Уникальный идентификатор запроса. Включите [IncludeRequestIdHeader](/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader), чтобы возвращать его в заголовке `X-Request-Id`. |
+| [RequestedAt](/api/Sisk.Core.Http.HttpRequest.RequestedAt) | Момент создания объекта запроса Sisk. |
+| [RemoteAddress](/api/Sisk.Core.Http.HttpRequest.RemoteAddress) | Адрес клиента, полученный из соединения, либо из вашего [ForwardingResolver](/docs/ru/advanced/forwarding-resolvers). |
+| [Culture](/api/Sisk.Core.Http.HttpRequest.Culture) | Наиболее подходящая культура, определённая из `Accept-Language`, с fallback к текущей культуре. |
+| [DisconnectToken](/api/Sisk.Core.Http.HttpRequest.DisconnectToken) | Токен отмены, сигнализирующий о разрыве соединения клиентом, если поддерживается используемым HTTP‑движком. |
+| [Bag](/api/Sisk.Core.Http.HttpRequest.Bag) | Типизированное хранилище ключ/значение, доступное между обработчиками запросов и действием маршрута. |
+| [GetRawHttpRequest](/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest) | Текстовое представление запроса для диагностики. |
 
 ## Получение тела запроса
 
-Некоторые запросы включают тело, такие как формы, файлы или транзакции API. Вы можете получить тело запроса из свойства:
+Некоторые запросы содержат тело, например формы, файлы или API‑транзакции. Тело запроса можно получить через свойство:
 
 ```cs
-// получает тело запроса как строку, используя кодировку запроса в качестве кодировщика
+// получает тело запроса как строку, используя кодировку запроса
 string body = request.Body;
 
-// или получает его в виде массива байтов
+// или получает его в виде массива байт
 byte[] bodyBytes = request.RawBody;
 
-// или вы можете передать его как поток.
+// либо поток
 Stream requestStream = request.GetRequestStream();
+
+// или асинхронно читает тело
+Memory<byte> bodyMemory = await request.GetBodyContentsAsync();
 ```
 
-Также возможно определить, есть ли тело в запросе и загружено ли оно с помощью свойств [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents), которое определяет, имеет ли запрос содержимое, и [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable), которое указывает, что HTTP-сервер полностью получил содержимое из удаленной точки.
+Также можно определить, есть ли тело у запроса и загружено ли оно, с помощью свойств [HasContents](/api/Sisk.Core.Http.HttpRequest.HasContents) (определяет наличие содержимого) и [IsContentAvailable](/api/Sisk.Core.Http.HttpRequest.IsContentAvailable) (указывает, что сервер полностью получил содержимое от удалённого узла).
 
-Невозможно прочитать содержимое запроса через `GetRequestStream` более одного раза. Если вы прочитаете с помощью этого метода, значения в `RawBody` и `Body` также не будут доступны. Не нужно освобождать поток запроса в контексте запроса, поскольку он освобождается в конце HTTP-сессии, в которой он создается. Кроме того, вы можете использовать свойство [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding), чтобы получить лучшую кодировку для декодирования запроса вручную.
+Повторно читать содержимое запроса через `GetRequestStream` нельзя. Если вы читаете его этим методом, значения в `RawBody` и `Body` также станут недоступными. Не требуется явно освобождать поток запроса в контексте запроса — он освобождается в конце HTTP‑сессии, в которой был создан. Кроме того, вы можете использовать свойство [HttpRequest.RequestEncoding](/api/Sisk.Core.Http.HttpRequest.RequestEncoding) для получения оптимальной кодировки при ручном декодировании запроса.
 
-Сервер имеет ограничения на чтение содержимого запроса, которые применяются как к [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body), так и к [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body). Эти свойства копируют весь входной поток в локальный буфер того же размера, что и [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength).
+Сервер накладывает ограничения на чтение содержимого запроса, которые применяются как к [HttpRequest.Body](/api/Sisk.Core.Http.HttpRequest.Body), так и к [HttpRequest.RawBody](/api/Sisk.Core.Http.HttpRequest.Body). Эти свойства копируют весь входной поток в локальный буфер размером, равным [HttpRequest.ContentLength](/api/Sisk.Core.Http.HttpRequest.ContentLength).
 
-Ответ со статусом 413 Содержимое слишком велико возвращается клиенту, если отправленное содержимое больше [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength), определенного в конфигурации пользователя. Кроме того, если нет настроенного ограничения или если оно слишком велико, сервер выдаст исключение [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0), когда содержимое, отправленное клиентом, превышает [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 ГБ) и если содержимое попытается получить доступ через одно из упомянутых выше свойств. Вы все равно можете иметь дело с содержимым через поток.
+Если отправленное содержимое превышает значение [HttpServerConfiguration.MaximumContentLength](/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength), клиент получает ответ с кодом 413 Content Too Large. Кроме того, если ограничение не задано или слишком велико, сервер бросит [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0), когда размер содержимого, отправленного клиентом, превысит [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue) (2 ГБ) и будет попытка доступа к нему через одно из упомянутых выше свойств. Содержимое всё равно можно обрабатывать потоково.
 
 > [!NOTE]
-> Хотя Sisk позволяет это, всегда хорошей идеей является следовать семантике HTTP для создания вашего приложения и не получать или обслуживать содержимое в методах, которые не допускают этого. Прочитайте о [RFC 9110 "HTTP Семантика"](https://httpwg.org/spec/rfc9110.html).
+> Хотя Sisk позволяет это, всегда рекомендуется следовать HTTP‑семантике при построении приложения и не получать или обслуживать содержимое в методах, где это не предусмотрено. Подробнее см. [RFC 9110 "HTTP Semantics"](https://httpwg.org/spec/rfc9110.html).
+
+## Чтение JSON‑запросов
+
+Для JSON‑API предпочтительно использовать встроенные помощники JSON вместо ручного чтения `Body` и десериализации. Они используют [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/api/system.text.json) и по умолчанию применяют [HttpRequest.DefaultJsonSerializerOptions](/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions).
+
+```cs
+public record CreateUserRequest(string Name, string Email);
+
+router.MapPost("/users", (HttpRequest request) =>
+{
+    CreateUserRequest? body = request.GetJsonContent<CreateUserRequest>();
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+Используйте асинхронную перегрузку, когда вы уже в асинхронном маршруте или хотите, чтобы отмена запроса прерывала десериализацию:
+
+```cs
+router.MapPost("/users", async (HttpRequest request) =>
+{
+    CreateUserRequest? body =
+        await request.GetJsonContentAsync<CreateUserRequest>(request.DisconnectToken);
+
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+Для конкретного эндпоинта можно передать собственные [JsonSerializerOptions](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions):
+
+```cs
+var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    PropertyNameCaseInsensitive = true
+};
+
+UserDto? user = request.GetJsonContent<UserDto>(options);
+```
+
+Для приложений с Native AOT или чувствительных к обрезке используйте перегрузку `JsonTypeInfo<T>`, генерируемую `JsonSerializerContext`:
+
+```cs
+[JsonSerializable(typeof(CreateUserRequest))]
+public partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+
+CreateUserRequest? body =
+    await request.GetJsonContentAsync(
+        AppJsonSerializerContext.Default.CreateUserRequest,
+        request.DisconnectToken);
+```
+
+То же правило «прочитать один раз» применяется к JSON‑помощникам: после того как Sisk прочитает поток запроса через `GetJsonContent`, `GetJsonContentAsync`, `Body` или `RawBody`, вы не сможете позже использовать тот же поток через `GetRequestStream()`.
 
 ## Получение контекста запроса
 
-Контекст HTTP — это эксклюзивный объект Sisk, который хранит информацию о сервере HTTP, маршруте, маршрутизаторе и обработчике запроса. Вы можете использовать его, чтобы организовать себя в среде, где эти объекты трудно организовать.
+HTTP‑Context — это эксклюзивный объект Sisk, хранящий информацию о HTTP‑сервере, маршруте, роутере и обработчике запросов. Он упрощает навигацию в среде, где такие объекты трудно упорядочить.
 
-Вы можете получить текущий контекст [HttpContext](/api/Sisk.Core.Http.HttpContext) с помощью статического метода `HttpContext.GetCurrentContext()`. Этот метод возвращает контекст запроса, который в настоящее время обрабатывается в текущем потоке.
+Текущий [HttpContext](/api/Sisk.Core.Http.HttpContext) можно получить статическим методом `HttpContext.GetCurrentContext()`. Этот метод возвращает контекст запроса, обрабатываемого в текущем потоке.
 
 ```cs
 HttpContext context = HttpContext.GetCurrentContext();
 ```
 
-### Режим журнала
+### Режим журналирования
 
-Свойство [HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) позволяет вам контролировать поведение журнала для текущего запроса. Вы можете включить или отключить журнал для конкретных запросов, переопределяя конфигурацию сервера по умолчанию.
+Свойство [HttpContext.LogMode](/api/Sisk.Core.Http.HttpContext.LogMode) позволяет управлять поведением журналирования для текущего запроса. Вы можете включать или отключать журналирование для отдельных запросов, переопределяя конфигурацию сервера по умолчанию.
 
 ```cs
-// отключить журнал для этого запроса
+// Отключить журналирование для этого запроса
 context.LogMode = LogOutputMode.None;
 ```
 
-### Мешок запроса
+### Request Bag
 
-Объект [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) содержит сохраненную информацию, которая передается из обработчика запроса в другую точку и может быть потреблена в конечной точке. Этот объект также может быть использован обработчиками запросов, которые запускаются после обратного вызова маршрута.
+Объект [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) хранит информацию, передаваемую от одного обработчика запроса к другому, и может быть использован в конечной точке. Этот объект также доступен обработчикам запросов, которые выполняются после обратного вызова маршрута.
 
 > [!TIP]
 > Это свойство также доступно через свойство [HttpRequest.Bag](/api/Sisk.Core.Http.HttpRequest.Bag).
@@ -126,7 +202,7 @@ public class AuthenticateUserRequestHandler : IRequestHandler
 }
 ```
 
-Вышеуказанный обработчик запроса определит `AuthenticatedUser` в мешке запроса и может быть потреблен позже в конечном обратном вызове:
+Вышеприведённый обработчик запроса добавит `AuthenticatedUser` в RequestBag, откуда его можно будет получить позже в финальном обратном вызове:
 
 <div class="script-header">
     <span>
@@ -153,9 +229,9 @@ public class MyController
 }
 ```
 
-Вы также можете использовать методы `Bag.Set()` и `Bag.Get()`, чтобы получить или установить объекты по их типам-одиночкам.
+Также можно использовать вспомогательные методы `Bag.Set()` и `Bag.Get()` для получения или установки объектов по их типу‑синглтону.
 
-Класс `TypedValueDictionary` также предоставляет методы `GetValue` и `SetValue` для более точного контроля.
+Класс `TypedValueDictionary` предоставляет методы `GetValue` и `SetValue` для более тонкого управления.
 
 <div class="script-header">
     <span>
@@ -197,7 +273,7 @@ public static HttpResponse GetUser(HttpRequest request)
 
 ## Получение данных формы
 
-Вы можете получить значения данных формы в [NameValueCollection](https://learn.microsoft.com/pt-br/dotnet/api/system.collections.specialized.namevaluecollection) с помощью следующего примера:
+Данные формы можно получить в виде [StringKeyStoreCollection](/api/Sisk.Core.Entity.StringKeyStoreCollection) следующим образом:
 
 <div class="script-header">
     <span>
@@ -224,9 +300,15 @@ public HttpResponse Index(HttpRequest request)
 }
 ```
 
-## Получение данных multipart-формы
+Асинхронная версия полезна, когда тело запроса может быть большим или требуется поддержка отмены:
 
-Запрос HTTP Sisk позволяет получить загруженные multipart-содержимое, такое как файлы, поля форм или любое бинарное содержимое.
+```cs
+var form = await request.GetFormContentAsync(request.DisconnectToken);
+```
+
+## Получение multipart‑данных формы
+
+HTTP‑запрос Sisk позволяет получать загруженные multipart‑содержимое, такое как файлы, поля формы или любой бинарный контент.
 
 <div class="script-header">
     <span>
@@ -241,40 +323,47 @@ public HttpResponse Index(HttpRequest request)
 [RoutePost("/upload-contents")]
 public HttpResponse Index(HttpRequest request)
 {
-    // следующий метод читает весь входной запрос в массив
-    // MultipartObjects
+    // следующий метод читает весь входной поток запроса
+    // в массив MultipartObjects
     var multipartFormDataObjects = request.GetMultipartFormContent();
     
     foreach (MultipartObject uploadedObject in multipartFormDataObjects)
     {
-        // имя файла, предоставленное данными multipart-формы.
-        // Null возвращается, если объект не является файлом.
+        // Имя файла, предоставленное multipart‑формой.
+        // Возвращает null, если объект не является файлом.
         Console.WriteLine("File name       : " + uploadedObject.Filename);
 
-        // имя поля multipart-формы.
+        // Имя поля multipart‑формы.
         Console.WriteLine("Field name      : " + uploadedObject.Name);
 
-        // длина содержимого multipart-формы.
+        // Длина содержимого multipart‑формы.
         Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
 
-        // определите формат изображения на основе заголовка файла для каждого
-        // известного типа содержимого. Если содержимое не является распознаваемым общим форматом файла,
-        // этот метод ниже вернет MultipartObjectCommonFormat.Unknown
+        // Определение формата изображения по заголовку файла для каждого
+        // известного типа контента. Если контент не является распознанным
+        // общим форматом файла, метод ниже вернёт MultipartObjectCommonFormat.Unknown
         Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
     }
 }
 ```
 
-Вы можете прочитать больше о [объектах multipart-формы Sisk](/api/Sisk.Core.Entity.MultipartObject) и их методах, свойствах и функциях.
+Для асинхронных маршрутов используйте [GetMultipartFormContentAsync](/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync):
 
-## Обнаружение отключения клиента
+```cs
+var multipartFormDataObjects =
+    await request.GetMultipartFormContentAsync(request.DisconnectToken);
+```
 
-Поскольку версия v1.15 Sisk, фреймворк предоставляет токен отмены, который выбрасывается, когда соединение между клиентом и сервером закрывается преждевременно до получения ответа. Этот токен может быть полезен для обнаружения, когда клиент больше не хочет ответа и отмены длительных операций.
+Подробнее о [Multipart form objects](/api/Sisk.Core.Entity.MultipartObject) Sisk, их методах, свойствах и возможностях.
+
+## Обнаружение разрыва соединения клиентом
+
+Начиная с версии v1.15 Sisk предоставляет токен отмены через [HttpRequest.DisconnectToken](/api/Sisk.Core.Http.HttpRequest.DisconnectToken). Когда используемый HTTP‑движок поддерживает обнаружение разрыва, этот токен отменяется при закрытии клиентом соединения до завершения ответа. Это удобно для остановки длительных операций, когда клиент больше не ждёт результата.
 
 ```csharp
 router.MapGet("/connect", async (HttpRequest req) =>
 {
-    // получает токен отключения из запроса
+    // получаем токен разрыва соединения из запроса
     var dc = req.DisconnectToken;
 
     await LongOperationAsync(dc);
@@ -283,23 +372,27 @@ router.MapGet("/connect", async (HttpRequest req) =>
 });
 ```
 
-Этот токен не совместим со всеми движками HTTP, и каждый требует реализации.
+Токен не совместим со всеми HTTP‑движками; каждый требует собственной реализации.
 
-## Поддержка серверных событий
+Движок Sisk по умолчанию, основанный на `System.Net.HttpListener`, не поддерживает обнаружение разрыва клиентом. При использовании движка по умолчанию `DisconnectToken` равен `CancellationToken.None`; фактически это токен без возможности отмены и считается недоступным.
 
-Sisk поддерживает [серверные события](https://developer.mozilla.org/en-US/docs/ru/Web/API/Server-sent_events), которые позволяют отправлять фрагменты как поток и поддерживать соединение между сервером и клиентом.
+Движок [Cadente](/docs/ru/cadente) поддерживает `DisconnectToken`. Если ваш маршрут зависит от отмены при разрыве, используйте Cadente или другой движок, явно реализующий это поведение. Даже при поддерживаемом движке отмена является кооперативной: передавайте токен в асинхронные API и проверяйте его в собственных длительных задачах.
 
-Вызов метода [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) приведет к тому, что запрос HTTP будет находиться в состоянии прослушивания. После этого контекст этого запроса HTTP не будет ожидать ответа HttpResponse, поскольку он будет перекрывать пакеты, отправляемые серверными событиями.
+## Поддержка Server‑sent events
 
-После отправки всех пакетов обратный вызов должен вернуть метод [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close), который отправит окончательный ответ серверу и укажет, что потоковое вещание завершилось.
+Sisk поддерживает [Server‑sent events](https://developer.mozilla.org/en-US/docs/ru/Web/API/Server-sent_events), позволяя отправлять фрагменты как поток и поддерживать соединение между сервером и клиентом живым.
 
-Невозможно предсказать, какой будет общий размер всех пакетов, которые будут отправлены, поэтому невозможно определить конец соединения с помощью заголовка `Content-Length`.
+Вызов метода [HttpRequest.GetEventSource](/api/Sisk.Core.Http.HttpRequest.GetEventSource) переводит HttpRequest в состояние слушателя. В этом случае контекст HTTP‑запроса не будет ожидать HttpResponse, так как он будет «перекрывать» пакеты, отправляемые серверными событиями.
 
-По умолчанию большинства браузеров серверные события не поддерживают отправку HTTP-заголовков или методов, кроме метода GET. Поэтому будьте осторожны при использовании обработчиков запросов с запросами event-source, которые требуют определенных заголовков в запросе, поскольку они, вероятно, не будут иметь их.
+После отправки всех пакетов обратный вызов должен вернуть метод [Close](/api/Sisk.Core.Http.HttpRequestEventSource.Close), который отправит финальный ответ серверу и укажет, что поток завершён.
 
-Кроме того, большинство браузеров перезапускают потоки, если метод [EventSource.close](https://developer.mozilla.org/en-US/docs/ru/Web/API/EventSource/close) не вызван на стороне клиента после получения всех пакетов, что приводит к бесконечной дополнительной обработке на стороне сервера. Чтобы избежать этой проблемы, обычно отправляют окончательный пакет, указывающий, что источник событий завершил отправку всех пакетов.
+Невозможно предсказать общую длину всех пакетов, поэтому определить конец соединения с помощью заголовка `Content-Length` нельзя.
 
-Пример ниже показывает, как браузер может общаться с сервером, поддерживающим серверные события.
+По умолчанию большинство браузеров не поддерживают отправку HTTP‑заголовков или методов, отличных от GET, в серверных событиях. Поэтому будьте осторожны, используя обработчики запросов с event‑source, требующие специфических заголовков — скорее всего они не будут присутствовать.
+
+Кроме того, большинство браузеров перезапускают поток, если метод [EventSource.close](https://developer.mozilla.org/en-US/docs/ru/Web/API/EventSource/close) не был вызван на клиенте после получения всех пакетов, что приводит к бесконечной дополнительной обработке на сервере. Чтобы избежать такой проблемы, обычно отправляют финальный пакет, указывающий, что источник событий завершил передачу.
+
+Ниже пример того, как браузер может взаимодействовать с сервером, поддерживающим Server‑side events.
 
 <div class="script-header">
     <span>
@@ -334,7 +427,7 @@ Sisk поддерживает [серверные события](https://develo
 </html>
 ```
 
-И постепенно отправляйте сообщения клиенту:
+И постепенно отправлять сообщения клиенту:
 
 <div class="script-header">
     <span>
@@ -351,7 +444,7 @@ public class MyController
     [RouteGet("/event-source")]
     public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
     {
-        var sse = await request.GetEventSourceAsync ();
+        var serverEvents = await request.GetEventSourceAsync ();
         
         string[] fruits = new[] { "Apple", "Banana", "Watermelon", "Tomato" };
         
@@ -361,23 +454,23 @@ public class MyController
             await Task.Delay(1500);
         }
 
-        return serverEvents.Close();
+        return await serverEvents.CloseAsync();
     }
 }
 ```
 
-Когда вы запускаете этот код, мы ожидаем результат, подобный этому:
+При запуске этого кода ожидаемый результат выглядит примерно так:
 
 <img src="/assets/img/server side events demo.gif" />
 
-## Разрешение прокси-IP и хостов
+## Разрешение проксированных IP и хостов
 
-Sisk можно использовать с прокси, и поэтому IP-адреса могут быть заменены конечной точкой прокси в транзакции от клиента к прокси.
+Sisk может работать через прокси, поэтому IP‑адреса могут быть заменены конечной точкой прокси в транзакции от клиента к прокси.
 
-Вы можете определить свои собственные разрешители в Sisk с помощью [разрешителей пересылки](/docs/ru/advanced/forwarding-resolvers).
+Вы можете определить собственные резолверы в Sisk с помощью [forwarding resolvers](/docs/ru/advanced/forwarding-resolvers).
 
-## Кодирование заголовков
+## Кодировка заголовков
 
-Кодирование заголовков может быть проблемой для некоторых реализаций. В Windows заголовки UTF-8 не поддерживаются, поэтому используется ASCII. Sisk имеет встроенный конвертер кодировки, который может быть полезен для декодирования неправильно закодированных заголовков.
+Кодировка заголовков может стать проблемой для некоторых реализаций. В Windows заголовки UTF‑8 не поддерживаются, поэтому используется ASCII. Sisk имеет встроенный конвертер кодировок, который может помочь декодировать неправильно закодированные заголовки.
 
-Эта операция дорога и отключена по умолчанию, но может быть включена под флагом [NormalizeHeadersEncodings](/specification/spec/Sisk.Core.Http.HttpServerFlags.NormalizeHeadersEncodings).
+Эта операция ресурсоёмка и по умолчанию отключена, но её можно включить через [HttpServerConfiguration.NormalizeHeadersEncodings](/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings).

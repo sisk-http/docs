@@ -1,20 +1,20 @@
 # JSON-RPC 拡張
 
-Sisk には、よりシンプルなアプリケーションを作成できる JSON-RPC 2.0 API 用の実験的なモジュールがあります。この拡張機能は、JSON-RPC 2.0 トランスポート インターフェイスを厳密に実装し、HTTP GET、POST リクエスト、および Sisk を使用した Web ソケットを介したトランスポートを提供します。
+Sisk には [JSON-RPC 2.0](https://www.jsonrpc.org/specification) API 用の実験的モジュールがあり、さらにシンプルなアプリケーションを作成できます。この拡張は JSON-RPC 2.0 のトランスポートインターフェースを厳密に実装し、HTTP GET、POST リクエストおよび Sisk の WebSocket によるトランスポートを提供します。
 
-以下のコマンドを使用して Nuget を介して拡張機能をインストールできます。実験/ベータ バージョンの場合は、Visual Studio でプレリリース パッケージの検索オプションを有効にする必要があります。
+以下のコマンドで NuGet から拡張機能をインストールできます。実験的/ベータ版の場合は、Visual Studio でプレリリース パッケージを検索するオプションを有効にしてください。
 
 ```bash
 dotnet add package Sisk.JsonRpc
 ```
 
-## トランスポート インターフェイス
+## トランスポートインターフェース
 
-JSON-RPC は、状態を保持しない非同期リモート手順呼び出し (RDP) プロトコルで、JSON を使用して一方向のデータ通信を行います。JSON-RPC リクエストは、通常、ID で識別され、レスポンスはリクエストで送信された同じ ID で配信されます。すべてのリクエストがレスポンスを必要としない場合は、「通知」と呼ばれます。
+JSON-RPC はステートレスで非同期のリモート手続き呼び出し (RPC) プロトコルで、データ通信に JSON を使用します。JSON-RPC のリクエストは通常 ID で識別され、レスポンスはリクエストで送信された同じ ID で返されます。すべてのリクエストがレスポンスを必要とするわけではなく、そういったものは「通知」と呼ばれます。
 
-[JSON-RPC 2.0仕様](https://www.jsonrpc.org/specification) では、トランスポートの詳細について説明しています。このトランスポートは、使用される場所に依存しません。Sisk は、このプロトコルを HTTP を介して実装し、[JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) に準拠しています。これは、GET リクエストを部分的にサポートし、POST リクエストを完全にサポートします。Web ソケットもサポートされており、非同期メッセージ通信を提供します。
+[JSON-RPC 2.0 仕様](https://www.jsonrpc.org/specification) はトランスポートの動作を詳細に説明しています。このトランスポートは使用場所に依存しません。Sisk は HTTP を介してこのプロトコルを実装し、[JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) の規格に従います。GET リクエストは部分的にサポートされ、POST リクエストは完全にサポートされます。WebSocket もサポートされ、非同期メッセージ通信を提供します。
 
-JSON-RPC リクエストは次のようになります。
+JSON-RPC のリクエストは次のようになります:
 
 ```json
 {
@@ -25,7 +25,7 @@ JSON-RPC リクエストは次のようになります。
 }
 ```
 
-そして、成功したレスポンスは次のようになります:
+成功したレスポンスは次のようになります:
 
 ```json
 {
@@ -37,7 +37,7 @@ JSON-RPC リクエストは次のようになります。
 
 ## JSON-RPC メソッド
 
-以下の例は、Sisk を使用して JSON-RPC API を作成する方法を示しています。数学演算クラスは、リモート演算を実行し、シリアライズされたレスポンスをクライアントに配信します。
+以下の例は Sisk を使用して JSON-RPC API を作成する方法を示しています。数学演算クラスがリモート操作を実行し、シリアライズされたレスポンスをクライアントに返します。
 
 <div class="script-header">
     <span>
@@ -48,26 +48,20 @@ JSON-RPC リクエストは次のようになります。
     </span>
 </div>
 
+
 ```csharp
 using var app = HttpServer.CreateBuilder(port: 5555)
     .UseJsonRPC((sender, args) =>
     {
-        // WebMethod 属性が付与されたすべてのメソッドを JSON-RPC ハンドラーに追加します
+        // WebMethod 属性が付与されたすべてのメソッドを JSON-RPC ハンドラに追加します
         args.Handler.Methods.AddMethodsFromType(new MathOperations());
         
-        // /service ルートを JSON-RPC POST および GET リクエストのハンドラーとしてマップします
+        // /service ルートをマッピングし、JSON-RPC の POST と GET リクエストを処理します
         args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
         args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
         
-        // GET /ws で Web ソケット ハンドラーを作成します
-        args.Router.MapGet("/ws", request =>
-        {
-            var ws = request.GetWebSocket();
-            ws.OnReceive += args.Handler.Transport.WebSocket;
-
-            ws.WaitForClose(timeout: TimeSpan.FromSeconds(30));
-            return ws.Close();
-        });
+        // GET /ws で JSON-RPC WebSocket トランスポートをマッピングします
+        args.Router.MapGet("/ws", args.Handler.Transport.WebSocket);
     })
     .Build();
 
@@ -100,11 +94,11 @@ public class MathOperations
 }
 ```
 
-上記の例では、`Sum` と `Sqrt` メソッドを JSON-RPC ハンドラーにマップし、GET /service、POST /service、および GET /ws で利用できるようにします。メソッド名は大文字と小文字を区別しません。
+上記の例では `Sum` と `Sqrt` メソッドが JSON-RPC ハンドラにマッピングされ、`GET /service`、`POST /service`、`GET /ws` で利用可能になります。メソッド名は大文字小文字を区別しません。
 
-メソッドのパラメーターは、自動的に特定の型にデシリアライズされます。名前付きパラメーターを使用したリクエストもサポートされます。JSON シリアライズは、[LightJson](https://github.com/CypherPotato/LightJson) ライブラリによって実行されます。型が正しくデシリアライズされない場合は、その型用に特定の [JSON コンバーター](https://github.com/CypherPotato/LightJson?tab=readme-ov-file#json-converters) を作成し、後で [JsonSerializerOptions](?) に関連付けることができます。
+メソッドパラメータは自動的にそれぞれの型へデシリアライズされます。名前付きパラメータを使用したリクエストもサポートされています。JSON のシリアライズは LightJson ライブラリが行います。型が正しくデシリアライズされない場合は、その型用の JSON コンバータを作成し、[JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) に関連付けることができます。
 
-JSON-RPC リクエストから直接 `$.params` の生のオブジェクトをメソッドで取得することもできます。
+メソッド内で JSON-RPC リクエストの `$.params` 生オブジェクトを直接取得することもできます。
 
 <div class="script-header">
     <span>
@@ -115,6 +109,7 @@ JSON-RPC リクエストから直接 `$.params` の生のオブジェクトを�
     </span>
 </div>
 
+
 ```csharp
 [WebMethod]
 public float Sum(JsonArray|JsonObject @params)
@@ -123,9 +118,9 @@ public float Sum(JsonArray|JsonObject @params)
 }
 ```
 
-これが発生するには、`@params` がメソッドの唯一のパラメーターで、正確に `params` (C# では `@` でエスケープする必要があります) という名前でなければなりません。
+これを行うには、`@params` がメソッドの **唯一** のパラメータであり、名前が正確に `params` である必要があります（C# ではこのパラメータ名をエスケープするために `@` が必要です）。
 
-パラメーターのデシリアライズは、名前付きオブジェクトまたは位置指定配列の両方で発生します。たとえば、次のメソッドは、両方のリクエストでリモートで呼び出されることができます。
+パラメータのデシリアライズは、名前付きオブジェクトでも位置指定配列でも行われます。例えば、以下のメソッドは両方のリクエストでリモート呼び出しできます。
 
 ```csharp
 [WebMethod]
@@ -135,7 +130,7 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 }
 ```
 
-配列の場合、パラメーターの順序を従う必要があります。
+配列の場合、パラメータの順序を守る必要があります。
 
 ```json
 {
@@ -156,9 +151,9 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
 }
 ```
 
-## シリアライザーのカスタマイズ
+## シリアライザのカスタマイズ
 
-[JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) プロパティで JSON シリアライザーをカスタマイズできます。このプロパティでは、メッセージのデシリアライズに [JSON5](https://json5.org/) を使用できるようにすることができます。JSON-RPC 2.0 との準拠ではありませんが、JSON5 は、人間が読み書きしやすい JSON の拡張です。
+JSON シリアライザは [JsonRpcHandler.JsonSerializerOptions](/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions) プロパティでカスタマイズできます。このプロパティでは、メッセージのデシリアライズに JSON5 の使用を有効にできます。JSON-RPC 2.0 の規格ではありませんが、JSON5 は JSON の拡張で、より人間に読みやすく書きやすくなります。
 
 <div class="script-header">
     <span>
@@ -169,21 +164,19 @@ public float AddUserToStore(string apiKey, User user, UserStore store)
     </span>
 </div>
 
+
 ```csharp
 using var host = HttpServer.CreateBuilder ( 5556 )
     .UseJsonRPC ( ( o, e ) => {
 
-        // 名前比較子を使用して、名前の比較を実行します。
-        // この比較子では、名前の文字と数字のみを比較し、他の文字は無視します。
-        // 例:
+        // サニタイズされた名前比較子を使用します。この比較子は名前中の文字と数字のみを比較し、他の記号は無視します。例:
         // foo_bar10 == FooBar10
         e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
 
-        // JSON5 を JSON インタープリターで有効にします。
-        // これを有効にすると、JSON5 が有効になりますが、通常の JSON も有効のままです。
+        // JSON インタプリタで JSON5 を有効にします。これを有効にしても、通常の JSON は引き続き使用可能です
         e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
 
-        // POST /service ルートを JSON-RPC ハンドラーとしてマップします
+        // POST /service ルートを JSON RPC ハンドラにマッピングします
         e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
     } )
     .Build ();

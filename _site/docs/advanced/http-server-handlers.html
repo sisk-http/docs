@@ -182,7 +182,7 @@
 
 public class DatabaseConnectionHandler : HttpServerHandler
 {
-    public override void OnHttpRequestClose(HttpServerExecutionResult result)
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
     {
         var requestBag = result.Request.Context.RequestBag;
 
@@ -198,12 +198,9 @@ public class DatabaseConnectionHandler : HttpServerHandler
 
 public static class DatabaseConnectionHandlerExtensions
 {
-    // allows the user to create an dbcontext from an http request
-    // and store it in its request bag
     public static DbContext GetDbContext(this HttpRequest request)
     {
-        var db = new DbContext();
-        return request.SetContextBag&lt;DbContext&gt;(db);
+        return request.Bag.GetOrAdd(() =&gt; new DbContext());
     }
 }
 </code></pre>
@@ -219,7 +216,7 @@ class Program
             .UseHandler&lt;DatabaseConnectionHandler&gt;()
             .Build();
 
-        app.Router.SetObject(new UserController());
+        app.Router.MapInstance(new UserController());
         app.Start();
     }
 }
@@ -244,7 +241,7 @@ public class UserController : ApiController
     {
         var db = request.GetDbContext();
 
-        var userId = request.GetQueryValue&lt;int&gt;(&quot;id&quot;);
+        int userId = request.RouteParameters[&quot;id&quot;].GetInteger();
         var user = db.Users.FirstOrDefault(u =&gt; u.Id == userId);
 
         return JsonOk(user);
@@ -254,7 +251,7 @@ public class UserController : ApiController
     public async Task&lt;HttpResponse&gt; Create(HttpRequest request)
     {
         var db = request.GetDbContext();
-        var user = JsonSerializer.Deserialize&lt;User&gt;(request.Body);
+        var user = await request.GetJsonContentAsync&lt;User&gt;();
 
         ArgumentNullException.ThrowIfNull(user);
 

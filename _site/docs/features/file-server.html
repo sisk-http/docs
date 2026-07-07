@@ -175,17 +175,20 @@
 
 <p>Sisk provides the <code>Sisk.Http.FileSystem</code> namespace, which contains tools for serving static files, directory listing and file conversion. This feature allows you to serve files from a local directory, with support for range requests (audio/video streaming) and custom file processing.</p>
 <h2 id="serving-static-files">Serving static files</h2>
-<p>The easiest way to serve static files is using <code>HttpFileServer.CreateServingRoute</code>. This method creates a route that maps a URL prefix to a directory on the disk.</p>
+<p>The easiest way to serve static files is <a href="/api/Sisk.Core.Routing.Router.MapFileSystem">Router.MapFileSystem</a>. This method maps a URL prefix to a directory on disk.</p>
 <pre><code class="lang-cs">using Sisk.Core.Http;
 using Sisk.Core.Http.FileSystem;
 
 // maps the root of the server to the current directory
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/&quot;, Directory.GetCurrentDirectory()));
+mainRouter.MapFileSystem(&quot;/&quot;, Directory.GetCurrentDirectory());
 
 // maps /assets to the &quot;public/assets&quot; folder
-mainRouter.SetRoute(HttpFileServer.CreateServingRoute(&quot;/assets&quot;, Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;)));
+mainRouter.MapFileSystem(
+    &quot;/assets&quot;,
+    Path.Combine(Directory.GetCurrentDirectory(), &quot;public&quot;, &quot;assets&quot;));
 </code></pre>
 <p>When a request matches the route prefix, the <code>HttpFileServerHandler</code> will look for a file in the specified directory. If found, it will serve the file; otherwise, it will return a 404 response (or 403 if access is denied).</p>
+<p><code>HttpFileServer.CreateServingRoute</code> is still available when you need to create a <code>Route</code> object explicitly, but <code>MapFileSystem</code> is the most direct option for application code.</p>
 <h2 id="httpfileserverhandler">HttpFileServerHandler</h2>
 <p>For more control over how files are served, you can instantiate and configure <code>HttpFileServerHandler</code> manually.</p>
 <pre><code class="lang-cs">var fileHandler = new HttpFileServerHandler(&quot;/var/www/html&quot;);
@@ -196,8 +199,8 @@ fileHandler.AllowDirectoryListing = true;
 // set a custom route prefix (this will be trimmed from the request path)
 fileHandler.RoutePrefix = &quot;/public&quot;;
 
-// register the handler action
-mainRouter.SetRoute(RouteMethod.Get, &quot;/public/.*&quot;, fileHandler.HandleRequest);
+// register the handler under /public
+mainRouter.MapFileSystem(&quot;/public&quot;, fileHandler);
 </code></pre>
 <h3 id="configuration">Configuration</h3>
 <table>
