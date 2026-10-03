@@ -52,6 +52,18 @@ In the above example, we indicated that if the `Authorization` header is present
 
 Whenever a request handler returns `null`, it indicates that the request must continue and the next object must be called or the cycle must end with the router's response.
 
+> [!WARNING]
+> A request handler instance is created once and shared by every request it handles, including concurrent requests. **Never store individual request state in the request handler class itself** (fields or properties such as the current user, a parsed token, or a timer), because that value leaks into other requests. Store per-request values in the [RequestBag](/api/Sisk.Core.Http.HttpContext.RequestBag) of the `HttpContext` instead:
+>
+> ```cs
+> public HttpResponse? Execute(HttpRequest request, HttpContext context)
+> {
+>     // wrong: this.currentUser = FindUser(request);
+>     context.RequestBag.Set(FindUser(request));
+>     return null;
+> }
+> ```
+
 If you inherit from the built-in [RequestHandler](/api/Sisk.Core.Routing.RequestHandler) class, you can return `Next()` to make that intent explicit:
 
 ```cs
