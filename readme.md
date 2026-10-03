@@ -1,38 +1,41 @@
-# Sisk Documentation
+# Sisk documentation
 
-This repository contains the source code of the [Sisk Documentation website](https://docs.sisk-framework.org/).
+Source of [docs.sisk-framework.org](https://docs.sisk-framework.org/), built as a static site with [Hugo](https://gohugo.io/) and searched with [Pagefind](https://pagefind.app/).
+
+## Requirements
+
+- [Bun](https://bun.sh/)
+- [Hugo](https://gohugo.io/installation/) 0.154 or newer
+- [DocFX](https://dotnet.github.io/docfx/) (only to generate the API reference)
 
 ## Building
 
-### Prerequisites
-
-1. **Bun** - [Download](https://bun.com/)
-2. **DocFX** (v2.76.0 recommended) - See installation warning below
-4. **.NET SDK** - [Download](https://dotnet.microsoft.com/en-us/download)
-
-### Quick Start
-
-1. Clone this repository
-2. Build the [Sisk Framework project](https://github.com/sisk-http/core) and put the .DLL binaries and XML documentation file at the `ref/` directory
-3. Run the unified build script:
-
-```bash
-# Restore package
+```sh
 bun install
-
-# Full build (clean, translate, build)
-bun pack
+bun build.js api      # ref/*.dll + ref/*.xml -> content/en/api and data/api.json
+bun build.js build    # Hugo + Pagefind + JSONL pack -> _site/ and _pack/
 ```
 
-4. Serve the documentation: `docfx serve`
+Serve `_site` with any static server, for example `php -S localhost:8080` inside `_site`. `bun build.js serve` starts the Hugo development server, but search only works after a full `build`.
 
-Then you're ready to go and you'll have the static website files at `/_site`.
+Run `bun build.js help` for every command.
 
-## Contributing
+## API reference
 
-Contributions are always welcome. Contribute with spelling corrections, fixing broken links and more.
+Build the [Sisk Framework](https://github.com/sisk-http/core) and its extensions in Release, then copy each `.dll` with its XML documentation file to `ref/`. `bun build.js api` uses `docfx metadata` to extract Markdown and converts it into Hugo pages. The API reference is published in English only.
 
-Please, only edit **english** documentation files. Documentation files for another languages are AI-generated from english files through.
+## Translations
 
-> [!NOTE]
-> Please do not edit API specification files (XML). These files are generated. If you want to edit any API documentation, edit it in the repository where the code is hosted.
+English pages under `content/en` are the only ones edited by hand. Other languages are generated:
+
+```sh
+bun build.js status          # missing, outdated and orphan translations
+bun build.js translate       # all languages
+bun build.js translate pt-br # one language
+```
+
+Each translated page stores the `sourceHash` of the English page it came from, so only missing or outdated pages are sent to the model. Copy `config.json.example` to `config.json` to change the endpoint (any OpenAI-compatible chat completions API), model or concurrency, and set the API key in the variable named by `apiKeyEnv` (default `GROQ_API_KEY`). Failed pages are listed in `translate.errors.txt`.
+
+## For AI agents
+
+Every page is also published as Markdown (replace `.html` with `.md`), and each language has an `llms.txt` index and an `llms-full.txt` file with the whole documentation.

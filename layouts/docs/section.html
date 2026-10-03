@@ -1,0 +1,37 @@
+{{ define "main" }}
+{{ $groups := partialCached "docs-groups.html" . .Lang }}
+{{ if ne .Path "/docs" }}
+    {{ $path := .Path }}
+    {{ $groups = where $groups "section.Path" $path }}
+{{ end }}
+
+<article class="article">
+    <div class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-pagefind-ignore>
+            <a href="{{ (site.GetPage "/docs").RelPermalink }}">{{ T "docs" }}</a>
+        </nav>
+        {{ partial "page-actions.html" . }}
+    </div>
+
+    <h1>{{ .Title }}</h1>
+
+    <div class="summary">
+        {{ range $groups }}
+        <section class="summary-group">
+            <h2 id="{{ .title | anchorize }}">{{ .title }}</h2>
+            <div class="summary-grid">
+                {{ range .pages }}
+                {{ if ne .Kind "section" }}
+                <a class="summary-card" href="{{ .RelPermalink }}">
+                    <strong>{{ .Title }}</strong>
+                    <span>{{ .Summary | plainify | truncate 140 }}</span>
+                </a>
+                {{ end }}
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+    </div>
+</article>
+{{ partial "footer.html" . }}
+{{ end }}

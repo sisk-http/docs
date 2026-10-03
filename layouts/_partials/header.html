@@ -1,0 +1,49 @@
+{{ $section := .Section }}
+<header class="header">
+    <div class="header-inner">
+        <button class="icon-button nav-toggle" type="button" aria-label="{{ T "menu" }}" aria-controls="sidebar" aria-expanded="false" data-nav-toggle>
+            {{ partial "icon.html" "menu" }}
+        </button>
+
+        <a class="brand" href="{{ site.Home.RelPermalink }}">
+            <img src="{{ "assets/img/Icon.png" | relURL }}" alt="" width="32" height="32">
+            <span>Sisk</span>
+        </a>
+
+        <nav class="header-nav" aria-label="Main">
+            <a href="{{ site.Home.RelPermalink }}" {{ if .IsHome }}aria-current="page"{{ end }}>{{ T "welcome" }}</a>
+            {{ with site.GetPage "/docs" }}
+            <a href="{{ .RelPermalink }}" {{ if eq $section "docs" }}aria-current="page"{{ end }}>{{ T "docs" }}</a>
+            {{ end }}
+            {{ with (index .Sites 0).GetPage "/api" }}
+            <a href="{{ .RelPermalink }}" {{ if eq $section "api" }}aria-current="page"{{ end }}>{{ T "api" }}</a>
+            {{ end }}
+        </nav>
+
+        <button class="search-trigger" type="button" data-search-open aria-label="{{ T "search" }}">
+            {{ partial "icon.html" "search" }}
+            <span class="search-trigger-label">{{ T "search" }}</span>
+            <kbd class="search-trigger-key">Ctrl K</kbd>
+        </button>
+
+        <div class="header-tools">
+            {{ partial "language-menu.html" . }}
+
+            <details class="menu" data-menu>
+                <summary class="icon-button" aria-label="{{ T "theme" }}" title="{{ T "theme" }}">
+                    <span class="theme-icon theme-icon-light">{{ partial "icon.html" "sun" }}</span>
+                    <span class="theme-icon theme-icon-dark">{{ partial "icon.html" "moon" }}</span>
+                </summary>
+                <div class="menu-panel">
+                    <button type="button" class="menu-item" data-theme-set="light">{{ partial "icon.html" "sun" }}{{ T "themeLight" }}</button>
+                    <button type="button" class="menu-item" data-theme-set="dark">{{ partial "icon.html" "moon" }}{{ T "themeDark" }}</button>
+                    <button type="button" class="menu-item" data-theme-set="auto">{{ partial "icon.html" "contrast" }}{{ T "themeAuto" }}</button>
+                </div>
+            </details>
+
+            <a class="icon-button" href="{{ site.Params.repository }}" aria-label="GitHub" title="GitHub" rel="noopener">
+                {{ partial "icon.html" "github" }}
+            </a>
+        </div>
+    </div>
+</header>

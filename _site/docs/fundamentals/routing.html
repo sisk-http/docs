@@ -1,703 +1,228 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Routing | Sisk </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Routing | Sisk ">
-
-
-        <link rel="icon" href="../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../public/main.css">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
-        <meta name="docfx:navrel" content="../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
-
-        <meta name="docfx:rel" content="../../">
-
-
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/routing.md/#L1">
-        <meta name="loc:inThisArticle" content="In this article">
-        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
-        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
-        <meta name="loc:tocFilter" content="Filter by title">
-        <meta name="loc:nextArticle" content="Next">
-        <meta name="loc:prevArticle" content="Previous">
-        <meta name="loc:themeLight" content="Light">
-        <meta name="loc:themeDark" content="Dark">
-        <meta name="loc:themeAuto" content="Auto">
-        <meta name="loc:changeTheme" content="Change theme">
-        <meta name="loc:copy" content="Copy">
-        <meta name="loc:downloadPdf" content="Download PDF">
-        
-        <script type="module" src="./../../public/docfx.min.js"></script>
-        <script>
-            const theme = localStorage.getItem('theme') || 'auto';
-            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-        </script>
-        
-        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        
-        <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-        <!-- End GoatCounter -->
-        
-        <script>            
-            function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
-                const newPath = lang + docPart;
-                window.location.href = window.location.origin + newPath;
-            }        
-        </script>
-        
-    </head>
-    
-    
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
-        <header class="bg-body border-bottom">
-            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
-                <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
-                        Sisk
-                    </a>
-                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-three-dots"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navpanel">
-                        <div id="navbar">
-                            <form class="search" role="search" id="search">
-                                <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <main class="container-xxl">
-            <div class="toc-offcanvas">
-                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <nav class="toc" id="toc"></nav>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="actionbar">
-                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <nav id="breadcrumb"></nav>
-                    <div class="actionbar-actions">
-                        <div id="language-wrapper">
-                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
-                                <i class="bi bi-globe"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
-                                        <img src="/assets/flag/usa.png">
-                                        English
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
-                                        <img src="/assets/flag/russia.png">
-                                        Русский
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
-                                        <img src="/assets/flag/brazil.png">
-                                        Português
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
-                                        <img src="/assets/flag/spain.png">
-                                        Español
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
-                                        <img src="/assets/flag/germany.png">
-                                        Deutsch
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                        <img src="/assets/flag/china.png">
-                                        中文 (简体)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
-                                        <img src="/assets/flag/japan.png">
-                                        日本語
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div id="copy-article-wrapper">
-                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
-                                <i class="bi bi-copy"></i>
-                            </a>
-                            <div class="copy-dropdown" id="copy-dropdown">
-                                <button type="button" id="copy-link-btn">
-                                    <i class="bi bi-link-45deg"></i>
-                                    Copy link
-                                </button>
-                                <button type="button" id="copy-markdown-btn">
-                                    <i class="bi bi-markdown"></i>
-                                    Copy as Markdown
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <article data-uid="">
-<h1 id="routing">Routing</h1>
-
-<p>The <a href="/api/Sisk.Core.Routing.Router">Router</a> is the first step in building the server. It is responsible for housing <a href="/api/Sisk.Core.Routing.Route">Route</a> objects, which are endpoints that map URLs and their methods to actions executed by the server. Each action is responsible for receiving a request and delivering a response to the client.</p>
-<p>The routes are pairs of path expressions (&quot;path pattern&quot;) and the HTTP method that they can listen to. When a request is made to the server, it will attempt to find a route that matches the received request, then it will call the action of that route and deliver the resulting response to the client.</p>
-<p>There are multiple ways to define routes in Sisk: they can be static, dynamic or auto-scanned, defined by attributes, or directly in the Router object.</p>
-<pre><code class="lang-cs">Router mainRouter = new Router();
-
-// maps the GET / route into the following action
-mainRouter.MapGet(&quot;/&quot;, request =&gt; {
-    return new HttpResponse(&quot;Hello, world!&quot;);
-});
-</code></pre>
-<p>To understand what a route is capable of doing, we need to understand what a request is capable of doing. An <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> will contain everything you need. Sisk also includes some extra features that speed up the overral development.</p>
-<p>For every action received by the server, a delegate of type <a href="/api/Sisk.Core.Routing.RouteAction">RouteAction</a> will be called. This delegate contains an parameter holding an <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> with all the necessary information about the request received by the server. The resulting object from this delegate must be an <a href="/api/Sisk.Core.Http.HttpResponse">HttpResponse</a> or an object that maps to it through <a href="/docs/fundamentals/responses#implicit-response-types">implicit response types</a>.</p>
-<h2 id="matching-routes">Matching routes</h2>
-<p>When a request is received by the HTTP server, Sisk searches for a route that satisfies the expression of the path received by the request. The expression is always tested between the route and the request path, without considering the query string.</p>
-<p>This test does not have priority and is exclusive to a single route. When no route is matched with that request, the <a href="/api/Sisk.Core.Routing.Router.NotFoundErrorHandler">Router.NotFoundErrorHandler</a> response is returned to the client. When the path pattern is matched, but the HTTP method is mismatched, the <a href="/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler">Router.MethodNotAllowedErrorHandler</a> response is sent back to the client.</p>
-<p>Sisk checks for the possibility of route collisions to avoid these problems. When defining routes, Sisk will look for possible routes that might collide with the route being defined. This test includes checking the path and the method that the route is set to accept.</p>
-<h3 id="creating-routes-using-path-patterns">Creating routes using path patterns</h3>
-<p>For new applications, prefer the <code>Map*</code> methods. They keep the HTTP method visible at the call site and match the current <code>Router</code> API. The older <code>SetRoute</code> methods still exist as compatibility wrappers, but new examples should use <code>Map</code>, <code>MapGet</code>, <code>MapPost</code>, <code>MapPut</code>, <code>MapDelete</code>, <code>MapPatch</code>, <code>MapAny</code>, <code>MapOptions</code>, or <code>MapHead</code>.</p>
-<pre><code class="lang-cs">// Map* methods are the usual way to define method-specific routes.
-mainRouter.MapGet(&quot;/hey/&lt;name&gt;&quot;, (request) =&gt;
-{
-    string name = request.RouteParameters[&quot;name&quot;].GetString();
-    return new HttpResponse($&quot;Hello, {name}&quot;);
-});
-
-mainRouter.MapPost(&quot;/form&quot;, (request) =&gt;
-{
-    var formData = request.GetFormContent();
-    return new HttpResponse(); // empty 200 ok
-});
-
-// Map can also receive a Route instance when you need route options.
-mainRouter.Map(Route.Get(&quot;/image.png&quot;, (request) =&gt;
-{
-    var imageStream = File.OpenRead(&quot;image.png&quot;);
-    
-    return new HttpResponse()
-    {
-        // the StreamContent inner
-        // stream is disposed after sending
-        // the response.
-        Content = new StreamContent(imageStream)
-    };
-}));
-
-// multiple parameters
-mainRouter.MapGet(&quot;/hey/&lt;name&gt;/surname/&lt;surname&gt;&quot;, (request) =&gt;
-{
-    string name = request.RouteParameters[&quot;name&quot;].GetString();
-    string surname = request.RouteParameters[&quot;surname&quot;].GetString();
-
-    return new HttpResponse($&quot;Hello, {name} {surname}!&quot;);
-});
-</code></pre>
-<p>The <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> property of HttpRequest contains all the information about the path variables of the received request.</p>
-<p>Every path received by the server is normalized before the path pattern test is executed, following these rules:</p>
-<ul>
-<li>All empty segments are removed from the path, eg: <code>////foo//bar</code> becomes <code>/foo/bar</code>.</li>
-<li>Path matching is <strong>case-sensitive</strong>, unless <a href="/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase">Router.MatchRoutesIgnoreCase</a> is set to <code>true</code>.</li>
-</ul>
-<p>The <a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a> and <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">RouteParameters</a> properties of <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> return a <a href="/api/Sisk.Core.Entity.StringValueCollection">StringValueCollection</a> object, where each indexed property returns a non-null <a href="/api/Sisk.Core.Entity.StringValue">StringValue</a>, which can be used as an option/monad to convert its raw value into a managed object.</p>
-<p>The example below reads the route parameter &quot;id&quot; and obtains a <code>Guid</code> from it. If the parameter is not a valid Guid, an exception is thrown, and a 500 error is returned to the client if the server is not handling <a href="/api/Sisk.Core.Routing.Router.CallbackErrorHandler">Router.CallbackErrorHandler</a>.</p>
-<pre><code class="lang-cs">mainRouter.MapGet(&quot;/user/&lt;id&gt;&quot;, (request) =&gt;
-{
-    Guid id = request.RouteParameters[&quot;id&quot;].GetGuid();
-    return new HttpResponse($&quot;User id: {id}&quot;);
-});
-</code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Paths have their trailing <code>/</code> ignored in both request and route path, that is, if you try to access a route defined as <code>/index/page</code> you'll be able to access using <code>/index/page/</code> too.</p>
-<p>You can also force URLs to terminate with <code>/</code> by enabling <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash">HttpServerConfiguration.ForceTrailingSlash</a>.</p>
-</div>
-<h3 id="creating-routes-using-class-instances">Creating routes using class instances</h3>
-<p>You can also define routes dynamically using reflection with the attribute <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>. This way, the instance of a class in which its methods implement this attribute will have their routes defined in the target router.</p>
-<p>For a method to be defined as a route, it must be marked with a <a href="/api/Sisk.Core.Routing.RouteAttribute">RouteAttribute</a>, such as the attribute itself or a <a href="/api/Sisk.Core.Routing.RouteGetAttribute">RouteGetAttribute</a>. The method can be static, instance, public, or private. Use <code>MapInstance</code> when you want to map instance and static route methods from an object. Use <code>MapType</code> when you want to map only static route methods from a type.</p>
-<div class="script-header">
-    <span>
-        Controller/MyController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class MyController
-{
-    // will match GET /
-    [RouteGet]
-    HttpResponse Index(HttpRequest request)
-    {
-        HttpResponse res = new HttpResponse();
-        res.Content = new StringContent(&quot;Index!&quot;);
-        return res;
-    }
-    
-    // static methods works too
-    [RouteGet(&quot;/hello&quot;)]
-    static HttpResponse Hello(HttpRequest request)
-    {
-        HttpResponse res = new HttpResponse();
-        res.Content = new StringContent(&quot;Hello world!&quot;);
-        return res;
-    }
-}
-</code></pre>
-<p>The line below will define both the <code>Index</code> and <code>Hello</code> methods of <code>MyController</code> as routes, as both are marked as routes, and an instance of the class has been provided, not its type. If its type had been provided instead of an instance, only the static methods would be defined.</p>
-<pre><code class="lang-cs">var myController = new MyController();
-mainRouter.MapInstance(myController);
-</code></pre>
-<p>To map only static route methods from a type, use:</p>
-<pre><code class="lang-cs">mainRouter.MapType&lt;MyController&gt;();
-</code></pre>
-<p>Since Sisk version 0.16, it is possible to enable AutoScan, which will search for user-defined classes that implement <code>RouterModule</code> and will automatically associate it with the router. This is not supported with AOT compilation.</p>
-<pre><code class="lang-cs">mainRouter.AutoScanModules&lt;ApiController&gt;();
-</code></pre>
-<p>The above instruction will search for all types which implements <code>ApiController</code> but <strong>not the type itself</strong>. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be defined.</p>
-<h2 id="regex-routes">Regex routes</h2>
-<p>Instead of using the default HTTP path matching methods, you can mark a route to be interpreted with Regex.</p>
-<pre><code class="lang-cs">Route indexRoute = new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, IndexPage);
-mainRouter.Map(indexRoute);
-</code></pre>
-<p>Or with <a href="/api/Sisk.Core.Routing.RegexRoute">RegexRoute</a> class:</p>
-<pre><code class="lang-cs">mainRouter.Map(new RegexRoute(RouteMethod.Get, @&quot;\/[a-z]+\/&quot;, request =&gt;
-{
-    return new HttpResponse(&quot;hello, world&quot;);
-}));
-</code></pre>
-<p>You can also capture groups from the regex pattern into the <a href="/api/Sisk.Core.Http.HttpRequest.RouteParameters">HttpRequest.RouteParameters</a> contents:</p>
-<div class="script-header">
-    <span>
-        Controller/MyController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class MyController
-{
-    [RegexRoute(RouteMethod.Get, @&quot;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&quot;)]
-    static HttpResponse RegexRoute(HttpRequest request)
-    {
-        string filename = request.RouteParameters[&quot;filename&quot;].GetString();
-        return new HttpResponse().WithContent($&quot;Acessing file {filename}&quot;);
-    }
-}
-</code></pre>
-<h2 id="prefixing-routes">Prefixing routes</h2>
-<p>You can prefix all routes in a class or module with the <a href="/api/Sisk.Core.Routing.RoutePrefixAttribute">RoutePrefix</a> attribute and set the prefix as a string.</p>
-<p>See the example below using the BREAD architecture (Browse, Read, Edit, Add and Delete):</p>
-<div class="script-header">
-    <span>
-        Controller/Api/UsersController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
-public class UsersController
-{
-    // GET /api/users
-    [RouteGet]
-    public async Task&lt;HttpResponse&gt; Browse()
-    {
-        ...
-    }
-    
-    // GET /api/users/&lt;id&gt;
-    [RouteGet(&quot;/&lt;id&gt;&quot;)]
-    public async Task&lt;HttpResponse&gt; Read()
-    {
-        ...
-    }
-    
-    // PATCH /api/users/&lt;id&gt;
-    [RoutePatch(&quot;/&lt;id&gt;&quot;)]
-    public async Task&lt;HttpResponse&gt; Edit()
-    {
-        ...
-    }
-    
-    // POST /api/users
-    [RoutePost]
-    public async Task&lt;HttpResponse&gt; Add()
-    {
-        ...
-    }
-    
-    // DELETE /api/users/&lt;id&gt;
-    [RouteDelete(&quot;/&lt;id&gt;&quot;)]
-    public async Task&lt;HttpResponse&gt; Delete()
-    {
-        ...
-    }
-}
-</code></pre>
-<p>In the above example, the HttpResponse parameter is omitted in favor of being used through the global context <a href="/api/Sisk.Core.Http.HttpContext.Current">HttpContext.Current</a>. Read more in the section that follows.</p>
-<h2 id="routes-without-request-parameter">Routes without request parameter</h2>
-<p>Routes can be defined without the <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> parameter and still be possible to obtain the request and its components in the request context. Let's consider an abstraction <code>ControllerBase</code> that serves as a foundation for all controllers of an API, and that abstraction provides the <code>Request</code> property to obtain the <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> currently.</p>
-<div class="script-header">
-    <span>
-        Controller/ControllerBase.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public abstract class ControllerBase
-{
-    // gets the request from the current thread
-    public HttpRequest Request { get =&gt; HttpContext.Current.Request; }
-    
-    // the line below, when called, gets the database from the current HTTP session,
-    // or creates a new one if it doesn't exist
-    public DbContext Database { get =&gt; HttpContext.Current.RequestBag.GetOrAdd&lt;DbContext&gt;(); }
-}
-</code></pre>
-<p>And for all it's descendants to be able to use the route syntax without the request parameter:</p>
-<div class="script-header">
-    <span>
-        Controller/UsersController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">[RoutePrefix(&quot;/api/users&quot;)]
-public class UsersController : ControllerBase
-{    
-    [RoutePost]
-    public async Task&lt;HttpResponse&gt; Create()
-    {
-        // reads the JSON data from the current request
-        UserCreationDto? user = await Request.GetJsonContentAsync&lt;UserCreationDto&gt;();
-        ...
-        Database.Users.Add(user);
-        
-        return new HttpResponse(201);
-    }
-}
-</code></pre>
-<p>More details about the current context and dependency injection can be found in the <a href="/docs/features/instancing">dependency injection</a> tutorial.</p>
-<h2 id="any-method-routes">Any method routes</h2>
-<p>You can define a route to be matched only by its path and skip the HTTP method. This can be useful for you to do method validation inside the route callback.</p>
-<pre><code class="lang-cs">// will match / on any HTTP method
-mainRouter.MapAny(&quot;/&quot;, callbackFunction);
-</code></pre>
-<h2 id="any-path-routes">Any path routes</h2>
-<p>Any path routes test for any path received by the HTTP server, subject to the route method being tested. If the route method is RouteMethod.Any and the route uses <a href="/api/Sisk.Core.Routing.Route.AnyPath">Route.AnyPath</a> in its path expression, this route will listen to all requests from the HTTP server, and no other routes can be defined.</p>
-<pre><code class="lang-cs">// the following route will match all POST requests
-mainRouter.Map(RouteMethod.Post, Route.AnyPath, callbackFunction);
-</code></pre>
-<h2 id="ignore-case-route-matching">Ignore case route matching</h2>
-<p>By default, the interpretation of routes with requests are case-sensitive. To make it ignore case, enable this option:</p>
-<pre><code class="lang-cs">mainRouter.MatchRoutesIgnoreCase = true;
-</code></pre>
-<p>This will also enable the option <code>RegexOptions.IgnoreCase</code> for routes where it's regex-matching.</p>
-<h2 id="not-found-404-callback-handler">Not Found (404) callback handler</h2>
-<p>You can create a custom callback for when a request doesn't match any known routes.</p>
-<pre><code class="lang-cs">mainRouter.NotFoundErrorHandler = () =&gt;
-{
-    return new HttpResponse(404)
-    {
-        // Since v0.14
-        Content = new HtmlContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;)
-        // older versions
-        Content = new StringContent(&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;, Encoding.UTF8, &quot;text/html&quot;)
-    };
-};
-</code></pre>
-<h2 id="method-not-allowed-405-callback-handler">Method not allowed (405) callback handler</h2>
-<p>You can also create a custom callback for when a request matches it's path, but doens't match the method.</p>
-<pre><code class="lang-cs">mainRouter.MethodNotAllowedErrorHandler = (context) =&gt;
-{
-    return new HttpResponse(405)
-    {
-        Content = new StringContent($&quot;Method not allowed for this route.&quot;)
-    };
-};
-</code></pre>
-<h2 id="error-handling">Error Handling</h2>
-<p>Exceptions can be thrown within a request lifecycle, which spans from the pre-execution request handler, through the router action, to the post-execution request handlers and value handlers. These exceptions are managed by the mechanism:</p>
-<ul>
-<li>If <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> is <code>true</code>, exceptions will be thrown normally and will not be caught by Sisk, and the HTTP server may be interrupted if the exception is not caught.</li>
-<li>If <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">HttpServerConfiguration.ThrowExceptions</a> is <code>false</code>, exceptions will be caught and handled by Sisk. After that, if <code>Router.CallbackErrorHandler</code> is defined, it will be called with the caught exception and the request context, and it <strong>will not</strong> be forwarded to the standard error output. If <code>Router.CallbackErrorHandler</code> is not defined, the exception will be forwarded to the standard error output, and the client will receive an HTTP 500 error response. If the standard error output is not defined, the error will be silently ignored.</li>
-</ul>
-<p>Note: within <code>Router.CallbackErrorHandler</code>, you can set the log mode for errors, access log, both, or none, and alter the default log writing behavior:</p>
-<pre><code class="lang-csharp">router.CallbackErrorHandler = (ex, ctx) =&gt;
-{
-    ctx.LogMode = LogOutput.Both; // override log mode to log the error in both access and error logs
-}
-</code></pre>
-<h2 id="internal-error-handler">Internal error handler</h2>
-<p>Route callbacks can throw errors during server execution. If not handled correctly, the overall functioning of the HTTP server can be terminated. The router has a callback for when a route callback fails and prevents service interruption.</p>
-<p>This method is only reacheable when <a href="/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions">ThrowExceptions</a> is set to false.</p>
-<pre><code class="lang-cs">mainRouter.CallbackErrorHandler = (ex, context) =&gt;
-{
-    return new HttpResponse(500)
-    {
-        Content = new StringContent($&quot;Error: {ex.Message}&quot;)
-    };
-};
-</code></pre>
-
-</article>
-
-                <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/routing.md/#L1" class="edit-link">Edit this page</a>
-                </div>
-
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
-
-            </div>
-
-            <div class="affix">
-                <nav id="affix"></nav>
-            </div>
-        </main>
-
-        <div class="container-xxl search-results" id="search-results"></div>
-
-        <footer class="border-top text-secondary">
-            <div class="container-xxl">
-                <div class="flex-fill">
-                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
-                </div>
-            </div>
-            <script>
-                if (window.location.pathname.startsWith('/docs/')) {
-                    document.getElementById('language-wrapper').style.display = 'block';
-                }
-                
-                function splitText(text, words) {
-                    if (!Array.isArray(words)) return [];
-                    const escapedWords = words.map(word =>
-                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
-                        
-                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
-                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
-                    const splitResult = text.split(pattern);
-                    const cleanedResult = splitResult.filter(segment => segment !== '');
-                    return cleanedResult;
-                }
-                
-                function runPostHljsFunctions() {
-                    if (!document.querySelector("pre>code")) {
-                        return;
-                    }
-                    if (!document.querySelector(".hljs")) {
-                        setTimeout(runPostHljsFunctions, 100);
-                        return;
-                    }
-                    
-                    function highlightMissingCodeTokens(pre) {
-                        const tokenClasses = [
-                            "HttpResponse", "HttpRequest", "File", "Task",
-                            "Router", "Route", "StringContent", "StreamContent",
-                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
-                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
-                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
-                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
-                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
-                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
-                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
-                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
-                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
-                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
-                            "CadenteHttpServerEngine", "CertificateHelper"
-                        ];
-                        const tokenValues = [
-                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
-                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
-                        ];
-                        const tokenInterfaces = [
-                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
-                        ];
-                        
-                        function runStyles(node) {
-                            if (node.nodeType === 3) {
-                                applyStyles(node);
-                                
-                            } else if (node.nodeType === 1) {
-                                
-                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
-                                
-                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
-                                    for(const child of node.childNodes) {
-                                        runStyles(child);
-                                    }
-                                }
-                            }
-                        }
-                        
-                        function applyStyles(textNode) {
-                            const text = textNode.textContent;
-                            const fragment = [];
-                            
-                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
-                                if (tokenClasses.includes(token)) {
-                                    fragment.push(el("span.hljs-meta", token));
-                                    
-                                } else if (tokenValues.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-value", token));
-                                    
-                                } else if (tokenInterfaces.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-interface", token));
-                                    
-                                } else {
-                                    fragment.push(token);
-                                }
-                            }
-                            
-                            textNode.replaceWith(el.fragment(...fragment));
-                        }
-                        
-                        const code = pre.querySelector("code");
-                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
-                            runStyles(code);
-                        }
-                    }
-                    
-                    function addLineNumbers(pre) {
-                        const code = pre.querySelector("code");
-                        if (!code) return;
-                        
-                        var lines = (code.textContent.match(/\n/g) || []).length;
-                        
-                        if (lines <= 1) {
-                            return;
-                        }
-                        
-                        const lineElements = [];
-                        for (let i = 1; i <= lines; i++) {
-                            lineElements.push(el("span.hljs-line-number", i + "\n"));
-                        }
-                        
-                        code.prepend(el("div.line-numbers", ...lineElements));
-                        code.classList.add("has-line-numbers");
-                    }
-                                        
-                    document.querySelectorAll("pre").forEach(pre => {
-                        highlightMissingCodeTokens(pre);
-                        addLineNumbers(pre);
-                    });
-                }
-                
-                runPostHljsFunctions();
-                
-                (function() {
-                    const copyBtn = document.getElementById('copy-article-btn');
-                    const copyDropdown = document.getElementById('copy-dropdown');
-                    const copyLinkBtn = document.getElementById('copy-link-btn');
-                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
-                    
-                    if (!copyBtn) return;
-                    
-                    copyBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        copyDropdown.classList.toggle('show');
-                    });
-                    
-                    document.addEventListener('click', function(e) {
-                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
-                            copyDropdown.classList.remove('show');
-                        }
-                    });
-                    
-                    function getArticleContent() {
-                        const article = document.querySelector('article');
-                        if (!article) return null;
-                        
-                        const clone = article.cloneNode(true);
-                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
-                        
-                        return clone;
-                    }
-                    
-                    copyLinkBtn.addEventListener('click', function() {
-                        navigator.clipboard.writeText(window.location.href);
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    copyMarkdownBtn.addEventListener('click', async function() {
-                        const article = getArticleContent();
-                        if (!article) return;
-                        
-                        if (typeof TurndownService === 'undefined') {
-                            const script = document.createElement('script');
-                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
-                            script.onload = function() {
-                                convertAndCopy(article);
-                            };
-                            document.head.appendChild(script);
-                        } else {
-                            convertAndCopy(article);
-                        }
-                        
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    function convertAndCopy(article) {
-                        const turndown = new TurndownService({
-                            headingStyle: 'atx',
-                            codeBlockStyle: 'fenced'
-                        });
-                        
-                        turndown.addRule('codeBlocks', {
-                            filter: ['pre'],
-                            replacement: function(content, node) {
-                                const code = node.querySelector('code');
-                                const langClass = code?.className.match(/lang-(\w+)/);
-                                const lang = langClass ? langClass[1] : '';
-                                const text = code?.textContent || content;
-                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
-                            }
-                        });
-                        
-                        const markdown = turndown.turndown(article.innerHTML);
-                        navigator.clipboard.writeText(markdown);
-                    }
-                })();
-            </script>
-        </footer>
-    </body>
-</html>
+<!doctype html><html lang=en-US data-lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Routing | Sisk</title><meta name=description content="The Router is the first step in building the server. It is responsible for housing Route objects, which are endpoints that map URLs and their methods to actions …"><link rel=canonical href=https://docs.sisk-framework.org/docs/fundamentals/routing.html><link rel=icon href=/favicon.ico><link rel=alternate hreflang=en-US href=https://docs.sisk-framework.org/docs/fundamentals/routing.html><link rel=alternate hreflang=pt-BR href=https://docs.sisk-framework.org/pt-br/docs/fundamentals/routing.html><link rel=alternate hreflang=es-ES href=https://docs.sisk-framework.org/es/docs/fundamentals/routing.html><link rel=alternate hreflang=de-DE href=https://docs.sisk-framework.org/de/docs/fundamentals/routing.html><link rel=alternate hreflang=ru-RU href=https://docs.sisk-framework.org/ru/docs/fundamentals/routing.html><link rel=alternate hreflang=zh-CN href=https://docs.sisk-framework.org/zh-cn/docs/fundamentals/routing.html><link rel=alternate hreflang=ja-JP href=https://docs.sisk-framework.org/ja/docs/fundamentals/routing.html><link rel=alternate hreflang=x-default href=https://docs.sisk-framework.org/docs/fundamentals/routing.html><link rel=alternate type=text/markdown href=/docs/fundamentals/routing.md title=Markdown><link rel=help type=text/plain href=/llms.txt title=llms.txt><meta property="og:title" content="Routing"><meta property="og:site_name" content="Sisk"><meta property="og:url" content="https://docs.sisk-framework.org/docs/fundamentals/routing.html"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://docs.sisk-framework.org/assets/img/Icon-HQ.png"><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Geist:wght@300..700&display=swap"><script>(()=>{const e=localStorage.getItem("theme")||"auto",t=e==="dark"||e==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t?"dark":"light",document.documentElement.dataset.themePreference=e})()</script><link rel=stylesheet href=/styles/main.min.9a2bcae9b4d981dc58f4970bd2f6185141d57c0fca813e647ae5ec5144132b31.css integrity="sha256-mivK6bTZgdxY9JcL0vYYUUHVfA/KgT5keuXsUUQTKzE="></head><body class=layout-docs><a class=skip-link href=#content>Skip to content</a><header class=header><div class=header-inner><button class="icon-button nav-toggle" type=button aria-label=Menu aria-controls=sidebar aria-expanded=false data-nav-toggle>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 4H21V6H3V4zm0 7H21v2H3V11zm0 7H21v2H3V18z"/></svg>
+</button>
+<a class=brand href=/index.html><img src=/assets/img/Icon.png alt width=32 height=32>
+<span>Sisk</span></a><nav class=header-nav aria-label=Main><a href=/index.html>Welcome</a>
+<a href=/docs/index.html aria-current=page>Docs</a>
+<a href=/api/index.html>API</a></nav><button class=search-trigger type=button data-search-open aria-label=Search>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<span class=search-trigger-label>Search</span>
+<kbd class=search-trigger-key>Ctrl K</kbd></button><div class=header-tools><details class=menu data-menu><summary class="icon-button language-trigger" aria-label=Language title=Language><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.5 10l4.4 11H20.745l-1.201-3h-4.09l-1.199 3H12.101L16.5 10h2zM10 2V4h6V6L14.0322 6.0006c-.7897 2.36556-2.0334 4.5051-3.6207 6.3004C11.1344 12.9457 11.917 13.5176 12.7475 14.0079l-.7506 1.8776c-1.0732-.6074-2.07746-1.3331-2.99729-2.1606-1.78558 1.6071-3.89047 2.8304-6.2007 3.5485l-.53634-1.9292C4.2385 14.7203 6.04543 13.6737 7.59042 12.3021c-1.12765-1.274-2.08169-2.72225-2.823-4.30182L7.00684 8.00037C7.57018 9.03885 8.23979 10.0033 8.99967 10.877 10.2283 9.46508 11.2205 7.81616 11.9095 6.00101L2 6V4H8V2h2zm7.5 10.8852L16.253 16h2.492L17.5 12.8852z"/></svg>
+<span class=language-code>EN</span></summary><div class=menu-panel><a class=menu-item href=/docs/fundamentals/routing.html hreflang=en-US lang=en-US data-lang-link=en aria-current=true>English
+</a><a class=menu-item href=/pt-br/docs/fundamentals/routing.html hreflang=pt-BR lang=pt-BR data-lang-link=pt-br>Português
+</a><a class=menu-item href=/es/docs/fundamentals/routing.html hreflang=es-ES lang=es-ES data-lang-link=es>Español
+</a><a class=menu-item href=/de/docs/fundamentals/routing.html hreflang=de-DE lang=de-DE data-lang-link=de>Deutsch
+</a><a class=menu-item href=/ru/docs/fundamentals/routing.html hreflang=ru-RU lang=ru-RU data-lang-link=ru>Русский
+</a><a class=menu-item href=/zh-cn/docs/fundamentals/routing.html hreflang=zh-CN lang=zh-CN data-lang-link=zh-cn>中文 (简体)
+</a><a class=menu-item href=/ja/docs/fundamentals/routing.html hreflang=ja-JP lang=ja-JP data-lang-link=ja>日本語</a></div></details><details class=menu data-menu><summary class=icon-button aria-label=Theme title=Theme><span class="theme-icon theme-icon-light"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+</span><span class="theme-icon theme-icon-dark"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg></span></summary><div class=menu-panel><button type=button class=menu-item data-theme-set=light><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+Light</button>
+<button type=button class=menu-item data-theme-set=dark><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg>
+Dark</button>
+<button type=button class=menu-item data-theme-set=auto><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 21.9967c-5.52285.0-10-4.4771-10-10 0-5.52284 4.47715-10 10-10 5.5228.0 10 4.47716 10 10 0 5.5229-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41827-3.5817-8-8-8-4.41828.0-8 3.58173-8 8 0 4.4183 3.58172 8 8 8zM7.00035 15.316C9.07995 15.1646 11.117 14.2939 12.7071 12.7038c1.5901-1.5901 2.4608-3.62714 2.6122-5.70674.3261.21702.6357.46936.923299999999999.757 2.3432 2.34314 2.3432 6.14214.0 8.48524-2.3431 2.3432-6.1421 2.3432-8.48524.0C7.46971 15.9517 7.21738 15.6421 7.00035 15.316z"/></svg>
+System</button></div></details><a class=icon-button href=https://github.com/sisk-http/core aria-label=GitHub title=GitHub rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12c0 4.425 2.8625 8.1625 6.8375 9.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125 9.52598 20.775 9.51348 19.9875 9.51348 19.15 7.00098 19.6125 6.35098 18.5375 6.15098 17.975 6.03848 17.6875 5.55098 16.8 5.12598 16.5625 4.77598 16.375 4.27598 15.9125 5.11348 15.9 5.90098 15.8875 6.46348 16.625 6.65098 16.925 7.55098 18.4375 8.98848 18.0125 9.56348 17.75 9.65098 17.1 9.91348 16.6625 10.201 16.4125c-2.22502-.25-4.55002-1.1125-4.55002-4.9375.0-1.0875.3875-1.9875 1.025-2.6875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375c0 0 .8375-.2625 2.75 1.025C10.326 6.9375 11.176 6.825 12.026 6.825S13.726 6.9375 14.526 7.1625c1.9125-1.3 2.75-1.025 2.75-1.025C17.826 7.5125 17.476 8.5375 17.376 8.7875 18.0135 9.4875 18.401 10.375 18.401 11.475c0 3.8375-2.3375 4.6875-4.5625 4.9375C14.201 16.725 14.5135 17.325 14.5135 18.2625 14.5135 19.6 14.501 20.675 14.501 21.0125 14.501 21.275 14.6885 21.5875 15.1885 21.4875 19.259 20.1133 21.9999 16.2963 22.001 12c0-5.525-4.475-10-10-10z"/></svg></a></div></div></header><div class=shell><aside class=sidebar id=sidebar aria-label=Docs><nav class=sidebar-nav><div class=nav-group><p class=nav-group-title>Welcome</p><ul><li><a href=/docs/getting-started.html>Getting Started</a></li><li><a href=/docs/index.html>Summary</a></li><li><a href=/docs/installing.html>Installing</a></li><li><a href=/docs/native-aot.html>Native AOT Support</a></li><li><a href=/docs/deploying.html>Deploying</a></li><li><a href=/docs/ssl.html>Working with SSL</a></li><li><a href=/docs/cadente.html>Cadente</a></li><li><a href=/docs/registering-namespace.html>Windows Setup</a></li><li><a href=/docs/changelogs.html>Changelogs</a></li><li><a href=/docs/faq.html>FAQ</a></li></ul></div><div class=nav-group><p class=nav-group-title>Fundamentals</p><ul><li><a href=/docs/fundamentals/routing.html aria-current=page>Routing</a></li><li><a href=/docs/fundamentals/request-handlers.html>Request handlers</a></li><li><a href=/docs/fundamentals/requests.html>Requests</a></li><li><a href=/docs/fundamentals/responses.html>Responses</a></li></ul></div><div class=nav-group><p class=nav-group-title>Features</p><ul><li><a href=/docs/features/logging.html>Logging</a></li><li><a href=/docs/features/server-sent-events.html>Server sent events</a></li><li><a href=/docs/features/websockets.html>Web Sockets</a></li><li><a href=/docs/features/discard-syntax.html>Discard syntax</a></li><li><a href=/docs/features/instancing.html>Dependency injection</a></li><li><a href=/docs/features/content-streaming.html>Content streaming</a></li><li><a href=/docs/features/cors.html>Cross-Origin Resource Sharing</a></li><li><a href=/docs/features/file-server.html>File server</a></li></ul></div><div class=nav-group><p class=nav-group-title>Extensions</p><ul><li><a href=/docs/extensions/mcp.html>Model Context Protocol (MCP)</a></li><li><a href=/docs/extensions/json-rpc.html>JSON-RPC</a></li><li><a href=/docs/extensions/ssl-proxy.html>SSL Proxy</a></li><li><a href=/docs/extensions/basic-auth.html>Basic auth</a></li><li><a href=/docs/extensions/service-providers.html>Service Providers</a></li><li><a href=/docs/extensions/ini-configuration.html>INI configuration</a></li><li><a href=/docs/extensions/api-documentation.html>API Documentation</a></li></ul></div><div class=nav-group><p class=nav-group-title>Advanced</p><ul><li><a href=/docs/advanced/manual-setup.html>Manual setup</a></li><li><a href=/docs/advanced/request-lifecycle.html>Request lifecycle</a></li><li><a href=/docs/advanced/forwarding-resolvers.html>Forwarding Resolvers</a></li><li><a href=/docs/advanced/http-server-handlers.html>HTTP server handlers</a></li><li><a href=/docs/advanced/multi-host-setup.html>Multi-host setup</a></li><li><a href=/docs/advanced/server-engines.html>HTTP engines</a></li></ul></div></nav></aside><main id=content class=main><article class=article data-pagefind-body data-pagefind-meta=section:docs><div class=article-header><nav class=breadcrumb aria-label=Breadcrumb data-pagefind-ignore><a href=/docs/index.html>Docs</a>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+<span>Fundamentals</span></nav><details class="menu page-actions" data-menu data-pagefind-ignore><summary class="button button-ghost"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg>
+<span>Copy page</span>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.9999 13.1714l4.9498-4.94972 1.4142 1.41421-6.364 6.36401L5.63599 9.63589 7.0502 8.22168l4.9497 4.94972z"/></svg></summary><div class=menu-panel><button type=button class=menu-item data-copy-markdown=/docs/fundamentals/routing.md data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4c0-.55228.44772-1 1-1zM4 5V19H20V5H4zM7 15.5H5v-7H7l2 2 2-2h2v7H11v-4l-2 2-2-2v4zm11-3h2l-3 3-3-3h2v-4h2v4z"/></svg>
+<span>Copy as Markdown</span>
+</button>
+<a class=menu-item href=/docs/fundamentals/routing.md type=text/markdown><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8zM19 9H14V4H5V20H19V9zM8 7h3V9H8V7zm0 4h8v2H8V11zm0 4h8v2H8V15z"/></svg>
+<span>View as Markdown</span>
+</a><button type=button class=menu-item data-copy-link data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.3638 15.5355l-1.4142-1.4142 1.4142-1.4142c1.9526-1.9526 1.9526-5.11844.0-7.07106-1.9526-1.95263-5.1185-1.95263-7.0711.0L9.87849 7.05025 8.46428 5.63604 9.87849 4.22182c2.73371-2.73367 7.16581-2.73367 9.89951.0 2.7337 2.73367 2.7337 7.16578.0 9.89948l-1.4142 1.4142zM15.5353 18.364l-1.4142 1.4142c-2.7336 2.7336-7.16579 2.7336-9.89946.0-2.73367-2.7337-2.73367-7.1659.0-9.89952L5.63585 8.46446 7.05007 9.87868 5.63585 11.2929c-1.95262 1.9526-1.95262 5.1184.0 7.0711 1.95262 1.9526 5.11845 1.9526 7.07105.0l1.4142-1.4143 1.4142 1.4143zM14.8282 7.75736l1.4143 1.41421L9.17139 16.2426 7.75717 14.8284 14.8282 7.75736z"/></svg>
+<span>Copy link</span>
+</button>
+<a class=menu-item href=https://github.com/sisk-http/docs/edit/master/content/en/docs/fundamentals/routing.md rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.41421 15.89 16.5563 5.74785 15.1421 4.33363 5 14.4758V15.89H6.41421zm.82843 2H3V13.6473L14.435 2.21231c.390599999999999-.39052 1.0237-.39052 1.4142.0l2.8285 2.82843C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89zM3 19.89H21v2H3v-2z"/></svg>
+<span>Edit this page</span></a></div></details></div><h1>Routing</h1><div class=prose><p>The <a href=/api/Sisk.Core.Routing.Router.html>Router</a> is the first step in building the server. It is responsible for housing <a href=/api/Sisk.Core.Routing.Route.html>Route</a> objects, which are endpoints that map URLs and their methods to actions executed by the server. Each action is responsible for receiving a request and delivering a response to the client.</p><p>The routes are pairs of path expressions (&ldquo;path pattern&rdquo;) and the HTTP method that they can listen to. When a request is made to the server, it will attempt to find a route that matches the received request, then it will call the action of that route and deliver the resulting response to the client.</p><p>There are multiple ways to define routes in Sisk: they can be static, dynamic or auto-scanned, defined by attributes, or directly in the Router object.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>Router</span> <span class=n>mainRouter</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Router</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// maps the GET / route into the following action</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapGet</span><span class=p>(</span><span class=s>&#34;/&#34;</span><span class=p>,</span> <span class=n>request</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=s>&#34;Hello, world!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><p>To understand what a route is capable of doing, we need to understand what a request is capable of doing. An <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> will contain everything you need. Sisk also includes some extra features that speed up the overral development.</p><p>For every action received by the server, a delegate of type <a href=/api/Sisk.Core.Routing.RouteAction.html>RouteAction</a> will be called. This delegate contains an parameter holding an <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> with all the necessary information about the request received by the server. The resulting object from this delegate must be an <a href=/api/Sisk.Core.Http.HttpResponse.html>HttpResponse</a> or an object that maps to it through <a href=/docs/fundamentals/responses.html#implicit-response-types>implicit response types</a>.</p><h2 id=matching-routes>Matching routes <a class=heading-anchor href=#matching-routes aria-label=# data-pagefind-ignore>#</a></h2><p>When a request is received by the HTTP server, Sisk searches for a route that satisfies the expression of the path received by the request. The expression is always tested between the route and the request path, without considering the query string.</p><p>This test does not have priority and is exclusive to a single route. When no route is matched with that request, the <a href=/api/Sisk.Core.Routing.Router.NotFoundErrorHandler.html>Router.NotFoundErrorHandler</a> response is returned to the client. When the path pattern is matched, but the HTTP method is mismatched, the <a href=/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler.html>Router.MethodNotAllowedErrorHandler</a> response is sent back to the client.</p><p>Sisk checks for the possibility of route collisions to avoid these problems. When defining routes, Sisk will look for possible routes that might collide with the route being defined. This test includes checking the path and the method that the route is set to accept.</p><h3 id=creating-routes-using-path-patterns>Creating routes using path patterns <a class=heading-anchor href=#creating-routes-using-path-patterns aria-label=# data-pagefind-ignore>#</a></h3><p>For new applications, prefer the <code>Map*</code> methods. They keep the HTTP method visible at the call site and match the current <code>Router</code> API. The older <code>SetRoute</code> methods still exist as compatibility wrappers, but new examples should use <code>Map</code>, <code>MapGet</code>, <code>MapPost</code>, <code>MapPut</code>, <code>MapDelete</code>, <code>MapPatch</code>, <code>MapAny</code>, <code>MapOptions</code>, or <code>MapHead</code>.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=c1>// Map* methods are the usual way to define method-specific routes.</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapGet</span><span class=p>(</span><span class=s>&#34;/hey/&lt;name&gt;&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=n>name</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RouteParameters</span><span class=p>[</span><span class=s>&#34;name&#34;</span><span class=p>].</span><span class=n>GetString</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=s>$&#34;Hello, {name}&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapPost</span><span class=p>(</span><span class=s>&#34;/form&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>formData</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetFormContent</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>();</span> <span class=c1>// empty 200 ok</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Map can also receive a Route instance when you need route options.</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>Map</span><span class=p>(</span><span class=n>Route</span><span class=p>.</span><span class=n>Get</span><span class=p>(</span><span class=s>&#34;/image.png&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>imageStream</span> <span class=p>=</span> <span class=n>File</span><span class=p>.</span><span class=n>OpenRead</span><span class=p>(</span><span class=s>&#34;image.png&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// the StreamContent inner</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// stream is disposed after sending</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// the response.</span>
+</span></span><span class=line><span class=cl>        <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StreamContent</span><span class=p>(</span><span class=n>imageStream</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// multiple parameters</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapGet</span><span class=p>(</span><span class=s>&#34;/hey/&lt;name&gt;/surname/&lt;surname&gt;&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=n>name</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RouteParameters</span><span class=p>[</span><span class=s>&#34;name&#34;</span><span class=p>].</span><span class=n>GetString</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=n>surname</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RouteParameters</span><span class=p>[</span><span class=s>&#34;surname&#34;</span><span class=p>].</span><span class=n>GetString</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=s>$&#34;Hello, {name} {surname}!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><p>The <a href=/api/Sisk.Core.Http.HttpRequest.RouteParameters.html>RouteParameters</a> property of HttpRequest contains all the information about the path variables of the received request.</p><p>Every path received by the server is normalized before the path pattern test is executed, following these rules:</p><ul><li>All empty segments are removed from the path, eg: <code>////foo//bar</code> becomes <code>/foo/bar</code>.</li><li>Path matching is <strong>case-sensitive</strong>, unless <a href=/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase.html>Router.MatchRoutesIgnoreCase</a> is set to <code>true</code>.</li></ul><p>The <a href=/api/Sisk.Core.Http.HttpRequest.Query.html>Query</a> and <a href=/api/Sisk.Core.Http.HttpRequest.RouteParameters.html>RouteParameters</a> properties of <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> return a <a href=/api/Sisk.Core.Entity.StringValueCollection.html>StringValueCollection</a> object, where each indexed property returns a non-null <a href=/api/Sisk.Core.Entity.StringValue.html>StringValue</a>, which can be used as an option/monad to convert its raw value into a managed object.</p><p>The example below reads the route parameter &ldquo;id&rdquo; and obtains a <code>Guid</code> from it. If the parameter is not a valid Guid, an exception is thrown, and a 500 error is returned to the client if the server is not handling <a href=/api/Sisk.Core.Routing.Router.CallbackErrorHandler.html>Router.CallbackErrorHandler</a>.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapGet</span><span class=p>(</span><span class=s>&#34;/user/&lt;id&gt;&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Guid</span> <span class=n>id</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RouteParameters</span><span class=p>[</span><span class=s>&#34;id&#34;</span><span class=p>].</span><span class=n>GetGuid</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=s>$&#34;User id: {id}&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><div class="callout callout-note" role=note><p class=callout-title><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 22C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10 0 5.5228-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41828-3.5817-8-8-8-4.41828.0-8 3.58172-8 8 0 4.4183 3.58172 8 8 8zM11 7h2V9H11V7zm0 4h2v6H11V11z"/></svg>
+Note</p><p>Paths have their trailing <code>/</code> ignored in both request and route path, that is, if you try to access a route defined as <code>/index/page</code> you&rsquo;ll be able to access using <code>/index/page/</code> too.</p><p>You can also force URLs to terminate with <code>/</code> by enabling <a href=/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.html>HttpServerConfiguration.ForceTrailingSlash</a>.</p></div><h3 id=creating-routes-using-class-instances>Creating routes using class instances <a class=heading-anchor href=#creating-routes-using-class-instances aria-label=# data-pagefind-ignore>#</a></h3><p>You can also define routes dynamically using reflection with the attribute <a href=/api/Sisk.Core.Routing.RouteAttribute.html>RouteAttribute</a>. This way, the instance of a class in which its methods implement this attribute will have their routes defined in the target router.</p><p>For a method to be defined as a route, it must be marked with a <a href=/api/Sisk.Core.Routing.RouteAttribute.html>RouteAttribute</a>, such as the attribute itself or a <a href=/api/Sisk.Core.Routing.RouteGetAttribute.html>RouteGetAttribute</a>. The method can be static, instance, public, or private. Use <code>MapInstance</code> when you want to map instance and static route methods from an object. Use <code>MapType</code> when you want to map only static route methods from a type.</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/MyController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>MyController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// will match GET /</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet]</span>
+</span></span><span class=line><span class=cl>    <span class=n>HttpResponse</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>HttpResponse</span> <span class=n>res</span> <span class=p>=</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=n>res</span><span class=p>.</span><span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>&#34;Index!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>res</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// static methods works too</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/hello&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=n>HttpResponse</span> <span class=n>Hello</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>HttpResponse</span> <span class=n>res</span> <span class=p>=</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=n>res</span><span class=p>.</span><span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>&#34;Hello world!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>res</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>The line below will define both the <code>Index</code> and <code>Hello</code> methods of <code>MyController</code> as routes, as both are marked as routes, and an instance of the class has been provided, not its type. If its type had been provided instead of an instance, only the static methods would be defined.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kt>var</span> <span class=n>myController</span> <span class=p>=</span> <span class=k>new</span> <span class=n>MyController</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapInstance</span><span class=p>(</span><span class=n>myController</span><span class=p>);</span></span></span></code></pre></div></figure><p>To map only static route methods from a type, use:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapType</span><span class=p>&lt;</span><span class=n>MyController</span><span class=p>&gt;();</span></span></span></code></pre></div></figure><p>Since Sisk version 0.16, it is possible to enable AutoScan, which will search for user-defined classes that implement <code>RouterModule</code> and will automatically associate it with the router. This is not supported with AOT compilation.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>AutoScanModules</span><span class=p>&lt;</span><span class=n>ApiController</span><span class=p>&gt;();</span></span></span></code></pre></div></figure><p>The above instruction will search for all types which implements <code>ApiController</code> but <strong>not the type itself</strong>. The two optional parameters indicate how the method will search for these types. The first argument implies the Assembly where the types will be searched and the second indicates the way in which the types will be defined.</p><h2 id=regex-routes>Regex routes <a class=heading-anchor href=#regex-routes aria-label=# data-pagefind-ignore>#</a></h2><p>Instead of using the default HTTP path matching methods, you can mark a route to be interpreted with Regex.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>Route</span> <span class=n>indexRoute</span> <span class=p>=</span> <span class=k>new</span> <span class=n>RegexRoute</span><span class=p>(</span><span class=n>RouteMethod</span><span class=p>.</span><span class=n>Get</span><span class=p>,</span> <span class=s>@&#34;\/[a-z]+\/&#34;</span><span class=p>,</span> <span class=n>IndexPage</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>Map</span><span class=p>(</span><span class=n>indexRoute</span><span class=p>);</span></span></span></code></pre></div></figure><p>Or with <a href=/api/Sisk.Core.Routing.RegexRoute.html>RegexRoute</a> class:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>Map</span><span class=p>(</span><span class=k>new</span> <span class=n>RegexRoute</span><span class=p>(</span><span class=n>RouteMethod</span><span class=p>.</span><span class=n>Get</span><span class=p>,</span> <span class=s>@&#34;\/[a-z]+\/&#34;</span><span class=p>,</span> <span class=n>request</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=s>&#34;hello, world&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}));</span></span></span></code></pre></div></figure><p>You can also capture groups from the regex pattern into the <a href=/api/Sisk.Core.Http.HttpRequest.RouteParameters.html>HttpRequest.RouteParameters</a> contents:</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/MyController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>MyController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=na>    [RegexRoute(RouteMethod.Get, @&#34;/uploads/(?&lt;filename&gt;.*\.(jpeg|jpg|png))&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=n>HttpResponse</span> <span class=n>RegexRoute</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>string</span> <span class=n>filename</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RouteParameters</span><span class=p>[</span><span class=s>&#34;filename&#34;</span><span class=p>].</span><span class=n>GetString</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>().</span><span class=n>WithContent</span><span class=p>(</span><span class=s>$&#34;Acessing file {filename}&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><h2 id=prefixing-routes>Prefixing routes <a class=heading-anchor href=#prefixing-routes aria-label=# data-pagefind-ignore>#</a></h2><p>You can prefix all routes in a class or module with the <a href=/api/Sisk.Core.Routing.RoutePrefixAttribute.html>RoutePrefix</a> attribute and set the prefix as a string.</p><p>See the example below using the BREAD architecture (Browse, Read, Edit, Add and Delete):</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/Api/UsersController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=na>[RoutePrefix(&#34;/api/users&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>UsersController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// GET /api/users</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Browse</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// GET /api/users/&lt;id&gt;</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/&lt;id&gt;&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// PATCH /api/users/&lt;id&gt;</span>
+</span></span><span class=line><span class=cl><span class=na>    [RoutePatch(&#34;/&lt;id&gt;&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Edit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// POST /api/users</span>
+</span></span><span class=line><span class=cl><span class=na>    [RoutePost]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Add</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// DELETE /api/users/&lt;id&gt;</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteDelete(&#34;/&lt;id&gt;&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Delete</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>In the above example, the HttpResponse parameter is omitted in favor of being used through the global context <a href=/api/Sisk.Core.Http.HttpContext.Current.html>HttpContext.Current</a>. Read more in the section that follows.</p><h2 id=routes-without-request-parameter>Routes without request parameter <a class=heading-anchor href=#routes-without-request-parameter aria-label=# data-pagefind-ignore>#</a></h2><p>Routes can be defined without the <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> parameter and still be possible to obtain the request and its components in the request context. Let&rsquo;s consider an abstraction <code>ControllerBase</code> that serves as a foundation for all controllers of an API, and that abstraction provides the <code>Request</code> property to obtain the <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> currently.</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/ControllerBase.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=kd>abstract</span> <span class=k>class</span> <span class=nc>ControllerBase</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// gets the request from the current thread</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>HttpRequest</span> <span class=n>Request</span> <span class=p>{</span> <span class=k>get</span> <span class=p>=&gt;</span> <span class=n>HttpContext</span><span class=p>.</span><span class=n>Current</span><span class=p>.</span><span class=n>Request</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// the line below, when called, gets the database from the current HTTP session,</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// or creates a new one if it doesn&#39;t exist</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>DbContext</span> <span class=n>Database</span> <span class=p>{</span> <span class=k>get</span> <span class=p>=&gt;</span> <span class=n>HttpContext</span><span class=p>.</span><span class=n>Current</span><span class=p>.</span><span class=n>RequestBag</span><span class=p>.</span><span class=n>GetOrAdd</span><span class=p>&lt;</span><span class=n>DbContext</span><span class=p>&gt;();</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>And for all it&rsquo;s descendants to be able to use the route syntax without the request parameter:</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/UsersController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=na>[RoutePrefix(&#34;/api/users&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>UsersController</span> <span class=p>:</span> <span class=n>ControllerBase</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>    
+</span></span><span class=line><span class=cl><span class=na>    [RoutePost]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>Create</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// reads the JSON data from the current request</span>
+</span></span><span class=line><span class=cl>        <span class=n>UserCreationDto</span><span class=p>?</span> <span class=n>user</span> <span class=p>=</span> <span class=k>await</span> <span class=n>Request</span><span class=p>.</span><span class=n>GetJsonContentAsync</span><span class=p>&lt;</span><span class=n>UserCreationDto</span><span class=p>&gt;();</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>        <span class=n>Database</span><span class=p>.</span><span class=n>Users</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=n>user</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=m>201</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>More details about the current context and dependency injection can be found in the <a href=/docs/features/instancing.html>dependency injection</a> tutorial.</p><h2 id=any-method-routes>Any method routes <a class=heading-anchor href=#any-method-routes aria-label=# data-pagefind-ignore>#</a></h2><p>You can define a route to be matched only by its path and skip the HTTP method. This can be useful for you to do method validation inside the route callback.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=c1>// will match / on any HTTP method</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MapAny</span><span class=p>(</span><span class=s>&#34;/&#34;</span><span class=p>,</span> <span class=n>callbackFunction</span><span class=p>);</span></span></span></code></pre></div></figure><h2 id=any-path-routes>Any path routes <a class=heading-anchor href=#any-path-routes aria-label=# data-pagefind-ignore>#</a></h2><p>Any path routes test for any path received by the HTTP server, subject to the route method being tested. If the route method is RouteMethod.Any and the route uses <a href=/api/Sisk.Core.Routing.Route.AnyPath.html>Route.AnyPath</a> in its path expression, this route will listen to all requests from the HTTP server, and no other routes can be defined.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=c1>// the following route will match all POST requests</span>
+</span></span><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>Map</span><span class=p>(</span><span class=n>RouteMethod</span><span class=p>.</span><span class=n>Post</span><span class=p>,</span> <span class=n>Route</span><span class=p>.</span><span class=n>AnyPath</span><span class=p>,</span> <span class=n>callbackFunction</span><span class=p>);</span></span></span></code></pre></div></figure><h2 id=ignore-case-route-matching>Ignore case route matching <a class=heading-anchor href=#ignore-case-route-matching aria-label=# data-pagefind-ignore>#</a></h2><p>By default, the interpretation of routes with requests are case-sensitive. To make it ignore case, enable this option:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MatchRoutesIgnoreCase</span> <span class=p>=</span> <span class=kc>true</span><span class=p>;</span></span></span></code></pre></div></figure><p>This will also enable the option <code>RegexOptions.IgnoreCase</code> for routes where it&rsquo;s regex-matching.</p><h2 id=not-found-404-callback-handler>Not Found (404) callback handler <a class=heading-anchor href=#not-found-404-callback-handler aria-label=# data-pagefind-ignore>#</a></h2><p>You can create a custom callback for when a request doesn&rsquo;t match any known routes.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>NotFoundErrorHandler</span> <span class=p>=</span> <span class=p>()</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=m>404</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Since v0.14</span>
+</span></span><span class=line><span class=cl>        <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>HtmlContent</span><span class=p>(</span><span class=s>&#34;&lt;h1&gt;Not found&lt;/h1&gt;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// older versions</span>
+</span></span><span class=line><span class=cl>        <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>&#34;&lt;h1&gt;Not found&lt;/h1&gt;&#34;</span><span class=p>,</span> <span class=n>Encoding</span><span class=p>.</span><span class=n>UTF8</span><span class=p>,</span> <span class=s>&#34;text/html&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span></span></span></code></pre></div></figure><h2 id=method-not-allowed-405-callback-handler>Method not allowed (405) callback handler <a class=heading-anchor href=#method-not-allowed-405-callback-handler aria-label=# data-pagefind-ignore>#</a></h2><p>You can also create a custom callback for when a request matches it&rsquo;s path, but doens&rsquo;t match the method.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>MethodNotAllowedErrorHandler</span> <span class=p>=</span> <span class=p>(</span><span class=n>context</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=m>405</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>$&#34;Method not allowed for this route.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span></span></span></code></pre></div></figure><h2 id=error-handling>Error Handling <a class=heading-anchor href=#error-handling aria-label=# data-pagefind-ignore>#</a></h2><p>Exceptions can be thrown within a request lifecycle, which spans from the pre-execution request handler, through the router action, to the post-execution request handlers and value handlers. These exceptions are managed by the mechanism:</p><ul><li>If <a href=/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html>HttpServerConfiguration.ThrowExceptions</a> is <code>true</code>, exceptions will be thrown normally and will not be caught by Sisk, and the HTTP server may be interrupted if the exception is not caught.</li><li>If <a href=/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html>HttpServerConfiguration.ThrowExceptions</a> is <code>false</code>, exceptions will be caught and handled by Sisk. After that, if <code>Router.CallbackErrorHandler</code> is defined, it will be called with the caught exception and the request context, and it <strong>will not</strong> be forwarded to the standard error output. If <code>Router.CallbackErrorHandler</code> is not defined, the exception will be forwarded to the standard error output, and the client will receive an HTTP 500 error response. If the standard error output is not defined, the error will be silently ignored.</li></ul><p>Note: within <code>Router.CallbackErrorHandler</code>, you can set the log mode for errors, access log, both, or none, and alter the default log writing behavior:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=n>router</span><span class=p>.</span><span class=n>CallbackErrorHandler</span> <span class=p>=</span> <span class=p>(</span><span class=n>ex</span><span class=p>,</span> <span class=n>ctx</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>ctx</span><span class=p>.</span><span class=n>LogMode</span> <span class=p>=</span> <span class=n>LogOutput</span><span class=p>.</span><span class=n>Both</span><span class=p>;</span> <span class=c1>// override log mode to log the error in both access and error logs</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><h2 id=internal-error-handler>Internal error handler <a class=heading-anchor href=#internal-error-handler aria-label=# data-pagefind-ignore>#</a></h2><p>Route callbacks can throw errors during server execution. If not handled correctly, the overall functioning of the HTTP server can be terminated. The router has a callback for when a route callback fails and prevents service interruption.</p><p>This method is only reacheable when <a href=/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.html>ThrowExceptions</a> is set to false.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>mainRouter</span><span class=p>.</span><span class=n>CallbackErrorHandler</span> <span class=p>=</span> <span class=p>(</span><span class=n>ex</span><span class=p>,</span> <span class=n>context</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=m>500</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>$&#34;Error: {ex.Message}&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span></span></span></code></pre></div></figure></div><nav class=pager aria-label=Pagination data-pagefind-ignore><a class="pager-link pager-prev" href=/docs/faq.html rel=prev><span><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10.8284 12.0007l4.9498 4.9497-1.4142 1.4142L8 12.0007l6.364-6.36398 1.4142 1.41421-4.9498 4.94977z"/></svg>
+Previous</span>
+<strong>FAQ</strong>
+</a><a class="pager-link pager-next" href=/docs/fundamentals/request-handlers.html rel=next><span>Next<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+</span><strong>Request handlers</strong></a></nav></article><footer class=site-footer data-pagefind-ignore><p>Sisk is open source under the MIT license.</p><nav aria-label=Resources><a href=/llms.txt>llms.txt</a>
+<a href=/llms-full.txt>llms-full.txt</a>
+<a href=https://github.com/sisk-http/core rel=noopener>GitHub</a></nav></footer></main><aside class=toc aria-label="On this page"><div class=toc-inner data-toc><p class=toc-title>On this page</p><nav id=TableOfContents><ul><li><a href=#matching-routes>Matching routes</a><ul><li><a href=#creating-routes-using-path-patterns>Creating routes using path patterns</a></li><li><a href=#creating-routes-using-class-instances>Creating routes using class instances</a></li></ul></li><li><a href=#regex-routes>Regex routes</a></li><li><a href=#prefixing-routes>Prefixing routes</a></li><li><a href=#routes-without-request-parameter>Routes without request parameter</a></li><li><a href=#any-method-routes>Any method routes</a></li><li><a href=#any-path-routes>Any path routes</a></li><li><a href=#ignore-case-route-matching>Ignore case route matching</a></li><li><a href=#not-found-404-callback-handler>Not Found (404) callback handler</a></li><li><a href=#method-not-allowed-405-callback-handler>Method not allowed (405) callback handler</a></li><li><a href=#error-handling>Error Handling</a></li><li><a href=#internal-error-handler>Internal error handler</a></li></ul></nav></div></aside></div><dialog class=search-dialog aria-label=Search data-search data-docs-bundle=/pagefind/ data-api-bundle=/pagefind-api/><div class=search-panel><div class=search-field><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<input type=search placeholder="Search docs and API" autocomplete=off spellcheck=false aria-label=Search aria-controls=search-results data-search-input>
+<button type=button class=search-close data-search-close aria-label=close><kbd>Esc</kbd></button></div><div class=search-results id=search-results role=listbox aria-label=Search data-search-results data-label-docs=Documentation data-label-api="API reference" data-label-empty="No results found."><p class=search-message data-search-hint>Type to search the documentation and the API reference.</p></div><footer class=search-footer><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+<span><kbd>↵</kbd> open</span>
+<span><kbd>Esc</kbd> close</span></footer></div></dialog><script src=/scripts/main.dada65272781761b0cafcc8649b314a05e2c92b79db6eac32a981bb2acc121e3.js integrity="sha256-2tplJyeBdhsMr8yGSbMUoF4skredturDKpgbsqzBIeM=" defer></script><script data-goatcounter=https://siskframework.goatcounter.com/count async src=//gc.zgo.at/count.js></script></body></html>

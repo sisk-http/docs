@@ -1,0 +1,26 @@
+{{ $pages := slice }}
+{{ range partialCached "docs-groups.html" . .Lang }}{{ $pages = $pages | append .pages }}{{ end }}
+
+{{ $prev := false }}
+{{ $next := false }}
+{{ range $index, $page := $pages }}
+    {{ if eq $page.RelPermalink $.RelPermalink }}
+        {{ if gt $index 0 }}{{ $prev = index $pages (sub $index 1) }}{{ end }}
+        {{ if lt (add $index 1) (len $pages) }}{{ $next = index $pages (add $index 1) }}{{ end }}
+    {{ end }}
+{{ end }}
+
+<nav class="pager" aria-label="Pagination" data-pagefind-ignore>
+    {{ with $prev }}
+    <a class="pager-link pager-prev" href="{{ .RelPermalink }}" rel="prev">
+        <span>{{ partial "icon.html" "arrow-left" }}{{ T "previous" }}</span>
+        <strong>{{ .LinkTitle }}</strong>
+    </a>
+    {{ end }}
+    {{ with $next }}
+    <a class="pager-link pager-next" href="{{ .RelPermalink }}" rel="next">
+        <span>{{ T "next" }}{{ partial "icon.html" "arrow-right" }}</span>
+        <strong>{{ .LinkTitle }}</strong>
+    </a>
+    {{ end }}
+</nav>

@@ -1,0 +1,14 @@
+# Sisk Framework documentation
+
+> {{ site.Params.description }}
+
+This file contains the complete Sisk documentation ({{ .Site.Language.LanguageName }}). The API reference is not included; read {{ "api/index.md" | absURL }} for the type index.
+{{ range partialCached "docs-groups.html" . .Lang }}{{ range .pages }}{{ if ne .Kind "section" }}
+---
+
+# {{ .Title }}
+
+Source: {{ .Permalink }}
+
+{{ partial "markdown-body.html" . }}
+{{ end }}{{ end }}{{ end }}

@@ -1,0 +1,8 @@
+{{ if ne .Lang "en" }}
+{{ range .Translations }}{{ if eq .Lang "en" }}
+<p class="translation-notice" data-pagefind-ignore>
+    {{ partial "icon.html" "translate" }}
+    <span>{{ T "machineTranslated" }} <a href="{{ .RelPermalink }}" hreflang="en">{{ T "originalVersion" }}</a></span>
+</p>
+{{ end }}{{ end }}
+{{ end }}

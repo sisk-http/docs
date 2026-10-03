@@ -1,0 +1,26 @@
+# 機能
+
+Source: https://docs.sisk-framework.org/ja/docs/features/index.html
+
+
+
+## 機能
+
+- [ロギング](https://docs.sisk-framework.org/ja/docs/features/logging.md): Sisk を構成して、アクセスログとエラーログを自動的に書き込むことができます。ログのローテーション、拡張子、頻度を定義することが可能です。
+LogStream クラスは、非同期的にログを書き込み、await 可能な書き込みキューに保持する方法を提供します。LogStream クラスは IAsyncDisposable …
+- [サーバー送信イベント](https://docs.sisk-framework.org/ja/docs/features/server-sent-events.md): Sisk は、Server Sent Events を使用したメッセージ送信を標準でサポートしています。使い捨ておよび永続的な接続を作成でき、実行時に接続を取得して使用することができます。
+この機能には、ブラウザーが課すいくつかの制限があります。たとえば、テキストメッセージのみ送信でき、接続を永続的に閉じることができま …
+- [Web ソケット](https://docs.sisk-framework.org/ja/docs/features/websockets.md): Sisk は Web ソケットもサポートしており、クライアントとのメッセージの受信・送信が可能です。
+この機能はほとんどのブラウザで問題なく動作しますが、Sisk ではまだ実験的な段階です。バグを見つけた場合は、GitHub で報告してください。
+メッセージの受信 # WebSocket のメッセージは順番通りに受信さ …
+- [捨てられる構文](https://docs.sisk-framework.org/ja/docs/features/discard-syntax.md): HTTPサーバーは、OAuth認証などのアクションからのコールバック要求を待ち受けるために使用でき、要求を受け取った後には捨てられる。この機能は、バックグラウンドアクションが必要だが、HTTPアプリケーションを設定したくない場合に便利です。
+以下の例は、CreateListener を使用してポート5555でHTTPサ …
+- [依存性の注入](https://docs.sisk-framework.org/ja/docs/features/instancing.md): リクエストの有効期間中に存在するメンバーとインスタンス（たとえば、データベース接続、認証済みユーザー、またはセッショントークン）を指定することは一般的です。可能な方法の1つは、HttpContext.RequestBagを使用することです。これは、リクエストの有効期間中に存在する辞書を作成します。
+この辞書は、リクエス …
+- [コンテンツのストリーミング](https://docs.sisk-framework.org/ja/docs/features/content-streaming.md): Sisk では、クライアントとの間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中にコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するために役立ちます。
+リクエストコンテンツストリーム # 小さなコンテンツは自動的に HTTP 接続バッファメモリに読み込まれ …
+- [SiskでのCORS（Cross-Origin Resource Sharing）を有効にする](https://docs.sisk-framework.org/ja/docs/features/cors.md): Siskには、公開されているサービスでCORS（Cross-Origin Resource Sharing）を処理するためのツールがあります。この機能は、HTTPプロトコルの一部ではなく、W3Cによって定義されたWebブラウザの特定の機能です。このセキュリティメカニズムは、Webページが提供されたWebページと異なるド …
+- [File Server](https://docs.sisk-framework.org/ja/docs/features/file-server.md): Sisk は Sisk.Http.FileSystem 名前空間を提供し、静的ファイルの配信、ディレクトリ一覧表示、ファイル変換のツールが含まれます。この機能により、ローカルディレクトリからファイルを配信でき、レンジリクエスト（音声/動画ストリーミング）やカスタムファイル処理をサポートします。
+静的ファイルの配信 # …
+
+

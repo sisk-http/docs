@@ -1,0 +1,26 @@
+{{ define "main" }}
+<article class="article" data-pagefind-body data-pagefind-meta="section:docs">
+    <div class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-pagefind-ignore>
+            <a href="{{ (site.GetPage "/docs").RelPermalink }}">{{ T "docs" }}</a>
+            {{ with .Parent }}{{ if ne .Path "/docs" }}
+            {{ partial "icon.html" "arrow-right" }}<span>{{ .Title }}</span>
+            {{ end }}{{ end }}
+        </nav>
+        {{ partial "page-actions.html" . }}
+    </div>
+
+    <h1>{{ .Title }}</h1>
+
+    {{ partial "translation-notice.html" . }}
+
+    <div class="prose">
+        {{ .Content }}
+    </div>
+
+    {{ partial "pager.html" . }}
+</article>
+{{ partial "footer.html" . }}
+{{ end }}
+
+{{ define "aside" }}{{ partial "toc.html" . }}{{ end }}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.LanguageCode }}" data-lang="{{ .Lang }}">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body class="layout-{{ block "layout" . }}docs{{ end }}">
+    <a class="skip-link" href="#content">{{ T "skipToContent" }}</a>
+    {{ partial "header.html" . }}
+
+    <div class="shell">
+        {{ block "sidebar" . }}{{ partial "sidebar-docs.html" . }}{{ end }}
+
+        <main id="content" class="main">
+            {{ block "main" . }}{{ end }}
+        </main>
+
+        {{ block "aside" . }}{{ end }}
+    </div>
+
+    {{ partial "search-dialog.html" . }}
+
+    {{ $script := resources.Get "scripts/main.js" | js.Build (dict "minify" true) | fingerprint }}
+    <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+
+    {{ with site.Params.goatCounter }}
+    <script data-goatcounter="{{ . }}" async src="//gc.zgo.at/count.js"></script>
+    {{ end }}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "translation": {
+        "apiUrl": "https://api.groq.com/openai/v1/chat/completions",
+        "apiKeyEnv": "GROQ_API_KEY",
+        "model": "openai/gpt-oss-120b",
+        "temperature": 0,
+        "maxTokens": 65536,
+        "concurrency": 3,
+        "maxRetries": 5
+    }
+}

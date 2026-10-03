@@ -1,480 +1,109 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Basic Auth | Sisk </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Basic Auth | Sisk ">
-
-
-        <link rel="icon" href="../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../public/main.css">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
-        <meta name="docfx:navrel" content="../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
-
-        <meta name="docfx:rel" content="../../">
-
-
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/extensions/basic-auth.md/#L1">
-        <meta name="loc:inThisArticle" content="In this article">
-        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
-        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
-        <meta name="loc:tocFilter" content="Filter by title">
-        <meta name="loc:nextArticle" content="Next">
-        <meta name="loc:prevArticle" content="Previous">
-        <meta name="loc:themeLight" content="Light">
-        <meta name="loc:themeDark" content="Dark">
-        <meta name="loc:themeAuto" content="Auto">
-        <meta name="loc:changeTheme" content="Change theme">
-        <meta name="loc:copy" content="Copy">
-        <meta name="loc:downloadPdf" content="Download PDF">
-        
-        <script type="module" src="./../../public/docfx.min.js"></script>
-        <script>
-            const theme = localStorage.getItem('theme') || 'auto';
-            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-        </script>
-        
-        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        
-        <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-        <!-- End GoatCounter -->
-        
-        <script>            
-            function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
-                const newPath = lang + docPart;
-                window.location.href = window.location.origin + newPath;
-            }        
-        </script>
-        
-    </head>
-    
-    
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
-        <header class="bg-body border-bottom">
-            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
-                <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
-                        Sisk
-                    </a>
-                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-three-dots"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navpanel">
-                        <div id="navbar">
-                            <form class="search" role="search" id="search">
-                                <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <main class="container-xxl">
-            <div class="toc-offcanvas">
-                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <nav class="toc" id="toc"></nav>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="actionbar">
-                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <nav id="breadcrumb"></nav>
-                    <div class="actionbar-actions">
-                        <div id="language-wrapper">
-                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
-                                <i class="bi bi-globe"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
-                                        <img src="/assets/flag/usa.png">
-                                        English
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
-                                        <img src="/assets/flag/russia.png">
-                                        Русский
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
-                                        <img src="/assets/flag/brazil.png">
-                                        Português
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
-                                        <img src="/assets/flag/spain.png">
-                                        Español
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
-                                        <img src="/assets/flag/germany.png">
-                                        Deutsch
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                        <img src="/assets/flag/china.png">
-                                        中文 (简体)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
-                                        <img src="/assets/flag/japan.png">
-                                        日本語
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div id="copy-article-wrapper">
-                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
-                                <i class="bi bi-copy"></i>
-                            </a>
-                            <div class="copy-dropdown" id="copy-dropdown">
-                                <button type="button" id="copy-link-btn">
-                                    <i class="bi bi-link-45deg"></i>
-                                    Copy link
-                                </button>
-                                <button type="button" id="copy-markdown-btn">
-                                    <i class="bi bi-markdown"></i>
-                                    Copy as Markdown
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <article data-uid="">
-<h1 id="basic-auth">Basic Auth</h1>
-
-<p>The Basic Auth package adds a request handler capable of handling basic authentication scheme in your Sisk application with very little configuration and effort.
+<!doctype html><html lang=en-US data-lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Basic Auth | Sisk</title><meta name=description content="The Basic Auth package adds a request handler capable of handling basic authentication scheme in your Sisk application with very little configuration and …"><link rel=canonical href=https://docs.sisk-framework.org/docs/extensions/basic-auth.html><link rel=icon href=/favicon.ico><link rel=alternate hreflang=en-US href=https://docs.sisk-framework.org/docs/extensions/basic-auth.html><link rel=alternate hreflang=pt-BR href=https://docs.sisk-framework.org/pt-br/docs/extensions/basic-auth.html><link rel=alternate hreflang=es-ES href=https://docs.sisk-framework.org/es/docs/extensions/basic-auth.html><link rel=alternate hreflang=de-DE href=https://docs.sisk-framework.org/de/docs/extensions/basic-auth.html><link rel=alternate hreflang=ru-RU href=https://docs.sisk-framework.org/ru/docs/extensions/basic-auth.html><link rel=alternate hreflang=zh-CN href=https://docs.sisk-framework.org/zh-cn/docs/extensions/basic-auth.html><link rel=alternate hreflang=ja-JP href=https://docs.sisk-framework.org/ja/docs/extensions/basic-auth.html><link rel=alternate hreflang=x-default href=https://docs.sisk-framework.org/docs/extensions/basic-auth.html><link rel=alternate type=text/markdown href=/docs/extensions/basic-auth.md title=Markdown><link rel=help type=text/plain href=/llms.txt title=llms.txt><meta property="og:title" content="Basic Auth"><meta property="og:site_name" content="Sisk"><meta property="og:url" content="https://docs.sisk-framework.org/docs/extensions/basic-auth.html"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://docs.sisk-framework.org/assets/img/Icon-HQ.png"><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Geist:wght@300..700&display=swap"><script>(()=>{const e=localStorage.getItem("theme")||"auto",t=e==="dark"||e==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t?"dark":"light",document.documentElement.dataset.themePreference=e})()</script><link rel=stylesheet href=/styles/main.min.9a2bcae9b4d981dc58f4970bd2f6185141d57c0fca813e647ae5ec5144132b31.css integrity="sha256-mivK6bTZgdxY9JcL0vYYUUHVfA/KgT5keuXsUUQTKzE="></head><body class=layout-docs><a class=skip-link href=#content>Skip to content</a><header class=header><div class=header-inner><button class="icon-button nav-toggle" type=button aria-label=Menu aria-controls=sidebar aria-expanded=false data-nav-toggle>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 4H21V6H3V4zm0 7H21v2H3V11zm0 7H21v2H3V18z"/></svg>
+</button>
+<a class=brand href=/index.html><img src=/assets/img/Icon.png alt width=32 height=32>
+<span>Sisk</span></a><nav class=header-nav aria-label=Main><a href=/index.html>Welcome</a>
+<a href=/docs/index.html aria-current=page>Docs</a>
+<a href=/api/index.html>API</a></nav><button class=search-trigger type=button data-search-open aria-label=Search>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<span class=search-trigger-label>Search</span>
+<kbd class=search-trigger-key>Ctrl K</kbd></button><div class=header-tools><details class=menu data-menu><summary class="icon-button language-trigger" aria-label=Language title=Language><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.5 10l4.4 11H20.745l-1.201-3h-4.09l-1.199 3H12.101L16.5 10h2zM10 2V4h6V6L14.0322 6.0006c-.7897 2.36556-2.0334 4.5051-3.6207 6.3004C11.1344 12.9457 11.917 13.5176 12.7475 14.0079l-.7506 1.8776c-1.0732-.6074-2.07746-1.3331-2.99729-2.1606-1.78558 1.6071-3.89047 2.8304-6.2007 3.5485l-.53634-1.9292C4.2385 14.7203 6.04543 13.6737 7.59042 12.3021c-1.12765-1.274-2.08169-2.72225-2.823-4.30182L7.00684 8.00037C7.57018 9.03885 8.23979 10.0033 8.99967 10.877 10.2283 9.46508 11.2205 7.81616 11.9095 6.00101L2 6V4H8V2h2zm7.5 10.8852L16.253 16h2.492L17.5 12.8852z"/></svg>
+<span class=language-code>EN</span></summary><div class=menu-panel><a class=menu-item href=/docs/extensions/basic-auth.html hreflang=en-US lang=en-US data-lang-link=en aria-current=true>English
+</a><a class=menu-item href=/pt-br/docs/extensions/basic-auth.html hreflang=pt-BR lang=pt-BR data-lang-link=pt-br>Português
+</a><a class=menu-item href=/es/docs/extensions/basic-auth.html hreflang=es-ES lang=es-ES data-lang-link=es>Español
+</a><a class=menu-item href=/de/docs/extensions/basic-auth.html hreflang=de-DE lang=de-DE data-lang-link=de>Deutsch
+</a><a class=menu-item href=/ru/docs/extensions/basic-auth.html hreflang=ru-RU lang=ru-RU data-lang-link=ru>Русский
+</a><a class=menu-item href=/zh-cn/docs/extensions/basic-auth.html hreflang=zh-CN lang=zh-CN data-lang-link=zh-cn>中文 (简体)
+</a><a class=menu-item href=/ja/docs/extensions/basic-auth.html hreflang=ja-JP lang=ja-JP data-lang-link=ja>日本語</a></div></details><details class=menu data-menu><summary class=icon-button aria-label=Theme title=Theme><span class="theme-icon theme-icon-light"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+</span><span class="theme-icon theme-icon-dark"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg></span></summary><div class=menu-panel><button type=button class=menu-item data-theme-set=light><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+Light</button>
+<button type=button class=menu-item data-theme-set=dark><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg>
+Dark</button>
+<button type=button class=menu-item data-theme-set=auto><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 21.9967c-5.52285.0-10-4.4771-10-10 0-5.52284 4.47715-10 10-10 5.5228.0 10 4.47716 10 10 0 5.5229-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41827-3.5817-8-8-8-4.41828.0-8 3.58173-8 8 0 4.4183 3.58172 8 8 8zM7.00035 15.316C9.07995 15.1646 11.117 14.2939 12.7071 12.7038c1.5901-1.5901 2.4608-3.62714 2.6122-5.70674.3261.21702.6357.46936.923299999999999.757 2.3432 2.34314 2.3432 6.14214.0 8.48524-2.3431 2.3432-6.1421 2.3432-8.48524.0C7.46971 15.9517 7.21738 15.6421 7.00035 15.316z"/></svg>
+System</button></div></details><a class=icon-button href=https://github.com/sisk-http/core aria-label=GitHub title=GitHub rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12c0 4.425 2.8625 8.1625 6.8375 9.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125 9.52598 20.775 9.51348 19.9875 9.51348 19.15 7.00098 19.6125 6.35098 18.5375 6.15098 17.975 6.03848 17.6875 5.55098 16.8 5.12598 16.5625 4.77598 16.375 4.27598 15.9125 5.11348 15.9 5.90098 15.8875 6.46348 16.625 6.65098 16.925 7.55098 18.4375 8.98848 18.0125 9.56348 17.75 9.65098 17.1 9.91348 16.6625 10.201 16.4125c-2.22502-.25-4.55002-1.1125-4.55002-4.9375.0-1.0875.3875-1.9875 1.025-2.6875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375c0 0 .8375-.2625 2.75 1.025C10.326 6.9375 11.176 6.825 12.026 6.825S13.726 6.9375 14.526 7.1625c1.9125-1.3 2.75-1.025 2.75-1.025C17.826 7.5125 17.476 8.5375 17.376 8.7875 18.0135 9.4875 18.401 10.375 18.401 11.475c0 3.8375-2.3375 4.6875-4.5625 4.9375C14.201 16.725 14.5135 17.325 14.5135 18.2625 14.5135 19.6 14.501 20.675 14.501 21.0125 14.501 21.275 14.6885 21.5875 15.1885 21.4875 19.259 20.1133 21.9999 16.2963 22.001 12c0-5.525-4.475-10-10-10z"/></svg></a></div></div></header><div class=shell><aside class=sidebar id=sidebar aria-label=Docs><nav class=sidebar-nav><div class=nav-group><p class=nav-group-title>Welcome</p><ul><li><a href=/docs/getting-started.html>Getting Started</a></li><li><a href=/docs/index.html>Summary</a></li><li><a href=/docs/installing.html>Installing</a></li><li><a href=/docs/native-aot.html>Native AOT Support</a></li><li><a href=/docs/deploying.html>Deploying</a></li><li><a href=/docs/ssl.html>Working with SSL</a></li><li><a href=/docs/cadente.html>Cadente</a></li><li><a href=/docs/registering-namespace.html>Windows Setup</a></li><li><a href=/docs/changelogs.html>Changelogs</a></li><li><a href=/docs/faq.html>FAQ</a></li></ul></div><div class=nav-group><p class=nav-group-title>Fundamentals</p><ul><li><a href=/docs/fundamentals/routing.html>Routing</a></li><li><a href=/docs/fundamentals/request-handlers.html>Request handlers</a></li><li><a href=/docs/fundamentals/requests.html>Requests</a></li><li><a href=/docs/fundamentals/responses.html>Responses</a></li></ul></div><div class=nav-group><p class=nav-group-title>Features</p><ul><li><a href=/docs/features/logging.html>Logging</a></li><li><a href=/docs/features/server-sent-events.html>Server sent events</a></li><li><a href=/docs/features/websockets.html>Web Sockets</a></li><li><a href=/docs/features/discard-syntax.html>Discard syntax</a></li><li><a href=/docs/features/instancing.html>Dependency injection</a></li><li><a href=/docs/features/content-streaming.html>Content streaming</a></li><li><a href=/docs/features/cors.html>Cross-Origin Resource Sharing</a></li><li><a href=/docs/features/file-server.html>File server</a></li></ul></div><div class=nav-group><p class=nav-group-title>Extensions</p><ul><li><a href=/docs/extensions/mcp.html>Model Context Protocol (MCP)</a></li><li><a href=/docs/extensions/json-rpc.html>JSON-RPC</a></li><li><a href=/docs/extensions/ssl-proxy.html>SSL Proxy</a></li><li><a href=/docs/extensions/basic-auth.html aria-current=page>Basic auth</a></li><li><a href=/docs/extensions/service-providers.html>Service Providers</a></li><li><a href=/docs/extensions/ini-configuration.html>INI configuration</a></li><li><a href=/docs/extensions/api-documentation.html>API Documentation</a></li></ul></div><div class=nav-group><p class=nav-group-title>Advanced</p><ul><li><a href=/docs/advanced/manual-setup.html>Manual setup</a></li><li><a href=/docs/advanced/request-lifecycle.html>Request lifecycle</a></li><li><a href=/docs/advanced/forwarding-resolvers.html>Forwarding Resolvers</a></li><li><a href=/docs/advanced/http-server-handlers.html>HTTP server handlers</a></li><li><a href=/docs/advanced/multi-host-setup.html>Multi-host setup</a></li><li><a href=/docs/advanced/server-engines.html>HTTP engines</a></li></ul></div></nav></aside><main id=content class=main><article class=article data-pagefind-body data-pagefind-meta=section:docs><div class=article-header><nav class=breadcrumb aria-label=Breadcrumb data-pagefind-ignore><a href=/docs/index.html>Docs</a>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+<span>Extensions</span></nav><details class="menu page-actions" data-menu data-pagefind-ignore><summary class="button button-ghost"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg>
+<span>Copy page</span>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.9999 13.1714l4.9498-4.94972 1.4142 1.41421-6.364 6.36401L5.63599 9.63589 7.0502 8.22168l4.9497 4.94972z"/></svg></summary><div class=menu-panel><button type=button class=menu-item data-copy-markdown=/docs/extensions/basic-auth.md data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4c0-.55228.44772-1 1-1zM4 5V19H20V5H4zM7 15.5H5v-7H7l2 2 2-2h2v7H11v-4l-2 2-2-2v4zm11-3h2l-3 3-3-3h2v-4h2v4z"/></svg>
+<span>Copy as Markdown</span>
+</button>
+<a class=menu-item href=/docs/extensions/basic-auth.md type=text/markdown><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8zM19 9H14V4H5V20H19V9zM8 7h3V9H8V7zm0 4h8v2H8V11zm0 4h8v2H8V15z"/></svg>
+<span>View as Markdown</span>
+</a><button type=button class=menu-item data-copy-link data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.3638 15.5355l-1.4142-1.4142 1.4142-1.4142c1.9526-1.9526 1.9526-5.11844.0-7.07106-1.9526-1.95263-5.1185-1.95263-7.0711.0L9.87849 7.05025 8.46428 5.63604 9.87849 4.22182c2.73371-2.73367 7.16581-2.73367 9.89951.0 2.7337 2.73367 2.7337 7.16578.0 9.89948l-1.4142 1.4142zM15.5353 18.364l-1.4142 1.4142c-2.7336 2.7336-7.16579 2.7336-9.89946.0-2.73367-2.7337-2.73367-7.1659.0-9.89952L5.63585 8.46446 7.05007 9.87868 5.63585 11.2929c-1.95262 1.9526-1.95262 5.1184.0 7.0711 1.95262 1.9526 5.11845 1.9526 7.07105.0l1.4142-1.4143 1.4142 1.4143zM14.8282 7.75736l1.4143 1.41421L9.17139 16.2426 7.75717 14.8284 14.8282 7.75736z"/></svg>
+<span>Copy link</span>
+</button>
+<a class=menu-item href=https://github.com/sisk-http/docs/edit/master/content/en/docs/extensions/basic-auth.md rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.41421 15.89 16.5563 5.74785 15.1421 4.33363 5 14.4758V15.89H6.41421zm.82843 2H3V13.6473L14.435 2.21231c.390599999999999-.39052 1.0237-.39052 1.4142.0l2.8285 2.82843C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89zM3 19.89H21v2H3v-2z"/></svg>
+<span>Edit this page</span></a></div></details></div><h1>Basic Auth</h1><div class=prose><p>The Basic Auth package adds a request handler capable of handling basic authentication scheme in your Sisk application with very little configuration and effort.
 Basic HTTP authentication is a minimal input form of authenticating requests by an user id and password, where the session is controlled exclusively
-by the client and there are no authentication or access tokens.</p>
-<p><img src="/assets/img/basic-auth.svg" alt="Basic Auth"></p>
-<p>Read more about the Basic authentication scheme in the <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication">MDN specification</a>.</p>
-<h2 id="installing">Installing</h2>
-<p>To get started, install the Sisk.BasicAuth package in your project:</p>
-<pre><code>&gt; dotnet add package Sisk.BasicAuth
-</code></pre>
-<p>You can view more ways to install it in your project in the <a href="https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0">Nuget repository</a>.</p>
-<h2 id="creating-your-auth-handler">Creating your auth handler</h2>
-<p>You can control the authentication scheme for an entire module or for individual routes. For that, let's first write our first basic authentication handler.</p>
-<p>In the example below, a connection is made to the database, it checks if the user exists and if the password is valid, and after that, stores the user in the context bag.</p>
-<pre><code class="lang-cs">public class UserAuthHandler : BasicAuthenticateRequestHandler
-{
-    public UserAuthHandler() : base()
-    {
-        Realm = &quot;To enter this page, please, inform your credentials.&quot;;
-    }
-
-    public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
-    {
-        DbContext db = new DbContext();
-
-        // in this case, we're using the email as the user id field, so we're
-        // going to search for an user using their email.
-        User? user = db.Users.FirstOrDefault(u =&gt; u.Email == credentials.UserId);
-        if (user == null)
-        {
-            return base.CreateUnauthorizedResponse(&quot;Sorry! No user was found by this email.&quot;);
-        }
-
-        // validates that the credentials password is valid for this user.
-        if (!user.ValidatePassword(credentials.Password))
-        {
-            return base.CreateUnauthorizedResponse(&quot;Invalid credentials.&quot;);
-        }
-
-        // adds the logged user to the http context
-        // and continues the execution
-        context.Bag.Add(&quot;loggedUser&quot;, user);
-        return null;
-    }
-}
-</code></pre>
-<p>So, just associate this request handler with our route or class.</p>
-<pre><code class="lang-cs">public class UsersController
-{
-    [RouteGet(&quot;/&quot;)]
-    [RequestHandler(typeof(UserAuthHandler))]
-    public string Index(HttpRequest request)
-    {
-        User loggedUser = request.Bag.Get&lt;User&gt;();
-        return $&quot;Hello, {loggedUser.Name}!&quot;;
-    }
-}
-</code></pre>
-<p>Or using <a href="/api/Sisk.Core.Routing.RouterModule">RouterModule</a> class:</p>
-<pre><code class="lang-cs">public class UsersController : RouterModule
-{
-    public ClientModule()
-    {
-        // all routes inside this class will be handled by
-        // UserAuthHandler.
-        base.HasRequestHandler(new UserAuthHandler());
-    }
-    
-    [RouteGet(&quot;/&quot;)]
-    public string Index(HttpRequest request)
-    {
-        User loggedUser = request.Bag.Get&lt;User&gt;();
-        return $&quot;Hello, {loggedUser.Name}!&quot;;
-    }
-}
-</code></pre>
-<h2 id="remarks">Remarks</h2>
-<p>The primary responsibility of basic authentication is carried out on the client-side. Storage, cache control, and encryption are all handled locally on the client. The server only receives the
-credentials and validates whether access is allowed or not.</p>
-<p>Note that this method is not one of the most secure because it places a significant responsibility on the client, which can be difficult to trace and maintain the security of its credentials. Additionally, it is crucial for passwords to be transmitted in a secure connection context (SSL), as they do not have any inherent encryption. A brief interception in the headers of a request can expose the access credentials of your user.</p>
-<p>Opt for more robust authentication solutions for applications in production and avoid using too many off-the-shelf components, as they may not adapt to the needs of your project and end up exposing it to security risks.</p>
-
-</article>
-
-                <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/extensions/basic-auth.md/#L1" class="edit-link">Edit this page</a>
-                </div>
-
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
-
-            </div>
-
-            <div class="affix">
-                <nav id="affix"></nav>
-            </div>
-        </main>
-
-        <div class="container-xxl search-results" id="search-results"></div>
-
-        <footer class="border-top text-secondary">
-            <div class="container-xxl">
-                <div class="flex-fill">
-                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
-                </div>
-            </div>
-            <script>
-                if (window.location.pathname.startsWith('/docs/')) {
-                    document.getElementById('language-wrapper').style.display = 'block';
-                }
-                
-                function splitText(text, words) {
-                    if (!Array.isArray(words)) return [];
-                    const escapedWords = words.map(word =>
-                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
-                        
-                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
-                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
-                    const splitResult = text.split(pattern);
-                    const cleanedResult = splitResult.filter(segment => segment !== '');
-                    return cleanedResult;
-                }
-                
-                function runPostHljsFunctions() {
-                    if (!document.querySelector("pre>code")) {
-                        return;
-                    }
-                    if (!document.querySelector(".hljs")) {
-                        setTimeout(runPostHljsFunctions, 100);
-                        return;
-                    }
-                    
-                    function highlightMissingCodeTokens(pre) {
-                        const tokenClasses = [
-                            "HttpResponse", "HttpRequest", "File", "Task",
-                            "Router", "Route", "StringContent", "StreamContent",
-                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
-                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
-                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
-                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
-                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
-                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
-                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
-                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
-                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
-                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
-                            "CadenteHttpServerEngine", "CertificateHelper"
-                        ];
-                        const tokenValues = [
-                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
-                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
-                        ];
-                        const tokenInterfaces = [
-                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
-                        ];
-                        
-                        function runStyles(node) {
-                            if (node.nodeType === 3) {
-                                applyStyles(node);
-                                
-                            } else if (node.nodeType === 1) {
-                                
-                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
-                                
-                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
-                                    for(const child of node.childNodes) {
-                                        runStyles(child);
-                                    }
-                                }
-                            }
-                        }
-                        
-                        function applyStyles(textNode) {
-                            const text = textNode.textContent;
-                            const fragment = [];
-                            
-                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
-                                if (tokenClasses.includes(token)) {
-                                    fragment.push(el("span.hljs-meta", token));
-                                    
-                                } else if (tokenValues.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-value", token));
-                                    
-                                } else if (tokenInterfaces.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-interface", token));
-                                    
-                                } else {
-                                    fragment.push(token);
-                                }
-                            }
-                            
-                            textNode.replaceWith(el.fragment(...fragment));
-                        }
-                        
-                        const code = pre.querySelector("code");
-                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
-                            runStyles(code);
-                        }
-                    }
-                    
-                    function addLineNumbers(pre) {
-                        const code = pre.querySelector("code");
-                        if (!code) return;
-                        
-                        var lines = (code.textContent.match(/\n/g) || []).length;
-                        
-                        if (lines <= 1) {
-                            return;
-                        }
-                        
-                        const lineElements = [];
-                        for (let i = 1; i <= lines; i++) {
-                            lineElements.push(el("span.hljs-line-number", i + "\n"));
-                        }
-                        
-                        code.prepend(el("div.line-numbers", ...lineElements));
-                        code.classList.add("has-line-numbers");
-                    }
-                                        
-                    document.querySelectorAll("pre").forEach(pre => {
-                        highlightMissingCodeTokens(pre);
-                        addLineNumbers(pre);
-                    });
-                }
-                
-                runPostHljsFunctions();
-                
-                (function() {
-                    const copyBtn = document.getElementById('copy-article-btn');
-                    const copyDropdown = document.getElementById('copy-dropdown');
-                    const copyLinkBtn = document.getElementById('copy-link-btn');
-                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
-                    
-                    if (!copyBtn) return;
-                    
-                    copyBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        copyDropdown.classList.toggle('show');
-                    });
-                    
-                    document.addEventListener('click', function(e) {
-                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
-                            copyDropdown.classList.remove('show');
-                        }
-                    });
-                    
-                    function getArticleContent() {
-                        const article = document.querySelector('article');
-                        if (!article) return null;
-                        
-                        const clone = article.cloneNode(true);
-                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
-                        
-                        return clone;
-                    }
-                    
-                    copyLinkBtn.addEventListener('click', function() {
-                        navigator.clipboard.writeText(window.location.href);
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    copyMarkdownBtn.addEventListener('click', async function() {
-                        const article = getArticleContent();
-                        if (!article) return;
-                        
-                        if (typeof TurndownService === 'undefined') {
-                            const script = document.createElement('script');
-                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
-                            script.onload = function() {
-                                convertAndCopy(article);
-                            };
-                            document.head.appendChild(script);
-                        } else {
-                            convertAndCopy(article);
-                        }
-                        
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    function convertAndCopy(article) {
-                        const turndown = new TurndownService({
-                            headingStyle: 'atx',
-                            codeBlockStyle: 'fenced'
-                        });
-                        
-                        turndown.addRule('codeBlocks', {
-                            filter: ['pre'],
-                            replacement: function(content, node) {
-                                const code = node.querySelector('code');
-                                const langClass = code?.className.match(/lang-(\w+)/);
-                                const lang = langClass ? langClass[1] : '';
-                                const text = code?.textContent || content;
-                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
-                            }
-                        });
-                        
-                        const markdown = turndown.turndown(article.innerHTML);
-                        navigator.clipboard.writeText(markdown);
-                    }
-                })();
-            </script>
-        </footer>
-    </body>
-</html>
+by the client and there are no authentication or access tokens.</p><p><img src=/assets/img/basic-auth.svg alt="Basic Auth" loading=lazy></p><p>Read more about the Basic authentication scheme in the <a href=https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Authentication rel=noopener>MDN specification</a>.</p><h2 id=installing>Installing <a class=heading-anchor href=#installing aria-label=# data-pagefind-ignore>#</a></h2><p>To get started, install the Sisk.BasicAuth package in your project:</p><pre><code>&gt; dotnet add package Sisk.BasicAuth
+</code></pre><p>You can view more ways to install it in your project in the <a href=https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0 rel=noopener>Nuget repository</a>.</p><h2 id=creating-your-auth-handler>Creating your auth handler <a class=heading-anchor href=#creating-your-auth-handler aria-label=# data-pagefind-ignore>#</a></h2><p>You can control the authentication scheme for an entire module or for individual routes. For that, let&rsquo;s first write our first basic authentication handler.</p><p>In the example below, a connection is made to the database, it checks if the user exists and if the password is valid, and after that, stores the user in the context bag.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>UserAuthHandler</span> <span class=p>:</span> <span class=n>BasicAuthenticateRequestHandler</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>UserAuthHandler</span><span class=p>()</span> <span class=p>:</span> <span class=k>base</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>Realm</span> <span class=p>=</span> <span class=s>&#34;To enter this page, please, inform your credentials.&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>override</span> <span class=n>HttpResponse</span><span class=p>?</span> <span class=n>OnValidating</span><span class=p>(</span><span class=n>BasicAuthenticationCredentials</span> <span class=n>credentials</span><span class=p>,</span> <span class=n>HttpContext</span> <span class=n>context</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>DbContext</span> <span class=n>db</span> <span class=p>=</span> <span class=k>new</span> <span class=n>DbContext</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// in this case, we&#39;re using the email as the user id field, so we&#39;re</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// going to search for an user using their email.</span>
+</span></span><span class=line><span class=cl>        <span class=n>User</span><span class=p>?</span> <span class=n>user</span> <span class=p>=</span> <span class=n>db</span><span class=p>.</span><span class=n>Users</span><span class=p>.</span><span class=n>FirstOrDefault</span><span class=p>(</span><span class=n>u</span> <span class=p>=&gt;</span> <span class=n>u</span><span class=p>.</span><span class=n>Email</span> <span class=p>==</span> <span class=n>credentials</span><span class=p>.</span><span class=n>UserId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>user</span> <span class=p>==</span> <span class=kc>null</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>base</span><span class=p>.</span><span class=n>CreateUnauthorizedResponse</span><span class=p>(</span><span class=s>&#34;Sorry! No user was found by this email.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// validates that the credentials password is valid for this user.</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(!</span><span class=n>user</span><span class=p>.</span><span class=n>ValidatePassword</span><span class=p>(</span><span class=n>credentials</span><span class=p>.</span><span class=n>Password</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>base</span><span class=p>.</span><span class=n>CreateUnauthorizedResponse</span><span class=p>(</span><span class=s>&#34;Invalid credentials.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// adds the logged user to the http context</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// and continues the execution</span>
+</span></span><span class=line><span class=cl>        <span class=n>context</span><span class=p>.</span><span class=n>Bag</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=s>&#34;loggedUser&#34;</span><span class=p>,</span> <span class=n>user</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>So, just associate this request handler with our route or class.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>UsersController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=na>    [RequestHandler(typeof(UserAuthHandler))]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kt>string</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>User</span> <span class=n>loggedUser</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Bag</span><span class=p>.</span><span class=n>Get</span><span class=p>&lt;</span><span class=n>User</span><span class=p>&gt;();</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s>$&#34;Hello, {loggedUser.Name}!&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>Or using <a href=/api/Sisk.Core.Routing.RouterModule.html>RouterModule</a> class:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>UsersController</span> <span class=p>:</span> <span class=n>RouterModule</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>ClientModule</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// all routes inside this class will be handled by</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// UserAuthHandler.</span>
+</span></span><span class=line><span class=cl>        <span class=k>base</span><span class=p>.</span><span class=n>HasRequestHandler</span><span class=p>(</span><span class=k>new</span> <span class=n>UserAuthHandler</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=na>    
+</span></span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kt>string</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>User</span> <span class=n>loggedUser</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Bag</span><span class=p>.</span><span class=n>Get</span><span class=p>&lt;</span><span class=n>User</span><span class=p>&gt;();</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s>$&#34;Hello, {loggedUser.Name}!&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><h2 id=remarks>Remarks <a class=heading-anchor href=#remarks aria-label=# data-pagefind-ignore>#</a></h2><p>The primary responsibility of basic authentication is carried out on the client-side. Storage, cache control, and encryption are all handled locally on the client. The server only receives the
+credentials and validates whether access is allowed or not.</p><p>Note that this method is not one of the most secure because it places a significant responsibility on the client, which can be difficult to trace and maintain the security of its credentials. Additionally, it is crucial for passwords to be transmitted in a secure connection context (SSL), as they do not have any inherent encryption. A brief interception in the headers of a request can expose the access credentials of your user.</p><p>Opt for more robust authentication solutions for applications in production and avoid using too many off-the-shelf components, as they may not adapt to the needs of your project and end up exposing it to security risks.</p></div><nav class=pager aria-label=Pagination data-pagefind-ignore><a class="pager-link pager-prev" href=/docs/extensions/ssl-proxy.html rel=prev><span><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10.8284 12.0007l4.9498 4.9497-1.4142 1.4142L8 12.0007l6.364-6.36398 1.4142 1.41421-4.9498 4.94977z"/></svg>
+Previous</span>
+<strong>SSL Proxy</strong>
+</a><a class="pager-link pager-next" href=/docs/extensions/service-providers.html rel=next><span>Next<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+</span><strong>Service Providers</strong></a></nav></article><footer class=site-footer data-pagefind-ignore><p>Sisk is open source under the MIT license.</p><nav aria-label=Resources><a href=/llms.txt>llms.txt</a>
+<a href=/llms-full.txt>llms-full.txt</a>
+<a href=https://github.com/sisk-http/core rel=noopener>GitHub</a></nav></footer></main><aside class=toc aria-label="On this page"><div class=toc-inner data-toc><p class=toc-title>On this page</p><nav id=TableOfContents><ul><li><a href=#installing>Installing</a></li><li><a href=#creating-your-auth-handler>Creating your auth handler</a></li><li><a href=#remarks>Remarks</a></li></ul></nav></div></aside></div><dialog class=search-dialog aria-label=Search data-search data-docs-bundle=/pagefind/ data-api-bundle=/pagefind-api/><div class=search-panel><div class=search-field><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<input type=search placeholder="Search docs and API" autocomplete=off spellcheck=false aria-label=Search aria-controls=search-results data-search-input>
+<button type=button class=search-close data-search-close aria-label=close><kbd>Esc</kbd></button></div><div class=search-results id=search-results role=listbox aria-label=Search data-search-results data-label-docs=Documentation data-label-api="API reference" data-label-empty="No results found."><p class=search-message data-search-hint>Type to search the documentation and the API reference.</p></div><footer class=search-footer><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+<span><kbd>↵</kbd> open</span>
+<span><kbd>Esc</kbd> close</span></footer></div></dialog><script src=/scripts/main.dada65272781761b0cafcc8649b314a05e2c92b79db6eac32a981bb2acc121e3.js integrity="sha256-2tplJyeBdhsMr8yGSbMUoF4skredturDKpgbsqzBIeM=" defer></script><script data-goatcounter=https://siskframework.goatcounter.com/count async src=//gc.zgo.at/count.js></script></body></html>

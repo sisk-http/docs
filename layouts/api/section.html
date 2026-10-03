@@ -1,0 +1,34 @@
+{{ define "layout" }}api{{ end }}
+
+{{ define "sidebar" }}{{ partial "sidebar-api.html" . }}{{ end }}
+
+{{ define "main" }}
+<article class="article">
+    <div class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ .RelPermalink }}">{{ T "api" }}</a></nav>
+        {{ partial "page-actions.html" . }}
+    </div>
+
+    <h1>{{ .Title }}</h1>
+    <p class="lead">{{ T "apiIndexLead" }}</p>
+
+    <div class="api-index">
+        {{ range site.Data.api.namespaces }}
+        <section class="api-index-namespace">
+            <h2 id="{{ .path | anchorize }}"><a href="{{ printf "api/%s.html" .path | relURL }}">{{ .name }}</a></h2>
+            {{ range .groups }}
+            <div class="api-index-group">
+                <p class="api-index-label">{{ .label }}</p>
+                <ul>
+                    {{ range .items }}
+                    <li><a href="{{ printf "api/%s.html" .path | relURL }}">{{ .name }}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </section>
+        {{ end }}
+    </div>
+</article>
+{{ partial "footer.html" . }}
+{{ end }}

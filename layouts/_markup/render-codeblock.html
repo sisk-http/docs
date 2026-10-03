@@ -1,0 +1,13 @@
+{{- $aliases := dict "csharp" "C#" "cs" "C#" "bat" "Batch" "sh" "Shell" "bash" "Bash" "shell" "Shell" "http" "HTTP" "json" "JSON" "html" "HTML" "ini" "INI" "xml" "XML" "js" "JavaScript" "yaml" "YAML" -}}
+{{- $label := index $aliases .Type | default (upper .Type) -}}
+{{- $title := .Attributes.title -}}
+<figure class="code-block{{ if $title }} has-title{{ end }}">
+    <figcaption class="code-header">
+        {{- with $title }}<span class="code-title">{{ . }}</span>{{ end }}
+        {{- with $label }}<span class="code-lang">{{ . }}</span>{{ end }}
+        <button type="button" class="code-copy" aria-label="{{ T "copyCode" }}" title="{{ T "copyCode" }}" data-copy-code data-copied-label="{{ T "copied" }}">
+            {{- partial "icon.html" "copy" -}}
+        </button>
+    </figcaption>
+    {{- transform.Highlight .Inner .Type "" -}}
+</figure>

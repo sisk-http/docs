@@ -1,0 +1,18 @@
+{{ $translations := dict }}
+{{ range .AllTranslations }}{{ $translations = merge $translations (dict .Lang .) }}{{ end }}
+
+<details class="menu" data-menu>
+    <summary class="icon-button language-trigger" aria-label="{{ T "language" }}" title="{{ T "language" }}">
+        {{ partial "icon.html" "translate" }}
+        <span class="language-code">{{ upper (index (split .Lang "-") 0) }}</span>
+    </summary>
+    <div class="menu-panel">
+        {{ range .Sites }}
+        {{ $target := index $translations .Language.Lang | default .Home }}
+        <a class="menu-item" href="{{ $target.RelPermalink }}" hreflang="{{ .Language.LanguageCode }}" lang="{{ .Language.LanguageCode }}" data-lang-link="{{ .Language.Lang }}"
+            {{ if eq .Language.Lang $.Lang }}aria-current="true"{{ end }}>
+            {{ .Language.LanguageName }}
+        </a>
+        {{ end }}
+    </div>
+</details>

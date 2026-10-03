@@ -1,0 +1,16 @@
+{{- $url := urls.Parse .Destination -}}
+{{- $href := .Destination -}}
+{{- $path := strings.TrimSuffix ".md" (strings.TrimSuffix ".html" $url.Path) -}}
+{{- $site := cond (hasPrefix $path "/api") (index .Page.Sites 0) .Page.Site -}}
+{{- if and (not $url.Scheme) (or (hasPrefix $path "/docs") (hasPrefix $path "/api")) -}}
+    {{- with $site.GetPage $path -}}
+        {{- $href = .RelPermalink -}}
+        {{- with $url.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+    {{- else -}}
+        {{- warnf "%s: unresolved link %q" $.Page.File.Path $.Destination -}}
+    {{- end -}}
+{{- else if and (not $url.Scheme) (hasPrefix $url.Path "/") -}}
+    {{- $href = relURL (strings.TrimPrefix "/" .Destination) -}}
+{{- end -}}
+<a href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $url.Scheme }} rel="noopener"{{ end }}>{{ .Text }}</a>
+{{- /**/ -}}

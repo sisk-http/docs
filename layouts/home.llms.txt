@@ -1,0 +1,24 @@
+# Sisk Framework
+
+> {{ site.Params.description }}
+
+Sisk is an open-source HTTP server framework for .NET written in C#. It is an explicit alternative to ASP.NET for building REST APIs, WebSocket and Server-Sent Events services, JSON-RPC and MCP servers, and static file servers. Install it with `dotnet add package Sisk.HttpServer`.
+
+Every documentation and API page is available as Markdown by replacing `.html` with `.md` in its URL.
+{{- if ne .Lang "en" }} This index lists the {{ .Site.Language.LanguageName }} translation; the English original is at {{ "llms.txt" | absURL }}.{{ end }}
+
+- Full documentation in one file: {{ "llms-full.txt" | absLangURL }}
+- Complete API reference index: {{ "api/index.md" | absURL }}
+{{ range partialCached "docs-groups.html" . .Lang }}
+## {{ .title }}
+
+{{ range .pages }}{{ if ne .Kind "section" }}- [{{ .Title }}]({{ (.OutputFormats.Get "markdown").Permalink }}){{ with .Summary | plainify | htmlUnescape | strings.TrimSpace }}: {{ . | replaceRE `\s+` " " | truncate 160 | htmlUnescape }}{{ end }}
+{{ end }}{{ end }}{{ end }}
+## API reference
+
+{{ range site.Data.api.namespaces }}- [{{ .name }}]({{ printf "api/%s.md" .path | absURL }})
+{{ end }}
+## Optional
+
+- [Source code](https://github.com/sisk-http/core)
+- [NuGet package](https://www.nuget.org/packages/Sisk.HttpServer/)

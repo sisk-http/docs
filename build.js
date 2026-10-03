@@ -1,752 +1,579 @@
-#!/usr/bin/env node
-
-/**
- * Sisk Documentation Build System
- * 
- * Unified build script that handles:
- * - Translation cleanup
- * - Documentation translation
- * - CSS compilation
- * - DocFX build and metadata generation
- * 
- * Usage:
- *   node build.js [command] [options]
- * 
- * Commands:
- *   clean              Clean modified translation files
- *   translate [lang]   Translate documentation (all or specific language)
- *   build              Build CSS and DocFX documentation
- *   all                Run everything (clean, translate, build) - default
- * 
- * Examples:
- *   node build.js                    # Run all tasks
- *   node build.js clean              # Clean translations only
- *   node build.js translate          # Translate all languages
- *   node build.js translate pt-br    # Translate Portuguese only
- *   node build.js build              # Build only
- */
+#!/usr/bin/env bun
 
 const fs = require('fs');
 const path = require('path');
-const { exec, spawn } = require('child_process');
-const { promisify } = require('util');
+const crypto = require('crypto');
+const { spawn } = require('child_process');
 
-const execAsync = promisify(exec);
+const ROOT = __dirname;
+const CONTENT_DIR = path.join(ROOT, 'content');
+const SOURCE_LANG = 'en';
+const SOURCE_DIR = path.join(CONTENT_DIR, SOURCE_LANG);
+const API_RAW_DIR = path.join(ROOT, '_api');
+const API_CONTENT_DIR = path.join(SOURCE_DIR, 'api');
+const API_DATA_FILE = path.join(ROOT, 'data', 'api.json');
+const SITE_DIR = path.join(ROOT, '_site');
+const PACK_DIR = path.join(ROOT, '_pack');
+const CONFIG_FILE = path.join(ROOT, 'config.json');
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
-const CONFIG = {
-    targetDir: path.join(__dirname, 'docs'),
-
-    translations: {
-        "Russian": "ru",
-        "Brazilian Portuguese": "pt-br",
-        "Chinese Simplified": "cn",
-        "Spanish": "es",
-        "German": "de",
-        "Japanese": "jp"
-    },
-
-    groqConfig: {
-        apiUrl: 'https://api.groq.com/openai/v1/chat/completions',
-        model: 'openai/gpt-oss-120b',
-        temperature: 0,
-        maxTokens: 65536,
-        rateLimitDelay: 500, // ms between requests
-        retryMultiplier: 3
-    }
+const LANGUAGES = {
+    'pt-br': 'Brazilian Portuguese',
+    'es': 'Spanish',
+    'de': 'German',
+    'ru': 'Russian',
+    'zh-cn': 'Chinese Simplified',
+    'ja': 'Japanese'
 };
 
-// Create exclusion regex from translation codes
-const exclusionRegex = new RegExp(
-    `[\\\\/](${Object.values(CONFIG.translations).join('|')})[\\\\/]`,
-    'i'
-);
+const DEFAULT_TRANSLATION = {
+    apiUrl: 'https://api.groq.com/openai/v1/chat/completions',
+    apiKeyEnv: 'GROQ_API_KEY',
+    model: 'openai/gpt-oss-120b',
+    temperature: 0,
+    maxTokens: 65536,
+    concurrency: 3,
+    maxRetries: 5
+};
 
-// ============================================================================
-// Utilities
-// ============================================================================
+// Legacy DocFX language folders, kept so old translated URLs keep redirecting.
+const LEGACY_FOLDERS = { 'zh-cn': 'cn', ja: 'jp' };
 
-class Logger {
-    static colors = {
-        reset: '\x1b[0m',
-        bright: '\x1b[1m',
-        dim: '\x1b[2m',
-        red: '\x1b[31m',
-        green: '\x1b[32m',
-        yellow: '\x1b[33m',
-        blue: '\x1b[34m',
-        magenta: '\x1b[35m',
-        cyan: '\x1b[36m'
-    };
+const API_GROUPS = {
+    namespace: ['Namespaces', 'Classes', 'Structs', 'Interfaces', 'Enums', 'Delegates'],
+    type: ['Constructors', 'Fields', 'Properties', 'Methods', 'Events', 'Operators']
+};
 
-    static info(message) {
-        console.log(`${this.colors.blue}[INFO]${this.colors.reset} ${message}`);
-    }
+const colors = { reset: '\x1b[0m', dim: '\x1b[2m', red: '\x1b[31m', green: '\x1b[32m', yellow: '\x1b[33m', cyan: '\x1b[36m' };
 
-    static success(message) {
-        console.log(`${this.colors.green}[SUCCESS]${this.colors.reset} ${message}`);
-    }
+const log = {
+    step: message => console.log(`\n${colors.cyan}==> ${message}${colors.reset}`),
+    info: message => console.log(`    ${message}`),
+    detail: message => console.log(`    ${colors.dim}${message}${colors.reset}`),
+    success: message => console.log(`${colors.green}[OK]${colors.reset} ${message}`),
+    warn: message => console.log(`${colors.yellow}[WARN]${colors.reset} ${message}`),
+    error: message => console.error(`${colors.red}[ERROR]${colors.reset} ${message}`)
+};
 
-    static warning(message) {
-        console.log(`${this.colors.yellow}[WARNING]${this.colors.reset} ${message}`);
-    }
-
-    static error(message) {
-        console.error(`${this.colors.red}[ERROR]${this.colors.reset} ${message}`);
-    }
-
-    static step(message) {
-        console.log(`\n${this.colors.cyan}${this.colors.bright}==> ${message}${this.colors.reset}`);
-    }
-
-    static detail(message) {
-        console.log(`    ${this.colors.dim}${message}${this.colors.reset}`);
-    }
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function isDirectory(filePath) {
-    try {
-        return fs.statSync(filePath).isDirectory();
-    } catch {
-        return false;
-    }
-}
-
-function enumerateMdFiles(dir) {
-    const files = fs.readdirSync(dir);
-    let mdFiles = [];
-
-    for (const file of files) {
-        const filePath = path.join(dir, file);
-
-        if (isDirectory(filePath)) {
-            mdFiles = mdFiles.concat(enumerateMdFiles(filePath));
-        } else if (file.endsWith('.md') || file.endsWith('.yml')) {
-            if (!exclusionRegex.test(filePath)) {
-                mdFiles.push(filePath);
-            }
-        }
-    }
-
-    return mdFiles;
-}
-
-function splitMarkdownSections(content) {
-    // Split by markdown headers (#, ##, ###)
-    const headerRegex = /^(#{1,3})\s+.+$/gm;
-    const sections = [];
-    let lastIndex = 0;
-    let match;
-
-    // Find all header positions
-    const matches = [];
-    while ((match = headerRegex.exec(content)) !== null) {
-        matches.push(match.index);
-    }
-
-    // If no headers found, return the entire content as one section
-    if (matches.length === 0) {
-        return [content];
-    }
-
-    // Split content at each header position
-    for (let i = 0; i < matches.length; i++) {
-        const start = matches[i];
-        const end = i < matches.length - 1 ? matches[i + 1] : content.length;
-        const section = content.substring(start, end);
-        sections.push(section);
-    }
-
-    // Add any content before the first header as the first section
-    if (matches[0] > 0) {
-        const preContent = content.substring(0, matches[0]);
-        sections.unshift(preContent);
-    }
-
-    return sections;
-}
-
-async function runCommand(command, description) {
-    Logger.detail(`Running: ${command}`);
+function run(command, args) {
+    log.detail(`$ ${command} ${args.join(' ')}`);
 
     return new Promise((resolve, reject) => {
-        const child = spawn(command, [], {
-            shell: true,
-            stdio: 'inherit',
-            cwd: __dirname
-        });
-
-        child.on('error', (error) => {
-            Logger.error(`Failed to execute ${description}: ${error.message}`);
-            reject(error);
-        });
-
-        child.on('close', (code) => {
-            if (code === 0) {
-                Logger.success(`${description} completed`);
-                resolve();
-            } else {
-                Logger.error(`${description} failed with exit code ${code}`);
-                reject(new Error(`Command failed with exit code ${code}`));
-            }
-        });
+        const child = spawn(command, args, { cwd: ROOT, stdio: 'inherit', shell: process.platform === 'win32' });
+        child.on('error', reject);
+        child.on('close', code => code === 0 ? resolve() : reject(new Error(`${command} exited with code ${code}`)));
     });
 }
 
-// ============================================================================
-// Translation Cleanup
-// ============================================================================
+function walk(dir, filter = () => true) {
+    if (!fs.existsSync(dir)) return [];
 
-async function getModifiedFiles() {
-    try {
-        const { stdout } = await execAsync('git ls-files -m');
-
-        const modifiedFiles = stdout
-            .trim()
-            .split('\n')
-            .filter(line => line.trim() !== '')
-            .filter(line => !exclusionRegex.test(line))
-            .filter(line => line.startsWith('docs/'))
-            .filter(line => line.endsWith('.md') || line.endsWith('.yml'));
-
-        return modifiedFiles;
-    } catch (error) {
-        Logger.warning('Could not get modified files from git. Skipping cleanup.');
-        return [];
-    }
+    return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) return walk(full, filter);
+        return filter(full) ? [full] : [];
+    });
 }
 
-async function getDeletedFiles() {
-    try {
-        const { stdout } = await execAsync('git ls-files -d');
-
-        const deletedFiles = stdout
-            .trim()
-            .split('\n')
-            .filter(line => line.trim() !== '')
-            .filter(line => !exclusionRegex.test(line))
-            .filter(line => line.startsWith('docs/'))
-            .filter(line => line.endsWith('.md') || line.endsWith('.yml'));
-
-        return deletedFiles;
-    } catch (error) {
-        Logger.warning('Could not get deleted files from git.');
-        return [];
-    }
+function toPosix(file) {
+    return file.split(path.sep).join('/');
 }
 
-async function cleanTranslations() {
-    Logger.step('Cleaning Modified Translation Files');
+function parseFrontMatter(text) {
+    const match = text.replace(/\r\n/g, '\n').match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+    if (!match) return { data: {}, body: text };
+    return { data: Bun.YAML.parse(match[1]) || {}, body: match[2] };
+}
 
-    const modifiedFiles = await getModifiedFiles();
-    const deletedFiles = await getDeletedFiles();
+function stringifyFrontMatter(data, body) {
+    const lines = Object.entries(data)
+        .filter(([, value]) => value !== undefined && value !== null && value !== '')
+        .flatMap(([key, value]) => Array.isArray(value)
+            ? [`${key}:`, ...value.map(item => `  - ${JSON.stringify(item)}`)]
+            : [`${key}: ${typeof value === 'number' ? value : JSON.stringify(value)}`]);
 
-    if (modifiedFiles.length === 0 && deletedFiles.length === 0) {
-        Logger.info('No modified or deleted files to clean');
-        return;
-    }
+    return `---\n${lines.join('\n')}\n---\n${body ? '\n' + body.trim() + '\n' : ''}`;
+}
 
-    let cleanedCount = 0;
-    const availableTranslations = Object.values(CONFIG.translations);
+function sourcePages() {
+    return walk(SOURCE_DIR, file => file.endsWith('.md'))
+        .filter(file => !toPosix(path.relative(SOURCE_DIR, file)).startsWith('api/'))
+        .map(file => toPosix(path.relative(SOURCE_DIR, file)));
+}
 
-    // Clean translations of modified files
-    for (const modifiedFile of modifiedFiles) {
-        for (const translationCode of availableTranslations) {
-            const translationPath = modifiedFile.replace('docs/', `docs/${translationCode}/`);
+function decodeHref(href) {
+    return href.replace(/\\(.)/g, '$1');
+}
 
-            if (fs.existsSync(translationPath)) {
-                fs.unlinkSync(translationPath);
-                Logger.detail(`Removed (modified): ${translationPath}`);
-                cleanedCount++;
-            }
+function apiPathFromFile(file) {
+    return decodeHref(file).replace(/\.md(#.*)?$/, '');
+}
+
+function convertXref(text, pages) {
+    return text.replace(/<xref href="([^"]+)"[^>]*><\/xref>/g, (_, uid) => {
+        const name = decodeURIComponent(uid).replace(/\(.*$/, '').replace(/`+\d*/g, '').replace(/\{.*$/, '');
+        const target = name.replace(/\.#ctor$/, '.-ctor');
+        const parent = target.split('.').slice(0, -1).join('.');
+        const label = name.endsWith('.#ctor') ? name.split('.').slice(-2, -1)[0] : name.split('.').pop();
+
+        if (pages.has(target)) return `[${label}](/api/${target})`;
+        if (pages.has(parent)) return `[${label}](/api/${parent})`;
+        if (/^(System|Microsoft)\./.test(target)) return `[${label}](https://learn.microsoft.com/dotnet/api/${target.toLowerCase()})`;
+        return '`' + label + '`';
+    });
+}
+
+function convertApiHtml(text) {
+    return text
+        .replace(/<pre>\s*<pre>(<code[^>]*>[\s\S]*?<\/code>)<\/pre><\/pre>/g, '<pre>$1</pre>')
+        .replace(/<pre><code(?: class="lang-(\w+)")?>([\s\S]*?)<\/code><\/pre>/g, (_, lang, code) =>
+            '\n```' + (lang || '') + '\n' + code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim() + '\n```\n')
+        .replace(/<code class="(?:paramref|typeparamref)">([^<]*)<\/code>/g, '`$1`')
+        .replace(/<code>([^<]*)<\/code>/g, '`$1`')
+        .replace(/<a href="([^"]+)">([^<]*)<\/a>/g, '[`$2`]($1)')
+        .replace(/<\/?p>/g, '\n')
+        .replace(/\n{3,}/g, '\n\n');
+}
+
+// Turns DocFX member listings ("[Name](link)" or "`Field = 1`" followed by a
+// description paragraph) into Markdown tables. Sections containing code are kept as-is.
+function membersToTables(body) {
+    const listHeading = /^#{2,3} (Namespaces|Classes|Structs|Interfaces|Enums|Delegates|Constructors|Fields|Properties|Methods|Events|Operators)$/;
+
+    return body.split(/^(?=#{1,4} )/m).map(section => {
+        const [heading, ...rest] = section.split('\n');
+        if (!listHeading.test(heading.trim())) return section;
+
+        const blocks = rest.join('\n').split(/\n\s*\n/).map(block => block.trim()).filter(Boolean);
+        if (blocks.some(block => block.startsWith('```') || block.startsWith('|'))) return section;
+
+        const rows = [];
+        for (const block of blocks) {
+            if (/^(\[[^\n]*\]\([^)\s]*\)|`[^`\n]+`)$/.test(block)) rows.push([block, '']);
+            else if (rows.length) rows.at(-1)[1] += (rows.at(-1)[1] ? ' ' : '') + block.replace(/\s*\n\s*/g, ' ');
+            else return section;
+        }
+
+        const cell = text => text.replace(/\|/g, '\\|');
+        const table = rows.map(([name, description]) => `| ${cell(name)} | ${cell(description)} |`).join('\n');
+        return `${heading}\n\n| Name | Description |\n| --- | --- |\n${table}\n\n`;
+    }).join('');
+}
+
+function convertApiFile(file, typeIndex, pages) {
+    const text = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+    const heading = text.match(/^# <a id="[^"]*"><\/a> (\S+) (.+)$/m);
+    if (!heading) throw new Error(`Unexpected API page format: ${file}`);
+
+    const [, kind, rawName] = heading;
+    const apiPath = path.basename(file, '.md');
+    const name = decodeHref(rawName);
+    const namespace = text.match(/^Namespace: \[([^\]]+)\]/m)?.[1] || (kind === 'Namespace' ? name : null);
+    const assembly = text.match(/^Assembly: (.+?)\s*$/m)?.[1];
+
+    let body = text
+        .replace(/^# .*\n+/, '')
+        .replace(/^Namespace: .*\n/m, '')
+        .replace(/^Assembly: .*\n/m, '')
+        .replace(/^(#+) <a id="([^"]*)"><\/a> (.*)$/gm, (_, level, id, text) =>
+            `${level} ${text.replace(/\\([()[\]<>*_`#-])/g, '$1').replace(/</g, '&lt;')} {#${id}}`)
+        .replace(/^ \[/gm, '[')
+        .replace(/\]\(([^)\s]+?\.md)(\\?#[^)\s]*)?\)/g, (match, href, fragment) => /^[a-z]+:/i.test(href)
+            ? match
+            : `](/api/${apiPathFromFile(href)}${fragment ? decodeHref(fragment) : ''})`);
+
+    body = membersToTables(convertApiHtml(convertXref(body, pages))).trim();
+
+    const type = kind === 'Namespace'
+        ? null
+        : typeIndex.has(apiPath) ? apiPath : [...typeIndex].filter(t => apiPath.startsWith(t + '.')).sort((a, b) => b.length - a.length)[0] || null;
+
+    const typeName = type?.split('.').pop();
+    const title = !type || type === apiPath
+        ? name
+        : kind === 'Constructor' ? `${typeName} constructor` : `${typeName}.${name}`;
+
+    const data = {
+        title,
+        linkTitle: title !== name ? name : undefined,
+        description: body.match(/^(?!```|#|\[|`)[^\n]{20,}$/m)?.[0]?.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[`*]/g, '').slice(0, 200),
+        apiKind: kind,
+        apiPath,
+        apiNamespace: kind === 'Namespace' ? apiPath : namespace,
+        apiType: type,
+        apiAssembly: assembly
+    };
+
+    return { kind, name, apiPath, text: stringifyFrontMatter(data, body) };
+}
+
+// DocFX's toc.yml lists, under each node, label-only items ("Classes", "Methods"...)
+// followed by the pages of that group. Nested namespaces appear without a label.
+function groupTocItems(items, labels, mapItem) {
+    const groups = [];
+
+    for (const item of items || []) {
+        if (!item.href) {
+            groups.push({ label: item.name, items: [] });
+        } else if (groups.length && labels.includes(groups.at(-1).label)) {
+            groups.at(-1).items.push(mapItem(item));
         }
     }
 
-    // Remove translations of deleted files
-    for (const deletedFile of deletedFiles) {
-        for (const translationCode of availableTranslations) {
-            const translationPath = deletedFile.replace('docs/', `docs/${translationCode}/`);
-
-            if (fs.existsSync(translationPath)) {
-                fs.unlinkSync(translationPath);
-                Logger.detail(`Removed (deleted): ${translationPath}`);
-                cleanedCount++;
-            }
-        }
-    }
-
-    Logger.success(`Cleaned ${cleanedCount} translation file(s)`);
+    return groups.filter(group => labels.includes(group.label) && group.items.length);
 }
 
-// ============================================================================
-// Translation System
-// ============================================================================
+function buildApiTree(tocFile, kinds) {
+    const namespaces = [];
+    const member = item => ({ name: item.name, path: apiPathFromFile(item.href) });
+    const type = item => ({ ...member(item), groups: groupTocItems(item.items, API_GROUPS.type, member) });
 
-function getTranslationPrompt(toLanguage, fileName, text) {
-    return `You're translating a piece of documentation of the Sisk Framework, an .NET web-server written in C#. Translate the translation input text to ${toLanguage}.
+    const visit = items => {
+        for (const item of items || []) {
+            if (!item.href || kinds.get(apiPathFromFile(item.href)) !== 'Namespace') continue;
+
+            const groups = groupTocItems(item.items, API_GROUPS.namespace, type);
+            if (groups.length) namespaces.push({ name: apiPathFromFile(item.href), path: apiPathFromFile(item.href), groups });
+
+            visit(item.items);
+        }
+    };
+
+    visit(Bun.YAML.parse(fs.readFileSync(tocFile, 'utf8')));
+    return { namespaces: namespaces.sort((a, b) => a.name.localeCompare(b.name)) };
+}
+
+async function generateApi() {
+    log.step('Generating API reference (DLL -> Markdown)');
+
+    if (!walk(path.join(ROOT, 'ref'), file => file.endsWith('.dll')).length) {
+        throw new Error('No assemblies found in ref/. Copy the Sisk .dll and .xml files there first.');
+    }
+
+    fs.rmSync(API_RAW_DIR, { recursive: true, force: true });
+    await run('docfx', ['metadata', 'docfx.json']);
+
+    const files = walk(API_RAW_DIR, file => file.endsWith('.md'));
+    const kinds = new Map(files.map(file => [
+        path.basename(file, '.md'),
+        fs.readFileSync(file, 'utf8').match(/^# <a id="[^"]*"><\/a> (\S+)/)?.[1]
+    ]));
+    const typeIndex = new Set([...kinds]
+        .filter(([, kind]) => ['Class', 'Struct', 'Interface', 'Enum', 'Delegate'].includes(kind))
+        .map(([apiPath]) => apiPath));
+
+    fs.rmSync(API_CONTENT_DIR, { recursive: true, force: true });
+    fs.mkdirSync(API_CONTENT_DIR, { recursive: true });
+
+    const pages = new Set(kinds.keys());
+
+    for (const file of files) {
+        const page = convertApiFile(file, typeIndex, pages);
+        fs.writeFileSync(path.join(API_CONTENT_DIR, page.apiPath + '.md'), page.text, 'utf8');
+    }
+
+    fs.writeFileSync(path.join(API_CONTENT_DIR, '_index.md'), stringifyFrontMatter({
+        title: 'API reference',
+        linkTitle: 'API',
+        description: 'Complete reference of the public types in the Sisk packages.'
+    }), 'utf8');
+
+    const tree = buildApiTree(path.join(API_RAW_DIR, 'toc.yml'), kinds);
+    fs.mkdirSync(path.dirname(API_DATA_FILE), { recursive: true });
+    fs.writeFileSync(API_DATA_FILE, JSON.stringify(tree, null, 2) + '\n', 'utf8');
+
+    log.success(`API reference: ${files.length} pages, ${tree.namespaces.length} namespaces`);
+}
+
+function translationPrompt(language, file, text) {
+    return `You are translating a page of the Sisk Framework documentation (an open-source .NET web framework written in C#) to ${language}.
 
 Rules:
-- You SHOULD translate texts, code comments, but not code symbols, variables or constants names.
-- You MUST NOT translate script-header file names or language names.
-- You MUST keep the same file structure, maintaining links targets, headers, codes and page title.
-- You SHOULD NOT translate HTML tag names inside Markdown.
-- You SHOULD NOT translate markdown warning boxes tags, such as [!TIP] or [!WARNING].
-- You MUST keep absolute link targets (eg. links which points to "/spec" or starts with "https://...").
-- You SHOULD ONLY translate YAML values, NOT the keys.
-- You MUST NOT translate YAML keys.
-- You MUST NOT alter the YAML file structure.
-- You MUST reply ONLY with the translated text, no greetings, advices or comments.
-- The translated text must follow the original input structure.
+- Translate prose, headings, table text and code comments.
+- Do not translate code, identifiers, type or member names, package names, CLI commands, file names or URLs.
+- Keep the Markdown structure identical: same headings, lists, tables, code fences and code fence attributes (for example {title="Program.cs"}).
+- Keep alert markers such as > [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING] and > [!CAUTION] exactly as they are.
+- Keep every link target unchanged, including absolute paths such as /docs/... and /api/... and anchors after #.
+- The input starts with YAML front matter between --- lines. Translate only the values of "title", "linkTitle" and "description". Copy every other key and value exactly.
+- Reply only with the translated document, without comments or code fences around it.
 
-File name: ${fileName}
+File: ${file}
 
-<translation-input>
+<document>
 ${text}
-</translation-input>
-
-Reply only with the translated text to ${toLanguage}.`;
+</document>`;
 }
 
-async function runInference(text) {
-    const apiKey = process.env.GROQ_API_KEY;
+async function runInference(config, prompt) {
+    const apiKey = process.env[config.apiKeyEnv];
+    if (!apiKey) throw new Error(`Environment variable ${config.apiKeyEnv} is not set`);
 
-    if (!apiKey) {
-        Logger.error('GROQ_API_KEY environment variable is not set');
-        process.exit(1);
-    }
+    for (let attempt = 1; ; attempt++) {
+        const response = await fetch(config.apiUrl, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: config.model,
+                messages: [{ role: 'user', content: prompt }],
+                temperature: config.temperature,
+                max_completion_tokens: config.maxTokens,
+                stream: false
+            })
+        });
 
-    const response = await fetch(CONFIG.groqConfig.apiUrl, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            model: CONFIG.groqConfig.model,
-            messages: [{
-                role: 'user',
-                content: text
-            }],
-            stream: false,
-            temperature: CONFIG.groqConfig.temperature,
-            top_p: CONFIG.groqConfig.topP,
-            max_completion_tokens: CONFIG.groqConfig.maxTokens,
-        })
-    });
-
-    if (!response.ok) {
-        const resJson = await response.json();
-
-        if (resJson.error?.code === 'rate_limit_exceeded') {
-            const retryAfter = (response.headers.get('Retry-After') || 10) * CONFIG.groqConfig.retryMultiplier;
-            Logger.warning(`Rate limit exceeded! Retrying in ${retryAfter} seconds...`);
-            await sleep(retryAfter * 1000);
-            return await runInference(text);
-        } else {
-            Logger.error('Failed to translate the markdown file');
-            console.error(resJson);
-            throw new Error('Translation API error');
-        }
-    }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
-}
-
-async function translateDocumentation(targetLanguageCode = null) {
-    Logger.step('Translating Documentation');
-
-    const mdFiles = enumerateMdFiles(CONFIG.targetDir);
-    Logger.info(`Found ${mdFiles.length} file(s) to process`);
-
-    let translationsToProcess = CONFIG.translations;
-
-    // Filter to specific language if requested
-    if (targetLanguageCode) {
-        const entry = Object.entries(CONFIG.translations).find(
-            ([_, code]) => code === targetLanguageCode
-        );
-
-        if (!entry) {
-            Logger.error(`Unknown language code: ${targetLanguageCode}`);
-            Logger.info(`Available codes: ${Object.values(CONFIG.translations).join(', ')}`);
-            process.exit(1);
+        if (response.ok) {
+            const data = await response.json();
+            return data.choices[0].message.content;
         }
 
-        translationsToProcess = { [entry[0]]: entry[1] };
-        Logger.info(`Translating to: ${entry[0]} (${entry[1]})`);
-    }
-
-    let translatedCount = 0;
-
-    for (const mdFile of mdFiles) {
-        const fileContents = fs.readFileSync(mdFile, 'utf8');
-        const fileName = mdFile.replace(CONFIG.targetDir, '');
-
-        for (const [langName, langCode] of Object.entries(translationsToProcess)) {
-            const translationPath = path.join(CONFIG.targetDir, langCode, fileName);
-            const translationDir = path.dirname(translationPath);
-
-            // Skip if translation already exists
-            if (fs.existsSync(translationPath)) {
-                continue;
-            }
-
-            try {
-                const prompt = getTranslationPrompt(langName, fileName, fileContents);
-                const translated = (await runInference(prompt))
-                    .replaceAll('/docs/', `/docs/${langCode}/`);
-
-                fs.mkdirSync(translationDir, { recursive: true });
-                fs.writeFileSync(translationPath, translated, 'utf8');
-
-                Logger.detail(`Translated: ${path.relative(__dirname, translationPath)}`);
-                translatedCount++;
-
-                // Rate limiting delay
-                await sleep(CONFIG.groqConfig.rateLimitDelay);
-            } catch (error) {
-                Logger.error(`Failed to translate ${fileName} to ${langName}: ${error.message}`);
-                throw error;
-            }
+        const retryable = response.status === 429 || response.status >= 500;
+        if (!retryable || attempt >= config.maxRetries) {
+            throw new Error(`HTTP ${response.status}: ${(await response.text()).slice(0, 300)}`);
         }
-    }
 
-    if (translatedCount === 0) {
-        Logger.info('No files needed translation (all up to date)');
-    } else {
-        Logger.success(`Translated ${translatedCount} file(s)`);
+        const wait = Number(response.headers.get('retry-after')) || 5 * attempt;
+        log.warn(`HTTP ${response.status}, retrying in ${wait}s (attempt ${attempt}/${config.maxRetries})`);
+        await Bun.sleep(wait * 1000);
     }
 }
 
-// ============================================================================
-// Generated Pages
-// ============================================================================
+function translationJobs(languages) {
+    const jobs = [];
 
-function parseTocYml(tocPath) {
-    const content = fs.readFileSync(tocPath, 'utf8');
-    const lines = content.split(/\r?\n/);
-    const entries = [];
-    let currentCategory = null;
+    for (const rel of sourcePages()) {
+        const sourceText = fs.readFileSync(path.join(SOURCE_DIR, rel), 'utf8');
+        const hash = crypto.createHash('sha256').update(sourceText.replace(/\r\n/g, '\n')).digest('hex').slice(0, 16);
 
-    for (let i = 0; i < lines.length; i++) {
-        const nameMatch = lines[i].match(/^- name:\s*(.+)$/);
-        if (!nameMatch) continue;
-
-        const name = nameMatch[1].trim();
-        const nextLine = (lines[i + 1] || '').trim();
-        const hrefMatch = nextLine.match(/^href:\s*(.+)$/);
-
-        if (hrefMatch) {
-            entries.push({ name, category: currentCategory, href: hrefMatch[1].trim() });
-            i++;
-        } else {
-            currentCategory = name;
+        for (const lang of languages) {
+            const target = path.join(CONTENT_DIR, lang, rel);
+            const existing = fs.existsSync(target) ? parseFrontMatter(fs.readFileSync(target, 'utf8')).data : null;
+            const state = !existing ? 'missing' : existing.sourceHash !== hash ? 'outdated' : 'current';
+            jobs.push({ rel, lang, target, hash, sourceText, state });
         }
     }
 
-    return entries.filter(e => !e.href.endsWith('.g.md'));
+    return jobs;
 }
 
-function extractHeadings(content) {
-    const headings = [];
-    for (const line of content.split(/\r?\n/)) {
-        const match = line.match(/^(#{1,2})\s+(.+)$/);
-        if (match) {
-            headings.push({ level: match[1].length, text: match[2].trim() });
-        }
-    }
-    return headings;
+function resolveLanguages(option) {
+    if (!option) return Object.keys(LANGUAGES);
+    if (!LANGUAGES[option]) throw new Error(`Unknown language "${option}". Available: ${Object.keys(LANGUAGES).join(', ')}`);
+    return [option];
 }
 
-function generateSummaryPage(docsDir, tocPath) {
-    const entries = parseTocYml(tocPath);
-    const lines = ['# Documentation Summary', ''];
-    let lastCategory = null;
+function translationStatus(option) {
+    log.step('Translation status');
 
-    for (const entry of entries) {
-        if (entry.category && entry.category !== lastCategory) {
-            lines.push(`## ${entry.category}`, '');
-            lastCategory = entry.category;
-        }
+    const languages = resolveLanguages(option);
+    const jobs = translationJobs(languages);
 
-        const filePath = path.join(docsDir, entry.href);
-        if (!fs.existsSync(filePath)) {
-            continue;
-        }
-
-        const content = fs.readFileSync(filePath, 'utf8');
-        const headings = extractHeadings(content);
-        const docTitle = headings.find(h => h.level === 1)?.text || entry.name;
-        const anchor = entry.href.replace(/\.md$/, '');
-
-        lines.push(`### [${docTitle}](/docs/${anchor})`, '');
-
-        const h2Items = headings.filter(h => h.level === 2);
-        if (h2Items.length > 0) {
-            for (const h2 of h2Items) {
-                const sectionAnchor = h2.text
-                    .toLowerCase()
-                    .replace(/[^a-z0-9\s-]/g, '')
-                    .replace(/\s+/g, '-');
-                lines.push(`- [${h2.text}](/docs/${anchor}#${sectionAnchor})`);
-            }
-            lines.push('');
-        }
+    for (const lang of languages) {
+        const own = jobs.filter(job => job.lang === lang);
+        const summary = ['current', 'outdated', 'missing'].map(state => `${state}: ${own.filter(job => job.state === state).length}`).join(', ');
+        log.info(`${lang.padEnd(6)} ${summary}`);
+        own.filter(job => job.state !== 'current').forEach(job => log.detail(`${job.state.padEnd(8)} ${job.rel}`));
     }
 
-    return lines.join('\n');
+    const sources = new Set(sourcePages());
+
+    languages
+        .flatMap(lang => walk(path.join(CONTENT_DIR, lang), file => file.endsWith('.md'))
+            .filter(file => !sources.has(toPosix(path.relative(path.join(CONTENT_DIR, lang), file)))))
+        .forEach(file => log.warn(`Orphan translation (no English source): ${toPosix(path.relative(ROOT, file))}`));
 }
 
-async function generatePages() {
-    Logger.step('Generating Pages');
+async function translate(option, { force = false } = {}) {
+    log.step('Translating documentation');
 
-    const docsDir = CONFIG.targetDir;
-    const tocPath = path.join(docsDir, 'toc.yml');
+    const userConfig = fs.existsSync(CONFIG_FILE) ? JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')).translation : {};
+    const config = { ...DEFAULT_TRANSLATION, ...userConfig };
+    const languages = resolveLanguages(option);
+    const pending = translationJobs(languages).filter(job => force || job.state !== 'current');
 
-    if (!fs.existsSync(tocPath)) {
-        Logger.warning('docs/toc.yml not found, skipping page generation');
+    if (!pending.length) {
+        log.success('All translations are up to date');
         return;
     }
 
-    const summaryContent = generateSummaryPage(docsDir, tocPath);
-    const summaryPath = path.join(docsDir, 'summary.g.md');
-    fs.writeFileSync(summaryPath, summaryContent, 'utf8');
-    Logger.success('Generated summary.g.md');
-}
+    const errorsFile = path.join(ROOT, 'translate.errors.txt');
+    const errors = [];
+    const started = Date.now();
+    let done = 0;
+    let cursor = 0;
 
-// ============================================================================
-// Build System
-// ============================================================================
+    log.info(`${pending.length} page(s) to translate with ${config.model} (concurrency ${config.concurrency})`);
 
-async function buildCss() {
-    Logger.step('Building CSS with Cascadium');
-    await runCommand('cascadium build', 'CSS build');
-}
+    const worker = async () => {
+        while (cursor < pending.length) {
+            const job = pending[cursor++];
 
-async function buildDocFx() {
-    Logger.step('Building DocFX Documentation');
-    await runCommand('docfx --maxParallelism 1', 'DocFX build');
-}
+            try {
+                const output = await runInference(config, translationPrompt(LANGUAGES[job.lang], job.rel, job.sourceText));
+                const cleaned = output.trim().replace(/^```(?:markdown|md)?\n([\s\S]*)\n```$/, '$1');
+                const { data, body } = parseFrontMatter(cleaned);
+                const source = parseFrontMatter(job.sourceText);
 
-async function copyLlmsTxt() {
-    Logger.step('Copying llms.txt to _site');
-    const source = path.join(__dirname, 'llms.txt');
-    const dest = path.join(__dirname, '_site', 'llms.txt');
-
-    if (fs.existsSync(source)) {
-        fs.copyFileSync(source, dest);
-        Logger.success('llms.txt copied to _site');
-    } else {
-        Logger.warning('llms.txt not found, skipping copy');
-    }
-}
-
-async function buildMetadata() {
-    Logger.step('Generating DocFX Metadata');
-    await runCommand('docfx metadata --outputFormat markdown --output _md', 'Metadata generation');
-}
-
-async function packJsonl() {
-    Logger.step('Packing Documentation to JSONL');
-
-    const packDir = path.join(__dirname, '_pack');
-
-    // Create _pack directory if it doesn't exist
-    if (!fs.existsSync(packDir)) {
-        fs.mkdirSync(packDir, { recursive: true });
-    }
-
-    // Pack API documentation from _md
-    const mdDir = path.join(__dirname, '_md');
-    if (fs.existsSync(mdDir)) {
-
-        const apiFiles = enumerateMdFiles(mdDir).filter(filePath => filePath.endsWith('.md'));
-        const apiJsonlPath = path.join(packDir, 'api.jsonl');
-        const apiLines = [];
-
-        for (const filePath of apiFiles) {
-            const content = fs.readFileSync(filePath, 'utf8');
-            const relativePath = path.relative(mdDir, filePath).replace(/\\/g, '/');
-            const tags = relativePath.split('/').filter(tag => !!tag);
-
-            const jsonLine = JSON.stringify({
-                docid: relativePath,
-                text: content,
-                __ref: null,
-                __tags: tags
-            });
-
-            apiLines.push(jsonLine);
-        }
-
-        fs.writeFileSync(apiJsonlPath, apiLines.join('\n'), 'utf8');
-        Logger.detail(`Created: api.jsonl with ${apiFiles.length} document(s)`);
-    } else {
-        Logger.warning('_md directory not found, skipping api.jsonl');
-    }
-
-    // Pack English documentation from docs
-    const docsDir = path.join(__dirname, 'docs');
-    if (fs.existsSync(docsDir)) {
-        const allDocsFiles = enumerateMdFiles(docsDir);
-
-        // Filter only English files (not in language subdirectories)
-        const availableTranslationCodes = Object.values(CONFIG.translations);
-        const englishFiles = allDocsFiles.filter(filePath => {
-            const relativePath = path.relative(docsDir, filePath);
-            const firstDir = relativePath.split(path.sep)[0];
-
-            // Exclude if first directory is a translation code
-            return !availableTranslationCodes.includes(firstDir);
-        }).filter(filePath => filePath.endsWith('.md'));
-
-        const docsJsonlPath = path.join(packDir, 'docs.jsonl');
-        const docsLines = [];
-
-        for (const filePath of englishFiles) {
-            const content = fs.readFileSync(filePath, 'utf8');
-            const relativePath = path.relative(docsDir, filePath).replace(/\\/g, '/');
-            const tags = relativePath.split('/').filter(tag => !!tag);
-
-            // Split content by markdown sections (headers #, ##, ###)
-            const sections = splitMarkdownSections(content);
-
-            // Create a JSONL entry for each non-empty section
-            sections.forEach((section, index) => {
-                if (section.trim()) {
-                    const jsonLine = JSON.stringify({
-                        docid: `${relativePath}:${index}`,
-                        text: section,
-                        __ref: relativePath,
-                        __tags: tags
-                    });
-
-                    docsLines.push(jsonLine);
+                for (const [label, regex] of [['code fences', /^\s*```/gm], ['headings', /^#{1,6} /gm], ['alerts', /^\s*> \[!\w+\]/gm]]) {
+                    const expected = (source.body.match(regex) || []).length;
+                    const actual = (body.match(regex) || []).length;
+                    if (expected !== actual) throw new Error(`structure mismatch (${label}: ${expected} != ${actual})`);
                 }
-            });
-        }
 
-        fs.writeFileSync(docsJsonlPath, docsLines.join('\n'), 'utf8');
-        Logger.detail(`Created: docs.jsonl with ${docsLines.length} section(s) from ${englishFiles.length} file(s)`);
-    } else {
-        Logger.warning('docs directory not found, skipping docs.jsonl');
+                const merged = {
+                    ...source.data,
+                    title: data.title || source.data.title,
+                    linkTitle: source.data.linkTitle ? data.linkTitle || source.data.linkTitle : undefined,
+                    description: source.data.description ? data.description || source.data.description : undefined,
+                    aliases: source.data.aliases?.map(alias => alias.replace(/^\/docs\//, `/docs/${LEGACY_FOLDERS[job.lang] || job.lang}/`)),
+                    sourceHash: job.hash
+                };
+
+                fs.mkdirSync(path.dirname(job.target), { recursive: true });
+                fs.writeFileSync(job.target, stringifyFrontMatter(merged, body), 'utf8');
+            } catch (error) {
+                errors.push(`${job.lang}|${job.rel}|${error.message}`);
+                log.error(`${job.lang} ${job.rel}: ${error.message}`);
+            }
+
+            done++;
+            const elapsed = (Date.now() - started) / 1000;
+            const eta = Math.round((elapsed / done) * (pending.length - done) / 60);
+            log.info(`Translated ${done}/${pending.length} (${Math.round(done / pending.length * 100)}%), errors: ${errors.length}, ETA: ${eta}min - ${job.lang} ${job.rel}`);
+        }
+    };
+
+    await Promise.all(Array.from({ length: Math.min(config.concurrency, pending.length) }, worker));
+
+    if (errors.length) {
+        fs.writeFileSync(errorsFile, errors.join('\n') + '\n', 'utf8');
+        throw new Error(`${errors.length} translation(s) failed. See ${path.basename(errorsFile)}`);
     }
 
-    Logger.success('JSONL packing completed');
+    fs.rmSync(errorsFile, { force: true });
+    log.success(`Translated ${done} page(s)`);
 }
 
-async function buildAll() {
-    await generatePages();
-    await buildCss();
-    await buildDocFx();
-    await copyLlmsTxt();
-    await buildMetadata();
-    await packJsonl();
-}
+async function buildSearchIndex() {
+    log.step('Building search indexes (Pagefind)');
 
-// ============================================================================
-// Main Entry Point
-// ============================================================================
-
-async function showHelp() {
-    console.log(`
-Sisk Documentation Build System
-
-Usage:
-  node build.js [command] [options]
-
-Commands:
-  clean              Clean modified translation files
-  translate [lang]   Translate documentation (all languages or specific)
-  build              Build CSS and DocFX documentation
-  pack-jsonl         Pack documentation to JSONL format
-  all                Run everything (clean, translate, build) - default
-  help               Show this help message
-
-Language Codes:
-  ${Object.entries(CONFIG.translations).map(([name, code]) => `${code.padEnd(6)} - ${name}`).join('\n  ')}
-
-Examples:
-  node build.js                    # Run all tasks
-  node build.js clean              # Clean translations only
-  node build.js translate          # Translate all languages
-  node build.js translate pt-br    # Translate Brazilian Portuguese only
-  node build.js build              # Build only
-  node build.js pack-jsonl         # Pack documentation to JSONL
-
-Environment Variables:
-  GROQ_API_KEY    Required for translation - Groq API key for LLM inference
-`);
-}
-
-async function main() {
-    const args = process.argv.slice(2);
-    const command = args[0] || 'all';
-    const option = args[1];
+    const pagefind = await import('pagefind');
 
     try {
-        switch (command) {
-            case 'clean':
-                await cleanTranslations();
-                break;
+        const docs = (await pagefind.createIndex({ excludeSelectors: ['.heading-anchor', '.code-header'] })).index;
+        const docsResult = await docs.addDirectory({ path: SITE_DIR, glob: '{index.html,docs/**/*.html,*/index.html,*/docs/**/*.html}' });
+        await docs.writeFiles({ outputPath: path.join(SITE_DIR, 'pagefind') });
+        log.info(`Documentation index: ${docsResult.page_count} pages`);
 
-            case 'translate':
-                await translateDocumentation(option);
-                break;
+        const api = (await pagefind.createIndex({ forceLanguage: 'en', includeCharacters: '.<>', excludeSelectors: ['.heading-anchor', '.code-header'] })).index;
+        const apiResult = await api.addDirectory({ path: SITE_DIR, glob: 'api/**/*.html' });
+        await api.writeFiles({ outputPath: path.join(SITE_DIR, 'pagefind-api') });
+        log.info(`API index: ${apiResult.page_count} pages`);
+    } finally {
+        await pagefind.close();
+    }
 
-            case 'build':
-                await buildAll();
-                break;
+    log.success('Search indexes written');
+}
 
-            case 'pack-jsonl':
-                await packJsonl();
-                break;
+function pack() {
+    log.step('Packing documentation to JSONL');
 
-            case 'all':
-                await cleanTranslations();
-                await translateDocumentation();
-                await buildAll();
-                Logger.success('\n🎉 All tasks completed successfully!');
-                break;
+    fs.mkdirSync(PACK_DIR, { recursive: true });
 
-            case 'help':
-            case '--help':
-            case '-h':
-                showHelp();
-                break;
+    const docLines = sourcePages().flatMap(rel => {
+        const { data, body } = parseFrontMatter(fs.readFileSync(path.join(SOURCE_DIR, rel), 'utf8'));
+        const text = `# ${data.title}\n\n${body}`;
+        return text.split(/^(?=#{1,3} )/m).map(part => part.trim()).filter(Boolean).map((section, index) => JSON.stringify({ docid: `${rel}:${index}`, text: section, __ref: rel, __tags: rel.split('/') }));
+    });
 
-            default:
-                Logger.error(`Unknown command: ${command}`);
-                Logger.info('Run "node build.js help" for usage information');
-                process.exit(1);
-        }
-    } catch (error) {
-        Logger.error(`Build failed: ${error.message}`);
-        process.exit(1);
+    const apiLines = walk(API_CONTENT_DIR, file => file.endsWith('.md') && !file.endsWith('_index.md')).map(file => {
+        const { data, body } = parseFrontMatter(fs.readFileSync(file, 'utf8'));
+        const rel = toPosix(path.relative(SOURCE_DIR, file));
+        return JSON.stringify({ docid: rel, text: `# ${data.apiKind} ${data.title}\n\n${body}`, __ref: null, __tags: [data.apiNamespace, data.apiKind].filter(Boolean) });
+    });
+
+    fs.writeFileSync(path.join(PACK_DIR, 'docs.jsonl'), docLines.join('\n'), 'utf8');
+    fs.writeFileSync(path.join(PACK_DIR, 'api.jsonl'), apiLines.join('\n'), 'utf8');
+    log.success(`docs.jsonl: ${docLines.length} sections, api.jsonl: ${apiLines.length} pages`);
+}
+
+async function buildSite() {
+    log.step('Building static site (Hugo)');
+
+    if (!fs.existsSync(API_DATA_FILE)) {
+        throw new Error('API reference not generated. Run "bun build.js api" first.');
+    }
+
+    fs.rmSync(SITE_DIR, { recursive: true, force: true });
+    await run('hugo', ['--gc', '--minify']);
+    await buildSearchIndex();
+    pack();
+
+    log.success(`Static site ready at ${toPosix(path.relative(process.cwd(), SITE_DIR)) || '.'}`);
+}
+
+const HELP = `
+Sisk documentation build system (Hugo)
+
+Usage:
+  bun build.js <command> [options]
+
+Commands:
+  api                    Generate the API reference from ref/*.dll + ref/*.xml
+                         (DocFX metadata -> content/en/api and data/api.json)
+  translate [lang]       Translate missing or outdated pages (all languages or one)
+      --force            Retranslate every page, even when it is up to date
+  status [lang]          Show missing, outdated and orphan translations
+  build                  Build the static site into _site/ (Hugo + Pagefind + JSONL pack)
+  serve                  Start the Hugo development server (search requires "build" once)
+  all                    api + translate + build
+  help                   Show this help
+
+Languages:
+  ${Object.entries(LANGUAGES).map(([code, name]) => `${code.padEnd(6)} ${name}`).join('\n  ')}
+
+Translation:
+  English pages under content/en are the source of truth. Each translated page
+  stores the "sourceHash" of the English page it was generated from, so only
+  missing or outdated pages are sent to the model. Settings are read from
+  config.json (see config.json.example); the API key comes from the environment
+  variable named by "apiKeyEnv" (default GROQ_API_KEY).
+
+Requirements:
+  Hugo (extended not required), DocFX (only for "api"), Bun.
+`;
+
+async function main() {
+    const [command, ...rest] = process.argv.slice(2);
+    const force = rest.includes('--force');
+    const option = rest.find(arg => !arg.startsWith('--'));
+
+    switch (command) {
+        case 'api':
+            await generateApi();
+            break;
+        case 'translate':
+            await translate(option, { force });
+            break;
+        case 'status':
+            translationStatus(option);
+            break;
+        case 'build':
+            await buildSite();
+            break;
+        case 'serve':
+            await run('hugo', ['server', '--disableFastRender']);
+            break;
+        case 'all':
+            await generateApi();
+            await translate();
+            await buildSite();
+            break;
+        default:
+            console.log(HELP);
     }
 }
 
-// Run if executed directly
-if (require.main === module) {
-    main();
-}
-
-// Export for use as module
-module.exports = {
-    cleanTranslations,
-    translateDocumentation,
-    generatePages,
-    buildCss,
-    buildDocFx,
-    buildMetadata,
-    buildAll,
-    packJsonl
-};
+main().catch(error => {
+    log.error(error.message);
+    process.exit(1);
+});

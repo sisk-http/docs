@@ -1,0 +1,18 @@
+# Синтаксис отбрасывания
+
+Source: https://docs.sisk-framework.org/ru/docs/features/discard-syntax.html
+
+Веб-сервер может использоваться для прослушивания запроса обратного вызова от действия, такого как аутентификация OAuth, и может быть отброшен после получения этого запроса. Это может быть полезно в случаях, когда вам нужное фоновое действие, но вы не хотите настраивать整个 веб-приложение для этого.
+
+Следующий пример показывает, как создать прослушивающий HTTP-сервер на порту 5555 с помощью [CreateListener](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.CreateListener.md) и ожидать следующий контекст:
+
+```csharp
+using (var server = HttpServer.CreateListener(5555))
+{
+    // ожидать следующий HTTP-запрос
+    var context = await server.WaitNextAsync();
+    Console.WriteLine($"Запрошенный путь: {context.Request.Path}");
+}
+```
+
+Функция [WaitNext](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.WaitNext.md) ожидает следующий контекст завершенной обработки запроса. Как только результат этой операции получен, сервер уже полностью обработал запрос и отправил ответ клиенту.

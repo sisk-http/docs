@@ -1,0 +1,73 @@
+# Working with SSL
+
+Source: https://docs.sisk-framework.org/docs/ssl.html
+
+Working with SSL for development may be necessary when working in contexts that require security, such as most web development scenarios. Sisk operates on top of HttpListener, which does not support native HTTPS, only HTTP. However, there are workarounds that allow you to work with SSL in Sisk. See them below:
+
+## Through the Sisk.Cadente.CoreEngine
+
+- Available on: Linux, macOS, Windows
+- Effort: easy
+
+It is possible to use the experimental [**Cadente**](https://docs.sisk-framework.org/docs/cadente.md) engine in Sisk projects, without requiring additional configuration on the computer or in the project. You will need to install the `Sisk.Cadente.CoreEngine` package in your project to be able to use the Cadente server in the Sisk server.
+
+To configure SSL, you can use the `UseSsl` and `UseEngine` methods of the builder:
+
+```csharp
+using var http = HttpServer.CreateBuilder()
+    .UseEngine<CadenteHttpServerEngine>()
+    .UseSsl(CertificateHelper.CreateTrustedDevelopmentCertificate("localhost"))
+```
+
+> Note: this package is still in the experimental phase.
+
+## Through IIS on Windows
+
+- Available on: Windows
+- Effort: medium
+
+If you are on Windows, you can use IIS to enable SSL on your HTTP server. For this to work, it is advisable that you follow [this tutorial](https://docs.sisk-framework.org/docs/registering-namespace.md) beforehand if you want your application to be listening on a host other than "localhost."
+
+For this to work, you must install IIS through Windows features. IIS is available for free to Windows and Windows Server users. To configure SSL in your application, have the SSL certificate ready, even if it is self-signed. Next, you can see [how to set up SSL on IIS 7 or higher](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis).
+
+## Through mitmproxy
+
+- Available on: Linux, macOS, Windows
+- Effort: easy
+
+**mitmproxy** is an interception proxy tool that allows developers and security testers to inspect, modify, and record HTTP and HTTPS traffic between a client (such as a web browser) and a server. You can use the **mitmdump** utility to start a reverse SSL proxy between your client and your Sisk application.
+
+1. Firstly, install [mitmproxy](https://mitmproxy.org/) on your machine.
+2. Start your Sisk application. For this example, we'll use port 8000 as the insecure HTTP port.
+3. Start the mitmproxy server to listen on the secure port at 8001:
+
+```sh
+mitmdump --mode reverse:http://localhost:8000/ -p 8001
+```
+
+And you're ready to go! You can already access your application through `https://localhost:8001/`. Your application does not need to be running for you to start `mitmdump`.
+
+Alternatively, you can add a reference to the [mitmproxy helper](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy) in your project. This still requires that mitmproxy is installed on your computer.
+
+## Through Sisk.SslProxy package
+
+- Available on: Linux, macOS, Windows
+- Effort: easy
+
+> [!IMPORTANT]
+>
+> The Sisk.SslProxy package is deprecated in favor of the `Sisk.Cadente.CoreEngine` package and will no longer be maintained.
+
+The Sisk.SslProxy package is a simple way to enable SSL on your Sisk application. However, it is an **extremely experimental** package. It may be unstable to work with this package, but you can be part of the small percentage of people who will contribute to making this package viable and stable. To get started, you can install the Sisk.SslProxy package with:
+
+```sh
+dotnet add package Sisk.SslProxy
+```
+
+> [!NOTE]
+>
+> You must enable "Include prerelease" in the Visual Studio Package Manager to install Sisk.SslProxy.
+
+Again, it is an experimental project, so don't even think about putting it into production.
+
+At the moment, Sisk.SslProxy can handle most HTTP/1.1 features, including HTTP Continue, Chunked-Encoding, WebSockets, and SSE. Read more about SslProxy [here](https://docs.sisk-framework.org/docs/extensions/ssl-proxy.md).

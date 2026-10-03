@@ -1,0 +1,11 @@
+{{ define "main" }}
+<article class="article not-found">
+    <p class="api-kind">404</p>
+    <h1>{{ T "notFoundTitle" }}</h1>
+    <p class="lead">{{ T "notFoundText" }}</p>
+    <p>
+        <button type="button" class="button button-primary" data-search-open>{{ partial "icon.html" "search" }}{{ T "search" }}</button>
+        <a class="button button-ghost" href="{{ (site.GetPage "/docs").RelPermalink }}">{{ T "backToDocs" }}</a>
+    </p>
+</article>
+{{ end }}

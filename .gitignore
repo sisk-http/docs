@@ -1,15 +1,14 @@
+node_modules/
+_api/
+_pack/
+resources/_gen/
+.hugo_build.lock
+
 ref/*
-api/*
+!ref/.gitkeep
 
-[Bb]in/
-[Oo]bj/
-Properties/
+content/en/api/
+data/api.json
 
-node_modules
-_md
-_pack
-
-*.sln
-
-.vs/
-.vscode/
+config.json
+translate.errors.txt

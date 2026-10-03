@@ -1,0 +1,7 @@
+{{- $docs := printf "](%sdocs/$1.md$3)" ("" | absLangURL) -}}
+{{- $api := printf "](%sapi/$1.md$3)" ("" | absURL) -}}
+{{- $assets := printf "](%sassets/" ("" | absURL) -}}
+{{- $body := replaceRE `\]\(/docs/([^)#\s]+?)(\.html|\.md)?(#[^)\s]*)?\)` $docs .RawContent -}}
+{{- $body = replaceRE `\]\(/api/([^)#\s]+?)(\.html|\.md)?(#[^)\s]*)?\)` $api $body -}}
+{{- $body = replaceRE `\]\(/assets/` $assets $body -}}
+{{- return strings.TrimSpace $body -}}

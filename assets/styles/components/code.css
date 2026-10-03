@@ -1,0 +1,134 @@
+.code-block {
+    position: relative;
+    margin: 1.5em 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    overflow: hidden;
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 38px;
+    padding: 0 6px 0 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+}
+
+.code-block:not(.has-title) .code-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    background: transparent;
+}
+
+.code-title {
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-weight: 500;
+}
+
+.code-lang {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.code-block:not(.has-title) .code-lang {
+    opacity: 0;
+    transition: opacity var(--duration) var(--ease);
+}
+
+.code-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 15px;
+    cursor: pointer;
+    opacity: .7;
+    transition: opacity var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+
+.code-copy:hover,
+.code-copy:focus-visible {
+    background: var(--bg-alt);
+    color: var(--text);
+    opacity: 1;
+}
+
+.code-copy.is-done {
+    color: var(--tip);
+    opacity: 1;
+}
+
+.code-block:hover .code-lang {
+    opacity: 1;
+}
+
+.code-block .highlight pre,
+.prose pre {
+    margin: 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+    tab-size: 4;
+}
+
+.code-block .highlight pre code {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* Chroma token colors, shared by both themes through variables. */
+html[data-theme="light"] .chroma {
+    --c-text: #1f2328;
+    --c-keyword: #0000ff;
+    --c-type: #2b91af;
+    --c-string: #a31515;
+    --c-comment: #008000;
+    --c-number: #098658;
+    --c-attr: #e50000;
+    --c-tag: #800000;
+    --c-func: #795e26;
+}
+
+html[data-theme="dark"] .chroma {
+    --c-text: #d4d4d4;
+    --c-keyword: #569cd6;
+    --c-type: #4ec9b0;
+    --c-string: #ce9178;
+    --c-comment: #6a9955;
+    --c-number: #b5cea8;
+    --c-attr: #9cdcfe;
+    --c-tag: #569cd6;
+    --c-func: #dcdcaa;
+}
+
+.chroma { color: var(--c-text); }
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr { color: var(--c-keyword); }
+.chroma .kt, .chroma .nc, .chroma .nn, .chroma .ne { color: var(--c-type); }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .ss { color: var(--c-string); }
+.chroma .c, .chroma .c1, .chroma .ch, .chroma .cm, .chroma .cs, .chroma .cpf { color: var(--c-comment); font-style: normal; }
+.chroma .cp { color: var(--c-keyword); }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo { color: var(--c-number); }
+.chroma .na, .chroma .nv, .chroma .nl { color: var(--c-attr); }
+.chroma .nt { color: var(--c-tag); }
+.chroma .nf, .chroma .fm { color: var(--c-func); }
+.chroma .nd { color: var(--c-type); }
+.chroma .gh, .chroma .gu { color: var(--c-keyword); font-weight: 600; }
+.chroma .err { color: inherit; background: none; }
+.chroma .hl-type { color: var(--c-type); }

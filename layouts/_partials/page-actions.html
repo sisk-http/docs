@@ -1,0 +1,25 @@
+<details class="menu page-actions" data-menu data-pagefind-ignore>
+    <summary class="button button-ghost">
+        {{ partial "icon.html" "copy" }}
+        <span>{{ T "copyPage" }}</span>
+        {{ partial "icon.html" "arrow-down" }}
+    </summary>
+    <div class="menu-panel">
+        {{ with .OutputFormats.Get "markdown" }}
+        <button type="button" class="menu-item" data-copy-markdown="{{ .RelPermalink }}" data-copied-label="{{ T "copied" }}">
+            {{ partial "icon.html" "markdown" }}<span>{{ T "copyMarkdown" }}</span>
+        </button>
+        <a class="menu-item" href="{{ .RelPermalink }}" type="text/markdown">
+            {{ partial "icon.html" "file" }}<span>{{ T "viewMarkdown" }}</span>
+        </a>
+        {{ end }}
+        <button type="button" class="menu-item" data-copy-link data-copied-label="{{ T "copied" }}">
+            {{ partial "icon.html" "link" }}<span>{{ T "copyLink" }}</span>
+        </button>
+        {{ if and .File (ne .Section "api") }}
+        <a class="menu-item" href="{{ site.Params.docsRepository }}/edit/{{ site.Params.docsBranch }}/content/en/{{ .File.Path | replaceRE `\\` "/" }}" rel="noopener">
+            {{ partial "icon.html" "edit" }}<span>{{ T "editPage" }}</span>
+        </a>
+        {{ end }}
+    </div>
+</details>

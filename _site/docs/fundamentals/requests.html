@@ -1,836 +1,239 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Requests | Sisk </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Requests | Sisk ">
-
-
-        <link rel="icon" href="../../assets/img/favicon.ico">
-        <link rel="stylesheet" href="../../public/docfx.min.css">
-        <link rel="stylesheet" href="../../public/main.css">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
-        <meta name="docfx:navrel" content="../../toc.html">
-        <meta name="docfx:tocrel" content="../toc.html">
-
-        <meta name="docfx:rel" content="../../">
-
-
-        <meta name="docfx:docurl" content="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/requests.md/#L1">
-        <meta name="loc:inThisArticle" content="In this article">
-        <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
-        <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
-        <meta name="loc:tocFilter" content="Filter by title">
-        <meta name="loc:nextArticle" content="Next">
-        <meta name="loc:prevArticle" content="Previous">
-        <meta name="loc:themeLight" content="Light">
-        <meta name="loc:themeDark" content="Dark">
-        <meta name="loc:themeAuto" content="Auto">
-        <meta name="loc:changeTheme" content="Change theme">
-        <meta name="loc:copy" content="Copy">
-        <meta name="loc:downloadPdf" content="Download PDF">
-        
-        <script type="module" src="./../../public/docfx.min.js"></script>
-        <script>
-            const theme = localStorage.getItem('theme') || 'auto';
-            document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-        </script>
-        
-        <script src="https://unpkg.com/@cypherpotato/el/dist/el.min.js"></script>
-        
-        <!-- GoatCounter -->
-        <script data-goatcounter="https://siskframework.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-        <!-- End GoatCounter -->
-        
-        <script>            
-            function switchLanguage(lang) {
-                const docPart = window.location.pathname.match(/\/docs\/((pt\-br|ru|cn|es|de|jp)\/)?(.*)/)[3];
-                const newPath = lang + docPart;
-                window.location.href = window.location.origin + newPath;
-            }        
-        </script>
-        
-    </head>
-    
-    
-    <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
-        <header class="bg-body border-bottom">
-            <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
-                <div class="container-xxl flex-nowrap">
-                    <a class="navbar-brand" href="../../index.html">
-                        <img id="logo" class="svg" src="../../assets/img/Icon.png" alt="Sisk">
-                        Sisk
-                    </a>
-                    <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-three-dots"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navpanel">
-                        <div id="navbar">
-                            <form class="search" role="search" id="search">
-                                <i class="bi bi-search"></i>
-                                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <main class="container-xxl">
-            <div class="toc-offcanvas">
-                <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <nav class="toc" id="toc"></nav>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="actionbar">
-                    <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <nav id="breadcrumb"></nav>
-                    <div class="actionbar-actions">
-                        <div id="language-wrapper">
-                            <a class="btn border-0 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" title="Change theme">
-                                <i class="bi bi-globe"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end language-dropdown">
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/')">
-                                        <img src="/assets/flag/usa.png">
-                                        English
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/ru/')">
-                                        <img src="/assets/flag/russia.png">
-                                        Русский
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/pt-br/')">
-                                        <img src="/assets/flag/brazil.png">
-                                        Português
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/es/')">
-                                        <img src="/assets/flag/spain.png">
-                                        Español
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/de/')">
-                                        <img src="/assets/flag/germany.png">
-                                        Deutsch
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/cn/')">
-                                        <img src="/assets/flag/china.png">
-                                        中文 (简体)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:switchLanguage('/docs/jp/')">
-                                        <img src="/assets/flag/japan.png">
-                                        日本語
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div id="copy-article-wrapper">
-                            <a class="btn border-0" id="copy-article-btn" title="Copy article">
-                                <i class="bi bi-copy"></i>
-                            </a>
-                            <div class="copy-dropdown" id="copy-dropdown">
-                                <button type="button" id="copy-link-btn">
-                                    <i class="bi bi-link-45deg"></i>
-                                    Copy link
-                                </button>
-                                <button type="button" id="copy-markdown-btn">
-                                    <i class="bi bi-markdown"></i>
-                                    Copy as Markdown
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <article data-uid="">
-<h1 id="requests">Requests</h1>
-
-<p>Requests are structures that represent an HTTP request message. The <a href="/api/Sisk.Core.Http.HttpRequest">HttpRequest</a> object contains useful functions for handling HTTP messages throughout your application.</p>
-<p>An HTTP request is formed by the method, path, version, headers and body.</p>
-<p>In this document, we will teach you how to obtain each of these elements.</p>
-<h2 id="getting-the-request-method">Getting the request method</h2>
-<p>To obtain the method of the received request, you can use the Method property:</p>
-<pre><code class="lang-cs">static HttpResponse Index(HttpRequest request)
-{
-    HttpMethod requestMethod = request.Method;
-    ...
-}
-</code></pre>
-<p>This property returns the request's method represented by an <a href="https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod">HttpMethod</a> object.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Unlike route methods, this property does not serves the <a href="/api/Sisk.Core.Routing.RouteMethod">RouteMethod.Any</a> item. Instead, it returns the real request method.</p>
-</div>
-<h2 id="getting-request-url-components">Getting request url components</h2>
-<p>You can get various component from a URL through certain properties of a request. For this example, let's consider the URL:</p>
-<pre><code>http://localhost:5000/user/login?email=foo@bar.com
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Component name</th>
-<th>Description</th>
-<th>Component value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Path">Path</a></td>
-<td>Gets the request path.</td>
-<td><code>/user/login</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.FullPath">FullPath</a></td>
-<td>Gets the request path and the query string.</td>
-<td><code>/user/login?email=foo@bar.com</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.FullUrl">FullUrl</a></td>
-<td>Gets the entire URL request string.</td>
-<td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Host">Host</a></td>
-<td>Gets the request host.</td>
-<td><code>localhost</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Authority">Authority</a></td>
-<td>Gets the request host and port.</td>
-<td><code>localhost:5000</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.QueryString">QueryString</a></td>
-<td>Gets the request query.</td>
-<td><code>?email=foo@bar.com</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Query">Query</a></td>
-<td>Gets the request query in a named value collection.</td>
-<td><code>{StringValueCollection object}</code></td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.IsSecure">IsSecure</a></td>
-<td>Determines if the request is using SSL (true) or not (false).</td>
-<td><code>false</code></td>
-</tr>
-</tbody>
-</table>
-<p>You can also opt by using the <a href="/api/Sisk.Core.Http.HttpRequest.Uri">HttpRequest.Uri</a> property, which includes everything above in one object.</p>
-<h2 id="request-metadata-and-cancellation">Request metadata and cancellation</h2>
-<p>Sisk also attaches operational metadata to each request. These properties are useful for logs, tracing, localization, diagnostics, and long-running operations:</p>
-<table>
-<thead>
-<tr>
-<th>Property or method</th>
-<th>Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestId">RequestId</a></td>
-<td>A unique identifier for the request. Enable <a href="/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader">IncludeRequestIdHeader</a> to return it as <code>X-Request-Id</code>.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.RequestedAt">RequestedAt</a></td>
-<td>The moment when Sisk created the request object.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.RemoteAddress">RemoteAddress</a></td>
-<td>The client address resolved from the connection, or from your <a href="/docs/advanced/forwarding-resolvers">ForwardingResolver</a>.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Culture">Culture</a></td>
-<td>The best culture resolved from <code>Accept-Language</code>, falling back to the current culture.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">DisconnectToken</a></td>
-<td>A cancellation token signaled when the client disconnects, when supported by the configured HTTP engine.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.Bag">Bag</a></td>
-<td>A typed key/value store shared across request handlers and the route action.</td>
-</tr>
-<tr>
-<td><a href="/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest">GetRawHttpRequest</a></td>
-<td>A text representation of the request for diagnostics.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="getting-the-request-body">Getting the request body</h2>
-<p>Some requests include body such as forms, files, or API transactions. You can get the body of a request from the property:</p>
-<pre><code class="lang-cs">// gets the request body as an string, using the request encoding as the encoder
-string body = request.Body;
-
-// or gets it in an byte array
-byte[] bodyBytes = request.RawBody;
-
-// or else, you can stream it.
-Stream requestStream = request.GetRequestStream();
-
-// or read the body asynchronously
-Memory&lt;byte&gt; bodyMemory = await request.GetBodyContentsAsync();
-</code></pre>
-<p>It is also possible to determine if there is a body in the request and if it is loaded with the properties <a href="/api/Sisk.Core.Http.HttpRequest.HasContents">HasContents</a>, which determines if the request has contents and <a href="/api/Sisk.Core.Http.HttpRequest.IsContentAvailable">IsContentAvailable</a> which indicates that the HTTP server fully received the content from the remote point.</p>
-<p>It is not possible to read the request content through <code>GetRequestStream</code> more than once. If you read with this method, the values in <code>RawBody</code> and <code>Body</code> will also not be available. It's not necessary to dispose the request stream in the context of the request, as it is disposed at the end of the HTTP session in which it is created. Also, you can use <a href="/api/Sisk.Core.Http.HttpRequest.RequestEncoding">HttpRequest.RequestEncoding</a> property to get the best encoding to decode the request manually.</p>
-<p>The server has limits for reading the request content, which applies to both <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.Body</a> and <a href="/api/Sisk.Core.Http.HttpRequest.Body">HttpRequest.RawBody</a>. These properties copies the entire input stream to an local buffer of the same size of <a href="/api/Sisk.Core.Http.HttpRequest.ContentLength">HttpRequest.ContentLength</a>.</p>
-<p>A response with status 413 Content Too Large is returned to the client if the content sent is larger than <a href="/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength">HttpServerConfiguration.MaximumContentLength</a> defined in the user configuration. Additionally, if there is no configured limit or if it is too large, the server will throw an <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0">OutOfMemoryException</a> when the content sent by the client exceeds <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue">Int32.MaxValue</a> (2 GB) and if the content is attempted to be accessed through one of the properties mentioned above. You can still deal with the content through streaming.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>Although Sisk allows it, it is always a good idea to follow HTTP Semantics to create your application and not obtain or serve content in methods that do not allow it. Read about <a href="https://httpwg.org/spec/rfc9110.html">RFC 9110 &quot;HTTP Semantics&quot;</a>.</p>
-</div>
-<h2 id="reading-json-requests">Reading JSON requests</h2>
-<p>For JSON APIs, prefer the built-in JSON helpers instead of reading <code>Body</code> and deserializing manually. They use <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json">System.Text.Json</a> and default to <a href="/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions">HttpRequest.DefaultJsonSerializerOptions</a>.</p>
-<pre><code class="lang-cs">public record CreateUserRequest(string Name, string Email);
-
-router.MapPost(&quot;/users&quot;, (HttpRequest request) =&gt;
-{
-    CreateUserRequest? body = request.GetJsonContent&lt;CreateUserRequest&gt;();
-    if (body is null)
-        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
-
-    return new HttpResponse(System.Net.HttpStatusCode.Created);
-});
-</code></pre>
-<p>Use the async overload when you are already in an async route or want request cancellation to stop deserialization:</p>
-<pre><code class="lang-cs">router.MapPost(&quot;/users&quot;, async (HttpRequest request) =&gt;
-{
-    CreateUserRequest? body =
-        await request.GetJsonContentAsync&lt;CreateUserRequest&gt;(request.DisconnectToken);
-
-    if (body is null)
-        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
-
-    return new HttpResponse(System.Net.HttpStatusCode.Created);
-});
-</code></pre>
-<p>You can pass custom <a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> for a specific endpoint:</p>
-<pre><code class="lang-cs">var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-{
-    PropertyNameCaseInsensitive = true
-};
-
-UserDto? user = request.GetJsonContent&lt;UserDto&gt;(options);
-</code></pre>
-<p>For Native AOT or trimming-sensitive applications, use the <code>JsonTypeInfo&lt;T&gt;</code> overload generated by a <code>JsonSerializerContext</code>:</p>
-<pre><code class="lang-cs">[JsonSerializable(typeof(CreateUserRequest))]
-public partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
-
-CreateUserRequest? body =
-    await request.GetJsonContentAsync(
-        AppJsonSerializerContext.Default.CreateUserRequest,
-        request.DisconnectToken);
-</code></pre>
-<p>The same read-once rule applies to JSON helpers: after Sisk reads the request stream through <code>GetJsonContent</code>, <code>GetJsonContentAsync</code>, <code>Body</code>, or <code>RawBody</code>, you cannot later consume the same body through <code>GetRequestStream()</code>.</p>
-<h2 id="getting-the-request-context">Getting the request context</h2>
-<p>The HTTP Context is an exclusive Sisk object that stores HTTP server, route, router and request handler information. You can use it to be able to organize yourself in an environment where these objects are difficult to organize.</p>
-<p>You can get the currently executing <a href="/api/Sisk.Core.Http.HttpContext">HttpContext</a> using the static method <code>HttpContext.GetCurrentContext()</code>. This method returns the context of the request currently being processed in the current thread.</p>
-<pre><code class="lang-cs">HttpContext context = HttpContext.GetCurrentContext();
-</code></pre>
-<h3 id="log-mode">Log Mode</h3>
-<p>The <a href="/api/Sisk.Core.Http.HttpContext.LogMode">HttpContext.LogMode</a> property allows you to control the logging behavior for the current request. You can enable or disable logging for specific requests, overriding the default server configuration.</p>
-<pre><code class="lang-cs">// Disable logging for this request
-context.LogMode = LogOutputMode.None;
-</code></pre>
-<h3 id="request-bag">Request Bag</h3>
-<p>The <a href="/api/Sisk.Core.Http.HttpContext.RequestBag">RequestBag</a> object contains stored information that is passed from an request handler to another point, and can be consumed at the final destination. This object can also be used by request handlers that run after the route callback.</p>
-<div class="TIP">
-<h5>Tip</h5>
-<p>This property is also acessible by <a href="/api/Sisk.Core.Http.HttpRequest.Bag">HttpRequest.Bag</a> property.</p>
-</div>
-<div class="script-header">
-    <span>
-        Middleware/AuthenticateUserRequestHandler.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class AuthenticateUserRequestHandler : IRequestHandler
-{
-    public string Identifier { get; init; } = Guid.NewGuid().ToString();
-    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
-    
-    public HttpResponse? Execute(HttpRequest request, HttpContext context)
-    {
-        if (request.Headers.Authorization != null)
-        {
-            context.RequestBag.Add(&quot;AuthenticatedUser&quot;, new User(&quot;Bob&quot;));
-            return null;
-        }
-        else
-        {
-            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
-        }
-    }
-}
-</code></pre>
-<p>The above request handler will define <code>AuthenticatedUser</code> in the request bag, and can be consumed later in the final callback:</p>
-<div class="script-header">
-    <span>
-        Controller/MyController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class MyController
-{
-    [RouteGet(&quot;/&quot;)]
-    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]
-    static HttpResponse Index(HttpRequest request)
-    {
-        User authUser = request.Context.RequestBag[&quot;AuthenticatedUser&quot;];
-        
-        return new HttpResponse() {
-            Content = new StringContent($&quot;Hello, {authUser.Name}!&quot;)
-        };
-    }
-}
-</code></pre>
-<p>You can also use the <code>Bag.Set()</code> and <code>Bag.Get()</code> helper methods to get or set objects by their type singletons.</p>
-<p>The <code>TypedValueDictionary</code> class also provides <code>GetValue</code> and <code>SetValue</code> methods for more control.</p>
-<div class="script-header">
-    <span>
-        Middleware/Authenticate.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class Authenticate : RequestHandler
-{
-    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
-    {
-        request.Bag.Set&lt;User&gt;(authUser);
-    }
-}
-</code></pre>
-<div class="script-header">
-    <span>
-        Controller/MyController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-csharp">[RouteGet(&quot;/&quot;)]
-[RequestHandler&lt;Authenticate&gt;]
-public static HttpResponse GetUser(HttpRequest request)
-{
-    var user = request.Bag.Get&lt;User&gt;();
-    ...
-}
-</code></pre>
-<h2 id="getting-form-data">Getting form data</h2>
-<p>You can get form data values in a <a href="/api/Sisk.Core.Entity.StringKeyStoreCollection">StringKeyStoreCollection</a> with the example below:</p>
-<div class="script-header">
-    <span>
-        Controller/Auth.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">[RoutePost(&quot;/auth&quot;)]
-public HttpResponse Index(HttpRequest request)
-{
-    var form = request.GetFormContent();
-
-    string? username = form[&quot;username&quot;];
-    string? password = form[&quot;password&quot;];
-
-    if (AttempLogin(username, password))
-    {
-        ...
-    }
-}
-</code></pre>
-<p>The async version is useful when the request body may be large or when you want cancellation support:</p>
-<pre><code class="lang-cs">var form = await request.GetFormContentAsync(request.DisconnectToken);
-</code></pre>
-<h2 id="getting-multipart-form-data">Getting multipart form data</h2>
-<p>Sisk's HTTP request lets you get uploaded multipart contents, such as a files, form fields, or any binary content.</p>
-<div class="script-header">
-    <span>
-        Controller/Auth.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">[RoutePost(&quot;/upload-contents&quot;)]
-public HttpResponse Index(HttpRequest request)
-{
-    // the following method reads the entire request input into an
-    // array of MultipartObjects
-    var multipartFormDataObjects = request.GetMultipartFormContent();
-    
-    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
-    {
-        // The name of the file provided by Multipart form data.
-        // Null is returned if the object is not a file.
-        Console.WriteLine(&quot;File name       : &quot; + uploadedObject.Filename);
-
-        // The multipart form data object field name.
-        Console.WriteLine(&quot;Field name      : &quot; + uploadedObject.Name);
-
-        // The multipart form data content length.
-        Console.WriteLine(&quot;Content length  : &quot; + uploadedObject.ContentLength);
-
-        // Determine the image format based in the file header for each
-        // known content type. If the content ins't an recognized common file
-        // format, this method below will return MultipartObjectCommonFormat.Unknown
-        Console.WriteLine(&quot;Common format   : &quot; + uploadedObject.GetCommonFileFormat());
-    }
-}
-</code></pre>
-<p>Use <a href="/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync">GetMultipartFormContentAsync</a> when the route is asynchronous:</p>
-<pre><code class="lang-cs">var multipartFormDataObjects =
-    await request.GetMultipartFormContentAsync(request.DisconnectToken);
-</code></pre>
-<p>You can read more about Sisk <a href="/api/Sisk.Core.Entity.MultipartObject">Multipart form objects</a> and it's methods, properties and functionalities.</p>
-<h2 id="detecting-client-disconnection">Detecting client disconnection</h2>
-<p>Since version v1.15 of Sisk, the framework provides a cancellation token through <a href="/api/Sisk.Core.Http.HttpRequest.DisconnectToken">HttpRequest.DisconnectToken</a>. When the configured HTTP engine supports disconnect detection, this token is canceled when the client connection is closed before the response is completed. This is useful for stopping long-running operations when the client is no longer waiting for the result.</p>
-<pre><code class="lang-csharp">router.MapGet(&quot;/connect&quot;, async (HttpRequest req) =&gt;
-{
-    // gets the disconnection token from the request
-    var dc = req.DisconnectToken;
-
-    await LongOperationAsync(dc);
-
-    return new HttpResponse();
-});
-</code></pre>
-<p>This token is not compatible with all HTTP engines, and each requires an implementation.</p>
-<p>The default Sisk engine, based on <code>System.Net.HttpListener</code>, does not support client-disconnection detection. When your application uses the default engine, <code>DisconnectToken</code> is <code>CancellationToken.None</code>; in practice, it is a non-canceling token and should be treated as unavailable.</p>
-<p>The <a href="/docs/cadente">Cadente engine</a> supports <code>DisconnectToken</code>. If your route depends on disconnection-aware cancellation, use Cadente or another engine that explicitly implements this behavior. Even with a supported engine, cancellation is cooperative: pass the token to async APIs and check it in your own long-running work.</p>
-<h2 id="server-sent-events-support">Server-sent events support</h2>
-<p>Sisk supports <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events">Server-sent events</a>, which allows sending chunks as an stream and keeping the connection between the server and the client alive.</p>
-<p>Calling the <a href="/api/Sisk.Core.Http.HttpRequest.GetEventSource">HttpRequest.GetEventSource</a> method will put the HttpRequest in it's listener state. From this, the context of this HTTP request will not expect an HttpResponse as it will overlap the packets sent by server side events.</p>
-<p>After sending all packets, the callback must return the <a href="/api/Sisk.Core.Http.HttpRequestEventSource.Close">Close</a> method, which will send the final response to the server and indicate that the streaming has ended.</p>
-<p>It's not possible to predict what the total length of all packets that will be sent, so it is not possible to determine the end of the connection with <code>Content-Length</code> header.</p>
-<p>By most browsers defaults, server-side events does not support sending HTTP headers or methods other than the GET method. Therefore, be careful when using request handlers with event-source requests that require specific headers in the request, as it probably they ins't going to have them.</p>
-<p>Also, most browsers restart streams if the <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close">EventSource.close</a> method ins't called on the client side after receiving all the packets, causing infinite additional processing on the server side. To avoid this kind of problem, it's common to send an final packet indicating that the event source has finished sending all packets.</p>
-<p>The example below shows how the browser can communicate with the server that supports Server-side events.</p>
-<div class="script-header">
-    <span>
-        sse-example.html
-    </span>
-    <span>
-        HTML
-    </span>
-</div>
-<pre><code class="lang-html">&lt;html&gt;
-    &lt;body&gt;
-        &lt;b&gt;Fruits:&lt;/b&gt;
-        &lt;ul&gt;&lt;/ul&gt;
-    &lt;/body&gt;
-    &lt;script&gt;
-        const evtSource = new EventSource('http://localhost:5555/event-source');
-        const eventList = document.querySelector('ul');
-        
-        evtSource.onmessage = (e) =&gt; {
-            const newElement = document.createElement(&quot;li&quot;);
-
-            newElement.textContent = `message: ${e.data}`;
-            eventList.appendChild(newElement);
-
-            if (e.data == &quot;Tomato&quot;) {
-                evtSource.close();
-            }
-        }
-    &lt;/script&gt;
-&lt;/html&gt;
-</code></pre>
-<p>And progressively send the messages to the client:</p>
-<div class="script-header">
-    <span>
-        Controller/MyController.cs
-    </span>
-    <span>
-        C#
-    </span>
-</div>
-<pre><code class="lang-cs">public class MyController
-{
-    [RouteGet(&quot;/event-source&quot;)]
-    public async Task&lt;HttpResponse&gt; ServerEventsResponse(HttpRequest request)
-    {
-        var serverEvents = await request.GetEventSourceAsync ();
-        
-        string[] fruits = new[] { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Watermelon&quot;, &quot;Tomato&quot; };
-        
-        foreach (string fruit in fruits)
-        {
-            await serverEvents.SendAsync(fruit);
-            await Task.Delay(1500);
-        }
-
-        return await serverEvents.CloseAsync();
-    }
-}
-</code></pre>
-<p>When running this code, we expect a result similar to this:</p>
-<img src="/assets/img/server side events demo.gif">
-<h2 id="resolving-proxied-ips-and-hosts">Resolving proxied IPs and hosts</h2>
-<p>Sisk can be used with proxies, and therefore IP addresses can be replaced by the proxy endpoint in the transaction from a client to the proxy.</p>
-<p>You can define your own resolvers in Sisk with <a href="/docs/advanced/forwarding-resolvers">forwarding resolvers</a>.</p>
-<h2 id="headers-encoding">Headers encoding</h2>
-<p>Header encoding can be a problem for some implementations. On Windows, UTF-8 headers are not supported, so ASCII is used. Sisk has a built-in encoding converter, which can be useful for decoding incorrectly encoded headers.</p>
-<p>This operation is costly and disabled by default, but can be enabled with <a href="/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings">HttpServerConfiguration.NormalizeHeadersEncodings</a>.</p>
-
-</article>
-
-                <div class="contribution d-print-none">
-                    <a href="https://github.com/sisk-http/docs/blob/master/docs/fundamentals/requests.md/#L1" class="edit-link">Edit this page</a>
-                </div>
-
-                <div class="next-article d-print-none border-top" id="nextArticle"></div>
-
-            </div>
-
-            <div class="affix">
-                <nav id="affix"></nav>
-            </div>
-        </main>
-
-        <div class="container-xxl search-results" id="search-results"></div>
-
-        <footer class="border-top text-secondary">
-            <div class="container-xxl">
-                <div class="flex-fill">
-                    <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
-                </div>
-            </div>
-            <script>
-                if (window.location.pathname.startsWith('/docs/')) {
-                    document.getElementById('language-wrapper').style.display = 'block';
-                }
-                
-                function splitText(text, words) {
-                    if (!Array.isArray(words)) return [];
-                    const escapedWords = words.map(word =>
-                        word.replace(/([.*+?^${}()|[\]\\])/g, '\\$1').replace(/\s/g, '\\$&'));
-                        
-                    escapedWords.sort((a, b) => b.length - a.length || b.localeCompare(a, 'en-US', { sensitivity: 'base' }));
-                    const pattern = new RegExp(`\\b(${escapedWords.join('|')})\\b`, 'gi');
-                    const splitResult = text.split(pattern);
-                    const cleanedResult = splitResult.filter(segment => segment !== '');
-                    return cleanedResult;
-                }
-                
-                function runPostHljsFunctions() {
-                    if (!document.querySelector("pre>code")) {
-                        return;
-                    }
-                    if (!document.querySelector(".hljs")) {
-                        setTimeout(runPostHljsFunctions, 100);
-                        return;
-                    }
-                    
-                    function highlightMissingCodeTokens(pre) {
-                        const tokenClasses = [
-                            "HttpResponse", "HttpRequest", "File", "Task",
-                            "Router", "Route", "StringContent", "StreamContent",
-                            "JsonContent", "RegexRoute", "HtmlContent", "CancellationTokenSource",
-                            "HttpContext", "Stream", "MultipartObject", "Thread", "Task", "Encoding",
-                            "HttpKnownHeaderNames", "HttpMethod", "List", "JsonSerializer",
-                            "LogStream", "HttpServer", "RotatingLogPolicy", "StringBuilder",
-                            "Console", "HttpRequestEventSource", "HttpWebSocket", "X509Certificate2",
-                            "AppDomain", "Path", "Directory", "HttpServerConfiguration", "ListeningHost",
-                            "ByteArrayContent", "ForwardingResolver", "IPAddress", "IPEndPoint",
-                            "HttpServerExecutionResult", "ArgumentNullException", "JsonSerializerOptions",
-                            "DbContext", "ApiGenerationContext", "OpenApiExporter", "BodyExampleResult",
-                            "ParameterExampleResult", "OpenApiContact", "OpenApiLicense", "HttpContent",
-                            "ApiDocumentation", "CrossOriginResourceSharingHeaders", "McpProvider",
-                            "JsonSchema", "McpToolContext", "HttpListenerAbstractEngine", "HttpListener",
-                            "CadenteHttpServerEngine", "CertificateHelper"
-                        ];
-                        const tokenValues = [
-                            "RouteMethod", "Guid", "RequestHandlerExecutionMode", "HttpStatusCode",
-                            "HttpStatusInformation", "DateTime", "TimeSpan", "RouterMethod",
-                            "ListeningPort", "HttpServerEngineContextEventLoopMechanism"
-                        ];
-                        const tokenInterfaces = [
-                            "IRequestHandler", "IEnumerable", "ICollection", "IList"
-                        ];
-                        
-                        function runStyles(node) {
-                            if (node.nodeType === 3) {
-                                applyStyles(node);
-                                
-                            } else if (node.nodeType === 1) {
-                                
-                                const prohibitedClasses = ["hljs-comment", "hljs-string"];
-                                
-                                if (! prohibitedClasses.some(cls => node.classList.contains(cls))) {
-                                    for(const child of node.childNodes) {
-                                        runStyles(child);
-                                    }
-                                }
-                            }
-                        }
-                        
-                        function applyStyles(textNode) {
-                            const text = textNode.textContent;
-                            const fragment = [];
-                            
-                            for (const token of splitText(text, [...tokenClasses, ...tokenValues, ...tokenInterfaces])) {
-                                if (tokenClasses.includes(token)) {
-                                    fragment.push(el("span.hljs-meta", token));
-                                    
-                                } else if (tokenValues.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-value", token));
-                                    
-                                } else if (tokenInterfaces.includes(token)) {
-                                    fragment.push(el("span.hljs-meta-interface", token));
-                                    
-                                } else {
-                                    fragment.push(token);
-                                }
-                            }
-                            
-                            textNode.replaceWith(el.fragment(...fragment));
-                        }
-                        
-                        const code = pre.querySelector("code");
-                        if (code && (code.classList.contains("lang-csharp") || code.classList.contains("lang-cs"))) {
-                            runStyles(code);
-                        }
-                    }
-                    
-                    function addLineNumbers(pre) {
-                        const code = pre.querySelector("code");
-                        if (!code) return;
-                        
-                        var lines = (code.textContent.match(/\n/g) || []).length;
-                        
-                        if (lines <= 1) {
-                            return;
-                        }
-                        
-                        const lineElements = [];
-                        for (let i = 1; i <= lines; i++) {
-                            lineElements.push(el("span.hljs-line-number", i + "\n"));
-                        }
-                        
-                        code.prepend(el("div.line-numbers", ...lineElements));
-                        code.classList.add("has-line-numbers");
-                    }
-                                        
-                    document.querySelectorAll("pre").forEach(pre => {
-                        highlightMissingCodeTokens(pre);
-                        addLineNumbers(pre);
-                    });
-                }
-                
-                runPostHljsFunctions();
-                
-                (function() {
-                    const copyBtn = document.getElementById('copy-article-btn');
-                    const copyDropdown = document.getElementById('copy-dropdown');
-                    const copyLinkBtn = document.getElementById('copy-link-btn');
-                    const copyMarkdownBtn = document.getElementById('copy-markdown-btn');
-                    
-                    if (!copyBtn) return;
-                    
-                    copyBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        copyDropdown.classList.toggle('show');
-                    });
-                    
-                    document.addEventListener('click', function(e) {
-                        if (!copyDropdown.contains(e.target) && e.target !== copyBtn) {
-                            copyDropdown.classList.remove('show');
-                        }
-                    });
-                    
-                    function getArticleContent() {
-                        const article = document.querySelector('article');
-                        if (!article) return null;
-                        
-                        const clone = article.cloneNode(true);
-                        clone.querySelectorAll('.line-numbers, .code-action').forEach(el => el.remove());
-                        
-                        return clone;
-                    }
-                    
-                    copyLinkBtn.addEventListener('click', function() {
-                        navigator.clipboard.writeText(window.location.href);
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    copyMarkdownBtn.addEventListener('click', async function() {
-                        const article = getArticleContent();
-                        if (!article) return;
-                        
-                        if (typeof TurndownService === 'undefined') {
-                            const script = document.createElement('script');
-                            script.src = 'https://unpkg.com/turndown/dist/turndown.js';
-                            script.onload = function() {
-                                convertAndCopy(article);
-                            };
-                            document.head.appendChild(script);
-                        } else {
-                            convertAndCopy(article);
-                        }
-                        
-                        copyDropdown.classList.remove('show');
-                    });
-                    
-                    function convertAndCopy(article) {
-                        const turndown = new TurndownService({
-                            headingStyle: 'atx',
-                            codeBlockStyle: 'fenced'
-                        });
-                        
-                        turndown.addRule('codeBlocks', {
-                            filter: ['pre'],
-                            replacement: function(content, node) {
-                                const code = node.querySelector('code');
-                                const langClass = code?.className.match(/lang-(\w+)/);
-                                const lang = langClass ? langClass[1] : '';
-                                const text = code?.textContent || content;
-                                return '\n\n```' + lang + '\n' + text.trim() + '\n```\n\n';
-                            }
-                        });
-                        
-                        const markdown = turndown.turndown(article.innerHTML);
-                        navigator.clipboard.writeText(markdown);
-                    }
-                })();
-            </script>
-        </footer>
-    </body>
-</html>
+<!doctype html><html lang=en-US data-lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Requests | Sisk</title><meta name=description content="Requests are structures that represent an HTTP request message. The HttpRequest object contains useful functions for handling HTTP messages throughout your …"><link rel=canonical href=https://docs.sisk-framework.org/docs/fundamentals/requests.html><link rel=icon href=/favicon.ico><link rel=alternate hreflang=en-US href=https://docs.sisk-framework.org/docs/fundamentals/requests.html><link rel=alternate hreflang=pt-BR href=https://docs.sisk-framework.org/pt-br/docs/fundamentals/requests.html><link rel=alternate hreflang=es-ES href=https://docs.sisk-framework.org/es/docs/fundamentals/requests.html><link rel=alternate hreflang=de-DE href=https://docs.sisk-framework.org/de/docs/fundamentals/requests.html><link rel=alternate hreflang=ru-RU href=https://docs.sisk-framework.org/ru/docs/fundamentals/requests.html><link rel=alternate hreflang=zh-CN href=https://docs.sisk-framework.org/zh-cn/docs/fundamentals/requests.html><link rel=alternate hreflang=ja-JP href=https://docs.sisk-framework.org/ja/docs/fundamentals/requests.html><link rel=alternate hreflang=x-default href=https://docs.sisk-framework.org/docs/fundamentals/requests.html><link rel=alternate type=text/markdown href=/docs/fundamentals/requests.md title=Markdown><link rel=help type=text/plain href=/llms.txt title=llms.txt><meta property="og:title" content="Requests"><meta property="og:site_name" content="Sisk"><meta property="og:url" content="https://docs.sisk-framework.org/docs/fundamentals/requests.html"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://docs.sisk-framework.org/assets/img/Icon-HQ.png"><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Geist:wght@300..700&display=swap"><script>(()=>{const e=localStorage.getItem("theme")||"auto",t=e==="dark"||e==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t?"dark":"light",document.documentElement.dataset.themePreference=e})()</script><link rel=stylesheet href=/styles/main.min.9a2bcae9b4d981dc58f4970bd2f6185141d57c0fca813e647ae5ec5144132b31.css integrity="sha256-mivK6bTZgdxY9JcL0vYYUUHVfA/KgT5keuXsUUQTKzE="></head><body class=layout-docs><a class=skip-link href=#content>Skip to content</a><header class=header><div class=header-inner><button class="icon-button nav-toggle" type=button aria-label=Menu aria-controls=sidebar aria-expanded=false data-nav-toggle>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 4H21V6H3V4zm0 7H21v2H3V11zm0 7H21v2H3V18z"/></svg>
+</button>
+<a class=brand href=/index.html><img src=/assets/img/Icon.png alt width=32 height=32>
+<span>Sisk</span></a><nav class=header-nav aria-label=Main><a href=/index.html>Welcome</a>
+<a href=/docs/index.html aria-current=page>Docs</a>
+<a href=/api/index.html>API</a></nav><button class=search-trigger type=button data-search-open aria-label=Search>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<span class=search-trigger-label>Search</span>
+<kbd class=search-trigger-key>Ctrl K</kbd></button><div class=header-tools><details class=menu data-menu><summary class="icon-button language-trigger" aria-label=Language title=Language><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.5 10l4.4 11H20.745l-1.201-3h-4.09l-1.199 3H12.101L16.5 10h2zM10 2V4h6V6L14.0322 6.0006c-.7897 2.36556-2.0334 4.5051-3.6207 6.3004C11.1344 12.9457 11.917 13.5176 12.7475 14.0079l-.7506 1.8776c-1.0732-.6074-2.07746-1.3331-2.99729-2.1606-1.78558 1.6071-3.89047 2.8304-6.2007 3.5485l-.53634-1.9292C4.2385 14.7203 6.04543 13.6737 7.59042 12.3021c-1.12765-1.274-2.08169-2.72225-2.823-4.30182L7.00684 8.00037C7.57018 9.03885 8.23979 10.0033 8.99967 10.877 10.2283 9.46508 11.2205 7.81616 11.9095 6.00101L2 6V4H8V2h2zm7.5 10.8852L16.253 16h2.492L17.5 12.8852z"/></svg>
+<span class=language-code>EN</span></summary><div class=menu-panel><a class=menu-item href=/docs/fundamentals/requests.html hreflang=en-US lang=en-US data-lang-link=en aria-current=true>English
+</a><a class=menu-item href=/pt-br/docs/fundamentals/requests.html hreflang=pt-BR lang=pt-BR data-lang-link=pt-br>Português
+</a><a class=menu-item href=/es/docs/fundamentals/requests.html hreflang=es-ES lang=es-ES data-lang-link=es>Español
+</a><a class=menu-item href=/de/docs/fundamentals/requests.html hreflang=de-DE lang=de-DE data-lang-link=de>Deutsch
+</a><a class=menu-item href=/ru/docs/fundamentals/requests.html hreflang=ru-RU lang=ru-RU data-lang-link=ru>Русский
+</a><a class=menu-item href=/zh-cn/docs/fundamentals/requests.html hreflang=zh-CN lang=zh-CN data-lang-link=zh-cn>中文 (简体)
+</a><a class=menu-item href=/ja/docs/fundamentals/requests.html hreflang=ja-JP lang=ja-JP data-lang-link=ja>日本語</a></div></details><details class=menu data-menu><summary class=icon-button aria-label=Theme title=Theme><span class="theme-icon theme-icon-light"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+</span><span class="theme-icon theme-icon-dark"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg></span></summary><div class=menu-panel><button type=button class=menu-item data-theme-set=light><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 18c-3.31371.0-6-2.6863-6-6 0-3.31371 2.68629-6 6-6 3.3137.0 6 2.68629 6 6 0 3.3137-2.6863 6-6 6zm0-2c2.2091.0 4-1.7909 4-4 0-2.20914-1.7909-4-4-4-2.20914.0-4 1.79086-4 4 0 2.2091 1.79086 4 4 4zM11 1h2V4H11V1zm0 19h2v3H11V20zM3.51472 4.92893 4.92893 3.51472 7.05025 5.63604 5.63604 7.05025 3.51472 4.92893zM16.9497 18.364l1.4143-1.4143 2.1213 2.1214-1.4142 1.4142-2.1214-2.1213zM19.0711 3.51472l1.4142 1.41421L18.364 7.05025 16.9497 5.63604l2.1214-2.12132zM5.63604 16.9497 7.05025 18.364 4.92893 20.4853 3.51472 19.0711l2.12132-2.1214zM23 11v2H20V11h3zM4 11v2H1V11H4z"/></svg>
+Light</button>
+<button type=button class=menu-item data-theme-set=dark><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10 7c0 3.866 3.134 7 7 7 1.9584.0 3.729-.8043 4.9995-2.1005C22 11.933 22 11.9665 22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2 12.0335 2 12.067 2 12.1005 2.00049 10.8043 3.27098 10 5.04157 10 7zM4 12c0 4.4183 3.58172 8 8 8 3.0583.0 5.7158-1.7161 7.062-4.2379C18.3945 15.9187 17.7035 16 17 16c-4.9706.0-9-4.0294-9-9C8 6.29648 8.08133 5.60547 8.2379 4.938 5.71611 6.28423 4 8.9417 4 12z"/></svg>
+Dark</button>
+<button type=button class=menu-item data-theme-set=auto><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 21.9967c-5.52285.0-10-4.4771-10-10 0-5.52284 4.47715-10 10-10 5.5228.0 10 4.47716 10 10 0 5.5229-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41827-3.5817-8-8-8-4.41828.0-8 3.58173-8 8 0 4.4183 3.58172 8 8 8zM7.00035 15.316C9.07995 15.1646 11.117 14.2939 12.7071 12.7038c1.5901-1.5901 2.4608-3.62714 2.6122-5.70674.3261.21702.6357.46936.923299999999999.757 2.3432 2.34314 2.3432 6.14214.0 8.48524-2.3431 2.3432-6.1421 2.3432-8.48524.0C7.46971 15.9517 7.21738 15.6421 7.00035 15.316z"/></svg>
+System</button></div></details><a class=icon-button href=https://github.com/sisk-http/core aria-label=GitHub title=GitHub rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12c0 4.425 2.8625 8.1625 6.8375 9.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125 9.52598 20.775 9.51348 19.9875 9.51348 19.15 7.00098 19.6125 6.35098 18.5375 6.15098 17.975 6.03848 17.6875 5.55098 16.8 5.12598 16.5625 4.77598 16.375 4.27598 15.9125 5.11348 15.9 5.90098 15.8875 6.46348 16.625 6.65098 16.925 7.55098 18.4375 8.98848 18.0125 9.56348 17.75 9.65098 17.1 9.91348 16.6625 10.201 16.4125c-2.22502-.25-4.55002-1.1125-4.55002-4.9375.0-1.0875.3875-1.9875 1.025-2.6875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375c0 0 .8375-.2625 2.75 1.025C10.326 6.9375 11.176 6.825 12.026 6.825S13.726 6.9375 14.526 7.1625c1.9125-1.3 2.75-1.025 2.75-1.025C17.826 7.5125 17.476 8.5375 17.376 8.7875 18.0135 9.4875 18.401 10.375 18.401 11.475c0 3.8375-2.3375 4.6875-4.5625 4.9375C14.201 16.725 14.5135 17.325 14.5135 18.2625 14.5135 19.6 14.501 20.675 14.501 21.0125 14.501 21.275 14.6885 21.5875 15.1885 21.4875 19.259 20.1133 21.9999 16.2963 22.001 12c0-5.525-4.475-10-10-10z"/></svg></a></div></div></header><div class=shell><aside class=sidebar id=sidebar aria-label=Docs><nav class=sidebar-nav><div class=nav-group><p class=nav-group-title>Welcome</p><ul><li><a href=/docs/getting-started.html>Getting Started</a></li><li><a href=/docs/index.html>Summary</a></li><li><a href=/docs/installing.html>Installing</a></li><li><a href=/docs/native-aot.html>Native AOT Support</a></li><li><a href=/docs/deploying.html>Deploying</a></li><li><a href=/docs/ssl.html>Working with SSL</a></li><li><a href=/docs/cadente.html>Cadente</a></li><li><a href=/docs/registering-namespace.html>Windows Setup</a></li><li><a href=/docs/changelogs.html>Changelogs</a></li><li><a href=/docs/faq.html>FAQ</a></li></ul></div><div class=nav-group><p class=nav-group-title>Fundamentals</p><ul><li><a href=/docs/fundamentals/routing.html>Routing</a></li><li><a href=/docs/fundamentals/request-handlers.html>Request handlers</a></li><li><a href=/docs/fundamentals/requests.html aria-current=page>Requests</a></li><li><a href=/docs/fundamentals/responses.html>Responses</a></li></ul></div><div class=nav-group><p class=nav-group-title>Features</p><ul><li><a href=/docs/features/logging.html>Logging</a></li><li><a href=/docs/features/server-sent-events.html>Server sent events</a></li><li><a href=/docs/features/websockets.html>Web Sockets</a></li><li><a href=/docs/features/discard-syntax.html>Discard syntax</a></li><li><a href=/docs/features/instancing.html>Dependency injection</a></li><li><a href=/docs/features/content-streaming.html>Content streaming</a></li><li><a href=/docs/features/cors.html>Cross-Origin Resource Sharing</a></li><li><a href=/docs/features/file-server.html>File server</a></li></ul></div><div class=nav-group><p class=nav-group-title>Extensions</p><ul><li><a href=/docs/extensions/mcp.html>Model Context Protocol (MCP)</a></li><li><a href=/docs/extensions/json-rpc.html>JSON-RPC</a></li><li><a href=/docs/extensions/ssl-proxy.html>SSL Proxy</a></li><li><a href=/docs/extensions/basic-auth.html>Basic auth</a></li><li><a href=/docs/extensions/service-providers.html>Service Providers</a></li><li><a href=/docs/extensions/ini-configuration.html>INI configuration</a></li><li><a href=/docs/extensions/api-documentation.html>API Documentation</a></li></ul></div><div class=nav-group><p class=nav-group-title>Advanced</p><ul><li><a href=/docs/advanced/manual-setup.html>Manual setup</a></li><li><a href=/docs/advanced/request-lifecycle.html>Request lifecycle</a></li><li><a href=/docs/advanced/forwarding-resolvers.html>Forwarding Resolvers</a></li><li><a href=/docs/advanced/http-server-handlers.html>HTTP server handlers</a></li><li><a href=/docs/advanced/multi-host-setup.html>Multi-host setup</a></li><li><a href=/docs/advanced/server-engines.html>HTTP engines</a></li></ul></div></nav></aside><main id=content class=main><article class=article data-pagefind-body data-pagefind-meta=section:docs><div class=article-header><nav class=breadcrumb aria-label=Breadcrumb data-pagefind-ignore><a href=/docs/index.html>Docs</a>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+<span>Fundamentals</span></nav><details class="menu page-actions" data-menu data-pagefind-ignore><summary class="button button-ghost"><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg>
+<span>Copy page</span>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.9999 13.1714l4.9498-4.94972 1.4142 1.41421-6.364 6.36401L5.63599 9.63589 7.0502 8.22168l4.9497 4.94972z"/></svg></summary><div class=menu-panel><button type=button class=menu-item data-copy-markdown=/docs/fundamentals/requests.md data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4c0-.55228.44772-1 1-1zM4 5V19H20V5H4zM7 15.5H5v-7H7l2 2 2-2h2v7H11v-4l-2 2-2-2v4zm11-3h2l-3 3-3-3h2v-4h2v4z"/></svg>
+<span>Copy as Markdown</span>
+</button>
+<a class=menu-item href=/docs/fundamentals/requests.md type=text/markdown><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8zM19 9H14V4H5V20H19V9zM8 7h3V9H8V7zm0 4h8v2H8V11zm0 4h8v2H8V15z"/></svg>
+<span>View as Markdown</span>
+</a><button type=button class=menu-item data-copy-link data-copied-label=Copied>
+<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.3638 15.5355l-1.4142-1.4142 1.4142-1.4142c1.9526-1.9526 1.9526-5.11844.0-7.07106-1.9526-1.95263-5.1185-1.95263-7.0711.0L9.87849 7.05025 8.46428 5.63604 9.87849 4.22182c2.73371-2.73367 7.16581-2.73367 9.89951.0 2.7337 2.73367 2.7337 7.16578.0 9.89948l-1.4142 1.4142zM15.5353 18.364l-1.4142 1.4142c-2.7336 2.7336-7.16579 2.7336-9.89946.0-2.73367-2.7337-2.73367-7.1659.0-9.89952L5.63585 8.46446 7.05007 9.87868 5.63585 11.2929c-1.95262 1.9526-1.95262 5.1184.0 7.0711 1.95262 1.9526 5.11845 1.9526 7.07105.0l1.4142-1.4143 1.4142 1.4143zM14.8282 7.75736l1.4143 1.41421L9.17139 16.2426 7.75717 14.8284 14.8282 7.75736z"/></svg>
+<span>Copy link</span>
+</button>
+<a class=menu-item href=https://github.com/sisk-http/docs/edit/master/content/en/docs/fundamentals/requests.md rel=noopener><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.41421 15.89 16.5563 5.74785 15.1421 4.33363 5 14.4758V15.89H6.41421zm.82843 2H3V13.6473L14.435 2.21231c.390599999999999-.39052 1.0237-.39052 1.4142.0l2.8285 2.82843C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89zM3 19.89H21v2H3v-2z"/></svg>
+<span>Edit this page</span></a></div></details></div><h1>Requests</h1><div class=prose><p>Requests are structures that represent an HTTP request message. The <a href=/api/Sisk.Core.Http.HttpRequest.html>HttpRequest</a> object contains useful functions for handling HTTP messages throughout your application.</p><p>An HTTP request is formed by the method, path, version, headers and body.</p><p>In this document, we will teach you how to obtain each of these elements.</p><h2 id=getting-the-request-method>Getting the request method <a class=heading-anchor href=#getting-the-request-method aria-label=# data-pagefind-ignore>#</a></h2><p>To obtain the method of the received request, you can use the Method property:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>static</span> <span class=n>HttpResponse</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>HttpMethod</span> <span class=n>requestMethod</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Method</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>This property returns the request&rsquo;s method represented by an <a href=https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod rel=noopener>HttpMethod</a> object.</p><div class="callout callout-note" role=note><p class=callout-title><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 22C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10 0 5.5228-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41828-3.5817-8-8-8-4.41828.0-8 3.58172-8 8 0 4.4183 3.58172 8 8 8zM11 7h2V9H11V7zm0 4h2v6H11V11z"/></svg>
+Note</p><p>Unlike route methods, this property does not serves the <a href=/api/Sisk.Core.Routing.RouteMethod.html>RouteMethod.Any</a> item. Instead, it returns the real request method.</p></div><h2 id=getting-request-url-components>Getting request url components <a class=heading-anchor href=#getting-request-url-components aria-label=# data-pagefind-ignore>#</a></h2><p>You can get various component from a URL through certain properties of a request. For this example, let&rsquo;s consider the URL:</p><figure class=code-block><figcaption class=code-header><button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><pre tabindex=0><code>http://localhost:5000/user/login?email=foo@bar.com</code></pre></figure><table><thead><tr><th>Component name</th><th>Description</th><th>Component value</th></tr></thead><tbody><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Path.html>Path</a></td><td>Gets the request path.</td><td><code>/user/login</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.FullPath.html>FullPath</a></td><td>Gets the request path and the query string.</td><td><code>/user/login?email=foo@bar.com</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.FullUrl.html>FullUrl</a></td><td>Gets the entire URL request string.</td><td><code>http://localhost:5000/user/login?email=foo@bar.com</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Host.html>Host</a></td><td>Gets the request host.</td><td><code>localhost</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Authority.html>Authority</a></td><td>Gets the request host and port.</td><td><code>localhost:5000</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.QueryString.html>QueryString</a></td><td>Gets the request query.</td><td><code>?email=foo@bar.com</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Query.html>Query</a></td><td>Gets the request query in a named value collection.</td><td><code>{StringValueCollection object}</code></td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.IsSecure.html>IsSecure</a></td><td>Determines if the request is using SSL (true) or not (false).</td><td><code>false</code></td></tr></tbody></table><p>You can also opt by using the <a href=/api/Sisk.Core.Http.HttpRequest.Uri.html>HttpRequest.Uri</a> property, which includes everything above in one object.</p><h2 id=request-metadata-and-cancellation>Request metadata and cancellation <a class=heading-anchor href=#request-metadata-and-cancellation aria-label=# data-pagefind-ignore>#</a></h2><p>Sisk also attaches operational metadata to each request. These properties are useful for logs, tracing, localization, diagnostics, and long-running operations:</p><table><thead><tr><th>Property or method</th><th>Use</th></tr></thead><tbody><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.RequestId.html>RequestId</a></td><td>A unique identifier for the request. Enable <a href=/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader.html>IncludeRequestIdHeader</a> to return it as <code>X-Request-Id</code>.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.RequestedAt.html>RequestedAt</a></td><td>The moment when Sisk created the request object.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.RemoteAddress.html>RemoteAddress</a></td><td>The client address resolved from the connection, or from your <a href=/docs/advanced/forwarding-resolvers.html>ForwardingResolver</a>.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Culture.html>Culture</a></td><td>The best culture resolved from <code>Accept-Language</code>, falling back to the current culture.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.DisconnectToken.html>DisconnectToken</a></td><td>A cancellation token signaled when the client disconnects, when supported by the configured HTTP engine.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.Bag.html>Bag</a></td><td>A typed key/value store shared across request handlers and the route action.</td></tr><tr><td><a href=/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest.html>GetRawHttpRequest</a></td><td>A text representation of the request for diagnostics.</td></tr></tbody></table><h2 id=getting-the-request-body>Getting the request body <a class=heading-anchor href=#getting-the-request-body aria-label=# data-pagefind-ignore>#</a></h2><p>Some requests include body such as forms, files, or API transactions. You can get the body of a request from the property:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=c1>// gets the request body as an string, using the request encoding as the encoder</span>
+</span></span><span class=line><span class=cl><span class=kt>string</span> <span class=n>body</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Body</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// or gets it in an byte array</span>
+</span></span><span class=line><span class=cl><span class=kt>byte</span><span class=p>[]</span> <span class=n>bodyBytes</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>RawBody</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// or else, you can stream it.</span>
+</span></span><span class=line><span class=cl><span class=n>Stream</span> <span class=n>requestStream</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetRequestStream</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// or read the body asynchronously</span>
+</span></span><span class=line><span class=cl><span class=n>Memory</span><span class=p>&lt;</span><span class=kt>byte</span><span class=p>&gt;</span> <span class=n>bodyMemory</span> <span class=p>=</span> <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetBodyContentsAsync</span><span class=p>();</span></span></span></code></pre></div></figure><p>It is also possible to determine if there is a body in the request and if it is loaded with the properties <a href=/api/Sisk.Core.Http.HttpRequest.HasContents.html>HasContents</a>, which determines if the request has contents and <a href=/api/Sisk.Core.Http.HttpRequest.IsContentAvailable.html>IsContentAvailable</a> which indicates that the HTTP server fully received the content from the remote point.</p><p>It is not possible to read the request content through <code>GetRequestStream</code> more than once. If you read with this method, the values in <code>RawBody</code> and <code>Body</code> will also not be available. It&rsquo;s not necessary to dispose the request stream in the context of the request, as it is disposed at the end of the HTTP session in which it is created. Also, you can use <a href=/api/Sisk.Core.Http.HttpRequest.RequestEncoding.html>HttpRequest.RequestEncoding</a> property to get the best encoding to decode the request manually.</p><p>The server has limits for reading the request content, which applies to both <a href=/api/Sisk.Core.Http.HttpRequest.Body.html>HttpRequest.Body</a> and <a href=/api/Sisk.Core.Http.HttpRequest.Body.html>HttpRequest.RawBody</a>. These properties copies the entire input stream to an local buffer of the same size of <a href=/api/Sisk.Core.Http.HttpRequest.ContentLength.html>HttpRequest.ContentLength</a>.</p><p>A response with status 413 Content Too Large is returned to the client if the content sent is larger than <a href=/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength.html>HttpServerConfiguration.MaximumContentLength</a> defined in the user configuration. Additionally, if there is no configured limit or if it is too large, the server will throw an <a href="https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0" rel=noopener>OutOfMemoryException</a> when the content sent by the client exceeds <a href=https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue rel=noopener>Int32.MaxValue</a> (2 GB) and if the content is attempted to be accessed through one of the properties mentioned above. You can still deal with the content through streaming.</p><div class="callout callout-note" role=note><p class=callout-title><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 22C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10 0 5.5228-4.4772 10-10 10zm0-2c4.4183.0 8-3.5817 8-8 0-4.41828-3.5817-8-8-8-4.41828.0-8 3.58172-8 8 0 4.4183 3.58172 8 8 8zM11 7h2V9H11V7zm0 4h2v6H11V11z"/></svg>
+Note</p><p>Although Sisk allows it, it is always a good idea to follow HTTP Semantics to create your application and not obtain or serve content in methods that do not allow it. Read about <a href=https://httpwg.org/spec/rfc9110.html rel=noopener>RFC 9110 &ldquo;HTTP Semantics&rdquo;</a>.</p></div><h2 id=reading-json-requests>Reading JSON requests <a class=heading-anchor href=#reading-json-requests aria-label=# data-pagefind-ignore>#</a></h2><p>For JSON APIs, prefer the built-in JSON helpers instead of reading <code>Body</code> and deserializing manually. They use <a href=https://learn.microsoft.com/en-us/dotnet/api/system.text.json rel=noopener>System.Text.Json</a> and default to <a href=/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.html>HttpRequest.DefaultJsonSerializerOptions</a>.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>record</span> <span class=nc>CreateUserRequest</span><span class=p>(</span><span class=kt>string</span> <span class=n>Name</span><span class=p>,</span> <span class=kt>string</span> <span class=n>Email</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>router</span><span class=p>.</span><span class=n>MapPost</span><span class=p>(</span><span class=s>&#34;/users&#34;</span><span class=p>,</span> <span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>CreateUserRequest</span><span class=p>?</span> <span class=n>body</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetJsonContent</span><span class=p>&lt;</span><span class=n>CreateUserRequest</span><span class=p>&gt;();</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>body</span> <span class=k>is</span> <span class=kc>null</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=n>Net</span><span class=p>.</span><span class=n>HttpStatusCode</span><span class=p>.</span><span class=n>BadRequest</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=n>Net</span><span class=p>.</span><span class=n>HttpStatusCode</span><span class=p>.</span><span class=n>Created</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><p>Use the async overload when you are already in an async route or want request cancellation to stop deserialization:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>router</span><span class=p>.</span><span class=n>MapPost</span><span class=p>(</span><span class=s>&#34;/users&#34;</span><span class=p>,</span> <span class=kd>async</span> <span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>CreateUserRequest</span><span class=p>?</span> <span class=n>body</span> <span class=p>=</span>
+</span></span><span class=line><span class=cl>        <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetJsonContentAsync</span><span class=p>&lt;</span><span class=n>CreateUserRequest</span><span class=p>&gt;(</span><span class=n>request</span><span class=p>.</span><span class=n>DisconnectToken</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>body</span> <span class=k>is</span> <span class=kc>null</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=n>Net</span><span class=p>.</span><span class=n>HttpStatusCode</span><span class=p>.</span><span class=n>BadRequest</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=n>Net</span><span class=p>.</span><span class=n>HttpStatusCode</span><span class=p>.</span><span class=n>Created</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><p>You can pass custom <a href=https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions rel=noopener>JsonSerializerOptions</a> for a specific endpoint:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kt>var</span> <span class=n>options</span> <span class=p>=</span> <span class=k>new</span> <span class=n>JsonSerializerOptions</span><span class=p>(</span><span class=n>JsonSerializerDefaults</span><span class=p>.</span><span class=n>Web</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>PropertyNameCaseInsensitive</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>UserDto</span><span class=p>?</span> <span class=n>user</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetJsonContent</span><span class=p>&lt;</span><span class=n>UserDto</span><span class=p>&gt;(</span><span class=n>options</span><span class=p>);</span></span></span></code></pre></div></figure><p>For Native AOT or trimming-sensitive applications, use the <code>JsonTypeInfo&lt;T></code> overload generated by a <code>JsonSerializerContext</code>:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=na>[JsonSerializable(typeof(CreateUserRequest))]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=kd>partial</span> <span class=k>class</span> <span class=nc>AppJsonSerializerContext</span> <span class=p>:</span> <span class=n>JsonSerializerContext</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>CreateUserRequest</span><span class=p>?</span> <span class=n>body</span> <span class=p>=</span>
+</span></span><span class=line><span class=cl>    <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetJsonContentAsync</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>AppJsonSerializerContext</span><span class=p>.</span><span class=n>Default</span><span class=p>.</span><span class=n>CreateUserRequest</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=p>.</span><span class=n>DisconnectToken</span><span class=p>);</span></span></span></code></pre></div></figure><p>The same read-once rule applies to JSON helpers: after Sisk reads the request stream through <code>GetJsonContent</code>, <code>GetJsonContentAsync</code>, <code>Body</code>, or <code>RawBody</code>, you cannot later consume the same body through <code>GetRequestStream()</code>.</p><h2 id=getting-the-request-context>Getting the request context <a class=heading-anchor href=#getting-the-request-context aria-label=# data-pagefind-ignore>#</a></h2><p>The HTTP Context is an exclusive Sisk object that stores HTTP server, route, router and request handler information. You can use it to be able to organize yourself in an environment where these objects are difficult to organize.</p><p>You can get the currently executing <a href=/api/Sisk.Core.Http.HttpContext.html>HttpContext</a> using the static method <code>HttpContext.GetCurrentContext()</code>. This method returns the context of the request currently being processed in the current thread.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=n>HttpContext</span> <span class=n>context</span> <span class=p>=</span> <span class=n>HttpContext</span><span class=p>.</span><span class=n>GetCurrentContext</span><span class=p>();</span></span></span></code></pre></div></figure><h3 id=log-mode>Log Mode <a class=heading-anchor href=#log-mode aria-label=# data-pagefind-ignore>#</a></h3><p>The <a href=/api/Sisk.Core.Http.HttpContext.LogMode.html>HttpContext.LogMode</a> property allows you to control the logging behavior for the current request. You can enable or disable logging for specific requests, overriding the default server configuration.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=c1>// Disable logging for this request</span>
+</span></span><span class=line><span class=cl><span class=n>context</span><span class=p>.</span><span class=n>LogMode</span> <span class=p>=</span> <span class=n>LogOutputMode</span><span class=p>.</span><span class=n>None</span><span class=p>;</span></span></span></code></pre></div></figure><h3 id=request-bag>Request Bag <a class=heading-anchor href=#request-bag aria-label=# data-pagefind-ignore>#</a></h3><p>The <a href=/api/Sisk.Core.Http.HttpContext.RequestBag.html>RequestBag</a> object contains stored information that is passed from an request handler to another point, and can be consumed at the final destination. This object can also be used by request handlers that run after the route callback.</p><div class="callout callout-tip" role=note><p class=callout-title><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M9.97308 18H11V13h2v5h1.0269C14.1589 16.7984 14.7721 15.8065 15.7676 14.7226 15.8797 14.6006 16.5988 13.8564 16.6841 13.7501 17.5318 12.6931 18 11.385 18 10c0-3.31371-2.6863-6-6-6-3.31371.0-6 2.68629-6 6 0 1.3843.46774 2.6917 1.31462 3.7484C7.40004 13.855 8.12081 14.6012 8.23154 14.7218 9.22766 15.8064 9.84103 16.7984 9.97308 18zM10 20v1h4V20H10zM5.75395 14.9992C4.65645 13.6297 4 11.8915 4 10c0-4.41828 3.58172-8 8-8 4.4183.0 8 3.58172 8 8 0 1.8925-.6572 3.6315-1.7557 5.0014C17.624 15.7748 16 17 16 18.5V21c0 1.1046-.8954 2-2 2H10C8.89543 23 8 22.1046 8 21V18.5c0-1.5-1.62542-2.7264-2.24605-3.5008z"/></svg>
+Tip</p><p>This property is also acessible by <a href=/api/Sisk.Core.Http.HttpRequest.Bag.html>HttpRequest.Bag</a> property.</p></div><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Middleware/AuthenticateUserRequestHandler.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>AuthenticateUserRequestHandler</span> <span class=p>:</span> <span class=n>IRequestHandler</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kt>string</span> <span class=n>Identifier</span> <span class=p>{</span> <span class=k>get</span><span class=p>;</span> <span class=k>init</span><span class=p>;</span> <span class=p>}</span> <span class=p>=</span> <span class=n>Guid</span><span class=p>.</span><span class=n>NewGuid</span><span class=p>().</span><span class=n>ToString</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>RequestHandlerExecutionMode</span> <span class=n>ExecutionMode</span> <span class=p>{</span> <span class=k>get</span><span class=p>;</span> <span class=k>init</span><span class=p>;</span> <span class=p>}</span> <span class=p>=</span> <span class=n>RequestHandlerExecutionMode</span><span class=p>.</span><span class=n>BeforeResponse</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=n>HttpResponse</span><span class=p>?</span> <span class=n>Execute</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>,</span> <span class=n>HttpContext</span> <span class=n>context</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>request</span><span class=p>.</span><span class=n>Headers</span><span class=p>.</span><span class=n>Authorization</span> <span class=p>!=</span> <span class=kc>null</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>context</span><span class=p>.</span><span class=n>RequestBag</span><span class=p>.</span><span class=n>Add</span><span class=p>(</span><span class=s>&#34;AuthenticatedUser&#34;</span><span class=p>,</span> <span class=k>new</span> <span class=n>User</span><span class=p>(</span><span class=s>&#34;Bob&#34;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>(</span><span class=n>System</span><span class=p>.</span><span class=n>Net</span><span class=p>.</span><span class=n>HttpStatusCode</span><span class=p>.</span><span class=n>Unauthorized</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>The above request handler will define <code>AuthenticatedUser</code> in the request bag, and can be consumed later in the final callback:</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/MyController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>MyController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=na>    [RequestHandler&lt;AuthenticateUserRequestHandler&gt;]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=n>HttpResponse</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>User</span> <span class=n>authUser</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Context</span><span class=p>.</span><span class=n>RequestBag</span><span class=p>[</span><span class=s>&#34;AuthenticatedUser&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>Content</span> <span class=p>=</span> <span class=k>new</span> <span class=n>StringContent</span><span class=p>(</span><span class=s>$&#34;Hello, {authUser.Name}!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>You can also use the <code>Bag.Set()</code> and <code>Bag.Get()</code> helper methods to get or set objects by their type singletons.</p><p>The <code>TypedValueDictionary</code> class also provides <code>GetValue</code> and <code>SetValue</code> methods for more control.</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Middleware/Authenticate.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>Authenticate</span> <span class=p>:</span> <span class=n>RequestHandler</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>override</span> <span class=n>HttpResponse</span><span class=p>?</span> <span class=n>Execute</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>,</span> <span class=n>HttpContext</span> <span class=n>context</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>request</span><span class=p>.</span><span class=n>Bag</span><span class=p>.</span><span class=n>Set</span><span class=p>&lt;</span><span class=n>User</span><span class=p>&gt;(</span><span class=n>authUser</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/MyController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=na>[RouteGet(&#34;/&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=na>[RequestHandler&lt;Authenticate&gt;]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=kd>static</span> <span class=n>HttpResponse</span> <span class=n>GetUser</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>user</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>Bag</span><span class=p>.</span><span class=n>Get</span><span class=p>&lt;</span><span class=n>User</span><span class=p>&gt;();</span>
+</span></span><span class=line><span class=cl>    <span class=p>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><h2 id=getting-form-data>Getting form data <a class=heading-anchor href=#getting-form-data aria-label=# data-pagefind-ignore>#</a></h2><p>You can get form data values in a <a href=/api/Sisk.Core.Entity.StringKeyStoreCollection.html>StringKeyStoreCollection</a> with the example below:</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/Auth.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=na>[RoutePost(&#34;/auth&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=n>HttpResponse</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>form</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetFormContent</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>string?</span> <span class=n>username</span> <span class=p>=</span> <span class=n>form</span><span class=p>[</span><span class=s>&#34;username&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string?</span> <span class=n>password</span> <span class=p>=</span> <span class=n>form</span><span class=p>[</span><span class=s>&#34;password&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>AttempLogin</span><span class=p>(</span><span class=n>username</span><span class=p>,</span> <span class=n>password</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>...</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>The async version is useful when the request body may be large or when you want cancellation support:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kt>var</span> <span class=n>form</span> <span class=p>=</span> <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetFormContentAsync</span><span class=p>(</span><span class=n>request</span><span class=p>.</span><span class=n>DisconnectToken</span><span class=p>);</span></span></span></code></pre></div></figure><h2 id=getting-multipart-form-data>Getting multipart form data <a class=heading-anchor href=#getting-multipart-form-data aria-label=# data-pagefind-ignore>#</a></h2><p>Sisk&rsquo;s HTTP request lets you get uploaded multipart contents, such as a files, form fields, or any binary content.</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/Auth.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=na>[RoutePost(&#34;/upload-contents&#34;)]</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=n>HttpResponse</span> <span class=n>Index</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// the following method reads the entire request input into an</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// array of MultipartObjects</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>multipartFormDataObjects</span> <span class=p>=</span> <span class=n>request</span><span class=p>.</span><span class=n>GetMultipartFormContent</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>foreach</span> <span class=p>(</span><span class=n>MultipartObject</span> <span class=n>uploadedObject</span> <span class=k>in</span> <span class=n>multipartFormDataObjects</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// The name of the file provided by Multipart form data.</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Null is returned if the object is not a file.</span>
+</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&#34;File name       : &#34;</span> <span class=p>+</span> <span class=n>uploadedObject</span><span class=p>.</span><span class=n>Filename</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// The multipart form data object field name.</span>
+</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&#34;Field name      : &#34;</span> <span class=p>+</span> <span class=n>uploadedObject</span><span class=p>.</span><span class=n>Name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// The multipart form data content length.</span>
+</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&#34;Content length  : &#34;</span> <span class=p>+</span> <span class=n>uploadedObject</span><span class=p>.</span><span class=n>ContentLength</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Determine the image format based in the file header for each</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// known content type. If the content ins&#39;t an recognized common file</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// format, this method below will return MultipartObjectCommonFormat.Unknown</span>
+</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>&#34;Common format   : &#34;</span> <span class=p>+</span> <span class=n>uploadedObject</span><span class=p>.</span><span class=n>GetCommonFileFormat</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>Use <a href=/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.html>GetMultipartFormContentAsync</a> when the route is asynchronous:</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kt>var</span> <span class=n>multipartFormDataObjects</span> <span class=p>=</span>
+</span></span><span class=line><span class=cl>    <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetMultipartFormContentAsync</span><span class=p>(</span><span class=n>request</span><span class=p>.</span><span class=n>DisconnectToken</span><span class=p>);</span></span></span></code></pre></div></figure><p>You can read more about Sisk <a href=/api/Sisk.Core.Entity.MultipartObject.html>Multipart form objects</a> and it&rsquo;s methods, properties and functionalities.</p><h2 id=detecting-client-disconnection>Detecting client disconnection <a class=heading-anchor href=#detecting-client-disconnection aria-label=# data-pagefind-ignore>#</a></h2><p>Since version v1.15 of Sisk, the framework provides a cancellation token through <a href=/api/Sisk.Core.Http.HttpRequest.DisconnectToken.html>HttpRequest.DisconnectToken</a>. When the configured HTTP engine supports disconnect detection, this token is canceled when the client connection is closed before the response is completed. This is useful for stopping long-running operations when the client is no longer waiting for the result.</p><figure class=code-block><figcaption class=code-header><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=n>router</span><span class=p>.</span><span class=n>MapGet</span><span class=p>(</span><span class=s>&#34;/connect&#34;</span><span class=p>,</span> <span class=kd>async</span> <span class=p>(</span><span class=n>HttpRequest</span> <span class=n>req</span><span class=p>)</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// gets the disconnection token from the request</span>
+</span></span><span class=line><span class=cl>    <span class=kt>var</span> <span class=n>dc</span> <span class=p>=</span> <span class=n>req</span><span class=p>.</span><span class=n>DisconnectToken</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>await</span> <span class=n>LongOperationAsync</span><span class=p>(</span><span class=n>dc</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>HttpResponse</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span></span></span></code></pre></div></figure><p>This token is not compatible with all HTTP engines, and each requires an implementation.</p><p>The default Sisk engine, based on <code>System.Net.HttpListener</code>, does not support client-disconnection detection. When your application uses the default engine, <code>DisconnectToken</code> is <code>CancellationToken.None</code>; in practice, it is a non-canceling token and should be treated as unavailable.</p><p>The <a href=/docs/cadente.html>Cadente engine</a> supports <code>DisconnectToken</code>. If your route depends on disconnection-aware cancellation, use Cadente or another engine that explicitly implements this behavior. Even with a supported engine, cancellation is cooperative: pass the token to async APIs and check it in your own long-running work.</p><h2 id=server-sent-events-support>Server-sent events support <a class=heading-anchor href=#server-sent-events-support aria-label=# data-pagefind-ignore>#</a></h2><p>Sisk supports <a href=https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events rel=noopener>Server-sent events</a>, which allows sending chunks as an stream and keeping the connection between the server and the client alive.</p><p>Calling the <a href=/api/Sisk.Core.Http.HttpRequest.GetEventSource.html>HttpRequest.GetEventSource</a> method will put the HttpRequest in it&rsquo;s listener state. From this, the context of this HTTP request will not expect an HttpResponse as it will overlap the packets sent by server side events.</p><p>After sending all packets, the callback must return the <a href=/api/Sisk.Core.Http.HttpRequestEventSource.Close>Close</a> method, which will send the final response to the server and indicate that the streaming has ended.</p><p>It&rsquo;s not possible to predict what the total length of all packets that will be sent, so it is not possible to determine the end of the connection with <code>Content-Length</code> header.</p><p>By most browsers defaults, server-side events does not support sending HTTP headers or methods other than the GET method. Therefore, be careful when using request handlers with event-source requests that require specific headers in the request, as it probably they ins&rsquo;t going to have them.</p><p>Also, most browsers restart streams if the <a href=https://developer.mozilla.org/en-US/docs/Web/API/EventSource/close rel=noopener>EventSource.close</a> method ins&rsquo;t called on the client side after receiving all the packets, causing infinite additional processing on the server side. To avoid this kind of problem, it&rsquo;s common to send an final packet indicating that the event source has finished sending all packets.</p><p>The example below shows how the browser can communicate with the server that supports Server-side events.</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>sse-example.html</span><span class=code-lang>HTML</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>b</span><span class=p>&gt;</span>Fruits:<span class=p>&lt;/</span><span class=nt>b</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>evtSource</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>EventSource</span><span class=p>(</span><span class=s1>&#39;http://localhost:5555/event-source&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>eventList</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;ul&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>evtSource</span><span class=p>.</span><span class=nx>onmessage</span> <span class=o>=</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>newElement</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s2>&#34;li&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=nx>newElement</span><span class=p>.</span><span class=nx>textContent</span> <span class=o>=</span> <span class=sb>`message: </span><span class=si>${</span><span class=nx>e</span><span class=p>.</span><span class=nx>data</span><span class=si>}</span><span class=sb>`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>eventList</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>newElement</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>data</span> <span class=o>==</span> <span class=s2>&#34;Tomato&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>evtSource</span><span class=p>.</span><span class=nx>close</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span></span></span></code></pre></div></figure><p>And progressively send the messages to the client:</p><figure class="code-block has-title"><figcaption class=code-header><span class=code-title>Controller/MyController.cs</span><span class=code-lang>C#</span>
+<button type=button class=code-copy aria-label="Copy code" title="Copy code" data-copy-code data-copied-label=Copied><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M6.9998 6V3c0-.55228.44772-1 1-1h12c.552299999999999.0 1 .44772 1 1V17C20.9998 17.5523 20.5521 18 19.9998 18h-3v2.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998zM5.00242 8 5.00019 20H14.9998V8H5.00242zM8.9998 6h8V16h2V4h-10V6z"/></svg></button></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-cs data-lang=cs><span class=line><span class=cl><span class=kd>public</span> <span class=k>class</span> <span class=nc>MyController</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=na>    [RouteGet(&#34;/event-source&#34;)]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>async</span> <span class=n>Task</span><span class=p>&lt;</span><span class=n>HttpResponse</span><span class=p>&gt;</span> <span class=n>ServerEventsResponse</span><span class=p>(</span><span class=n>HttpRequest</span> <span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>var</span> <span class=n>serverEvents</span> <span class=p>=</span> <span class=k>await</span> <span class=n>request</span><span class=p>.</span><span class=n>GetEventSourceAsync</span> <span class=p>();</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=kt>string</span><span class=p>[]</span> <span class=n>fruits</span> <span class=p>=</span> <span class=k>new</span><span class=p>[]</span> <span class=p>{</span> <span class=s>&#34;Apple&#34;</span><span class=p>,</span> <span class=s>&#34;Banana&#34;</span><span class=p>,</span> <span class=s>&#34;Watermelon&#34;</span><span class=p>,</span> <span class=s>&#34;Tomato&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>foreach</span> <span class=p>(</span><span class=kt>string</span> <span class=n>fruit</span> <span class=k>in</span> <span class=n>fruits</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>await</span> <span class=n>serverEvents</span><span class=p>.</span><span class=n>SendAsync</span><span class=p>(</span><span class=n>fruit</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>await</span> <span class=n>Task</span><span class=p>.</span><span class=n>Delay</span><span class=p>(</span><span class=m>1500</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>await</span> <span class=n>serverEvents</span><span class=p>.</span><span class=n>CloseAsync</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></figure><p>When running this code, we expect a result similar to this:</p><img src="/assets/img/server side events demo.gif"><h2 id=resolving-proxied-ips-and-hosts>Resolving proxied IPs and hosts <a class=heading-anchor href=#resolving-proxied-ips-and-hosts aria-label=# data-pagefind-ignore>#</a></h2><p>Sisk can be used with proxies, and therefore IP addresses can be replaced by the proxy endpoint in the transaction from a client to the proxy.</p><p>You can define your own resolvers in Sisk with <a href=/docs/advanced/forwarding-resolvers.html>forwarding resolvers</a>.</p><h2 id=headers-encoding>Headers encoding <a class=heading-anchor href=#headers-encoding aria-label=# data-pagefind-ignore>#</a></h2><p>Header encoding can be a problem for some implementations. On Windows, UTF-8 headers are not supported, so ASCII is used. Sisk has a built-in encoding converter, which can be useful for decoding incorrectly encoded headers.</p><p>This operation is costly and disabled by default, but can be enabled with <a href=/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings.html>HttpServerConfiguration.NormalizeHeadersEncodings</a>.</p></div><nav class=pager aria-label=Pagination data-pagefind-ignore><a class="pager-link pager-prev" href=/docs/fundamentals/request-handlers.html rel=prev><span><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M10.8284 12.0007l4.9498 4.9497-1.4142 1.4142L8 12.0007l6.364-6.36398 1.4142 1.41421-4.9498 4.94977z"/></svg>
+Previous</span>
+<strong>Request handlers</strong>
+</a><a class="pager-link pager-next" href=/docs/fundamentals/responses.html rel=next><span>Next<svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.1717 12.0007 8.22192 7.05093 9.63614 5.63672 16.0001 12.0007 9.63614 18.3646 8.22192 16.9504l4.94978-4.9497z"/></svg>
+</span><strong>Responses</strong></a></nav></article><footer class=site-footer data-pagefind-ignore><p>Sisk is open source under the MIT license.</p><nav aria-label=Resources><a href=/llms.txt>llms.txt</a>
+<a href=/llms-full.txt>llms-full.txt</a>
+<a href=https://github.com/sisk-http/core rel=noopener>GitHub</a></nav></footer></main><aside class=toc aria-label="On this page"><div class=toc-inner data-toc><p class=toc-title>On this page</p><nav id=TableOfContents><ul><li><a href=#getting-the-request-method>Getting the request method</a></li><li><a href=#getting-request-url-components>Getting request url components</a></li><li><a href=#request-metadata-and-cancellation>Request metadata and cancellation</a></li><li><a href=#getting-the-request-body>Getting the request body</a></li><li><a href=#reading-json-requests>Reading JSON requests</a></li><li><a href=#getting-the-request-context>Getting the request context</a><ul><li><a href=#log-mode>Log Mode</a></li><li><a href=#request-bag>Request Bag</a></li></ul></li><li><a href=#getting-form-data>Getting form data</a></li><li><a href=#getting-multipart-form-data>Getting multipart form data</a></li><li><a href=#detecting-client-disconnection>Detecting client disconnection</a></li><li><a href=#server-sent-events-support>Server-sent events support</a></li><li><a href=#resolving-proxied-ips-and-hosts>Resolving proxied IPs and hosts</a></li><li><a href=#headers-encoding>Headers encoding</a></li></ul></nav></div></aside></div><dialog class=search-dialog aria-label=Search data-search data-docs-bundle=/pagefind/ data-api-bundle=/pagefind-api/><div class=search-panel><div class=search-field><svg class="icon" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.031 16.6168l4.2827 4.2827-1.4142 1.4142-4.2827-4.2827C15.0769 19.263 13.124 20 11 20c-4.968.0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9C20 13.124 19.263 15.0769 18.031 16.6168zM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11c0-3.8675-3.1325-7-7-7S4 7.1325 4 11s3.1325 7 7 7C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748z"/></svg>
+<input type=search placeholder="Search docs and API" autocomplete=off spellcheck=false aria-label=Search aria-controls=search-results data-search-input>
+<button type=button class=search-close data-search-close aria-label=close><kbd>Esc</kbd></button></div><div class=search-results id=search-results role=listbox aria-label=Search data-search-results data-label-docs=Documentation data-label-api="API reference" data-label-empty="No results found."><p class=search-message data-search-hint>Type to search the documentation and the API reference.</p></div><footer class=search-footer><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+<span><kbd>↵</kbd> open</span>
+<span><kbd>Esc</kbd> close</span></footer></div></dialog><script src=/scripts/main.dada65272781761b0cafcc8649b314a05e2c92b79db6eac32a981bb2acc121e3.js integrity="sha256-2tplJyeBdhsMr8yGSbMUoF4skredturDKpgbsqzBIeM=" defer></script><script data-goatcounter=https://siskframework.goatcounter.com/count async src=//gc.zgo.at/count.js></script></body></html>

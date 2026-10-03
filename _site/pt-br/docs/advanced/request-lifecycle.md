@@ -1,0 +1,70 @@
+# Ciclo de vida da requisição
+
+Source: https://docs.sisk-framework.org/pt-br/docs/advanced/request-lifecycle.html
+
+Abaixo é explicado todo o ciclo de vida de uma requisição por meio de um exemplo de requisição HTTP.
+
+- **Recebendo a requisição:** cada requisição cria um contexto HTTP entre a própria requisição e a resposta que será entregue ao cliente. Esse contexto provém do listener interno do Sisk, que pode ser o [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0), [Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0) ou [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/).
+    - Validação de requisição externa: a validação de [HttpServerConfiguration.RemoteRequestsAction](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.md) é validada para a requisição.
+        - Se a requisição for externa e a propriedade for `Drop`, a conexão é fechada sem resposta ao cliente com um `HttpServerExecutionStatus = RemoteRequestDropped`.
+    - Configuração do Forwarding Resolver: se um [ForwardingResolver](https://docs.sisk-framework.org/pt-br/docs/advanced/forwarding-resolvers.md) estiver configurado, ele chamará o método [OnResolveRequestHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost.md) no host original da requisição.
+    - Correspondência de DNS: com o host resolvido e com mais de um [ListeningHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.md) configurado, o servidor buscará o host correspondente para a requisição.
+        - Se nenhum ListeningHost corresponder, uma resposta 400 Bad Request é retornada ao cliente e um status `HttpServerExecutionStatus = DnsUnknownHost` é retornado ao contexto HTTP.
+        - Se um ListeningHost corresponder, mas seu [Router](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.Router.md) ainda não estiver inicializado, uma resposta 503 Service Unavailable é retornada ao cliente e um status `HttpServerExecutionStatus = ListeningHostNotReady` é retornado ao contexto HTTP.
+    - Vinculação do router: o router do ListeningHost correspondente é associado ao servidor HTTP recebido.
+        - Se o router já estiver associado a outro servidor HTTP, o que não é permitido porque o router usa ativamente os recursos de configuração do servidor, uma `InvalidOperationException` é lançada. Isso ocorre apenas durante a inicialização do servidor HTTP, não durante a criação do contexto HTTP.
+    - Pré-definição de cabeçalhos:
+        - Predefine o cabeçalho `X-Request-Id` na resposta se estiver configurado para isso.
+        - Predefine o cabeçalho `X-Powered-By` na resposta se estiver configurado para isso.
+    - Validação do tamanho do conteúdo: valida se o conteúdo da requisição é menor que [HttpServerConfiguration.MaximumContentLength](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength.md) apenas se for maior que zero.
+        - Se a requisição enviar um `Content-Length` maior que o configurado, uma resposta 413 Payload Too Large é retornada ao cliente e um status `HttpServerExecutionStatus = ContentTooLarge` é retornado ao contexto HTTP.
+    - O evento `OnHttpRequestOpen` é invocado para todos os manipuladores de servidor HTTP configurados.
+- **Roteando a ação:** o servidor invoca o router para a requisição recebida.
+    - Se o router não encontrar uma rota que corresponda à requisição:
+        - Se a propriedade [Router.NotFoundErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.NotFoundErrorHandler.md) estiver configurada, a ação é invocada, e a resposta da ação é encaminhada ao cliente HTTP.
+        - Se a propriedade anterior for nula, uma resposta padrão 404 Not Found é retornada ao cliente.
+    - Se o router encontrar uma rota correspondente, mas o método da rota não corresponder ao método da requisição:
+        - Se a propriedade [Router.MethodNotAllowedErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler.md) estiver configurada, a ação é invocada e a resposta da ação é encaminhada ao cliente HTTP.
+        - Se a propriedade anterior for nula, uma resposta padrão 405 Method Not Allowed é retornada ao cliente.
+    - Se a requisição for do método `OPTIONS`:
+        - O router retorna uma resposta 200 Ok ao cliente somente se nenhuma rota corresponder ao método da requisição (o método da rota não for explicitamente [RouteMethod.Options](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteMethod.md)).
+    - Se a propriedade [HttpServerConfiguration.ForceTrailingSlash](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.md) estiver habilitada, a rota correspondida não for uma expressão regular, o caminho da requisição não terminar com `/`, e o método da requisição for `GET`:
+        - Uma resposta HTTP 307 Temporary Redirect com o cabeçalho `Location` contendo o caminho e a query para o mesmo local com um `/` ao final é retornada ao cliente.
+    - O evento `OnContextBagCreated` é invocado para todos os manipuladores de servidor HTTP configurados.
+    - Todas as instâncias globais de [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) com a flag `BeforeResponse` são executadas.
+        - Se algum manipulador retornar uma resposta não nula, essa resposta é encaminhada ao cliente HTTP e o contexto é fechado.
+        - Se um erro for lançado nesta etapa e [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) estiver desabilitado:
+            - Se a propriedade [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.
+            - Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que normalmente é 500 Internal Server Error.
+    - Todas as instâncias de [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) definidas na rota e com a flag `BeforeResponse` são executadas.
+        - Se algum manipulador retornar uma resposta não nula, essa resposta é encaminhada ao cliente HTTP e o contexto é fechado.
+        - Se um erro for lançado nesta etapa e [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) estiver desabilitado:
+            - Se a propriedade [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.
+            - Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que normalmente é 500 Internal Server Error.
+    - A ação do router é invocada e transformada em uma resposta HTTP.
+        - Se um erro for lançado nesta etapa e [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) estiver desabilitado:
+            - Se a propriedade [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.
+            - Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que normalmente é 500 Internal Server Error.
+    - Todas as instâncias globais de [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) com a flag `AfterResponse` são executadas.
+        - Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substitui a resposta anterior e é imediatamente encaminhada ao cliente HTTP.
+        - Se um erro for lançado nesta etapa e [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) estiver desabilitado:
+            - Se a propriedade [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.
+            - Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que normalmente é 500 Internal Server Error.
+    - Todas as instâncias de [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) definidas na rota e com a flag `AfterResponse` são executadas.
+        - Se algum manipulador retornar uma resposta não nula, a resposta do manipulador substitui a resposta anterior e é imediatamente encaminhada ao cliente HTTP.
+        - Se um erro for lançado nesta etapa e [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) estiver desabilitado:
+            - Se a propriedade [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) estiver habilitada, ela é invocada e a resposta resultante é retornada ao cliente.
+            - Se a propriedade anterior não estiver definida, uma resposta vazia é retornada ao servidor, que encaminha uma resposta de acordo com o tipo de exceção lançada, que normalmente é 500 Internal Server Error.
+- **Processando a resposta:** com a resposta pronta, o servidor a prepara para envio ao cliente.
+    - Os cabeçalhos da Política de Compartilhamento de Recursos entre Origens (CORS) são definidos na resposta de acordo com o que foi configurado no atual [ListeningHost.CrossOriginResourceSharingPolicy](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy.md).
+    - O código de status e os cabeçalhos da resposta são enviados ao cliente.
+    - O conteúdo da resposta é enviado ao cliente:
+        - Se o conteúdo da resposta for descendente de [ByteArrayContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.bytearraycontent), os bytes da resposta são copiados diretamente para o fluxo de saída da resposta.
+        - Se a condição anterior não for atendida, a resposta é serializada para um fluxo e copiada para o fluxo de saída da resposta.
+    - Os fluxos são fechados e o conteúdo da resposta é descartado.
+    - Se [HttpServerConfiguration.DisposeDisposableContextValues](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.md) estiver habilitado, todos os objetos definidos no contexto da requisição que herdam de [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable) são descartados.
+    - O evento `OnHttpRequestClose` é invocado para todos os manipuladores de servidor HTTP configurados.
+    - Se uma exceção foi lançada no servidor, o evento `OnException` é invocado para todos os manipuladores de servidor HTTP configurados.
+    - Se a rota permitir registro de acesso e [HttpServerConfiguration.AccessLogsStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.md) não for nulo, uma linha de log é escrita na saída de log.
+    - Se a rota permitir registro de erros, houver uma exceção, e [HttpServerConfiguration.ErrorsLogsStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.md) não for nulo, uma linha de log é escrita na saída de log de erros.
+    - Se o servidor estiver aguardando uma requisição através de [HttpServer.WaitNext](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.WaitNext.md), o mutex é liberado e o contexto fica disponível para o usuário.

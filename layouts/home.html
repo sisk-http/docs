@@ -1,0 +1,36 @@
+{{ define "layout" }}home{{ end }}
+
+{{ define "main" }}
+<section class="hero">
+    <img class="hero-logo" src="{{ "assets/img/Icon-HQ.png" | relURL }}" alt="" width="88" height="88">
+    <h1>Sisk</h1>
+    <p class="hero-lead">{{ T "homeLead" }}</p>
+    <div class="hero-actions">
+        {{ with site.GetPage "/docs/getting-started" }}
+        <a class="button button-primary" href="{{ .RelPermalink }}">{{ T "getStarted" }}{{ partial "icon.html" "arrow-right" }}</a>
+        {{ end }}
+        {{ with (index .Sites 0).GetPage "/api" }}
+        <a class="button button-ghost" href="{{ .RelPermalink }}">{{ partial "icon.html" "braces" }}{{ T "browseApi" }}</a>
+        {{ end }}
+    </div>
+    <pre class="hero-install"><code>dotnet add package Sisk.HttpServer</code></pre>
+</section>
+
+{{ with .Content }}
+<article class="article home-article">
+    {{ partial "translation-notice.html" $ }}
+    <div class="prose">{{ . }}</div>
+</article>
+{{ end }}
+
+<section class="home-agents">
+    <h2>{{ partial "icon.html" "robot" }}{{ T "forAgents" }}</h2>
+    <p>{{ T "forAgentsText" }}</p>
+    <p class="home-agents-links">
+        <a href="{{ "llms.txt" | relLangURL }}">llms.txt</a>
+        <a href="{{ "llms-full.txt" | relLangURL }}">llms-full.txt</a>
+    </p>
+</section>
+
+{{ partial "footer.html" . }}
+{{ end }}

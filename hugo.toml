@@ -1,0 +1,121 @@
+baseURL = "https://docs.sisk-framework.org/"
+title = "Sisk"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+disableDefaultLanguageRedirect = true
+disablePathToLower = true
+uglyURLs = true
+publishDir = "_site"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "rss"]
+
+[params]
+description = "Sisk is a lightweight, agnostic and robust .NET web development framework."
+repository = "https://github.com/sisk-http/core"
+docsRepository = "https://github.com/sisk-http/docs"
+docsBranch = "master"
+goatCounter = "https://siskframework.goatcounter.com/count"
+
+[languages.en]
+languageName = "English"
+languageCode = "en-US"
+contentDir = "content/en"
+weight = 1
+
+[languages.pt-br]
+languageName = "Português"
+languageCode = "pt-BR"
+contentDir = "content/pt-br"
+weight = 2
+[languages.pt-br.params]
+translationName = "Brazilian Portuguese"
+
+[languages.es]
+languageName = "Español"
+languageCode = "es-ES"
+contentDir = "content/es"
+weight = 3
+[languages.es.params]
+translationName = "Spanish"
+
+[languages.de]
+languageName = "Deutsch"
+languageCode = "de-DE"
+contentDir = "content/de"
+weight = 4
+[languages.de.params]
+translationName = "German"
+
+[languages.ru]
+languageName = "Русский"
+languageCode = "ru-RU"
+contentDir = "content/ru"
+weight = 5
+[languages.ru.params]
+translationName = "Russian"
+
+[languages.zh-cn]
+languageName = "中文 (简体)"
+languageCode = "zh-CN"
+contentDir = "content/zh-cn"
+weight = 6
+[languages.zh-cn.params]
+translationName = "Chinese Simplified"
+
+[languages.ja]
+languageName = "日本語"
+languageCode = "ja-JP"
+contentDir = "content/ja"
+weight = 7
+[languages.ja.params]
+translationName = "Japanese"
+
+[mediaTypes."text/markdown"]
+suffixes = ["md"]
+
+[outputFormats.markdown]
+mediaType = "text/markdown"
+baseName = "index"
+isPlainText = true
+rel = "alternate"
+
+[outputFormats.llms]
+mediaType = "text/plain"
+baseName = "llms"
+isPlainText = true
+notAlternative = true
+
+[outputFormats.llmsfull]
+mediaType = "text/plain"
+baseName = "llms-full"
+isPlainText = true
+notAlternative = true
+
+[outputs]
+home = ["html", "markdown", "llms", "llmsfull"]
+section = ["html", "markdown"]
+page = ["html", "markdown"]
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.goldmark.parser]
+autoHeadingIDType = "github"
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
+
+[markup.highlight]
+noClasses = false
+lineNos = false
+guessSyntax = false
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 3
+ordered = false
+
+[module.hugoVersion]
+min = "0.146.0"
+extended = false

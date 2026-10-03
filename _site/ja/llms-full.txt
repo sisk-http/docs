@@ -1,0 +1,4681 @@
+# Sisk Framework documentation
+
+> Sisk is a lightweight, agnostic and robust .NET web development framework.
+
+This file contains the complete Sisk documentation (日本語). The API reference is not included; read https://docs.sisk-framework.org/api/index.md for the type index.
+
+---
+
+# Getting started
+
+Source: https://docs.sisk-framework.org/ja/docs/getting-started.html
+
+Welcome to the Sisk documentation!
+
+Sisk is an open-source lightweight HTTP framework for .NET. You can use it to build a standalone web service, embed an HTTP module inside an existing application, or run a service behind a reverse proxy with only the configuration you need.
+
+Sisk's values include code transparency, modularity, performance, and scalability. It can handle different application styles, including RESTful APIs, JSON-RPC services, WebSockets, Server-Sent Events, and static file serving.
+
+It's main features includes：
+
+| リソース | 説明 |
+| ------- | --------- |
+| [Routing](https://docs.sisk-framework.org/ja/docs/fundamentals/routing.md) | プレフィックス、カスタムメソッド、パス変数、値コンバータなどをサポートするパスルーターです。 |
+| [Request Handlers](https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.md) | *ミドルウェア* とも呼ばれ、アクションの前後でリクエストと連携する独自のリクエストハンドラを構築するためのインターフェースを提供します。 |
+| [Compression](https://docs.sisk-framework.org/ja/docs/fundamentals/responses.md#gzip-deflate-and-brotli-compression) | Sisk を使ってレスポンス内容を簡単に圧縮できます。 |
+| [Web sockets](https://docs.sisk-framework.org/ja/docs/features/websockets.md) | クライアントとの読み書きが可能な完全な WebSocket を受け入れるルートを提供します。 |
+| [Server-sent events](https://docs.sisk-framework.org/ja/docs/features/server-sent-events.md) | SSE プロトコルをサポートするクライアントへサーバーイベントを送信する機能を提供します。 |
+| [Logging](https://docs.sisk-framework.org/ja/docs/features/logging.md) | シンプルなロギング。エラーやアクセスのログ、サイズでローテーションするログ、同一ログへの複数出力ストリームなどを定義できます。 |
+| [Multi-host](https://docs.sisk-framework.org/ja/docs/advanced/multi-host-setup.md) | 複数ポート用の HTTP サーバーを持ち、各ポートが独自のルーターを、各ルーターが独自のアプリケーションを持ちます。 |
+| [Server handlers](https://docs.sisk-framework.org/ja/docs/advanced/http-server-handlers.md) | HTTP サーバーの独自実装を拡張します。拡張機能や改善、新機能でカスタマイズできます。 |
+
+## 最初のステップ
+
+Sisk は任意の .NET 環境で実行できます。このガイドでは、.NET を使用して Sisk アプリケーションを作成する方法を説明します。まだインストールしていない場合は、[こちら](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)から SDK をダウンロードしてください。
+
+このチュートリアルでは、プロジェクト構成の作成、リクエストの受信、URL パラメータの取得、レスポンスの送信方法を扱います。このガイドは C# を使用したシンプルなサーバー構築に焦点を当てています。好きなプログラミング言語でも使用できます。
+
+> [!NOTE]
+> クイックスタートプロジェクトに興味があるかもしれません。詳細は [このリポジトリ](https://github.com/sisk-http/quickstart) をご確認ください。
+
+## プロジェクトの作成
+
+プロジェクト名を「My Sisk Application」にしましょう。.NET の環境が整ったら、次のコマンドでプロジェクトを作成できます：
+
+```bash
+dotnet new console -n my-sisk-application
+```
+
+次に、プロジェクトディレクトリへ移動し、.NET ユーティリティツールで Sisk をインストールします：
+
+```bash
+cd my-sisk-application
+dotnet add package Sisk.HttpServer
+```
+
+プロジェクトに Sisk をインストールする他の方法は、[こちら](https://www.nuget.org/packages/Sisk.HttpServer/) にあります。
+
+それでは、HTTP サーバーのインスタンスを作成しましょう。この例ではポート 5000 でリッスンするように設定します。
+
+## HTTP サーバーの構築
+
+Sisk は HttpServer オブジェクトへルーティングする形で、手動でステップバイステップにアプリケーションを構築できますが、ほとんどのプロジェクトではあまり便利ではありません。そのため、ビルダー メソッドを使用すれば、アプリを簡単に起動できます。
+
+```csharp {title="Program.cs"}
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseListeningPort("http://localhost:5000/")
+            .Build();
+        
+        app.Router.MapGet("/", request =>
+        {
+            return new HttpResponse()
+            {
+                Status = 200,
+                Content = new StringContent("Hello, world!")
+            };
+        });
+        
+        await app.StartAsync();
+    }
+}
+```
+
+Sisk の重要なコンポーネントを理解することが重要です。このドキュメントの後半で、Sisk の仕組みについてさらに学べます。
+
+## 手動（高度）設定
+
+ドキュメントの [このセクション](https://docs.sisk-framework.org/ja/docs/advanced/manual-setup.md) では、HttpServer、Router、ListeningPort など各コンポーネントの動作と関係性について学べます。
+
+---
+
+# インストール
+
+Source: https://docs.sisk-framework.org/ja/docs/installing.html
+
+Sisk を Nuget、dotnet cli、または [他のオプション](https://www.nuget.org/packages/Sisk.HttpServer/) を介してインストールできます。開発者コンソールで次のコマンドを実行することで、Sisk 環境を簡単に設定できます：
+
+```sh
+dotnet add package Sisk.HttpServer
+```
+
+このコマンドは、プロジェクトに Sisk の最新バージョンをインストールします。
+
+---
+
+# ネイティブAOTのサポート
+
+Source: https://docs.sisk-framework.org/ja/docs/native-aot.html
+
+[.NET Native AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)を使用すると、.NETランタイムがターゲットホストにインストールされていない場合でも、自己完結型のネイティブ.NETアプリケーションを公開できます。さらに、ネイティブAOTでは以下のような利点があります：
+
+- アプリケーションのサイズが大幅に小さくなる
+- 初期化が大幅に高速化される
+- メモリ消費量が低くなる
+
+Sisk Frameworkは、明示的な性質により、ほとんどの機能でネイティブAOTを使用できます。ソースコードをネイティブAOTに適応させるためのリワークは不要です。
+
+## サポートされていない機能
+
+ただし、Siskは、一部の機能で最小限のリフレクションを使用しています。以下に記載されている機能は、ネイティブコードの実行中に部分的に利用可能または完全に利用不可になる可能性があります：
+
+- [モジュールの自動スキャン](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.AutoScanModules.md) of the router: このリソースは、実行中のアセンブリに埋め込まれた型をスキャンし、[ルーターモジュール](https://docs.sisk-framework.org/ja/docs/fundamentals/routing.md)である型を登録します。このリソースでは、アセンブリのトリミング中に除外される可能性のある型が必要です。
+
+Siskの他のすべての機能はAOTと互換性があります。AOT警告を出すメソッドが見つかることがありますが、ここに記載されていない場合は、型、パラメーター、または型情報を渡すオーバーロードがあり、AOTコンパイラがオブジェクトをコンパイルするのを支援します。
+
+---
+
+# アプリケーションのデプロイ
+
+Source: https://docs.sisk-framework.org/ja/docs/deploying.html
+
+Sisk アプリケーションのデプロイ プロセスは、プロジェクトを本番環境に公開することです。プロセスは比較的簡単ですが、セキュリティと安定性のために重要な詳細があります。
+
+理想的には、アプリケーションをテストして準備し、クラウドにデプロイする準備ができているはずです。
+
+## アプリの公開
+
+Sisk アプリケーションまたはサービスを公開するには、生成されたバイナリを本番環境で実行できるようにします。この例では、.NET Runtime がインストールされたマシンで実行するために、バイナリを本番環境用にコンパイルします。
+
+アプリをビルドするには、.NET SDK がインストールされている必要があります。また、ターゲット サーバーに .NET Runtime がインストールされている必要があります。Linux、Windows、Mac OS の .NET Runtime のインストール方法については、[ここ](https://learn.microsoft.com/en-us/dotnet/core/install/linux) 、[ここ](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70) 、[ここ](https://learn.microsoft.com/en-us/dotnet/core/install/macos) を参照してください。
+
+プロジェクトが配置されているフォルダーで、ターミナルを開き、.NET 公開コマンドを使用します。
+
+```shell
+$ dotnet publish -r linux-x64 -c Release
+```
+
+これにより、`bin/Release/publish/linux-x64` 内にバイナリが生成されます。
+
+> [!NOTE]
+> Sisk.ServiceProvider パッケージを使用している場合は、`service-config.json` ファイルをホスト サーバーにコピーする必要があります。環境変数、リスニング ポート、ホスト、および追加のサーバー構成を含むファイルを事前に構成しておくことができます。
+
+次のステップは、これらのファイルをアプリケーションをホストするサーバーに転送することです。
+
+その後、バイナリ ファイルに実行権限を付与します。この場合、プロジェクト名は "my-app" です。
+
+```shell
+$ cd /home/htdocs
+$ chmod +x my-app
+$ ./my-app
+```
+
+アプリケーションを実行すると、エラー メッセージが表示されない場合は、アプリケーションが実行中であることを確認できます。
+
+この時点では、ファイアウォールなどのアクセス ルールが構成されていないため、アプリケーションに外部ネットワークからアクセスすることはできないでしょう。次のステップでこれを考慮します。
+
+アプリケーションがリスニングしている仮想ホストのアドレスを持っている必要があります。これは、アプリケーションで Sisk サービスをインスタンス化する方法によって異なります。
+
+Sisk.ServiceProvider パッケージを使用していない場合は、HttpServer インスタンスを定義した場所でこれを見つけることができます。
+
+```cs
+HttpServer server = HttpServer.Emit(5000, out HttpServerConfiguration config, out var host, out var router);
+// sisk は http://localhost:5000/ でリスニングする必要があります
+```
+
+リスニング ホストを手動で関連付ける:
+
+```cs
+config.ListeningHosts.Add(new ListeningHost("https://localhost:5000/", router));
+```
+
+または、Sisk.ServiceProvider パッケージを使用している場合は、`service-config.json` 内で:
+
+```json
+{
+  "Server": { },
+  "ListeningHost": {
+    "Ports": [
+      "http://localhost:5000/"
+    ]
+  }
+}
+```
+
+これから、サービスをリスニングし、トラフィックをオープン ネットワークで利用できるようにするために、リバース プロキシを作成できます。
+
+## アプリケーションのプロキシ
+
+サービスをプロキシすることは、Sisk サービスを直接外部ネットワークに公開しないことを意味します。この方法は、サーバーのデプロイでは非常に一般的です。
+
+- アプリケーションに SSL 証明書を関連付けることができます。
+- サービスにアクセスする前にアクセス ルールを作成し、過負荷を回避できます。
+- バンド幅とリクエストの制限を制御できます。
+- アプリケーションの負荷分散装置を分離できます。
+- インフラストラクチャのセキュリティを損なうことを防ぐことができます。
+
+アプリケーションをリバース プロキシを使用して提供できます。たとえば、[Nginx](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-7.0&tabs=linux-ubuntu#install-nginx) または [Apache](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-apache?view=aspnetcore-7.0) を使用できます。または、[Cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/install-and-setup/tunnel-guide/) などの HTTP-over-DNS トンネルを使用することもできます。
+
+また、プロキシの転送ヘッダーを正しく解決して、クライアントの情報 (IP アドレスやホストなど) を取得するために、[転送解決器](https://docs.sisk-framework.org/ja/docs/advanced/forwarding-resolvers.md) を使用することを忘れないでください。
+
+トンネルを作成し、ファイアウォールを構成し、アプリケーションを実行した後、サービスを作成する必要があります。
+
+> [!NOTE]
+> 非 Windows システムでは、Sisk サービスで直接 SSL 証明書を使用することはできません。これは、Sisk で HTTP キュー管理を行う中央モジュールである HttpListener の実装によるものであり、オペレーティング システムによって異なります。IIS で仮想ホストに証明書を関連付けることで、Sisk サービスで SSL を使用できます。詳細については、[ここ](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis) を参照してください。その他のシステムでは、リバース プロキシを使用することを強くお勧めします。
+
+## サービスの作成
+
+サービスを作成すると、アプリケーションはサーバー インスタンスの再起動やクラッシュ後も常に利用可能になります。
+
+この簡単なチュートリアルでは、前のチュートリアルからのコンテンツを使用して、サービスを常にアクティブに保つ方法を示します。
+
+1. サービス構成ファイルが配置されているフォルダーにアクセスします。
+
+    ```sh
+    cd /etc/systemd/system
+    ```
+
+2. `my-app.service` ファイルを作成し、次の内容を含めます。
+    
+    ```ini {title="my-app.service"}
+    [Unit]
+    Description=<アプリケーションについての説明>
+
+    [Service]
+    # サービスを起動するユーザーを設定します。
+    User=<サービスを起動するユーザー>
+
+    # ExecStart パスは、WorkingDirectory に相対ではありません。
+    # 実行可能ファイルへの完全パスを設定します。
+    WorkingDirectory=/home/htdocs
+    ExecStart=/home/htdocs/my-app
+
+    # サービスを常に再起動するように設定します。
+    Restart=always
+    RestartSec=3
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+3. サービス マネージャー モジュールを再起動します。
+
+    ```sh
+    $ sudo systemctl daemon-reload
+    ```
+
+4. 作成したサービスを名前で起動し、実行中であることを確認します。
+
+    ```sh
+    $ sudo systemctl start my-app
+    $ sudo systemctl status my-app
+    ```
+
+5. アプリケーションが実行中 ("Active: active") であることを確認したら、サービスをシステムの再起動後に実行するように有効にします。
+    
+    ```sh
+    $ sudo systemctl enable my-app
+    ```
+
+これで、Sisk アプリケーションを公開する準備ができました。
+
+---
+
+# SSL の利用
+
+Source: https://docs.sisk-framework.org/ja/docs/ssl.html
+
+開発時に SSL を利用する必要がある場合があります。これは、ほとんどの Web 開発シナリオのようにセキュリティが求められるコンテキストで作業する場合です。Sisk は HttpListener の上に構築されており、ネイティブの HTTPS はサポートせず HTTP のみを扱います。ただし、Sisk で SSL を利用できる回避策がいくつかあります。以下をご覧ください。
+
+## Sisk.Cadente.CoreEngine を介して
+
+- 利用可能なプラットフォーム: Linux, macOS, Windows
+- 作業量: 簡単
+
+追加のコンピュータ設定やプロジェクト設定を行うことなく、Sisk プロジェクトで実験的な **Cadente** エンジンを使用できます。Cadente サーバーを Sisk サーバーで利用できるようにするには、プロジェクトに `Sisk.Cadente.CoreEngine` パッケージをインストールする必要があります。
+
+SSL を構成するには、ビルダーの `UseSsl` と `UseEngine` メソッドを使用します。
+
+```csharp
+using var http = HttpServer.CreateBuilder()
+    .UseEngine<CadenteHttpServerEngine>()
+    .UseSsl(CertificateHelper.CreateTrustedDevelopmentCertificate("localhost"))
+```
+
+> 注: このパッケージはまだ実験段階です。
+
+## Windows の IIS を介して
+
+- 利用可能なプラットフォーム: Windows
+- 作業量: 中程度
+
+Windows を使用している場合、IIS を利用して HTTP サーバーに SSL を有効にできます。これを行うには、事前に [このチュートリアル](https://docs.sisk-framework.org/ja/docs/registering-namespace.md) に従い、アプリケーションが「localhost」以外のホストでリッスンするように設定しておくことが推奨されます。
+
+この機能を利用するには、Windows の機能から IIS をインストールする必要があります。IIS は Windows および Windows Server ユーザーに無料で提供されています。アプリケーションで SSL を構成するには、自己署名であっても SSL 証明書を用意してください。その後、[IIS 7 以降での SSL 設定方法](https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis) を参照してください。
+
+## mitmproxy を介して
+
+- 利用可能なプラットフォーム: Linux, macOS, Windows
+- 作業量: 簡単
+
+**mitmproxy** は、クライアント（例: Web ブラウザ）とサーバー間の HTTP および HTTPS トラフィックを検査、変更、記録できるインターセプトプロキシツールです。**mitmdump** ユーティリティを使用して、クライアントと Sisk アプリケーション間にリバース SSL プロキシを開始できます。
+
+1. まず、マシンに [mitmproxy](https://mitmproxy.org/) をインストールします。  
+2. Sisk アプリケーションを起動します。この例では、非安全な HTTP ポートとして 8000 を使用します。  
+3. 安全なポート 8001 でリッスンするように mitmproxy サーバーを起動します。
+
+```sh
+mitmdump --mode reverse:http://localhost:8000/ -p 8001
+```
+
+これで準備完了です！`https://localhost:8001/` からアプリケーションにアクセスできます。`mitmdump` を開始するためにアプリケーションが実行中である必要はありません。
+
+あるいは、プロジェクトに [mitmproxy ヘルパー](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Helpers.mitmproxy) への参照を追加することもできます。この場合でも、コンピュータに mitmproxy がインストールされている必要があります。
+
+## Sisk.SslProxy パッケージを介して
+
+- 利用可能なプラットフォーム: Linux, macOS, Windows
+- 作業量: 簡単
+
+> [!IMPORTANT]
+> 
+> Sisk.SslProxy パッケージは `Sisk.Cadente.CoreEngine` パッケージに置き換えられ、以後メンテナンスされません。
+
+Sisk.SslProxy パッケージは、Sisk アプリケーションで SSL を有効にするシンプルな方法です。ただし、**極めて実験的** なパッケージであり、安定性に欠ける可能性があります。このパッケージを実用的かつ安定したものにするために貢献したい方は、ぜひ少数派の一員となってください。開始するには、次のコマンドで Sisk.SslProxy パッケージをインストールします。
+
+```sh
+dotnet add package Sisk.SslProxy
+```
+
+> [!NOTE]
+> 
+> Sisk.SslProxy をインストールするには、Visual Studio のパッケージ マネージャーで「Prerelease を含める」を有効にする必要があります。
+
+再度強調しますが、これは実験的なプロジェクトであり、本番環境での使用は考えないでください。
+
+現在、Sisk.SslProxy は HTTP/1.1 の多くの機能（HTTP Continue、Chunked-Encoding、WebSockets、SSE など）に対応しています。SslProxy の詳細は [こちら](https://docs.sisk-framework.org/ja/docs/extensions/ssl-proxy.md) をご覧ください。
+
+---
+
+# Cadente
+
+Source: https://docs.sisk-framework.org/ja/docs/cadente.html
+
+Cadenteは、Sisk用の実験的なマネージドHTTP/1.1リスナー実装です。デフォルトの`System.Net.HttpListener`の代替として機能し、特に非Windowsプラットフォームでより大きな制御と柔軟性を提供します。
+
+## 概要
+
+デフォルトでは、Siskは`HttpListener`（`System.Net`から）をその基礎となるHTTPサーバーエンジンとして使用します。`HttpListener`はWindows（ där でカーネルモードのHTTP.sysドライバーを使用する）では安定してパフォーマンスが高いですが、LinuxおよびmacOSでの実装はマネージドであり、歴史的に制限があります。たとえば、ネイティブのSSLサポートが不足している（NginxやSisk.SslProxyなどのリバースプロキシが必要）ことや、パフォーマンス特性が異なることなどです。
+
+Cadenteは、これらの問題を解決するために、C#で書かれた完全にマネージドなHTTP/1.1サーバーを提供します。主な目標は次のとおりです。
+
+- **ネイティブSSLサポート:** 外部プロキシや複雑な設定を必要とせずにすべてのプラットフォームで動作します。
+- **クロスプラットフォームの整合性:** Windows、Linux、macOSで同じ動作を提供します。
+- **パフォーマンス:** マネージド`HttpListener`の高パフォーマンスな代替として設計されています。
+- **独立性:** `System.Net.HttpListener`から切り離されており、.NETでのそのコンポーネントの将来の廃止またはメンテナンス不足からSiskを保護します。
+
+> [!WARNING]
+> **実験的なステータス**
+> 
+> Cadenteは現在、実験的な段階（ベータ）にあります。重要なプロダクション環境ではまだ推奨されていません。APIと動作は変更される可能性があります。
+
+## インストール
+
+Cadenteは、別個のパッケージとして利用可能です。Siskで使用するには、`Sisk.Cadente.CoreEngine`パッケージが必要です。
+
+```bash
+dotnet add package Sisk.Cadente.CoreEngine --prerelease
+```
+
+## Siskでの使用
+
+CadenteをSiskアプリケーションのHTTPエンジンとして使用するには、`HttpServer`を`CadenteHttpServerEngine`を使用するように構成する必要があります。
+
+`CadenteHttpServerEngine`は、Cadenteの`HttpHost`をSiskが要求する`HttpServerEngine`抽象化に適応させます。
+
+```csharp
+using Sisk.Core.Http;
+using Sisk.Cadente.CoreEngine;
+
+using var host = HttpServer.CreateBuilder()
+    .UseEngine<CadenteHttpServerEngine>()
+    .UseSsl(certificate: CertificateHelper.CreateTrustedDevelopmentCertificate("localhost"))
+    .Build();
+
+await host.StartAsync();
+```
+
+### 詳細な構成
+
+`CadenteHttpServerEngine`コンストラクターにセットアップアクションを渡すことで、基礎となる`HttpHost`インスタンスをカスタマイズできます。これは、タイムアウトやその他の低レベルの設定を構成するのに役立ちます。
+
+```csharp
+using var engine = new CadenteHttpServerEngine(host =>
+{
+    // クライアントの読み取り/書き込みタイムアウトを構成
+    host.TimeoutManager.ClientReadTimeout = TimeSpan.FromSeconds(30);
+    host.TimeoutManager.ClientWriteTimeout = TimeSpan.FromSeconds(30);
+});
+```
+
+## 独立した使用
+
+主にSiskのために設計されていますが、Cadenteは独立したHTTPサーバー（`HttpListener`と同様）として使用できます。
+
+```csharp
+using Sisk.Cadente;
+
+var host = new HttpHost(15000)
+{
+    Handler = new MyHostHandler()
+};
+
+host.Start();
+Thread.Sleep(-1);
+
+class MyHostHandler : HttpHostHandler
+{
+    public override async Task OnContextCreatedAsync(HttpHost host, HttpHostContext context)
+    {
+        context.Response.StatusCode = 200;
+        using var writer = new StreamWriter(context.Response.GetResponseStream());
+        await writer.WriteLineAsync("Hello, world!");
+    }
+}
+```
+
+---
+
+# Windows での名前空間予約の構成
+
+Source: https://docs.sisk-framework.org/ja/docs/registering-namespace.html
+
+> [!NOTE]
+> この構成はオプションであり、Windows で HttpListener エンジンを使用して「localhost」以外のホストで Sisk をリッスンさせたい場合にのみ必要です。
+
+Sisk は HttpListener ネットワークインターフェイスと連携し、仮想ホストをシステムにバインドしてリクエストを待ち受けます。
+
+Windows では、このバインドはやや制限が厳しく、localhost のみが有効なホストとしてバインドできます。他のホストでリッスンしようとすると、サーバー側でアクセス拒否エラーが発生します。このチュートリアルでは、システム上で任意のホストをリッスンできるように権限を付与する方法を説明します。
+
+```bat {title="Namespace Setup.bat"}
+@echo off
+
+:: プレフィックスをここに挿入してください（スペースや引用符なし）
+SET PREFIX=
+
+SET DOMAIN=%ComputerName%\%USERNAME%
+netsh http add urlacl url=%PREFIX% user=%DOMAIN%
+
+pause
+```
+
+`PREFIX` には、サーバーがリッスンするプレフィックス（「Listening Host->Port」）を指定します。URL スキーム、ホスト、ポート、そして末尾のスラッシュを含む形式で記述する必要があります。例:
+
+```bat {title="Namespace Setup.bat"}
+SET PREFIX=http://my-application.example.test/
+```
+
+これにより、アプリケーション側で次のようにリッスンできるようになります:
+
+```csharp {title="Program.cs"}
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseListeningPort("http://my-application.example.test/")
+            .Build();
+
+        app.Router.MapGet("/", request =>
+        {
+            return new HttpResponse()
+            {
+                Status = 200,
+                Content = new StringContent("Hello, world!")
+            };
+        });
+
+        await app.StartAsync();
+    }
+}
+```
+
+---
+
+# 変更履歴
+
+Source: https://docs.sisk-framework.org/ja/docs/changelogs.html
+
+Sisk に行われたすべての変更は、変更履歴を通じて記録されます。すべての Sisk バージョンの変更履歴を [こちら](https://github.com/sisk-http/archive/tree/master/changelogs) で確認できます。
+
+---
+
+# Frequently Asked Questions
+
+Source: https://docs.sisk-framework.org/ja/docs/faq.html
+
+Sisk に関するよくある質問。
+
+## Sisk はオープンソースですか？
+
+完全に。Sisk で使用されるすべてのソースコードは、[GitHub](https://github.com/sisk-http) で公開および頻繁に更新されています。
+
+## 貢献は受け付けますか？
+
+[Sisk の哲学](/) と互換性がある限り、すべての貢献は大歓迎です！貢献はコードに限りません。ドキュメント、テスト、翻訳、寄付、投稿など、さまざまな形で貢献できます。
+
+## Sisk は資金提供されていますか？
+
+いいえ。現在、Sisk を後援する組織やプロジェクトはありません。
+
+## Sisk を本番環境で使用できますか？
+
+絶対に。プロジェクトは 3 年以上開発されており、商用アプリケーションでのテストが行われてきました。Sisk は、主要なインフラストラクチャとして商用プロジェクトで使用されています。
+
+さまざまなシステムや環境での [デプロイ](https://docs.sisk-framework.org/ja/docs/deploying.md) 方法についてのガイドが書かれており、利用可能です。
+
+## Sisk には認証、監視、データベースサービスがありますか？
+
+いいえ。Sisk にはこれらのサービスはありません。Sisk は HTTP Web アプリケーションの開発フレームワークですが、まだ最小限のフレームワークであり、アプリケーションが動作するために必要なものだけを提供します。
+
+好みの第三者ライブラリを使用して、必要なサービスをすべて実装できます。Sisk は、汎用性、柔軟性、すべてのものと連携するように設計されています。
+
+## なぜ Sisk を <フレームワーク> よりも使用するべきですか？
+
+わかりません。你が教えてください。
+
+Sisk は、.NET の HTTP Web アプリケーションの一般的なシナリオを埋めるために作成されました。既存のプロジェクト、such as ASP.NET、はさまざまな問題を解決しますが、異なる偏見で解決します。大きいフレームワークとは異なり、Sisk では、ユーザーが何をしているのか、そして何を構築しているのかを知っている必要があります。Web 開発および HTTP プロトコルの基本的な概念は、Sisk を使用するために不可欠です。
+
+Sisk は、ASP.NET Core よりも Node.js の Express に近いです。HTTP ロジックが必要なアプリケーションを作成できる、高レベルの抽象化を提供します。
+
+## Sisk を学ぶために何が必要ですか？
+
+以下の基本的な知識が必要です：
+
+- Web 開発 (HTTP、Restful など)
+- .NET
+
+これら 2 つのトピックについての知識がある場合、Sisk で高度なアプリケーションを開発するために数時間を費やすことができます。
+
+## Sisk を使用して商用アプリケーションを開発できますか？
+
+絶対に。
+
+Sisk は MIT ライセンスの下で作成されており、Sisk を商用プロジェクトまたは非商用プロジェクトで、独自のライセンスを必要とせずに使用できます。
+
+ただし、アプリケーション内で、使用されているオープンソース プロジェクトについての通知を表示し、Sisk が使用されていることを示すことを求めます。
+
+---
+
+# ルーティング
+
+Source: https://docs.sisk-framework.org/ja/docs/fundamentals/routing.html
+
+The [Router](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.md) はサーバー構築の最初のステップです。これは [Route](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Route.md) オブジェクトを保持する役割を担い、URL とそのメソッドをサーバーが実行するアクションにマッピングするエンドポイントです。各アクションはリクエストを受け取り、クライアントへレスポンスを返すことを担当します。
+
+ルートはパス式（「パスパターン」）とリッスンできる HTTP メソッドの組み合わせです。サーバーにリクエストが送られると、受信したリクエストにマッチするルートを探し、そのルートのアクションを呼び出して結果のレスポンスをクライアントに届けます。
+
+Sisk ではルートを定義する方法が複数あります。静的、動的、または自動スキャンされたもの、属性で定義されたもの、あるいは Router オブジェクトに直接定義されたものがあります。
+
+```cs
+Router mainRouter = new Router();
+
+// GET / ルートを以下のアクションにマッピングします
+mainRouter.MapGet("/", request => {
+    return new HttpResponse("Hello, world!");
+});
+```
+
+ルートが何をできるかを理解するには、リクエストが何をできるかを理解する必要があります。 [HttpRequest](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.md) には必要な情報がすべて含まれます。Sisk には開発全体を高速化する追加機能も含まれています。
+
+サーバーが受け取る各アクションについて、[RouteAction](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteAction.md) 型のデリゲートが呼び出されます。このデリゲートは、サーバーが受け取ったリクエストに関するすべての必要情報を保持した [HttpRequest](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.md) をパラメータとして受け取ります。このデリゲートから返されるオブジェクトは [HttpResponse](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpResponse.md) であるか、[暗黙的レスポンスタイプ](https://docs.sisk-framework.org/ja/docs/fundamentals/responses.md#implicit-response-types) を通じてそれにマップされるオブジェクトでなければなりません。
+
+## ルートのマッチング
+
+HTTP サーバーがリクエストを受信すると、Sisk はリクエストのパス式に合致するルートを検索します。式は常にルートとリクエストパスの間でテストされ、クエリ文字列は考慮されません。
+
+このテストは優先順位を持たず、単一のルートに対して排他的に行われます。リクエストにマッチするルートがない場合、[Router.NotFoundErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.NotFoundErrorHandler.md) のレスポンスがクライアントに返されます。パスパターンはマッチしたが HTTP メソッドが不一致の場合は、[Router.MethodNotAllowedErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler.md) のレスポンスがクライアントに送られます。
+
+Sisk はルート衝突の可能性をチェックしてこれらの問題を回避します。ルートを定義する際、Sisk は定義しようとしているルートと衝突する可能性のあるルートを探します。このテストにはパスと受け入れるように設定されたメソッドのチェックが含まれます。
+
+### パスパターンを使用したルートの作成
+
+新しいアプリケーションでは `Map*` メソッドを優先してください。これらは呼び出し側で HTTP メソッドが可視化され、現在の `Router` API に一致します。古い `SetRoute` メソッドは互換性ラッパーとして残っていますが、新しい例では `Map`, `MapGet`, `MapPost`, `MapPut`, `MapDelete`, `MapPatch`, `MapAny`, `MapOptions`, または `MapHead` を使用してください。
+
+```cs
+// Map* メソッドは、メソッド固有のルートを定義する一般的な方法です。
+mainRouter.MapGet("/hey/<name>", (request) =>
+{
+    string name = request.RouteParameters["name"].GetString();
+    return new HttpResponse($"Hello, {name}");
+});
+
+mainRouter.MapPost("/form", (request) =>
+{
+    var formData = request.GetFormContent();
+    return new HttpResponse(); // 空の 200 OK
+});
+
+// ルートオプションが必要な場合、Map は Route インスタンスも受け取れます。
+mainRouter.Map(Route.Get("/image.png", (request) =>
+{
+    var imageStream = File.OpenRead("image.png");
+    
+    return new HttpResponse()
+    {
+        // StreamContent の内部
+        // 送信後にストリームが破棄されます
+        // レスポンスです。
+        Content = new StreamContent(imageStream)
+    };
+}));
+
+// 複数のパラメータ
+mainRouter.MapGet("/hey/<name>/surname/<surname>", (request) =>
+{
+    string name = request.RouteParameters["name"].GetString();
+    string surname = request.RouteParameters["surname"].GetString();
+
+    return new HttpResponse($"Hello, {name} {surname}!");
+});
+```
+
+HttpRequest の [RouteParameters](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RouteParameters.md) プロパティには、受信したリクエストのパス変数に関するすべての情報が含まれます。
+
+サーバーが受け取るすべてのパスは、パスパターンテストが実行される前に次の規則に従って正規化されます。
+
+- 空のセグメントはすべてパスから削除されます。例: `////foo//bar` は `/foo/bar` になります。
+- パスマッチングは **大文字小文字を区別** します。ただし、[Router.MatchRoutesIgnoreCase](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.MatchRoutesIgnoreCase.md) が `true` に設定されている場合は除きます。
+
+[Query](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Query.md) と [RouteParameters](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RouteParameters.md) プロパティは [StringValueCollection](https://docs.sisk-framework.org/api/Sisk.Core.Entity.StringValueCollection.md) オブジェクトを返し、各インデックス付きプロパティは非 null の [StringValue](https://docs.sisk-framework.org/api/Sisk.Core.Entity.StringValue.md) を返します。これらは生の値を管理対象オブジェクトに変換するオプション/モナドとして使用できます。
+
+以下の例はルートパラメータ「id」を読み取り、`Guid` に変換します。パラメータが有効な Guid でない場合は例外がスローされ、サーバーが [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) を処理していない場合は 500 エラーがクライアントに返されます。
+
+```cs
+mainRouter.MapGet("/user/<id>", (request) =>
+{
+    Guid id = request.RouteParameters["id"].GetGuid();
+    return new HttpResponse($"User id: {id}");
+});
+```
+
+> [!NOTE]
+> パスの末尾の `/` はリクエスト側もルート側も無視されます。つまり、`/index/page` と定義されたルートは `/index/page/` でもアクセス可能です。
+>
+> また、[HttpServerConfiguration.ForceTrailingSlash](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.md) を有効にすることで、URL が必ず `/` で終わるように強制できます。
+
+### クラスインスタンスを使用したルートの作成
+
+属性 [RouteAttribute](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteAttribute.md) を使ってリフレクションで動的にルートを定義することもできます。この方法では、属性を実装したクラスのインスタンスが対象ルーターにルートを定義します。
+
+メソッドをルートとして定義するには、[RouteAttribute](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteAttribute.md)（または [RouteGetAttribute](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteGetAttribute.md) など）でマークする必要があります。メソッドは static、インスタンス、public、private のいずれでも構いません。オブジェクトからインスタンスメソッドと static メソッドの両方をマッピングしたい場合は `MapInstance` を使用し、型から static メソッドのみをマッピングしたい場合は `MapType` を使用します。
+
+```cs {title="Controller/MyController.cs"}
+public class MyController
+{
+    // GET / にマッチします
+    [RouteGet]
+    HttpResponse Index(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent("Index!");
+        return res;
+    }
+    
+    // 静的メソッドも機能します
+    [RouteGet("/hello")]
+    static HttpResponse Hello(HttpRequest request)
+    {
+        HttpResponse res = new HttpResponse();
+        res.Content = new StringContent("Hello world!");
+        return res;
+    }
+}
+```
+
+以下の行は `MyController` の `Index` と `Hello` の両メソッドをルートとして定義します。どちらもルートとしてマークされ、クラスのインスタンスが提供されたためです。インスタンスではなく型が提供された場合は static メソッドのみが定義されます。
+
+```cs
+var myController = new MyController();
+mainRouter.MapInstance(myController);
+```
+
+型から static ルートメソッドだけをマッピングしたい場合は次を使用します。
+
+```cs
+mainRouter.MapType<MyController>();
+```
+
+Sisk バージョン 0.16 以降、AutoScan を有効にすると `RouterModule` を実装したユーザー定義クラスを検索し、ルーターに自動的に関連付けます。AOT コンパイルではサポートされていません。
+
+```cs
+mainRouter.AutoScanModules<ApiController>();
+```
+
+上記の指示は `ApiController` を実装するすべての型を検索しますが、**型自体は除きます**。2 つのオプションパラメータは、これらの型を検索する方法を示します。最初の引数は型が検索されるアセンブリを示し、2 番目は型がどのように定義されるかを示します。
+
+## 正規表現ルート
+
+デフォルトの HTTP パスマッチングメソッドを使用せず、正規表現で解釈するルートをマークできます。
+
+```cs
+Route indexRoute = new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", IndexPage);
+mainRouter.Map(indexRoute);
+```
+
+または [RegexRoute](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RegexRoute.md) クラスを使用して:
+
+```cs
+mainRouter.Map(new RegexRoute(RouteMethod.Get, @"\/[a-z]+\/", request =>
+{
+    return new HttpResponse("hello, world");
+}));
+```
+
+正規表現パターンからキャプチャグループを取得し、[HttpRequest.RouteParameters](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RouteParameters.md) に格納することもできます。
+
+```cs {title="Controller/MyController.cs"}
+public class MyController
+{
+    [RegexRoute(RouteMethod.Get, @"/uploads/(?<filename>.*\.(jpeg|jpg|png))")]
+    static HttpResponse RegexRoute(HttpRequest request)
+    {
+        string filename = request.RouteParameters["filename"].GetString();
+        return new HttpResponse().WithContent($"Acessing file {filename}");
+    }
+}
+```
+
+## ルートのプレフィックス設定
+
+クラスまたはモジュール内のすべてのルートに対して [RoutePrefix](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RoutePrefixAttribute.md) 属性でプレフィックスを設定し、文字列として指定できます。
+
+以下は BREAD アーキテクチャ（Browse, Read, Edit, Add, Delete）を使用した例です。
+
+```cs {title="Controller/Api/UsersController.cs"}
+[RoutePrefix("/api/users")]
+public class UsersController
+{
+    // GET /api/users
+    [RouteGet]
+    public async Task<HttpResponse> Browse()
+    {
+        ...
+    }
+    
+    // GET /api/users/<id>
+    [RouteGet("/<id>")]
+    public async Task<HttpResponse> Read()
+    {
+        ...
+    }
+    
+    // PATCH /api/users/<id>
+    [RoutePatch("/<id>")]
+    public async Task<HttpResponse> Edit()
+    {
+        ...
+    }
+    
+    // POST /api/users
+    [RoutePost]
+    public async Task<HttpResponse> Add()
+    {
+        ...
+    }
+    
+    // DELETE /api/users/<id>
+    [RouteDelete("/<id>")]
+    public async Task<HttpResponse> Delete()
+    {
+        ...
+    }
+}
+```
+
+上記の例では、HttpResponse パラメータは省略され、グローバルコンテキスト [HttpContext.Current](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.Current.md) を通じて使用されます。続くセクションで詳しく説明します。
+
+## リクエストパラメータなしのルート
+
+ルートは [HttpRequest](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.md) パラメータなしで定義でき、リクエストコンテキストからリクエストやそのコンポーネントを取得することが可能です。ここでは、すべての API コントローラの基盤となる抽象クラス `ControllerBase` を例に取り、現在の [HttpRequest] を取得する `Request` プロパティを提供します。
+
+```cs {title="Controller/ControllerBase.cs"}
+public abstract class ControllerBase
+{
+    // 現在のスレッドからリクエストを取得します
+    public HttpRequest Request { get => HttpContext.Current.Request; }
+    
+    // 以下の行は、呼び出されたときに現在の HTTP セッションからデータベースを取得し、存在しない場合は新規作成します
+    public DbContext Database { get => HttpContext.Current.RequestBag.GetOrAdd<DbContext>(); }
+}
+```
+
+そして、すべての派生クラスがリクエストパラメータなしでルート構文を使用できるようにします。
+
+```cs {title="Controller/UsersController.cs"}
+[RoutePrefix("/api/users")]
+public class UsersController : ControllerBase
+{    
+    [RoutePost]
+    public async Task<HttpResponse> Create()
+    {
+        // 現在のリクエストから JSON データを読み取ります
+        UserCreationDto? user = await Request.GetJsonContentAsync<UserCreationDto>();
+        ...
+        Database.Users.Add(user);
+        
+        return new HttpResponse(201);
+    }
+}
+```
+
+現在のコンテキストと依存性注入の詳細は、[dependency injection](https://docs.sisk-framework.org/ja/docs/features/instancing.md) チュートリアルをご覧ください。
+
+## 任意のメソッドルート
+
+パスだけでマッチさせ、HTTP メソッドをスキップするルートを定義できます。これにより、ルートコールバック内でメソッドのバリデーションを行うことが可能です。
+
+```cs
+// 任意の HTTP メソッドで / にマッチします
+mainRouter.MapAny("/", callbackFunction);
+```
+
+## 任意のパスルート
+
+任意のパスルートは、テスト対象のルートメソッドに従って HTTP サーバーが受け取る任意のパスに対してテストを行います。ルートメソッドが `RouteMethod.Any` で、パス式に [Route.AnyPath](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Route.AnyPath.md) が使用されている場合、このルートは HTTP サーバーからのすべてのリクエストを受け付け、他のルートは定義できません。
+
+```cs
+// 以下のルートはすべての POST リクエストにマッチします
+mainRouter.Map(RouteMethod.Post, Route.AnyPath, callbackFunction);
+```
+
+## 大文字小文字を無視したルートマッチング
+
+デフォルトでは、ルートとリクエストの解釈は大文字小文字を区別します。ケースを無視したい場合は、次のオプションを有効にしてください。
+
+```cs
+mainRouter.MatchRoutesIgnoreCase = true;
+```
+
+これにより、正規表現マッチングを行うルートに対しても `RegexOptions.IgnoreCase` が有効になります。
+
+## Not Found (404) コールバックハンドラ
+
+リクエストが既知のルートにマッチしない場合にカスタムコールバックを作成できます。
+
+```cs
+mainRouter.NotFoundErrorHandler = () =>
+{
+    return new HttpResponse(404)
+    {
+        // v0.14 以降
+        Content = new HtmlContent("<h1>Not found</h1>")
+        // 旧バージョン
+        Content = new StringContent("<h1>Not found</h1>", Encoding.UTF8, "text/html")
+    };
+};
+```
+
+## Method not allowed (405) コールバックハンドラ
+
+リクエストがパスにはマッチするがメソッドが一致しない場合のカスタムコールバックも作成できます。
+
+```cs
+mainRouter.MethodNotAllowedErrorHandler = (context) =>
+{
+    return new HttpResponse(405)
+    {
+        Content = new StringContent($"Method not allowed for this route.")
+    };
+};
+```
+
+## エラーハンドリング
+
+リクエストライフサイクル内（事前実行リクエストハンドラ、ルーターアクション、事後実行リクエストハンドラおよびバリューハンドラ）で例外がスローされることがあります。これらの例外は以下の仕組みで管理されます。
+
+- [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が `true` の場合、例外は通常通りスローされ、Sisk によって捕捉されません。例外が捕捉されないと HTTP サーバーが中断する可能性があります。
+- [HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が `false` の場合、例外は Sisk によって捕捉・処理されます。その後、`Router.CallbackErrorHandler` が定義されていれば捕捉した例外とリクエストコンテキストで呼び出され、**標準エラー出力には転送されません**。`Router.CallbackErrorHandler` が未定義の場合、例外は標準エラー出力に転送され、クライアントは HTTP 500 エラー応答を受け取ります。標準エラー出力が未定義の場合、エラーは黙って無視されます。
+
+**注意:** `Router.CallbackErrorHandler` 内では、エラー用、アクセスログ用、両方、またはなしのログモードを設定でき、デフォルトのログ書き込み動作を変更できます。
+
+```csharp
+router.CallbackErrorHandler = (ex, ctx) =>
+{
+    ctx.LogMode = LogOutput.Both; // ログモードを上書きし、アクセスログとエラーログの両方にエラーを記録します
+}
+```
+
+## 内部エラーハンドラ
+
+ルートコールバックはサーバー実行中にエラーをスローすることがあります。正しく処理されないと、HTTP サーバー全体の機能が停止する可能性があります。ルーターには、ルートコールバックが失敗したときにサービス中断を防ぐコールバックがあります。
+
+このメソッドは [ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が `false` に設定されている場合にのみ利用可能です。
+
+```cs
+mainRouter.CallbackErrorHandler = (ex, context) =>
+{
+    return new HttpResponse(500)
+    {
+        Content = new StringContent($"Error: {ex.Message}")
+    };
+};
+```
+
+---
+
+# リクエストハンドリング
+
+Source: https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.html
+
+リクエストハンドラは、"ミドルウェア" とも呼ばれ、ルーターでリクエストが実行される前後に実行される関数です。ルート単位またはルーター単位で定義できます。
+
+リクエストハンドラには2種類あります：
+
+- **BeforeResponse**: ルーターアクションを呼び出す前にリクエストハンドラが実行されることを示します。
+- **AfterResponse**: ルーターアクションを呼び出した後にリクエストハンドラが実行されることを示します。このコンテキストで HTTP レスポンスを送信すると、ルーターのアクションレスポンスが上書きされます。
+
+両方のリクエストハンドラは、実際のルーターコールバック関数のレスポンスを上書きできます。なお、リクエストハンドラは、認証やコンテンツなどのリクエストの検証、情報の保存、ログ記録、またはレスポンスの前後に実行できるその他の処理に役立ちます。
+
+![](https://docs.sisk-framework.org/assets/img/requesthandlers1.png)
+
+このように、リクエストハンドラは実行のすべてを中断し、サイクルが完了する前にレスポンスを返すことで、途中の処理をすべて破棄できます。
+
+例: ユーザー認証リクエストハンドラが認証に失敗したとします。この場合、リクエストのライフサイクルは継続できず、処理が停止します。もしこのハンドラが2番目の位置にある場合、3番目以降は評価されません。
+
+![](https://docs.sisk-framework.org/assets/img/requesthandlers2.png)
+
+## リクエストハンドラの作成
+
+リクエストハンドラを作成するには、[IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) インターフェイスを継承したクラスを以下の形式で作成します：
+
+```cs {title="Middleware/AuthenticateUserRequestHandler.cs"}
+public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization != null)
+        {
+            // null を返すと、リクエストサイクルを継続できることを示します
+            return null;
+        }
+        else
+        {
+            // HttpResponse オブジェクトを返すと、このレスポンスが隣接するレスポンスを上書きすることを示します
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+```
+
+上記の例では、リクエストに `Authorization` ヘッダーが存在する場合は処理を継続し、次のリクエストハンドラまたはルーターコールバックが呼び出されることを示しています。プロパティ [ExecutionMode](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.ExecutionMode.md) によりレスポンス後に実行されるリクエストハンドラが非 null の値を返すと、ルーターのレスポンスを上書きします。
+
+リクエストハンドラが `null` を返す場合、リクエストは継続され、次のオブジェクトが呼び出されるか、ルーターのレスポンスでサイクルが終了することを示します。
+
+組み込みの [RequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RequestHandler.md) クラスを継承すると、`Next()` を返すことで意図を明示できます:
+
+```cs
+public class AuthenticateUserRequestHandler : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization is not null)
+            return Next();
+
+        return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+    }
+}
+```
+
+I/O が必要なハンドラは、[AsyncRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.AsyncRequestHandler.md) を継承します:
+
+```cs
+public class LoadUserRequestHandler : AsyncRequestHandler
+{
+    public override async Task<HttpResponse?> ExecuteAsync(HttpRequest request, HttpContext context)
+    {
+        var user = await UserRepository.FindAsync(request.Headers.Authorization, request.DisconnectToken);
+        if (user is null)
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+
+        request.Bag.Set(user);
+        return Next();
+    }
+}
+```
+
+小規模なインラインハンドラは `RequestHandler.Create` または `AsyncRequestHandler.Create` でも作成できます:
+
+```cs
+var requireJson = RequestHandler.Create((request, context) =>
+{
+    if (request.Headers.ContentType?.Contains("application/json") == true)
+        return null;
+
+    return new HttpResponse(System.Net.HttpStatusCode.UnsupportedMediaType);
+});
+```
+
+## 単一ルートにリクエストハンドラを関連付ける
+
+ルートに対して 1 つ以上のリクエストハンドラを定義できます。
+
+```cs {title="Router.cs"}
+mainRouter.Map(RouteMethod.Get, "/", IndexPage, new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler(),     // before request handler
+    new ValidateJsonContentRequestHandler(),  // before request handler
+    //                                        -- method IndexPage will be executed here
+    new WriteToLogRequestHandler()            // after request handler
+});
+```
+
+または [Route](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Route.md) オブジェクトを作成する場合：
+
+```cs {title="Router.cs"}
+Route indexRoute = Route.Get("/", IndexPage);
+indexRoute.RequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+mainRouter.Map(indexRoute);
+```
+
+## ルーターにリクエストハンドラを関連付ける
+
+ルーター上のすべてのルートで実行されるグローバルリクエストハンドラを定義できます。
+
+```cs {title="Router.cs"}
+mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    new AuthenticateUserRequestHandler()
+};
+```
+
+## 属性にリクエストハンドラを関連付ける
+
+メソッド属性とルート属性と一緒に、リクエストハンドラを属性として定義できます。
+
+```cs {title="Controller/MyController.cs"}
+public class MyController
+{
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
+    static HttpResponse Index(HttpRequest request)
+    {
+        return new HttpResponse() {
+            Content = new StringContent("Hello world!")
+        };
+    }
+}
+```
+
+注意点として、オブジェクトインスタンスではなく、目的のリクエストハンドラ型を渡す必要があります。これにより、ルーターパースャーがリクエストハンドラをインスタンス化します。クラスコンストラクタの引数は [ConstructorArguments](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RequestHandlerAttribute.ConstructorArguments.md) プロパティで渡すことができます。
+
+例：
+
+```cs {title="Controller/MyController.cs"}
+[RequestHandler<AuthenticateUserRequestHandler>("arg1", 123, ...)]
+public HttpResponse Index(HttpRequest request)
+{
+    return res = new HttpResponse() {
+        Content = new StringContent("Hello world!")
+    };
+}
+```
+
+RequestHandler を実装した独自の属性も作成できます：
+
+```cs {title="Middleware/Attributes/AuthenticateAttribute.cs"}
+public class AuthenticateAttribute : RequestHandlerAttribute
+{
+    public AuthenticateAttribute() : base(typeof(AuthenticateUserRequestHandler), ConstructorArguments = new object?[] { "arg1", 123, ... })
+    {
+        ;
+    }
+}
+```
+
+そして次のように使用します：
+
+```cs {title="Controller/MyController.cs"}
+[Authenticate]
+static HttpResponse Index(HttpRequest request)
+{
+    return res = new HttpResponse() {
+        Content = new StringContent("Hello world!")
+    };
+}
+```
+
+## グローバルリクエストハンドラをバイパスする
+
+ルートにグローバルリクエストハンドラを定義した後、特定のルートでそのハンドラを無視できます。
+
+```cs {title="Router.cs"}
+var myRequestHandler = new AuthenticateUserRequestHandler();
+mainRouter.GlobalRequestHandlers = new IRequestHandler[]
+{
+    myRequestHandler
+};
+
+Route publicRoute = Route.Get("/", IndexPage);
+publicRoute.Name = "My route";
+publicRoute.BypassGlobalRequestHandlers = new IRequestHandler[]
+{
+    myRequestHandler,                    // ok: the same instance of what is in the global request handlers
+    new AuthenticateUserRequestHandler() // wrong: will not skip the global request handler
+};
+
+mainRouter.Map(publicRoute);
+```
+
+> [!NOTE]
+> リクエストハンドラをバイパスする場合、以前にインスタンス化したものと同じ参照を使用しなければなりません。別のリクエストハンドラインスタンスを作成しても、参照が変わるためグローバルリクエストハンドラはバイパスされません。GlobalRequestHandlers と BypassGlobalRequestHandlers の両方で同じリクエストハンドラ参照を使用することを忘れないでください。
+
+---
+
+# リクエスト
+
+Source: https://docs.sisk-framework.org/ja/docs/fundamentals/requests.html
+
+リクエストは HTTP リクエストメッセージを表す構造体です。 [HttpRequest](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.md) オブジェクトには、アプリケーション全体で HTTP メッセージを処理するための便利な機能が含まれています。
+
+HTTP リクエストは、メソッド、パス、バージョン、ヘッダー、ボディで構成されます。
+
+このドキュメントでは、これらの要素を取得する方法を解説します。
+
+## リクエストメソッドの取得
+
+受信したリクエストのメソッドを取得するには、`Method` プロパティを使用します。
+
+```cs
+static HttpResponse Index(HttpRequest request)
+{
+    HttpMethod requestMethod = request.Method;
+    ...
+}
+```
+
+このプロパティは、[HttpMethod](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.httpmethod) オブジェクトで表されるリクエストのメソッドを返します。
+
+> [!NOTE]
+> ルートメソッドとは異なり、このプロパティは [RouteMethod.Any](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteMethod.md) を返しません。代わりに実際のリクエストメソッドを返します。
+
+## リクエスト URL の各コンポーネント取得
+
+リクエストの特定のプロパティを使用して、URL のさまざまなコンポーネントを取得できます。例として、次の URL を考えます。
+
+```
+http://localhost:5000/user/login?email=foo@bar.com
+```
+
+| コンポーネント名 | 説明 | コンポーネント値 |
+| --- | --- | --- |
+| [Path](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Path.md) | リクエストパスを取得します。 | `/user/login` |
+| [FullPath](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.FullPath.md) | パスとクエリ文字列を取得します。 | `/user/login?email=foo@bar.com` |
+| [FullUrl](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.FullUrl.md) | 完全な URL 文字列を取得します。 | `http://localhost:5000/user/login?email=foo@bar.com` |
+| [Host](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Host.md) | リクエストのホストを取得します。 | `localhost` |
+| [Authority](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Authority.md) | ホストとポートを取得します。 | `localhost:5000` |
+| [QueryString](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.QueryString.md) | クエリ文字列を取得します。 | `?email=foo@bar.com` |
+| [Query](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Query.md) | 名前付き値コレクションとしてクエリを取得します。 | `{StringValueCollection object}` |
+| [IsSecure](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.IsSecure.md) | SSL が使用されているか (true) どうか (false) を判定します。 | `false` |
+
+また、上記すべてを 1 つのオブジェクトとして取得できる [HttpRequest.Uri](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Uri.md) プロパティを使用することもできます。
+
+## リクエストメタデータとキャンセル
+
+Sisk は各リクエストに運用メタデータを付与します。これらのプロパティは、ログ、トレース、ローカリゼーション、診断、長時間実行される操作に役立ちます。
+
+| プロパティまたはメソッド | 用途 |
+| --- | --- |
+| [RequestId](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RequestId.md) | リクエストの一意識別子。`IncludeRequestIdHeader` を有効にすると `X-Request-Id` ヘッダーとして返されます。 |
+| [RequestedAt](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RequestedAt.md) | Sisk がリクエストオブジェクトを作成した瞬間。 |
+| [RemoteAddress](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RemoteAddress.md) | 接続から解決されたクライアントアドレス、または [ForwardingResolver](https://docs.sisk-framework.org/ja/docs/advanced/forwarding-resolvers.md) から取得されたもの。 |
+| [Culture](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Culture.md) | `Accept-Language` から解決された最適なカルチャ。フォールバックは現在のカルチャです。 |
+| [DisconnectToken](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.DisconnectToken.md) | クライアントが切断されたときにシグナルが送られるキャンセルトークン（設定された HTTP エンジンがサポートしている場合）。 |
+| [Bag](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Bag.md) | リクエストハンドラ間やルートアクションで共有される型安全なキー/バリュー ストア。 |
+| [GetRawHttpRequest](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetRawHttpRequest.md) | 診断用のリクエストテキスト表現。 |
+
+## リクエストボディの取得
+
+フォーム、ファイル、API 取引など、ボディを含むリクエストがあります。ボディは次のプロパティで取得できます。
+
+```cs
+// リクエストのエンコーディングを使用して文字列として取得
+string body = request.Body;
+
+// バイト配列として取得
+byte[] bodyBytes = request.RawBody;
+
+// ストリームとして取得
+Stream requestStream = request.GetRequestStream();
+
+// 非同期にボディを取得
+Memory<byte> bodyMemory = await request.GetBodyContentsAsync();
+```
+
+リクエストにボディが存在するか、ロード済みかは、[HasContents](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.HasContents.md)（コンテンツの有無）と [IsContentAvailable](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.IsContentAvailable.md)（サーバーがリモートからコンテンツを完全に受信したか）で判定できます。
+
+`GetRequestStream` を複数回呼び出すことはできません。このメソッドで読み込むと、`RawBody` と `Body` の値も利用できなくなります。リクエストストリームはリクエストコンテキストの終了時に自動的に破棄されるため、明示的に Dispose する必要はありません。また、`HttpRequest.RequestEncoding` プロパティで手動デコードに最適なエンコーディングを取得できます。
+
+サーバーはリクエストコンテンツの読み取りに上限を設けており、これは [HttpRequest.Body](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Body.md) と [HttpRequest.RawBody](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Body.md) の両方に適用されます。これらのプロパティは、[HttpRequest.ContentLength](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.ContentLength.md) と同サイズのローカルバッファへ全入力ストリームをコピーします。
+
+クライアントが送信したコンテンツが [HttpServerConfiguration.MaximumContentLength](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength.md) を超えると、ステータス 413 Content Too Large が返されます。設定された上限が無い、または非常に大きい場合、クライアント送信サイズが [Int32.MaxValue](https://learn.microsoft.com/en-us/dotnet/api/system.int32.maxvalue)（約 2 GB）を超えると、上記プロパティのいずれかにアクセスした時点で [OutOfMemoryException](https://learn.microsoft.com/en-us/dotnet/api/system.outofmemoryexception?view=net-8.0) がスローされます。ストリーミングでの処理は引き続き可能です。
+
+> [!NOTE]
+> Sisk が許可していても、HTTP セマンティクスに従ってアプリケーションを構築し、メソッドが許可しないコンテンツの取得や提供は行わない方が常に安全です。詳細は [RFC 9110 "HTTP Semantics"](https://httpwg.org/spec/rfc9110.html) を参照してください。
+
+## JSON リクエストの読み取り
+
+JSON API では、`Body` を手動で読み取ってデシリアライズする代わりに、組み込みの JSON ヘルパーを使用してください。これらは [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/api/system.text.json) を利用し、デフォルトで [HttpRequest.DefaultJsonSerializerOptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.DefaultJsonSerializerOptions.md) が適用されます。
+
+```cs
+public record CreateUserRequest(string Name, string Email);
+
+router.MapPost("/users", (HttpRequest request) =>
+{
+    CreateUserRequest? body = request.GetJsonContent<CreateUserRequest>();
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+非同期ルートやキャンセルでデシリアライズを中止したい場合は、非同期オーバーロードを使用します。
+
+```cs
+router.MapPost("/users", async (HttpRequest request) =>
+{
+    CreateUserRequest? body =
+        await request.GetJsonContentAsync<CreateUserRequest>(request.DisconnectToken);
+
+    if (body is null)
+        return new HttpResponse(System.Net.HttpStatusCode.BadRequest);
+
+    return new HttpResponse(System.Net.HttpStatusCode.Created);
+});
+```
+
+エンドポイントごとにカスタムの [JsonSerializerOptions](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) を指定することもできます。
+
+```cs
+var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+{
+    PropertyNameCaseInsensitive = true
+};
+
+UserDto? user = request.GetJsonContent<UserDto>(options);
+```
+
+Native AOT やトリミングに敏感なアプリケーションでは、`JsonSerializerContext` が生成する `JsonTypeInfo<T>` オーバーロードを使用します。
+
+```cs
+[JsonSerializable(typeof(CreateUserRequest))]
+public partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+
+CreateUserRequest? body =
+    await request.GetJsonContentAsync(
+        AppJsonSerializerContext.Default.CreateUserRequest,
+        request.DisconnectToken);
+```
+
+JSON ヘルパーにも「一度だけ読み取る」ルールが適用されます。`GetJsonContent`、`GetJsonContentAsync`、`Body`、`RawBody` のいずれかでストリームを読み取った後は、`GetRequestStream()` で同じボディを再度取得することはできません。
+
+## リクエストコンテキストの取得
+
+HTTP コンテキストは、HTTP サーバー、ルート、ルータ、リクエストハンドラ情報を格納する Sisk 固有のオブジェクトです。これにより、散在しがちなオブジェクトを整理しやすくなります。
+
+現在実行中の [HttpContext](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.md) は、静的メソッド `HttpContext.GetCurrentContext()` で取得できます。このメソッドは、現在のスレッドで処理中のリクエストのコンテキストを返します。
+
+```cs
+HttpContext context = HttpContext.GetCurrentContext();
+```
+
+### ログモード
+
+[HttpContext.LogMode](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.LogMode.md) プロパティで、現在のリクエストに対するロギング動作を制御できます。特定のリクエストだけロギングを有効化・無効化し、サーバーのデフォルト設定を上書きできます。
+
+```cs
+// このリクエストのロギングを無効化
+context.LogMode = LogOutputMode.None;
+```
+
+### Request Bag
+
+[RequestBag](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.RequestBag.md) オブジェクトは、リクエストハンドラ間で情報を受け渡すためのストレージで、最終的なコールバックで消費できます。ルートコールバックの後に実行されるハンドラでも利用可能です。
+
+> [!TIP]
+> このプロパティは [HttpRequest.Bag](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Bag.md) からもアクセスできます。
+
+```cs {title="Middleware/AuthenticateUserRequestHandler.cs"}
+public class AuthenticateUserRequestHandler : IRequestHandler
+{
+    public string Identifier { get; init; } = Guid.NewGuid().ToString();
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+    
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        if (request.Headers.Authorization != null)
+        {
+            context.RequestBag.Add("AuthenticatedUser", new User("Bob"));
+            return null;
+        }
+        else
+        {
+            return new HttpResponse(System.Net.HttpStatusCode.Unauthorized);
+        }
+    }
+}
+```
+
+上記ハンドラは `AuthenticatedUser` をリクエストバッグに設定し、最終コールバックで取得できます。
+
+```cs {title="Controller/MyController.cs"}
+public class MyController
+{
+    [RouteGet("/")]
+    [RequestHandler<AuthenticateUserRequestHandler>]
+    static HttpResponse Index(HttpRequest request)
+    {
+        User authUser = request.Context.RequestBag["AuthenticatedUser"];
+        
+        return new HttpResponse() {
+            Content = new StringContent($"Hello, {authUser.Name}!")
+        };
+    }
+}
+```
+
+`Bag.Set()` と `Bag.Get()` ヘルパーで型シングルトン単位の取得・設定も可能です。
+
+`TypedValueDictionary` クラスは `GetValue` と `SetValue` メソッドも提供しています。
+
+```cs {title="Middleware/Authenticate.cs"}
+public class Authenticate : RequestHandler
+{
+    public override HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        request.Bag.Set<User>(authUser);
+    }
+}
+```
+
+```csharp {title="Controller/MyController.cs"}
+[RouteGet("/")]
+[RequestHandler<Authenticate>]
+public static HttpResponse GetUser(HttpRequest request)
+{
+    var user = request.Bag.Get<User>();
+    ...
+}
+```
+
+## フォームデータの取得
+
+以下の例のように、[StringKeyStoreCollection](https://docs.sisk-framework.org/api/Sisk.Core.Entity.StringKeyStoreCollection.md) でフォームデータの値を取得できます。
+
+```cs {title="Controller/Auth.cs"}
+[RoutePost("/auth")]
+public HttpResponse Index(HttpRequest request)
+{
+    var form = request.GetFormContent();
+
+    string? username = form["username"];
+    string? password = form["password"];
+
+    if (AttempLogin(username, password))
+    {
+        ...
+    }
+}
+```
+
+リクエストボディが大きい場合やキャンセル対応が必要な場合は、非同期バージョンを使用します。
+
+```cs
+var form = await request.GetFormContentAsync(request.DisconnectToken);
+```
+
+## マルチパートフォームデータの取得
+
+Sisk の HTTP リクエストでは、ファイルやフォームフィールド、任意のバイナリコンテンツなど、アップロードされたマルチパートコンテンツを取得できます。
+
+```cs {title="Controller/Auth.cs"}
+[RoutePost("/upload-contents")]
+public HttpResponse Index(HttpRequest request)
+{
+    // 以下のメソッドはリクエスト入力全体を
+    // MultipartObject の配列に読み込みます
+    var multipartFormDataObjects = request.GetMultipartFormContent();
+    
+    foreach (MultipartObject uploadedObject in multipartFormDataObjects)
+    {
+        // Multipart フォームデータで提供されたファイル名。
+        // ファイルでない場合は null が返ります。
+        Console.WriteLine("File name       : " + uploadedObject.Filename);
+
+        // フィールド名
+        Console.WriteLine("Field name      : " + uploadedObject.Name);
+
+        // コンテンツ長
+        Console.WriteLine("Content length  : " + uploadedObject.ContentLength);
+
+        // ファイルヘッダーに基づく画像形式の判定。
+        // 既知のコンテンツタイプで認識できない場合は
+        // MultipartObjectCommonFormat.Unknown が返ります。
+        Console.WriteLine("Common format   : " + uploadedObject.GetCommonFileFormat());
+    }
+}
+```
+
+ルートが非同期の場合は、[GetMultipartFormContentAsync](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContentAsync.md) を使用してください。
+
+```cs
+var multipartFormDataObjects =
+    await request.GetMultipartFormContentAsync(request.DisconnectToken);
+```
+
+Sisk の [Multipart form objects](https://docs.sisk-framework.org/api/Sisk.Core.Entity.MultipartObject.md) とそのメソッド、プロパティ、機能の詳細はドキュメントをご参照ください。
+
+## クライアント切断の検出
+
+Sisk v1.15 以降、[HttpRequest.DisconnectToken](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.DisconnectToken.md) によるキャンセルトークンが提供されます。設定された HTTP エンジンが切断検出をサポートしている場合、クライアント接続がレスポンス完了前に閉じられるとこのトークンがキャンセルされます。長時間実行される処理を、クライアントが待機していないときに停止させるのに便利です。
+
+```csharp
+router.MapGet("/connect", async (HttpRequest req) =>
+{
+    // リクエストから切断トークンを取得
+    var dc = req.DisconnectToken;
+
+    await LongOperationAsync(dc);
+
+    return new HttpResponse();
+});
+```
+
+このトークンはすべての HTTP エンジンでサポートされているわけではなく、エンジンごとに実装が必要です。
+
+デフォルトの Sisk エンジン（`System.Net.HttpListener` ベース）はクライアント切断検出をサポートしていません。その場合 `DisconnectToken` は `CancellationToken.None` となり、実質的にキャンセル不可能なトークンとして扱われます。
+
+[Cadente エンジン](https://docs.sisk-framework.org/ja/docs/cadente.md) は `DisconnectToken` をサポートしています。切断感知型のキャンセルが必要な場合は Cadente もしくは同様の機能を実装したエンジンを使用してください。サポートエンジンでもキャンセルは協調的であり、トークンを非同期 API に渡し、独自の長時間処理内でトークンをチェックする必要があります。
+
+## サーバー送信イベント（SSE）サポート
+
+Sisk は [Server-sent events](https://developer.mozilla.org/en-US/docs/jp/Web/API/Server-sent_events) をサポートしており、ストリームとしてチャンクを送信し、サーバーとクライアント間の接続を維持できます。
+
+`HttpRequest.GetEventSource` メソッドを呼び出すと、`HttpRequest` がリスナ状態になります。この状態では、サーバー側イベントによって送信されるパケットが `HttpResponse` と重複しないよう、HTTP リクエストは `HttpResponse` を期待しません。
+
+すべてのパケット送信後、コールバックは [Close](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequestEventSource.Close.md) メソッドを返す必要があります。これにより最終レスポンスがサーバーに送信され、ストリーミングが終了したことが示されます。
+
+`Content‑Length` ヘッダーで接続終了を予測できないため、全パケットの総長さを事前に決めることはできません。
+
+ほとんどのブラウザはデフォルトで GET 以外のヘッダーやメソッドの送信をサポートしないため、イベントソースリクエストで特定ヘッダーが必要な場合は注意が必要です。
+
+また、クライアント側で `EventSource.close` が呼び出されない限り、ほとんどのブラウザはストリームを再開し続け、サーバー側で無限に処理が走り続ける可能性があります。そのため、すべてのパケット送信完了後に「完了」パケットを送るのが一般的です。
+
+以下は、ブラウザ側がサーバー送信イベントを受信する例です。
+
+```html {title="sse-example.html"}
+<html>
+    <body>
+        <b>Fruits:</b>
+        <ul></ul>
+    </body>
+    <script>
+        const evtSource = new EventSource('http://localhost:5555/event-source');
+        const eventList = document.querySelector('ul');
+        
+        evtSource.onmessage = (e) => {
+            const newElement = document.createElement("li");
+
+            newElement.textContent = `message: ${e.data}`;
+            eventList.appendChild(newElement);
+
+            if (e.data == "Tomato") {
+                evtSource.close();
+            }
+        }
+    </script>
+</html>
+```
+
+サーバー側で順次メッセージを送信する例です。
+
+```cs {title="Controller/MyController.cs"}
+public class MyController
+{
+    [RouteGet("/event-source")]
+    public async Task<HttpResponse> ServerEventsResponse(HttpRequest request)
+    {
+        var serverEvents = await request.GetEventSourceAsync ();
+        
+        string[] fruits = new[] { "Apple", "Banana", "Watermelon", "Tomato" };
+        
+        foreach (string fruit in fruits)
+        {
+            await serverEvents.SendAsync(fruit);
+            await Task.Delay(1500);
+        }
+
+        return await serverEvents.CloseAsync();
+    }
+}
+```
+
+このコードを実行すると、以下のような結果が得られます。
+
+<img src="/assets/img/server side events demo.gif" />
+
+## プロキシされた IP とホストの解決
+
+Sisk はプロキシ環境でも使用でき、クライアントからプロキシへの取引において IP アドレスがプロキシエンドポイントに置き換えられることがあります。
+
+[forwarding resolvers](https://docs.sisk-framework.org/ja/docs/advanced/forwarding-resolvers.md) を使用して、独自のリゾルバを定義できます。
+
+## ヘッダーのエンコーディング
+
+一部の実装ではヘッダーのエンコーディングが問題になることがあります。Windows では UTF‑8 ヘッダーがサポートされていないため、ASCII が使用されます。Sisk には誤ってエンコードされたヘッダーをデコードするための組み込みエンコーディングコンバータがあります。
+
+この機能はコストが高く、デフォルトでは無効化されていますが、[HttpServerConfiguration.NormalizeHeadersEncodings](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings.md) で有効化できます。
+
+---
+
+# Responses
+
+Source: https://docs.sisk-framework.org/ja/docs/fundamentals/responses.html
+
+Responses は HTTP リクエストに対する HTTP レスポンスのオブジェクトを表します。サーバーはリソース、ページ、ドキュメント、ファイル、またはその他のオブジェクトへの要求の結果として、クライアントに送信します。
+
+HTTP レスポンスはステータス、ヘッダー、コンテンツで構成されます。
+
+このドキュメントでは、Sisk で HTTP レスポンスを設計する方法を解説します。
+
+## Setting an HTTP status
+
+HTTP ステータス一覧は HTTP/1.0 以来同じで、Sisk はすべてをサポートしています。
+
+```cs
+HttpResponse res = new HttpResponse();
+res.Status = System.Net.HttpStatusCode.Accepted; // 202
+```
+
+または Fluent Syntax を使用して:
+
+```cs
+new HttpResponse()
+    .WithStatus(200) // or
+    .WithStatus(HttpStatusCode.Ok) // or
+    .WithStatus(HttpStatusInformation.Ok);
+```
+
+利用可能な `HttpStatusCode` の完全な一覧は[こちら](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httpstatuscode)で確認できます。独自のステータスコードは [HttpStatusInformation](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpStatusInformation.md) 構造体を使用して指定することもできます。
+
+## Body and content-type
+
+Sisk は .NET のネイティブコンテンツオブジェクトをサポートしており、レスポンスのボディを送信できます。たとえば JSON レスポンスを送る場合は [StringContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.stringcontent) クラスを使用します。
+
+```cs
+HttpResponse res = new HttpResponse();
+res.Content = new StringContent(myJson, Encoding.UTF8, "application/json");
+```
+
+サーバーはヘッダーで明示的に `Content-Length` を定義していない限り、コンテンツから自動的に `Content-Length` を算出しようとします。サーバーがレスポンスコンテンツから暗黙的に `Content-Length` ヘッダーを取得できない場合、レスポンスは Chunked-Encoding で送信されます。
+
+また、[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent) を送信したり、メソッド [GetResponseStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetResponseStream.md) を使用してストリームでレスポンスを返すこともできます。
+
+## Response headers
+
+レスポンスで送信するヘッダーは追加、編集、削除が可能です。以下の例はクライアントへリダイレクトレスポンスを送る方法を示しています。
+
+```cs
+HttpResponse res = new HttpResponse();
+res.Status = HttpStatusCode.Moved;
+res.Headers.Add(HttpKnownHeaderNames.Location, "/login");
+```
+
+または Fluent Syntax を使用して:
+
+```cs
+new HttpResponse(301)
+    .WithHeader("Location", "/login");
+```
+
+`HttpHeaderCollection` の [Add](https://docs.sisk-framework.org/api/Sisk.Core.Entity.HttpHeaderCollection.Add.md) メソッドは、既に送信されているヘッダーを変更せずにヘッダーを追加します。[Set](https://docs.sisk-framework.org/api/Sisk.Core.Entity.HttpHeaderCollection.Set.md) メソッドは同名のヘッダーを指定した値で置き換えます。`HttpHeaderCollection` のインデクサは内部的に Set メソッドを呼び出してヘッダーを置き換えます。
+
+ヘッダー値は [GetHeaderValue](https://docs.sisk-framework.org/api/Sisk.Core.Entity.HttpHeaderCollection.GetHeaderValue.md) メソッドで取得できます。このメソッドはレスポンスヘッダーとコンテンツヘッダー（コンテンツが設定されている場合）の両方から値を取得するのに役立ちます。
+
+```cs
+// Returns the value of the "Content-Type" header, checking both response.Headers and response.Content.Headers
+string? contentType = response.GetHeaderValue("Content-Type");
+```
+
+## Sending cookies
+
+Sisk にはクライアント側のクッキー定義を簡素化するメソッドがあります。このメソッドで設定されたクッキーはすでに URL エンコードされており、RFC-6265 標準に準拠しています。
+
+```cs
+HttpResponse res = new HttpResponse();
+res.SetCookie("cookie-name", "cookie-value");
+```
+
+または Fluent Syntax を使用して:
+
+```cs
+new HttpResponse(301)
+    .WithCookie("cookie-name", "cookie-value", expiresAt: DateTime.Now.Add(TimeSpan.FromDays(7)));
+```
+
+同じメソッドの[より完全なバージョン](https://docs.sisk-framework.org/api/Sisk.Core.Helpers.CookieHelper.SetCookie.md)も用意されています。
+
+## Chunked responses
+
+大きなレスポンスを送信する場合は、転送エンコーディングを chunked に設定できます。
+
+```cs
+HttpResponse res = new HttpResponse();
+res.SendChunked = true;
+```
+
+chunked-encoding を使用すると、`Content-Length` ヘッダーは自動的に省略されます。
+
+## Response stream
+
+レスポンスストリームは、レスポンスを分割して送信できる管理された方法です。`HttpResponse` オブジェクトを使用するより低レベルの操作で、ヘッダーとコンテンツを手動で送信し、最後に接続を閉じる必要があります。
+
+この例はファイルの読み取り専用ストリームを開き、ストリームをレスポンス出力ストリームにコピーし、メモリにファイル全体をロードしません。中規模から大規模なファイルの配信に有用です。
+
+```cs
+// gets the response output stream
+using var fileStream = File.OpenRead("my-big-file.zip");
+var responseStream = request.GetResponseStream();
+
+// sets the response encoding to use chunked-encoding
+// also you shouldn't send content-length header when using
+// chunked encoding
+responseStream.SendChunked = true;
+responseStream.SetStatus(200);
+responseStream.SetHeader(HttpKnownHeaderNames.ContentType, contentType);
+
+// copies the file stream to the response output stream
+fileStream.CopyTo(responseStream.ResponseStream);
+
+// closes the stream
+return responseStream.Close();
+```
+
+## GZip, Deflate and Brotli compression
+
+Sisk では HTTP コンテンツを圧縮してレスポンスを送信できます。まず、`HttpContent` オブジェクトを以下のいずれかの圧縮クラスでラップし、圧縮されたレスポンスをクライアントに送ります。
+
+```cs
+router.MapGet("/hello.html", request => {
+    string myHtml = "...";
+    
+    return new HttpResponse () {
+        Content = new GZipContent(new HtmlContent(myHtml)),
+        // or Content = new BrotliContent(new HtmlContent(myHtml)),
+        // or Content = new DeflateContent(new HtmlContent(myHtml)),
+    };
+});
+```
+
+ストリームでも同様の圧縮コンテンツを使用できます。
+
+```cs
+router.MapGet("/archive.zip", request => {
+    
+    // do not apply "using" here. the HttpServer will discard your content
+    // after sending the response.
+    var archive = File.OpenRead("/path/to/big-file.zip");
+    
+    return new HttpResponse () {
+        Content = new GZipContent(archive)
+    }
+});
+```
+
+`Content-Encoding` ヘッダーはこれらのコンテンツを使用すると自動的に設定されます。
+
+## Automatic compression
+
+`[EnableAutomaticResponseCompression](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression.md)` プロパティを使用すると、HTTP レスポンスを自動的に圧縮できます。このプロパティは、レスポンスが `[CompressedContent](https://docs.sisk-framework.org/api/Sisk.Core.Http.CompressedContent.md)` から継承されていない限り、ルーターからのレスポンスコンテンツをリクエストが受け入れ可能な圧縮コンテンツに自動的にラップします。
+
+リクエストごとに選択される圧縮コンテンツは `Accept-Encoding` ヘッダーに従い、以下の順序で決定されます。
+
+- [BrotliContent](https://docs.sisk-framework.org/api/Sisk.Core.Http.BrotliContent.md) (br)
+- [GZipContent](https://docs.sisk-framework.org/api/Sisk.Core.Http.GZipContent.md) (gzip)
+- [DeflateContent](https://docs.sisk-framework.org/api/Sisk.Core.Http.DeflateContent.md) (deflate)
+
+リクエストがこれらの圧縮方式のいずれかを受け入れることを示すと、レスポンスは自動的に圧縮されます。
+
+## Implicit response types
+
+`HttpResponse` 以外の戻り値型も使用できますが、ルーターに各オブジェクト型の取り扱い方法を設定する必要があります。
+
+概念としては、常に参照型を返し、それを有効な `HttpResponse` オブジェクトに変換します。`HttpResponse` を返すルートは変換が行われません。
+
+値型（構造体）は `[RouterCallback](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouterCallback.md)` と互換性がないため、ハンドラで使用するには `ValueResult` にラップする必要があります。
+
+以下は `HttpResponse` を戻り値に使用しないルーターモジュールの例です。
+
+```cs
+[RoutePrefix("/users")]
+public class UsersController : RouterModule
+{
+    public List<User> Users = new List<User>();
+
+    [RouteGet]
+    public IEnumerable<User> Index(HttpRequest request)
+    {
+        return Users.ToArray();
+    }
+
+    [RouteGet("<id>")]
+    public User View(HttpRequest request)
+    {
+        int id = request.RouteParameters["id"].GetInteger();
+        User dUser = Users.First(u => u.Id == id);
+
+        return dUser;
+    }
+
+    [RoutePost]
+    public ValueResult<bool> Create(HttpRequest request)
+    {
+        User fromBody = request.GetJsonContent<User>()!;
+        Users.Add(fromBody);
+        
+        return true;
+    }
+}
+```
+
+これにより、ルーター側で各オブジェクト型の処理方法を定義する必要があります。ハンドラの最初の引数は常にオブジェクトで、出力型は有効な `HttpResponse` でなければなりません。また、ルートの出力オブジェクトは `null` にすべきではありません。
+
+`ValueResult` 型の場合、入力オブジェクトが `ValueResult` であることや `T` だけを示す必要はありません。`ValueResult` は元のコンポーネントから反映されたオブジェクトです。
+
+型の関連付けは、ルーターコールバックから返されたオブジェクトの型と登録された型を比較するのではなく、ルーター結果の型が登録型に代入可能かどうかをチェックします。
+
+`Object` 型のハンドラを登録すると、以前に検証されていないすべての型のフォールバックとして機能します。値ハンドラの挿入順序も重要で、`Object` ハンドラを登録すると他の型固有ハンドラが無視されます。順序を保証するため、常に具体的な値ハンドラを先に登録してください。
+
+```cs
+Router r = new Router();
+r.MapInstance(new UsersController());
+
+r.RegisterValueHandler<ApiResult>(apiResult =>
+{
+    return new HttpResponse() {
+        Status = apiResult.Success ? HttpStatusCode.OK : HttpStatusCode.BadRequest,
+        Content = apiResult.GetHttpContent(),
+        Headers = apiResult.GetHeaders()
+    };
+});
+r.RegisterValueHandler<bool>(bvalue =>
+{
+    return new HttpResponse() {
+        Status = bvalue ? HttpStatusCode.OK : HttpStatusCode.BadRequest
+    };
+});
+r.RegisterValueHandler<IEnumerable<object>>(enumerableValue =>
+{
+    return new HttpResponse(string.Join("\n", enumerableValue));
+});
+
+// registering an value handler of object must be the last
+// value handler which will be used as an fallback
+r.RegisterValueHandler<object>(fallback =>
+{
+    return new HttpResponse() {
+        Status = HttpStatusCode.OK,
+        Content = JsonContent.Create(fallback)
+    };
+});
+```
+
+## Deferred Actions
+
+リクエストがルーターに到達すると、まず [request handlers](https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.md) を通過し、ルーターアクションで処理され、続いてポスト実行リクエストハンドラが実行されます。ルーターアクションの結果は値ハンドラに渡され、値ハンドラの結果がクライアントへのレスポンスとして送信されます。
+
+このライフサイクルは非同期コンテキスト内で行われます。非同期コンテキストは、ハンドラ間やルーターアクション間でデータを共有するためにユーザーが `[HttpContext Bag](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.md)` に追加できる変数を公開します。ルーターアクションの戻り値はこの非同期コンテキストに追加され、値ハンドラからアクセス可能です。
+
+Deferred actions は、クライアントへのレスポンス配信後、同じ非同期コンテキスト内でサイクルの最後に必ず実行されるアクションです。これらは、ログ保存、データベース更新、メール送信など、レスポンス送信に必須でない長時間タスクの実行に利用できます。
+
+例外は Deferred actions 内でも捕捉され、リクエストライフサイクルの他の場所でスローされた場合と同様に処理されます。違いはクライアントがすでにレスポンスを受け取っている点で、例外はデフォルトのエラーハンドリングで処理されます。
+
+`[HttpContext.EnqueueDeferredAction](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.EnqueueDeferredAction.md)` メソッドでアクションの実行を遅延させます。このメソッドは、実行すべき非同期関数と、オプションで実行時間の上限を表すタイムアウトを受け取ります。タイムアウト内に完了しない場合はキャンセルされます。
+
+```csharp
+[RoutePost("/send-mail")]
+public HttpResponse SendMail(HttpRequest request)
+{
+    string to = request.Query["to"].GetString();
+    string subject = request.Query["subject"].GetString();
+    string body = request.Query["body"].GetString();
+    if (string.IsNullOrWhiteSpace(to) || string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(body))
+    {
+        throw new ApiException("Missing required parameters.");
+    }
+
+    // schedules a long-running action that will be executed after sending the response to the client, but still within the same asynchronous context of the request
+    request.Context.EnqueueDeferredAction(async (ct) =>
+    {
+        await EmailService.SendEmailAsync(to, subject, body);
+    }, timeout: TimeSpan.FromSeconds(30));
+
+    return new HttpResponse()
+    {
+        Status = 200,
+        Content = new StringContent("Sending the email...")
+    };
+}
+```
+
+## Note on enumerable objects and arrays
+
+`IEnumerable` を実装した暗黙的なレスポンスオブジェクトは、定義された値ハンドラを通す前に `ToArray()` メソッドでメモリ上に読み込まれます。この際、`IEnumerable` オブジェクトはオブジェクト配列に変換され、レスポンスコンバータは常に `Object[]` を受け取ります。
+
+以下のシナリオを考えてみましょう。
+
+```csharp
+using var host = HttpServer.CreateBuilder(12300)
+    .UseRouter(r =>
+    {
+        r.RegisterValueHandler<IEnumerable<string>>(stringEnumerable =>
+        {
+            return new HttpResponse("String array:\n" + string.Join("\n", stringEnumerable));
+        });
+        r.RegisterValueHandler<IEnumerable<object>>(stringEnumerable =>
+        {
+            return new HttpResponse("Object array:\n" + string.Join("\n", stringEnumerable));
+        });
+        r.MapGet("/", request =>
+        {
+            return (IEnumerable<string>)["hello", "world"];
+        });
+    })
+    .Build();
+```
+
+上記例では、`IEnumerable<string>` コンバータは **決して呼び出されません**。入力オブジェクトは常に `Object[]` となり、`IEnumerable<string>` に変換できないためです。一方、`IEnumerable<object>` を受け取るコンバータは入力を受け取ります。これはその型が互換性を持つためです。
+
+列挙可能なオブジェクトの型そのものを扱う必要がある場合は、コレクション要素の型を取得するためにリフレクションを使用する必要があります。すべての列挙可能オブジェクト（リスト、配列、コレクション）は HTTP レスポンスコンバータによってオブジェクト配列に変換されます。
+
+`IAsyncEnumerable` を実装した値は、`[ConvertIAsyncEnumerableIntoEnumerable](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable.md)` プロパティが有効になっている場合、サーバーが自動的に処理します。これは `IEnumerable` と同様の動作で、デフォルトで `HttpServerConfiguration` に有効化されています。非同期列挙はブロッキング列挙子に変換され、さらに同期的なオブジェクト配列に変換されます。独自の値ハンドラや非同期シーケンス用のストリーミングレスポンス戦略を提供する場合にのみ、無効化してください。
+
+---
+
+# ロギング
+
+Source: https://docs.sisk-framework.org/ja/docs/features/logging.html
+
+Sisk を構成して、アクセスログとエラーログを自動的に書き込むことができます。ログのローテーション、拡張子、頻度を定義することが可能です。
+
+[LogStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.LogStream.md) クラスは、非同期的にログを書き込み、await 可能な書き込みキューに保持する方法を提供します。`LogStream` クラスは `IAsyncDisposable` を実装しており、ストリームが閉じられる前に保留中のすべてのログが書き込まれることを保証します。
+
+この記事では、アプリケーションのロギングを構成する方法を示します。
+
+## ファイルベースのアクセスログ
+
+ファイルへのログは、ファイルを開き、行テキストを書き込み、書き込まれた各行ごとにファイルを閉じます。この手順は、ログの書き込み応答性を維持するために採用されました。
+
+```cs {title="Program.cs"}
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseConfiguration(config => {
+                config.AccessLogsStream = new LogStream("logs/access.log");
+            })
+            .Build();
+        
+        ...
+        
+        await app.StartAsync();
+    }
+}
+```
+
+上記のコードは、すべての受信リクエストを `logs/access.log` ファイルに書き込みます。ファイルが存在しない場合は自動的に作成されますが、フォルダーは作成されません。`LogStream` クラスが自動的にフォルダーを作成するため、`logs/` ディレクトリを手動で作成する必要はありません。
+
+## ストリームベースのロギング
+
+コンストラクターに `TextWriter` オブジェクトを渡すことで、`Console.Out` などの `TextWriter` インスタンスにログファイルを書き込むことができます。
+
+```cs {title="Program.cs"}
+using var app = HttpServer.CreateBuilder()
+    .UseConfiguration(config => {
+        config.AccessLogsStream = new LogStream(Console.Out);
+    })
+    .Build();
+```
+
+ストリームベースのログに書き込まれる各メッセージについて、`TextWriter.Flush()` メソッドが呼び出されます。
+
+## アクセスログのフォーマット
+
+事前定義された変数でアクセスログのフォーマットをカスタマイズできます。次の行を考えてみてください。
+
+```cs
+config.AccessLogsFormat = "%dd/%dmm/%dy %tH:%ti:%ts %tz %ls %ri %rs://%ra%rz%rq [%sc %sd] %lin -> %lou in %lmsms [%{user-agent}]";
+```
+
+次のようなメッセージが書き込まれます。
+
+```
+    29/mar./2023 15:21:47 -0300 Executed ::1 http://localhost:5555/ [200 OK] 689B -> 707B in 84ms [Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36]
+```
+
+以下の表に記載されたフォーマットでログファイルを整形できます。
+
+| Value  | What it represents                                            | Example                               |
+|--------|---------------------------------------------------------------|---------------------------------------|
+| %dd    | 月の日（2桁でフォーマット）                                    | 05                                    |
+| %dmmm  | 月のフルネーム                                                | July                                  |
+| %dmm   | 月の省略名（3文字）                                            | Jul                                   |
+| %dm    | 月番号（2桁でフォーマット）                                    | 07                                    |
+| %dy    | 年（4桁でフォーマット）                                        | 2023                                  |
+| %th    | 12時間制の時間                                                | 03                                    |
+| %tH    | 24時間制の時間（HH）                                          | 15                                    |
+| %ti    | 分（2桁でフォーマット）                                        | 30                                    |
+| %ts    | 秒（2桁でフォーマット）                                        | 45                                    |
+| %tm    | ミリ秒（3桁でフォーマット）                                    | 123                                   |
+| %tz    | タイムゾーンオフセット（UTCの合計時間）                        | +03:00                                |
+| %ri    | クライアントのリモートIPアドレス                               | 192.168.1.100                         |
+| %rm    | HTTPメソッド（大文字）                                        | GET                                   |
+| %rs    | URIスキーム（http/https）                                    | https                                 |
+| %ra    | URIオーソリティ（ドメイン）                                   | example.com                           |
+| %rh    | リクエストのホスト                                            | www.example.com                       |
+| %rp    | リクエストのポート                                            | 443                                   |
+| %rz    | リクエストのパス                                              | /path/to/resource                     |
+| %rq    | クエリ文字列                                                  | ?key=value&another=123                |
+| %sc    | HTTPレスポンスステータスコード                                 | 200                                   |
+| %sd    | HTTPレスポンスステータスの説明                               | OK                                    |
+| %lin   | リクエストの人間可読サイズ                                    | 1.2 KB                                |
+| %linr  | リクエストの生サイズ（バイト）                                 | 1234                                  |
+| %lou   | レスポンスの人間可読サイズ                                    | 2.5 KB                                |
+| %lour  | レスポンスの生サイズ（バイト）                                 | 2560                                  |
+| %lms   | 経過時間（ミリ秒）                                            | 120                                   |
+| %ls    | 実行ステータス                                                | Executed                              |
+| %{header-name}    | リクエストの `header-name` ヘッダーを表す。                     | `Mozilla/5.0 (platform; rv:gecko [...]` |
+| %{:header-name}    | レスポンスの `header-name` ヘッダーを表す。                     | `application/json`                    |
+
+`HttpServerConfiguration.DefaultAccessLogFormat` を使用して、デフォルトのアクセスログフォーマットを利用することもできます。
+
+## ログのローテーション
+
+HTTP サーバーを構成して、ログファイルが一定サイズに達したときに圧縮された .gz ファイルにローテーションさせることができます。サイズは、定義したしきい値で定期的にチェックされます。
+
+```cs
+LogStream errorLog = new LogStream("logs/error.log")
+    .ConfigureRotatingPolicy(
+        maximumSize: 64 * SizeHelper.UnitMb,
+        dueTime: TimeSpan.FromHours(6));
+```
+
+上記のコードは、6 時間ごとに LogStream のファイルが 64 MB の上限に達しているかをチェックします。上限に達していれば、ファイルは .gz に圧縮され、その後 `access.log` が削除されます。
+
+この処理中は、ファイルが圧縮・削除されるまで書き込みがロックされます。この期間に書き込まれようとしたすべての行は、圧縮完了を待つキューに入れられます。
+
+この機能はファイルベースの LogStream のみで動作します。
+
+## エラーロギング
+
+サーバーがデバッガーにエラーを送出しない場合、エラーが存在すればログ書き込みに転送されます。エラー書き込みは次のように構成できます。
+
+```cs
+config.ThrowExceptions = false;
+config.ErrorsLogsStream = new LogStream("error.log");
+```
+
+このプロパティは、エラーがコールバックまたは [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティで捕捉されていない場合にのみ、ログに何かを書き込みます。
+
+サーバーが書き込むエラーは常に日時、リクエストヘッダー（ボディは除く）、エラートレース、そして内部例外トレース（存在する場合）を記録します。
+
+## その他のロギングインスタンス
+
+アプリケーションはゼロ個または複数の LogStream を持つことができ、ログチャンネルの数に制限はありません。したがって、デフォルトの AccessLog や ErrorLog 以外のファイルにアプリケーションのログを出力することも可能です。
+
+```cs
+LogStream appMessages = new LogStream("messages.log");
+appMessages.WriteLine("Application started at {0}", DateTime.Now);
+```
+
+## LogStream の拡張
+
+`LogStream` クラスを拡張して、現在の Sisk ログエンジンと互換性のあるカスタムフォーマットを書き込むことができます。以下の例は、Spectre.Console ライブラリを通じてコンソールにカラフルなメッセージを書き込む方法を示しています。
+
+```cs {title="CustomLogStream.cs"}
+public class CustomLogStream : LogStream
+{
+    protected override void WriteLineInternal(string line)
+    {
+        base.WriteLineInternal($"[{DateTime.Now:g}] {line}");
+    }
+}
+```
+
+各リクエスト/レスポンスごとにカスタムログを自動的に書き込む別の方法は、[HttpServerHandler](https://docs.sisk-framework.org/api/Sisk.Core.Http.Handlers.HttpServerHandler.md) を作成することです。以下の例はやや完全な形です。リクエストとレスポンスの本文を JSON 形式でコンソールに書き込みます。リクエスト全体のデバッグに役立ちます。この例は ContextBag と HttpServerHandler を使用しています。
+
+```cs {title="Program.cs"}
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        var app = HttpServer.CreateBuilder(host =>
+        {
+            host.UseListeningPort(5555);
+            host.UseHandler<JsonMessageHandler>();
+        });
+
+        app.Router.MapAny("/json", request =>
+        {
+            return new HttpResponse()
+                .WithContent(JsonContent.Create(new
+                {
+                    method = request.Method.Method,
+                    path = request.Path,
+                    specialMessage = "Hello, world!!"
+                }));
+        });
+
+        await app.StartAsync();
+    }
+}
+```
+
+```cs {title="JsonMessageHandler.cs"}
+class JsonMessageHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestOpen(HttpRequest request)
+    {
+        if (request.Method != HttpMethod.Get && request.Headers["Content-Type"]?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
+        {
+            // この時点で接続はオープンしており、クライアントはコンテンツが JSON であることを示すヘッダーを送信しています。
+            // 以下の行はコンテンツを読み取り、リクエストに保持させます。
+            //
+            // リクエスト処理でコンテンツが読み取られない場合、GC がレスポンス送信後にコンテンツを回収する可能性があり、
+            // レスポンスが閉じられた後にコンテンツが利用できなくなることがあります。
+            //
+            _ = request.RawBody;
+
+            // コンテキストにヒントを追加し、このリクエストが JSON ボディを持つことを示します
+            request.Bag.Add("IsJsonRequest", true);
+        }
+    }
+
+    protected override async void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        string? requestJson = null,
+                responseJson = null,
+                responseMessage;
+
+        if (result.Request.Bag.ContainsKey("IsJsonRequest"))
+        {
+            // CypherPotato.LightJson ライブラリを使用して JSON を整形します
+            var content = result.Request.Body;
+            requestJson = JsonValue.Deserialize(content, new JsonOptions() { WriteIndented = true }).ToString();
+        }
+        
+        if (result.Response is { } response)
+        {
+            var content = response.Content;
+            responseMessage = $"{(int)response.Status} {HttpStatusInformation.GetStatusCodeDescription(response.Status)}";
+            
+            if (content is HttpContent httpContent &&
+                // レスポンスが JSON かどうかをチェック
+                httpContent.Headers.ContentType?.MediaType?.Contains("json", StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                string json = await httpContent.ReadAsStringAsync();
+                responseJson = JsonValue.Deserialize(json, new JsonOptions() { WriteIndented = true }).ToString();
+            }
+        }
+        else
+        {
+            // 内部サーバー処理ステータスを取得
+            responseMessage = result.Status.ToString();
+        }
+        
+        StringBuilder outputMessage = new StringBuilder();
+
+        if (requestJson != null)
+        {
+            outputMessage.AppendLine("-----");
+            outputMessage.AppendLine($">>> {result.Request.Method} {result.Request.Path}");
+
+            if (requestJson is not null)
+                outputMessage.AppendLine(requestJson);
+        }
+
+        outputMessage.AppendLine($"<<< {responseMessage}");
+
+        if (responseJson is not null)
+            outputMessage.AppendLine(responseJson);
+
+        outputMessage.AppendLine("-----");
+
+        await Console.Out.WriteLineAsync(outputMessage.ToString());
+    }
+}
+```
+
+---
+
+# サーバー送信イベント
+
+Source: https://docs.sisk-framework.org/ja/docs/features/server-sent-events.html
+
+Sisk は、Server Sent Events を使用したメッセージ送信を標準でサポートしています。使い捨ておよび永続的な接続を作成でき、実行時に接続を取得して使用することができます。
+
+この機能には、ブラウザーが課すいくつかの制限があります。たとえば、テキストメッセージのみ送信でき、接続を永続的に閉じることができません。サーバー側で接続が閉じられた場合、クライアントは 5 秒ごと（ブラウザーによっては 3 秒ごと）に再接続を試みます。
+
+これらの接続は、クライアントが毎回情報を要求することなく、サーバーからクライアントへイベントを送信するのに便利です。
+
+## SSE 接続の作成
+
+SSE 接続は通常の HTTP リクエストと同様に動作しますが、レスポンスを送信してすぐに接続を閉じるのではなく、メッセージを送信できるように接続を開いたままにします。
+
+[HttpRequest.GetEventSource()](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetEventSource.md) メソッドを呼び出すと、SSE インスタンスが作成される間、リクエストは待機状態になります。
+
+```cs
+r.MapGet("/", (req) =>
+{
+    using var sse = req.GetEventSource();
+
+    sse.Send("Hello, world!");
+
+    return sse.Close();
+});
+```
+
+上記のコードでは、SSE 接続を作成し、"Hello, world" メッセージを送信し、サーバー側から SSE 接続を閉じています。
+
+> [!NOTE]
+> サーバー側の接続を閉じると、デフォルトではクライアントは再度接続しようとし、接続が再開されてメソッドが永遠に再実行されます。
+>
+> 接続がサーバー側で閉じられた際に、クライアントが再接続しようとしないように、サーバーから終了メッセージを転送するのが一般的です。
+
+## ヘッダーの追加
+
+ヘッダーを送信する必要がある場合は、メッセージを送信する前に [HttpRequestEventSource.AppendHeader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpRequestEventSource.AppendHeader.md) メソッドを使用できます。
+
+```cs
+r.MapGet("/", (req) =>
+{
+    using var sse = req.GetEventSource();
+    sse.AppendHeader("Header-Key", "Header-value");
+
+    sse.Send("Hello!");
+
+    return sse.Close();
+});
+```
+
+ヘッダーはメッセージを送信する前に送信する必要があることに注意してください。
+
+## Wait-For-Fail 接続
+
+接続は、クライアント側の切断が原因でサーバーがメッセージを送信できなくなると通常は終了します。この場合、接続は自動的に終了し、クラスのインスタンスは破棄されます。
+
+再接続が行われても、クラスのインスタンスは前の接続に紐付いているため機能しません。状況によっては、後でこの接続が必要になることがあり、ルートのコールバックメソッドで管理したくない場合があります。
+
+そのため、SSE 接続に識別子を付けて後で取得できるようにし、ルートのコールバック外でも使用できます。また、接続を [WaitForFail](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpRequestEventSource.WaitForFail.md) でマークすることで、ルートを終了させずに接続を自動的に終了させません。
+
+`WaitForFail` 状態の SSE 接続は、切断による送信エラーまたは設定されたアイドル許容時間が経過するのを待ち、ルートが再開されて接続が閉じられます。
+
+```cs
+r.MapGet("/", (req) =>
+{
+    using var sse = req.GetEventSource("my-index-connection");
+
+    sse.WaitForFail(TimeSpan.FromSeconds(15)); // メッセージが無い状態で 15 秒待機し、接続を終了する前に待ちます
+
+    return sse.Close();
+});
+```
+
+上記のメソッドは接続を作成し、処理を行い、切断またはエラーを待ちます。
+
+```cs
+HttpRequestEventSource? evs = server.EventSources.GetByIdentifier("my-index-connection");
+if (evs != null)
+{
+    // 接続はまだ生きています
+    evs.Send("Hello again!");
+}
+```
+
+上記のスニペットは新しく作成された接続を探し、存在すればメッセージを送信します。
+
+識別されたすべてのアクティブなサーバー接続はコレクション [HttpServer.EventSources](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.EventSources.md) で利用可能です。このコレクションはアクティブで識別された接続のみを保持し、閉じられた接続はコレクションから削除されます。
+
+> [!NOTE]
+> keep-alive には、Web プロキシや HTTP カーネル、ネットワークドライバーなど、制御できない形で Sisk に接続するコンポーネントが設定する制限があり、一定時間アイドル状態が続くと接続が閉じられることに注意が必要です。
+>
+> したがって、定期的に ping を送信するか、接続が閉じられるまでの最大時間を延長して接続を開いたままにすることが重要です。次のセクションで定期的な ping の送信について詳しく説明します。
+
+## 接続 ping ポリシーの設定
+
+Ping ポリシーは、クライアントに定期的なメッセージを自動的に送信する方法です。この機能により、サーバーは接続を無期限に開いたままにせず、クライアントが切断したことを検知できます。
+
+```cs
+[RouteGet("/sse")]
+public async Task<HttpResponse> Events(HttpRequest request)
+{
+    using var sse = await request.GetEventSourceAsync("user-events");
+    sse.WithPing(ping =>
+    {
+        ping.DataMessage = "ping-message";
+        ping.Interval = TimeSpan.FromSeconds(5);
+        ping.Start();
+    });
+    
+    await sse.WaitForFailAsync(TimeSpan.FromMinutes(10));
+    return await sse.CloseAsync();
+}
+```
+
+上記のコードでは、5 秒ごとに新しい ping メッセージがクライアントに送信されます。これにより TCP 接続が維持され、アイドル状態による切断を防止します。また、メッセージの送信に失敗した場合、接続は自動的に閉じられ、接続で使用されていたリソースが解放されます。
+
+非同期ルートでは [SendAsync](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpRequestEventSource.SendAsync.md) と [CloseAsync](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpRequestEventSource.CloseAsync.md) を使用してください。閉じる前にキューに入ったイベントを破棄する必要がある場合は [Cancel](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpRequestEventSource.Cancel.md) を呼び出します。
+
+## 接続のクエリ
+
+たとえばブロードキャストを行うために、接続識別子に対する述語を使用してアクティブな接続を検索できます。
+
+```cs
+HttpRequestEventSource[] evs = server.EventSources.Find(es => es.StartsWith("my-connection-"));
+foreach (HttpRequestEventSource e in evs)
+{
+    e.Send("Broadcasting to all event sources that starts with 'my-connection-'");
+}
+```
+
+また、[All](https://docs.sisk-framework.org/api/Sisk.Core.Http.Streams.HttpEventSourceCollection.All.md) メソッドを使用して、すべてのアクティブな SSE 接続を取得することもできます。
+
+---
+
+# Web ソケット
+
+Source: https://docs.sisk-framework.org/ja/docs/features/websockets.html
+
+Sisk は Web ソケットもサポートしており、クライアントとのメッセージの受信・送信が可能です。
+
+この機能はほとんどのブラウザで問題なく動作しますが、Sisk ではまだ実験的な段階です。バグを見つけた場合は、GitHub で報告してください。
+
+## メッセージの受信
+
+WebSocket のメッセージは順番通りに受信され、`ReceiveMessageAsync` によって処理されるまでキューに保持されます。このメソッドは、タイムアウトに達したとき、操作がキャンセルされたとき、またはクライアントが切断されたときにメッセージを返しません。
+
+同時に読み取りと書き込みの操作は一つしか行えないため、`ReceiveMessageAsync` でメッセージを待機している間は、接続されたクライアントへ書き込むことはできません。
+
+```cs
+router.MapGet("/connect", async (HttpRequest req) =>
+{
+    using var ws = await req.GetWebSocketAsync();
+    
+    while (await ws.ReceiveMessageAsync(timeout: TimeSpan.FromSeconds(30)) is { } receivedMessage)
+    {
+        string msgText = receivedMessage.GetString();
+        Console.WriteLine("Received message: " + msgText);
+
+        await ws.SendAsync("Hello!");
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+## 永続的接続
+
+以下の例は、メッセージを受信し処理した後にソケットを終了する、永続的な WebSocket 接続の使い方を示しています。
+
+```cs
+router.MapGet("/connect", async (HttpRequest req) =>
+{
+    using var ws = await req.GetWebSocketAsync();
+    WebSocketMessage? msg;
+
+askName:
+    await ws.SendAsync("What is your name?");
+    msg = await ws.ReceiveMessageAsync();
+
+    if (msg is null)
+        return await ws.CloseAsync();
+
+    string name = msg.GetString();
+
+    if (string.IsNullOrEmpty(name))
+    {
+        await ws.SendAsync("Please, insert your name!");
+        goto askName;
+    }
+
+askAge:
+    await ws.SendAsync("And your age?");
+    msg = await ws.ReceiveMessageAsync();
+
+    if (msg is null)
+        return await ws.CloseAsync();
+
+    if (!Int32.TryParse(msg?.GetString(), out int age))
+    {
+        await ws.SendAsync("Please, insert an valid number");
+        goto askAge;
+    }
+
+    await ws.SendAsync($"You're {name}, and you are {age} old.");
+
+    return await ws.CloseAsync();
+});
+```
+
+## Ping ポリシー
+
+Server Side Events の Ping ポリシーと同様に、非アクティブ時に TCP 接続を維持するための Ping ポリシーを設定できます。
+
+```cs
+ws.PingPolicy.Start(
+    dataMessage: "ping-message",
+    interval: TimeSpan.FromSeconds(10));
+```
+
+## 管理された接続
+
+WebSocket を受け入れる際に識別子を指定できます。識別子付きソケットは [HttpServer.WebSockets](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.WebSockets.md) に登録され、受け入れたルート以外からでもサーバーがアクティブな接続を検索できるようになります。
+
+```cs
+router.MapGet("/connect/<userId>", async (HttpRequest req) =>
+{
+    string userId = req.RouteParameters["userId"].GetString();
+
+    using var ws = await req.GetWebSocketAsync(identifier: $"user:{userId}");
+    ws.State = userId;
+
+    ws.PingPolicy.Start(
+        dataMessage: "ping",
+        interval: TimeSpan.FromSeconds(10));
+
+    while (await ws.ReceiveMessageAsync(TimeSpan.FromMinutes(5)) is { } message)
+    {
+        await ws.SendAsync("Received: " + message.GetString());
+    }
+
+    return await ws.CloseAsync();
+});
+```
+
+アプリケーションの別の部分から、識別子または述語でコレクションを検索します。
+
+```cs
+HttpWebSocket? socket = server.WebSockets.GetByIdentifier("user:42");
+if (socket is { IsClosed: false })
+{
+    await socket.SendAsync("Your report is ready.");
+}
+
+foreach (HttpWebSocket activeSocket in server.WebSockets.Find(id => id.StartsWith("user:")))
+{
+    await activeSocket.SendAsync("Broadcast message");
+}
+```
+
+各 `HttpWebSocket` は `Identifier`、`State`、`IsClosed`、`PingPolicy` を公開します。コレクションは `All()`、`Find(...)`、`GetByIdentifier(...)`、`ActiveConnections`、`DropAll()` も提供し、サーバー管理型接続戦略をサポートします。
+
+---
+
+# 捨てられる構文
+
+Source: https://docs.sisk-framework.org/ja/docs/features/discard-syntax.html
+
+HTTPサーバーは、OAuth認証などのアクションからのコールバック要求を待ち受けるために使用でき、要求を受け取った後には捨てられる。この機能は、バックグラウンドアクションが必要だが、HTTPアプリケーションを設定したくない場合に便利です。
+
+以下の例は、[CreateListener](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.CreateListener.md) を使用してポート5555でHTTPサーバーを作成し、次のコンテキストを待機する方法を示しています。
+
+```csharp
+using (var server = HttpServer.CreateListener(5555))
+{
+    // 次のHTTP要求を待機
+    var context = await server.WaitNextAsync();
+    Console.WriteLine($"要求されたパス: {context.Request.Path}");
+}
+```
+
+[WaitNext](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.WaitNext.md) 関数は、完了した要求処理の次のコンテキストを待機します。この操作の結果が取得されると、サーバーはすでに要求を完全に処理し、クライアントに応答を送信しています。
+
+---
+
+# 依存性の注入
+
+Source: https://docs.sisk-framework.org/ja/docs/features/instancing.html
+
+リクエストの有効期間中に存在するメンバーとインスタンス（たとえば、データベース接続、認証済みユーザー、またはセッショントークン）を指定することは一般的です。可能な方法の1つは、[HttpContext.RequestBag](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.md)を使用することです。これは、リクエストの有効期間中に存在する辞書を作成します。
+
+この辞書は、[リクエストハンドラー](https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.md)によってアクセスされ、リクエスト全体で変数を定義するために使用できます。たとえば、ユーザーを認証するリクエストハンドラーは、`HttpContext.RequestBag`内にユーザーを設定し、リクエストロジック内では、`HttpContext.RequestBag.Get<User>()`を使用してこのユーザーを取得できます。
+
+この辞書に定義されたオブジェクトは、リクエストのライフサイクルにスコープされます。リクエストの終了時に破棄されます。レスポンスの送信が必ずしもリクエストのライフサイクルの終了を定義するわけではありません。レスポンスの送信後に実行される[リクエストハンドラー](https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.md)が実行されるとき、`RequestBag`オブジェクトはまだ存在し、破棄されていません。
+
+以下は例です：
+
+```csharp {title="RequestHandlers/AuthenticateUser.cs"}
+public class AuthenticateUser : IRequestHandler
+{
+    public RequestHandlerExecutionMode ExecutionMode { get; init; } = RequestHandlerExecutionMode.BeforeResponse;
+    
+    public HttpResponse? Execute(HttpRequest request, HttpContext context)
+    {
+        User authenticatedUser = AuthenticateUser(request);
+        context.RequestBag.Set(authenticatedUser);
+        return null; // 次のリクエストハンドラーまたはリクエストロジックに進む
+    }
+}
+```
+
+```csharp {title="Controllers/HelloController.cs"}
+[RouteGet("/hello")]
+[RequestHandler<AuthenticateUser>]
+public HttpResponse SayHello(HttpRequest request)
+{
+    var authenticatedUser = request.Bag.Get<User>();
+    return new HttpResponse()
+    {
+        Content = new StringContent($"Hello {authenticatedUser.Name}!")
+    };
+}
+```
+
+これは、この操作の初期的な例です。`User`のインスタンスは、認証用のリクエストハンドラー内で作成されましたが、このリクエストハンドラーを使用するすべてのルートには、`HttpContext.RequestBag`のインスタンス内に`User`が存在することが保証されます。
+
+`RequestBag`に事前に定義されていないインスタンスを取得するロジックを定義するには、[GetOrAdd](https://docs.sisk-framework.org/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAdd.md)や[GetOrAddAsync](https://docs.sisk-framework.org/api/Sisk.Core.Entity.TypedValueDictionary.GetOrAddAsync.md)などのメソッドを使用できます。
+
+バージョン1.3以降、静的プロパティ[HttpContext.Current](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.Current.md)が導入され、現在実行中のリクエストコンテキストの`HttpContext`にアクセスできるようになりました。これにより、`HttpContext`のメンバーをリクエストの外部に公開し、ルートオブジェクト内にインスタンスを定義できるようになりました。
+
+以下の例では、リクエストコンテキストで一般的にアクセスされるメンバーを持つコントローラーを定義します。
+
+```csharp {title="Controllers/Controller.cs"}
+public abstract class Controller : RouterModule
+{
+    // リクエストごとに既存のデータベースインスタンスを取得または作成する
+    protected DbContext Database => HttpContext.Current.RequestBag.GetOrAdd(() => new DbContext());
+
+    // リポジトリの遅延ロードも一般的です
+    protected IUserRepository Users => HttpContext.Current.RequestBag.GetOrAdd(() => new UserRepository(Database));
+    protected IBlogRepository Blogs => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogRepository(Database));
+    protected IBlogPostRepository BlogPosts => HttpContext.Current.RequestBag.GetOrAdd(() => new BlogPostRepository(Database));
+
+    // 次の行は、リクエストバッグ内にユーザーが定義されていない場合に例外をスローします
+    protected User AuthenticatedUser => => HttpContext.Current.RequestBag.Get<User>();
+
+    // HttpRequestインスタンスの公開もサポートされています
+    protected HttpRequest Request => HttpContext.Current.Request
+}
+```
+
+コントローラーから継承するタイプを定義します。
+
+```csharp {title="Controllers/PostsController.cs"}
+[RoutePrefix("/api/posts/{author}")]
+sealed class PostsController : Controller
+{
+    protected Guid AuthorId => Request.RouteParameters["author"].GetInteger();
+
+    [RouteGet]
+    public IAsyncEnumerable<BlogPost> ListPosts()
+    {
+        return BlogPosts.GetPostsAsync(authorId: AuthorId);
+    }
+
+    [RouteGet("<id>")]
+    public async Task<BlogPost?> GetPost()
+    {
+        int postId = Request.RouteParameters["id"].GetInteger();
+
+        Post? post = await BlogPosts
+            .FindPostAsync(post => post.Id == postId && post.AuthorId == AuthorId);
+
+        return post;
+    }
+}
+```
+
+上記の例では、ルーターの戻り値を有効な[HttpResponse](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpResponse.md)に変換するために、[値ハンドラー](https://docs.sisk-framework.org/ja/docs/fundamentals/responses.md#implicit-response-types)をルーターに構成する必要があります。
+
+メソッドに`HttpRequest request`引数がないことに注意してください。これは、バージョン1.3以降、ルーターがルーティングレスポンスの2種類のデリゲートをサポートしているためです。1つは、`HttpRequest`引数を受け取るデフォルトのデリゲートである[RouteAction](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteAction.md)で、もう1つは[ParameterlessRouteAction](https://docs.sisk-framework.org/api/Sisk.Core.Routing.ParameterlessRouteAction.md)です。`HttpRequest`オブジェクトは、静的な`HttpContext`の[Request](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpContext.Request.md)プロパティを介して、両方のデリゲートからアクセスできます。
+
+上記の例では、`DbContext`という破棄可能なオブジェクトを定義し、HTTPセッション終了時に作成されたすべての`DbContext`インスタンスを破棄する必要があります。これを実現するには、2つの方法があります。1つは、ルーターのアクション後に実行される[リクエストハンドラー](https://docs.sisk-framework.org/ja/docs/fundamentals/request-handlers.md)を作成することです。もう1つは、カスタム[サーバーハンドラー](https://docs.sisk-framework.org/ja/docs/advanced/http-server-handlers.md)を使用することです。
+
+最初の方法では、`OnSetup`メソッド内に直接インラインでリクエストハンドラーを作成できます。
+
+```csharp {title="Controllers/PostsController.cs"}
+public abstract class Controller : RouterModule
+{
+    // ...
+
+    protected override void OnSetup(Router parentRouter)
+    {
+        base.OnSetup(parentRouter);
+
+        HasRequestHandler(RequestHandler.Create(
+            execute: (req, ctx) =>
+            {
+                // リクエストハンドラーのコンテキストで定義されたDbContextを取得し、破棄する
+                ctx.RequestBag.GetOrDefault<DbContext>()?.Dispose();
+                return null;
+            },
+            executionMode: RequestHandlerExecutionMode.AfterResponse));
+    }
+}
+```
+
+> [!TIP]
+>
+> Siskバージョン1.4以降、プロパティ[HttpServerConfiguration.DisposeDisposableContextValues](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.md)が導入され、デフォルトで有効になりました。これは、HTTPセッションが閉じられたときにコンテキストバッグ内のすべての`IDisposable`値を破棄するかどうかを定義します。
+
+上記の方法により、HTTPセッションが終了すると、`DbContext`が破棄されます。破棄が必要な他のメンバーについても同様に行うことができます。
+
+2番目の方法では、HTTPセッションが終了すると`DbContext`を破棄するカスタム[サーバーハンドラー](https://docs.sisk-framework.org/ja/docs/advanced/http-server-handlers.md)を作成します。
+
+```csharp {title="Server/Handlers/ObjectDisposerHandler.cs"}
+public class ObjectDisposerHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        result.Context.RequestBag.GetOrDefault<DbContext>()?.Dispose();
+    }
+}
+```
+
+そして、アプリビルダーで使用します。
+
+```csharp {title="Program.cs"}
+using var host = HttpServer.CreateBuilder()
+    .UseHandler<ObjectDisposerHandler>()
+    .Build();
+```
+
+これは、コードのクリーンアップを処理し、リクエストの依存関係を使用されるモジュールの種類によって分離し、ルーターの各アクション内でのコードの重複を減らす方法です。これは、ASP.NETなどのフレームワークで依存性の注入が使用されるのと似た方法です。
+
+---
+
+# コンテンツのストリーミング
+
+Source: https://docs.sisk-framework.org/ja/docs/features/content-streaming.html
+
+Sisk では、クライアントとの間でコンテンツのストリーミングを読み書きすることができます。この機能は、リクエストの生存期間中にコンテンツのシリアル化とデシリアル化のメモリ負荷を削減するために役立ちます。
+
+## リクエストコンテンツストリーム
+
+小さなコンテンツは自動的に HTTP 接続バッファメモリに読み込まれ、[HttpRequest.Body](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.Body.md) と [HttpRequest.RawBody](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.RawBody.md) に迅速に読み込まれます。より大きなコンテンツの場合は、[HttpRequest.GetRequestStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetRequestStream.md) メソッドを使用して、リクエストコンテンツの読み取りストリームを取得できます。
+
+[HttpRequest.GetMultipartFormContent](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetMultipartFormContent.md) メソッドは、リクエストの全コンテンツをメモリに読み込むため、大きなコンテンツを読み取るには適していないことに注意してください。
+
+以下の例を考えてみましょう:
+
+```csharp {title="Controller/UploadDocument.cs"}
+[RoutePost ( "/api/upload-document/<filename>" )]
+public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
+
+    var fileName = request.RouteParameters [ "filename" ].GetString ();
+
+    if (!request.HasContents) {
+        // リクエストにコンテンツがありません
+        return new HttpResponse ( HttpStatusInformation.BadRequest );
+    }
+
+    var contentStream = request.GetRequestStream ();
+    var outputFileName = Path.Combine (
+        AppDomain.CurrentDomain.BaseDirectory,
+        "uploads",
+        fileName );
+
+    using (var fs = File.Create ( outputFileName )) {
+        await contentStream.CopyToAsync ( fs );
+    }
+
+    return new HttpResponse () {
+        Content = JsonContent.Create ( new { message = "ファイルが正常に送信されました。" } )
+    };
+}
+```
+
+上記の例では、`UploadDocument` メソッドはリクエストコンテンツを読み取り、コンテンツをファイルに保存します。`Stream.CopyToAsync` で使用される読み取りバッファ以外に、追加のメモリ割り当ては行われません。上記の例は、非常に大きなファイルの場合にメモリ割り当ての負担を削減し、アプリケーションのパフォーマンスを最適化するのに役立ちます。
+
+良い実践は、ファイルの送信などの時間のかかる操作では、常に [CancellationToken](https://learn.microsoft.com/pt-br/dotnet/api/system.threading.cancellationtoken) を使用することです。これは、クライアントとサーバーの間のネットワーク速度に依存するためです。
+
+CancellationToken での調整は、以下のように行うことができます:
+
+```csharp {title="Controller/UploadDocument.cs"}
+// 以下のキャンセルトークンは、30 秒のタイムアウトに達した場合に例外をスローします。
+CancellationTokenSource copyCancellation = new CancellationTokenSource ( delay: TimeSpan.FromSeconds ( 30 ) );
+
+try {
+    using (var fs = File.Create ( outputFileName )) {
+        await contentStream.CopyToAsync ( fs, copyCancellation.Token );
+    }
+}
+catch (OperationCanceledException) {
+    return new HttpResponse ( HttpStatusInformation.BadRequest ) {
+        Content = JsonContent.Create ( new { Error = "アップロードが最大アップロード時間 (30 秒) を超えました。" } )
+    };
+}
+```
+
+## レスポンスコンテンツストリーム
+レスポンスコンテンツを送信することも可能です。現在、[HttpRequest.GetResponseStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetResponseStream.md) メソッドと、[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) 型のコンテンツを使用する、2 つの方法があります。
+
+画像ファイルを提供するシナリオを考えてみましょう。以下のコードを使用できます:
+
+```csharp {title="Controller/ImageController.cs"}
+[RouteGet ( "/api/profile-picture" )]
+public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
+
+    // プロフィール画像を取得するための例メソッド
+    var profilePictureFilename = "profile-picture.jpg";
+    byte[] profilePicture = await File.ReadAllBytesAsync ( profilePictureFilename );
+
+    return new HttpResponse () {
+        Content = new ByteArrayContent ( profilePicture ),
+        Headers = new () {
+            ContentType = "image/jpeg",
+            ContentDisposition = $"inline; filename={profilePictureFilename}"
+        }
+    };
+}
+```
+
+上記のメソッドは、画像コンテンツを読み取るたびにメモリ割り当てを行います。如果画像が大きい場合、これはパフォーマンスの問題を引き起こし、ピーク時にはメモリオーバーロードやサーバークラッシュの原因となる可能性があります。このような状況では、キャッシングは役立ちますが、問題を完全に解決することはできません。キャッシングは、毎回メモリ割り当ての負担を軽減するのに役立ちますが、大きなファイルの場合は十分ではありません。
+
+ストリーミングを使用して画像を送信することが解決策となります。画像の全コンテンツを読み取るのではなく、ファイル上で読み取りストリームを作成し、クライアントに小さなバッファを使用してコピーします。
+
+#### GetResponseStream メソッドを使用した送信
+
+[HttpRequest.GetResponseStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpRequest.GetResponseStream.md) メソッドは、HTTP 応答のコンテンツフローが準備されるにつれて、HTTP 応答のチャンクを送信できるオブジェクトを作成します。このメソッドはより手動で、コンテンツを送信する前に、ステータス、ヘッダー、コンテンツサイズを定義する必要があります。
+
+```csharp {title="Controller/ImageController.cs"}
+[RouteGet ( "/api/profile-picture" )]
+public async Task<HttpResponse> UploadDocument ( HttpRequest request ) {
+
+    var profilePictureFilename = "profile-picture.jpg";
+
+    // この形式の送信では、ステータスとヘッダーを事前に定義する必要があります。
+    var requestStreamManager = request.GetResponseStream ();
+
+    requestStreamManager.SetStatus ( System.Net.HttpStatusCode.OK );
+    requestStreamManager.SetHeader ( HttpKnownHeaderNames.ContentType, "image/jpeg" );
+    requestStreamManager.SetHeader ( HttpKnownHeaderNames.ContentDisposition, $"inline; filename={profilePictureFilename}" );
+
+    using (var fs = File.OpenRead ( profilePictureFilename )) {
+
+        // この形式の送信では、コンテンツサイズも事前に定義する必要があります。
+        requestStreamManager.SetContentLength ( fs.Length );
+
+        // コンテンツサイズがわからない場合は、チャンク化されたエンコードを使用してコンテンツを送信できます。
+        requestStreamManager.SendChunked = true;
+
+        // その後、出力ストリームに書き込みます。
+        await fs.CopyToAsync ( requestStreamManager.ResponseStream );
+    }
+}
+```
+
+#### StreamContent を使用したコンテンツの送信
+
+[StreamContent](https://learn.microsoft.com/pt-br/dotnet/api/system.net.http.streamcontent?view=net-9.0) クラスを使用すると、データソースからバイトストリームとしてコンテンツを送信できます。この形式の送信は、以前の要件を削除し、[圧縮エンコード](https://docs.sisk-framework.org/ja/docs/fundamentals/responses.md#gzip-deflate-and-brotli-compression) を使用してコンテンツサイズを削減することもできます。
+
+```csharp {title="Controller/ImageController.cs"}
+[RouteGet ( "/api/profile-picture" )]
+public HttpResponse UploadDocument ( HttpRequest request ) {
+
+    var profilePictureFilename = "profile-picture.jpg";
+
+    return new HttpResponse () {
+        Content = new StreamContent ( File.OpenRead ( profilePictureFilename ) ),
+        Headers = new () {
+            ContentType = "image/jpeg",
+            ContentDisposition = $"inline; filename=\"{profilePictureFilename}\""
+        }
+    };
+}
+```
+
+> [!IMPORTANT]
+>
+> この種のコンテンツでは、ストリームを `using` ブロックで囲むことは避けてください。コンテンツフローが終了すると、HTTP サーバーによってコンテンツが自動的に破棄されます。エラーが発生した場合でも同様です。
+
+---
+
+# SiskでのCORS（Cross-Origin Resource Sharing）を有効にする
+
+Source: https://docs.sisk-framework.org/ja/docs/features/cors.html
+
+Siskには、公開されているサービスで[CORS（Cross-Origin Resource Sharing）](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS)を処理するためのツールがあります。この機能は、HTTPプロトコルの一部ではなく、W3Cによって定義されたWebブラウザの特定の機能です。このセキュリティメカニズムは、Webページが提供されたWebページと異なるドメインへのリクエストを送信することを防ぎます。サービスプロバイダーは、特定のドメインまたは1つのドメインにリソースへのアクセスを許可できます。
+
+## 同じオリジン
+
+リソースが「同じオリジン」として識別されるためには、リクエストが[オリジン](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Headers/Origin)ヘッダーを含める必要があります。
+
+```http
+GET /api/users HTTP/1.1
+Host: example.com
+Origin: http://example.com
+...
+```
+
+そして、リモートサーバーは、リクエストされたオリジンと同じ値を持つ[Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/Access-Control-Allow-Origin)ヘッダーで応答する必要があります。
+
+```http
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+...
+```
+
+この検証は**明示的**です。ホスト、ポート、プロトコルは、リクエストされたものと同じでなければなりません。例を確認してください。
+
+* サーバーは、`Access-Control-Allow-Origin` が `https://example.com` であることを応答します。
+ + `https://example.net` - ドメインが異なります。
+ + `http://example.com` - スキームが異なります。
+ + `http://example.com:5555` - ポートが異なります。
+ + `https://www.example.com` - ホストが異なります。
+
+仕様では、ヘッダーの構文は、リクエストとレスポンスの両方に対して許可されます。URLパスは無視されます。デフォルトのポート（HTTPの80、HTTPSの443）である場合、ポートは省略されます。
+
+```http
+Origin: null
+Origin: <scheme>://<hostname>
+Origin: <scheme>://<hostname>:<port>
+```
+
+## CORSを有効にする
+
+ネイティブに、[CrossOriginResourceSharingHeaders](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.md) オブジェクトが[ListeningHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.md)内にあります。
+
+サーバーを初期化するときにCORSを設定できます。
+
+```csharp
+static async Task Main(string[] args)
+{
+    using var app = HttpServer.CreateBuilder()
+        .UseCors(new CrossOriginResourceSharingHeaders(
+            allowOrigin: "http://example.com",
+            allowHeaders: ["Authorization"],
+            exposeHeaders: ["Content-Type"]))
+        .Build();
+
+    await app.StartAsync();
+}
+```
+
+上記のコードは、**すべてのレスポンス**に対して次のヘッダーを送信します。
+
+```http
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+Access-Control-Allow-Headers: Authorization
+Access-Control-Expose-Headers: Content-Type
+```
+
+これらのヘッダーは、エラーとリダイレクトを含むすべてのWebクライアントへのレスポンスに送信される必要があります。
+
+[CrossOriginResourceSharingHeaders](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.md) クラスには、2つの似たプロパティがあります: [AllowOrigin](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin.md) と [AllowOrigins](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins.md)。1つは単数形で、もう1つは複数形です。
+
+* **AllowOrigin** プロパティは静的です。指定されたオリジンだけがすべてのレスポンスに送信されます。
+* **AllowOrigins** プロパティは動的です。サーバーは、リクエストのオリジンがこのリストに含まれているかどうかを確認します。如果見つかった場合、そのオリジンのレスポンスに送信されます。
+
+### ワイルドカードと自動ヘッダー
+
+代わりに、レスポンスのオリジンにワイルドカード (`*`) を使用して、どのオリジンでもリソースにアクセスできるように指定できます。ただし、この値は、資格情報（認証ヘッダー）を持つリクエストには許可されず、この操作は[エラー](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Guides/CORS/Errors/CORSNotSupportingCredentials)になります。
+
+この問題を回避するには、[AllowOrigins](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins.md) プロパティを使用して、許可されるオリジンを明示的にリストするか、または [AllowOrigin](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigin.md) プロパティの値に [AutoAllowOrigin](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoAllowOrigin.md) 定数を使用できます。このマジックプロパティは、`Access-Control-Allow-Origin` ヘッダーを、リクエストの `Origin` ヘッダーの値と同じ値に定義します。
+
+また、[AutoFromRequestMethod](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestMethod.md) と [AutoFromRequestHeaders](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AutoFromRequestHeaders.md) を使用して、`AllowOrigin` と同様の動作を実現できます。これらは、ヘッダーが送信された方法に基づいて自動的にレスポンスします。
+
+```csharp
+using var host = HttpServer.CreateBuilder()
+    .UseCors(new CrossOriginResourceSharingHeaders(
+        
+        // リクエストのOriginヘッダーに基づいてレスポンスします。
+        allowOrigin: CrossOriginResourceSharingHeaders.AutoAllowOrigin,
+        
+        // Access-Control-Request-Methodヘッダーまたはリクエストメソッドに基づいてレスポンスします。
+        allowMethods: [CrossOriginResourceSharingHeaders.AutoFromRequestMethod],
+
+        // Access-Control-Request-Headersヘッダーまたは送信されたヘッダーに基づいてレスポンスします。
+        allowHeaders: [CrossOriginResourceSharingHeaders.AutoFromRequestHeaders],
+
+        exposeHeaders: [HttpKnownHeaderNames.ContentType, "X-Authenticated-Account-Id"],
+        allowCredentials: true))
+    .Build();
+```
+
+## CORSを他の方法で適用する
+
+サービスプロバイダーを扱っている場合は、構成ファイルで定義された値をオーバーライドできます。
+
+```csharp
+static async Task Main(string[] args)
+{
+    using var app = HttpServer.CreateBuilder()
+        .UsePortableConfiguration(...)
+        .UseCors(cors => {
+            // 構成ファイルで定義されたオリジンをオーバーライドします。
+            cors.AllowOrigin = "http://example.com";
+        })
+        .Build();
+
+    await app.StartAsync();
+}
+```
+
+## 特定のルートでのCORSを無効にする
+
+`UseCors` プロパティは、ルートとすべてのルート属性で使用でき、次の例のように無効にできます。
+
+```csharp
+[RoutePrefix("api/widgets")]
+public class WidgetController : Controller {
+
+    // GET /api/widgets/colors
+    [RouteGet("/colors", UseCors = false)]
+    public IEnumerable<string> GetWidgets() {
+        return new[] { "Green widget", "Red widget" };
+    }
+}
+```
+
+## レスポンスの値を置き換える
+
+ルーター アクションで値を明示的に置き換えるまたは削除することができます。
+
+```csharp
+[RoutePrefix("api/widgets")]
+public class WidgetController : Controller {
+
+    public IEnumerable<string> GetWidgets(HttpRequest request) {
+
+        // Access-Control-Allow-Credentialsヘッダーを削除します。
+        request.Context.OverrideHeaders.AccessControlAllowCredentials = string.Empty;
+        
+        // Access-Control-Allow-Originを置き換えます。
+        request.Context.OverrideHeaders.AccessControlAllowOrigin = "https://contorso.com";
+
+        return new[] { "Green widget", "Red widget" };
+    }
+}
+```
+
+## プリフライト リクエスト
+
+プリフライト リクエストは、クライアントが実際のリクエストを送信する前に送信する [OPTIONS](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Reference/Methods/OPTIONS) メソッドのリクエストです。
+
+Siskサーバーは、適用可能なCORSヘッダーとともに、常に `200 OK` でリクエストに応答し、クライアントは実際のリクエストを続行できます。この条件は、[RouteMethod](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteMethod.md) が `Options` に明示的に設定されたルートが存在する場合を除き、適用されません。
+
+## CORSをグローバルに無効にする
+
+これは不可能です。CORSを使用しない場合は、構成しないでください。
+
+---
+
+# File Server
+
+Source: https://docs.sisk-framework.org/ja/docs/features/file-server.html
+
+Sisk は `Sisk.Http.FileSystem` 名前空間を提供し、静的ファイルの配信、ディレクトリ一覧表示、ファイル変換のツールが含まれます。この機能により、ローカルディレクトリからファイルを配信でき、レンジリクエスト（音声/動画ストリーミング）やカスタムファイル処理をサポートします。
+
+## 静的ファイルの配信
+
+静的ファイルを配信する最も簡単な方法は [Router.MapFileSystem](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.MapFileSystem.md) です。このメソッドは URL プレフィックスをディスク上のディレクトリにマッピングします。
+
+```cs
+using Sisk.Core.Http;
+using Sisk.Core.Http.FileSystem;
+
+// サーバーのルートを現在のディレクトリにマップ
+mainRouter.MapFileSystem("/", Directory.GetCurrentDirectory());
+
+// /assets を "public/assets" フォルダーにマップ
+mainRouter.MapFileSystem(
+    "/assets",
+    Path.Combine(Directory.GetCurrentDirectory(), "public", "assets"));
+```
+
+リクエストがルートプレフィックスにマッチすると、`HttpFileServerHandler` は指定されたディレクトリ内のファイルを探します。見つかればそのファイルを配信し、見つからなければ 404 応答（アクセスが拒否された場合は 403）を返します。
+
+`HttpFileServer.CreateServingRoute` は `Route` オブジェクトを明示的に作成したいときにまだ利用可能ですが、`MapFileSystem` がアプリケーションコードにとって最も直接的なオプションです。
+
+## HttpFileServerHandler
+
+ファイルの配信方法をより細かく制御したい場合は、`HttpFileServerHandler` を手動でインスタンス化して設定できます。
+
+```cs
+var fileHandler = new HttpFileServerHandler("/var/www/html");
+
+// ディレクトリ一覧表示を有効化（デフォルトは無効）
+fileHandler.AllowDirectoryListing = true;
+
+// カスタムルートプレフィックスを設定（リクエストパスからこの部分が除去されます）
+fileHandler.RoutePrefix = "/public";
+
+// /public 配下にハンドラを登録
+mainRouter.MapFileSystem("/public", fileHandler);
+```
+
+### 設定
+
+| Property | Description |
+|---|---|
+| `RootDirectoryPath` | ファイルを配信するルートディレクトリへの絶対パスまたは相対パス。 |
+| `RoutePrefix` | ファイル解決時にリクエストパスから除去されるルートプレフィックス。デフォルトは `/`。 |
+| `AllowDirectoryListing` | `true` に設定すると、ディレクトリが要求されインデックスファイルが見つからない場合にディレクトリ一覧を表示します。デフォルトは `false`。 |
+| `FileConverters` | 配信前にファイルを変換するために使用される `HttpFileServerFileConverter` のリスト。 |
+
+## ディレクトリ一覧表示
+
+`AllowDirectoryListing` が有効で、ユーザーがディレクトリパスを要求した場合、Sisk はそのディレクトリの内容を一覧表示する HTML ページを生成します。
+
+ディレクトリ一覧には以下が含まれます：
+- 親ディレクトリへのナビゲーション（`..`）。
+- サブディレクトリの一覧。
+- ファイルの一覧（サイズと最終更新日付き）。
+
+## ファイルコンバータ
+
+ファイルコンバータを使用すると、特定のファイルタイプをインターセプトして別の方法で処理できます。たとえば、画像をトランスコードしたり、ファイルをオンザフライで圧縮したり、部分コンテンツ（Range リクエスト）で配信したりできます。
+
+Sisk にはメディアストリーミング用の組み込みコンバータが 2 つ含まれています：
+- `HttpFileAudioConverter`: `.mp3`, `.ogg`, `.wav`, `.flac`, `.ogv` を処理。
+- `HttpFileVideoConverter`: `.webm`, `.avi`, `.mkv`, `.mpg`, `.mpeg`, `.wmv`, `.mov`, `.mp4` を処理。
+
+これらのコンバータは **HTTP Range Requests** をサポートし、クライアントが音声・動画ファイルをシークできるようにします。
+
+### カスタムコンバータの作成
+
+カスタムファイルコンバータを作成するには、`HttpFileServerFileConverter` を継承し、`CanConvert` と `Convert` を実装します。
+
+```cs
+using Sisk.Core.Http;
+using Sisk.Core.Http.FileSystem;
+
+public class MyTextConverter : HttpFileServerFileConverter
+{
+    public override bool CanConvert(FileInfo file)
+    {
+        // .txt ファイルのみに適用
+        return file.Extension.Equals(".txt", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public override HttpResponse Convert(FileInfo file, HttpRequest request)
+    {
+        string content = File.ReadAllText(file.FullName);
+        
+        // すべてのテキストを大文字に変換
+        return new HttpResponse(200)
+        {
+            Content = new StringContent(content.ToUpper())
+        };
+    }
+}
+```
+
+次にハンドラに追加します：
+
+```cs
+var handler = new HttpFileServerHandler("./files");
+handler.FileConverters.Add(new MyTextConverter());
+```
+
+---
+
+# モデルコンテキストプロトコル
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/mcp.html
+
+大規模言語モデル（LLM）を使用してエージェントモデルにコンテキストを提供するアプリケーションを、[Sisk.ModelContextProtocol](https://www.nuget.org/packages/Sisk.ModelContextProtocol/) パッケージで構築できます。
+
+```bash
+dotnet add package Sisk.ModelContextProtocol
+```
+
+このパッケージは、[Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) 上で動作する MCP サーバーを構築するための便利なクラスとメソッドを公開します。現在の実装はプロトコルバージョン `2025-06-18` のツールをサポートしています。
+
+> [!NOTE]
+>
+> 開始する前に、このパッケージは開発中であり、仕様に準拠しない動作を示す可能性があることに注意してください。開発中の内容やまだ動作しない部分については、[パッケージの詳細](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) を参照してください。
+
+## MCP の開始
+
+`[McpProvider](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpProvider.md)` クラスは MCP サーバーを定義するエントリーポイントです。シールドされたプロバイダーオブジェクトで、起動時に構成できます。Sisk アプリケーションは 1 つまたは複数の MCP プロバイダーを持つことができます。
+
+```csharp
+McpProvider mcp = new McpProvider(
+    serverName: "math-server",
+    serverTitle: "数学サーバー",
+    serverVersion: new Version(1, 0));
+
+mcp.Tools.Add(new McpTool(
+    name: "math_sum",
+    description: "1 つ以上の数値を合計します。",
+    schema: JsonSchema.CreateObjectSchema(
+        properties: new Dictionary<string, JsonSchema>()
+        {
+            { "numbers",
+                JsonSchema.CreateArraySchema(
+                    itemsSchema: JsonSchema.CreateNumberSchema(),
+                    minItems: 1,
+                    description: "合計する数値。")
+            }
+        },
+        requiredProperties: ["numbers"]),
+    executionHandler: async (McpToolContext context) =>
+    {
+        var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
+        var sum = numbers.Sum();
+        return await Task.FromResult(McpToolResult.CreateText($"合計結果: {sum:N4}"));
+    }));
+```
+
+アプリケーションが 1 つの MCP プロバイダーだけを提供する場合は、ビルダーのシングルトンを使用できます。
+
+```csharp
+static void Main(string[] args)
+{
+    using var host = HttpServer.CreateBuilder()
+        .UseMcp(mcp =>
+        {
+            mcp.ServerName = "math-server";
+            mcp.ServerTitle = "数学サーバー";
+
+            mcp.Tools.Add(new McpTool(
+                name: "math_sum",
+                description: "1 つ以上の数値を合計します。",
+                schema: JsonSchema.CreateObjectSchema(
+                    properties: new Dictionary<string, JsonSchema>()
+                    {
+                        { "numbers",
+                            JsonSchema.CreateArraySchema(
+                                itemsSchema: JsonSchema.CreateNumberSchema(),
+                                minItems: 1,
+                                description: "合計する数値。")
+                        }
+                    },
+                    requiredProperties: ["numbers"]),
+                executionHandler: async (McpToolContext context) =>
+                {
+                    var numbers = context.Arguments["numbers"].GetJsonArray().ToArray<double>();
+                    var sum = numbers.Sum();
+                    return await Task.FromResult(McpToolResult.CreateText($"合計結果: {sum:N4}"));
+                }));
+        })
+        .UseRouter(router =>
+        {
+            router.MapAny("/mcp", async (HttpRequest req) =>
+            {
+                return await req.HandleMcpRequestAsync();
+            });
+        })
+        .Build();
+
+    host.Start();
+}
+```
+
+エンドポイントは `GET` と `POST` の両方のリクエストを受け付ける必要があるため、`MapAny` が最もシンプルなルートマッピングです。`HandleMcpRequestAsync` は [HttpResponse](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpResponse.md) を返し、ルートはそれを返す必要があります。アプリ内で複数のプロバイダーが必要な場合は、シングルトンをスキップし、各ルートから直接 [McpProvider.HandleRequestAsync](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpProvider.HandleRequestAsync.md) を呼び出してください。
+
+```csharp
+var mathProvider = new McpProvider("math-server", "数学サーバー", new Version(1, 0));
+
+router.MapAny("/mcp/math", async request =>
+{
+    return await mathProvider.HandleRequestAsync(request);
+});
+```
+
+## 関数用 JSON スキーマの作成
+
+`[Sisk.ModelContextProtocol]` ライブラリは JSON と JSON スキーマ操作のために [LightJson](https://github.com/CypherPotato/LightJson) のフォークを使用しています。この実装はさまざまなオブジェクト向けに流暢な JSON Schema ビルダーを提供します。
+
+- JsonSchema.CreateObjectSchema
+- JsonSchema.CreateArraySchema
+- JsonSchema.CreateBooleanSchema
+- JsonSchema.CreateNumberSchema
+- JsonSchema.CreateStringSchema
+- JsonSchema.Empty
+
+例:
+
+```csharp
+JsonSchema.CreateObjectSchema(
+    properties: new Dictionary<string, JsonSchema>()
+    {
+        { "numbers",
+            JsonSchema.CreateArraySchema(
+                itemsSchema: JsonSchema.CreateNumberSchema(),
+                minItems: 1,
+                description: "合計する数値。")
+        }
+    },
+    requiredProperties: ["numbers"]);
+```
+
+次のスキーマが生成されます:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "numbers": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "description": "The numbers to sum."
+    }
+  },
+  "required": ["numbers"]
+}
+```
+
+## 関数呼び出しの処理
+
+`[McpTool](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpTool.md)` の `executionHandler` パラメーターで定義された関数は、呼び出し引数を含む `JsonObject` を提供し、流暢に読み取ることができます。
+
+```csharp
+mcp.Tools.Add(new McpTool(
+    name: "browser_do_action",
+    description: "スクロール、リフレッシュ、ナビゲーションなどのブラウザーアクションを実行します。",
+    schema: JsonSchema.CreateObjectSchema(
+        properties: new Dictionary<string, JsonSchema>()
+        {
+            { "action_name",
+                JsonSchema.CreateStringSchema(
+                    enums: ["go_back", "refresh", "scroll_bottom", "scroll_top"],
+                    description: "アクション名。")
+            },
+            { "action_data",
+                JsonSchema.CreateStringSchema(
+                    description: "アクションパラメーター。"
+                ) }
+        },
+        requiredProperties: ["action_name"]),
+    executionHandler: async (McpToolContext context) =>
+    {
+        // アクション名を読み取ります。null または明示的な文字列でない場合は例外がスローされます
+        string actionName = context.Arguments["action_name"].GetString();
+        
+        // action_data は必須ではないため、ここで null になる可能性があります
+        string? actionData = context.Arguments["action_data"].MaybeNull()?.GetString();
+        
+        // actionName に基づいてブラウザーアクションを処理します
+        return await Task.FromResult(
+            McpToolResult.CreateText($"実行されたブラウザーアクション: {actionName}"));
+    }));
+```
+
+ツール引数はハンドラが実行される前にスキーマに対して検証されます。検証に失敗した場合、プロバイダーはエラー結果を MCP クライアントに返し、ツールハンドラは呼び出されません。
+
+## 関数の結果
+
+`[McpToolResult](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpToolResult.md)` オブジェクトは、ツールレスポンス用のコンテンツを作成するための 3 つのメソッドを提供します。
+
+- `[CreateAudio(ReadOnlySpan<byte>, string)](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpToolResult.CreateAudio.md)`: MCP クライアント向けの音声ベースのレスポンスを作成します。
+- `[CreateImage(ReadOnlySpan<byte>, string)](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpToolResult.CreateImage.md)`: MCP クライアント向けの画像ベースのレスポンスを作成します。
+- `[CreateText(string)](https://docs.sisk-framework.org/api/Sisk.ModelContextProtocol.McpToolResult.CreateText.md)`: テキストベースのレスポンス（デフォルト）を作成します。
+
+さらに、複数の異なるコンテンツを単一の JSON ツールレスポンスに結合することも可能です。
+
+```csharp
+mcp.Tools.Add(new McpTool(
+    ...
+    executionHandler: async (McpToolContext context) =>
+    {
+        // 実際の作業をシミュレート
+
+        byte[] browserScreenshot = await browser.ScreenshotAsync();
+        
+        return McpToolResult.Combine(
+            McpToolResult.CreateText("ブラウザーのスクリーンショットです:"),
+            McpToolResult.CreateImage(browserScreenshot, "image/png")
+        );
+    }));
+```
+
+プロバイダーは現在、初期化、`tools/list`、`tools/call`、`ping`、および `notifications/*` を処理します。サポートされていない JSON-RPC メソッドは JSON-RPC エラー応答を返します。
+
+## 今後の作業
+
+モデルコンテキストプロトコルは、エージェントモデルとそれらにコンテンツを提供するアプリケーション間の通信プロトコルです。新しいプロトコルであるため、仕様は非推奨項目や新機能、破壊的変更を伴って頻繁に更新されます。
+
+エージェントアプリケーションの構築を開始する前に、[Model Context Protocol](https://modelcontextprotocol.io/docs/jp/getting-started/intro) が解決する課題を理解することが重要です。
+
+また、[Sisk.ModelContextProtocol](https://github.com/sisk-http/core/tree/main/extensions/Sisk.ModelContextProtocol) パッケージの仕様を読んで、進捗、ステータス、そして何ができるかを把握してください。
+
+---
+
+# JSON-RPC 拡張
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/json-rpc.html
+
+Sisk には [JSON-RPC 2.0](https://www.jsonrpc.org/specification) API 用の実験的モジュールがあり、さらにシンプルなアプリケーションを作成できます。この拡張は JSON-RPC 2.0 のトランスポートインターフェースを厳密に実装し、HTTP GET、POST リクエストおよび Sisk の WebSocket によるトランスポートを提供します。
+
+以下のコマンドで NuGet から拡張機能をインストールできます。実験的/ベータ版の場合は、Visual Studio でプレリリース パッケージを検索するオプションを有効にしてください。
+
+```bash
+dotnet add package Sisk.JsonRpc
+```
+
+## トランスポートインターフェース
+
+JSON-RPC はステートレスで非同期のリモート手続き呼び出し (RPC) プロトコルで、データ通信に JSON を使用します。JSON-RPC のリクエストは通常 ID で識別され、レスポンスはリクエストで送信された同じ ID で返されます。すべてのリクエストがレスポンスを必要とするわけではなく、そういったものは「通知」と呼ばれます。
+
+[JSON-RPC 2.0 仕様](https://www.jsonrpc.org/specification) はトランスポートの動作を詳細に説明しています。このトランスポートは使用場所に依存しません。Sisk は HTTP を介してこのプロトコルを実装し、[JSON-RPC over HTTP](https://www.jsonrpc.org/historical/json-rpc-over-http.html) の規格に従います。GET リクエストは部分的にサポートされ、POST リクエストは完全にサポートされます。WebSocket もサポートされ、非同期メッセージ通信を提供します。
+
+JSON-RPC のリクエストは次のようになります:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "Sum",
+    "params": [1, 2, 4],
+    "id": 1
+}
+```
+
+成功したレスポンスは次のようになります:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "result": 7,
+    "id": 1
+}
+```
+
+## JSON-RPC メソッド
+
+以下の例は Sisk を使用して JSON-RPC API を作成する方法を示しています。数学演算クラスがリモート操作を実行し、シリアライズされたレスポンスをクライアントに返します。
+
+```csharp {title="Program.cs"}
+using var app = HttpServer.CreateBuilder(port: 5555)
+    .UseJsonRPC((sender, args) =>
+    {
+        // WebMethod 属性が付与されたすべてのメソッドを JSON-RPC ハンドラに追加します
+        args.Handler.Methods.AddMethodsFromType(new MathOperations());
+        
+        // /service ルートをマッピングし、JSON-RPC の POST と GET リクエストを処理します
+        args.Router.MapPost("/service", args.Handler.Transport.HttpPost);
+        args.Router.MapGet("/service", args.Handler.Transport.HttpGet);
+        
+        // GET /ws で JSON-RPC WebSocket トランスポートをマッピングします
+        args.Router.MapGet("/ws", args.Handler.Transport.WebSocket);
+    })
+    .Build();
+
+await app.StartAsync();
+```
+
+```csharp {title="MathOperations.cs"}
+public class MathOperations
+{
+    [WebMethod]
+    public float Sum(float a, float b)
+    {
+        return a + b;
+    }
+    
+    [WebMethod]
+    public double Sqrt(float a)
+    {
+        return Math.Sqrt(a);
+    }
+}
+```
+
+上記の例では `Sum` と `Sqrt` メソッドが JSON-RPC ハンドラにマッピングされ、`GET /service`、`POST /service`、`GET /ws` で利用可能になります。メソッド名は大文字小文字を区別しません。
+
+メソッドパラメータは自動的にそれぞれの型へデシリアライズされます。名前付きパラメータを使用したリクエストもサポートされています。JSON のシリアライズは LightJson ライブラリが行います。型が正しくデシリアライズされない場合は、その型用の JSON コンバータを作成し、[JsonRpcHandler.JsonSerializerOptions](https://docs.sisk-framework.org/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions.md) に関連付けることができます。
+
+メソッド内で JSON-RPC リクエストの `$.params` 生オブジェクトを直接取得することもできます。
+
+```csharp {title="MathOperations.cs"}
+[WebMethod]
+public float Sum(JsonArray|JsonObject @params)
+{
+    ...
+}
+```
+
+これを行うには、`@params` がメソッドの **唯一** のパラメータであり、名前が正確に `params` である必要があります（C# ではこのパラメータ名をエスケープするために `@` が必要です）。
+
+パラメータのデシリアライズは、名前付きオブジェクトでも位置指定配列でも行われます。例えば、以下のメソッドは両方のリクエストでリモート呼び出しできます。
+
+```csharp
+[WebMethod]
+public float AddUserToStore(string apiKey, User user, UserStore store)
+{
+    ...
+}
+```
+
+配列の場合、パラメータの順序を守る必要があります。
+
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "AddUserToStore",
+    "params": [
+        "1234567890",
+        {
+            "name": "John Doe",
+            "email": "john@example.com"
+        },
+        {
+            "name": "My Store"
+        }
+    ],
+    "id": 1
+
+}
+```
+
+## シリアライザのカスタマイズ
+
+JSON シリアライザは [JsonRpcHandler.JsonSerializerOptions](https://docs.sisk-framework.org/api/Sisk.JsonRPC.JsonRpcHandler.JsonSerializerOptions.md) プロパティでカスタマイズできます。このプロパティでは、メッセージのデシリアライズに JSON5 の使用を有効にできます。JSON-RPC 2.0 の規格ではありませんが、JSON5 は JSON の拡張で、より人間に読みやすく書きやすくなります。
+
+```csharp {title="Program.cs"}
+using var host = HttpServer.CreateBuilder ( 5556 )
+    .UseJsonRPC ( ( o, e ) => {
+
+        // サニタイズされた名前比較子を使用します。この比較子は名前中の文字と数字のみを比較し、他の記号は無視します。例:
+        // foo_bar10 == FooBar10
+        e.Handler.JsonSerializerOptions.PropertyNameComparer = new JsonSanitizedComparer ();
+
+        // JSON インタプリタで JSON5 を有効にします。これを有効にしても、通常の JSON は引き続き使用可能です
+        e.Handler.JsonSerializerOptions.SerializationFlags = LightJson.Serialization.JsonSerializationFlags.Json5;
+
+        // POST /service ルートを JSON RPC ハンドラにマッピングします
+        e.Router.MapPost ( "/service", e.Handler.Transport.HttpPost );
+    } )
+    .Build ();
+
+host.Start ();
+```
+
+---
+
+# SSL Proxy
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/ssl-proxy.html
+
+> [!WARNING]
+> この機能は実験的であり、運用環境では使用しないでください。Sisk を SSL で動作させる方法については、[このドキュメント](https://docs.sisk-framework.org/ja/docs/deploying.md#proxying-your-application) を参照してください。
+
+Sisk SSL Proxy は、Sisk の [ListeningHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.md) に HTTPS 接続を提供し、HTTPS メッセージを非安全な HTTP コンテキストにルーティングするモジュールです。このモジュールは、SSL 接続をサポートしない [HttpListener](https://learn.microsoft.com/pt-br/dotnet/api/system.net.httplistener?view=net-8.0) を使用して実行されるサービスに SSL 接続を提供するために構築されました。
+
+プロキシは同じアプリケーション内で実行され、HTTP/1.1 メッセージをリッスンし、同じプロトコルで Sisk に転送します。現在、この機能は非常に実験的であり、運用環境で使用するには不安定すぎる可能性があります。
+
+現在、SslProxy は、キープアライブ、チャンク化されたエンコード、WebSockets など、ほとんどの HTTP/1.1 機能をサポートしています。SSL プロキシへのオープン接続の場合、ターゲット サーバーに TCP 接続が作成され、プロキシは確立された接続に転送されます。
+
+SslProxy は、次のように HttpServer.CreateBuilder とともに使用できます。
+
+```csharp
+using var app = HttpServer.CreateBuilder(port: 5555)
+    .UseRouter(r =>
+    {
+        r.MapGet("/", request =>
+        {
+            return new HttpResponse("Hello, world!");
+        });
+    })
+    // プロジェクトに SSL を追加
+    .UseSsl(
+        sslListeningPort: 5567,
+        new X509Certificate2(@".\ssl.pfx", password: "12345")
+    )
+    .Build();
+
+app.Start();
+```
+
+プロキシに有効な SSL 証明書を提供する必要があります。ブラウザによって証明書が受け入れられるようにするには、オペレーティング システムに証明書をインポートして、正しく機能するようにします。
+
+---
+
+# Basic Auth
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/basic-auth.html
+
+Basic Authパッケージは、非常に少ない設定と労力で、Siskアプリケーションに基本認証スキームを処理できるリクエストハンドラーを追加します。
+Basic HTTP認証は、ユーザーIDとパスワードでリクエストを認証する最小限の入力形式であり、セッションはクライアントによって独占的に制御され、認証またはアクセストークンはありません。
+
+![Basic Auth](https://docs.sisk-framework.org/assets/img/basic-auth.svg)
+
+Basic認証スキームについては、[MDNの仕様](https://developer.mozilla.org/pt-BR/docs/jp/Web/HTTP/Authentication)を参照してください。
+
+## インストール
+
+開始するには、プロジェクトにSisk.BasicAuthパッケージをインストールします:
+
+    > dotnet add package Sisk.BasicAuth
+
+プロジェクトにインストールする他の方法については、[Nugetリポジトリ](https://www.nuget.org/packages/Sisk.BasicAuth/0.15.0)を参照してください。
+
+## 認証ハンドラーの作成
+
+認証スキームを全モジュールまたは個々のルートに対して制御できます。まず、基本認証ハンドラーを書きましょう。
+
+以下の例では、データベースに接続し、ユーザーが存在するかどうかとパスワードが有効かどうかを確認し、次にユーザーをコンテキストバッグに保存します。
+
+```cs
+public class UserAuthHandler : BasicAuthenticateRequestHandler
+{
+    public UserAuthHandler() : base()
+    {
+        Realm = "To enter this page, please, inform your credentials.";
+    }
+
+    public override HttpResponse? OnValidating(BasicAuthenticationCredentials credentials, HttpContext context)
+    {
+        DbContext db = new DbContext();
+
+        // この場合、ユーザーIDフィールドとしてメールアドレスを使用しているため、メールアドレスでユーザーを検索します。
+        User? user = db.Users.FirstOrDefault(u => u.Email == credentials.UserId);
+        if (user == null)
+        {
+            return base.CreateUnauthorizedResponse("Sorry! No user was found by this email.");
+        }
+
+        // ユーザーのパスワードが有効かどうかを確認します。
+        if (!user.ValidatePassword(credentials.Password))
+        {
+            return base.CreateUnauthorizedResponse("Invalid credentials.");
+        }
+
+        // ログインしたユーザーをHTTPコンテキストに追加し、実行を続行します。
+        context.Bag.Add("loggedUser", user);
+        return null;
+    }
+}
+```
+
+このリクエストハンドラーをルートまたはクラスに紐付けるだけです。
+
+```cs
+public class UsersController
+{
+    [RouteGet("/")]
+    [RequestHandler(typeof(UserAuthHandler))]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = request.Bag.Get<User>();
+        return $"Hello, {loggedUser.Name}!";
+    }
+}
+```
+
+または、[RouterModule](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouterModule.md)クラスを使用します:
+
+```cs
+public class UsersController : RouterModule
+{
+    public ClientModule()
+    {
+        // このクラス内のすべてのルートは、UserAuthHandlerによって処理されます。
+        base.HasRequestHandler(new UserAuthHandler());
+    }
+    
+    [RouteGet("/")]
+    public string Index(HttpRequest request)
+    {
+        User loggedUser = request.Bag.Get<User>();
+        return $"Hello, {loggedUser.Name}!";
+    }
+}
+```
+
+## 備考
+
+基本認証の主な責任はクライアント側で実行されます。ストレージ、キャッシュ制御、暗号化はすべてクライアント側でローカルに処理され、サーバーは資格情報を受け取り、アクセスが許可されるかどうかを検証するだけです。
+
+この方法は、クライアントに大きな責任を負わせるため、セキュリティの面で最も安全な方法ではありません。さらに、パスワードはSSLなどのセキュアな接続コンテキストで送信される必要があります。リクエストのヘッダーを一時的に傍受するだけで、ユーザーのアクセス資格情報が公開される可能性があります。
+
+本番環境のアプリケーションには、より堅牢な認証ソリューションを選択し、オフザシェルフのコンポーネントを使用しすぎないようにしてください。そうしないと、プロジェクトのニーズに適応できず、セキュリティリスクにさらされる可能性があります。
+
+---
+
+# サービス プロバイダー
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/service-providers.html
+
+サービス プロバイダーは、Sisk アプリケーションをさまざまな環境に移植するための方法です。この機能により、サーバーのポート、パラメーター、およびその他のオプションを変更できますが、アプリケーション コードを各環境用に変更する必要はありません。このモジュールは、Sisk の構築構文に依存し、`UsePortableConfiguration` メソッドを使用して構成できます。
+
+構成プロバイダーは、`IConfigurationProvider` で実装され、構成リーダーを提供し、任意の実装を受け取ることができます。デフォルトでは、Sisk では JSON 構成リーダーが提供されますが、INI ファイル用のパッケージもあります。独自の構成プロバイダーを作成し、次のように登録することもできます。
+
+```csharp
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
+    {
+        config.WithConfigReader<MyConfigurationReader>();
+    })
+    .Build();
+```
+
+前述のように、デフォルトのプロバイダーは JSON ファイルです。デフォルトでは、`service-config.json` という名前のファイルが検索され、実行中のプロセスのカレント ディレクトリで検索されますが、実行可能ファイルのディレクトリではありません。
+
+ファイル名を変更したり、Sisk が構成ファイルを検索する場所を指定したりすることもできます。
+
+```csharp
+using Sisk.Core.Http;
+using Sisk.Core.Http.Hosting;
+
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
+    {
+        config.WithConfigFile("config.toml",
+            createIfDontExists: true,
+            lookupDirectories:
+                ConfigurationFileLookupDirectory.CurrentDirectory |
+                ConfigurationFileLookupDirectory.AppDirectory);
+    })
+    .Build();
+```
+
+上記のコードは、実行中のプロセスのカレント ディレクトリで `config.toml` ファイルを検索します。如果見つからない場合は、実行可能ファイルのディレクトリで検索します。如果ファイルが存在しない場合、`createIfDontExists` パラメーターが尊重され、最後にテストされたパス（`lookupDirectories` に基づく）にファイルが作成され、エラーがコンソールに表示され、アプリケーションの初期化が阻止されます。
+
+> [!TIP]
+> 
+> INI 構成リーダーと JSON 構成リーダーのソース コードを参照して、`IConfigurationProvider` がどのように実装されるかを理解することができます。
+
+## JSON ファイルからの構成の読み取り
+
+デフォルトでは、Sisk では JSON ファイルから構成を読み取る構成プロバイダーが提供されます。このファイルは固定構造を持ち、次のパラメーターで構成されます。
+
+```json
+{
+    "Server": {
+        "DefaultEncoding": "UTF-8",
+        "ThrowExceptions": true,
+        "IncludeRequestIdHeader": true
+    },
+    "ListeningHost": {
+        "Label": "My sisk application",
+        "Ports": [
+            "http://localhost:80/",
+            "https://localhost:443/",  // 構成ファイルもコメントをサポートします
+        ],
+        "CrossOriginResourceSharingPolicy": {
+            "AllowOrigin": "*",
+            "AllowOrigins": [ "*" ],   // 0.14 で新しく追加されました
+            "AllowMethods": [ "*" ],
+            "AllowHeaders": [ "*" ],
+            "MaxAge": 3600
+        },
+        "Parameters": {
+            "MySqlConnection": "server=localhost;user=root;"
+        }
+    }
+}
+```
+
+構成ファイルから作成されたパラメーターは、サーバー コンストラクターでアクセスできます。
+
+```csharp
+using var app = HttpServer.CreateBuilder()
+    .UsePortableConfiguration(config =>
+    {
+        config.WithParameters(paramCollection =>
+        {
+            string databaseConnection = paramCollection.GetValueOrThrow("MySqlConnection");
+        });
+    })
+    .Build();
+```
+
+各構成リーダーは、サーバー初期化パラメーターを読み取る方法を提供します。プロセス環境で定義されるべきプロパティ (機密 API データ、API キーなど) は、構成ファイルで定義するのではなく、別の方法で指定する必要があります。
+
+## 構成ファイルの構造
+
+JSON 構成ファイルは、次のプロパティで構成されます。
+
+<table>
+    <thead>
+        <tr>
+            <th>プロパティ</th>
+            <th>必須</th>
+            <th>説明</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Server</td>
+            <td>必須</td>
+            <td>サーバー自身とその設定を表します。</td>
+        </tr>
+        <tr>
+            <td>Server.AccessLogsStream</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>console</code>。アクセス ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。</td>
+        </tr>
+        <tr>
+            <td>Server.ErrorsLogsStream</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。エラー ログの出力ストリームを指定します。ファイル名、<code>null</code>、または <code>console</code> のいずれかになります。</td>
+        </tr>
+        <tr>
+            <td>Server.MaximumContentLength</td>
+            <td>省略可能</td>
+            <tr>
+            <td>Server.MaximumContentLength</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>0</code>。コンテンツの最大長 (バイト単位) を指定します。0 は無制限を意味します。</td>
+        </tr>
+        <tr>
+            <td>Server.IncludeRequestIdHeader</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>false</code>。HTTP サーバーが <code>X-Request-Id</code> ヘッダーを送信するかどうかを指定します。</td>
+        </tr>
+        <tr>
+            <td>Server.ThrowExceptions</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>true</code>。未処理例外がスローされるかどうかを指定します。プロダクション環境では <code>false</code>、デバッグ環境では <code>true</code> に設定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost</td>
+            <td>必須</td>
+            <td>サーバーのリスニング ホストを表します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Label</td>
+            <td>省略可能</td>
+            <td>アプリケーションのラベルを表します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Ports</td>
+            <td>必須</td>
+            <td><a href="/api/Sisk.Core.Http.ListeningPort">ListeningPort</a> 構文に一致する文字列の配列を表します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy</td>
+            <td>省略可能</td>
+            <td>アプリケーションの CORS ヘッダーを設定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowCredentials</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>false</code>。<code>Allow-Credentials</code> ヘッダーを指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.ExposeHeaders</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。文字列の配列を期待します。<code>Expose-Headers</code> ヘッダーを指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigin</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。文字列を期待します。<code>Allow-Origin</code> ヘッダーを指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowOrigins</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。文字列の配列を期待します。複数の <code>Allow-Origin</code> ヘッダーを指定します。詳細については、<a href="/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins">AllowOrigins</a> を参照してください。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowMethods</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。文字列の配列を期待します。<code>Allow-Methods</code> ヘッダーを指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.AllowHeaders</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。文字列の配列を期待します。<code>Allow-Headers</code> ヘッダーを指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.CrossOriginResourceSharingPolicy.MaxAge</td>
+            <td>省略可能</td>
+            <td>デフォルトは <code>null</code>。整数を期待します。<code>Max-Age</code> ヘッダー (秒単位) を指定します。</td>
+        </tr>
+        <tr>
+            <td>ListeningHost.Parameters</td>
+            <td>省略可能</td>
+            <td>アプリケーションの設定メソッドに提供されるプロパティを指定します。</td>
+        </tr>
+    </tbody>
+</table>
+
+---
+
+# INI 構成プロバイダー
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/ini-configuration.html
+
+Sisk には、JSON 以外の起動構成を取得する方法があります。実際には、[IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader.md) を実装する任意のパイプラインを使用して、[PortableConfigurationBuilder.WithConfigurationPipeline](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.PortableConfigurationBuilder.md) でサーバーの構成を任意のファイル タイプから読み取ることができます。
+
+[Sisk.IniConfiguration](https://www.nuget.org/packages/Sisk.IniConfiguration/) パッケージでは、共通の構文エラーに対して例外をスローしないストリームベースの INI ファイル リーダーと、シンプルな構成構文が提供されます。このパッケージは、Sisk フレームワークの外部で使用でき、効率的な INI ドキュメント リーダーが必要なプロジェクトに柔軟性を提供します。
+
+## インストール
+
+パッケージをインストールするには、次のコマンドから始めることができます。
+
+```bash
+$ dotnet add package Sisk.IniConfiguration
+```
+
+また、INI [IConfigurationReader](https://docs.sisk-framework.org/api/Sisk.Core.Http.Hosting.IConfigurationReader) や Sisk 依存関係を含まないコア パッケージもインストールできます。
+
+```bash
+$ dotnet add package Sisk.IniConfiguration.Core
+```
+
+メイン パッケージを使用すると、次の例のようにコードで使用できます。
+
+```cs
+class Program
+{
+    static HttpServerHostContext Host = null!;
+
+    static void Main(string[] args)
+    {
+        Host = HttpServer.CreateBuilder()
+            .UsePortableConfiguration(config =>
+            {
+                config.WithConfigFile("app.ini", createIfDontExists: true);
+                
+                // IniConfigurationReader 構成リーダーを使用
+                config.WithConfigurationPipeline<IniConfigurationReader>();
+            })
+            .UseRouter(r =>
+            {
+                r.MapGet("/", SayHello);
+            })
+            .Build();
+        
+        Host.Start();
+    }
+
+    static HttpResponse SayHello(HttpRequest request)
+    {
+        string? name = Host.Parameters["name"] ?? "world";
+        return new HttpResponse($"Hello, {name}!");
+    }
+}
+```
+
+上記のコードは、プロセスの現在のディレクトリ (CurrentDirectory) にある app.ini ファイルを探します。INI ファイルの内容は次のようになります。
+
+```ini
+[Server]
+# 複数のリスニング アドレスがサポートされます
+Listen = http://localhost:5552/
+Listen = http://localhost:5553/
+ThrowExceptions = false
+AccessLogsStream = console
+
+[Cors]
+AllowMethods = GET, POST
+AllowHeaders = Content-Type, Authorization
+AllowOrigin = *
+
+[Parameters]
+Name = "Kanye West"
+```
+
+## INI フレーバーと構文
+
+現在の実装フレーバー:
+
+- プロパティとセクション名は **大文字小文字を区別しません**。
+- プロパティ名と値は **トリミングされます**、ただし値が引用符で囲まれている場合は除きます。
+- 値は単一引用符または二重引用符で囲むことができます。引用符内には改行を含めることができます。
+- `#` と `;` でコメントをサポートします。**末尾のコメントも許可されます**。
+- プロパティには複数の値を指定できます。
+
+詳細については、Sisk で使用されている INI パーサーの "フレーバー" のドキュメントが [こちら](https://github.com/sisk-http/archive/blob/master/ext/ini-reader-syntax.md) にあります。
+
+次の INI コードを例として使用します。
+
+```ini
+One = 1
+Value = this is an value
+Another value = "this value
+    has an line break on it"
+
+; 以下のコードにはいくつかの色があります
+[some section]
+Color = Red
+Color = Blue
+Color = Yellow ; 黄色は使用しないでください
+```
+
+これを解析するには:
+
+```csharp
+// 文字列から INI テキストを解析
+IniDocument doc = IniDocument.FromString(iniText);
+
+// 1 つの値を取得
+string? one = doc.Global.GetOne("one");
+string? anotherValue = doc.Global.GetOne("another value");
+
+// 複数の値を取得
+string[]? colors = doc.GetSection("some section")?.GetMany("color");
+```
+
+## 構成パラメーター
+
+| セクションと名前 | 複数の値を許可 | 説明 |
+| ---------------- | --------------------- | ----------- |
+| `Server.Listen` | はい | サーバーのリスニング アドレス/ポート。 |
+| `Server.Encoding` | いいえ | サーバーの既定のエンコード。 |
+| `Server.MaximumContentLength` | いいえ | サーバーの最大コンテンツ長 (バイト単位)。 |
+| `Server.IncludeRequestIdHeader` | いいえ | HTTP サーバーが X-Request-Id ヘッダーを送信するかどうかを指定します。 |
+| `Server.ThrowExceptions` | いいえ | 処理されていない例外をスローするかどうかを指定します。  |
+| `Server.AccessLogsStream` | いいえ | アクセス ログの出力ストリームを指定します。 |
+| `Server.ErrorsLogsStream` | いいえ | エラー ログの出力ストリームを指定します。 |
+| `Cors.AllowMethods` | いいえ | CORS Allow-Methods ヘッダー値を指定します。 |
+| `Cors.AllowHeaders` | いいえ | CORS Allow-Headers ヘッダー値を指定します。 |
+| `Cors.AllowOrigins` | いいえ | 複数の Allow-Origin ヘッダー、コンマで区切られた値。 [AllowOrigins](https://docs.sisk-framework.org/api/Sisk.Core.Entity.CrossOriginResourceSharingHeaders.AllowOrigins.md) に関する詳細情報。 |
+| `Cors.AllowOrigin` | いいえ | 1 つの Allow-Origin ヘッダーを指定します。 |
+| `Cors.ExposeHeaders` | いいえ | CORS Expose-Headers ヘッダー値を指定します。 |
+| `Cors.AllowCredentials` | いいえ | CORS Allow-Credentials ヘッダー値を指定します。 |
+| `Cors.MaxAge` | いいえ | CORS Max-Age ヘッダー値を指定します。
+
+---
+
+# API ドキュメント
+
+Source: https://docs.sisk-framework.org/ja/docs/extensions/api-documentation.html
+
+`Sisk.Documenting` 拡張機能を使用すると、Sisk アプリケーションの API ドキュメントを自動的に生成できます。コード構造や属性を利用して包括的なドキュメントサイトを作成し、Open API（Swagger）形式へのエクスポートをサポートします。
+
+> [!WARNING]
+> このパッケージは現在開発中で、まだ公開されていません。動作や API は今後のアップデートで変更される可能性があります。
+
+このパッケージは NuGet で入手できないため、ソースコードをプロジェクトに直接組み込むか、プロジェクト依存として参照する必要があります。ソースコードは[こちら](https://github.com/sisk-http/core/tree/main/extensions/Sisk.Documenting)から取得できます。
+
+`Sisk.Documenting` を使用するには、アプリケーション ビルダーに登録し、ルートハンドラにドキュメント属性を付与します。
+
+### ドキュメント生成の登録
+
+`HttpServerHostContextBuilder` の `UseApiDocumentation` 拡張メソッドを使用して、アプリケーションを提供するルーターと同じルーターから生成された API ドキュメントを公開します。
+
+```csharp
+using Sisk.Documenting;
+using Sisk.Documenting.Exporters;
+
+// ...
+
+host.UseApiDocumentation(
+    context: new ApiGenerationContext()
+    {
+        ApplicationName = "My Application",
+        ApplicationDescription = "Description of my application.",
+        ApplicationVersion = "1.0.0"
+    },
+    routerPath: "/api/docs",
+    exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] });
+```
+
+- **context**: アプリケーション名、説明、バージョンなどのメタデータを定義します。
+- **routerPath**: ドキュメントのユーザーインターフェイス（または JSON）がアクセス可能になる URL パスです。
+- **exporter**: ドキュメントのエクスポート方法を構成します。`OpenApiExporter` は Open API（Swagger）サポートを有効にします。
+
+### エンドポイントのドキュメント化
+
+ルートハンドラ メソッドに `[ApiEndpoint]` と `[ApiQueryParameter]` 属性を付与して、エンドポイントを記述できます。
+
+### `ApiEndpoint`
+
+`[ApiEndpoint]` 属性でエンドポイントの説明を提供できます。
+
+```csharp
+[ApiEndpoint(Description = "Returns a greeting message.")]
+public HttpResponse Index(HttpRequest request) { ... }
+```
+
+### `ApiQueryParameter`
+
+`[ApiQueryParameter]` 属性は、エンドポイントが受け取るクエリ文字列パラメータを文書化します。
+
+```csharp
+[ApiQueryParameter(name: "name", IsRequired = false, Description = "The name of the person to greet.", Type = "string")]
+public HttpResponse Index(HttpRequest request) { ... }
+```
+
+- **name**: クエリ パラメータの名前。
+- **IsRequired**: パラメータが必須かどうかを指定します。
+- **Description**: パラメータの人間可読な説明。
+- **Type**: 期待されるデータ型（例: `"string"`、`"int"`）。
+
+### `ApiEndpoint`
+
+エンドポイントに一般情報を付与します。
+
+* **Name** (string, required in constructor): API エンドポイントの名前。
+* **Description** (string): エンドポイントの簡潔な説明。
+* **Group** (string): エンドポイントをグループ化するために使用します（例: コントローラやモジュール単位）。
+* **InheritDescriptionFromXmlDocumentation** (bool, default: `true`): `true` の場合、`Description` が設定されていないときにメソッドの XML ドキュメント要約を使用しようとします。
+
+### `ApiHeader`
+
+エンドポイントが期待または使用する特定の HTTP ヘッダーを文書化します。
+
+* **HeaderName** (string, required in constructor): ヘッダーのキー（例: `"Authorization"`）。
+* **Description** (string): ヘッダーの目的を説明します。
+* **IsRequired** (bool): リクエストに対してヘッダーが必須かどうかを示します。
+
+### `ApiParameter`
+
+フォーム フィールドやボディ パラメータなど、他の属性でカバーされない汎用パラメータを定義します。
+
+* **Name** (string, required in constructor): パラメータの名前。
+* **TypeName** (string, required in constructor): パラメータのデータ型（例: `"string"`、`"int"`）。
+* **Description** (string): パラメータの説明。
+* **IsRequired** (bool): パラメータが必須かどうかを示します。
+
+### `ApiParametersFrom`
+
+指定したクラスまたは型のプロパティから自動的にパラメータ文書を生成します。
+
+* **Type** (Type, required in constructor): プロパティを反映させるクラス `Type`。
+
+### `ApiPathParameter`
+
+パス変数（例: `/users/{id}`）を文書化します。
+
+* **Name** (string, required in constructor): パス パラメータの名前。
+* **Description** (string): パラメータが何を表すかを説明します。
+* **Type** (string): 期待されるデータ型。
+
+### `ApiQueryParameter`
+
+クエリ文字列パラメータ（例: `?page=1`）を文書化します。
+
+* **Name** (string, required in constructor): クエリ パラメータのキー。
+* **Description** (string): パラメータの説明。
+* **Type** (string): 期待されるデータ型。
+* **IsRequired** (bool): クエリ パラメータが必須かどうかを示します。
+
+### `ApiRequest`
+
+期待されるリクエスト ボディを記述します。
+
+* **Description** (string, required in constructor): リクエスト ボディの説明。
+* **Example** (string): リクエスト ボディの例を含む生文字列。
+* **ExampleLanguage** (string): 例の言語（例: `"json"`、`"xml"`）。
+* **PayloadType** (Type): 設定されている場合、構成されたコンテキスト ハンドラがサポートしていれば、この型から自動的に例とスキーマが生成されます。
+
+### `ApiResponse`
+
+エンドポイントからの可能なレスポンスを記述します。
+
+* **StatusCode** (HttpStatusCode, required in constructor): 返される HTTP ステータスコード（例: `HttpStatusCode.OK`）。
+* **Description** (string): このレスポンスの条件を説明します。
+* **Example** (string): レスポンス ボディの例を含む生文字列。
+* **ExampleLanguage** (string): 例の言語。
+* **PayloadType** (Type): 設定されている場合、構成されたコンテキスト ハンドラがサポートしていれば、この型から自動的に例とスキーマが生成されます。
+
+## タイプハンドラ
+
+タイプハンドラは、.NET の型（クラス、列挙型など）をドキュメント例に変換する役割を担います。データモデルに基づくリクエストやレスポンス ボディの自動例生成に特に有用です。
+
+これらのハンドラは `ApiGenerationContext` 内で構成します。
+
+```csharp
+using Sisk.Documenting.Content;
+
+var context = new ApiGenerationContext()
+{
+    // ...
+    BodyExampleTypeHandler = new JsonContentTypeHandler(),
+    ParameterExampleTypeHandler = new JsonContentTypeHandler(),
+    ContentSchemaTypeHandler = new JsonContentTypeHandler()
+};
+```
+
+### JsonContentTypeHandler
+
+`JsonContentTypeHandler` は組み込みハンドラで、JSON の例、パラメータ例、JSON スキーマを生成します。`IExampleBodyTypeHandler`、`IExampleParameterTypeHandler`、`IContentSchemaTypeHandler` を実装しています。
+
+アプリケーションのシリアライズ ロジックに合わせて、特定の `JsonSerializerOptions` や `IJsonTypeInfoResolver` でカスタマイズできます。
+
+```csharp
+var jsonHandler = new JsonContentTypeHandler(new JsonSerializerOptions
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    WriteIndented = true
+});
+
+context.BodyExampleTypeHandler = jsonHandler;
+context.ParameterExampleTypeHandler = jsonHandler;
+context.ContentSchemaTypeHandler = jsonHandler;
+```
+
+### カスタムタイプハンドラ
+
+XML など他のフォーマットをサポートしたり、例の生成方法をカスタマイズしたりするために、独自のハンドラを実装できます。
+
+#### IExampleBodyTypeHandler
+
+リクエストおよびレスポンス型のボディ例を生成するためにこのインターフェイスを実装します。
+
+```csharp
+public class XmlExampleTypeHandler : IExampleBodyTypeHandler
+{
+    public BodyExampleResult? GetBodyExampleForType(Type type)
+    {
+        // Generate XML string for the type
+        string xmlContent = MyXmlGenerator.Generate(type);
+
+        return new BodyExampleResult(xmlContent, "xml");
+    }
+}
+```
+
+#### IExampleParameterTypeHandler
+
+`[ApiParametersFrom]` で使用される、型から詳細なパラメータ説明を生成するためにこのインターフェイスを実装します。
+
+```csharp
+public class CustomParameterHandler : IExampleParameterTypeHandler
+{
+    public ParameterExampleResult[] GetParameterExamplesForType(Type type)
+    {
+        var properties = type.GetProperties();
+        var examples = new List<ParameterExampleResult>();
+
+        foreach (var prop in properties)
+        {
+            examples.Add(new ParameterExampleResult(
+                name: prop.Name,
+                typeName: prop.PropertyType.Name,
+                isRequired: true,
+                description: "Generated description"
+            ));
+        }
+
+        return examples.ToArray();
+    }
+}
+```
+
+## エクスポーター
+
+エクスポーターは、収集された API ドキュメント メタデータを、他のツールが利用できる形式やユーザーに表示できる形式に変換する役割を担います。
+
+### OpenApiExporter
+
+デフォルトで提供されるエクスポーターは `OpenApiExporter` で、[OpenAPI Specification 3.0.0](https://spec.openapis.org/oas/v3.0.0) に従った JSON ファイルを生成します。
+
+```csharp
+new OpenApiExporter()
+{
+    OpenApiVersion = "3.0.0",
+    ServerUrls = new[] { "http://localhost:5555" },
+    Contact = new OpenApiContact()
+    {
+        Name = "Support",
+        Email = "support@example.com",
+        Url = "https://example.com/support"
+    },
+    License = new OpenApiLicense()
+    {
+        Name = "MIT",
+        Url = "https://opensource.org/licenses/MIT"
+    },
+    TermsOfService = "https://example.com/terms"
+}
+```
+
+### カスタムエクスポーターの作成
+
+`IApiDocumentationExporter` インターフェイスを実装して独自のエクスポーターを作成できます。これにより、Markdown、HTML、Postman Collection、または任意のカスタム形式でドキュメントを出力できます。
+
+インターフェイスは単一メソッド `ExportDocumentationContent` の実装を要求します。
+
+```csharp
+using Sisk.Core.Http;
+using Sisk.Documenting;
+
+public class MyCustomExporter : IApiDocumentationExporter
+{
+    public HttpContent ExportDocumentationContent(ApiDocumentation documentation)
+    {
+        // 1. Process the documentation object
+        var sb = new StringBuilder();
+        sb.AppendLine($"# {documentation.ApplicationName}");
+
+        foreach(var endpoint in documentation.Endpoints)
+        {
+            sb.AppendLine($"## {endpoint.Method} {endpoint.Path}");
+            sb.AppendLine(endpoint.Description);
+        }
+
+        // 2. Return the content as an HttpContent
+        return new StringContent(sb.ToString(), Encoding.UTF8, "text/markdown");
+    }
+}
+```
+
+その後、設定で単に使用します：
+
+```csharp
+host.UseApiDocumentation(
+    // ...
+    exporter: new MyCustomExporter()
+);
+```
+
+### 完全な例
+
+以下は `Sisk.Documenting` を設定し、シンプルなコントローラをドキュメント化する完全な例です。
+
+```csharp
+using Sisk.Core.Entity;
+using Sisk.Core.Http;
+using Sisk.Core.Routing;
+using Sisk.Documenting;
+using Sisk.Documenting.Annotations;
+using Sisk.Documenting.Exporters;
+
+using var host = HttpServer.CreateBuilder(5555)
+    .UseCors(CrossOriginResourceSharingHeaders.CreatePublicContext())
+    .UseApiDocumentation(
+        context: new ApiGenerationContext()
+        {
+            ApplicationName = "My application",
+            ApplicationDescription = "It greets someone."
+        },
+        routerPath: "/api/docs",
+        exporter: new OpenApiExporter() { ServerUrls = ["http://localhost:5555/"] })
+    .UseRouter(router =>
+    {
+        router.MapInstance(new MyController());
+    })
+    .Build();
+
+await host.StartAsync();
+
+class MyController
+{
+    [RouteGet]
+    [ApiEndpoint(Description = "Returns a greeting message.")]
+    [ApiQueryParameter(name: "name", IsRequired = false, Description = "The name of the person to greet.", Type = "string")]
+    public HttpResponse Index(HttpRequest request)
+    {
+        string? name = request.Query["name"].MaybeNullOrEmpty() ?? "world";
+        return new HttpResponse($"Hello, {name}!");
+    }
+}
+```
+
+この例では、`/api/docs` にアクセスすると「My application」API の生成されたドキュメントが提供され、`GET /` エンドポイントとその `name` パラメータが記述されます。
+
+---
+
+# 手動（上級）セットアップ
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/manual-setup.html
+
+サーバーの部品を自分で組み立てる必要がある場合、たとえば 1 つのプロセスが複数のホスト、ポート、ルーター、またはカスタムサーバー構成を公開しなければならない場合に手動設定を使用します。ほとんどのアプリケーションでは、ビルダー API の方が短く、優先すべきです。手動設定は、`Router`、1 つ以上の `ListeningHost` オブジェクト、`HttpServerConfiguration`、最終的な `HttpServer` の 4 つのコア部品を直接制御したいときに便利です。
+
+まず、リクエスト/レスポンスの概念を理解する必要があります。これは非常にシンプルです。すべてのリクエストに対してレスポンスが必要です。Sisk もこの原則に従います。ステータスコードとヘッダーを指定した、HTML の「Hello, World!」メッセージで応答するメソッドを作成しましょう。
+
+```csharp
+// Program.cs
+using Sisk.Core.Http;
+using Sisk.Core.Routing;
+
+static HttpResponse IndexPage(HttpRequest request)
+{
+    HttpResponse indexResponse = new HttpResponse
+    {
+        Status = System.Net.HttpStatusCode.OK,
+        Content = new HtmlContent(@"
+            <html>
+                <body>
+                    <h1>Hello, world!</h1>
+                </body>
+            </html>
+        ")
+    };
+
+    return indexResponse;
+}
+```
+
+次のステップは、このメソッドを HTTP ルートに関連付けることです。
+
+## ルーター
+
+ルーターはリクエストルートの抽象化であり、サービスのリクエストとレスポンスの橋渡しを行います。ルーターはサービスルート、関数、エラーを管理します。
+
+ルーターは複数のルートを持つことができ、各ルートは関数の実行、ページの提供、サーバーからのリソース提供など、パスに対してさまざまな操作を実行できます。
+
+最初のルーターを作成し、`IndexPage` メソッドをインデックスパスに関連付けましょう。
+
+```csharp
+Router mainRouter = new Router;
+
+mainRouter.MapGet("/", IndexPage);
+```
+
+これでルーターはリクエストを受け取りレスポンスを返すことができます。ただし、`mainRouter` はホストやサーバーに紐付いていないため、単体では機能しません。次のステップは `ListeningHost` を作成することです。
+
+## リスニングホストとポート
+
+[ListeningHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.md) はルーターと同じルーター用の複数のリスニングポートをホストできます。[ListeningPort](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningPort.md) は HTTP サーバーがリッスンするプレフィックスです。
+
+ここでは、ルーターに対して 2 つのエンドポイントを指す `ListeningHost` を作成します。
+
+```csharp
+ListeningHost myHost = new ListeningHost
+{
+    Router = mainRouter,
+    Ports = new ListeningPort[]
+    {
+        new ListeningPort("http://localhost:5000/")
+    }
+};
+```
+
+これで HTTP サーバーは指定されたエンドポイントでリッスンし、リクエストをルーターに転送します。
+
+## サーバー構成
+
+サーバー構成は HTTP サーバー自体の動作の大部分を担当します。この構成では `ListeningHost` をサーバーに関連付けることができます。
+
+```csharp
+HttpServerConfiguration config = new HttpServerConfiguration();
+config.ListeningHosts.Add(myHost); // このサーバー構成に ListeningHost を追加します
+```
+
+一般的なサーバー構成オプション:
+
+| プロパティ | デフォルト | 使用シーン | 備考 |
+| --- | --- | --- | --- |
+| [RemoteRequestsAction](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.md) | `RequestListenAction.Accept` | サービスは、信頼できるリバースプロキシ経由でない限り、ローカル以外のリクエストを拒否すべきです。 | `Drop` に設定するのは、デプロイトポロジーが明確な場合のみです。 |
+| [IncludeRequestIdHeader](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.IncludeRequestIdHeader.md) | `false` | クライアントまたはプロキシが `X-Request-Id` 応答ヘッダーに Sisk のリクエスト ID を必要とする場合。 | `HttpRequest.RequestId` を含むログと組み合わせて使用してください。 |
+| [IdleConnectionTimeout](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.IdleConnectionTimeout.md) | `120` seconds | アイデル状態の Keep-Alive 接続は、遅かれ早かれ閉じるべきです。 | これは HTTP エンジンによって適用されます。 |
+| [NormalizeHeadersEncodings](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.NormalizeHeadersEncodings.md) | `false` | ヘッダーのエンコーディングが一致しない場合。 | 処理コストがかかります。必要なければ無効のままにしてください。 |
+| [SendSiskHeader](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.SendSiskHeader.md) | `true` | `X-Powered-By` Sisk ヘッダーを隠すか公開したい場合。 | 本番環境でより厳格なヘッダー方針が必要な場合は無効にしてください。 |
+| [OptionsLogMode](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.OptionsLogMode.md) | `LogOutput.Both` | 自動 `OPTIONS` 処理で生成されるログを削減またはリダイレクトしたい場合。 | ルートと同じログモードの値を使用します。 |
+| [AsyncRequestProcessing](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.AsyncRequestProcessing.md) | `true` | 診断のために決定的な単一リクエスト処理が必要な場合。 | 無効にするとスループットが制限されます。 |
+| [DisposeDisposableContextValues](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.md) | `true` | `IDisposable` を実装するリクエストバッグの値を自動的に破棄すべき場合。 | 所有権が他で管理されていない限り、有効のままにしてください。 |
+| [ConvertIAsyncEnumerableIntoEnumerable](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ConvertIAsyncEnumerableIntoEnumerable.md) | `true` | 値ハンドラが非同期列挙可能をブロッキング列挙可能として受け取るべき場合。 | 独自の非同期ストリーム処理を実装する場合は無効にしてください。 |
+| [KeepAlive](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.KeepAlive.md) | `true` | レスポンス後も接続を再利用可能にすべき場合。 | 永続接続をうまく扱えないクライアントや中間サーバーの場合は無効にしてください。 |
+| [ForceTrailingSlash](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.md) | `false` | GET ルートを末尾スラッシュ付き URL にリダイレクトすべき場合。 | 正規表現以外のルートにのみ適用されます。 |
+| [MaximumContentLength](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength.md) | `0` | リクエストボディにサイズ上限が必要な場合。 | `0` はフレームワークまたはメモリ上限に達するまで無制限を意味します。 |
+| [EnableAutomaticResponseCompression](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.EnableAutomaticResponseCompression.md) | `false` | クライアントがサポートしている場合、レスポンスを自動的に圧縮すべき場合。 | 既存の `CompressedContent` レスポンスは再度圧縮されません。 |
+
+次に、HTTP サーバーを作成します。
+
+```csharp
+HttpServer server = new HttpServer(config);
+server.Start();    // サーバーを起動します
+Console.ReadKey(); // アプリケーションが終了しないようにします
+```
+
+これで実行ファイルをコンパイルし、次のコマンドで HTTP サーバーを起動できます。
+
+```bash
+dotnet watch
+```
+
+実行時にブラウザを開きサーバーパスへアクセスすると、以下のように表示されます。
+
+<img src="/assets/img/localhost.png" >
+
+---
+
+# リクエストのライフサイクル
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/request-lifecycle.html
+
+以下では、HTTP リクエストの例を通して、リクエストの全ライフサイクルについて説明します。
+
+- **リクエストの受信:** 各リクエストは、リクエスト自体とクライアントに配信されるレスポンスとの間に HTTP コンテキストを作成します。このコンテキストは Sisk の組み込みリスナーから提供され、[HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)、[Kestrel](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-9.0)、または [Cadente](https://blog.sisk-framework.org/posts/2025-01-29-cadente-experiment/) のいずれかになります。
+    - 外部リクエストの検証: [HttpServerConfiguration.RemoteRequestsAction](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.RemoteRequestsAction.md) の検証がリクエストに対して行われます。
+        - リクエストが外部であり、プロパティが `Drop` の場合、`HttpServerExecutionStatus = RemoteRequestDropped` とともにクライアントへのレスポンスなしで接続が閉じられます。
+    - 転送リゾルバーの構成: [ForwardingResolver](https://docs.sisk-framework.org/ja/docs/advanced/forwarding-resolvers.md) が構成されている場合、リクエスト元ホストの [OnResolveRequestHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ForwardingResolver.OnResolveRequestHost.md) メソッドが呼び出されます。
+    - DNS マッチング: ホストが解決され、かつ複数の [ListeningHost](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.md) が構成されている場合、サーバーはリクエストに対応するホストを探します。
+        - 一致する ListeningHost がない場合、クライアントに 400 Bad Request のレスポンスが返され、HTTP コンテキストには `HttpServerExecutionStatus = DnsUnknownHost` ステータスが設定されます。
+        - ListeningHost が一致しても、その [Router](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.Router.md) がまだ初期化されていない場合、クライアントに 503 Service Unavailable のレスポンスが返され、HTTP コンテキストには `HttpServerExecutionStatus = ListeningHostNotReady` ステータスが設定されます。
+    - ルーターのバインディング: 対応する ListeningHost のルーターが受信した HTTP サーバーに関連付けられます。
+        - ルーターがすでに別の HTTP サーバーに関連付けられている場合、ルーターはサーバーの構成リソースを積極的に使用するため許可されず、`InvalidOperationException` がスローされます。これは HTTP サーバーの初期化時にのみ発生し、HTTP コンテキストの作成時には発生しません。
+    - ヘッダーの事前定義:
+        - 設定されている場合、レスポンスに `X-Request-Id` ヘッダーを事前定義します。
+        - 設定されている場合、レスポンスに `X-Powered-By` ヘッダーを事前定義します。
+    - コンテンツサイズの検証: リクエストコンテンツが [HttpServerConfiguration.MaximumContentLength](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.MaximumContentLength.md) 未満かどうかを、設定が 0 より大きい場合にのみ検証します。
+        - リクエストが設定された `Content-Length` を超える場合、クライアントに 413 Payload Too Large のレスポンスが返され、HTTP コンテキストには `HttpServerExecutionStatus = ContentTooLarge` ステータスが設定されます。
+    - `OnHttpRequestOpen` イベントが、構成されたすべての HTTP サーバーハンドラに対して呼び出されます。
+- **アクションのルーティング:** サーバーは受信したリクエストに対してルーターを呼び出します。
+    - ルーターがリクエストに一致するルートを見つけない場合:
+        - [Router.NotFoundErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.NotFoundErrorHandler.md) プロパティが構成されている場合、アクションが呼び出され、そのレスポンスが HTTP クライアントに転送されます。
+        - 前述のプロパティが null の場合、デフォルトの 404 Not Found レスポンスがクライアントに返されます。
+    - ルーターが一致するルートを見つけたが、ルートのメソッドがリクエストのメソッドと一致しない場合:
+        - [Router.MethodNotAllowedErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.MethodNotAllowedErrorHandler.md) プロパティが構成されている場合、アクションが呼び出され、そのレスポンスが HTTP クライアントに転送されます。
+        - 前述のプロパティが null の場合、デフォルトの 405 Method Not Allowed レスポンスがクライアントに返されます。
+    - リクエストが `OPTIONS` メソッドの場合:
+        - ルーターは、リクエストメソッドに一致するルートがない場合（ルートのメソッドが明示的に [RouteMethod.Options](https://docs.sisk-framework.org/api/Sisk.Core.Routing.RouteMethod.md) でない場合）に限り、クライアントに 200 Ok のレスポンスを返します。
+    - [HttpServerConfiguration.ForceTrailingSlash](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ForceTrailingSlash.md) プロパティが有効で、マッチしたルートが正規表現でなく、リクエストパスが `/` で終わっておらず、リクエストメソッドが `GET` の場合:
+        - パスとクエリを同じ場所に `/` を付加した形で `Location` ヘッダーに設定した 307 Temporary Redirect の HTTP レスポンスがクライアントに返されます。
+    - `OnContextBagCreated` イベントが、構成されたすべての HTTP サーバーハンドラに対して呼び出されます。
+    - `BeforeResponse` フラグが設定されたすべてのグローバル [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) インスタンスが実行されます。
+        - ハンドラが null でないレスポンスを返した場合、そのレスポンスが HTTP クライアントに転送され、コンテキストは閉じられます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が無効化されている場合:
+            - [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティが有効な場合、呼び出され、その結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが未定義の場合、空のレスポンスがサーバーに返され、スローされた例外の種類に応じたレスポンス（通常は 500 Internal Server Error）が転送されます。
+    - ルートで定義され、`BeforeResponse` フラグが設定されたすべての [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) インスタンスが実行されます。
+        - ハンドラが null でないレスポンスを返した場合、そのレスポンスが HTTP クライアントに転送され、コンテキストは閉じられます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が無効化されている場合:
+            - [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティが有効な場合、呼び出され、その結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが未定義の場合、空のレスポンスがサーバーに返され、スローされた例外の種類に応じたレスポンス（通常は 500 Internal Server Error）が転送されます。
+    - ルーターのアクションが呼び出され、HTTP レスポンスに変換されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が無効化されている場合:
+            - [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティが有効な場合、呼び出され、その結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが未定義の場合、空のレスポンスがサーバーに返され、スローされた例外の種類に応じたレスポンス（通常は 500 Internal Server Error）が転送されます。
+    - `AfterResponse` フラグが設定されたすべてのグローバル [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) インスタンスが実行されます。
+        - ハンドラが null でないレスポンスを返した場合、ハンドラのレスポンスが前のレスポンスを置き換え、直ちに HTTP クライアントに転送されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が無効化されている場合:
+            - [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティが有効な場合、呼び出され、その結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが未定義の場合、空のレスポンスがサーバーに返され、スローされた例外の種類に応じたレスポンス（通常は 500 Internal Server Error）が転送されます。
+    - ルートで定義され、`AfterResponse` フラグが設定されたすべての [IRequestHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.IRequestHandler.md) インスタンスが実行されます。
+        - ハンドラが null でないレスポンスを返した場合、ハンドラのレスポンスが前のレスポンスを置き換え、直ちに HTTP クライアントに転送されます。
+        - このステップでエラーがスローされ、[HttpServerConfiguration.ThrowExceptions](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ThrowExceptions.md) が無効化されている場合:
+            - [Router.CallbackErrorHandler](https://docs.sisk-framework.org/api/Sisk.Core.Routing.Router.CallbackErrorHandler.md) プロパティが有効な場合、呼び出され、その結果のレスポンスがクライアントに返されます。
+            - 前述のプロパティが未定義の場合、空のレスポンスがサーバーに返され、スローされた例外の種類に応じたレスポンス（通常は 500 Internal Server Error）が転送されます。
+- **レスポンスの処理:** レスポンスが準備できたら、サーバーはクライアントへの送信のためにそれを準備します。
+    - Cross-Origin Resource Sharing ポリシー (CORS) ヘッダーは、現在の [ListeningHost.CrossOriginResourceSharingPolicy](https://docs.sisk-framework.org/api/Sisk.Core.Http.ListeningHost.CrossOriginResourceSharingPolicy.md) で設定された内容に従ってレスポンスに定義されます。
+    - レスポンスのステータスコードとヘッダーがクライアントに送信されます。
+    - レスポンスコンテンツがクライアントに送信されます:
+        - レスポンスコンテンツが [ByteArrayContent](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.bytearraycontent) の派生クラスである場合、レスポンスバイトは直接レスポンス出力ストリームにコピーされます。
+        - 前述の条件を満たさない場合、レスポンスはストリームにシリアライズされ、レスポンス出力ストリームにコピーされます。
+    - ストリームが閉じられ、レスポンスコンテンツは破棄されます。
+    - [HttpServerConfiguration.DisposeDisposableContextValues](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.DisposeDisposableContextValues.md) が有効な場合、リクエストコンテキストで定義された [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable) を継承するすべてのオブジェクトが破棄されます。
+    - `OnHttpRequestClose` イベントが、構成されたすべての HTTP サーバーハンドラに対して呼び出されます。
+    - サーバーで例外がスローされた場合、`OnException` イベントが、構成されたすべての HTTP サーバーハンドラに対して呼び出されます。
+    - ルートがアクセスログを許可し、[HttpServerConfiguration.AccessLogsStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.AccessLogsStream.md) が null でない場合、ログ行がログ出力に書き込まれます。
+    - ルートがエラーログを許可し、例外が発生し、[HttpServerConfiguration.ErrorsLogsStream](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServerConfiguration.ErrorsLogsStream.md) が null でない場合、エラーログ出力にログ行が書き込まれます。
+    - サーバーが [HttpServer.WaitNext](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.WaitNext.md) でリクエストを待機している場合、ミューテックスが解放され、コンテキストがユーザーに利用可能になります。
+
+---
+
+# フォワーディングリゾルバ
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/forwarding-resolvers.html
+
+フォワーディングリゾルバは、リクエスト、プロキシ、CDN、ロードバランサーを通じてクライアントを識別する情報をデコードするのに役立つヘルパーです。Sisk サービスがリバースプロキシまたはフォワードプロキシを介して実行される場合、クライアントの IP アドレス、ホスト、プロトコルは元のリクエストとは異なることがあります。これは、あるサービスから別のサービスへ転送されるためです。この Sisk の機能により、リクエストを処理する前にこの情報を制御・解決できます。これらのプロキシは通常、クライアントを識別するための有用なヘッダーを提供します。
+
+現在、[ForwardingResolver](https://docs.sisk-framework.org/api/Sisk.Core.Http.ForwardingResolver.md) クラスを使用すると、クライアントの IP アドレス、ホスト、使用された HTTP プロトコルを解決することが可能です。Sisk のバージョン 1.0 以降、サーバーはサービスごとに異なるセキュリティ上の理由から、これらのヘッダーをデコードする標準実装を提供しなくなりました。
+
+たとえば、`X-Forwarded-For` ヘッダーにはリクエストを転送した IP アドレスの情報が含まれます。このヘッダーはプロキシが情報のチェーンを最終サービスへ渡すために使用され、使用されたすべてのプロキシの IP とクライアントの実際のアドレスが含まれます。問題は、クライアントのリモート IP を特定するのが難しいことがあり、このヘッダーを識別するための具体的なルールが存在しない点です。以下のヘッダーに関するドキュメントを必ずお読みください。
+
+- `X-Forwarded-For` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-For#security_and_privacy_concerns)をご参照ください。
+- `X-Forwarded-Host` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Host)をご参照ください。
+- `X-Forwarded-Proto` ヘッダーについては[こちら](https://developer.mozilla.org/en-US/docs/jp/Web/HTTP/Headers/X-Forwarded-Proto)をご参照ください。
+
+## ForwardingResolver クラス
+
+このクラスには、各サービスに最適な実装を可能にする 3 つの仮想メソッドが用意されています。各メソッドは、プロキシを介したリクエストから情報を解決する役割を担い、クライアントの IP アドレス、リクエストのホスト、使用されたセキュリティプロトコルを取得します。デフォルトでは、Sisk はヘッダーを解決せず、元のリクエストに含まれる情報を常に使用します。
+
+以下の例は、この実装の使用方法を示しています。この例では `X-Forwarded-For` ヘッダーを使ってクライアントの IP を解決し、リクエストに複数の IP が転送されている場合はエラーをスローします。
+
+> [!IMPORTANT]
+> 本例を本番コードで使用しないでください。実装が使用に適切かどうか必ず確認し、実装前にヘッダーのドキュメントを読んでください。
+
+```cs
+class Program
+{
+    static void Main(string[] args)
+    {
+        using var host = HttpServer.CreateBuilder()
+            .UseForwardingResolver<Resolver>()
+            .UseListeningPort(5555)
+            .Build();
+
+        host.Router.MapAny(Route.AnyPath, request =>
+            new HttpResponse("Hello, world!!!"));
+ 
+        host.Start();
+    }
+
+    class Resolver : ForwardingResolver
+    {
+        public override IPAddress OnResolveClientAddress(HttpRequest request, IPEndPoint connectingEndpoint)
+        {
+            string? forwardedFor = request.Headers.XForwardedFor;
+            if (forwardedFor is null)
+            {
+                throw new Exception("The X-Forwarded-For header is missing.");
+            }
+            string[] ipAddresses = forwardedFor.Split(',');
+            if (ipAddresses.Length != 1)
+            {
+                throw new Exception("Too many addresses in the X-Forwarded-For header.");
+            }
+
+            return IPAddress.Parse(ipAddresses[0]);
+        }
+    }
+}
+```
+
+---
+
+# Http server handlers
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/http-server-handlers.html
+
+Sisk バージョン 0.16 では、`HttpServerHandler` クラスを導入しました。このクラスは Sisk の全体的な動作を拡張し、Http リクエストの処理、ルーター、コンテキストバッグなど、追加のイベントハンドラを Sisk に提供することを目的としています。
+
+このクラスは、HTTP サーバ全体および個々のリクエストのライフタイム中に発生するイベントを集中管理します。Http プロトコルにはセッションが存在しないため、あるリクエストから別のリクエストへ情報を保持することはできません。Sisk は現在、セッション、コンテキスト、データベース接続、その他の便利なプロバイダーを実装できる方法を提供しています。
+
+各イベントがいつトリガーされるか、その目的は何かについては、[このページ](https://docs.sisk-framework.org/api/Sisk.Core.Http.Handlers.HttpServerHandler.md) を参照してください。また、リクエストがどのように処理され、どこでイベントが発火するかを理解するために、[HTTP リクエストのライフサイクル](https://docs.sisk-framework.org/ja/docs/advanced/request-lifecycle.md) もご覧ください。HTTP サーバは複数のハンドラを同時に使用できます。各イベント呼び出しは同期的に行われ、すべてのハンドラが実行・完了するまで、リクエストまたはコンテキストごとに現在のスレッドがブロックされます。
+
+RequestHandlers とは異なり、特定のルートグループや個別のルートに適用することはできません。代わりに、HTTP サーバ全体に適用されます。Http Server Handler 内で条件を設定することも可能です。さらに、各 `HttpServerHandler` のシングルトンはすべての Sisk アプリケーションで定義されるため、`HttpServerHandler` ごとにインスタンスは 1 つだけです。
+
+HttpServerHandler の実用的な使用例として、リクエストの終了時にデータベース接続を自動的に破棄する方法があります。
+
+```cs
+// DatabaseConnectionHandler.cs
+
+public class DatabaseConnectionHandler : HttpServerHandler
+{
+    protected override void OnHttpRequestClose(HttpServerExecutionResult result)
+    {
+        var requestBag = result.Request.Context.RequestBag;
+
+        // リクエストのコンテキストバッグに DbContext が設定されているか確認
+        if (requestBag.IsSet<DbContext>())
+        {
+            var db = requestBag.Get<DbContext>();
+            db.Dispose();
+        }
+    }
+}
+
+public static class DatabaseConnectionHandlerExtensions
+{
+    public static DbContext GetDbContext(this HttpRequest request)
+    {
+        return request.Bag.GetOrAdd(() => new DbContext());
+    }
+}
+```
+
+上記のコードでは、`GetDbContext` 拡張メソッドにより、`HttpRequest` オブジェクトから直接接続コンテキストを作成できるようになります。未破棄の接続はデータベース操作時に問題を引き起こす可能性があるため、`OnHttpRequestClose` で終了させます。
+
+ハンドラはビルダー内または直接 [HttpServer.RegisterHandler](https://docs.sisk-framework.org/api/Sisk.Core.Http.HttpServer.RegisterHandler.md) を使用して HTTP サーバに登録できます。
+
+```cs
+// Program.cs
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        using var app = HttpServer.CreateBuilder()
+            .UseHandler<DatabaseConnectionHandler>()
+            .Build();
+
+        app.Router.MapInstance(new UserController());
+        app.Start();
+    }
+}
+```
+
+これにより、`UsersController` クラスは次のようにデータベースコンテキストを利用できます。
+
+```cs
+// UserController.cs
+
+[RoutePrefix("/users")]
+public class UserController : ApiController
+{
+    [RouteGet()]
+    public async Task<HttpResponse> List(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var users = db.Users.ToArray();
+
+        return JsonOk(users);
+    }
+
+    [RouteGet("<id>")]
+    public async Task<HttpResponse> View(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+
+        int userId = request.RouteParameters["id"].GetInteger();
+        var user = db.Users.FirstOrDefault(u => u.Id == userId);
+
+        return JsonOk(user);
+    }
+
+    [RoutePost]
+    public async Task<HttpResponse> Create(HttpRequest request)
+    {
+        var db = request.GetDbContext();
+        var user = await request.GetJsonContentAsync<User>();
+
+        ArgumentNullException.ThrowIfNull(user);
+
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+
+        return JsonMessage("User added.");
+    }
+}
+```
+
+上記のコードは、`ApiController` に組み込まれている `JsonOk` や `JsonMessage` といったメソッドを使用しています。`ApiController` は `RouterController` から継承されています。
+
+```cs
+// ApiController.cs
+
+public class ApiController : RouterModule
+{
+    public HttpResponse JsonOk(object value)
+    {
+        return new HttpResponse(200)
+            .WithContent(JsonContent.Create(value, null, new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            }));
+    }
+
+    public HttpResponse JsonMessage(string message, int statusCode = 200)
+    {
+        return new HttpResponse(statusCode)
+            .WithContent(JsonContent.Create(new
+            {
+                Message = message
+            }));
+    }
+}
+```
+
+開発者はこのクラスを利用してセッション、コンテキスト、データベース接続を実装できます。提示されたコードは `DatabaseConnectionHandler` を用いた実用例であり、各リクエストの終了時にデータベース接続を自動的に破棄します。
+
+統合はシンプルで、サーバ設定時にハンドラを登録するだけです。`HttpServerHandler` クラスは、リソース管理と Sisk の動作拡張を行うための強力なツールセットを提供します。
+
+---
+
+# サーバーあたり複数のリスニングホスト
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/multi-host-setup.html
+
+Sisk Framework は常にサーバーあたり複数のホストの使用をサポートしており、つまり単一の HTTP サーバーが複数のポートでリッスンでき、各ポートはそれぞれ独自のルーターとサービスを実行します。
+
+このように、Sisk を使用すると単一の HTTP サーバー上で責務を分離し、サービスを管理することが容易になります。以下の例は、異なるポートでリッスンする 2 つの ListeningHost を作成し、異なるルーターとアクションを持たせる方法を示しています。
+
+[アプリを手動で作成する](https://docs.sisk-framework.org/ja/docs/advanced/manual-setup.md) を参照してください。
+
+```cs
+static void Main(string[] args)
+{
+    // 2 つのリスニングホストを作成し、それぞれが独自のルーターを持ち
+    // 各自のポートでリッスンします
+    //
+    ListeningHost hostA = new ListeningHost();
+    hostA.Ports = [new ListeningPort(12000)];
+    hostA.Router = new Router();
+    hostA.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host A!"));
+
+    ListeningHost hostB = new ListeningHost();
+    hostB.Ports = [new ListeningPort(12001)];
+    hostB.Router = new Router();
+    hostB.Router.MapGet("/", request => new HttpResponse().WithContent("Hello from the host B!"));
+ 
+    // サーバー構成を作成し、両方のリスニングホストを追加します
+    // それにリスニングホストを設定します
+    //
+    HttpServerConfiguration configuration = new HttpServerConfiguration();
+    configuration.ListeningHosts.Add(hostA);
+    configuration.ListeningHosts.Add(hostB);
+
+    // 指定された構成を使用する HTTP サーバーを作成します
+    //
+    HttpServer server = new HttpServer(configuration);
+
+    // サーバーを開始します
+    server.Start();
+
+    Console.WriteLine("Try to reach host A in {0}", server.ListeningPrefixes[0]);
+    Console.WriteLine("Try to reach host B in {0}", server.ListeningPrefixes[1]);
+
+    Thread.Sleep(-1);
+}
+```
+
+---
+
+# HTTPサーバーエンジン
+
+Source: https://docs.sisk-framework.org/ja/docs/advanced/server-engines.html
+
+Sisk Frameworkは複数のパッケージに分割されており、主なパッケージ（Sisk.HttpServer）は基本的なHTTPサーバーを含んでいません。デフォルトでは、[HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)がSiskの主なエンジンとして使用され、低レベルのサーバーの役割を果たします。
+
+HTTPエンジンは、Siskが提供するアプリケーション層の下の層を果たします。この層は、接続管理、メッセージのシリアライズとデシリアライズ、メッセージキューの制御、およびマシンのソケットとの通信を担当します。
+
+[HttpServerEngine](https://docs.sisk-framework.org/api/Sisk.Core.Http.Engine.HttpServerEngine.md)クラスは、ルーティング、SSE、ミドルウェアなど、Siskで使用するためのHTTPエンジンの必要な機能を実装するAPIを公開します。これらの機能は、HTTPエンジンの責任ではなく、HTTPエンジンを基盤として実行するサブセットのライブラリの責任です。
+
+この抽象化により、Siskを他のHTTPエンジン（.NETで書かれたものやそうでないもの）で使用できるように移植することができます。たとえば、Kestrelなどです。現在、Siskはネイティブの.NET [HttpListener](https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0)の抽象化をデフォルトとして使用しています。このデフォルトの抽象化は、いくつかの特定の問題を引き起こします。たとえば、異なるプラットフォームでの未指定の動作（HttpListenerにはWindows用と他のプラットフォーム用の実装が別々にある）、SSLのサポートの欠如、Windows以外でのパフォーマンスがあまり良くないことなどです。
+
+Sisk用のHTTPエンジンとして、C#で書かれた高性能サーバーの実験的な実装も利用可能です。[Cadente](https://github.com/sisk-http/core/tree/main/cadente)プロジェクトと呼ばれます。これは、Siskと組み合わせて使用できるマネージドサーバーの実験です。
+
+## Sisk用のHTTPエンジンの実装
+
+既存のHTTPサーバーとSiskの間の接続ブリッジを作成することで、[HttpServerEngine](https://docs.sisk-framework.org/api/Sisk.Core.Http.Engine.HttpServerEngine.md)クラスを拡張することができます。このクラスに加えて、コンテキスト、リクエスト、レスポンスの抽象化も実装する必要があります。
+
+完了した抽象化の例は、[GitHub](https://github.com/sisk-http/core/blob/main/src/Http/Engine/HttpListenerAbstractEngine.cs)で参照できます。以下のようになります。
+
+```csharp
+/// <summary>
+/// <see cref="HttpServerEngine"/>の<see cref="HttpListener"/>を使用した実装を提供します。
+/// </summary>
+public sealed class HttpListenerAbstractEngine : HttpServerEngine {
+    private HttpListener _listener;
+    private static Lazy<HttpListenerAbstractEngine> shared = new Lazy<HttpListenerAbstractEngine> ( () => new HttpListenerAbstractEngine () );
+
+    /// <summary>
+    /// <see cref="HttpListenerAbstractEngine"/>クラスの共有インスタンスを取得します。
+    /// </summary>
+    public static HttpListenerAbstractEngine Shared => shared.Value;
+
+    /// <summary>
+    /// <see cref="HttpListenerAbstractEngine"/>クラスの新しいインスタンスを初期化します。
+    /// </summary>
+    public HttpListenerAbstractEngine () {
+        _listener = new HttpListener {
+            IgnoreWriteExceptions = true
+        };
+    }
+
+    /// <inheritdoc/>
+    public override TimeSpan IdleConnectionTimeout {
+        get => _listener.TimeoutManager.IdleConnection;
+        set => _listener.TimeoutManager.IdleConnection = value;
+    }
+    
+    // ...
+}
+```
+
+## イベントループの選択
+
+HTTPエンジンの作成中に、サーバーはリクエストを待ち受けるループで実行され、各リクエストを処理するコンテキストを別々のスレッドで作成します。したがって、[HttpServerEngineContextEventLoopMechanism](https://docs.sisk-framework.org/api/Sisk.Core.Http.Engine.HttpServerEngineContextEventLoopMechanism.md)を選択する必要があります。
+
+- `InlineAsynchronousGetContext` イベントループは線形です。HTTPコンテキストの処理は非同期ループで発生します。
+- `UnboundAsynchronousGetContext` イベントループは、`BeginGetContext`と`EndGetContext`メソッドを介して伝達されます。
+
+```csharp
+public override HttpServerEngineContextEventLoopMechanism EventLoopMechanism => HttpServerEngineContextEventLoopMechanism.UnboundAsynchronousGetContext;
+```
+
+両方のイベントループを実装する必要はありません。HTTPエンジンに最も適したものを選択してください。
+
+## テスト
+
+HTTPエンジンをリンクした後、Siskのすべての機能が他のエンジンを使用して同じ動作を示すことを確認するためにテストを実行することが重要です。**非常に重要**なことは、Siskの動作が異なるHTTPエンジンで同じであることを確認することです。
+
+テストリポジトリは、[GitHub](https://github.com/sisk-http/core/tree/main/tests)で参照できます。
+

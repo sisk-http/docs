@@ -1,0 +1,46 @@
+.callout {
+    --accent: var(--note);
+    margin: 1.5em 0;
+    padding: 2px 0 2px 16px;
+    border-left: 3px solid var(--accent);
+}
+
+.callout-tip { --accent: var(--tip); }
+.callout-important { --accent: var(--important); }
+.callout-warning { --accent: var(--warning); }
+.callout-caution { --accent: var(--caution); }
+
+.callout-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 4px !important;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.callout > :last-child {
+    margin-bottom: 0;
+}
+
+.callout p {
+    margin: .4em 0;
+}
+
+.translation-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: -8px 0 28px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.translation-notice .icon {
+    margin-top: 3px;
+}

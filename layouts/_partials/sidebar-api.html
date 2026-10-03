@@ -1,0 +1,44 @@
+{{ $namespace := .Params.apiNamespace }}
+{{ $type := .Params.apiType }}
+{{ $current := .Params.apiPath }}
+
+<aside class="sidebar sidebar-api" id="sidebar" aria-label="{{ T "api" }}">
+    <nav class="sidebar-nav">
+        <div class="nav-group">
+            <p class="nav-group-title">{{ T "namespaces" }}</p>
+            <ul>
+                {{ range site.Data.api.namespaces }}
+                {{ $open := eq .path $namespace }}
+                <li {{ if $open }}class="is-open"{{ end }}>
+                    <a href="{{ printf "api/%s.html" .path | relURL }}" {{ if eq .path $current }}aria-current="page"{{ end }}>{{ .name }}</a>
+
+                    {{ if $open }}
+                    {{ range .groups }}
+                    <p class="nav-subgroup-title">{{ .label }}</p>
+                    <ul>
+                        {{ range .items }}
+                        {{ $typeOpen := eq .path $type }}
+                        <li {{ if $typeOpen }}class="is-open"{{ end }}>
+                            <a href="{{ printf "api/%s.html" .path | relURL }}" {{ if eq .path $current }}aria-current="page"{{ end }}>{{ .name }}</a>
+
+                            {{ if $typeOpen }}
+                            {{ range .groups }}
+                            <p class="nav-subgroup-title">{{ .label }}</p>
+                            <ul>
+                                {{ range .items }}
+                                <li><a href="{{ printf "api/%s.html" .path | relURL }}" {{ if eq .path $current }}aria-current="page"{{ end }}>{{ .name }}</a></li>
+                                {{ end }}
+                            </ul>
+                            {{ end }}
+                            {{ end }}
+                        </li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+                    {{ end }}
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </nav>
+</aside>

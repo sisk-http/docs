@@ -1,25 +1,19 @@
 {
     "name": "sisk-documentation",
-    "version": "1.0.0",
-    "description": "Sisk Framework Documentation Build System",
+    "version": "2.0.0",
+    "description": "Sisk Framework documentation built with Hugo",
     "private": true,
     "scripts": {
-        "pack": "bun build.js all",
-        "build:docs": "bun build.js build",
-        "clean": "bun build.js clean",
+        "api": "bun build.js api",
         "translate": "bun build.js translate",
-        "serve": "docfx serve",
+        "status": "bun build.js status",
+        "build": "bun build.js build",
+        "serve": "bun build.js serve",
+        "pack": "bun build.js all",
         "help": "bun build.js help"
     },
-    "keywords": [
-        "sisk",
-        "documentation",
-        "docfx",
-        "translation"
-    ],
-    "author": "Sisk Framework",
     "license": "MIT",
-    "dependencies": {
-        "@cypherpotato/cascadium": "^1.0.3"
+    "devDependencies": {
+        "pagefind": "^1.5.2"
     }
 }

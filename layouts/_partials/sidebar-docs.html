@@ -1,0 +1,16 @@
+<aside class="sidebar" id="sidebar" aria-label="{{ T "docs" }}">
+    <nav class="sidebar-nav">
+        {{ range partialCached "docs-groups.html" . .Lang }}
+        <div class="nav-group">
+            <p class="nav-group-title">{{ .title }}</p>
+            <ul>
+                {{ range .pages }}
+                <li>
+                    <a href="{{ .RelPermalink }}" {{ if eq .RelPermalink $.RelPermalink }}aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
+    </nav>
+</aside>

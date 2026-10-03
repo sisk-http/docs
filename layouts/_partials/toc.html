@@ -1,0 +1,9 @@
+{{ $toc := .TableOfContents }}
+{{ if findRE "<li>" $toc 1 }}
+<aside class="toc" aria-label="{{ T "onThisPage" }}">
+    <div class="toc-inner" data-toc>
+        <p class="toc-title">{{ T "onThisPage" }}</p>
+        {{ $toc }}
+    </div>
+</aside>
+{{ end }}

@@ -1,0 +1,25 @@
+<dialog class="search-dialog" aria-label="{{ T "search" }}" data-search
+    data-docs-bundle="{{ "pagefind/" | relURL }}"
+    data-api-bundle="{{ "pagefind-api/" | relURL }}">
+    <div class="search-panel">
+        <div class="search-field">
+            {{ partial "icon.html" "search" }}
+            <input type="search" placeholder="{{ T "searchPlaceholder" }}" autocomplete="off" spellcheck="false"
+                aria-label="{{ T "search" }}" aria-controls="search-results" data-search-input>
+            <button type="button" class="search-close" data-search-close aria-label="{{ T "searchClose" }}"><kbd>Esc</kbd></button>
+        </div>
+
+        <div class="search-results" id="search-results" role="listbox" aria-label="{{ T "search" }}" data-search-results
+            data-label-docs="{{ T "searchDocs" }}"
+            data-label-api="{{ T "searchApi" }}"
+            data-label-empty="{{ T "searchNoResults" }}">
+            <p class="search-message" data-search-hint>{{ T "searchEmpty" }}</p>
+        </div>
+
+        <footer class="search-footer">
+            <span><kbd>↑</kbd><kbd>↓</kbd> {{ T "searchNavigate" }}</span>
+            <span><kbd>↵</kbd> {{ T "searchOpen" }}</span>
+            <span><kbd>Esc</kbd> {{ T "searchClose" }}</span>
+        </footer>
+    </div>
+</dialog>

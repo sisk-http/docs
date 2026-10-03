@@ -1,0 +1,43 @@
+{{ define "layout" }}api{{ end }}
+
+{{ define "sidebar" }}{{ partial "sidebar-api.html" . }}{{ end }}
+
+{{ define "main" }}
+<article class="article article-api" data-pagefind-body data-pagefind-meta="section:api">
+    <div class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-pagefind-ignore>
+            <a href="{{ (site.GetPage "/api").RelPermalink }}">{{ T "api" }}</a>
+            {{ with .Params.apiNamespace }}
+            {{ partial "icon.html" "arrow-right" }}<a href="{{ printf "api/%s.html" . | relURL }}">{{ . }}</a>
+            {{ end }}
+            {{ with .Params.apiType }}{{ if ne . $.Params.apiPath }}
+            {{ partial "icon.html" "arrow-right" }}<a href="{{ printf "api/%s.html" . | relURL }}">{{ index (last 1 (split . ".")) 0 }}</a>
+            {{ end }}{{ end }}
+        </nav>
+        {{ partial "page-actions.html" . }}
+    </div>
+
+    <p class="api-kind" data-pagefind-meta="kind">{{ .Params.apiKind }}</p>
+    <h1 data-pagefind-meta="title">{{ .Title }}</h1>
+
+    {{ if or .Params.apiNamespace .Params.apiAssembly }}
+    <dl class="api-meta" data-pagefind-ignore>
+        {{ with .Params.apiNamespace }}
+        <div><dt>Namespace</dt><dd><a href="{{ printf "api/%s.html" . | relURL }}">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.apiAssembly }}
+        <div><dt>Assembly</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+    </dl>
+    {{ end }}
+
+    {{ if ne .Lang "en" }}<p class="translation-notice">{{ T "apiOnlyEnglish" }}</p>{{ end }}
+
+    <div class="prose">
+        {{ .Content }}
+    </div>
+</article>
+{{ partial "footer.html" . }}
+{{ end }}
+
+{{ define "aside" }}{{ partial "toc.html" . }}{{ end }}
